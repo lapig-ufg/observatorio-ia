@@ -4,12 +4,18 @@ import fs from "node:fs";
 import fsp from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { editorialOverrides } from "./editorial-overrides.mjs";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const siteRoot = path.resolve(scriptDir, "..");
 const libraryRoot = path.resolve(siteRoot, "..");
 const coversDir = path.join(siteRoot, "public", "covers");
-const outputPath = path.join(siteRoot, "app", "catalog.generated.ts");
+const catalogPath = path.join(siteRoot, "public", "catalogo.csv");
+const controlPath = path.join(siteRoot, "data", "controle-duplicatas.csv");
+
+const PDFINFO_BIN = process.env.PDFINFO_BIN || "pdfinfo";
+const PDFTOPPM_BIN = process.env.PDFTOPPM_BIN || "pdftoppm";
+const PDFTOTEXT_BIN = process.env.PDFTOTEXT_BIN || "pdftotext";
 
 const themes = {
   "01_Fundamentos_Matematica_e_Deep_Learning": "Fundamentos, matemática e deep learning",
@@ -32,6 +38,7 @@ const tagRules = [
   ["deepseek", "DeepSeek"], ["notebooklm", "NotebookLM"], ["research", "Pesquisa"],
   ["learning", "Aprendizado"], ["roadmap", "Roadmap"], ["security", "Segurança"],
   ["data leak", "Privacidade"], ["market", "Mercado"], ["industry", "Indústria"],
+  ["nvidia", "NVIDIA"], ["code", "Programação"], ["arc-agi", "ARC-AGI"],
 ];
 
 async function walk(directory) {
@@ -56,33 +63,72 @@ function parseFilename(filePath) {
   const authorPart = parts.find((part) => /^by\s+/i.test(part));
   const datePart = parts.find((part) => /^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec),?\s+20\d{2}$/i.test(part));
   const candidates = parts.slice(1).filter((part) => part !== authorPart && part !== datePart);
-  const source = candidates.at(-1) || "Publicação independente";
   return {
     title,
     author: authorPart ? authorPart.replace(/^by\s+/i, "") : "Autoria não identificada",
-    source: source.replaceAll("_", " "),
-    publishedAt: datePart || "Data não informada",
+    source: (candidates.at(-1) || "Publicação independente").replaceAll("_", " "),
+    publishedAt: datePart || "",
   };
 }
 
+function commandOutput(command, args, maxBuffer = 40 * 1024 * 1024) {
+  const result = spawnSync(command, args, { encoding: "utf8", maxBuffer });
+  return result.status === 0 ? result.stdout || "" : "";
+}
+
 function extractOriginalUrl(filePath) {
-  const result = spawnSync("strings", [filePath], { encoding: "utf8", maxBuffer: 40 * 1024 * 1024 });
-  const text = result.stdout || "";
-  const postId = text.match(/source=post_page---[^)\r\n]*?--([0-9a-f]{12})(?:-|\))/i)?.[1];
+  const text = commandOutput("strings", [filePath]);
+  const postId = text.match(/source=(?:---[^)\r\n]*?--|post_page---[^)\r\n]*?--)([0-9a-f]{12})(?:-|\))/i)?.[1];
   if (postId) return `https://medium.com/p/${postId}`;
   const direct = text.match(/\/URI \((https?:\/\/[^)]+)\)/)?.[1];
   return direct ? direct.replace(/\?.*$/, "") : "";
 }
 
 function extractPages(filePath) {
-  const result = spawnSync("pdfinfo", [filePath], { encoding: "utf8" });
-  return Number(result.stdout?.match(/^Pages:\s+(\d+)/m)?.[1] || 0);
+  const text = commandOutput(PDFINFO_BIN, [filePath]);
+  return Number(text.match(/^Pages:\s+(\d+)/m)?.[1] || 0);
+}
+
+function extractText(filePath) {
+  return commandOutput(PDFTOTEXT_BIN, ["-layout", filePath, "-"], 120 * 1024 * 1024);
+}
+
+function normalizeText(value) {
+  return value.normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/https?:\/\/\S+/g, " ")
+    .replace(/\b(open in app|search|write|member only story|medium day)\b/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function sha256(value) {
+  return createHash("sha256").update(value).digest("hex");
+}
+
+function simhash64(normalizedText) {
+  const words = normalizedText.split(" ").filter(Boolean);
+  const vector = Array(64).fill(0);
+  for (let index = 0; index <= words.length - 5; index += 1) {
+    const shingle = words.slice(index, index + 5).join(" ");
+    const digest = createHash("sha256").update(shingle).digest();
+    for (let bit = 0; bit < 64; bit += 1) {
+      vector[bit] += (digest[Math.floor(bit / 8)] >> (bit % 8)) & 1 ? 1 : -1;
+    }
+  }
+  let value = 0n;
+  vector.forEach((weight, bit) => {
+    if (weight >= 0) value |= 1n << BigInt(bit);
+  });
+  return value.toString(16).padStart(16, "0");
 }
 
 function inferType(relativePath) {
-  const normalized = relativePath.toLowerCase();
-  if (normalized.includes("cientific") || normalized.includes("open_access")) return "cientifico";
-  if (normalized.includes("noticia") || normalized.includes("jornal")) return "noticia";
+  const segments = relativePath.toLowerCase().split(path.sep);
+  if (segments.includes("artigos_cientificos") || segments.includes("open_access")) return "cientifico";
+  if (segments.includes("artigos_de_jornais") || segments.includes("noticias_de_jornais")) return "noticia";
   return "opiniao";
 }
 
@@ -93,12 +139,7 @@ function inferTags(articleText, theme) {
     if (normalized.includes(needle) && !tags.includes(label)) tags.push(label);
   }
   if (!tags.length) tags.push(theme.split(",")[0]);
-  return tags.slice(0, 4);
-}
-
-function summaryFor(theme, subtheme) {
-  const focus = subtheme ? subtheme.toLowerCase() : theme.toLowerCase();
-  return `Leitura sobre ${focus}, selecionada para o acervo de inteligência artificial.`;
+  return tags.slice(0, 5);
 }
 
 function makeId(relativePath) {
@@ -112,18 +153,34 @@ function makeId(relativePath) {
 function renderCover(filePath, id) {
   const prefix = path.join(coversDir, id);
   const existing = [`${prefix}-1.jpg`, `${prefix}-01.jpg`].find((candidate) => fs.existsSync(candidate));
-  if (existing) return `/covers/${path.basename(existing)}`;
-  const rendered = spawnSync("pdftoppm", ["-f", "1", "-l", "1", "-jpeg", "-jpegopt", "quality=68", "-scale-to-x", "560", "-scale-to-y", "-1", filePath, prefix], { encoding: "utf8", timeout: 90_000 });
+  if (existing) return `covers/${path.basename(existing)}`;
+  const rendered = spawnSync(PDFTOPPM_BIN, ["-f", "1", "-l", "1", "-jpeg", "-jpegopt", "quality=68", "-scale-to-x", "560", "-scale-to-y", "-1", filePath, prefix], { encoding: "utf8", timeout: 90_000 });
   const created = [`${prefix}-1.jpg`, `${prefix}-01.jpg`].find((candidate) => fs.existsSync(candidate));
-  return rendered.status === 0 && created ? `/covers/${path.basename(created)}` : "";
+  return rendered.status === 0 && created ? `covers/${path.basename(created)}` : "";
 }
 
-await fsp.mkdir(coversDir, { recursive: true });
+function csvCell(value) {
+  const text = String(value ?? "");
+  return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+}
+
+function toCsv(headers, rows) {
+  return [headers, ...rows.map((row) => headers.map((header) => row[header]))]
+    .map((row) => row.map(csvCell).join(","))
+    .join("\n") + "\n";
+}
+
+await Promise.all([
+  fsp.mkdir(coversDir, { recursive: true }),
+  fsp.mkdir(path.dirname(controlPath), { recursive: true }),
+]);
 
 const topFolders = (await fsp.readdir(libraryRoot, { withFileTypes: true }))
   .filter((entry) => entry.isDirectory() && themes[entry.name]);
 
 const articles = [];
+const controls = [];
+
 for (const folder of topFolders) {
   const files = await walk(path.join(libraryRoot, folder.name));
   for (const filePath of files) {
@@ -133,27 +190,65 @@ for (const folder of topFolders) {
     const subtheme = pathParts.length > 2 ? titleCaseFolder(pathParts[1]) : "";
     const parsed = parseFilename(filePath);
     const id = makeId(relativePath);
-    const type = inferType(relativePath);
-    const tags = inferTags(`${parsed.title} ${subtheme}`, theme);
+    const override = editorialOverrides[id] || {};
+    const metadata = { ...parsed, ...override };
+    if (!metadata.summary) throw new Error(`Resumo editorial ausente para ${id}`);
+
+    const rawText = extractText(filePath);
+    const normalizedText = normalizeText(rawText);
+    const tags = inferTags(`${metadata.title} ${subtheme} ${normalizedText.slice(0, 5000)}`, theme);
+    const stats = await fsp.stat(filePath);
+
     articles.push({
       id,
-      ...parsed,
-      type,
-      theme,
-      subtheme,
-      tags,
-      summary: summaryFor(theme, subtheme),
-      originalUrl: extractOriginalUrl(filePath),
-      cover: renderCover(filePath, id),
-      pages: extractPages(filePath),
-      pdfReady: false,
+      ativo: "TRUE",
+      tipo: inferType(relativePath),
+      tema: theme,
+      subtema: subtheme,
+      titulo: metadata.title,
+      autor: metadata.author,
+      fonte: metadata.source,
+      data_publicacao: metadata.publishedAt,
+      resumo: metadata.summary,
+      palavras_chave: tags.join(" | "),
+      url_original: metadata.originalUrl || extractOriginalUrl(filePath),
+      url_pdf_institucional: "",
+      capa: renderCover(filePath, id),
+      paginas: extractPages(filePath),
+      idioma: "en",
+      data_inclusao: stats.birthtime.toISOString().slice(0, 10),
+    });
+
+    controls.push({
+      id,
+      nome_arquivo: path.basename(filePath),
+      caminho_relativo: relativePath,
+      sha256_arquivo: sha256(await fsp.readFile(filePath)),
+      sha256_texto: sha256(normalizedText),
+      simhash_texto: simhash64(normalizedText),
+      palavras_texto: normalizedText ? normalizedText.split(" ").length : 0,
+      status: "catalogado",
     });
   }
 }
 
-articles.sort((a, b) => a.title.localeCompare(b.title, "pt-BR"));
+articles.sort((a, b) => a.titulo.localeCompare(b.titulo, "pt-BR"));
+controls.sort((a, b) => a.nome_arquivo.localeCompare(b.nome_arquivo, "pt-BR"));
 
-const output = `// Generated by scripts/build-catalog.mjs.\n\nexport type ArticleType = "opiniao" | "noticia" | "cientifico";\n\nexport type Article = {\n  id: string;\n  title: string;\n  author: string;\n  source: string;\n  publishedAt: string;\n  type: ArticleType;\n  theme: string;\n  subtheme: string;\n  tags: string[];\n  summary: string;\n  originalUrl: string;\n  cover: string;\n  pages: number;\n  pdfReady: boolean;\n};\n\nexport const articles: Article[] = ${JSON.stringify(articles, null, 2)};\n`;
+const catalogHeaders = [
+  "id", "ativo", "tipo", "tema", "subtema", "titulo", "autor", "fonte",
+  "data_publicacao", "resumo", "palavras_chave", "url_original",
+  "url_pdf_institucional", "capa", "paginas", "idioma", "data_inclusao",
+];
+const controlHeaders = [
+  "id", "nome_arquivo", "caminho_relativo", "sha256_arquivo", "sha256_texto",
+  "simhash_texto", "palavras_texto", "status",
+];
 
-await fsp.writeFile(outputPath, output, "utf8");
-console.log(`Catálogo gerado com ${articles.length} artigos.`);
+await Promise.all([
+  fsp.writeFile(catalogPath, toCsv(catalogHeaders, articles), "utf8"),
+  fsp.writeFile(controlPath, toCsv(controlHeaders, controls), "utf8"),
+]);
+
+console.log(`Catálogo CSV gerado com ${articles.length} artigos.`);
+console.log(`Controle de duplicidade gerado com ${controls.length} assinaturas.`);
