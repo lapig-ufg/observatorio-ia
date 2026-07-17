@@ -17,7 +17,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
@@ -49,7 +49,13 @@ const actionLabels: Record<ArticleType, string> = {
 };
 
 const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "noticia", "paper", "apresentacao"];
-const maxCloudWords = 48;
+const maxCloudWords = 32;
+const cloudPositions = [
+  [50, 46, 0], [50, 23, -2], [24, 44, 2], [76, 43, -2], [48, 67, 1], [76, 25, 1], [27, 25, -1], [22, 65, 2],
+  [77, 66, -1], [49, 82, 0], [37, 34, -2], [63, 34, 2], [35, 55, 1], [64, 55, -1], [13, 35, 2], [87, 35, -2],
+  [13, 54, -1], [87, 54, 1], [31, 78, 2], [68, 79, -2], [49, 10, 1], [49, 92, -1], [8, 20, 2], [92, 20, -2],
+  [9, 74, -1], [91, 74, 1], [39, 16, 2], [61, 16, -2], [39, 90, 1], [61, 90, -1], [19, 12, 0], [81, 12, 0],
+] as const;
 
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -65,6 +71,7 @@ export function App() {
   const [type, setType] = useState<"todos" | ArticleType>("todos");
   const [theme, setTheme] = useState("todos");
   const [visible, setVisible] = useState(15);
+  const [page, setPage] = useState(() => window.location.hash === "#ecossistema-ufg" ? "ecosystem" : "catalog");
 
   useEffect(() => {
     let active = true;
@@ -91,6 +98,12 @@ export function App() {
       active = false;
       window.clearInterval(interval);
     };
+  }, []);
+
+  useEffect(() => {
+    const syncPage = () => setPage(window.location.hash === "#ecossistema-ufg" ? "ecosystem" : "catalog");
+    window.addEventListener("hashchange", syncPage);
+    return () => window.removeEventListener("hashchange", syncPage);
   }, []);
 
   const articles = catalog?.articles || [];
@@ -123,10 +136,11 @@ export function App() {
       .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "pt-BR"))
       .slice(0, maxCloudWords);
     const maximum = Math.max(...sorted.map((keyword) => keyword.count), 1);
+    const minimum = Math.min(...sorted.map((keyword) => keyword.count), maximum);
 
     return sorted.map((keyword) => ({
       ...keyword,
-      size: Math.max(1, Math.ceil((keyword.count / maximum) * 5)),
+      size: maximum === minimum ? 3 : 1 + Math.round(((keyword.count - minimum) / (maximum - minimum)) * 4),
     }));
   }, [articles]);
 
@@ -185,7 +199,7 @@ export function App() {
         </a>
         <nav aria-label="Navegação principal">
           <a href="#categorias">Categorias</a>
-          <a href="#iniciativas">UFG em IA</a>
+          <a className="ecosystem-nav-link" href="#ecossistema-ufg">Ecossistema UFG <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a href="#palavras-chave">Assuntos</a>
           <a href="#catalogo">Acervo</a>
           <a href="https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/" target="_blank" rel="noreferrer">Panorama <ArrowUpRight size={15} aria-hidden="true" /></a>
@@ -201,6 +215,7 @@ export function App() {
         </div>
       </header>
 
+      {page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : <>
       <section className="catalog-intro" aria-labelledby="page-title">
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
@@ -218,21 +233,6 @@ export function App() {
           </div>
         )}
       </section>
-
-      {initiatives.length > 0 && (
-        <section id="iniciativas" className="initiatives-section" aria-labelledby="initiatives-title">
-          <div className="initiatives-heading">
-            <div>
-              <p className="eyebrow">Ecossistema UFG</p>
-              <h2 id="initiatives-title">Iniciativas de inteligência artificial</h2>
-            </div>
-            <p>Centros e redes que transformam pesquisa em impacto público, tecnológico e social.</p>
-          </div>
-          <div className="initiative-grid">
-            {initiatives.map((initiative) => <InitiativeCard key={initiative.id} initiative={initiative} />)}
-          </div>
-        </section>
-      )}
 
       <section id="categorias" className="category-band" aria-labelledby="category-title">
         <div className="category-heading">
@@ -269,11 +269,19 @@ export function App() {
             <p>Quanto maior a palavra, mais artigos relacionados ela reúne.</p>
           </div>
           <div className="keyword-cloud" aria-label="Palavras-chave do acervo">
-            {keywordCloud.map((keyword, index) => (
+            {keywordCloud.map((keyword, index) => {
+              const [x, y, rotation] = cloudPositions[index % cloudPositions.length];
+              const positionStyle = {
+                "--cloud-x": `${x}%`,
+                "--cloud-y": `${y}%`,
+                "--cloud-rotation": `${rotation}deg`,
+              } as CSSProperties;
+              return (
               <button
                 type="button"
                 key={keyword.key}
                 className={`keyword-cloud-item cloud-size-${keyword.size} cloud-color-${index % 5}${selectedKeyword && normalize(selectedKeyword) === keyword.key ? " active" : ""}`}
+                style={positionStyle}
                 onClick={() => selectKeyword(keyword.label)}
                 aria-pressed={normalize(selectedKeyword) === keyword.key}
                 aria-label={`${keyword.label}: ${keyword.count} ${keyword.count === 1 ? "artigo" : "artigos"}`}
@@ -281,7 +289,8 @@ export function App() {
                 <span>{keyword.label}</span>
                 <small className="sr-only"> {keyword.count} artigos</small>
               </button>
-            ))}
+              );
+            })}
           </div>
         </section>
       )}
@@ -373,6 +382,7 @@ export function App() {
           )}
         </>
       )}
+      </>}
 
       <footer className="footer">
         <div><strong>Observatório UFG-IA</strong><p>Acervo educacional em desenvolvimento contínuo.</p></div>
@@ -396,6 +406,26 @@ function InitiativeCard({ initiative }: { initiative: Initiative }) {
         Conhecer iniciativa <ArrowUpRight size={17} aria-hidden="true" />
       </a>
     </article>
+  );
+}
+
+function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
+  return (
+    <section id="ecossistema-ufg" className="ecosystem-page" aria-labelledby="ecosystem-title">
+      <div className="ecosystem-hero">
+        <p className="eyebrow">Universidade Federal de Goiás</p>
+        <h1 id="ecosystem-title">Ecossistema UFG em inteligência artificial</h1>
+        <p>Conheça centros e redes que conectam conhecimento, tecnologia e políticas públicas.</p>
+        <a className="back-to-catalog" href="#top">← Voltar ao acervo</a>
+      </div>
+      {initiatives.length ? (
+        <div className="ecosystem-initiative-grid">
+          {initiatives.map((initiative) => <InitiativeCard key={initiative.id} initiative={initiative} />)}
+        </div>
+      ) : (
+        <div className="ecosystem-empty">As iniciativas estão sendo carregadas.</div>
+      )}
+    </section>
   );
 }
 
