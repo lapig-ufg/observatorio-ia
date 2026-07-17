@@ -67,6 +67,7 @@ test("GitHub Pages workflow builds from direct Google Sheets configuration", () 
   const workflow = fs.readFileSync(".github/workflows/deploy-pages.yml", "utf8");
   assert.match(workflow, /VITE_GOOGLE_SHEETS_ID/);
   assert.match(workflow, /VITE_GOOGLE_SHEETS_GID/);
+  assert.match(workflow, /VITE_GOOGLE_SHEETS_INITIATIVES_GID/);
   assert.match(workflow, /actions\/upload-pages-artifact@v4/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
 });

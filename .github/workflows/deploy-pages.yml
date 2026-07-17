@@ -20,6 +20,7 @@ jobs:
     env:
       VITE_GOOGLE_SHEETS_ID: ${{ vars.GOOGLE_SHEETS_ID }}
       VITE_GOOGLE_SHEETS_GID: ${{ vars.GOOGLE_SHEETS_GID }}
+      VITE_GOOGLE_SHEETS_INITIATIVES_GID: ${{ vars.GOOGLE_SHEETS_INITIATIVES_GID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6

@@ -1,6 +1,7 @@
 import {
   ArrowUpRight,
   BookOpen,
+  Building2,
   CheckCircle2,
   ChevronDown,
   Clock3,
@@ -14,11 +15,10 @@ import {
   RefreshCw,
   Search,
   Sparkles,
-  Tags,
   X,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult } from "./catalog";
+import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -94,6 +94,7 @@ export function App() {
   }, []);
 
   const articles = catalog?.articles || [];
+  const initiatives = catalog?.initiatives || [];
   const themes = useMemo(() => Array.from(new Set(articles.map((article) => article.theme))).sort(), [articles]);
   const counts = useMemo(() => ({
     todos: articles.length,
@@ -184,6 +185,7 @@ export function App() {
         </a>
         <nav aria-label="Navegação principal">
           <a href="#categorias">Categorias</a>
+          <a href="#iniciativas">UFG em IA</a>
           <a href="#palavras-chave">Assuntos</a>
           <a href="#catalogo">Acervo</a>
           <a href="https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/" target="_blank" rel="noreferrer">Panorama <ArrowUpRight size={15} aria-hidden="true" /></a>
@@ -216,6 +218,21 @@ export function App() {
           </div>
         )}
       </section>
+
+      {initiatives.length > 0 && (
+        <section id="iniciativas" className="initiatives-section" aria-labelledby="initiatives-title">
+          <div className="initiatives-heading">
+            <div>
+              <p className="eyebrow">Ecossistema UFG</p>
+              <h2 id="initiatives-title">Iniciativas de inteligência artificial</h2>
+            </div>
+            <p>Centros e redes que transformam pesquisa em impacto público, tecnológico e social.</p>
+          </div>
+          <div className="initiative-grid">
+            {initiatives.map((initiative) => <InitiativeCard key={initiative.id} initiative={initiative} />)}
+          </div>
+        </section>
+      )}
 
       <section id="categorias" className="category-band" aria-labelledby="category-title">
         <div className="category-heading">
@@ -259,10 +276,10 @@ export function App() {
                 className={`keyword-cloud-item cloud-size-${keyword.size} cloud-color-${index % 5}${selectedKeyword && normalize(selectedKeyword) === keyword.key ? " active" : ""}`}
                 onClick={() => selectKeyword(keyword.label)}
                 aria-pressed={normalize(selectedKeyword) === keyword.key}
+                aria-label={`${keyword.label}: ${keyword.count} ${keyword.count === 1 ? "artigo" : "artigos"}`}
               >
-                <Tags size={keyword.size >= 4 ? 17 : 14} aria-hidden="true" />
                 <span>{keyword.label}</span>
-                <small>{keyword.count}</small>
+                <small className="sr-only"> {keyword.count} artigos</small>
               </button>
             ))}
           </div>
@@ -362,6 +379,23 @@ export function App() {
         <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p></div>
       </footer>
     </main>
+  );
+}
+
+function InitiativeCard({ initiative }: { initiative: Initiative }) {
+  return (
+    <article className={`initiative-card initiative-${normalize(initiative.color).replace(/\s+/g, "-")}`}>
+      <div className="initiative-mark" aria-hidden="true"><Building2 size={25} /></div>
+      <p className="initiative-acronym">{initiative.acronym}</p>
+      <h3>{initiative.name}</h3>
+      <p>{initiative.summary}</p>
+      <ul aria-label="Frentes de atuação">
+        {initiative.areas.map((area) => <li key={area}>{area}</li>)}
+      </ul>
+      <a href={initiative.url} target="_blank" rel="noreferrer">
+        Conhecer iniciativa <ArrowUpRight size={17} aria-hidden="true" />
+      </a>
+    </article>
   );
 }
 

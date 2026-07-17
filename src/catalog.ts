@@ -21,8 +21,21 @@ export type Article = {
 
 export type CatalogLoadResult = {
   articles: Article[];
+  initiatives: Initiative[];
   source: "google-sheets" | "local";
   warning: string;
+};
+
+export type Initiative = {
+  id: string;
+  acronym: string;
+  name: string;
+  summary: string;
+  areas: string[];
+  url: string;
+  sourceUrl: string;
+  color: string;
+  order: number;
 };
 
 type GvizCell = { v?: unknown; f?: string } | null;
@@ -168,7 +181,31 @@ export function articlesFromGviz(response: GvizResponse): Article[] {
   return articlesFromRows([headers, ...rows]);
 }
 
-function fetchGvizCatalog(sheetId: string, gid: string, signal?: AbortSignal): Promise<Article[]> {
+function initiativesFromGviz(response: GvizResponse): Initiative[] {
+  if (response.status !== "ok" || !response.table?.cols || !response.table.rows) {
+    throw new Error("A planilha de iniciativas não respondeu no formato esperado.");
+  }
+
+  const headers = response.table.cols.map((column) => column.label?.trim() || "");
+  return response.table.rows.map((row) => {
+    const values = (row.c || []).map(gvizCellText);
+    return Object.fromEntries(headers.map((header, index) => [header, values[index]?.trim() || ""]));
+  }).filter((record) => isActive(record.ativo) && record.id && record.nome && record.url)
+    .map((record) => ({
+      id: record.id,
+      acronym: record.sigla || record.nome,
+      name: record.nome,
+      summary: record.resumo,
+      areas: record.frentes ? record.frentes.split("|").map((area) => area.trim()).filter(Boolean) : [],
+      url: record.url,
+      sourceUrl: record.fonte,
+      color: record.cor || "verde",
+      order: Number(record.ordem || 999),
+    }))
+    .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name, "pt-BR"));
+}
+
+function fetchGviz(sheetId: string, gid: string, signal?: AbortSignal): Promise<GvizResponse> {
   return new Promise((resolve, reject) => {
     const callbackName = `observatorioGviz_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     const script = document.createElement("script");
@@ -186,11 +223,7 @@ function fetchGvizCatalog(sheetId: string, gid: string, signal?: AbortSignal): P
 
     target[callbackName] = (response: GvizResponse) => {
       cleanup();
-      try {
-        resolve(articlesFromGviz(response));
-      } catch (error) {
-        reject(error);
-      }
+      resolve(response);
     };
 
     script.onerror = () => {
@@ -203,15 +236,25 @@ function fetchGvizCatalog(sheetId: string, gid: string, signal?: AbortSignal): P
   });
 }
 
+async function fetchGvizCatalog(sheetId: string, gid: string, signal?: AbortSignal) {
+  return articlesFromGviz(await fetchGviz(sheetId, gid, signal));
+}
+
+async function fetchGvizInitiatives(sheetId: string, gid: string, signal?: AbortSignal) {
+  return initiativesFromGviz(await fetchGviz(sheetId, gid, signal));
+}
+
 export async function loadCatalog(signal?: AbortSignal): Promise<CatalogLoadResult> {
   const sheetId = import.meta.env.VITE_GOOGLE_SHEETS_ID?.trim();
   const sheetGid = import.meta.env.VITE_GOOGLE_SHEETS_GID?.trim();
+  const initiativesGid = import.meta.env.VITE_GOOGLE_SHEETS_INITIATIVES_GID?.trim();
   const localUrl = new URL(`${import.meta.env.BASE_URL}catalogo.csv`, window.location.href).toString();
 
   if (sheetId && sheetGid) {
     try {
       return {
         articles: await fetchGvizCatalog(sheetId, sheetGid, signal),
+        initiatives: initiativesGid ? await fetchGvizInitiatives(sheetId, initiativesGid, signal).catch(() => []) : [],
         source: "google-sheets",
         warning: "",
       };
@@ -222,6 +265,7 @@ export async function loadCatalog(signal?: AbortSignal): Promise<CatalogLoadResu
           if (!response.ok) throw new Error(`Falha ao carregar o catálogo (${response.status}).`);
           return articlesFromCsv(await response.text());
         }),
+        initiatives: [],
         source: "local",
         warning: "A planilha não respondeu; exibindo a última cópia validada do catálogo.",
       };
@@ -233,6 +277,7 @@ export async function loadCatalog(signal?: AbortSignal): Promise<CatalogLoadResu
       if (!response.ok) throw new Error(`Falha ao carregar o catálogo (${response.status}).`);
       return articlesFromCsv(await response.text());
     }),
+    initiatives: [],
     source: "local",
     warning: "Planilha ainda não conectada; exibindo o catálogo preparado para implantação.",
   };
