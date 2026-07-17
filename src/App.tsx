@@ -83,7 +83,7 @@ export function App() {
     };
 
     void refresh();
-    const interval = window.setInterval(() => void refresh(true), 300_000);
+    const interval = window.setInterval(() => void refresh(true), 60_000);
     return () => {
       active = false;
       window.clearInterval(interval);
@@ -169,7 +169,7 @@ export function App() {
         <div className="collection-summary" aria-label="Resumo do acervo">
           <span><strong>{articles.length || "—"}</strong> itens</span>
           <span><strong>6</strong> categorias</span>
-          <span><strong>5 min</strong> atualização</span>
+          <span><strong>1 min</strong> atualização</span>
         </div>
         {ribbon.length > 0 && (
           <div className="cover-ribbon" aria-hidden="true">

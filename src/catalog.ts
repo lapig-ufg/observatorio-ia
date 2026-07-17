@@ -25,6 +25,16 @@ export type CatalogLoadResult = {
   warning: string;
 };
 
+type GvizCell = { v?: unknown; f?: string } | null;
+
+type GvizResponse = {
+  status?: string;
+  table?: {
+    cols?: Array<{ label?: string }>;
+    rows?: Array<{ c?: GvizCell[] }>;
+  };
+};
+
 const requiredHeaders = ["id", "ativo", "tipo", "tema", "titulo", "resumo", "url_original"];
 
 export function parseCsv(input: string): string[][] {
@@ -104,8 +114,7 @@ function asType(value: string): ArticleType {
   return aliases[normalized] || "medium";
 }
 
-export function articlesFromCsv(csv: string): Article[] {
-  const rows = parseCsv(csv);
+function articlesFromRows(rows: string[][]): Article[] {
   if (rows.length < 2) throw new Error("A planilha não contém artigos.");
 
   const headers = rows[0].map((header, index) => index === 0 ? header.replace(/^\uFEFF/, "").trim() : header.trim());
@@ -138,33 +147,81 @@ export function articlesFromCsv(csv: string): Article[] {
     .sort((a, b) => a.title.localeCompare(b.title, "pt-BR"));
 }
 
-function cacheBustedUrl(rawUrl: string) {
-  const url = new URL(rawUrl);
-  url.searchParams.set("catalog_refresh", String(Math.floor(Date.now() / 300_000)));
-  return url.toString();
+export function articlesFromCsv(csv: string): Article[] {
+  return articlesFromRows(parseCsv(csv));
 }
 
-async function fetchCatalog(url: string, signal?: AbortSignal) {
-  const response = await fetch(url, { cache: "no-store", signal });
-  if (!response.ok) throw new Error(`Falha ao carregar o catálogo (${response.status}).`);
-  return articlesFromCsv(await response.text());
+function gvizCellText(cell: GvizCell) {
+  if (!cell) return "";
+  if (cell.f !== undefined) return String(cell.f);
+  if (cell.v !== undefined) return String(cell.v);
+  return "";
+}
+
+export function articlesFromGviz(response: GvizResponse): Article[] {
+  if (response.status !== "ok" || !response.table?.cols || !response.table.rows) {
+    throw new Error("A planilha não respondeu no formato esperado.");
+  }
+
+  const headers = response.table.cols.map((column) => column.label?.trim() || "");
+  const rows = response.table.rows.map((row) => (row.c || []).map(gvizCellText));
+  return articlesFromRows([headers, ...rows]);
+}
+
+function fetchGvizCatalog(sheetId: string, gid: string, signal?: AbortSignal): Promise<Article[]> {
+  return new Promise((resolve, reject) => {
+    const callbackName = `observatorioGviz_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    const script = document.createElement("script");
+    const target = window as typeof window & Record<string, unknown>;
+
+    const cleanup = () => {
+      script.remove();
+      delete target[callbackName];
+      signal?.removeEventListener("abort", onAbort);
+    };
+    const onAbort = () => {
+      cleanup();
+      reject(new DOMException("Consulta cancelada.", "AbortError"));
+    };
+
+    target[callbackName] = (response: GvizResponse) => {
+      cleanup();
+      try {
+        resolve(articlesFromGviz(response));
+      } catch (error) {
+        reject(error);
+      }
+    };
+
+    script.onerror = () => {
+      cleanup();
+      reject(new Error("Não foi possível consultar a planilha."));
+    };
+    signal?.addEventListener("abort", onAbort, { once: true });
+    script.src = `https://docs.google.com/spreadsheets/d/${encodeURIComponent(sheetId)}/gviz/tq?gid=${encodeURIComponent(gid)}&tqx=responseHandler:${callbackName}`;
+    document.head.appendChild(script);
+  });
 }
 
 export async function loadCatalog(signal?: AbortSignal): Promise<CatalogLoadResult> {
-  const configuredUrl = import.meta.env.VITE_GOOGLE_SHEETS_CSV_URL?.trim();
+  const sheetId = import.meta.env.VITE_GOOGLE_SHEETS_ID?.trim();
+  const sheetGid = import.meta.env.VITE_GOOGLE_SHEETS_GID?.trim();
   const localUrl = new URL(`${import.meta.env.BASE_URL}catalogo.csv`, window.location.href).toString();
 
-  if (configuredUrl) {
+  if (sheetId && sheetGid) {
     try {
       return {
-        articles: await fetchCatalog(cacheBustedUrl(configuredUrl), signal),
+        articles: await fetchGvizCatalog(sheetId, sheetGid, signal),
         source: "google-sheets",
         warning: "",
       };
     } catch (error) {
       if (signal?.aborted) throw error;
       return {
-        articles: await fetchCatalog(localUrl, signal),
+        articles: await fetch(localUrl, { cache: "no-store", signal }).then(async (response) => {
+          if (!response.ok) throw new Error(`Falha ao carregar o catálogo (${response.status}).`);
+          return articlesFromCsv(await response.text());
+        }),
         source: "local",
         warning: "A planilha não respondeu; exibindo a última cópia validada do catálogo.",
       };
@@ -172,7 +229,10 @@ export async function loadCatalog(signal?: AbortSignal): Promise<CatalogLoadResu
   }
 
   return {
-    articles: await fetchCatalog(localUrl, signal),
+    articles: await fetch(localUrl, { cache: "no-store", signal }).then(async (response) => {
+      if (!response.ok) throw new Error(`Falha ao carregar o catálogo (${response.status}).`);
+      return articlesFromCsv(await response.text());
+    }),
     source: "local",
     warning: "Planilha ainda não conectada; exibindo o catálogo preparado para implantação.",
   };
