@@ -1089,6 +1089,12 @@ h1 {
   font-size: 0.76rem;
 }
 
+.footer .credits {
+  margin-top: 10px;
+  color: #aebdca;
+  font-size: 0.7rem;
+}
+
 .spinning {
   animation: spin 0.9s linear infinite;
 }

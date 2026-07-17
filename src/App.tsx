@@ -386,7 +386,7 @@ export function App() {
 
       <footer className="footer">
         <div><strong>Observatório UFG-IA</strong><p>Acervo educacional em desenvolvimento contínuo.</p></div>
-        <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p></div>
+        <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p><p className="credits">Organização e curadoria: Laerte Ferreira, Victor Amaral e Tiago Geraldine.</p></div>
       </footer>
     </main>
   );
