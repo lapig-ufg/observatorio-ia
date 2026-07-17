@@ -14,6 +14,7 @@ import {
   RefreshCw,
   Search,
   Sparkles,
+  Tags,
   X,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -48,6 +49,7 @@ const actionLabels: Record<ArticleType, string> = {
 };
 
 const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "noticia", "paper", "apresentacao"];
+const maxCloudWords = 48;
 
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -59,6 +61,7 @@ export function App() {
   const [refreshing, setRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [query, setQuery] = useState("");
+  const [selectedKeyword, setSelectedKeyword] = useState("");
   const [type, setType] = useState<"todos" | ArticleType>("todos");
   const [theme, setTheme] = useState("todos");
   const [visible, setVisible] = useState(15);
@@ -102,11 +105,36 @@ export function App() {
     apresentacao: articles.filter((article) => article.type === "apresentacao").length,
   }), [articles]);
 
+  const keywordCloud = useMemo(() => {
+    const keywords = new Map<string, { label: string; count: number }>();
+
+    articles.forEach((article) => article.tags.forEach((tag) => {
+      const label = tag.trim();
+      const key = normalize(label);
+      if (!key) return;
+      const keyword = keywords.get(key);
+      if (keyword) keyword.count += 1;
+      else keywords.set(key, { label, count: 1 });
+    }));
+
+    const sorted = Array.from(keywords.entries())
+      .map(([key, keyword]) => ({ key, ...keyword }))
+      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "pt-BR"))
+      .slice(0, maxCloudWords);
+    const maximum = Math.max(...sorted.map((keyword) => keyword.count), 1);
+
+    return sorted.map((keyword) => ({
+      ...keyword,
+      size: Math.max(1, Math.ceil((keyword.count / maximum) * 5)),
+    }));
+  }, [articles]);
+
   const filtered = useMemo(() => {
     const needle = normalize(query.trim());
     return articles.filter((article) => {
       const matchesType = type === "todos" || article.type === type;
       const matchesTheme = theme === "todos" || article.theme === theme;
+      const matchesKeyword = !selectedKeyword || article.tags.some((tag) => normalize(tag) === normalize(selectedKeyword));
       const haystack = normalize([
         article.title,
         article.author,
@@ -116,15 +144,25 @@ export function App() {
         article.summary,
         ...article.tags,
       ].join(" "));
-      return matchesType && matchesTheme && (!needle || haystack.includes(needle));
+      return matchesType && matchesTheme && matchesKeyword && (!needle || haystack.includes(needle));
     });
-  }, [articles, query, theme, type]);
+  }, [articles, query, selectedKeyword, theme, type]);
 
   const resetFilters = () => {
     setQuery("");
+    setSelectedKeyword("");
     setType("todos");
     setTheme("todos");
     setVisible(15);
+  };
+
+  const selectKeyword = (keyword: string) => {
+    setQuery(keyword);
+    setSelectedKeyword(keyword);
+    setType("todos");
+    setTheme("todos");
+    setVisible(15);
+    window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
 
   const selectCategory = (category: ArticleType) => {
@@ -146,6 +184,7 @@ export function App() {
         </a>
         <nav aria-label="Navegação principal">
           <a href="#categorias">Categorias</a>
+          <a href="#palavras-chave">Assuntos</a>
           <a href="#catalogo">Acervo</a>
           <a href="https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/" target="_blank" rel="noreferrer">Panorama <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={15} aria-hidden="true" /></a>
@@ -203,16 +242,43 @@ export function App() {
         </div>
       </section>
 
+      {keywordCloud.length > 0 && (
+        <section id="palavras-chave" className="keyword-cloud-section" aria-labelledby="keyword-cloud-title">
+          <div className="keyword-cloud-heading">
+            <div>
+              <p className="eyebrow">Assuntos em destaque</p>
+              <h2 id="keyword-cloud-title">Explore o acervo pelas palavras-chave</h2>
+            </div>
+            <p>Quanto maior a palavra, mais artigos relacionados ela reúne.</p>
+          </div>
+          <div className="keyword-cloud" aria-label="Palavras-chave do acervo">
+            {keywordCloud.map((keyword, index) => (
+              <button
+                type="button"
+                key={keyword.key}
+                className={`keyword-cloud-item cloud-size-${keyword.size} cloud-color-${index % 5}${selectedKeyword && normalize(selectedKeyword) === keyword.key ? " active" : ""}`}
+                onClick={() => selectKeyword(keyword.label)}
+                aria-pressed={normalize(selectedKeyword) === keyword.key}
+              >
+                <Tags size={keyword.size >= 4 ? 17 : 14} aria-hidden="true" />
+                <span>{keyword.label}</span>
+                <small>{keyword.count}</small>
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section id="catalogo" className="search-panel" aria-label="Busca no acervo">
         <label className="search-field">
           <Search size={23} aria-hidden="true" />
           <span className="sr-only">Buscar no acervo</span>
           <input
             value={query}
-            onChange={(event) => { setQuery(event.target.value); setVisible(15); }}
+            onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setVisible(15); }}
             placeholder="Busque por título, autor, resumo, tema ou palavra-chave"
           />
-          {query && <button type="button" className="icon-button" onClick={() => setQuery("")} aria-label="Limpar busca"><X size={18} /></button>}
+          {query && <button type="button" className="icon-button" onClick={() => { setQuery(""); setSelectedKeyword(""); }} aria-label="Limpar busca"><X size={18} /></button>}
         </label>
         <div className="filter-row">
           <div className="type-tabs" role="group" aria-label="Tipo de publicação">

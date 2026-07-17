@@ -367,6 +367,112 @@ h1 {
   color: #fff;
 }
 
+.keyword-cloud-section {
+  padding: 34px clamp(20px, 5vw, 72px) 38px;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 8% 18%, rgba(198, 229, 215, 0.72), transparent 24rem),
+    radial-gradient(circle at 90% 84%, rgba(250, 230, 223, 0.8), transparent 25rem),
+    #f8faf8;
+  scroll-margin-top: 16px;
+}
+
+.keyword-cloud-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.keyword-cloud-heading .eyebrow {
+  margin-bottom: 7px;
+}
+
+.keyword-cloud-heading h2 {
+  margin: 0;
+  color: var(--navy-800);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.55rem, 2.5vw, 2rem);
+  font-weight: 600;
+}
+
+.keyword-cloud-heading > p {
+  max-width: 280px;
+  margin: 0 0 3px;
+  color: #5c6a64;
+  font-size: 0.83rem;
+  line-height: 1.5;
+}
+
+.keyword-cloud {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  min-height: 196px;
+  padding: clamp(22px, 4vw, 44px);
+  border: 1px solid rgba(168, 190, 178, 0.85);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: 0 16px 34px rgba(28, 65, 52, 0.08);
+}
+
+.keyword-cloud-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--green-800);
+  font-weight: 800;
+  line-height: 1.15;
+  cursor: pointer;
+  transition: transform 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.keyword-cloud-item span {
+  overflow-wrap: anywhere;
+}
+
+.keyword-cloud-item small {
+  min-width: 19px;
+  padding: 2px 5px;
+  border-radius: 999px;
+  background: currentColor;
+  color: #fff;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.6rem;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.keyword-cloud-item:hover,
+.keyword-cloud-item.active {
+  transform: translateY(-2px) rotate(-1deg);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 6px 14px rgba(31, 61, 51, 0.16);
+}
+
+.keyword-cloud-item.active {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.cloud-size-1 { padding: 7px 9px; font-size: 0.78rem; }
+.cloud-size-2 { padding: 8px 11px; font-size: 0.88rem; }
+.cloud-size-3 { padding: 9px 13px; font-size: 1rem; }
+.cloud-size-4 { padding: 10px 15px; font-size: 1.14rem; }
+.cloud-size-5 { padding: 12px 18px; font-size: clamp(1.2rem, 2.5vw, 1.7rem); }
+
+.cloud-color-0 { color: #17634c; background: rgba(203, 232, 218, 0.72); }
+.cloud-color-1 { color: #284d7a; background: rgba(216, 227, 244, 0.74); }
+.cloud-color-2 { color: #9a4234; background: rgba(250, 224, 217, 0.82); }
+.cloud-color-3 { color: #805a1d; background: rgba(249, 235, 202, 0.82); }
+.cloud-color-4 { color: #5c477e; background: rgba(229, 220, 244, 0.8); }
+
 .search-panel {
   margin: 0;
   padding: 26px clamp(20px, 5vw, 72px) 16px;
@@ -872,6 +978,11 @@ h1 {
   .category-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .keyword-cloud-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 780px) {
@@ -927,6 +1038,14 @@ h1 {
     flex-direction: column;
   }
 
+  .keyword-cloud {
+    min-height: 0;
+    padding: 22px 14px;
+    gap: 8px;
+  }
+
+  .cloud-size-5 { font-size: 1.28rem; }
+
   .select-filter {
     min-width: 0;
     width: 100%;
@@ -953,6 +1072,7 @@ h1 {
   .topbar,
   .catalog-intro,
   .category-band,
+  .keyword-cloud-section,
   .search-panel,
   .results-heading,
   .article-grid,
