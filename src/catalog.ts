@@ -231,7 +231,7 @@ function fetchGviz(sheetId: string, gid: string, signal?: AbortSignal): Promise<
       reject(new Error("Não foi possível consultar a planilha."));
     };
     signal?.addEventListener("abort", onAbort, { once: true });
-    script.src = `https://docs.google.com/spreadsheets/d/${encodeURIComponent(sheetId)}/gviz/tq?gid=${encodeURIComponent(gid)}&tqx=responseHandler:${callbackName}`;
+    script.src = `https://docs.google.com/spreadsheets/d/${encodeURIComponent(sheetId)}/gviz/tq?gid=${encodeURIComponent(gid)}&tqx=responseHandler:${callbackName}&cacheBust=${Date.now()}`;
     document.head.appendChild(script);
   });
 }
