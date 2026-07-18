@@ -217,7 +217,7 @@ export function App() {
       <header className="topbar">
         <a className="brand" href="#top" aria-label="Observatório UFG-IA - início">
           <span className="brand-mark"><Library size={21} aria-hidden="true" /></span>
-          <span><strong>Observatório UFG-IA</strong><small>LAPIG • UFG</small></span>
+          <span className="brand-name"><strong>Observatório</strong><strong>UFG-IA</strong></span>
         </a>
         <nav aria-label="Navegação principal">
           <a href="#categorias">Categorias</a>

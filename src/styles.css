@@ -112,20 +112,20 @@ select:focus-visible {
   border-radius: 6px;
 }
 
-.brand > span:last-child {
+.brand-name {
   display: grid;
   gap: 2px;
 }
 
 .brand strong {
   font-size: 1rem;
+  line-height: 1.05;
 }
 
-.brand small {
-  color: var(--muted);
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-transform: uppercase;
+.brand-name strong:last-child {
+  color: var(--green-700);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
 }
 
 .topbar nav {
