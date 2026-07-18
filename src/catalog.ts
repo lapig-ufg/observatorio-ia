@@ -156,8 +156,7 @@ function articlesFromRows(rows: string[][]): Article[] {
       active: isActive(record.ativo),
     };
   }).filter((article) => article.id && article.title && article.active)
-    .map(({ active: _active, ...article }) => article)
-    .sort((a, b) => a.title.localeCompare(b.title, "pt-BR"));
+    .map(({ active: _active, ...article }) => article);
 }
 
 export function articlesFromCsv(csv: string): Article[] {

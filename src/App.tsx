@@ -27,7 +27,7 @@ const typeLabels: Record<"todos" | ArticleType, string> = {
   "link-video": "Links e vídeos",
   noticia: "Jornais e notícias",
   paper: "Papers IA",
-  apresentacao: "Apresentações IA",
+  apresentacao: "Apresentações",
 };
 
 const typeIcons = {
@@ -80,6 +80,7 @@ export function App() {
   const [type, setType] = useState<"todos" | ArticleType>("todos");
   const [theme, setTheme] = useState("todos");
   const [visible, setVisible] = useState(15);
+  const [showAll, setShowAll] = useState(false);
   const [page, setPage] = useState(() => window.location.hash === "#ecossistema-ufg" ? "ecosystem" : "catalog");
 
   useEffect(() => {
@@ -177,12 +178,27 @@ export function App() {
     });
   }, [articles, query, selectedKeyword, theme, type]);
 
+  const latestByCategory = useMemo(() => categoryTypes.flatMap((category) => {
+    const items = articles.filter((article) => article.type === category);
+    if (!items.length) return [];
+
+    return items.reduce((latest, article) => {
+      const latestDate = Date.parse(latest.includedAt) || Date.parse(latest.publishedAt) || 0;
+      const articleDate = Date.parse(article.includedAt) || Date.parse(article.publishedAt) || 0;
+      return articleDate >= latestDate ? article : latest;
+    });
+  }), [articles]);
+
+  const isInitialSelection = !showAll && !query && !selectedKeyword && type === "todos" && theme === "todos";
+  const displayedArticles = isInitialSelection ? latestByCategory : filtered;
+
   const resetFilters = () => {
     setQuery("");
     setSelectedKeyword("");
     setType("todos");
     setTheme("todos");
     setVisible(15);
+    setShowAll(true);
   };
 
   const selectKeyword = (keyword: string) => {
@@ -191,6 +207,7 @@ export function App() {
     setType("todos");
     setTheme("todos");
     setVisible(15);
+    setShowAll(true);
     window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
 
@@ -198,6 +215,7 @@ export function App() {
     setType(category);
     setTheme("todos");
     setVisible(15);
+    setShowAll(true);
     window.requestAnimationFrame(() => document.getElementById(category === "medium" ? "categorias" : "catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
 
@@ -205,6 +223,7 @@ export function App() {
     setType("medium");
     setTheme(blogTheme);
     setVisible(15);
+    setShowAll(true);
     window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
 
@@ -366,7 +385,7 @@ export function App() {
           <span className="sr-only">Buscar no acervo</span>
           <input
             value={query}
-            onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setVisible(15); }}
+            onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setVisible(15); setShowAll(true); }}
             placeholder="Busque por título, autor, resumo, tema ou palavra-chave"
           />
           {query && <button type="button" className="icon-button" onClick={() => { setQuery(""); setSelectedKeyword(""); }} aria-label="Limpar busca"><X size={18} /></button>}
@@ -378,7 +397,7 @@ export function App() {
                 type="button"
                 key={key}
                 className={type === key ? "active" : ""}
-                onClick={() => { setType(key); setVisible(15); }}
+                onClick={() => { setType(key); setVisible(15); setShowAll(true); }}
                 aria-pressed={type === key}
               >
                 {typeLabels[key]} <span>{counts[key]}</span>
@@ -387,7 +406,7 @@ export function App() {
           </div>
           <label className="select-filter">
             <span className="sr-only">Filtrar por tema</span>
-            <select id="temas" value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(15); }}>
+            <select id="temas" value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(15); setShowAll(true); }}>
               <option value="todos">Todos os temas</option>
               {themes.map((item) => <option key={item} value={item}>{item}</option>)}
             </select>
@@ -421,17 +440,19 @@ export function App() {
         <>
           <section className="results-heading" aria-live="polite">
             <div>
-              <p className="eyebrow">Catálogo</p>
-              <h2>{filtered.length} {filtered.length === 1 ? "item encontrado" : "itens encontrados"}</h2>
+              <p className="eyebrow">{isInitialSelection ? "Seleção inicial" : "Catálogo"}</p>
+              <h2>{isInitialSelection ? "Um conteúdo recente por categoria" : `${displayedArticles.length} ${displayedArticles.length === 1 ? "item encontrado" : "itens encontrados"}`}</h2>
             </div>
-            {(query || type !== "todos" || theme !== "todos") && (
+            {isInitialSelection ? (
+              <button type="button" className="clear-filters" onClick={() => { setShowAll(true); setVisible(15); }}>Ver todo o acervo</button>
+            ) : (query || type !== "todos" || theme !== "todos") && (
               <button type="button" className="clear-filters" onClick={resetFilters}><X size={16} /> Limpar filtros</button>
             )}
           </section>
 
-          {filtered.length ? (
+          {displayedArticles.length ? (
             <div className="article-grid">
-              {filtered.slice(0, visible).map((article) => <ArticleCard key={article.id} article={article} />)}
+              {displayedArticles.slice(0, visible).map((article) => <ArticleCard key={article.id} article={article} />)}
             </div>
           ) : (
             <section className="empty-state">
@@ -442,7 +463,7 @@ export function App() {
             </section>
           )}
 
-          {visible < filtered.length && (
+          {visible < displayedArticles.length && (
             <button type="button" className="load-more" onClick={() => setVisible((value) => value + 15)}>Carregar mais itens</button>
           )}
         </>
