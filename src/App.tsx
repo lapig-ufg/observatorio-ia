@@ -303,7 +303,8 @@ export function App() {
 
       <section className="obia-callout" aria-labelledby="obia-title">
         <a className="obia-logo-link" href="https://obia.nic.br/" target="_blank" rel="noreferrer" aria-label="Acessar o Observatório Brasileiro de Inteligência Artificial">
-          <img src="https://obia.nic.br/img/logo-text-white.svg" alt="Observatório Brasileiro de Inteligência Artificial" />
+          <img src="https://obia.nic.br/img/logo-text-white.svg" alt="OBIA" />
+          <span>Observatório Brasileiro de Inteligência Artificial</span>
         </a>
         <div>
           <p className="eyebrow">Brasil em foco</p>
