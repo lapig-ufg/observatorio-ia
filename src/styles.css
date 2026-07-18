@@ -379,6 +379,103 @@ h1 {
   color: #fff;
 }
 
+.blog-subcategories {
+  margin-top: 24px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: #f3f7f4;
+}
+
+.blog-subcategories-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 17px;
+}
+
+.blog-subcategories-heading .eyebrow,
+.blog-subcategories-heading h3,
+.blog-subcategories-heading > p {
+  margin: 0;
+}
+
+.blog-subcategories-heading h3 {
+  margin-top: 5px;
+  color: var(--navy-800);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.blog-subcategories-heading > p {
+  max-width: 300px;
+  color: #52615a;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.blog-subcategory-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.blog-subcategory-button {
+  min-height: 116px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 11px;
+  padding: 14px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: #fff;
+  color: var(--green-800);
+  text-align: left;
+  cursor: pointer;
+}
+
+.blog-subcategory-button span {
+  color: #33433d;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.blog-subcategory-button strong {
+  min-width: 26px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: var(--surface);
+  color: #53615c;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.blog-subcategory-button svg {
+  grid-column: 1 / -1;
+  align-self: end;
+}
+
+.blog-subcategory-button:hover,
+.blog-subcategory-button.active {
+  background: var(--green-100);
+}
+
+.blog-subcategory-button.active {
+  box-shadow: inset 0 3px 0 var(--green-700);
+}
+
+.blog-subcategory-button.active strong {
+  background: var(--green-800);
+  color: #fff;
+}
+
 .ecosystem-page {
   min-height: calc(100vh - 72px);
   padding: clamp(48px, 7vw, 90px) clamp(20px, 5vw, 72px);
@@ -1146,6 +1243,10 @@ h1 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .blog-subcategory-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .keyword-cloud-heading {
     align-items: flex-start;
     flex-direction: column;
@@ -1301,6 +1402,16 @@ h1 {
   }
 
   .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .blog-subcategories-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .blog-subcategory-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 

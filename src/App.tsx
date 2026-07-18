@@ -22,7 +22,7 @@ import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoad
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
-  medium: "Artigos Medium",
+  medium: "Blogs",
   documento: "Documentos gerais",
   "link-video": "Links e vídeos",
   noticia: "Jornais e notícias",
@@ -40,7 +40,7 @@ const typeIcons = {
 };
 
 const actionLabels: Record<ArticleType, string> = {
-  medium: "Artigo original",
+  medium: "Ler publicação",
   documento: "Acessar documento",
   "link-video": "Acessar conteúdo",
   noticia: "Ler notícia",
@@ -49,6 +49,15 @@ const actionLabels: Record<ArticleType, string> = {
 };
 
 const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "noticia", "paper", "apresentacao"];
+const blogThemes = [
+  "Fundamentos, matemática e deep learning",
+  "Transformers e atenção",
+  "LLMs e IA generativa",
+  "Agentes, RAG e aplicações",
+  "Bases vetoriais e conhecimento",
+  "Modelos, mercado e indústria",
+  "Aprendizado, pesquisa e produtividade",
+];
 const maxCloudWords = 32;
 const cloudPositions = [
   [50, 46, 0], [50, 23, -2], [24, 44, 2], [76, 43, -2], [48, 67, 1], [76, 25, 1], [27, 25, -1], [22, 65, 2],
@@ -119,6 +128,11 @@ export function App() {
     apresentacao: articles.filter((article) => article.type === "apresentacao").length,
   }), [articles]);
 
+  const blogCategories = useMemo(() => blogThemes.map((blogTheme) => ({
+    theme: blogTheme,
+    count: articles.filter((article) => article.type === "medium" && article.theme === blogTheme).length,
+  })), [articles]);
+
   const keywordCloud = useMemo(() => {
     const keywords = new Map<string, { label: string; count: number }>();
 
@@ -182,6 +196,14 @@ export function App() {
 
   const selectCategory = (category: ArticleType) => {
     setType(category);
+    setTheme("todos");
+    setVisible(15);
+    window.requestAnimationFrame(() => document.getElementById(category === "medium" ? "categorias" : "catalogo")?.scrollIntoView({ behavior: "smooth" }));
+  };
+
+  const selectBlogTheme = (blogTheme: string) => {
+    setType("medium");
+    setTheme(blogTheme);
     setVisible(15);
     window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
@@ -220,7 +242,7 @@ export function App() {
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
           <h1 id="page-title">Conhecimento sobre IA para estudo, pesquisa e debate</h1>
-          <p className="intro-copy">Artigos do Medium, documentos, vídeos, notícias, papers científicos e apresentações reunidos em um acervo temático.</p>
+          <p className="intro-copy">Blogs, documentos, vídeos, notícias, papers científicos e apresentações reunidos em um acervo temático.</p>
         </div>
         <div className="collection-summary" aria-label="Resumo do acervo">
           <span><strong>{articles.length || "—"}</strong> itens</span>
@@ -257,6 +279,32 @@ export function App() {
             );
           })}
         </div>
+        {type === "medium" && (
+          <div className="blog-subcategories" aria-label="Subcategorias de Blogs">
+            <div className="blog-subcategories-heading">
+              <div>
+                <p className="eyebrow">Blogs</p>
+                <h3>Explore pelas sete coleções</h3>
+              </div>
+              <p>Selecione uma subcategoria para ver os artigos relacionados.</p>
+            </div>
+            <div className="blog-subcategory-grid">
+              {blogCategories.map(({ theme: blogTheme, count }) => (
+                <button
+                  type="button"
+                  key={blogTheme}
+                  className={theme === blogTheme ? "blog-subcategory-button active" : "blog-subcategory-button"}
+                  onClick={() => selectBlogTheme(blogTheme)}
+                  aria-pressed={theme === blogTheme}
+                >
+                  <span>{blogTheme}</span>
+                  <strong>{count}</strong>
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       {keywordCloud.length > 0 && (
