@@ -476,6 +476,74 @@ h1 {
   color: #fff;
 }
 
+.weekly-highlight {
+  padding: 30px clamp(20px, 5vw, 72px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #eff5f1;
+}
+
+.weekly-highlight-kicker {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  color: #587066;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.weekly-highlight-kicker span:first-child {
+  color: var(--green-800);
+}
+
+.weekly-highlight-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr);
+  gap: clamp(28px, 6vw, 90px);
+  align-items: end;
+}
+
+.weekly-highlight .eyebrow {
+  margin: 0 0 7px;
+}
+
+.weekly-highlight h2 {
+  max-width: 900px;
+  margin: 0;
+  color: var(--navy-800);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.45rem, 2.5vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.weekly-highlight-aside {
+  padding-left: 23px;
+  border-left: 3px solid #97b8a6;
+}
+
+.weekly-highlight-aside p {
+  margin: 0 0 13px;
+  color: #40564a;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.weekly-highlight-aside a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--green-800);
+  font-size: 0.83rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.weekly-highlight-aside a:hover { text-decoration: underline; }
+
 .ecosystem-page {
   min-height: calc(100vh - 72px);
   padding: clamp(48px, 7vw, 90px) clamp(20px, 5vw, 72px);
@@ -1192,6 +1260,14 @@ h1 {
   font-size: 0.7rem;
 }
 
+.footer .credits a {
+  color: inherit;
+  text-decoration-color: rgba(174, 189, 202, 0.55);
+  text-underline-offset: 2px;
+}
+
+.footer .credits a:hover { color: #fff; }
+
 .spinning {
   animation: spin 0.9s linear infinite;
 }
@@ -1245,6 +1321,11 @@ h1 {
 
   .blog-subcategory-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .weekly-highlight-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .keyword-cloud-heading {
@@ -1413,6 +1494,12 @@ h1 {
 
   .blog-subcategory-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .weekly-highlight-kicker {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
   }
 
   .category-button {

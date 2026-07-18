@@ -242,18 +242,34 @@ export function App() {
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
           <h1 id="page-title">Conhecimento sobre IA para estudo, pesquisa e debate</h1>
-          <p className="intro-copy">Blogs, documentos, vídeos, notícias, papers científicos e apresentações reunidos em um acervo temático.</p>
+          <p className="intro-copy">Artigos de Blogs, documentos, vídeos, notícias, papers científicos e apresentações reunidos em um acervo temático.</p>
         </div>
         <div className="collection-summary" aria-label="Resumo do acervo">
           <span><strong>{articles.length || "—"}</strong> itens</span>
           <span><strong>6</strong> categorias</span>
-          <span><strong>1 min</strong> atualização</span>
         </div>
         {ribbon.length > 0 && (
           <div className="cover-ribbon" aria-hidden="true">
             {ribbon.map((article) => <img key={article.id} src={assetUrl(article.cover)} alt="" />)}
           </div>
         )}
+      </section>
+
+      <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
+        <div className="weekly-highlight-kicker">
+          <span>Destaque da semana</span>
+          <span>The Batch · DeepLearning.AI</span>
+        </div>
+        <div className="weekly-highlight-content">
+          <div>
+            <p className="eyebrow">29 de maio de 2026</p>
+            <h2 id="weekly-highlight-title">Gemini fica mais caro, a regulação europeia desacelera e agentes passam a dirigir tráfego na web</h2>
+          </div>
+          <div className="weekly-highlight-aside">
+            <p>A edição mais recente reúne sinais importantes para a adoção de IA: preços de modelos, mudanças no AI Act e o crescimento do tráfego online conduzido por agentes.</p>
+            <a href="https://www.deeplearning.ai/the-batch/tag/may-29-2026" target="_blank" rel="noreferrer">Ler a edição do The Batch <ArrowUpRight size={17} aria-hidden="true" /></a>
+          </div>
+        </div>
       </section>
 
       <section id="categorias" className="category-band" aria-labelledby="category-title">
@@ -434,7 +450,7 @@ export function App() {
 
       <footer className="footer">
         <div><strong>Observatório UFG-IA</strong><p>Acervo educacional em desenvolvimento contínuo.</p></div>
-        <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p><p className="credits">Organização e curadoria: Laerte Ferreira, Victor Amaral e Tiago Geraldine.</p></div>
+        <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p><p className="credits">Desenvolvimento e curadoria: <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a> e <a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p></div>
       </footer>
     </main>
   );
