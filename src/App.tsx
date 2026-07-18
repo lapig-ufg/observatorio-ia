@@ -222,6 +222,7 @@ export function App() {
         <nav aria-label="Navegação principal">
           <a href="#categorias">Categorias</a>
           <a className="ecosystem-nav-link" href="#ecossistema-ufg">Ecossistema UFG <ArrowUpRight size={15} aria-hidden="true" /></a>
+          <a className="form-nav-link" href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer">Como você está usando a IA? <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a href="#palavras-chave">Assuntos</a>
           <a href="#catalogo">Acervo</a>
           <a href="https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/" target="_blank" rel="noreferrer">Panorama <ArrowUpRight size={15} aria-hidden="true" /></a>
