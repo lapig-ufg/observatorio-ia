@@ -124,7 +124,7 @@ select:focus-visible {
 
 .brand-name strong:last-child {
   color: var(--green-700);
-  font-size: 0.82rem;
+  font-size: 0.94rem;
   letter-spacing: 0.08em;
 }
 
