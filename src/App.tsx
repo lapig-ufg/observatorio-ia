@@ -49,6 +49,9 @@ const actionLabels: Record<ArticleType, string> = {
 };
 
 const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "noticia", "paper", "apresentacao"];
+const featuredArticleByCategory: Partial<Record<ArticleType, string>> = {
+  documento: "drive-1mg-diretrizes-ia-ies",
+};
 const blogThemes = [
   "Fundamentos, matemática e deep learning",
   "Transformers e atenção",
@@ -182,6 +185,12 @@ export function App() {
     const items = articles.filter((article) => article.type === category);
     if (!items.length) return [];
 
+    const featured = featuredArticleByCategory[category];
+    if (featured) {
+      const requestedArticle = items.find((article) => article.id === featured);
+      if (requestedArticle) return requestedArticle;
+    }
+
     return items.reduce((latest, article) => {
       const latestDate = Date.parse(latest.includedAt) || Date.parse(latest.publishedAt) || 0;
       const articleDate = Date.parse(article.includedAt) || Date.parse(article.publishedAt) || 0;
@@ -290,6 +299,17 @@ export function App() {
             <a href="https://www.deeplearning.ai/the-batch/tag/may-29-2026" target="_blank" rel="noreferrer">Ler a edição do The Batch <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
         </div>
+      </section>
+
+      <section className="obia-callout" aria-labelledby="obia-title">
+        <a className="obia-logo-link" href="https://obia.nic.br/" target="_blank" rel="noreferrer" aria-label="Acessar o Observatório Brasileiro de Inteligência Artificial">
+          <img src="https://obia.nic.br/img/logo-text-white.svg" alt="Observatório Brasileiro de Inteligência Artificial" />
+        </a>
+        <div>
+          <p className="eyebrow">Brasil em foco</p>
+          <h2 id="obia-title">Para saber mais sobre o uso e as perspectivas da IA no Brasil, acesse o Observatório Brasileiro de Inteligência Artificial.</h2>
+        </div>
+        <a className="obia-action" href="https://obia.nic.br/" target="_blank" rel="noreferrer">Conhecer o OBIA <ArrowUpRight size={17} aria-hidden="true" /></a>
       </section>
 
       <section id="categorias" className="category-band" aria-labelledby="category-title">

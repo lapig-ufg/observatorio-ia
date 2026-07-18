@@ -82,7 +82,7 @@ select:focus-visible {
 }
 
 .topbar {
-  min-height: 72px;
+  min-height: 78px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -189,7 +189,7 @@ select:focus-visible {
 }
 
 .institutional-marks {
-  height: 60px;
+  height: 64px;
   display: flex;
   align-items: center;
   gap: 18px;
@@ -198,7 +198,7 @@ select:focus-visible {
 }
 
 .institutional-marks a {
-  height: 58px;
+  height: 62px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -211,15 +211,75 @@ select:focus-visible {
 }
 
 .institutional-marks a:first-child img {
-  width: 122px;
-  height: 122px;
+  width: 136px;
+  height: 136px;
   max-width: none;
   transform: translateY(0);
 }
 
 .institutional-marks a:last-child img {
-  width: 37px;
-  height: 56px;
+  width: 42px;
+  height: 62px;
+}
+
+.obia-callout {
+  display: grid;
+  grid-template-columns: 178px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(18px, 3vw, 42px);
+  padding: 24px clamp(20px, 5vw, 72px);
+  color: #fff;
+  background:
+    radial-gradient(circle at 94% 15%, rgba(78, 170, 195, 0.38), transparent 19rem),
+    linear-gradient(110deg, #133a52, #1d5b71);
+  border-bottom: 1px solid #173e52;
+}
+
+.obia-logo-link {
+  display: flex;
+  align-items: center;
+  min-height: 72px;
+  padding-right: 22px;
+  border-right: 1px solid rgba(255, 255, 255, 0.34);
+}
+
+.obia-logo-link img {
+  display: block;
+  width: min(156px, 100%);
+  max-height: 56px;
+}
+
+.obia-callout .eyebrow {
+  margin-bottom: 7px;
+  color: #a9dde5;
+}
+
+.obia-callout h2 {
+  max-width: 730px;
+  margin: 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.18rem, 2vw, 1.58rem);
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.obia-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 5px;
+  color: #fff;
+  font-size: 0.84rem;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.obia-action:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .catalog-intro {
@@ -1354,6 +1414,15 @@ h1 {
     gap: 20px;
   }
 
+  .obia-callout {
+    grid-template-columns: 156px minmax(0, 1fr);
+  }
+
+  .obia-action {
+    grid-column: 2;
+    justify-self: start;
+  }
+
   .keyword-cloud-heading {
     align-items: flex-start;
     flex-direction: column;
@@ -1387,6 +1456,22 @@ h1 {
 
   .catalog-intro {
     grid-template-columns: 1fr;
+  }
+
+  .obia-callout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .obia-logo-link {
+    min-height: 0;
+    padding: 0 0 14px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.34);
+  }
+
+  .obia-action {
+    grid-column: auto;
   }
 
   .intro-copy-block {
