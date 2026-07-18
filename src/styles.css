@@ -170,6 +170,18 @@ select:focus-visible {
   color: var(--green-800);
 }
 
+.topbar nav .form-nav-link > span {
+  display: grid;
+  gap: 1px;
+}
+
+.topbar nav .form-nav-link strong {
+  color: #bb3a32;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
 .topbar nav .form-nav-link:hover {
   border-color: var(--green-700);
   background: var(--green-100);
