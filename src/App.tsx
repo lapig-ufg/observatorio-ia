@@ -257,7 +257,7 @@ export function App() {
 
       <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
         <div className="weekly-highlight-kicker">
-          <span>Destaque da semana</span>
+          <span>Em destaque...</span>
           <span>The Batch · DeepLearning.AI</span>
         </div>
         <div className="weekly-highlight-content">
