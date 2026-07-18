@@ -1351,7 +1351,13 @@ h1 {
 .footer .credits {
   margin-top: 10px;
   color: #aebdca;
-  font-size: 0.7rem;
+  font-size: 0.79rem;
+  line-height: 1.45;
+}
+
+.footer .credits strong {
+  color: #e1e8ef;
+  font-weight: 800;
 }
 
 .footer .credits a {
