@@ -506,9 +506,13 @@ export function App() {
 }
 
 function InitiativeCard({ initiative }: { initiative: Initiative }) {
+  const logoUrl = `https://www.google.com/s2/favicons?sz=128&domain_url=${encodeURIComponent(initiative.url)}`;
   return (
     <article className={`initiative-card initiative-${normalize(initiative.color).replace(/\s+/g, "-")}`}>
-      <div className="initiative-mark" aria-hidden="true"><Building2 size={25} /></div>
+      <div className="initiative-mark">
+        <img src={logoUrl} alt={`Marca de ${initiative.acronym}`} loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; }} />
+        <Building2 className="initiative-mark-fallback" size={25} aria-hidden="true" />
+      </div>
       <p className="initiative-acronym">{initiative.acronym}</p>
       <h3>{initiative.name}</h3>
       <p>{initiative.summary}</p>
@@ -552,11 +556,13 @@ function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
 function ArticleCard({ article }: { article: Article }) {
   const Icon = typeIcons[article.type];
   const metadata = [article.pages ? `${article.pages} páginas` : "", article.publishedAt].filter(Boolean).join(" • ");
+  const fallbackThumbnail = `https://image.thum.io/get/width/800/crop/450/noanimate/${article.originalUrl}`;
 
   return (
     <article className={`article-card type-${article.type}`}>
       <div className="cover-frame">
-        {article.cover ? <img src={assetUrl(article.cover)} alt="" loading="lazy" /> : <Icon size={42} aria-hidden="true" />}
+        {article.cover ? <img src={assetUrl(article.cover)} alt="" loading="lazy" /> : <img className="source-thumbnail" src={fallbackThumbnail} alt="" loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; }} />}
+        {!article.cover && <Icon className="cover-fallback-icon" size={42} aria-hidden="true" />}
         <span className="type-badge"><Icon size={14} aria-hidden="true" /> {typeLabels[article.type]}</span>
       </div>
       <div className="card-content">
