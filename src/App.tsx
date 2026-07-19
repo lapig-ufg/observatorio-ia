@@ -49,6 +49,7 @@ const actionLabels: Record<ArticleType, string> = {
 };
 
 const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "noticia", "paper", "apresentacao"];
+const paperAreas = ["Ciências Exatas e da Terra", "Ciências Biológicas", "Engenharias", "Ciências da Saúde", "Ciências Agrárias", "Ciências Sociais Aplicadas", "Ciências Humanas", "Linguística, Letras e Artes", "IA"];
 const featuredArticleByCategory: Partial<Record<ArticleType, string>> = {
   documento: "drive-1mg-diretrizes-ia-ies",
 };
@@ -61,6 +62,19 @@ const blogThemes = [
   "Modelos, mercado e indústria",
   "Aprendizado, pesquisa e produtividade",
 ];
+
+function paperArea(article: Article) {
+  const text = normalize([article.title, article.summary, ...article.tags].join(" "));
+  if (/medic|health|disease|clinical|cancer|oncolog|therap|hospital|psychiatr|mammograph|surg/.test(text)) return "Ciências da Saúde";
+  if (/cell|biolog|genom|dna|yeast|peptide|antimicrobial|molecular|protein/.test(text)) return "Ciências Biológicas";
+  if (/agric|crop|farm|pasture|soil|geospatial|geoai|remote sensing/.test(text)) return "Ciências Agrárias";
+  if (/quantum|math|physics|crystal|optical|photonic|x ray|statistic/.test(text)) return "Ciências Exatas e da Terra";
+  if (/hardware|robot|chip|computer vision|engineering|neuromorphic|edge ai/.test(text)) return "Engenharias";
+  if (/social|policy|migration|workforce|market|econom|governance|regulation/.test(text)) return "Ciências Sociais Aplicadas";
+  if (/education|ethic|human|cognit|culture|philosoph|skill/.test(text)) return "Ciências Humanas";
+  if (/language|speech|text|caption|linguist|token/.test(text)) return "Linguística, Letras e Artes";
+  return "IA";
+}
 const maxCloudWords = 32;
 const cloudPositions = [
   [50, 46, 0], [50, 23, -2], [24, 44, 2], [76, 43, -2], [48, 67, 1], [76, 25, 1], [27, 25, -1], [22, 65, 2],
@@ -136,6 +150,10 @@ export function App() {
     theme: blogTheme,
     count: articles.filter((article) => article.type === "medium" && article.theme === blogTheme).length,
   })), [articles]);
+  const paperCategories = useMemo(() => paperAreas.map((area) => ({
+    area,
+    count: articles.filter((article) => article.type === "paper" && paperArea(article) === area).length,
+  })), [articles]);
 
   const keywordCloud = useMemo(() => {
     const itemsByType = new Map<ArticleType, number>();
@@ -172,7 +190,7 @@ export function App() {
     const needle = normalize(query.trim());
     return articles.filter((article) => {
       const matchesType = type === "todos" || article.type === type;
-      const matchesTheme = theme === "todos" || article.theme === theme;
+      const matchesTheme = theme === "todos" || (article.type === "paper" ? paperArea(article) === theme : article.theme === theme);
       const matchesKeyword = !selectedKeyword || article.tags.some((tag) => normalize(tag) === normalize(selectedKeyword));
       const haystack = normalize([
         article.title,
@@ -237,6 +255,14 @@ export function App() {
   const selectBlogTheme = (blogTheme: string) => {
     setType("medium");
     setTheme(blogTheme);
+    setVisible(15);
+    setShowAll(true);
+    window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
+  };
+
+  const selectPaperArea = (area: string) => {
+    setType("paper");
+    setTheme(area);
     setVisible(15);
     setShowAll(true);
     window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
@@ -365,6 +391,14 @@ export function App() {
                   <ArrowUpRight size={16} aria-hidden="true" />
                 </button>
               ))}
+            </div>
+          </div>
+        )}
+        {type === "paper" && (
+          <div className="blog-subcategories" aria-label="Áreas dos Papers IA">
+            <div className="blog-subcategories-heading"><div><p className="eyebrow">Papers IA</p><h3>Explore por área do conhecimento</h3></div><p>Classificação temática baseada no título, resumo e palavras-chave.</p></div>
+            <div className="blog-subcategory-grid">
+              {paperCategories.map(({ area, count }) => <button type="button" key={area} className={theme === area ? "blog-subcategory-button active" : "blog-subcategory-button"} onClick={() => selectPaperArea(area)} aria-pressed={theme === area}><span>{area}</span><strong>{count}</strong><ArrowUpRight size={16} aria-hidden="true" /></button>)}
             </div>
           </div>
         )}
