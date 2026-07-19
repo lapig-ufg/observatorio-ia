@@ -138,27 +138,33 @@ export function App() {
   })), [articles]);
 
   const keywordCloud = useMemo(() => {
-    const keywords = new Map<string, { label: string; count: number }>();
+    const itemsByType = new Map<ArticleType, number>();
+    articles.forEach((article) => itemsByType.set(article.type, (itemsByType.get(article.type) || 0) + 1));
+
+    const keywords = new Map<string, { label: string; count: number; weightedCount: number }>();
 
     articles.forEach((article) => article.tags.forEach((tag) => {
       const label = tag.trim();
       const key = normalize(label);
       if (!key) return;
+      const categoryWeight = 1 / (itemsByType.get(article.type) || 1);
       const keyword = keywords.get(key);
-      if (keyword) keyword.count += 1;
-      else keywords.set(key, { label, count: 1 });
+      if (keyword) {
+        keyword.count += 1;
+        keyword.weightedCount += categoryWeight;
+      } else keywords.set(key, { label, count: 1, weightedCount: categoryWeight });
     }));
 
     const sorted = Array.from(keywords.entries())
       .map(([key, keyword]) => ({ key, ...keyword }))
-      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "pt-BR"))
+      .sort((a, b) => b.weightedCount - a.weightedCount || b.count - a.count || a.label.localeCompare(b.label, "pt-BR"))
       .slice(0, maxCloudWords);
-    const maximum = Math.max(...sorted.map((keyword) => keyword.count), 1);
-    const minimum = Math.min(...sorted.map((keyword) => keyword.count), maximum);
+    const maximum = Math.max(...sorted.map((keyword) => keyword.weightedCount), 1);
+    const minimum = Math.min(...sorted.map((keyword) => keyword.weightedCount), maximum);
 
     return sorted.map((keyword) => ({
       ...keyword,
-      size: maximum === minimum ? 3 : 1 + Math.round(((keyword.count - minimum) / (maximum - minimum)) * 4),
+      size: maximum === minimum ? 3 : 1 + Math.round(((keyword.weightedCount - minimum) / (maximum - minimum)) * 4),
     }));
   }, [articles]);
 
@@ -371,7 +377,7 @@ export function App() {
               <p className="eyebrow">Assuntos em destaque</p>
               <h2 id="keyword-cloud-title">Explore o acervo pelas palavras-chave</h2>
             </div>
-            <p>Quanto maior a palavra, mais artigos relacionados ela reúne.</p>
+            <p>Quanto maior a palavra, mais itens relacionados ela reúne.</p>
           </div>
           <div className="keyword-cloud" aria-label="Palavras-chave do acervo">
             {keywordCloud.map((keyword, index) => {
@@ -389,10 +395,10 @@ export function App() {
                 style={positionStyle}
                 onClick={() => selectKeyword(keyword.label)}
                 aria-pressed={normalize(selectedKeyword) === keyword.key}
-                aria-label={`${keyword.label}: ${keyword.count} ${keyword.count === 1 ? "artigo" : "artigos"}`}
+                aria-label={`${keyword.label}: ${keyword.count} ${keyword.count === 1 ? "item" : "itens"}`}
               >
                 <span>{keyword.label}</span>
-                <small className="sr-only"> {keyword.count} artigos</small>
+                <small className="sr-only"> {keyword.count} itens</small>
               </button>
               );
             })}
