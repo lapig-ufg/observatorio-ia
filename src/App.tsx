@@ -242,7 +242,7 @@ export function App() {
     window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
 
-  const ribbon = articles.filter((article) => article.cover).slice(0, 7);
+  const ribbon = latestByCategory;
 
   return (
     <main id="top" className="site-shell">
@@ -285,7 +285,7 @@ export function App() {
         </div>
         {ribbon.length > 0 && (
           <div className="cover-ribbon" aria-hidden="true">
-            {ribbon.map((article) => <img key={article.id} src={assetUrl(article.cover)} alt="" />)}
+            {ribbon.map((article) => <img key={article.id} src={articlePreviewSrc(article)} alt="" loading="lazy" />)}
           </div>
         )}
       </section>
@@ -570,8 +570,13 @@ function fallbackThumbnail(article: Article) {
   const videoId = article.type === "link-video" ? youtubeVideoId(article.originalUrl) : "";
   if (videoId) return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
-  const fileId = article.type === "documento" ? driveFileId(article.institutionalPdfUrl || article.originalUrl) : "";
+  const fileId = driveFileId(article.institutionalPdfUrl || article.originalUrl);
   return fileId ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w800` : "";
+}
+
+function articlePreviewSrc(article: Article) {
+  if (article.cover) return assetUrl(article.cover);
+  return fallbackThumbnail(article) || `https://image.thum.io/get/width/800/crop/450/noanimate/${article.originalUrl}`;
 }
 
 function ArticleCard({ article }: { article: Article }) {
