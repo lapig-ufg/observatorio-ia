@@ -77,14 +77,38 @@ function paperArea(article: Article) {
 }
 const maxCloudWords = 32;
 const cloudPositions = [
-  [50, 46, 0], [50, 23, -2], [24, 44, 2], [76, 43, -2], [48, 67, 1], [76, 25, 1], [27, 25, -1], [22, 65, 2],
-  [77, 66, -1], [49, 82, 0], [37, 34, -2], [63, 34, 2], [35, 55, 1], [64, 55, -1], [13, 35, 2], [87, 35, -2],
-  [13, 54, -1], [87, 54, 1], [31, 78, 2], [68, 79, -2], [49, 10, 1], [49, 92, -1], [8, 20, 2], [92, 20, -2],
-  [9, 74, -1], [91, 74, 1], [39, 16, 2], [61, 16, -2], [39, 90, 1], [61, 90, -1], [19, 12, 0], [81, 12, 0],
+  [50, 50, 0], [50, 31, -1], [33, 43, 1], [67, 43, -1], [40, 65, 1], [60, 65, -1],
+  [50, 15, 0], [26, 28, 1], [74, 28, -1], [20, 52, -1], [80, 52, 1], [30, 76, 1], [70, 76, -1], [50, 86, 0],
+  [39, 25, -1], [61, 25, 1], [29, 56, 1], [71, 56, -1], [42, 80, -1], [58, 80, 1],
+  [50, 7, 0], [16, 38, 1], [84, 38, -1], [15, 67, -1], [85, 67, 1], [34, 91, 1], [66, 91, -1],
+  [8, 54, 0], [92, 54, 0], [23, 16, -1], [77, 16, 1], [23, 88, 1], [77, 88, -1],
 ] as const;
+
+const cloudStopWords = new Set([
+  "about", "ainda", "algoritmos", "analisa", "apresenta", "artigo", "artigos", "atraves", "cada", "como", "com", "conta", "cobre", "dados", "depois", "desde", "desta", "deste", "entre", "este", "esta", "explica", "foco", "forma", "guide", "inclui", "inteligencia", "mais", "mostra", "para", "pelo", "pela", "pesquisa", "pode", "pratica", "recursos", "reune", "sobre", "sistema", "texto", "uma", "usando", "with", "that", "this", "from", "into", "their", "them", "these", "those", "your", "will", "also", "more", "most", "what", "when", "where", "which", "while", "using", "used", "use", "how", "the", "and", "for", "are", "its", "its", "new", "not", "can", "all", "our", "you", "your", "than", "they", "have", "has", "been", "being",
+]);
 
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+function cloudTerms(article: Article) {
+  const terms = new Map<string, string>();
+  article.tags.forEach((tag) => {
+    const label = tag.trim();
+    const key = normalize(label);
+    if (key) terms.set(key, label);
+  });
+  (article.summary.match(/[\p{L}][\p{L}\p{N}-]{3,}/gu) || []).forEach((word) => {
+    const key = normalize(word);
+    if (key && !cloudStopWords.has(key)) terms.set(key, word);
+  });
+  return terms;
+}
+
+function matchesCloudTerm(article: Article, term: string) {
+  const key = normalize(term);
+  return cloudTerms(article).has(key);
 }
 
 export function App() {
@@ -156,33 +180,23 @@ export function App() {
   })), [articles]);
 
   const keywordCloud = useMemo(() => {
-    const itemsByType = new Map<ArticleType, number>();
-    articles.forEach((article) => itemsByType.set(article.type, (itemsByType.get(article.type) || 0) + 1));
+    const keywords = new Map<string, { label: string; itemIds: Set<string> }>();
 
-    const keywords = new Map<string, { label: string; count: number; weightedCount: number }>();
-
-    articles.forEach((article) => article.tags.forEach((tag) => {
-      const label = tag.trim();
-      const key = normalize(label);
-      if (!key) return;
-      const categoryWeight = 1 / (itemsByType.get(article.type) || 1);
+    articles.forEach((article) => cloudTerms(article).forEach((label, key) => {
       const keyword = keywords.get(key);
-      if (keyword) {
-        keyword.count += 1;
-        keyword.weightedCount += categoryWeight;
-      } else keywords.set(key, { label, count: 1, weightedCount: categoryWeight });
+      if (keyword) keyword.itemIds.add(article.id);
+      else keywords.set(key, { label, itemIds: new Set([article.id]) });
     }));
 
     const sorted = Array.from(keywords.entries())
-      .map(([key, keyword]) => ({ key, ...keyword }))
-      .sort((a, b) => b.weightedCount - a.weightedCount || b.count - a.count || a.label.localeCompare(b.label, "pt-BR"))
+      .map(([key, keyword]) => ({ key, label: keyword.label, count: keyword.itemIds.size }))
+      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "pt-BR"))
       .slice(0, maxCloudWords);
-    const maximum = Math.max(...sorted.map((keyword) => keyword.weightedCount), 1);
-    const minimum = Math.min(...sorted.map((keyword) => keyword.weightedCount), maximum);
+    const maximum = Math.max(...sorted.map((keyword) => keyword.count), 1);
 
     return sorted.map((keyword) => ({
       ...keyword,
-      size: maximum === minimum ? 3 : 1 + Math.round(((keyword.weightedCount - minimum) / (maximum - minimum)) * 4),
+      size: 0.82 + (keyword.count / maximum) * 2.7,
     }));
   }, [articles]);
 
@@ -191,7 +205,7 @@ export function App() {
     return articles.filter((article) => {
       const matchesType = type === "todos" || article.type === type;
       const matchesTheme = theme === "todos" || (article.type === "paper" ? paperArea(article) === theme : article.theme === theme);
-      const matchesKeyword = !selectedKeyword || article.tags.some((tag) => normalize(tag) === normalize(selectedKeyword));
+      const matchesKeyword = !selectedKeyword || matchesCloudTerm(article, selectedKeyword);
       const haystack = normalize([
         article.title,
         article.author,
@@ -411,7 +425,7 @@ export function App() {
               <p className="eyebrow">Assuntos em destaque</p>
               <h2 id="keyword-cloud-title">Explore o acervo pelas palavras-chave</h2>
             </div>
-            <p>Quanto maior a palavra, mais itens relacionados ela reúne.</p>
+              <p>O tamanho de cada palavra é proporcional ao número total de itens relacionados.</p>
           </div>
           <div className="keyword-cloud" aria-label="Palavras-chave do acervo">
             {keywordCloud.map((keyword, index) => {
@@ -420,12 +434,13 @@ export function App() {
                 "--cloud-x": `${x}%`,
                 "--cloud-y": `${y}%`,
                 "--cloud-rotation": `${rotation}deg`,
+                "--cloud-size": `${keyword.size}rem`,
               } as CSSProperties;
               return (
               <button
                 type="button"
                 key={keyword.key}
-                className={`keyword-cloud-item cloud-size-${keyword.size} cloud-color-${index % 5}${selectedKeyword && normalize(selectedKeyword) === keyword.key ? " active" : ""}`}
+                className={`keyword-cloud-item cloud-color-${index % 5}${selectedKeyword && normalize(selectedKeyword) === keyword.key ? " active" : ""}`}
                 style={positionStyle}
                 onClick={() => selectKeyword(keyword.label)}
                 aria-pressed={normalize(selectedKeyword) === keyword.key}

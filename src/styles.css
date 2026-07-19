@@ -917,11 +917,16 @@ h1 {
 
 .keyword-cloud {
   position: relative;
-  min-height: 470px;
+  min-height: 435px;
   padding: 0;
   border: 1px solid rgba(168, 190, 178, 0.85);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.74);
+  border-radius: 50%;
+  aspect-ratio: 1.9 / 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  background:
+    radial-gradient(circle at 50% 47%, rgba(230, 244, 235, 0.96) 0 26%, rgba(255, 255, 255, 0.78) 70%),
+    rgba(255, 255, 255, 0.74);
   box-shadow: 0 16px 34px rgba(28, 65, 52, 0.08);
   overflow: hidden;
 }
@@ -935,6 +940,7 @@ h1 {
   border: 0;
   background: transparent;
   color: var(--green-800);
+  font-size: clamp(0.78rem, var(--cloud-size), 3.55rem);
   font-weight: 800;
   line-height: 1;
   cursor: pointer;
@@ -960,12 +966,6 @@ h1 {
 .keyword-cloud-item.active {
   text-decoration-color: var(--coral-600);
 }
-
-.cloud-size-1 { font-size: 0.77rem; }
-.cloud-size-2 { font-size: 0.92rem; }
-.cloud-size-3 { font-size: 1.12rem; }
-.cloud-size-4 { font-size: clamp(1.36rem, 2.4vw, 1.92rem); }
-.cloud-size-5 { font-size: clamp(2rem, 4vw, 3.55rem); }
 
 .cloud-color-0 { color: #17634c; }
 .cloud-color-1 { color: #284d7a; }
@@ -1623,6 +1623,9 @@ h1 {
 
   .keyword-cloud {
     min-height: 0;
+    aspect-ratio: auto;
+    max-width: none;
+    border-radius: 16px;
     padding: 22px 14px;
     line-height: 1.72;
     text-align: center;
@@ -1641,8 +1644,6 @@ h1 {
   .keyword-cloud-item.active {
     transform: none;
   }
-
-  .cloud-size-5 { font-size: 2rem; }
 
   .initiative-card {
     padding: 22px;
