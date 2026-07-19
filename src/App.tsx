@@ -553,15 +553,36 @@ function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
   );
 }
 
+function driveFileId(url: string) {
+  return url.match(/drive\.google\.com\/file\/d\/([^/?]+)/)?.[1] || url.match(/[?&]id=([^&]+)/)?.[1] || "";
+}
+
+function youtubeVideoId(url: string) {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.includes("youtu.be")) return parsed.pathname.slice(1);
+    if (parsed.hostname.includes("youtube.com")) return parsed.searchParams.get("v") || "";
+  } catch { /* The source link is optional. */ }
+  return "";
+}
+
+function fallbackThumbnail(article: Article) {
+  const videoId = article.type === "link-video" ? youtubeVideoId(article.originalUrl) : "";
+  if (videoId) return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+  const fileId = article.type === "documento" ? driveFileId(article.institutionalPdfUrl || article.originalUrl) : "";
+  return fileId ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w800` : "";
+}
+
 function ArticleCard({ article }: { article: Article }) {
   const Icon = typeIcons[article.type];
   const metadata = [article.pages ? `${article.pages} páginas` : "", article.publishedAt].filter(Boolean).join(" • ");
-  const fallbackThumbnail = `https://image.thum.io/get/width/800/crop/450/noanimate/${article.originalUrl}`;
+  const thumbnail = fallbackThumbnail(article);
 
   return (
     <article className={`article-card type-${article.type}`}>
       <div className="cover-frame">
-        {article.cover ? <img src={assetUrl(article.cover)} alt="" loading="lazy" /> : <img className="source-thumbnail" src={fallbackThumbnail} alt="" loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; }} />}
+        {article.cover ? <img src={assetUrl(article.cover)} alt="" loading="lazy" /> : thumbnail ? <img className="source-thumbnail" src={thumbnail} alt="" loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; }} /> : null}
         {!article.cover && <Icon className="cover-fallback-icon" size={42} aria-hidden="true" />}
         <span className="type-badge"><Icon size={14} aria-hidden="true" /> {typeLabels[article.type]}</span>
       </div>
