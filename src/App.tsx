@@ -525,6 +525,13 @@ function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
         <p>Conheça centros e redes que conectam conhecimento, tecnologia e políticas públicas.</p>
         <a className="back-to-catalog" href="#top">← Voltar ao acervo</a>
       </div>
+      <aside className="ecosystem-mapping-callout" aria-label="Mapeamento da IA na UFG">
+        <div>
+          <p className="ecosystem-mapping-kicker">Sua iniciativa de IA não está aqui?</p>
+          <p>Então responda ao nosso <strong>mapeamento da IA na UFG</strong>. É bem simples e rápido!</p>
+        </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe3qfZ5hjL0NifRXvI-SM6NKDN7g8DoFQJyoTTRTvhlptWk-w/viewform" target="_blank" rel="noreferrer">Participar do mapeamento <ArrowUpRight size={17} aria-hidden="true" /></a>
+      </aside>
       {initiatives.length ? (
         <div className="ecosystem-initiative-grid">
           {initiatives.map((initiative) => <InitiativeCard key={initiative.id} initiative={initiative} />)}

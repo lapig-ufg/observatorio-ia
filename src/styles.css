@@ -684,6 +684,56 @@ h1 {
 
 .back-to-catalog:hover { text-decoration: underline; }
 
+.ecosystem-mapping-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1040px;
+  margin: -12px 0 34px;
+  padding: 20px 22px;
+  border: 1px solid rgba(191, 231, 213, 0.56);
+  border-radius: 10px;
+  background: linear-gradient(110deg, rgba(30, 105, 82, 0.8), rgba(21, 72, 93, 0.86));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+}
+
+.ecosystem-mapping-callout p {
+  margin: 0;
+  color: #eff8f4;
+  font-size: 0.97rem;
+  line-height: 1.5;
+}
+
+.ecosystem-mapping-callout .ecosystem-mapping-kicker {
+  margin-bottom: 3px;
+  color: #c8eddc;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.ecosystem-mapping-callout a {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 13px;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--green-900);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition: transform 150ms ease, background 150ms ease;
+}
+
+.ecosystem-mapping-callout a:hover {
+  background: #d9f2e5;
+  transform: translateY(-1px);
+}
+
 .ecosystem-initiative-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1463,6 +1513,11 @@ h1 {
 
   .ecosystem-initiative-grid {
     grid-template-columns: 1fr;
+  }
+
+  .ecosystem-mapping-callout {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 
