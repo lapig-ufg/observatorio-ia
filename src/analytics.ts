@@ -16,8 +16,8 @@ export function trackPageView(path: string, title?: string) {
   window.gtag("event", "page_view", {
     send_to: GA_MEASUREMENT_ID,
     page_path: path,
-    page_title: title,
-    page_location: window.location.origin + window.location.pathname + path,
+    page_title: title || document.title,
+    page_location: window.location.href,
   });
 }
 
