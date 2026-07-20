@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
+import { trackEvent, trackPageView } from "./analytics";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -152,8 +153,13 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    const syncPage = () => setPage(window.location.hash === "#ecossistema-ufg" ? "ecosystem" : "catalog");
+    const syncPage = () => {
+      const nextPage = window.location.hash === "#ecossistema-ufg" ? "ecosystem" : "catalog";
+      setPage(nextPage);
+      trackPageView(window.location.hash || "/", nextPage === "ecosystem" ? "Ecossistema UFG" : "Catálogo");
+    };
     window.addEventListener("hashchange", syncPage);
+    trackPageView(window.location.hash || "/", "Catálogo");
     return () => window.removeEventListener("hashchange", syncPage);
   }, []);
 
@@ -246,6 +252,7 @@ export function App() {
     setTheme("todos");
     setVisible(15);
     setShowAll(true);
+    trackEvent("clear_filters");
   };
 
   const selectKeyword = (keyword: string) => {
@@ -255,6 +262,7 @@ export function App() {
     setTheme("todos");
     setVisible(15);
     setShowAll(true);
+    trackEvent("select_keyword", { event_category: "cloud", event_label: keyword });
     window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
 
@@ -263,6 +271,7 @@ export function App() {
     setTheme("todos");
     setVisible(15);
     setShowAll(true);
+    trackEvent("select_category", { event_category: "filter", event_label: category });
     window.requestAnimationFrame(() => document.getElementById(category === "medium" ? "categorias" : "catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
 
@@ -271,6 +280,7 @@ export function App() {
     setTheme(blogTheme);
     setVisible(15);
     setShowAll(true);
+    trackEvent("select_blog_theme", { event_category: "filter", event_label: blogTheme });
     window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
 
@@ -279,6 +289,7 @@ export function App() {
     setTheme(area);
     setVisible(15);
     setShowAll(true);
+    trackEvent("select_paper_area", { event_category: "filter", event_label: area });
     window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
 
@@ -295,12 +306,12 @@ export function App() {
         </a>
         <nav aria-label="Navegação principal">
           <a href="#categorias">Categorias</a>
-          <a className="ecosystem-nav-link" href="#ecossistema-ufg">Ecossistema UFG <ArrowUpRight size={15} aria-hidden="true" /></a>
-          <a className="form-nav-link" href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer"><span><strong>Participe!</strong>Como você está usando a IA?</span> <ArrowUpRight size={15} aria-hidden="true" /></a>
-          <a href="#palavras-chave">Assuntos</a>
-          <a href="#catalogo">Acervo</a>
-          <a href="https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/" target="_blank" rel="noreferrer">Panorama <ArrowUpRight size={15} aria-hidden="true" /></a>
-          <a href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={15} aria-hidden="true" /></a>
+          <a className="ecosystem-nav-link" href="#ecossistema-ufg" onClick={() => trackEvent("nav_ecosystem")}>Ecossistema UFG <ArrowUpRight size={15} aria-hidden="true" /></a>
+          <a className="form-nav-link" href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { event_category: "outbound", event_label: "forms.gle" })}><span><strong>Participe!</strong>Como você está usando a IA?</span> <ArrowUpRight size={15} aria-hidden="true" /></a>
+          <a href="#palavras-chave" onClick={() => trackEvent("nav_subjects")}>Assuntos</a>
+          <a href="#catalogo" onClick={() => trackEvent("nav_catalog")}>Acervo</a>
+          <a href="https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_panorama", { event_category: "outbound", event_label: "panorama" })}>Panorama <ArrowUpRight size={15} aria-hidden="true" /></a>
+          <a href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_github", { event_category: "outbound", event_label: "github" })}>GitHub <ArrowUpRight size={15} aria-hidden="true" /></a>
         </nav>
         <div className="institutional-marks" aria-label="Instituições responsáveis">
           <a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="LAPIG">
@@ -342,13 +353,13 @@ export function App() {
           </div>
           <div className="weekly-highlight-aside">
             <p>A edição mais recente reúne sinais importantes para a adoção de IA: preços de modelos, mudanças no AI Act e o crescimento do tráfego online conduzido por agentes.</p>
-            <a href="https://www.deeplearning.ai/the-batch/tag/may-29-2026" target="_blank" rel="noreferrer">Ler a edição do The Batch <ArrowUpRight size={17} aria-hidden="true" /></a>
+            <a href="https://www.deeplearning.ai/the-batch/tag/may-29-2026" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "the-batch" })}>Ler a edição do The Batch <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
         </div>
       </section>
 
       <section className="obia-callout" aria-labelledby="obia-title">
-        <a className="obia-logo-link" href="https://obia.nic.br/" target="_blank" rel="noreferrer" aria-label="Acessar o Observatório Brasileiro de Inteligência Artificial">
+        <a className="obia-logo-link" href="https://obia.nic.br/" target="_blank" rel="noreferrer" aria-label="Acessar o Observatório Brasileiro de Inteligência Artificial" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia" })}>
           <img src="https://obia.nic.br/img/logo-text-white.svg" alt="OBIA" />
           <span>Observatório Brasileiro de Inteligência Artificial</span>
         </a>
@@ -356,7 +367,7 @@ export function App() {
           <p className="eyebrow">Brasil em foco</p>
           <h2 id="obia-title">Para saber mais sobre o uso e as perspectivas da IA no Brasil, acesse o Observatório Brasileiro de Inteligência Artificial.</h2>
         </div>
-        <a className="obia-action" href="https://obia.nic.br/" target="_blank" rel="noreferrer">Conhecer o OBIA <ArrowUpRight size={17} aria-hidden="true" /></a>
+        <a className="obia-action" href="https://obia.nic.br/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia" })}>Conhecer o OBIA <ArrowUpRight size={17} aria-hidden="true" /></a>
       </section>
 
       <section id="categorias" className="category-band" aria-labelledby="category-title">
@@ -464,7 +475,7 @@ export function App() {
             onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setVisible(15); setShowAll(true); }}
             placeholder="Busque por título, autor, resumo, tema ou palavra-chave"
           />
-          {query && <button type="button" className="icon-button" onClick={() => { setQuery(""); setSelectedKeyword(""); }} aria-label="Limpar busca"><X size={18} /></button>}
+          {query && <button type="button" className="icon-button" onClick={() => { setQuery(""); setSelectedKeyword(""); trackEvent("clear_search"); }} aria-label="Limpar busca"><X size={18} /></button>}
         </label>
         <div className="filter-row">
           <div className="type-tabs" role="group" aria-label="Tipo de publicação">
@@ -473,7 +484,7 @@ export function App() {
                 type="button"
                 key={key}
                 className={type === key ? "active" : ""}
-                onClick={() => { setType(key); setVisible(15); setShowAll(true); }}
+                onClick={() => { setType(key); setVisible(15); setShowAll(true); trackEvent("select_type_tab", { event_category: "filter", event_label: key }); }}
                 aria-pressed={type === key}
               >
                 {typeLabels[key]} <span>{counts[key]}</span>
@@ -482,7 +493,7 @@ export function App() {
           </div>
           <label className="select-filter">
             <span className="sr-only">Filtrar por tema</span>
-            <select id="temas" value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(15); setShowAll(true); }}>
+            <select id="temas" value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(15); setShowAll(true); trackEvent("select_theme", { event_category: "filter", event_label: event.target.value }); }}>
               <option value="todos">Todos os temas</option>
               {themes.map((item) => <option key={item} value={item}>{item}</option>)}
             </select>
@@ -494,7 +505,7 @@ export function App() {
             {catalog?.source === "google-sheets" ? <CheckCircle2 size={15} /> : <Clock3 size={15} />}
             {catalog?.warning || (lastUpdated ? `Catálogo sincronizado às ${lastUpdated.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}` : "Carregando catálogo")}
           </span>
-          <button type="button" onClick={() => window.location.reload()} title="Atualizar catálogo" aria-label="Atualizar catálogo">
+          <button type="button" onClick={() => { trackEvent("refresh_catalog"); window.location.reload(); }} title="Atualizar catálogo" aria-label="Atualizar catálogo">
             <RefreshCw size={15} className={refreshing ? "spinning" : ""} />
           </button>
         </div>
@@ -505,7 +516,7 @@ export function App() {
           <FileText size={30} />
           <h2>Catálogo indisponível</h2>
           <p>{error}</p>
-          <button type="button" onClick={() => window.location.reload()}>Tentar novamente</button>
+          <button type="button" onClick={() => { trackEvent("retry_load"); window.location.reload(); }}>Tentar novamente</button>
         </section>
       ) : !catalog ? (
         <section className="loading-state" aria-live="polite">
@@ -520,7 +531,7 @@ export function App() {
               <h2>{isInitialSelection ? "Um conteúdo recente por categoria" : `${displayedArticles.length} ${displayedArticles.length === 1 ? "item encontrado" : "itens encontrados"}`}</h2>
             </div>
             {isInitialSelection ? (
-              <button type="button" className="clear-filters" onClick={() => { setShowAll(true); setVisible(15); }}>Ver todo o acervo</button>
+              <button type="button" className="clear-filters" onClick={() => { setShowAll(true); setVisible(15); trackEvent("view_all_catalog"); }}>Ver todo o acervo</button>
             ) : (query || type !== "todos" || theme !== "todos") && (
               <button type="button" className="clear-filters" onClick={resetFilters}><X size={16} /> Limpar filtros</button>
             )}
@@ -535,12 +546,12 @@ export function App() {
               <Search size={30} />
               <h2>Nenhum item encontrado</h2>
               <p>Tente outro termo ou remova os filtros.</p>
-              <button type="button" onClick={resetFilters}>Ver todo o acervo</button>
+              <button type="button" onClick={() => { resetFilters(); trackEvent("view_all_empty"); }}>Ver todo o acervo</button>
             </section>
           )}
 
           {visible < displayedArticles.length && (
-            <button type="button" className="load-more" onClick={() => setVisible((value) => value + 15)}>Carregar mais itens</button>
+            <button type="button" className="load-more" onClick={() => { setVisible((value) => value + 15); trackEvent("load_more", { event_category: "pagination" }); }}>Carregar mais itens</button>
           )}
         </>
       )}
@@ -548,7 +559,7 @@ export function App() {
 
       <footer className="footer">
         <div><strong>Observatório UFG-IA</strong><p>Acervo educacional em desenvolvimento contínuo.</p></div>
-        <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p><p className="credits"><strong>Desenvolvimento e curadoria:</strong> <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a> e <a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p><p className="contact-callout">Dúvidas? Sugestões? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer">Entre em contato <ArrowUpRight size={14} aria-hidden="true" /></a></p></div>
+        <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p><p className="credits"><strong>Desenvolvimento e curadoria:</strong> <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a> e <a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p><p className="contact-callout">Dúvidas? Sugestões? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_contact_form", { event_category: "outbound", event_label: "contato" })}>Entre em contato <ArrowUpRight size={14} aria-hidden="true" /></a></p></div>
       </footer>
     </main>
   );
@@ -568,7 +579,7 @@ function InitiativeCard({ initiative }: { initiative: Initiative }) {
       <ul aria-label="Frentes de atuação">
         {initiative.areas.map((area) => <li key={area}>{area}</li>)}
       </ul>
-      <a href={initiative.url} target="_blank" rel="noreferrer">
+      <a href={initiative.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_initiative", { event_category: "ecosystem", event_label: initiative.acronym })}>
         Conhecer iniciativa <ArrowUpRight size={17} aria-hidden="true" />
       </a>
     </article>
@@ -582,14 +593,14 @@ function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
         <p className="eyebrow">Universidade Federal de Goiás</p>
         <h1 id="ecosystem-title">Ecossistema UFG em inteligência artificial</h1>
         <p>Conheça centros e redes que conectam conhecimento, tecnologia e políticas públicas.</p>
-        <a className="back-to-catalog" href="#top">← Voltar ao acervo</a>
+        <a className="back-to-catalog" href="#top" onClick={() => trackEvent("back_to_catalog")}>← Voltar ao acervo</a>
       </div>
       <aside className="ecosystem-mapping-callout" aria-label="Mapeamento da IA na UFG">
         <div>
           <p className="ecosystem-mapping-kicker">Sua iniciativa de IA não está aqui?</p>
           <p>Então responda ao nosso <strong>mapeamento da IA na UFG</strong>. É bem simples e rápido!</p>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe3qfZ5hjL0NifRXvI-SM6NKDN7g8DoFQJyoTTRTvhlptWk-w/viewform" target="_blank" rel="noreferrer">Participar do mapeamento <ArrowUpRight size={17} aria-hidden="true" /></a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe3qfZ5hjL0NifRXvI-SM6NKDN7g8DoFQJyoTTRTvhlptWk-w/viewform" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_mapping_form", { event_category: "outbound", event_label: "mapeamento" })}>Participar do mapeamento <ArrowUpRight size={17} aria-hidden="true" /></a>
       </aside>
       {initiatives.length ? (
         <div className="ecosystem-initiative-grid">
@@ -652,11 +663,13 @@ function ArticleCard({ article }: { article: Article }) {
           <span>{metadata || "Informações editoriais em revisão"}</span>
           <div className="article-actions">
             {article.institutionalPdfUrl && (
-              <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title="Acesso controlado pela UFG">
+              <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title="Acesso controlado pela UFG"
+                onClick={() => trackEvent("open_article_pdf", { event_category: "article", event_label: article.id, article_type: article.type })}>
                 <LockKeyhole size={16} /> PDF institucional
               </a>
             )}
-            <a className="article-action" href={article.originalUrl} target="_blank" rel="noreferrer">
+            <a className="article-action" href={article.originalUrl} target="_blank" rel="noreferrer"
+              onClick={() => trackEvent("open_article", { event_category: "article", event_label: article.id, article_type: article.type, source: article.source })}>
               {actionLabels[article.type]} <ArrowUpRight size={17} />
             </a>
           </div>
