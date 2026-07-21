@@ -188,6 +188,32 @@ select:focus-visible {
   color: var(--green-900);
 }
 
+.topbar nav .panorama-nav-link {
+  padding: 7px 10px;
+  border: 1px solid #9ec7b2;
+  border-radius: 5px;
+  background: #f4faf6;
+  color: var(--green-800);
+}
+
+.topbar nav .panorama-nav-link > span {
+  display: grid;
+  gap: 1px;
+}
+
+.topbar nav .panorama-nav-link strong {
+  color: #bb3a32;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.topbar nav .panorama-nav-link:hover {
+  border-color: var(--green-700);
+  background: var(--green-100);
+  color: var(--green-900);
+}
+
 .institutional-marks {
   height: 68px;
   display: flex;
@@ -1407,6 +1433,20 @@ h1 {
   color: #cfd8e4;
   font-size: 0.76rem;
 }
+
+.footer .github-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-decoration-color: rgba(255, 255, 255, 0.55);
+  text-underline-offset: 3px;
+}
+
+.footer .github-footer-link:hover { color: #ffd3cc; }
 
 .footer .credits {
   margin-top: 10px;
