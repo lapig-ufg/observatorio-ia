@@ -163,7 +163,6 @@ select:focus-visible {
 }
 
 .topbar nav .form-nav-link {
-  min-width: 330px;
   padding: 7px 10px;
   border: 1px solid #9ec7b2;
   border-radius: 5px;
@@ -198,7 +197,6 @@ select:focus-visible {
 }
 
 .topbar nav .panorama-nav-link {
-  min-width: 168px;
   padding: 7px 10px;
   border: 1px solid #9ec7b2;
   border-radius: 5px;
@@ -228,7 +226,7 @@ select:focus-visible {
   height: 68px;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 10px;
   padding-left: 20px;
   border-left: 1px solid var(--line);
 }
