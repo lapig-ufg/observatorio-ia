@@ -163,6 +163,7 @@ select:focus-visible {
 }
 
 .topbar nav .form-nav-link {
+  min-width: 330px;
   padding: 7px 10px;
   border: 1px solid #9ec7b2;
   border-radius: 5px;
@@ -182,6 +183,14 @@ select:focus-visible {
   line-height: 1;
 }
 
+.topbar nav .form-nav-link small,
+.topbar nav .panorama-nav-link small {
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
 .topbar nav .form-nav-link:hover {
   border-color: var(--green-700);
   background: var(--green-100);
@@ -189,6 +198,7 @@ select:focus-visible {
 }
 
 .topbar nav .panorama-nav-link {
+  min-width: 168px;
   padding: 7px 10px;
   border: 1px solid #9ec7b2;
   border-radius: 5px;
