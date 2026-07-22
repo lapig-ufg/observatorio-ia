@@ -341,12 +341,12 @@ export function App() {
         </div>
         <div className="weekly-highlight-content">
           <div>
-            <p className="eyebrow">29 de maio de 2026</p>
-            <h2 id="weekly-highlight-title">Gemini fica mais caro, a regulação europeia desacelera e agentes passam a dirigir tráfego na web</h2>
+            <p className="eyebrow">20 de julho de 2026</p>
+            <h2 id="weekly-highlight-title">Kimi K3 marca uma mudança no desenvolvimento de IA; Thinking Machines lança seu primeiro modelo de uso geral</h2>
           </div>
           <div className="weekly-highlight-aside">
-            <p>A edição mais recente reúne sinais importantes para a adoção de IA: preços de modelos, mudanças no AI Act e o crescimento do tráfego online conduzido por agentes.</p>
-            <a href="https://www.deeplearning.ai/the-batch/tag/may-29-2026" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "the-batch" })}>Ler a edição do The Batch <ArrowUpRight size={17} aria-hidden="true" /></a>
+            <p>A edição traz novas regras para agentes de IA no Android na União Europeia, a liderança do Nemotron 3 Embed, a transição do NotebookLM para Gemini Notebook e o uso de IA pela Hugging Face para combater um ataque de IA.</p>
+            <a href="https://charonhub.deeplearning.ai/kimi-k3-marks-a-big-shift-in-ai-development/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "the-batch" })}>Ler a edição do The Batch <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
         </div>
       </section>
