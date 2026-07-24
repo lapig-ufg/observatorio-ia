@@ -58,6 +58,14 @@ const chartLabels: Record<ArticleType, string> = {
   paper: "Papers",
   apresentacao: "Apresentações",
 };
+const chartColors: Record<ArticleType, { bar: string; track: string }> = {
+  medium: { bar: "#16715b", track: "#cfe6dc" },
+  documento: { bar: "#28759f", track: "#d4e6f0" },
+  "link-video": { bar: "#bd5a37", track: "#f2d9ce" },
+  noticia: { bar: "#b87516", track: "#f1e3bf" },
+  paper: { bar: "#70569b", track: "#e2d9ee" },
+  apresentacao: { bar: "#bd4659", track: "#f1d4da" },
+};
 const paperAreas = ["Ciências Exatas e da Terra", "Ciências Biológicas", "Engenharias", "Ciências da Saúde", "Ciências Agrárias", "Ciências Sociais Aplicadas", "Ciências Humanas", "Linguística, Letras e Artes", "IA"];
 const featuredArticleByCategory: Partial<Record<ArticleType, string>> = {
   documento: "drive-1mg-diretrizes-ia-ies",
@@ -371,7 +379,10 @@ export function App() {
           <p className="collection-chart-title">Itens por categoria</p>
           <ul>
             {collectionChart.map(({ category, label, count, percentage }) => (
-              <li key={category}>
+              <li key={category} style={{
+                "--bar-color": chartColors[category].bar,
+                "--bar-track": chartColors[category].track,
+              } as CSSProperties}>
                 <span className="collection-chart-label">{label}</span>
                 <span className="collection-chart-track" aria-hidden="true">
                   <span className="collection-chart-bar" style={{ "--bar-value": `${percentage}%` } as CSSProperties} />
