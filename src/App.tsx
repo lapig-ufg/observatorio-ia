@@ -67,9 +67,6 @@ const chartColors: Record<ArticleType, { bar: string; track: string }> = {
   apresentacao: { bar: "#bd4659", track: "#f1d4da" },
 };
 const paperAreas = ["Ciências Exatas e da Terra", "Ciências Biológicas", "Engenharias", "Ciências da Saúde", "Ciências Agrárias", "Ciências Sociais Aplicadas", "Ciências Humanas", "Linguística, Letras e Artes", "IA"];
-const featuredArticleByCategory: Partial<Record<ArticleType, string>> = {
-  documento: "drive-1mg-diretrizes-ia-ies",
-};
 const blogThemes = [
   "Fundamentos, matemática e deep learning",
   "Transformers e atenção",
@@ -107,6 +104,47 @@ const cloudStopWords = new Set([
 
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+const portugueseMonths: Record<string, number> = {
+  janeiro: 0,
+  fevereiro: 1,
+  marco: 2,
+  abril: 3,
+  maio: 4,
+  junho: 5,
+  julho: 6,
+  agosto: 7,
+  setembro: 8,
+  outubro: 9,
+  novembro: 10,
+  dezembro: 11,
+};
+
+function catalogDate(value: string) {
+  const text = value.trim();
+  if (!text) return 0;
+
+  const isoDate = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (isoDate) return Date.UTC(Number(isoDate[1]), Number(isoDate[2]) - 1, Number(isoDate[3]));
+
+  const localizedDate = normalize(text).match(/^(\d{1,2})\s+de\s+([a-z]+)\s+de\s+(\d{4})$/);
+  if (localizedDate && localizedDate[2] in portugueseMonths) {
+    return Date.UTC(Number(localizedDate[3]), portugueseMonths[localizedDate[2]], Number(localizedDate[1]));
+  }
+
+  const parsed = Date.parse(text);
+  return Number.isNaN(parsed) ? 0 : parsed;
+}
+
+function recency(article: Article) {
+  return Math.max(catalogDate(article.publishedAt), catalogDate(article.includedAt));
+}
+
+function newestFirst(left: Article, right: Article) {
+  return recency(right) - recency(left)
+    || catalogDate(right.includedAt) - catalogDate(left.includedAt)
+    || right.title.localeCompare(left.title, "pt-BR");
 }
 
 function cloudTerms(article: Article) {
@@ -259,25 +297,15 @@ export function App() {
         ...article.tags,
       ].join(" "));
       return matchesType && matchesTheme && matchesKeyword && (!needle || haystack.includes(needle));
-    });
+    }).sort(newestFirst);
   }, [articles, query, selectedKeyword, theme, type]);
 
   const latestByCategory = useMemo(() => categoryTypes.flatMap((category) => {
     const items = articles.filter((article) => article.type === category);
     if (!items.length) return [];
 
-    const featured = featuredArticleByCategory[category];
-    if (featured) {
-      const requestedArticle = items.find((article) => article.id === featured);
-      if (requestedArticle) return requestedArticle;
-    }
-
-    return items.reduce((latest, article) => {
-      const latestDate = Date.parse(latest.includedAt) || Date.parse(latest.publishedAt) || 0;
-      const articleDate = Date.parse(article.includedAt) || Date.parse(article.publishedAt) || 0;
-      return articleDate >= latestDate ? article : latest;
-    });
-  }), [articles]);
+    return items.reduce((latest, article) => newestFirst(article, latest) < 0 ? article : latest);
+  }).sort(newestFirst), [articles]);
 
   const isInitialSelection = !showAll && !query && !selectedKeyword && type === "todos" && theme === "todos";
   const displayedArticles = isInitialSelection ? latestByCategory : filtered;
