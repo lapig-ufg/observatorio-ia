@@ -1645,6 +1645,8 @@ h1 {
     width: 100%;
     gap: 18px;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
   }
 
   .institutional-marks {
@@ -1698,6 +1700,12 @@ h1 {
   .filter-row {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .type-tabs {
+    width: 100%;
+    padding-bottom: 4px;
+    overscroll-behavior-x: contain;
   }
 
   .keyword-cloud {
@@ -1776,6 +1784,34 @@ h1 {
     font-size: 0.9rem;
   }
 
+  .topbar {
+    gap: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .topbar nav {
+    width: calc(100% + 32px);
+    margin: 0 -16px;
+    gap: 12px;
+    padding: 10px 16px 12px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    scroll-padding-inline: 16px;
+    scroll-snap-type: x proximity;
+  }
+
+  .topbar nav a {
+    min-height: 40px;
+    scroll-snap-align: start;
+  }
+
+  .topbar nav .ecosystem-nav-link,
+  .topbar nav .form-nav-link,
+  .topbar nav .panorama-nav-link {
+    padding: 7px 9px;
+  }
+
   .institutional-marks {
     width: 100%;
     justify-content: flex-end;
@@ -1786,6 +1822,25 @@ h1 {
 
   .search-field {
     height: 54px;
+  }
+
+  .search-field input,
+  .select-filter select {
+    font-size: 1rem;
+  }
+
+  .type-tabs {
+    gap: 7px;
+    margin: 0 -3px;
+    padding: 0 3px 7px;
+    scroll-padding-inline: 3px;
+    scroll-snap-type: x proximity;
+  }
+
+  .type-tabs button {
+    min-height: 44px;
+    padding: 9px 12px;
+    scroll-snap-align: start;
   }
 
   .category-grid {
@@ -1809,8 +1864,18 @@ h1 {
   }
 
   .category-button {
-    min-height: 102px;
+    min-height: 110px;
     padding: 13px;
+  }
+
+  .blog-subcategories {
+    margin-top: 18px;
+    padding: 16px;
+  }
+
+  .blog-subcategory-button {
+    min-height: 110px;
+    padding: 12px;
   }
 
   .results-heading {
@@ -1830,5 +1895,25 @@ h1 {
   .article-action,
   .secondary-action {
     width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  h1 {
+    font-size: 1.9rem;
+  }
+
+  .collection-chart li {
+    grid-template-columns: 91px minmax(34px, 1fr) 26px;
+    gap: 7px;
+  }
+
+  .collection-chart-label {
+    font-size: 0.68rem;
+  }
+
+  .category-grid,
+  .blog-subcategory-grid {
+    grid-template-columns: 1fr;
   }
 }
