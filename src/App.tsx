@@ -280,7 +280,9 @@ export function App() {
     setVisible(15);
     setShowAll(true);
     trackEvent("select_category", { event_category: "filter", event_label: category });
-    const destination = category === "medium" || category === "paper" ? "categorias" : "catalogo";
+    const destination = category === "medium" || category === "link-video" || category === "apresentacao" || category === "paper"
+      ? "categorias"
+      : "catalogo";
     window.requestAnimationFrame(() => document.getElementById(destination)?.scrollIntoView({ behavior: "smooth" }));
   };
 
