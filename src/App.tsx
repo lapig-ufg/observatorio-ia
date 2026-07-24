@@ -180,6 +180,14 @@ export function App() {
     theme: blogTheme,
     count: articles.filter((article) => article.type === "medium" && article.theme === blogTheme).length,
   })), [articles]);
+  const videoCategories = useMemo(() => blogThemes.map((blogTheme) => ({
+    theme: blogTheme,
+    count: articles.filter((article) => article.type === "link-video" && article.theme === blogTheme).length,
+  })), [articles]);
+  const presentationCategories = useMemo(() => blogThemes.map((blogTheme) => ({
+    theme: blogTheme,
+    count: articles.filter((article) => article.type === "apresentacao" && article.theme === blogTheme).length,
+  })), [articles]);
   const paperCategories = useMemo(() => paperAreas.map((area) => ({
     area,
     count: articles.filter((article) => article.type === "paper" && paperArea(article) === area).length,
@@ -276,12 +284,12 @@ export function App() {
     window.requestAnimationFrame(() => document.getElementById(destination)?.scrollIntoView({ behavior: "smooth" }));
   };
 
-  const selectBlogTheme = (blogTheme: string) => {
-    setType("medium");
-    setTheme(blogTheme);
+  const selectCollectionTheme = (contentType: "medium" | "link-video" | "apresentacao", collectionTheme: string) => {
+    setType(contentType);
+    setTheme(collectionTheme);
     setVisible(15);
     setShowAll(true);
-    trackEvent("select_blog_theme", { event_category: "filter", event_label: blogTheme });
+    trackEvent("select_collection_theme", { event_category: "filter", event_label: `${contentType}:${collectionTheme}` });
     window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
 
@@ -293,6 +301,14 @@ export function App() {
     trackEvent("select_paper_area", { event_category: "filter", event_label: area });
     window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
   };
+
+  const activeCollection = type === "medium"
+    ? { label: "Blogs", description: "Selecione uma subcategoria para ver os artigos relacionados.", categories: blogCategories, contentType: "medium" as const }
+    : type === "link-video"
+      ? { label: "Links & vídeos", description: "Selecione uma subcategoria para ver os links e vídeos relacionados.", categories: videoCategories, contentType: "link-video" as const }
+      : type === "apresentacao"
+        ? { label: "Apresentações", description: "Selecione uma subcategoria para ver as apresentações relacionadas.", categories: presentationCategories, contentType: "apresentacao" as const }
+        : null;
 
   return (
     <main id="top" className="site-shell">
@@ -386,25 +402,25 @@ export function App() {
             );
           })}
         </div>
-        {type === "medium" && (
-          <div className="blog-subcategories" aria-label="Subcategorias de Blogs">
+        {activeCollection && (
+          <div className="blog-subcategories" aria-label={`Subcategorias de ${activeCollection.label}`}>
             <div className="blog-subcategories-heading">
               <div>
-                <p className="eyebrow">Blogs</p>
+                <p className="eyebrow">{activeCollection.label}</p>
                 <h3>Explore pelas sete coleções</h3>
               </div>
-              <p>Selecione uma subcategoria para ver os artigos relacionados.</p>
+              <p>{activeCollection.description}</p>
             </div>
             <div className="blog-subcategory-grid">
-              {blogCategories.map(({ theme: blogTheme, count }) => (
+              {activeCollection.categories.map(({ theme: collectionTheme, count }) => (
                 <button
                   type="button"
-                  key={blogTheme}
-                  className={theme === blogTheme ? "blog-subcategory-button active" : "blog-subcategory-button"}
-                  onClick={() => selectBlogTheme(blogTheme)}
-                  aria-pressed={theme === blogTheme}
+                  key={collectionTheme}
+                  className={theme === collectionTheme ? "blog-subcategory-button active" : "blog-subcategory-button"}
+                  onClick={() => selectCollectionTheme(activeCollection.contentType, collectionTheme)}
+                  aria-pressed={theme === collectionTheme}
                 >
-                  <span>{blogTheme}</span>
+                  <span>{collectionTheme}</span>
                   <strong>{count}</strong>
                   <ArrowUpRight size={16} aria-hidden="true" />
                 </button>
