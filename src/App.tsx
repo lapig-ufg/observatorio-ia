@@ -50,6 +50,14 @@ const actionLabels: Record<ArticleType, string> = {
 };
 
 const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "noticia", "paper", "apresentacao"];
+const chartLabels: Record<ArticleType, string> = {
+  medium: "Blogs",
+  documento: "Documentos",
+  "link-video": "Links e vídeos",
+  noticia: "Notícias",
+  paper: "Papers",
+  apresentacao: "Apresentações",
+};
 const paperAreas = ["Ciências Exatas e da Terra", "Ciências Biológicas", "Engenharias", "Ciências da Saúde", "Ciências Agrárias", "Ciências Sociais Aplicadas", "Ciências Humanas", "Linguística, Letras e Artes", "IA"];
 const featuredArticleByCategory: Partial<Record<ArticleType, string>> = {
   documento: "drive-1mg-diretrizes-ia-ies",
@@ -175,6 +183,19 @@ export function App() {
     paper: articles.filter((article) => article.type === "paper").length,
     apresentacao: articles.filter((article) => article.type === "apresentacao").length,
   }), [articles]);
+  const collectionChart = useMemo(() => {
+    const entries = categoryTypes.map((category) => ({
+      category,
+      label: chartLabels[category],
+      count: counts[category],
+    }));
+    const maximum = Math.max(...entries.map((entry) => entry.count), 1);
+
+    return entries.map((entry) => ({
+      ...entry,
+      percentage: entry.count ? Math.max((entry.count / maximum) * 100, 4) : 0,
+    }));
+  }, [counts]);
 
   const blogCategories = useMemo(() => blogThemes.map((blogTheme) => ({
     theme: blogTheme,
@@ -346,9 +367,19 @@ export function App() {
           <h1 id="page-title">Conhecimento sobre IA para estudo, pesquisa e debate</h1>
           <p className="intro-copy">Artigos de Blogs, documentos, vídeos, notícias, papers científicos e apresentações reunidos em um acervo temático.</p>
         </div>
-        <div className="collection-summary" aria-label="Resumo do acervo">
-          <span><strong>{articles.length || "—"}</strong> itens</span>
-          <span><strong>6</strong> categorias</span>
+        <div className="collection-chart" aria-label="Número de itens por categoria">
+          <p className="collection-chart-title">Itens por categoria</p>
+          <ul>
+            {collectionChart.map(({ category, label, count, percentage }) => (
+              <li key={category}>
+                <span className="collection-chart-label">{label}</span>
+                <span className="collection-chart-track" aria-hidden="true">
+                  <span className="collection-chart-bar" style={{ "--bar-value": `${percentage}%` } as CSSProperties} />
+                </span>
+                <strong>{count}</strong>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
