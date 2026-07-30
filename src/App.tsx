@@ -425,16 +425,16 @@ export function App() {
       <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
         <div className="weekly-highlight-kicker">
           <span>Em destaque...</span>
-          <span>The Batch · DeepLearning.AI</span>
+          <span>Open Weights Ledger · Carta aberta</span>
         </div>
         <div className="weekly-highlight-content">
           <div>
-            <p className="eyebrow">20 de julho de 2026</p>
-            <h2 id="weekly-highlight-title">Kimi K3 marca uma mudança no desenvolvimento de IA; Thinking Machines lança seu primeiro modelo de uso geral</h2>
+            <p className="eyebrow">24 de julho de 2026</p>
+            <h2 id="weekly-highlight-title">Open Weights and American AI Leadership</h2>
           </div>
           <div className="weekly-highlight-aside">
-            <p>A edição traz novas regras para agentes de IA no Android na União Europeia, a liderança do Nemotron 3 Embed, a transição do NotebookLM para Gemini Notebook e o uso de IA pela Hugging Face para combater um ataque de IA.</p>
-            <a href="https://charonhub.deeplearning.ai/kimi-k3-marks-a-big-shift-in-ai-development/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "the-batch" })}>Ler a edição do The Batch <ArrowUpRight size={17} aria-hidden="true" /></a>
+            <p>Carta aberta que defende modelos de pesos abertos como infraestrutura estratégica para concorrência, segurança cibernética, autonomia tecnológica e liderança dos Estados Unidos em IA.</p>
+            <a href="https://openweights.gitlawb.com/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "open-weights-american-ai-leadership" })}>Ler a carta aberta <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
         </div>
       </section>
