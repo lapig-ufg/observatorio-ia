@@ -579,6 +579,7 @@ export function App() {
           <div className="keyword-cloud" aria-label="Radar de assuntos do acervo">
             {keywordCloud.map((keyword, index) => {
               const [x, y, rotation] = cloudPositions[index % cloudPositions.length];
+              const recentLabel = `${keyword.recentCount} ${keyword.recentCount === 1 ? "inclusão recente" : "inclusões recentes"}`;
               const positionStyle = {
                 "--cloud-x": `${x}%`,
                 "--cloud-y": `${y}%`,
@@ -593,11 +594,10 @@ export function App() {
                 style={positionStyle}
                 onClick={() => selectKeyword(keyword.label)}
                 aria-pressed={cloudTermKey(selectedKeyword) === keyword.key}
-                aria-label={`${keyword.label}: ${keyword.recentCount} nas inclusões recentes e ${keyword.count} ${keyword.count === 1 ? "item" : "itens"} no acervo`}
+                aria-label={`${keyword.label}: ${recentLabel} e ${keyword.count} ${keyword.count === 1 ? "item" : "itens"} no acervo`}
               >
                 <span>{keyword.label}</span>
-                {index < 8 && keyword.recentCount > 0 && <small className="keyword-cloud-recent" aria-hidden="true">{keyword.recentCount} recentes</small>}
-                <small className="sr-only"> {keyword.recentCount} inclusões recentes e {keyword.count} itens no acervo</small>
+                <small className="sr-only"> {recentLabel} e {keyword.count} itens no acervo</small>
               </button>
               );
             })}
