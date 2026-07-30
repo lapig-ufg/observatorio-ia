@@ -1046,7 +1046,7 @@ h1 {
   border: 0;
   background: transparent;
   color: var(--green-800);
-  font-size: clamp(0.78rem, var(--cloud-size), 3.55rem);
+  font-size: clamp(0.78rem, var(--cloud-size), 3.3rem);
   font-weight: 800;
   line-height: 1;
   cursor: pointer;

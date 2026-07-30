@@ -89,15 +89,14 @@ function paperArea(article: Article) {
   if (/language|speech|text|caption|linguist|token/.test(text)) return "Linguística, Letras e Artes";
   return "IA";
 }
-const maxCloudWords = 32;
+const maxCloudWords = 26;
 const cloudRecentArticleLimit = 60;
 const cloudHistoricalWeight = 0.06;
 const cloudPositions = [
-  [50, 50, 0], [50, 31, -1], [33, 43, 1], [67, 43, -1], [40, 65, 1], [60, 65, -1],
-  [50, 15, 0], [26, 28, 1], [74, 28, -1], [20, 52, -1], [80, 52, 1], [30, 76, 1], [70, 76, -1], [50, 86, 0],
-  [39, 25, -1], [61, 25, 1], [29, 56, 1], [71, 56, -1], [42, 80, -1], [58, 80, 1],
-  [50, 7, 0], [16, 38, 1], [84, 38, -1], [15, 67, -1], [85, 67, 1], [34, 91, 1], [66, 91, -1],
-  [8, 54, 0], [92, 54, 0], [23, 16, -1], [77, 16, 1], [23, 88, 1], [77, 88, -1],
+  [50, 50, 0], [50, 28, -1], [27, 41, 1], [73, 41, -1], [30, 67, 1], [70, 67, -1],
+  [50, 14, 0], [23, 25, 1], [77, 25, -1], [13, 51, -1], [87, 51, 1], [28, 79, 1], [72, 79, -1], [50, 88, 0],
+  [38, 20, -1], [62, 20, 1], [20, 60, 1], [80, 60, -1], [40, 83, -1], [60, 83, 1],
+  [50, 7, 0], [10, 35, 1], [90, 35, -1], [12, 70, -1], [88, 70, 1], [32, 92, 1],
 ] as const;
 
 function normalize(value: string) {
@@ -330,7 +329,7 @@ export function App() {
 
     return sorted.map((keyword) => ({
       ...keyword,
-      size: 0.82 + (keyword.score / maximum) * 2.7,
+      size: 0.82 + (keyword.score / maximum) * 2.45,
     }));
   }, [articles]);
 
