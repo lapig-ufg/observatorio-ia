@@ -90,6 +90,8 @@ function paperArea(article: Article) {
   return "IA";
 }
 const maxCloudWords = 32;
+const cloudRecentArticleLimit = 60;
+const cloudHistoricalWeight = 0.06;
 const cloudPositions = [
   [50, 50, 0], [50, 31, -1], [33, 43, 1], [67, 43, -1], [40, 65, 1], [60, 65, -1],
   [50, 15, 0], [26, 28, 1], [74, 28, -1], [20, 52, -1], [80, 52, 1], [30, 76, 1], [70, 76, -1], [50, 86, 0],
@@ -98,12 +100,49 @@ const cloudPositions = [
   [8, 54, 0], [92, 54, 0], [23, 16, -1], [77, 16, 1], [23, 88, 1], [77, 88, -1],
 ] as const;
 
-const cloudStopWords = new Set([
-  "about", "ainda", "algoritmos", "analisa", "apresenta", "artigo", "artigos", "atraves", "cada", "como", "com", "conta", "cobre", "dados", "depois", "desde", "desta", "deste", "entre", "este", "esta", "explica", "foco", "forma", "guide", "inclui", "inteligencia", "mais", "mostra", "para", "pelo", "pela", "pesquisa", "pode", "pratica", "recursos", "reune", "sobre", "sistema", "texto", "uma", "usando", "with", "that", "this", "from", "into", "their", "them", "these", "those", "your", "will", "also", "more", "most", "what", "when", "where", "which", "while", "using", "used", "use", "how", "the", "and", "for", "are", "its", "its", "new", "not", "can", "all", "our", "you", "your", "than", "they", "have", "has", "been", "being",
-]);
-
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+// Equivalências editoriais deliberadas. Não há lematização automática: ela
+// criaria aproximações semânticas indevidas em um acervo multidisciplinar.
+const cloudTermAliases: Record<string, string> = {
+  agente: "agentes",
+  agentes: "agentes",
+  ferramenta: "ferramentas",
+  ferramentas: "ferramentas",
+  "large language model": "llms",
+  "large language models": "llms",
+  llm: "llms",
+  llms: "llms",
+  modelo: "modelos",
+  modelos: "modelos",
+  "rede neural": "redes neurais",
+  "redes neurais": "redes neurais",
+  sistema: "sistemas",
+  sistemas: "sistemas",
+  transformer: "transformers",
+  transformers: "transformers",
+  vetor: "vetores",
+  vetores: "vetores",
+};
+
+const cloudTermLabels: Record<string, string> = {
+  agentes: "Agentes",
+  ferramentas: "Ferramentas",
+  llms: "LLMs",
+  modelos: "Modelos",
+  "redes neurais": "Redes neurais",
+  sistemas: "Sistemas",
+  transformers: "Transformers",
+  vetores: "Vetores",
+};
+
+const cloudExcludedTerms = new Set(["ia", "inteligencia artificial", "artificial intelligence"]);
+
+function cloudTermKey(value: string) {
+  const key = normalize(value.trim());
+  return cloudTermAliases[key] || key;
 }
 
 const portugueseMonths: Record<string, number> = {
@@ -150,19 +189,14 @@ function newestFirst(left: Article, right: Article) {
 function cloudTerms(article: Article) {
   const terms = new Map<string, string>();
   article.tags.forEach((tag) => {
-    const label = tag.trim();
-    const key = normalize(label);
-    if (key) terms.set(key, label);
-  });
-  (article.summary.match(/[\p{L}][\p{L}\p{N}-]{3,}/gu) || []).forEach((word) => {
-    const key = normalize(word);
-    if (key && !cloudStopWords.has(key)) terms.set(key, word);
+    const key = cloudTermKey(tag);
+    if (key && !cloudExcludedTerms.has(key)) terms.set(key, cloudTermLabels[key] || tag.trim());
   });
   return terms;
 }
 
 function matchesCloudTerm(article: Article, term: string) {
-  const key = normalize(term);
+  const key = cloudTermKey(term);
   return cloudTerms(article).has(key);
 }
 
@@ -261,23 +295,42 @@ export function App() {
   })), [articles]);
 
   const keywordCloud = useMemo(() => {
-    const keywords = new Map<string, { label: string; itemIds: Set<string> }>();
+    const keywords = new Map<string, { label: string; itemIds: Set<string>; recentItemIds: Set<string> }>();
+    const recentIds = new Set(articles
+      .slice()
+      .sort(newestFirst)
+      .slice(0, cloudRecentArticleLimit)
+      .map((article) => article.id));
 
     articles.forEach((article) => cloudTerms(article).forEach((label, key) => {
       const keyword = keywords.get(key);
-      if (keyword) keyword.itemIds.add(article.id);
-      else keywords.set(key, { label, itemIds: new Set([article.id]) });
+      if (keyword) {
+        keyword.itemIds.add(article.id);
+        if (recentIds.has(article.id)) keyword.recentItemIds.add(article.id);
+      } else {
+        keywords.set(key, {
+          label,
+          itemIds: new Set([article.id]),
+          recentItemIds: recentIds.has(article.id) ? new Set([article.id]) : new Set(),
+        });
+      }
     }));
 
     const sorted = Array.from(keywords.entries())
-      .map(([key, keyword]) => ({ key, label: keyword.label, count: keyword.itemIds.size }))
-      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "pt-BR"))
+      .map(([key, keyword]) => ({
+        key,
+        label: keyword.label,
+        count: keyword.itemIds.size,
+        recentCount: keyword.recentItemIds.size,
+        score: keyword.recentItemIds.size + keyword.itemIds.size * cloudHistoricalWeight,
+      }))
+      .sort((a, b) => b.score - a.score || b.recentCount - a.recentCount || b.count - a.count || a.label.localeCompare(b.label, "pt-BR"))
       .slice(0, maxCloudWords);
-    const maximum = Math.max(...sorted.map((keyword) => keyword.count), 1);
+    const maximum = Math.max(...sorted.map((keyword) => keyword.score), 1);
 
     return sorted.map((keyword) => ({
       ...keyword,
-      size: 0.82 + (keyword.count / maximum) * 2.7,
+      size: 0.82 + (keyword.score / maximum) * 2.7,
     }));
   }, [articles]);
 
@@ -514,12 +567,16 @@ export function App() {
         <section id="palavras-chave" className="keyword-cloud-section" aria-labelledby="keyword-cloud-title">
           <div className="keyword-cloud-heading">
             <div>
-              <p className="eyebrow">Assuntos em destaque</p>
-              <h2 id="keyword-cloud-title">Explore o acervo pelas palavras-chave</h2>
+              <p className="eyebrow">Temas em movimento</p>
+              <h2 id="keyword-cloud-title">Radar de assuntos do acervo</h2>
             </div>
-              <p>O tamanho de cada palavra é proporcional ao número total de itens relacionados.</p>
+            <p>Palavras-chave editoriais, agrupadas por conceito. A ordem prioriza as {Math.min(cloudRecentArticleLimit, articles.length)} inclusões mais recentes e preserva a recorrência no acervo.</p>
           </div>
-          <div className="keyword-cloud" aria-label="Palavras-chave do acervo">
+          <div className="keyword-cloud-legend" aria-label="Como ler o radar">
+            <span><strong>{Math.min(cloudRecentArticleLimit, articles.length)}</strong> inclusões recentes orientam o peso</span>
+            <span><strong>{articles.length}</strong> itens ativos formam a base histórica</span>
+          </div>
+          <div className="keyword-cloud" aria-label="Radar de assuntos do acervo">
             {keywordCloud.map((keyword, index) => {
               const [x, y, rotation] = cloudPositions[index % cloudPositions.length];
               const positionStyle = {
@@ -532,14 +589,15 @@ export function App() {
               <button
                 type="button"
                 key={keyword.key}
-                className={`keyword-cloud-item cloud-color-${index % 5}${selectedKeyword && normalize(selectedKeyword) === keyword.key ? " active" : ""}`}
+                className={`keyword-cloud-item cloud-color-${index % 5}${selectedKeyword && cloudTermKey(selectedKeyword) === keyword.key ? " active" : ""}`}
                 style={positionStyle}
                 onClick={() => selectKeyword(keyword.label)}
-                aria-pressed={normalize(selectedKeyword) === keyword.key}
-                aria-label={`${keyword.label}: ${keyword.count} ${keyword.count === 1 ? "item" : "itens"}`}
+                aria-pressed={cloudTermKey(selectedKeyword) === keyword.key}
+                aria-label={`${keyword.label}: ${keyword.recentCount} nas inclusões recentes e ${keyword.count} ${keyword.count === 1 ? "item" : "itens"} no acervo`}
               >
                 <span>{keyword.label}</span>
-                <small className="sr-only"> {keyword.count} itens</small>
+                {index < 8 && keyword.recentCount > 0 && <small className="keyword-cloud-recent" aria-hidden="true">{keyword.recentCount} recentes</small>}
+                <small className="sr-only"> {keyword.recentCount} inclusões recentes e {keyword.count} itens no acervo</small>
               </button>
               );
             })}
