@@ -77,6 +77,25 @@ const blogThemes = [
   "Aprendizado, pesquisa e produtividade",
 ];
 
+const featuredHistory = [
+  {
+    date: "20 de julho de 2026",
+    source: "The Batch · DeepLearning.AI",
+    title: "Kimi K3 marca uma mudança no desenvolvimento de IA; Thinking Machines lança seu primeiro modelo de uso geral",
+    summary: "Edição sobre lançamentos de modelos, agentes de IA no Android, Nemotron 3 Embed, NotebookLM e segurança.",
+    href: "https://charonhub.deeplearning.ai/kimi-k3-marks-a-big-shift-in-ai-development/",
+    eventLabel: "the-batch-kimi-k3-thinking-machines",
+  },
+  {
+    date: "29 de maio de 2026",
+    source: "The Batch · DeepLearning.AI",
+    title: "Gemini fica mais caro, a regulação europeia desacelera e agentes passam a dirigir tráfego na web",
+    summary: "Edição sobre preços de modelos, mudanças no AI Act e o crescimento do tráfego online conduzido por agentes.",
+    href: "https://www.deeplearning.ai/the-batch/tag/may-29-2026",
+    eventLabel: "the-batch-may-29-2026",
+  },
+];
+
 function paperArea(article: Article) {
   const text = normalize([article.title, article.summary, ...article.tags].join(" "));
   if (/medic|health|disease|clinical|cancer|oncolog|therap|hospital|psychiatr|mammograph|surg/.test(text)) return "Ciências da Saúde";
@@ -210,6 +229,7 @@ export function App() {
   const [theme, setTheme] = useState("todos");
   const [visible, setVisible] = useState(15);
   const [showAll, setShowAll] = useState(false);
+  const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
   const [page, setPage] = useState(() => window.location.hash === "#ecossistema-ufg" ? "ecosystem" : "catalog");
 
   useEffect(() => {
@@ -483,12 +503,43 @@ export function App() {
           <div>
             <p className="eyebrow">24 de julho de 2026</p>
             <h2 id="weekly-highlight-title">Open Weights and American AI Leadership</h2>
+            <button
+              type="button"
+              className="weekly-highlight-history-toggle"
+              aria-expanded={showFeaturedHistory}
+              aria-controls="weekly-highlight-history"
+              onClick={() => {
+                setShowFeaturedHistory((isOpen) => !isOpen);
+                trackEvent("toggle_featured_history", { event_category: "navigation", event_label: showFeaturedHistory ? "close" : "open" });
+              }}
+            >
+              <Clock3 size={16} aria-hidden="true" />
+              <span>O que já foi destaque?</span>
+              <ChevronDown size={16} className={showFeaturedHistory ? "is-open" : ""} aria-hidden="true" />
+            </button>
           </div>
           <div className="weekly-highlight-aside">
             <p>Carta aberta que defende modelos de pesos abertos como infraestrutura estratégica para concorrência, segurança cibernética, autonomia tecnológica e liderança dos Estados Unidos em IA.</p>
             <a href="https://openweights.gitlawb.com/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "open-weights-american-ai-leadership" })}>Ler a carta aberta <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
         </div>
+        {showFeaturedHistory && (
+          <div id="weekly-highlight-history" className="weekly-highlight-history" aria-label="Temas anteriores em destaque">
+            <p className="eyebrow">Destaques anteriores</p>
+            <div className="weekly-highlight-history-grid">
+              {featuredHistory.map((featured) => (
+                <article key={featured.href} className="weekly-highlight-history-item">
+                  <p>{featured.date} · {featured.source}</p>
+                  <h3>{featured.title}</h3>
+                  <span>{featured.summary}</span>
+                  <a href={featured.href} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_featured_history", { event_category: "outbound", event_label: featured.eventLabel })}>
+                    Acessar tema <ArrowUpRight size={15} aria-hidden="true" />
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       <section className="obia-callout" aria-labelledby="obia-title">

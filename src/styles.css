@@ -691,6 +691,35 @@ h1 {
   line-height: 1.12;
 }
 
+.weekly-highlight-history-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+  padding: 8px 11px;
+  border: 1px solid #9dbbab;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--green-800);
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.weekly-highlight-history-toggle:hover,
+.weekly-highlight-history-toggle[aria-expanded="true"] {
+  border-color: var(--green-800);
+  background: #e2efe8;
+}
+
+.weekly-highlight-history-toggle svg:last-child {
+  transition: transform 160ms ease;
+}
+
+.weekly-highlight-history-toggle svg.is-open {
+  transform: rotate(180deg);
+}
+
 .weekly-highlight-aside {
   padding-left: 23px;
   border-left: 3px solid #97b8a6;
@@ -714,6 +743,67 @@ h1 {
 }
 
 .weekly-highlight-aside a:hover { text-decoration: underline; }
+
+.weekly-highlight-history {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #c8dbd0;
+}
+
+.weekly-highlight-history > .eyebrow {
+  margin-bottom: 12px;
+}
+
+.weekly-highlight-history-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.weekly-highlight-history-item {
+  padding: 17px 18px;
+  border: 1px solid #c6dbce;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.weekly-highlight-history-item > p {
+  margin: 0 0 8px;
+  color: #537064;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.weekly-highlight-history-item h3 {
+  margin: 0 0 9px;
+  color: var(--navy-800);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.05rem, 1.45vw, 1.3rem);
+  line-height: 1.18;
+}
+
+.weekly-highlight-history-item > span {
+  display: block;
+  color: #476052;
+  font-size: 0.84rem;
+  line-height: 1.48;
+}
+
+.weekly-highlight-history-item a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  color: var(--green-800);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.weekly-highlight-history-item a:hover { text-decoration: underline; }
 
 .ecosystem-page {
   min-height: calc(100vh - 72px);
@@ -1646,6 +1736,10 @@ h1 {
   .weekly-highlight-content {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  .weekly-highlight-history-grid {
+    grid-template-columns: 1fr;
   }
 
   .obia-callout {
