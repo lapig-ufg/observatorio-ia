@@ -1,0 +1,288 @@
+{
+  "generatedAt": "2026-08-01T21:23:32.963Z",
+  "source": {
+    "name": "folha_ia_historico.md",
+    "updatedAt": "2026-08-01T21:21:10.951Z"
+  },
+  "articleCount": 6034,
+  "firstDate": "2022-11-09",
+  "lastDate": "2026-08-01",
+  "daysCovered": 1362,
+  "years": [
+    2026,
+    2025,
+    2024,
+    2023,
+    2022
+  ],
+  "themes": [
+    {
+      "label": "Modelos, produtos e empresas",
+      "count": 1739
+    },
+    {
+      "label": "Sociedade e vida cotidiana",
+      "count": 1102
+    },
+    {
+      "label": "Trabalho, economia e profissões",
+      "count": 948
+    },
+    {
+      "label": "Educação, cultura e comunicação",
+      "count": 706
+    },
+    {
+      "label": "Infraestrutura, dados e geopolítica",
+      "count": 655
+    },
+    {
+      "label": "Ciência, saúde e ambiente",
+      "count": 436
+    },
+    {
+      "label": "Regulação, direitos e governança",
+      "count": 361
+    },
+    {
+      "label": "Segurança, fraudes e plataformas",
+      "count": 87
+    }
+  ],
+  "sections": [
+    {
+      "label": "Mercado e trabalho",
+      "count": 1555
+    },
+    {
+      "label": "Tecnologia",
+      "count": 1227
+    },
+    {
+      "label": "Colunas e opinião",
+      "count": 1056
+    },
+    {
+      "label": "Cultura e comunicação",
+      "count": 624
+    },
+    {
+      "label": "Política",
+      "count": 302
+    },
+    {
+      "label": "Mundo",
+      "count": 280
+    },
+    {
+      "label": "Ciência e ambiente",
+      "count": 251
+    },
+    {
+      "label": "Saúde",
+      "count": 212
+    },
+    {
+      "label": "Cotidiano",
+      "count": 195
+    },
+    {
+      "label": "Educação",
+      "count": 176
+    },
+    {
+      "label": "Outras seções",
+      "count": 102
+    },
+    {
+      "label": "Esporte",
+      "count": 54
+    }
+  ],
+  "monthly": [
+    {
+      "month": "2022-11",
+      "count": 17
+    },
+    {
+      "month": "2022-12",
+      "count": 22
+    },
+    {
+      "month": "2023-01",
+      "count": 50
+    },
+    {
+      "month": "2023-02",
+      "count": 68
+    },
+    {
+      "month": "2023-03",
+      "count": 75
+    },
+    {
+      "month": "2023-04",
+      "count": 72
+    },
+    {
+      "month": "2023-05",
+      "count": 77
+    },
+    {
+      "month": "2023-06",
+      "count": 60
+    },
+    {
+      "month": "2023-07",
+      "count": 105
+    },
+    {
+      "month": "2023-08",
+      "count": 75
+    },
+    {
+      "month": "2023-09",
+      "count": 48
+    },
+    {
+      "month": "2023-10",
+      "count": 56
+    },
+    {
+      "month": "2023-11",
+      "count": 94
+    },
+    {
+      "month": "2023-12",
+      "count": 88
+    },
+    {
+      "month": "2024-01",
+      "count": 90
+    },
+    {
+      "month": "2024-02",
+      "count": 77
+    },
+    {
+      "month": "2024-03",
+      "count": 105
+    },
+    {
+      "month": "2024-04",
+      "count": 62
+    },
+    {
+      "month": "2024-05",
+      "count": 55
+    },
+    {
+      "month": "2024-06",
+      "count": 77
+    },
+    {
+      "month": "2024-07",
+      "count": 83
+    },
+    {
+      "month": "2024-08",
+      "count": 83
+    },
+    {
+      "month": "2024-09",
+      "count": 119
+    },
+    {
+      "month": "2024-10",
+      "count": 57
+    },
+    {
+      "month": "2024-11",
+      "count": 47
+    },
+    {
+      "month": "2024-12",
+      "count": 56
+    },
+    {
+      "month": "2025-01",
+      "count": 57
+    },
+    {
+      "month": "2025-02",
+      "count": 64
+    },
+    {
+      "month": "2025-03",
+      "count": 52
+    },
+    {
+      "month": "2025-04",
+      "count": 126
+    },
+    {
+      "month": "2025-05",
+      "count": 169
+    },
+    {
+      "month": "2025-06",
+      "count": 221
+    },
+    {
+      "month": "2025-07",
+      "count": 239
+    },
+    {
+      "month": "2025-08",
+      "count": 276
+    },
+    {
+      "month": "2025-09",
+      "count": 292
+    },
+    {
+      "month": "2025-10",
+      "count": 301
+    },
+    {
+      "month": "2025-11",
+      "count": 259
+    },
+    {
+      "month": "2025-12",
+      "count": 250
+    },
+    {
+      "month": "2026-01",
+      "count": 232
+    },
+    {
+      "month": "2026-02",
+      "count": 222
+    },
+    {
+      "month": "2026-03",
+      "count": 234
+    },
+    {
+      "month": "2026-04",
+      "count": 245
+    },
+    {
+      "month": "2026-05",
+      "count": 307
+    },
+    {
+      "month": "2026-06",
+      "count": 338
+    },
+    {
+      "month": "2026-07",
+      "count": 329
+    },
+    {
+      "month": "2026-08",
+      "count": 3
+    }
+  ]
+}

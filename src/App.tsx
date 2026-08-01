@@ -20,6 +20,7 @@ import {
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
+import { DailyNewsPage } from "./DailyNewsPage";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -230,7 +231,7 @@ export function App() {
   const [visible, setVisible] = useState(15);
   const [showAll, setShowAll] = useState(false);
   const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
-  const [page, setPage] = useState(() => window.location.hash === "#ecossistema-ufg" ? "ecosystem" : "catalog");
+  const [page, setPage] = useState(() => window.location.hash === "#ecossistema-ufg" ? "ecosystem" : window.location.hash === "#ia-como-noticia-diaria" ? "daily-news" : "catalog");
 
   useEffect(() => {
     let active = true;
@@ -261,9 +262,9 @@ export function App() {
 
   useEffect(() => {
     const syncPage = () => {
-      const nextPage = window.location.hash === "#ecossistema-ufg" ? "ecosystem" : "catalog";
+      const nextPage = window.location.hash === "#ecossistema-ufg" ? "ecosystem" : window.location.hash === "#ia-como-noticia-diaria" ? "daily-news" : "catalog";
       setPage(nextPage);
-      trackPageView(window.location.hash || "/", nextPage === "ecosystem" ? "Ecossistema UFG" : "Catálogo");
+      trackPageView(window.location.hash || "/", nextPage === "ecosystem" ? "Ecossistema UFG" : nextPage === "daily-news" ? "IA como notícia diária" : "Catálogo");
     };
     window.addEventListener("hashchange", syncPage);
     trackPageView(window.location.hash || "/", "Catálogo");
@@ -455,7 +456,7 @@ export function App() {
           <a className="ecosystem-nav-link" href="#ecossistema-ufg" onClick={() => trackEvent("nav_ecosystem")}>Ecossistema UFG <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a className="form-nav-link" href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { event_category: "outbound", event_label: "forms.gle" })}><span><strong>Participe!</strong><small>Como você está usando a IA?</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a href="#palavras-chave" onClick={() => trackEvent("nav_subjects")}>Assuntos</a>
-          <a href="#catalogo" onClick={() => trackEvent("nav_catalog")}>Acervo</a>
+          <a className="daily-news-nav-link" href="#ia-como-noticia-diaria" onClick={() => trackEvent("nav_daily_news")}>IA como notícia diária</a>
           <a className="panorama-nav-link" href="https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_panorama", { event_category: "outbound", event_label: "panorama" })}><span><strong>Panorama</strong><small>IA generativa</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
         </nav>
         <div className="institutional-marks" aria-label="Instituições responsáveis">
@@ -468,7 +469,7 @@ export function App() {
         </div>
       </header>
 
-      {page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : <>
+      {page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : <>
       <section className="catalog-intro" aria-labelledby="page-title">
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
