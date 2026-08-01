@@ -150,6 +150,16 @@ select:focus-visible {
   color: var(--green-700);
 }
 
+.topbar nav .catalog-nav-links {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+}
+
+.topbar nav .catalog-nav-links a {
+  line-height: 1.1;
+}
+
 .topbar nav .ecosystem-nav-link {
   padding: 8px 11px;
   border-radius: 5px;
@@ -162,7 +172,8 @@ select:focus-visible {
   color: #fff;
 }
 
-.topbar nav .form-nav-link {
+.topbar nav .form-nav-link,
+.topbar nav .daily-news-nav-link {
   padding: 7px 10px;
   border: 1px solid #9ec7b2;
   border-radius: 5px;
@@ -170,19 +181,26 @@ select:focus-visible {
   color: var(--green-800);
 }
 
-.topbar nav .form-nav-link > span {
+.topbar nav .form-nav-link > span,
+.topbar nav .daily-news-nav-link > span {
   display: grid;
   gap: 1px;
 }
 
-.topbar nav .form-nav-link strong {
+.topbar nav .form-nav-link strong,
+.topbar nav .daily-news-nav-link strong {
   color: #bb3a32;
   font-size: 0.82rem;
   letter-spacing: 0.02em;
   line-height: 1;
 }
 
+.topbar nav .daily-news-nav-link strong {
+  white-space: nowrap;
+}
+
 .topbar nav .form-nav-link small,
+.topbar nav .daily-news-nav-link small,
 .topbar nav .panorama-nav-link small {
   font-size: 0.9rem;
   font-weight: 700;
@@ -190,7 +208,8 @@ select:focus-visible {
   white-space: nowrap;
 }
 
-.topbar nav .form-nav-link:hover {
+.topbar nav .form-nav-link:hover,
+.topbar nav .daily-news-nav-link:hover {
   border-color: var(--green-700);
   background: var(--green-100);
   color: var(--green-900);
@@ -220,15 +239,6 @@ select:focus-visible {
   border-color: var(--green-700);
   background: var(--green-100);
   color: var(--green-900);
-}
-
-.topbar nav .daily-news-nav-link {
-  color: var(--green-800);
-  white-space: nowrap;
-}
-
-.topbar nav .daily-news-nav-link:hover {
-  color: var(--coral-600);
 }
 
 .institutional-marks {
@@ -2038,7 +2048,7 @@ h1 {
   .spinning { animation: none; }
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1320px) {
   .topbar {
     flex-wrap: wrap;
   }
@@ -2051,7 +2061,9 @@ h1 {
     padding-top: 10px;
     border-top: 1px solid var(--line);
   }
+}
 
+@media (max-width: 1080px) {
   .article-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2330,6 +2342,7 @@ h1 {
 
   .topbar nav .ecosystem-nav-link,
   .topbar nav .form-nav-link,
+  .topbar nav .daily-news-nav-link,
   .topbar nav .panorama-nav-link {
     padding: 7px 9px;
   }
