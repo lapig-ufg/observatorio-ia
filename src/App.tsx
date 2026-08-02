@@ -21,6 +21,7 @@ import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPage } from "./DailyNewsPage";
+import { isEditorialCloudTerm } from "./keywordCloud";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -211,6 +212,7 @@ function newestFirst(left: Article, right: Article) {
 function cloudTerms(article: Article) {
   const terms = new Map<string, string>();
   article.tags.forEach((tag) => {
+    if (!isEditorialCloudTerm(tag)) return;
     const key = cloudTermKey(tag);
     if (key && !cloudExcludedTerms.has(key)) terms.set(key, cloudTermLabels[key] || tag.trim());
   });
