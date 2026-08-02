@@ -1,8 +1,16 @@
 {
-  "generatedAt": "2026-08-01T21:23:32.963Z",
+  "generatedAt": "2026-08-02T21:10:06.800Z",
   "source": {
-    "name": "folha_ia_historico.md",
-    "updatedAt": "2026-08-01T21:21:10.951Z"
+    "name": "folha_ia_2026-08-02.md",
+    "updatedAt": "2026-08-02T21:05:22.179Z",
+    "files": [
+      {
+        "name": "folha_ia_2026-08-02.md",
+        "updatedAt": "2026-08-02T21:05:22.179Z"
+      }
+    ],
+    "exactDuplicates": 0,
+    "revisedArticles": 0
   },
   "articleCount": 6034,
   "firstDate": "2022-11-09",

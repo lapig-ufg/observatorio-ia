@@ -5,11 +5,11 @@ import { fileURLToPath } from "node:url";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const siteRoot = path.resolve(scriptDirectory, "..");
-const defaultInput = path.join(siteRoot, "data", "folha", "folha_ia_historico.md");
+const defaultInput = path.join(siteRoot, "data", "folha");
 const outputDirectory = process.env.FOLHA_OUTPUT_DIR || path.join(siteRoot, "public", "folha-ia");
 const themesFile = path.join(siteRoot, "data", "folha", "temas-editoriais.csv");
 
-const sourcePath = process.argv[2] ? path.resolve(process.argv[2]) : defaultInput;
+const inputPath = process.argv[2] ? path.resolve(process.argv[2]) : defaultInput;
 
 const monthNames = {
   janeiro: 0, fevereiro: 1, marco: 2, abril: 3, maio: 4, junho: 5,
@@ -92,6 +92,42 @@ function recordId(article) {
   return createHash("sha1").update(`${article.date}|${article.title.toLowerCase()}|${article.url}`).digest("hex").slice(0, 14);
 }
 
+function duplicateKey(article) {
+  const normalizedTitle = article.title.normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+  return `${article.date}|${normalizedTitle}`;
+}
+
+function sourceOrder(filePath) {
+  const name = path.basename(filePath);
+  const date = name.match(/^folha_ia_(20\d{2}-\d{2}-\d{2})\.md$/)?.[1];
+  // O histórico sem data é a base inicial e sempre fica antes dos lotes semanais.
+  return `${date || "0000-00-00"}|${name}`;
+}
+
+async function readSourceFiles(target) {
+  const stat = await fs.stat(target);
+  if (stat.isFile()) return [target];
+  if (!stat.isDirectory()) throw new Error("A fonte da Folha deve ser um arquivo Markdown ou uma pasta.");
+
+  const entries = await fs.readdir(target, { withFileTypes: true });
+  const files = entries
+    .filter((entry) => entry.isFile() && (/^folha_ia_20\d{2}-\d{2}-\d{2}\.md$/i.test(entry.name) || entry.name === "folha_ia_historico.md"))
+    .map((entry) => path.join(target, entry.name))
+    .sort((left, right) => sourceOrder(left).localeCompare(sourceOrder(right), "pt-BR"));
+  if (!files.length) {
+    throw new Error("Nenhum arquivo-fonte encontrado. Use folha_ia_YYYY-MM-DD.md na pasta de dados.");
+  }
+  const weeklyFiles = files.filter((file) => /^folha_ia_20\d{2}-\d{2}-\d{2}\.md$/i.test(path.basename(file)));
+  // Cada Markdown semanal é um retrato completo e corrigido da série. Quando
+  // houver mais de um, somente o mais recente é fonte de publicação; o
+  // histórico legado permanece apenas como alternativa para a primeira carga.
+  return weeklyFiles.length ? [weeklyFiles.at(-1)] : files;
+}
+
 async function readThemeOverrides() {
   try {
     const csv = await fs.readFile(themesFile, "utf8");
@@ -121,7 +157,7 @@ function inferTheme(title, section) {
   return "Sociedade e vida cotidiana";
 }
 
-function parseArticles(markdown, overrides) {
+function parseArticles(markdown, overrides, sourceName) {
   const lines = markdown.split(/\r?\n/);
   const articles = [];
   for (let lineIndex = 0; lineIndex < lines.length - 2; lineIndex += 1) {
@@ -149,6 +185,7 @@ function parseArticles(markdown, overrides) {
         title: titleData.title,
         url,
         stars: titleData.stars,
+        source: sourceName,
       };
       article.sectionGroup = sectionGroup(article.section);
       article.id = recordId(article);
@@ -156,9 +193,36 @@ function parseArticles(markdown, overrides) {
       articles.push(article);
     }
   }
+  return articles;
+}
+
+function consolidateArticles(batches) {
   const unique = new Map();
-  articles.forEach((article) => unique.set(article.id, article));
-  return [...unique.values()].sort((left, right) => right.date.localeCompare(left.date) || left.title.localeCompare(right.title, "pt-BR"));
+  let exactDuplicates = 0;
+  let revisedArticles = 0;
+
+  for (const batch of batches) {
+    for (const article of batch.articles) {
+      const key = duplicateKey(article);
+      const previous = unique.get(key);
+      if (previous) {
+        const isIdentical = previous.section === article.section
+          && previous.title === article.title
+          && previous.url === article.url
+          && previous.stars === article.stars;
+        if (isIdentical) exactDuplicates += 1;
+        else revisedArticles += 1;
+      }
+      // Arquivos mais recentes vêm por último: eles substituem uma cópia semanal anterior.
+      unique.set(key, article);
+    }
+  }
+
+  return {
+    articles: [...unique.values()].sort((left, right) => right.date.localeCompare(left.date) || left.title.localeCompare(right.title, "pt-BR")),
+    exactDuplicates,
+    revisedArticles,
+  };
 }
 
 function countBy(items, selector) {
@@ -166,12 +230,20 @@ function countBy(items, selector) {
     .map(([label, count]) => ({ label, count })).sort((left, right) => right.count - left.count || left.label.localeCompare(right.label, "pt-BR"));
 }
 
-const markdown = await fs.readFile(sourcePath, "utf8");
 const overrides = await readThemeOverrides();
-const articles = parseArticles(markdown, overrides);
+const sourcePaths = await readSourceFiles(inputPath);
+const sourceFiles = await Promise.all(sourcePaths.map(async (sourcePath) => {
+  const [markdown, stat] = await Promise.all([fs.readFile(sourcePath, "utf8"), fs.stat(sourcePath)]);
+  return {
+    name: path.basename(sourcePath),
+    updatedAt: stat.mtime.toISOString(),
+    articles: parseArticles(markdown, overrides, path.basename(sourcePath)),
+  };
+}));
+const { articles, exactDuplicates, revisedArticles } = consolidateArticles(sourceFiles);
 if (!articles.length) throw new Error("Nenhuma matéria válida foi encontrada nas tabelas do Markdown.");
 
-const duplicateCount = new Set(articles.map((article) => `${article.date}|${article.title.toLowerCase()}`)).size !== articles.length;
+const duplicateCount = new Set(articles.map(duplicateKey)).size !== articles.length;
 if (duplicateCount) throw new Error("A importação ainda contém matérias duplicadas por data e título.");
 
 await fs.rm(outputDirectory, { recursive: true, force: true });
@@ -185,7 +257,13 @@ const lastDate = articles[0].date;
 const daysCovered = Math.floor((Date.parse(`${lastDate}T00:00:00Z`) - Date.parse(`${firstDate}T00:00:00Z`)) / 86_400_000) + 1;
 const index = {
   generatedAt: new Date().toISOString(),
-  source: { name: path.basename(sourcePath), updatedAt: (await fs.stat(sourcePath)).mtime.toISOString() },
+  source: {
+    name: sourceFiles.length === 1 ? sourceFiles[0].name : `${sourceFiles.length} arquivos semanais`,
+    updatedAt: sourceFiles.at(-1).updatedAt,
+    files: sourceFiles.map(({ name, updatedAt }) => ({ name, updatedAt })),
+    exactDuplicates,
+    revisedArticles,
+  },
   articleCount: articles.length,
   firstDate,
   lastDate,
@@ -196,4 +274,4 @@ const index = {
   monthly: countBy(articles, (article) => article.date.slice(0, 7)).sort((left, right) => left.label.localeCompare(right.label)).map(({ label: month, count }) => ({ month, count })),
 };
 await fs.writeFile(path.join(outputDirectory, "index.json"), `${JSON.stringify(index, null, 2)}\n`);
-console.log(`Folha IA: ${articles.length} matérias, ${years.length} anos, ${daysCovered} dias. ${overrides.size} temas editoriais aplicados.`);
+console.log(`Folha IA: ${articles.length} matérias de ${sourceFiles.length} arquivo(s), ${years.length} anos, ${daysCovered} dias. ${exactDuplicates} duplicada(s) idêntica(s) ignorada(s), ${revisedArticles} versão(ões) mais nova(s) aplicada(s), ${overrides.size} tema(s) editorial(is) aplicado(s).`);

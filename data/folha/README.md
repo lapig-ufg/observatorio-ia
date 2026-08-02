@@ -1,12 +1,14 @@
 # IA como notícia diária — dados de trabalho
 
-O arquivo Markdown original do Google Drive é a fonte histórica. Para atualizar a página pública, faça uma cópia local dele com o nome `folha_ia_historico.md` nesta pasta e execute:
+Os arquivos Markdown originais do Google Drive são fontes preservadas. Cada lote semanal é um retrato completo e corrigido da série. Para atualizar a página pública, mantenha nesta pasta somente a cópia local mais recente, com o nome `folha_ia_YYYY-MM-DD.md`, substituindo o lote semanal anterior, e execute:
 
 ```bash
 pnpm noticias:build
 ```
 
-O comando gera `public/folha-ia/index.json` e um arquivo por ano, valida datas, links e duplicidades, conta as estrelas de relevância e prepara os filtros públicos.
+O comando usa o Markdown semanal de data mais recente (e mantém compatibilidade com o histórico legado `folha_ia_historico.md` somente se não houver lote datado). Ele gera `public/folha-ia/index.json` e um arquivo por ano, valida datas, links e duplicidades, conta as estrelas de relevância e prepara os filtros públicos. Não mantenha duas versões semanais como fontes simultâneas: a revisão mais nova substitui a anterior.
+
+Não inclua nesta pasta arquivos auxiliares ou resumos sem a tabela de matérias. O Markdown deve manter as colunas de data, seção/editoria, título e link.
 
 ## Temas editoriais
 
