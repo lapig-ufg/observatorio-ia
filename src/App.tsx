@@ -50,7 +50,10 @@ const actionLabels: Record<ArticleType, string> = {
   apresentacao: "Ver apresentação",
 };
 
-const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "noticia", "paper", "apresentacao"];
+// Notícias têm página editorial própria em “IA como notícia diária”. Os registros
+// permanecem na fonte, mas não fazem parte do catálogo público geral.
+const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "paper", "apresentacao"];
+const catalogFilterTypes: Array<"todos" | ArticleType> = ["todos", ...categoryTypes];
 const chartLabels: Record<ArticleType, string> = {
   medium: "Blogs",
   documento: "Documentos",
@@ -271,7 +274,10 @@ export function App() {
     return () => window.removeEventListener("hashchange", syncPage);
   }, []);
 
-  const articles = catalog?.articles || [];
+  const articles = useMemo(
+    () => (catalog?.articles || []).filter((article) => article.type !== "noticia"),
+    [catalog],
+  );
   const initiatives = catalog?.initiatives || [];
   const themes = useMemo(() => Array.from(new Set(articles.map((article) => article.theme))).sort(), [articles]);
   const counts = useMemo(() => ({
@@ -476,7 +482,7 @@ export function App() {
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
           <h1 id="page-title">Conhecimento sobre IA para estudo, pesquisa e debate</h1>
-          <p className="intro-copy">Artigos de Blogs, documentos, vídeos, notícias, papers científicos e apresentações reunidos em um acervo temático.</p>
+          <p className="intro-copy">Artigos de Blogs, documentos, vídeos, papers científicos e apresentações reunidos em um acervo temático.</p>
         </div>
         <div className="collection-chart" aria-label="Número de itens por categoria">
           <p className="collection-chart-title">Itens por categoria</p>
@@ -671,7 +677,7 @@ export function App() {
         </label>
         <div className="filter-row">
           <div className="type-tabs" role="group" aria-label="Tipo de publicação">
-            {(Object.keys(typeLabels) as Array<"todos" | ArticleType>).map((key) => (
+            {catalogFilterTypes.map((key) => (
               <button
                 type="button"
                 key={key}

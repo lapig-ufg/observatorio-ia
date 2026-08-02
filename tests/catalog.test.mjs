@@ -71,3 +71,12 @@ test("GitHub Pages workflow builds from direct Google Sheets configuration", () 
   assert.match(workflow, /actions\/upload-pages-artifact@v4/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
 });
+
+test("newspaper records are preserved in the source but suppressed from the general catalog", () => {
+  const app = fs.readFileSync("src/App.tsx", "utf8");
+  assert.match(app, /const categoryTypes: ArticleType\[\] = \["medium", "documento", "link-video", "paper", "apresentacao"\];/);
+  assert.match(app, /filter\(\(article\) => article\.type !== "noticia"\)/);
+  assert.match(app, /const catalogFilterTypes: Array<"todos" \| ArticleType> = \["todos", \.\.\.categoryTypes\];/);
+  assert.doesNotMatch(app, /Artigos de Blogs, documentos, vídeos, notícias,/);
+  assert.doesNotMatch(app, /keyword-cloud-recent/);
+});
