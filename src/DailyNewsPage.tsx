@@ -113,6 +113,43 @@ export function DailyNewsPage() {
       <div><strong>{formatDate(index.lastDate)}</strong><span>última notícia registrada</span></div>
     </div>
 
+    <section className="daily-news-reading" aria-labelledby="daily-news-reading-title">
+      <header className="daily-news-reading-heading">
+        <p className="eyebrow">Leitura do acervo</p>
+        <h2 id="daily-news-reading-title">O que aconteceu em {index.daysCovered.toLocaleString("pt-BR")} dias de IA</h2>
+        <p>Uma leitura de {index.articleCount.toLocaleString("pt-BR")} matérias da Folha de S.Paulo, de novembro de 2022 ao registro mais recente da série.</p>
+      </header>
+      <div className="daily-news-reading-method">
+        <h3>Como fazer sentido da série</h3>
+        <p>“IA como notícia diária” não é uma lista bruta. A seleção parte da busca pela expressão “inteligência artificial” no site da Folha e passa por curadoria manual, que remove menções passageiras, resenhas em que IA é apenas pano de fundo, publieditoriais e duplicatas.</p>
+        <p>As matérias preservam data, seção, título e link para a fonte. A escala de uma a cinco estrelas indica a relevância editorial de cada registro; os marcos trimestrais e mensais oferecem contexto para a leitura da linha do tempo. Essa arquitetura permite comprimir milhares de notícias em uma narrativa sem apagar a possibilidade de consultar cada matéria na origem.</p>
+      </div>
+      <div className="daily-news-reading-phases" aria-label="Fases da cobertura jornalística">
+        <article>
+          <p className="eyebrow">Novembro de 2022 a junho de 2023</p>
+          <h3>O despertar</h3>
+          <p>Antes do ChatGPT, a IA aparecia de forma dispersa: VAR da Copa, apostas e varejo. O lançamento de novembro de 2022 reconfigurou tudo. Em 2023, os alertas de Geoffrey Hinton, a carta sobre risco de extinção, o projeto de marco legal brasileiro, o AI Act europeu, a greve dupla de Hollywood, a campanha da Volkswagen com Elis Regina e a alta da Nvidia fizeram a IA se tornar, ao mesmo tempo, questão técnica, laboral, regulatória, cultural e financeira.</p>
+        </article>
+        <article>
+          <p className="eyebrow">Julho de 2023 a dezembro de 2024</p>
+          <h3>Institucionalização e primeiras fraturas</h3>
+          <p>A crise de governança da OpenAI, a cúpula de Bletchley Park, disputas por direitos autorais, regulações, deepfakes e aplicações públicas colocaram a tecnologia no centro das instituições. Em 2024, os Nobel de Física e Química reconheceram pioneiros da área, a Apple levou o ChatGPT à Siri, o marco legal avançou no Senado e o STF lançou a MARIA. O lado sombrio também se adensou com deepfakes, violência sexual e danos associados a plataformas de companheiros de IA.</p>
+          <p>No campo ambiental, a série registra geoglifos em Nazca, incêndios amazônicos previstos por IA, monitoramento de metano por satélite, uso de sensoriamento remoto contra Aedes e o GraphCast na previsão do tempo.</p>
+        </article>
+        <article>
+          <p className="eyebrow">Janeiro de 2025 ao presente</p>
+          <h3>Choque, corrida e bolha</h3>
+          <p>O choque DeepSeek reposicionou a disputa entre China e Estados Unidos e provocou uma queda histórica no valor de mercado da Nvidia. Em seguida, a revogação da regulação de Biden, o anúncio do Stargate, a ação da própria Folha contra a OpenAI, a IA soberana, a COP30 e os alertas sobre uma bolha de investimentos tornaram a corrida por infraestrutura e modelos o eixo do noticiário.</p>
+          <p>O período também reúne falhas algorítmicas, deepfakes, segurança, eleições, produtividade e os limites do retorno econômico. As eleições de 2026 transformaram o país em laboratório: campanhas, chatbots e vídeos sintéticos passaram a ocupar o debate público e judicial.</p>
+        </article>
+      </div>
+      <div className="daily-news-reading-thread">
+        <h3>O fio que atravessa tudo</h3>
+        <p>Três tensões organizam o material: a concentração de poder em poucas empresas e países; consequências concretas em corpos, direitos e relações sociais; e a presença cada vez maior da IA no território e no meio ambiente. Ao longo da série, aparecem reflorestamento monitorado por satélite, detecção de desmatamento em tempo real, medição de carbono, vigilância de rios e discussões locais na UFG.</p>
+        <p>Assim, a IA deixa de ser curiosidade de tecnologia e passa a funcionar como infraestrutura — da previsão do tempo e do monitoramento ambiental à segurança pública, ao agronegócio e à comunicação — enquanto sua própria pegada de energia e água também se torna tema de interesse público.</p>
+      </div>
+    </section>
+
     <section className="daily-news-timeline" aria-labelledby="daily-news-timeline-title">
       <div className="daily-news-section-heading"><div><p className="eyebrow">Linha do tempo</p><h2 id="daily-news-timeline-title">Presença da IA no noticiário</h2></div><p>O volume mensal mostra o ritmo da cobertura no período selecionado.</p></div>
       <div className="daily-news-periods" role="group" aria-label="Período da análise">

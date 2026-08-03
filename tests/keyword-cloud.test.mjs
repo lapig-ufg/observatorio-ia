@@ -17,6 +17,12 @@ test("Radar exclui URLs e identificadores bibliográficos dos temas", () => {
   assert.equal(isEditorialCloudTerm("https://doi.org/10.1016/j.compag.2026.111995"), false);
   assert.equal(isEditorialCloudTerm("10.1016/j.compag.2026.111995"), false);
   assert.equal(isEditorialCloudTerm("arXiv:2608.01234"), false);
+  assert.equal(isEditorialCloudTerm("LAPIG UFG"), false);
+  assert.equal(isEditorialCloudTerm("Anthropic"), false);
+  assert.equal(isEditorialCloudTerm("ChatGPT"), false);
+  assert.equal(isEditorialCloudTerm("Kimi K3"), false);
   assert.equal(isEditorialCloudTerm(""), false);
   assert.match(app, /if \(!isEditorialCloudTerm\(tag\)\) return;/);
+  assert.match(app, /"agentes de ia": "agentes"/);
+  assert.match(app, /const maxCloudWords = 20;/);
 });

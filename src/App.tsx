@@ -84,6 +84,14 @@ const blogThemes = [
 
 const featuredHistory = [
   {
+    date: "24 de julho a 2 de agosto de 2026",
+    source: "Open Weights Ledger · Carta aberta",
+    title: "Open Weights and American AI Leadership",
+    summary: "Carta aberta sobre modelos de pesos abertos, concorrência, segurança cibernética, autonomia tecnológica e liderança dos Estados Unidos em IA.",
+    href: "https://openweights.gitlawb.com/",
+    eventLabel: "open-weights-american-ai-leadership",
+  },
+  {
     date: "20 de julho de 2026",
     source: "The Batch · DeepLearning.AI",
     title: "Kimi K3 marca uma mudança no desenvolvimento de IA; Thinking Machines lança seu primeiro modelo de uso geral",
@@ -113,14 +121,14 @@ function paperArea(article: Article) {
   if (/language|speech|text|caption|linguist|token/.test(text)) return "Linguística, Letras e Artes";
   return "IA";
 }
-const maxCloudWords = 26;
+const maxCloudWords = 20;
 const cloudRecentArticleLimit = 60;
 const cloudHistoricalWeight = 0.06;
 const cloudPositions = [
-  [50, 50, 0], [50, 28, -1], [27, 41, 1], [73, 41, -1], [30, 67, 1], [70, 67, -1],
-  [50, 14, 0], [23, 25, 1], [77, 25, -1], [13, 51, -1], [87, 51, 1], [28, 79, 1], [72, 79, -1], [50, 88, 0],
-  [38, 20, -1], [62, 20, 1], [20, 60, 1], [80, 60, -1], [40, 83, -1], [60, 83, 1],
-  [50, 7, 0], [10, 35, 1], [90, 35, -1], [12, 70, -1], [88, 70, 1], [32, 92, 1],
+  [50, 50, 0], [50, 31, 0], [34, 43, 0], [66, 43, 0], [38, 62, 0], [62, 62, 0],
+  [50, 74, 0], [50, 16, 0], [29, 27, 0], [71, 27, 0], [21, 52, 0], [79, 52, 0],
+  [27, 76, 0], [73, 76, 0], [50, 87, 0], [39, 20, 0], [61, 20, 0], [22, 37, 0],
+  [78, 37, 0], [50, 63, 0],
 ] as const;
 
 function normalize(value: string) {
@@ -132,6 +140,8 @@ function normalize(value: string) {
 const cloudTermAliases: Record<string, string> = {
   agente: "agentes",
   agentes: "agentes",
+  "agente de ia": "agentes",
+  "agentes de ia": "agentes",
   ferramenta: "ferramentas",
   ferramentas: "ferramentas",
   "large language model": "llms",
@@ -148,6 +158,8 @@ const cloudTermAliases: Record<string, string> = {
   transformers: "transformers",
   vetor: "vetores",
   vetores: "vetores",
+  embedding: "embeddings",
+  embeddings: "embeddings",
 };
 
 const cloudTermLabels: Record<string, string> = {
@@ -358,7 +370,7 @@ export function App() {
 
     return sorted.map((keyword) => ({
       ...keyword,
-      size: 0.82 + (keyword.score / maximum) * 2.45,
+      size: 0.92 + Math.sqrt(keyword.score / maximum) * 2,
     }));
   }, [articles]);
 
@@ -508,12 +520,12 @@ export function App() {
       <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
         <div className="weekly-highlight-kicker">
           <span>Em destaque...</span>
-          <span>Open Weights Ledger · Carta aberta</span>
+          <span>Folha de S.Paulo · Observatório de imprensa</span>
         </div>
         <div className="weekly-highlight-content">
           <div>
-            <p className="eyebrow">24 de julho de 2026</p>
-            <h2 id="weekly-highlight-title">Open Weights and American AI Leadership</h2>
+            <p className="eyebrow">3 de agosto de 2026</p>
+            <h2 id="weekly-highlight-title">IA como notícia diária</h2>
             <button
               type="button"
               className="weekly-highlight-history-toggle"
@@ -530,8 +542,8 @@ export function App() {
             </button>
           </div>
           <div className="weekly-highlight-aside">
-            <p>Carta aberta que defende modelos de pesos abertos como infraestrutura estratégica para concorrência, segurança cibernética, autonomia tecnológica e liderança dos Estados Unidos em IA.</p>
-            <a href="https://openweights.gitlawb.com/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "open-weights-american-ai-leadership" })}>Ler a carta aberta <ArrowUpRight size={17} aria-hidden="true" /></a>
+            <p>Uma leitura curatorial da cobertura da Folha de S.Paulo mostra como a IA deixou de ser pauta isolada de tecnologia para atravessar ciência, trabalho, cultura, regulação, território e meio ambiente.</p>
+            <a href="#ia-como-noticia-diaria" onClick={() => trackEvent("open_weekly_highlight", { event_category: "navigation", event_label: "daily-news" })}>Conhecer a série <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
         </div>
         {showFeaturedHistory && (
