@@ -1952,12 +1952,43 @@ h1 {
   cursor: pointer;
 }
 
+.daily-news-year-picker {
+  position: relative;
+  display: inline-flex;
+}
+
+.daily-news-year-picker select {
+  min-height: 38px;
+  padding: 8px 34px 8px 12px;
+  border: 1px solid #b8cfc2;
+  border-radius: 6px;
+  appearance: none;
+  background: #fff;
+  color: var(--green-800);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.daily-news-year-picker svg {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  pointer-events: none;
+  color: var(--green-800);
+  transform: translateY(-50%);
+}
+
 .daily-news-periods button:hover,
 .daily-news-periods button.active,
+.daily-news-year-picker select:hover,
+.daily-news-year-picker.active select,
 .daily-news-clear:hover,
 .daily-news-more:hover { background: var(--green-100); }
 
-.daily-news-periods button.active { border-color: var(--green-800); }
+.daily-news-periods button.active,
+.daily-news-year-picker.active select { border-color: var(--green-800); }
 
 .daily-news-timeline-bars {
   display: grid;

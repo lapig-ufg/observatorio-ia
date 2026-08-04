@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { loadFolhaIndex, loadFolhaYear, type FolhaArticle, type FolhaIndex } from "./folha";
 import { trackEvent } from "./analytics";
 
-type Period = "30d" | "year" | "all";
+type Period = "30d" | "all" | number;
 
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" })
@@ -20,6 +20,14 @@ function cutoffDate(lastDate: string, period: Period) {
   const date = new Date(`${lastDate}T00:00:00Z`);
   date.setUTCDate(date.getUTCDate() - 29);
   return date.toISOString().slice(0, 10);
+}
+
+function yearsForPeriod(lastDate: string, availableYears: number[], period: Period) {
+  if (period === "all") return availableYears;
+  if (period !== "30d") return [period];
+  const cutoff = cutoffDate(lastDate, period);
+  return [...new Set([Number(lastDate.slice(0, 4)), Number(cutoff.slice(0, 4))])]
+    .filter((year) => availableYears.includes(year));
 }
 
 function Stars({ count }: { count: number }) {
@@ -54,7 +62,7 @@ export function DailyNewsPage() {
   useEffect(() => {
     if (!index) return;
     const controller = new AbortController();
-    const selectedYears = period === "30d" ? [index.years[0]] : index.years;
+    const selectedYears = yearsForPeriod(index.lastDate, index.years, period);
     setLoadingRecords(true);
     void Promise.all(selectedYears.map((year) => loadFolhaYear(year, controller.signal))).then((annualRecords) => {
       setRecords(annualRecords.flat());
@@ -68,10 +76,9 @@ export function DailyNewsPage() {
   const relevantRecords = useMemo(() => {
     if (!index) return [];
     const cutoff = cutoffDate(index.lastDate, period);
-    const latestYear = index.lastDate.slice(0, 4);
     const needle = query.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
     return records.filter((article) => {
-      const inPeriod = period === "all" || (period === "year" ? article.date.startsWith(latestYear) : article.date >= cutoff);
+      const inPeriod = period === "all" || (period === "30d" ? article.date >= cutoff : article.date.startsWith(`${period}-`));
       const matchesTheme = theme === "todos" || article.theme === theme;
       const matchesSection = section === "todos" || article.sectionGroup === section;
       const matchesStars = stars === "todas" || article.stars === Number(stars);
@@ -83,8 +90,7 @@ export function DailyNewsPage() {
   const filteredTimeline = useMemo(() => {
     if (!index) return [];
     const cutoff = cutoffDate(index.lastDate, period);
-    const latestYear = index.lastDate.slice(0, 4);
-    return index.monthly.filter(({ month }) => period === "all" || (period === "year" ? month.startsWith(latestYear) : month >= cutoff.slice(0, 7)));
+    return index.monthly.filter(({ month }) => period === "all" || (period === "30d" ? month >= cutoff.slice(0, 7) : month.startsWith(`${period}-`)));
   }, [index, period]);
   const maxMonthlyCount = Math.max(...filteredTimeline.map(({ count }) => count), 1);
   const hasFilters = period !== "30d" || theme !== "todos" || section !== "todos" || stars !== "todas" || Boolean(query);
@@ -154,7 +160,18 @@ export function DailyNewsPage() {
       <div className="daily-news-section-heading"><div><p className="eyebrow">Linha do tempo</p><h2 id="daily-news-timeline-title">Presença da IA no noticiário</h2></div><p>O volume mensal mostra o ritmo da cobertura no período selecionado.</p></div>
       <div className="daily-news-periods" role="group" aria-label="Período da análise">
         <button type="button" className={period === "30d" ? "active" : ""} onClick={() => { setPeriod("30d"); setVisible(18); trackEvent("daily_news_period", { event_label: "30d" }); }}>Últimos 30 dias</button>
-        <button type="button" className={period === "year" ? "active" : ""} onClick={() => { setPeriod("year"); setVisible(18); trackEvent("daily_news_period", { event_label: "year" }); }}>{index.lastDate.slice(0, 4)}</button>
+        <label className={`daily-news-year-picker ${typeof period === "number" ? "active" : ""}`}>
+          <span className="sr-only">Selecionar ano</span>
+          <select value={typeof period === "number" ? String(period) : ""} onChange={(event) => {
+            const year = Number(event.target.value);
+            if (!year) return;
+            setPeriod(year); setVisible(18); trackEvent("daily_news_period", { event_label: String(year) });
+          }}>
+            <option value="" disabled>Selecionar ano</option>
+            {index.years.map((year) => <option value={year} key={year}>{year}</option>)}
+          </select>
+          <ChevronDown size={16} aria-hidden="true" />
+        </label>
         <button type="button" className={period === "all" ? "active" : ""} onClick={() => { setPeriod("all"); setVisible(18); trackEvent("daily_news_period", { event_label: "all" }); }}>Todo o período</button>
       </div>
       <div className="daily-news-timeline-bars" aria-label="Quantidade de matérias por mês">
@@ -172,7 +189,7 @@ export function DailyNewsPage() {
         {hasFilters && <button type="button" className="daily-news-clear" onClick={clearFilters}><X size={15} /> Limpar filtros</button>}
       </aside>
       <div className="daily-news-results">
-        <div className="daily-news-results-heading"><div><p className="eyebrow">Matérias encontradas</p><h2 id="daily-news-results-title">{loadingRecords ? "Carregando período…" : `${relevantRecords.length.toLocaleString("pt-BR")} ${relevantRecords.length === 1 ? "matéria" : "matérias"}`}</h2></div><span><CalendarDays size={16} aria-hidden="true" /> {period === "30d" ? "recorte recente" : period === "year" ? `ano de ${index.lastDate.slice(0, 4)}` : "série histórica"}</span></div>
+        <div className="daily-news-results-heading"><div><p className="eyebrow">Matérias encontradas</p><h2 id="daily-news-results-title">{loadingRecords ? "Carregando período…" : `${relevantRecords.length.toLocaleString("pt-BR")} ${relevantRecords.length === 1 ? "matéria" : "matérias"}`}</h2></div><span><CalendarDays size={16} aria-hidden="true" /> {period === "30d" ? "recorte recente" : period === "all" ? "série histórica" : `ano de ${period}`}</span></div>
         {relevantRecords.length ? <ol className="daily-news-list">{relevantRecords.slice(0, visible).map((article) => <li key={article.id}><div className="daily-news-record-meta"><time dateTime={article.date}>{formatDate(article.date)}</time><span>{article.section}</span><Stars count={article.stars} /></div><h3>{article.title}</h3><div className="daily-news-record-footer"><span>{article.theme}</span><a href={article.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("daily_news_open_article", { event_category: "outbound", event_label: article.id })}>Ler na Folha <ExternalLink size={15} aria-hidden="true" /></a></div></li>)}</ol> : <div className="daily-news-empty"><Search size={25} /><strong>Nenhuma matéria neste recorte</strong><p>Altere os filtros ou escolha outro período.</p></div>}
         {visible < relevantRecords.length && <button type="button" className="daily-news-more" onClick={() => setVisible((value) => value + 18)}>Carregar mais matérias</button>}
       </div>
