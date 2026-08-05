@@ -36,6 +36,7 @@ export type Initiative = {
   sourceUrl: string;
   color: string;
   order: number;
+  actionLabel?: string;
 };
 
 type GvizCell = { v?: unknown; f?: string } | null;

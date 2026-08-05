@@ -82,6 +82,21 @@ const blogThemes = [
   "Aprendizado, pesquisa e produtividade",
 ];
 
+const ecosystemFeaturedInitiatives: Initiative[] = [
+  {
+    id: "pos-graduacao-sistemas-agentes-inteligentes",
+    acronym: "PÓS-AGENTES",
+    name: "Especialização Lato Sensu — Pós-Graduação em Sistemas e Agentes Inteligentes",
+    summary: "Formação da UFG voltada à construção de sistemas com agentes inteligentes. Realizada on-line aos sábados, articula 11 disciplinas e TCC.",
+    areas: ["Agentes inteligentes", "Sistemas de IA", "Formação on-line", "11 disciplinas + TCC"],
+    url: "https://agentes.inf.ufg.br/index.html",
+    sourceUrl: "https://agentes.inf.ufg.br/index.html",
+    color: "azul",
+    order: -1,
+    actionLabel: "Conhecer curso",
+  },
+];
+
 const featuredHistory = [
   {
     date: "24 de julho a 2 de agosto de 2026",
@@ -792,19 +807,24 @@ function InitiativeCard({ initiative }: { initiative: Initiative }) {
         {initiative.areas.map((area) => <li key={area}>{area}</li>)}
       </ul>
       <a href={initiative.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_initiative", { event_category: "ecosystem", event_label: initiative.acronym })}>
-        Conhecer iniciativa <ArrowUpRight size={17} aria-hidden="true" />
+        {initiative.actionLabel || "Conhecer iniciativa"} <ArrowUpRight size={17} aria-hidden="true" />
       </a>
     </article>
   );
 }
 
 function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
+  const visibleInitiatives = [
+    ...ecosystemFeaturedInitiatives,
+    ...initiatives.filter((initiative) => !ecosystemFeaturedInitiatives.some((featured) => featured.id === initiative.id || featured.url === initiative.url)),
+  ];
+
   return (
     <section id="ecossistema-ufg" className="ecosystem-page" aria-labelledby="ecosystem-title">
       <div className="ecosystem-hero">
         <p className="eyebrow">Universidade Federal de Goiás</p>
         <h1 id="ecosystem-title">Ecossistema UFG em inteligência artificial</h1>
-        <p>Conheça centros e redes que conectam conhecimento, tecnologia e políticas públicas.</p>
+        <p>Conheça centros, redes e formações que conectam conhecimento, tecnologia e políticas públicas.</p>
         <a className="back-to-catalog" href="#top" onClick={() => trackEvent("back_to_catalog")}>← Voltar ao acervo</a>
       </div>
       <aside className="ecosystem-mapping-callout" aria-label="Mapeamento da IA na UFG">
@@ -814,9 +834,9 @@ function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
         </div>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSe3qfZ5hjL0NifRXvI-SM6NKDN7g8DoFQJyoTTRTvhlptWk-w/viewform" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_mapping_form", { event_category: "outbound", event_label: "mapeamento" })}>Participar do mapeamento <ArrowUpRight size={17} aria-hidden="true" /></a>
       </aside>
-      {initiatives.length ? (
+      {visibleInitiatives.length ? (
         <div className="ecosystem-initiative-grid">
-          {initiatives.map((initiative) => <InitiativeCard key={initiative.id} initiative={initiative} />)}
+          {visibleInitiatives.map((initiative) => <InitiativeCard key={initiative.id} initiative={initiative} />)}
         </div>
       ) : (
         <div className="ecosystem-empty">As iniciativas estão sendo carregadas.</div>
