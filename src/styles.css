@@ -2577,3 +2577,66 @@ h1 {
     grid-template-columns: 1fr;
   }
 }
+
+/* Panorama — painel do LAPIG exibido dentro do site, sem sair para link externo. */
+.panorama-page {
+  min-height: calc(100vh - 72px);
+  background: var(--paper);
+}
+
+.panorama-intro {
+  padding: clamp(26px, 3.4vw, 40px) clamp(20px, 5vw, 72px) clamp(20px, 2.4vw, 26px);
+  background:
+    radial-gradient(circle at 87% 8%, rgba(128, 188, 174, 0.26), transparent 22rem),
+    var(--navy-800);
+  color: #fff;
+}
+
+.panorama-intro .eyebrow {
+  color: #b8dfd0;
+}
+
+.panorama-intro h1 {
+  max-width: 780px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 2.7vw, 2.35rem);
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.panorama-intro > p:not(.eyebrow) {
+  max-width: 700px;
+  margin: 12px 0 0;
+  color: #d7e0ec;
+  font-size: 0.97rem;
+  line-height: 1.55;
+}
+
+.panorama-frame {
+  display: block;
+  width: 100%;
+  height: clamp(560px, calc(100dvh - 110px), 1100px);
+  border: 0;
+  background: var(--paper);
+}
+
+.panorama-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 14px clamp(20px, 5vw, 72px) 32px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.panorama-note a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--green-700);
+  font-weight: 700;
+}

@@ -71,6 +71,24 @@ const chartColors: Record<ArticleType, { bar: string; track: string }> = {
   paper: { bar: "#70569b", track: "#e2d9ee" },
   apresentacao: { bar: "#bd4659", track: "#f1d4da" },
 };
+// Painel externo do LAPIG exibido dentro do site. O parâmetro embed pede ao
+// painel que esconda o próprio cabeçalho, já que ele roda aqui dentro.
+const panoramaUrl = "https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/";
+const panoramaEmbedUrl = `${panoramaUrl}?embed=1`;
+
+const pagesByHash: Record<string, string> = {
+  "#ecossistema-ufg": "ecosystem",
+  "#ia-como-noticia-diaria": "daily-news",
+  "#panorama": "panorama",
+};
+const pageTitles: Record<string, string> = {
+  ecosystem: "Ecossistema UFG",
+  "daily-news": "IA como notícia diária",
+  panorama: "Panorama da IA generativa",
+  catalog: "Catálogo",
+};
+const pageFromHash = () => pagesByHash[window.location.hash] || "catalog";
+
 const paperAreas = ["Ciências Exatas e da Terra", "Ciências Biológicas", "Engenharias", "Ciências da Saúde", "Ciências Agrárias", "Ciências Sociais Aplicadas", "Ciências Humanas", "Linguística, Letras e Artes", "IA"];
 const blogThemes = [
   "Fundamentos, matemática e deep learning",
@@ -263,7 +281,7 @@ export function App() {
   const [visible, setVisible] = useState(15);
   const [showAll, setShowAll] = useState(false);
   const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
-  const [page, setPage] = useState(() => window.location.hash === "#ecossistema-ufg" ? "ecosystem" : window.location.hash === "#ia-como-noticia-diaria" ? "daily-news" : "catalog");
+  const [page, setPage] = useState(pageFromHash);
 
   useEffect(() => {
     let active = true;
@@ -294,12 +312,12 @@ export function App() {
 
   useEffect(() => {
     const syncPage = () => {
-      const nextPage = window.location.hash === "#ecossistema-ufg" ? "ecosystem" : window.location.hash === "#ia-como-noticia-diaria" ? "daily-news" : "catalog";
+      const nextPage = pageFromHash();
       setPage(nextPage);
-      trackPageView(window.location.hash || "/", nextPage === "ecosystem" ? "Ecossistema UFG" : nextPage === "daily-news" ? "IA como notícia diária" : "Catálogo");
+      trackPageView(window.location.hash || "/", pageTitles[nextPage]);
     };
     window.addEventListener("hashchange", syncPage);
-    trackPageView(window.location.hash || "/", "Catálogo");
+    trackPageView(window.location.hash || "/", pageTitles[pageFromHash()]);
     return () => window.removeEventListener("hashchange", syncPage);
   }, []);
 
@@ -494,7 +512,7 @@ export function App() {
           <a className="ecosystem-nav-link" href="#ecossistema-ufg" onClick={() => trackEvent("nav_ecosystem")}>Ecossistema UFG <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a className="form-nav-link" href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { event_category: "outbound", event_label: "forms.gle" })}><span><strong>Participe!</strong><small>Como você está usando a IA?</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a className="daily-news-nav-link" href="#ia-como-noticia-diaria" onClick={() => trackEvent("nav_daily_news")}><span><strong>IA como notícia</strong><small>diária</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
-          <a className="panorama-nav-link" href="https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_panorama", { event_category: "outbound", event_label: "panorama" })}><span><strong>Panorama</strong><small>IA generativa</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
+          <a className="panorama-nav-link" href="#panorama" onClick={() => trackEvent("nav_panorama")}><span><strong>Panorama</strong><small>IA generativa</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
         </nav>
         <div className="institutional-marks" aria-label="Instituições responsáveis">
           <a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="LAPIG">
@@ -506,7 +524,7 @@ export function App() {
         </div>
       </header>
 
-      {page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : <>
+      {page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "panorama" ? <PanoramaPage /> : <>
       <section className="catalog-intro" aria-labelledby="page-title">
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
@@ -841,6 +859,29 @@ function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
       ) : (
         <div className="ecosystem-empty">As iniciativas estão sendo carregadas.</div>
       )}
+    </section>
+  );
+}
+
+function PanoramaPage() {
+  return (
+    <section id="panorama" className="panorama-page" aria-labelledby="panorama-title">
+      <div className="panorama-intro">
+        <p className="eyebrow">Linha do tempo · LAPIG/UFG</p>
+        <h1 id="panorama-title">Panorama Global da IA Generativa</h1>
+        <p>Os lançamentos de modelos desde o ChatGPT (nov/2022), qual modelo usar em cada tipo de tarefa e o que dá para usar de graça.</p>
+        <a className="back-to-catalog" href="#top" onClick={() => trackEvent("back_to_catalog")}>← Voltar ao acervo</a>
+      </div>
+      <iframe
+        className="panorama-frame"
+        src={panoramaEmbedUrl}
+        title="Panorama Global da IA Generativa"
+        loading="lazy"
+      />
+      <p className="panorama-note">
+        Painel mantido pelo LAPIG, atualizado continuamente.{" "}
+        <a href={panoramaUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_panorama_standalone", { event_category: "outbound", event_label: "panorama" })}>Abrir em nova aba <ArrowUpRight size={14} aria-hidden="true" /></a>
+      </p>
     </section>
   );
 }
