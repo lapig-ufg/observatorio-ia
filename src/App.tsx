@@ -116,6 +116,14 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    date: "3 a 6 de agosto de 2026",
+    source: "Folha de S.Paulo · Observatório de imprensa",
+    title: "IA como notícia diária",
+    summary: "Uma leitura curatorial da cobertura da Folha de S.Paulo sobre como a IA atravessa ciência, trabalho, cultura, regulação, território e meio ambiente.",
+    href: "#ia-como-noticia-diaria",
+    eventLabel: "daily-news",
+  },
+  {
     date: "24 de julho a 2 de agosto de 2026",
     source: "Open Weights Ledger · Carta aberta",
     title: "Open Weights and American AI Leadership",
@@ -544,12 +552,12 @@ export function App() {
       <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
         <div className="weekly-highlight-kicker">
           <span>Em destaque...</span>
-          <span>Folha de S.Paulo · Observatório de imprensa</span>
+          <span>Curso aberto · UFG/LAPIG</span>
         </div>
         <div className="weekly-highlight-content">
           <div>
-            <p className="eyebrow">3 de agosto de 2026</p>
-            <h2 id="weekly-highlight-title">IA como notícia diária</h2>
+            <p className="eyebrow">Segundas-feiras · 14h às 17h · 10 de agosto a 7 de dezembro de 2026</p>
+            <h2 id="weekly-highlight-title">Entendendo e Usando IA Generativa para o Processamento e Análise de Dados de Observação da Terra</h2>
             <button
               type="button"
               className="weekly-highlight-history-toggle"
@@ -566,8 +574,8 @@ export function App() {
             </button>
           </div>
           <div className="weekly-highlight-aside">
-            <p>Uma leitura curatorial da cobertura da Folha de S.Paulo mostra como a IA deixou de ser pauta isolada de tecnologia para atravessar ciência, trabalho, cultura, regulação, território e meio ambiente.</p>
-            <a href="#ia-como-noticia-diaria" onClick={() => trackEvent("open_weekly_highlight", { event_category: "navigation", event_label: "daily-news" })}>Conhecer a série <ArrowUpRight size={17} aria-hidden="true" /></a>
+            <p>Curso sobre fundamentos conceituais, matemáticos e históricos da IA, com aplicação prática de modelos ao processamento e à classificação de imagens de sensoriamento remoto. Aborda redes neurais, Transformers, LLMs, atenção, embeddings, viés algorítmico, custo ambiental, integridade acadêmica e uso responsável da IA.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScZuIGJyrRGRetn_nlsCNq-Hfih-ZmXBuv5fj82ebU60vs10w/viewform" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "curso-ia-generativa-observacao-terra" })}>Participar ou acessar materiais <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
         </div>
         {showFeaturedHistory && (
