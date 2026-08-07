@@ -552,7 +552,7 @@ export function App() {
       <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
         <div className="weekly-highlight-kicker">
           <span>Em destaque...</span>
-          <span>Curso aberto · UFG/LAPIG</span>
+          <span>Curso híbrido · UFG/IESA/CIAMB</span>
         </div>
         <div className="weekly-highlight-content">
           <div>
