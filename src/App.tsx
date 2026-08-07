@@ -22,6 +22,7 @@ import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoad
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPage } from "./DailyNewsPage";
 import { isEditorialCloudTerm } from "./keywordCloud";
+import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./paperResearch";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -29,7 +30,7 @@ const typeLabels: Record<"todos" | ArticleType, string> = {
   documento: "Documentos gerais",
   "link-video": "Links e vídeos",
   noticia: "Jornais e notícias",
-  paper: "Papers IA",
+  paper: "IA na pesquisa científica",
   apresentacao: "Apresentações",
 };
 
@@ -60,7 +61,7 @@ const chartLabels: Record<ArticleType, string> = {
   documento: "Documentos",
   "link-video": "Links e vídeos",
   noticia: "Notícias",
-  paper: "Papers",
+  paper: "Pesquisa científica",
   apresentacao: "Apresentações",
 };
 const chartColors: Record<ArticleType, { bar: string; track: string }> = {
@@ -88,8 +89,6 @@ const pageTitles: Record<string, string> = {
   catalog: "Catálogo",
 };
 const pageFromHash = () => pagesByHash[window.location.hash] || "catalog";
-
-const paperAreas = ["Ciências Exatas e da Terra", "Ciências Biológicas", "Engenharias", "Ciências da Saúde", "Ciências Agrárias", "Ciências Sociais Aplicadas", "Ciências Humanas", "Linguística, Letras e Artes", "IA"];
 const blogThemes = [
   "Fundamentos, matemática e deep learning",
   "Transformers e atenção",
@@ -142,18 +141,6 @@ const featuredHistory = [
   },
 ];
 
-function paperArea(article: Article) {
-  const text = normalize([article.title, article.summary, ...article.tags].join(" "));
-  if (/medic|health|disease|clinical|cancer|oncolog|therap|hospital|psychiatr|mammograph|surg/.test(text)) return "Ciências da Saúde";
-  if (/cell|biolog|genom|dna|yeast|peptide|antimicrobial|molecular|protein/.test(text)) return "Ciências Biológicas";
-  if (/agric|crop|farm|pasture|soil|geospatial|geoai|remote sensing/.test(text)) return "Ciências Agrárias";
-  if (/quantum|math|physics|crystal|optical|photonic|x ray|statistic/.test(text)) return "Ciências Exatas e da Terra";
-  if (/hardware|robot|chip|computer vision|engineering|neuromorphic|edge ai/.test(text)) return "Engenharias";
-  if (/social|policy|migration|workforce|market|econom|governance|regulation/.test(text)) return "Ciências Sociais Aplicadas";
-  if (/education|ethic|human|cognit|culture|philosoph|skill/.test(text)) return "Ciências Humanas";
-  if (/language|speech|text|caption|linguist|token/.test(text)) return "Linguística, Letras e Artes";
-  return "IA";
-}
 const maxCloudWords = 20;
 const cloudRecentArticleLimit = 60;
 const cloudHistoricalWeight = 0.06;
@@ -321,9 +308,13 @@ export function App() {
     return () => window.removeEventListener("hashchange", syncPage);
   }, []);
 
-  const articles = useMemo(
+  const nonNewsArticles = useMemo(
     () => (catalog?.articles || []).filter((article) => article.type !== "noticia"),
     [catalog],
+  );
+  const articles = useMemo(
+    () => nonNewsArticles.filter((article) => article.type !== "paper" || isPublicResearchPaper(article)),
+    [nonNewsArticles],
   );
   const initiatives = catalog?.initiatives || [];
   const themes = useMemo(() => Array.from(new Set(articles.map((article) => article.theme))).sort(), [articles]);
@@ -362,9 +353,9 @@ export function App() {
     theme: blogTheme,
     count: articles.filter((article) => article.type === "apresentacao" && article.theme === blogTheme).length,
   })), [articles]);
-  const paperCategories = useMemo(() => paperAreas.map((area) => ({
+  const paperCategories = useMemo(() => paperResearchAreas.map((area) => ({
     area,
-    count: articles.filter((article) => article.type === "paper" && paperArea(article) === area).length,
+    count: articles.filter((article) => article.type === "paper" && paperResearchArea(article) === area).length,
   })), [articles]);
 
   const keywordCloud = useMemo(() => {
@@ -411,7 +402,7 @@ export function App() {
     const needle = normalize(query.trim());
     return articles.filter((article) => {
       const matchesType = type === "todos" || article.type === type;
-      const matchesTheme = theme === "todos" || (article.type === "paper" ? paperArea(article) === theme : article.theme === theme);
+      const matchesTheme = theme === "todos" || (article.type === "paper" ? paperResearchArea(article) === theme : article.theme === theme);
       const matchesKeyword = !selectedKeyword || matchesCloudTerm(article, selectedKeyword);
       const haystack = normalize([
         article.title,
@@ -660,8 +651,8 @@ export function App() {
           </div>
         )}
         {type === "paper" && (
-          <div className="blog-subcategories" aria-label="Áreas dos Papers IA">
-            <div className="blog-subcategories-heading"><div><p className="eyebrow">Papers IA</p><h3>Explore por área do conhecimento</h3></div><p>Classificação temática baseada no título, resumo e palavras-chave.</p></div>
+          <div className="blog-subcategories" aria-label="Áreas de IA na pesquisa científica">
+            <div className="blog-subcategories-heading"><div><p className="eyebrow">IA na pesquisa científica</p><h3>Explore por área do conhecimento</h3></div><p>Seleção curada de estudos sobre IA generativa, modelos fundacionais, agentes e seus efeitos diretos na pesquisa.</p></div>
             <div className="blog-subcategory-grid">
               {paperCategories.map(({ area, count }) => <button type="button" key={area} className={theme === area ? "blog-subcategory-button active" : "blog-subcategory-button"} onClick={() => selectPaperArea(area)} aria-pressed={theme === area}><span>{area}</span><strong>{count}</strong><ArrowUpRight size={16} aria-hidden="true" /></button>)}
             </div>
