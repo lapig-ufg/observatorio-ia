@@ -106,9 +106,13 @@ function hasAnchor(article: Article) {
   return generativeResearchAnchors.some((anchor) => text.includes(` ${anchor} `));
 }
 
+function declaredResearchArea(article: Article): PaperResearchArea | undefined {
+  return paperResearchAreas.find((area) => area === article.theme);
+}
+
 export function isPublicResearchPaper(article: Article) {
   if (article.type !== "paper" || excludedPaperIds.has(article.id)) return false;
-  return curatedAreas.has(article.id) || hasAnchor(article);
+  return curatedAreas.has(article.id) || Boolean(declaredResearchArea(article)) || hasAnchor(article);
 }
 
 export function paperResearchArea(article: Article): PaperResearchArea | null {
@@ -116,6 +120,12 @@ export function paperResearchArea(article: Article): PaperResearchArea | null {
 
   const curatedArea = curatedAreas.get(article.id);
   if (curatedArea) return curatedArea;
+
+  // A planilha é a fonte editorial do catálogo. Quando um novo paper já vem
+  // classificado em uma das seis áreas aprovadas, essa decisão explícita deve
+  // prevalecer sobre a heurística textual usada apenas como salvaguarda.
+  const declaredArea = declaredResearchArea(article);
+  if (declaredArea) return declaredArea;
 
   const text = normalizedPhrases(article);
   if (/ health | medic| clinical | disease | cancer | oncolog| therap| hospital | psychiatr| genom| dna | protein | cell /.test(text)) return "Ciências da Vida e Saúde";

@@ -10,8 +10,8 @@ const compiled = ts.transpileModule(source, {
 }).outputText;
 const { isPublicResearchPaper, paperResearchArea, paperResearchAreas } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`);
 
-function paper(id, title, summary = "", tags = []) {
-  return { id, type: "paper", title, summary, tags };
+function paper(id, title, summary = "", tags = [], theme = "") {
+  return { id, type: "paper", title, summary, tags, theme };
 }
 
 test("a nova taxonomia de pesquisa tem as seis áreas aprovadas", () => {
@@ -36,4 +36,15 @@ test("papers curados permanecem na área científica correta", () => {
   const generativeHealth = paper("new-health", "Clinical assistant", "Estudo com large language models para apoiar diagnósticos", ["LLMs", "Saúde"]);
   assert.equal(paperResearchArea(scientificAi), "Epistemologia e Metaciência");
   assert.equal(paperResearchArea(generativeHealth), "Ciências da Vida e Saúde");
+});
+
+test("classificação editorial explícita da planilha prevalece sobre a heurística", () => {
+  const chemistry = paper(
+    "new-chemistry",
+    "A fully adaptive automated system for nanoparticle washing enabled by vision and language AI",
+    "Sistema de visão e linguagem para automação laboratorial.",
+    ["IA generativa", "Química"],
+    "Ciências Exatas e da Terra",
+  );
+  assert.equal(paperResearchArea(chemistry), "Ciências Exatas e da Terra");
 });
