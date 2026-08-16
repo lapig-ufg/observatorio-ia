@@ -47,10 +47,38 @@ test("daily-news builder uses only the most recent complete weekly snapshot", as
     assert.equal(index.source.files[0].name, "folha_ia_2026-08-02.md");
     assert.equal(index.source.exactDuplicates, 0);
     assert.equal(index.source.revisedArticles, 0);
+    assert.equal(index.source.canonicalUrlDuplicates, 0);
     assert.equal(articles.find((article) => article.date === "2026-07-25").stars, 4);
     assert.equal(articles.find((article) => article.date === "2026-07-25").source, "folha_ia_2026-08-02.md");
   } finally {
     await fs.rm(inputDirectory, { recursive: true, force: true });
+    await fs.rm(outputDirectory, { recursive: true, force: true });
+  }
+});
+
+test("daily-news builder consolida a mesma URL na mesma data", async () => {
+  const inputFile = path.join(os.tmpdir(), `observatorio-folha-duplicada-${Date.now()}.md`);
+  const outputDirectory = await fs.mkdtemp(path.join(os.tmpdir(), "observatorio-folha-output-"));
+  try {
+    await fs.writeFile(inputFile, `| Data | Seção | Título | Link |
+| --- | --- | --- | --- |
+| 2026-08-16 | Tecnologia | Título preliminar ★★★ | [Ler](https://folha.test/materia) |
+| 2026-08-16 | Tecnologia | Título completo e corrigido ★★★★★ | [Ler](https://folha.test/materia) |
+`);
+    const result = spawnSync(process.execPath, ["scripts/build-folha-news.mjs", inputFile], {
+      cwd: process.cwd(),
+      encoding: "utf8",
+      env: { ...process.env, FOLHA_OUTPUT_DIR: outputDirectory },
+    });
+    assert.equal(result.status, 0, result.stderr || result.stdout);
+    const index = JSON.parse(await fs.readFile(path.join(outputDirectory, "index.json"), "utf8"));
+    const articles = JSON.parse(await fs.readFile(path.join(outputDirectory, "2026.json"), "utf8"));
+    assert.equal(index.articleCount, 1);
+    assert.equal(index.source.canonicalUrlDuplicates, 1);
+    assert.equal(articles[0].title, "Título completo e corrigido");
+    assert.equal(articles[0].stars, 5);
+  } finally {
+    await fs.rm(inputFile, { force: true });
     await fs.rm(outputDirectory, { recursive: true, force: true });
   }
 });

@@ -5,6 +5,7 @@ import {
   CheckCircle2,
   ChevronDown,
   Clock3,
+  Download,
   FileText,
   Link2,
   Library,
@@ -157,15 +158,9 @@ const featuredHistory = [
   },
 ];
 
-const maxCloudWords = 20;
+const maxCloudWords = 18;
 const cloudRecentArticleLimit = 60;
 const cloudHistoricalWeight = 0.06;
-const cloudPositions = [
-  [50, 50, 0], [50, 31, 0], [34, 43, 0], [66, 43, 0], [38, 62, 0], [62, 62, 0],
-  [50, 74, 0], [50, 16, 0], [29, 27, 0], [71, 27, 0], [21, 52, 0], [79, 52, 0],
-  [27, 76, 0], [73, 76, 0], [50, 87, 0], [39, 20, 0], [61, 20, 0], [22, 37, 0],
-  [78, 37, 0], [50, 63, 0],
-] as const;
 
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -578,7 +573,20 @@ export function App() {
             <h2 id="weekly-highlight-title">A Geopolítica da IA e a Soberania Nacional</h2>
             <div className="weekly-highlight-aside">
               <p>Entre EUA e China, a soberania brasileira não virá da corrida por modelos de fronteira, mas de dados, infraestrutura, regulação e formação. O ensaio propõe <em>hedging</em> ativo: diversificar parceiros e fortalecer capacidades locais.</p>
-              <a href="https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "geopolitica-ia-soberania-nacional" })}>Ler o ensaio completo <ArrowUpRight size={17} aria-hidden="true" /></a>
+              <div className="weekly-highlight-actions">
+                <a href="https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "geopolitica-ia-soberania-nacional" })}>Ler o ensaio completo <ArrowUpRight size={17} aria-hidden="true" /></a>
+                <a
+                  className="weekly-highlight-podcast"
+                  href="https://drive.google.com/uc?export=download&id=1NfkckiNeegn9XtW3NxOsbOFn73MZ6GSq"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Baixar versão em podcast do ensaio A Geopolítica da IA e a Soberania Nacional, em M4A"
+                  onClick={() => trackEvent("download_weekly_highlight_podcast", { event_category: "download", event_label: "geopolitica-ia-soberania-nacional-m4a" })}
+                >
+                  <Download size={17} aria-hidden="true" />
+                  Baixar podcast (M4A)
+                </a>
+              </div>
             </div>
             <button
               type="button"
@@ -701,12 +709,8 @@ export function App() {
           </div>
           <div className="keyword-cloud" aria-label="Radar de assuntos do acervo">
             {keywordCloud.map((keyword, index) => {
-              const [x, y, rotation] = cloudPositions[index % cloudPositions.length];
               const recentLabel = `${keyword.recentCount} ${keyword.recentCount === 1 ? "inclusão recente" : "inclusões recentes"}`;
               const positionStyle = {
-                "--cloud-x": `${x}%`,
-                "--cloud-y": `${y}%`,
-                "--cloud-rotation": `${rotation}deg`,
                 "--cloud-size": `${keyword.size}rem`,
               } as CSSProperties;
               return (

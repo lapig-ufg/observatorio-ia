@@ -810,6 +810,13 @@ h1 {
   line-height: 1.55;
 }
 
+.weekly-highlight-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+}
+
 .weekly-highlight-aside a {
   display: inline-flex;
   align-items: center;
@@ -818,6 +825,10 @@ h1 {
   font-size: 0.83rem;
   font-weight: 800;
   text-decoration: none;
+}
+
+.weekly-highlight-aside .weekly-highlight-podcast {
+  color: #315b7b;
 }
 
 .weekly-highlight-aside a:hover { text-decoration: underline; }
@@ -1190,13 +1201,17 @@ h1 {
 }
 
 .keyword-cloud {
-  position: relative;
-  height: clamp(330px, 31vw, 390px);
-  min-height: 0;
-  padding: 0;
+  display: flex;
+  min-height: clamp(340px, 31vw, 410px);
+  box-sizing: border-box;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px clamp(16px, 2.3vw, 30px);
+  padding: clamp(28px, 4vw, 44px) clamp(30px, 7vw, 86px);
   border: 1px solid rgba(168, 190, 178, 0.85);
   border-radius: 50%;
-  aspect-ratio: auto;
   max-width: 920px;
   margin: 0 auto;
   background:
@@ -1207,25 +1222,27 @@ h1 {
 }
 
 .keyword-cloud-item {
-  position: absolute;
-  left: var(--cloud-x);
-  top: var(--cloud-y);
+  position: static;
+  flex: 0 1 auto;
+  max-width: min(100%, 20rem);
   margin: 0;
   padding: 0;
   border: 0;
   background: transparent;
   color: var(--green-800);
-  font-size: clamp(0.78rem, var(--cloud-size), 3.3rem);
+  font-size: clamp(0.9rem, var(--cloud-size), 2.35rem);
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.08;
+  text-align: center;
   cursor: pointer;
-  transform: translate(-50%, -50%) rotate(var(--cloud-rotation));
-  transition: color 160ms ease, text-shadow 160ms ease, transform 160ms ease;
-  white-space: nowrap;
+  transition: color 160ms ease, text-shadow 160ms ease;
+  white-space: normal;
 }
 
 .keyword-cloud-item span {
+  display: block;
   overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .keyword-cloud-item:hover,
@@ -1235,7 +1252,6 @@ h1 {
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
   text-shadow: 0 3px 12px rgba(38, 103, 80, 0.22);
-  transform: translate(-50%, -50%) rotate(0deg) scale(1.06);
 }
 
 .keyword-cloud-item.active {
@@ -2377,22 +2393,19 @@ h1 {
   }
 
   .keyword-cloud {
-    min-height: 0;
-    aspect-ratio: auto;
+    min-height: 300px;
     max-width: none;
-    border-radius: 16px;
+    border-radius: 28px;
     padding: 22px 14px;
-    line-height: 1.72;
+    gap: 8px 13px;
     text-align: center;
   }
 
   .keyword-cloud-item {
-    position: static;
-    display: inline;
-    margin: 0 0.18em;
-    line-height: 1.72;
-    transform: none;
-    white-space: normal;
+    display: inline-flex;
+    max-width: min(100%, 14rem);
+    margin: 0;
+    line-height: 1.1;
   }
 
   .keyword-cloud-legend {
@@ -2401,11 +2414,6 @@ h1 {
     gap: 5px;
     margin-bottom: 14px;
     text-align: center;
-  }
-
-  .keyword-cloud-item:hover,
-  .keyword-cloud-item.active {
-    transform: none;
   }
 
   .initiative-card {

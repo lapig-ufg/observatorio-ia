@@ -11,6 +11,9 @@ const { isEditorialCloudTerm } = await import(`data:text/javascript;base64,${Buf
 
 test("Radar exclui URLs e identificadores bibliográficos dos temas", () => {
   const app = fs.readFileSync("src/App.tsx", "utf8");
+  const stylesheet = fs.readFileSync("src/styles.css", "utf8");
+  const cloudStyles = stylesheet.slice(stylesheet.indexOf(".keyword-cloud {"), stylesheet.indexOf(".keyword-cloud-item {"));
+  const cloudItemStyles = stylesheet.slice(stylesheet.indexOf(".keyword-cloud-item {"), stylesheet.indexOf(".keyword-cloud-item:hover,"));
 
   assert.equal(isEditorialCloudTerm("Agentes de IA"), true);
   assert.equal(isEditorialCloudTerm("RAG"), true);
@@ -24,5 +27,11 @@ test("Radar exclui URLs e identificadores bibliográficos dos temas", () => {
   assert.equal(isEditorialCloudTerm(""), false);
   assert.match(app, /if \(!isEditorialCloudTerm\(tag\)\) return;/);
   assert.match(app, /"agentes de ia": "agentes"/);
-  assert.match(app, /const maxCloudWords = 20;/);
+  assert.match(app, /const maxCloudWords = 18;/);
+  assert.doesNotMatch(app, /cloudPositions/);
+  assert.match(cloudStyles, /display: flex;/);
+  assert.match(cloudStyles, /flex-wrap: wrap;/);
+  assert.match(cloudItemStyles, /position: static;/);
+  assert.match(cloudItemStyles, /white-space: normal;/);
+  assert.doesNotMatch(stylesheet, /left: var\(--cloud-x\);/);
 });

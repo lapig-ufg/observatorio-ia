@@ -101,6 +101,22 @@ function duplicateKey(article) {
   return `${article.date}|${normalizedTitle}`;
 }
 
+function canonicalUrlKey(article) {
+  try {
+    const url = new URL(article.url);
+    url.hash = "";
+    return `${article.date}|${url.toString()}`;
+  } catch {
+    return `${article.date}|${article.url}`;
+  }
+}
+
+function preferredCanonicalRecord(previous, article) {
+  if (article.stars !== previous.stars) return article.stars > previous.stars ? article : previous;
+  if (article.title.length !== previous.title.length) return article.title.length > previous.title.length ? article : previous;
+  return article.title.localeCompare(previous.title, "pt-BR") < 0 ? article : previous;
+}
+
 function sourceOrder(filePath) {
   const name = path.basename(filePath);
   const date = name.match(/^folha_ia_(20\d{2}-\d{2}-\d{2})\.md$/)?.[1];
@@ -197,14 +213,14 @@ function parseArticles(markdown, overrides, sourceName) {
 }
 
 function consolidateArticles(batches) {
-  const unique = new Map();
+  const uniqueByTitle = new Map();
   let exactDuplicates = 0;
   let revisedArticles = 0;
 
   for (const batch of batches) {
     for (const article of batch.articles) {
       const key = duplicateKey(article);
-      const previous = unique.get(key);
+      const previous = uniqueByTitle.get(key);
       if (previous) {
         const isIdentical = previous.section === article.section
           && previous.title === article.title
@@ -214,14 +230,28 @@ function consolidateArticles(batches) {
         else revisedArticles += 1;
       }
       // Arquivos mais recentes vêm por último: eles substituem uma cópia semanal anterior.
-      unique.set(key, article);
+      uniqueByTitle.set(key, article);
+    }
+  }
+
+  const uniqueByCanonicalUrl = new Map();
+  let canonicalUrlDuplicates = 0;
+  for (const article of uniqueByTitle.values()) {
+    const key = canonicalUrlKey(article);
+    const previous = uniqueByCanonicalUrl.get(key);
+    if (previous) {
+      canonicalUrlDuplicates += 1;
+      uniqueByCanonicalUrl.set(key, preferredCanonicalRecord(previous, article));
+    } else {
+      uniqueByCanonicalUrl.set(key, article);
     }
   }
 
   return {
-    articles: [...unique.values()].sort((left, right) => right.date.localeCompare(left.date) || left.title.localeCompare(right.title, "pt-BR")),
+    articles: [...uniqueByCanonicalUrl.values()].sort((left, right) => right.date.localeCompare(left.date) || left.title.localeCompare(right.title, "pt-BR")),
     exactDuplicates,
     revisedArticles,
+    canonicalUrlDuplicates,
   };
 }
 
@@ -240,11 +270,12 @@ const sourceFiles = await Promise.all(sourcePaths.map(async (sourcePath) => {
     articles: parseArticles(markdown, overrides, path.basename(sourcePath)),
   };
 }));
-const { articles, exactDuplicates, revisedArticles } = consolidateArticles(sourceFiles);
+const { articles, exactDuplicates, revisedArticles, canonicalUrlDuplicates } = consolidateArticles(sourceFiles);
 if (!articles.length) throw new Error("Nenhuma matéria válida foi encontrada nas tabelas do Markdown.");
 
-const duplicateCount = new Set(articles.map(duplicateKey)).size !== articles.length;
-if (duplicateCount) throw new Error("A importação ainda contém matérias duplicadas por data e título.");
+const duplicateCount = new Set(articles.map(duplicateKey)).size !== articles.length
+  || new Set(articles.map(canonicalUrlKey)).size !== articles.length;
+if (duplicateCount) throw new Error("A importação ainda contém matérias duplicadas por data e título ou por data e URL canônica.");
 
 await fs.rm(outputDirectory, { recursive: true, force: true });
 await fs.mkdir(outputDirectory, { recursive: true });
@@ -263,6 +294,7 @@ const index = {
     files: sourceFiles.map(({ name, updatedAt }) => ({ name, updatedAt })),
     exactDuplicates,
     revisedArticles,
+    canonicalUrlDuplicates,
   },
   articleCount: articles.length,
   firstDate,
@@ -274,4 +306,4 @@ const index = {
   monthly: countBy(articles, (article) => article.date.slice(0, 7)).sort((left, right) => left.label.localeCompare(right.label)).map(({ label: month, count }) => ({ month, count })),
 };
 await fs.writeFile(path.join(outputDirectory, "index.json"), `${JSON.stringify(index, null, 2)}\n`);
-console.log(`Folha IA: ${articles.length} matérias de ${sourceFiles.length} arquivo(s), ${years.length} anos, ${daysCovered} dias. ${exactDuplicates} duplicada(s) idêntica(s) ignorada(s), ${revisedArticles} versão(ões) mais nova(s) aplicada(s), ${overrides.size} tema(s) editorial(is) aplicado(s).`);
+console.log(`Folha IA: ${articles.length} matérias de ${sourceFiles.length} arquivo(s), ${years.length} anos, ${daysCovered} dias. ${exactDuplicates} duplicada(s) idêntica(s) ignorada(s), ${revisedArticles} versão(ões) mais nova(s) aplicada(s), ${canonicalUrlDuplicates} par(es) canônico(s) de data e URL consolidados, ${overrides.size} tema(s) editorial(is) aplicado(s).`);
