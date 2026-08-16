@@ -957,10 +957,14 @@ function ArticleCard({ article }: { article: Article }) {
                 <LockKeyhole size={16} /> PDF institucional
               </a>
             )}
-            <a className="article-action" href={article.originalUrl} target="_blank" rel="noreferrer"
-              onClick={() => trackEvent("open_article", { event_category: "article", event_label: article.id, article_type: article.type, source: article.source })}>
-              {actionLabels[article.type]} <ArrowUpRight size={17} />
-            </a>
+            {article.originalUrl ? (
+              <a className="article-action" href={article.originalUrl} target="_blank" rel="noreferrer"
+                onClick={() => trackEvent("open_article", { event_category: "article", event_label: article.id, article_type: article.type, source: article.source })}>
+                {actionLabels[article.type]} <ArrowUpRight size={17} />
+              </a>
+            ) : !article.institutionalPdfUrl && (
+              <span className="article-action-unavailable">Link em revisão</span>
+            )}
           </div>
         </div>
       </div>

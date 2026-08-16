@@ -1668,6 +1668,13 @@ h1 {
   background: var(--navy-100);
 }
 
+.article-action-unavailable {
+  color: #738079;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 8px 0;
+}
+
 .load-more {
   min-width: 210px;
   margin: 0 auto 54px;

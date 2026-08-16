@@ -80,3 +80,10 @@ test("newspaper records are preserved in the source but suppressed from the gene
   assert.doesNotMatch(app, /Artigos de Blogs, documentos, vídeos, notícias,/);
   assert.doesNotMatch(app, /keyword-cloud-recent/);
 });
+
+test("cards never render an empty primary-link action", () => {
+  const app = fs.readFileSync("src/App.tsx", "utf8");
+  assert.match(app, /article\.originalUrl \? \(/);
+  assert.match(app, /!article\.institutionalPdfUrl && \(/);
+  assert.match(app, /Link em revisão/);
+});
