@@ -116,6 +116,14 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    date: "7 a 14 de agosto de 2026",
+    source: "Curso híbrido · UFG/IESA/CIAMB",
+    title: "Entendendo e Usando IA Generativa para o Processamento e Análise de Dados de Observação da Terra",
+    summary: "Curso sobre fundamentos da IA e aplicação prática de modelos ao processamento e à classificação de imagens de sensoriamento remoto.",
+    href: "https://docs.google.com/forms/d/e/1FAIpQLScZuIGJyrRGRetn_nlsCNq-Hfih-ZmXBuv5fj82ebU60vs10w/viewform",
+    eventLabel: "curso-ia-generativa-observacao-terra",
+  },
+  {
     date: "3 a 6 de agosto de 2026",
     source: "Folha de S.Paulo · Observatório de imprensa",
     title: "IA como notícia diária",
@@ -552,12 +560,26 @@ export function App() {
       <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
         <div className="weekly-highlight-kicker">
           <span>Em destaque...</span>
-          <span>Curso híbrido · UFG/IESA/CIAMB</span>
+          <span>Laerte Ferreira · Ensaio</span>
         </div>
-        <div className="weekly-highlight-content">
-          <div>
-            <p className="eyebrow">Segundas-feiras · 14h às 17h · 10 de agosto a 7 de dezembro de 2026</p>
-            <h2 id="weekly-highlight-title">Entendendo e Usando IA Generativa para o Processamento e Análise de Dados de Observação da Terra</h2>
+        <div className="weekly-highlight-content weekly-highlight-content--with-image">
+          <a
+            className="weekly-highlight-media"
+            href="https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view"
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "geopolitica-ia-soberania-nacional" })}
+          >
+            <img src={assetUrl("highlights/guerra_fria_IA_logos_v6.png")} alt="Ilustração da disputa geopolítica em inteligência artificial, com áreas de influência dos Estados Unidos e da China." />
+            <span>Ver ensaio completo <ArrowUpRight size={16} aria-hidden="true" /></span>
+          </a>
+          <div className="weekly-highlight-copy">
+            <p className="eyebrow">Agosto de 2026</p>
+            <h2 id="weekly-highlight-title">A Geopolítica da IA e a Soberania Nacional</h2>
+            <div className="weekly-highlight-aside">
+              <p>Entre EUA e China, a soberania brasileira não virá da corrida por modelos de fronteira, mas de dados, infraestrutura, regulação e formação. O ensaio propõe <em>hedging</em> ativo: diversificar parceiros e fortalecer capacidades locais.</p>
+              <a href="https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "geopolitica-ia-soberania-nacional" })}>Ler o ensaio completo <ArrowUpRight size={17} aria-hidden="true" /></a>
+            </div>
             <button
               type="button"
               className="weekly-highlight-history-toggle"
@@ -572,10 +594,6 @@ export function App() {
               <span>O que já foi destaque?</span>
               <ChevronDown size={16} className={showFeaturedHistory ? "is-open" : ""} aria-hidden="true" />
             </button>
-          </div>
-          <div className="weekly-highlight-aside">
-            <p>Curso sobre fundamentos conceituais, matemáticos e históricos da IA, com aplicação prática de modelos ao processamento e à classificação de imagens de sensoriamento remoto. Aborda redes neurais, Transformers, LLMs, atenção, embeddings, viés algorítmico, custo ambiental, integridade acadêmica e uso responsável da IA.</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScZuIGJyrRGRetn_nlsCNq-Hfih-ZmXBuv5fj82ebU60vs10w/viewform" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "curso-ia-generativa-observacao-terra" })}>Participar ou acessar materiais <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
         </div>
         {showFeaturedHistory && (

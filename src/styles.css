@@ -696,6 +696,65 @@ h1 {
   align-items: end;
 }
 
+.weekly-highlight-content--with-image {
+  grid-template-columns: minmax(290px, 0.9fr) minmax(0, 1.1fr);
+  align-items: stretch;
+}
+
+.weekly-highlight-media {
+  position: relative;
+  display: flex;
+  min-height: 260px;
+  overflow: hidden;
+  border: 1px solid #a7c4b5;
+  border-radius: 10px;
+  background: #dcebe3;
+  color: #fff;
+  text-decoration: none;
+}
+
+.weekly-highlight-media::after {
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(180deg, transparent, rgba(9, 53, 43, 0.82));
+  content: "";
+  pointer-events: none;
+}
+
+.weekly-highlight-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 180ms ease;
+}
+
+.weekly-highlight-media span {
+  position: absolute;
+  z-index: 1;
+  right: 16px;
+  bottom: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.weekly-highlight-media:hover img { transform: scale(1.025); }
+
+.weekly-highlight-content--with-image .weekly-highlight-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.weekly-highlight-content--with-image .weekly-highlight-aside {
+  max-width: 700px;
+  margin-top: clamp(18px, 2.5vw, 30px);
+}
+
 .weekly-highlight .eyebrow {
   margin: 0 0 7px;
 }
