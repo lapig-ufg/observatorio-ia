@@ -1,4 +1,4 @@
-export type ArticleType = "medium" | "documento" | "link-video" | "noticia" | "paper" | "apresentacao";
+export type ArticleType = "medium" | "documento" | "link-video" | "noticia" | "paper" | "apresentacao" | "entrevista";
 
 export type Article = {
   id: string;
@@ -123,6 +123,8 @@ function asType(value: string): ArticleType {
     cientifico: "paper",
     apresentacao: "apresentacao",
     apresentacoes_ia: "apresentacao",
+    entrevista: "entrevista",
+    entrevistas: "entrevista",
   };
 
   return aliases[normalized] || "medium";

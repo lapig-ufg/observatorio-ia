@@ -54,6 +54,16 @@ test("catalog contains the complete multidisciplinary collection", () => {
   );
 });
 
+test("catalog parser recognizes the separate interview collection", () => {
+  const catalogSource = fs.readFileSync("src/catalog.ts", "utf8");
+  const app = fs.readFileSync("src/App.tsx", "utf8");
+
+  assert.match(catalogSource, /\| "entrevista";/);
+  assert.match(catalogSource, /entrevista: "entrevista"/);
+  assert.match(app, /entrevista: "Entrevistas"/);
+  assert.match(app, /const categoryTypes: ArticleType\[\] = \["medium", "documento", "link-video", "entrevista", "paper", "apresentacao"\];/);
+});
+
 test("duplicate registry matches the catalog", () => {
   const catalog = records("public/catalogo.csv");
   const control = records("data/controle-duplicatas.csv");
@@ -74,7 +84,7 @@ test("GitHub Pages workflow builds from direct Google Sheets configuration", () 
 
 test("newspaper records are preserved in the source but suppressed from the general catalog", () => {
   const app = fs.readFileSync("src/App.tsx", "utf8");
-  assert.match(app, /const categoryTypes: ArticleType\[\] = \["medium", "documento", "link-video", "paper", "apresentacao"\];/);
+  assert.match(app, /const categoryTypes: ArticleType\[\] = \["medium", "documento", "link-video", "entrevista", "paper", "apresentacao"\];/);
   assert.match(app, /filter\(\(article\) => article\.type !== "noticia"\)/);
   assert.match(app, /const catalogFilterTypes: Array<"todos" \| ArticleType> = \["todos", \.\.\.categoryTypes\];/);
   assert.doesNotMatch(app, /Artigos de Blogs, documentos, vídeos, notícias,/);

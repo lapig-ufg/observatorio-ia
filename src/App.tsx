@@ -5,12 +5,12 @@ import {
   CheckCircle2,
   ChevronDown,
   Clock3,
-  Download,
   FileText,
   Link2,
   Library,
   LoaderCircle,
   LockKeyhole,
+  Mic,
   Newspaper,
   Presentation,
   RefreshCw,
@@ -33,6 +33,7 @@ const typeLabels: Record<"todos" | ArticleType, string> = {
   noticia: "Jornais e notícias",
   paper: "IA na pesquisa científica",
   apresentacao: "Apresentações",
+  entrevista: "Entrevistas",
 };
 
 const typeIcons = {
@@ -42,6 +43,7 @@ const typeIcons = {
   noticia: Newspaper,
   paper: BookOpen,
   apresentacao: Presentation,
+  entrevista: Mic,
 };
 
 const actionLabels: Record<ArticleType, string> = {
@@ -51,11 +53,12 @@ const actionLabels: Record<ArticleType, string> = {
   noticia: "Ler notícia",
   paper: "Acessar paper",
   apresentacao: "Ver apresentação",
+  entrevista: "Assistir entrevista",
 };
 
 // Notícias têm página editorial própria em “IA como notícia diária”. Os registros
 // permanecem na fonte, mas não fazem parte do catálogo público geral.
-const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "paper", "apresentacao"];
+const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "entrevista", "paper", "apresentacao"];
 const catalogFilterTypes: Array<"todos" | ArticleType> = ["todos", ...categoryTypes];
 const chartLabels: Record<ArticleType, string> = {
   medium: "Blogs",
@@ -64,6 +67,7 @@ const chartLabels: Record<ArticleType, string> = {
   noticia: "Notícias",
   paper: "Pesquisa científica",
   apresentacao: "Apresentações",
+  entrevista: "Entrevistas",
 };
 const chartColors: Record<ArticleType, { bar: string; track: string }> = {
   medium: { bar: "#16715b", track: "#cfe6dc" },
@@ -72,6 +76,7 @@ const chartColors: Record<ArticleType, { bar: string; track: string }> = {
   noticia: { bar: "#b87516", track: "#f1e3bf" },
   paper: { bar: "#70569b", track: "#e2d9ee" },
   apresentacao: { bar: "#bd4659", track: "#f1d4da" },
+  entrevista: { bar: "#76568d", track: "#e5dbee" },
 };
 // Painel externo do LAPIG exibido dentro do site. O parâmetro embed pede ao
 // painel que esconda o próprio cabeçalho, já que ele roda aqui dentro.
@@ -116,6 +121,14 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 ];
 
 const featuredHistory = [
+  {
+    date: "15 a 21 de agosto de 2026",
+    source: "Laerte Ferreira · Ensaio",
+    title: "A Geopolítica da IA e a Soberania Nacional",
+    summary: "Ensaio sobre a disputa tecnológica em IA e seus efeitos sobre autonomia, infraestrutura e soberania nacional.",
+    href: "https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view",
+    eventLabel: "geopolitica-ia-soberania-nacional",
+  },
   {
     date: "7 a 14 de agosto de 2026",
     source: "Curso híbrido · UFG/IESA/CIAMB",
@@ -337,6 +350,7 @@ export function App() {
     noticia: articles.filter((article) => article.type === "noticia").length,
     paper: articles.filter((article) => article.type === "paper").length,
     apresentacao: articles.filter((article) => article.type === "apresentacao").length,
+    entrevista: articles.filter((article) => article.type === "entrevista").length,
   }), [articles]);
   const collectionChart = useMemo(() => {
     const entries = categoryTypes.map((category) => ({
@@ -531,7 +545,7 @@ export function App() {
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
           <h1 id="page-title">Conhecimento sobre IA para estudo, pesquisa e debate</h1>
-          <p className="intro-copy">Artigos de Blogs, documentos, vídeos, papers científicos e apresentações reunidos em um acervo temático.</p>
+          <p className="intro-copy">Artigos de Blogs, documentos, vídeos, entrevistas, papers científicos e apresentações reunidos em um acervo temático.</p>
         </div>
         <div className="collection-chart" aria-label="Número de itens por categoria">
           <p className="collection-chart-title">Itens por categoria</p>
@@ -555,37 +569,26 @@ export function App() {
       <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
         <div className="weekly-highlight-kicker">
           <span>Em destaque...</span>
-          <span>Laerte Ferreira · Ensaio</span>
+          <span>Entrevista exclusiva · Observatório UFG-IA</span>
         </div>
         <div className="weekly-highlight-content weekly-highlight-content--with-image">
           <a
             className="weekly-highlight-media"
-            href="https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view"
+            href="https://drive.google.com/file/d/1mHCzff-0WYGG146KlpidVwn9_oE-cvZU/view?usp=drivesdk"
             target="_blank"
             rel="noreferrer"
-            onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "geopolitica-ia-soberania-nacional" })}
+            onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "entrevista-marcilon-almeida-ia-arte-design" })}
           >
-            <img src={assetUrl("highlights/guerra_fria_IA_logos_v6.png")} alt="Ilustração da disputa geopolítica em inteligência artificial, com áreas de influência dos Estados Unidos e da China." />
-            <span>Ver ensaio completo <ArrowUpRight size={16} aria-hidden="true" /></span>
+            <img src={assetUrl("highlights/entrevista-ia-arte-design-2026-08-22.png")} alt="Ilustração abstrata que aproxima criação humana, design e inteligência artificial." />
+            <span>Assistir entrevista <ArrowUpRight size={16} aria-hidden="true" /></span>
           </a>
           <div className="weekly-highlight-copy">
-            <p className="eyebrow">Agosto de 2026</p>
-            <h2 id="weekly-highlight-title">A Geopolítica da IA e a Soberania Nacional</h2>
+            <p className="eyebrow">Arte, design e cultura digital</p>
+            <h2 id="weekly-highlight-title">IA, arte e design: repertório crítico em tempos de transformação</h2>
             <div className="weekly-highlight-aside">
-              <p>Entre EUA e China, a soberania brasileira não virá da corrida por modelos de fronteira, mas de dados, infraestrutura, regulação e formação. O ensaio propõe <em>hedging</em> ativo: diversificar parceiros e fortalecer capacidades locais.</p>
+              <p>Em entrevista exclusiva, Marcilon Almeida reflete sobre como a IA reconfigura processos criativos, sem substituir repertório, julgamento e expressão humanos.</p>
               <div className="weekly-highlight-actions">
-                <a href="https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "geopolitica-ia-soberania-nacional" })}>Ler o ensaio completo <ArrowUpRight size={17} aria-hidden="true" /></a>
-                <a
-                  className="weekly-highlight-podcast"
-                  href="https://drive.google.com/uc?export=download&id=1NfkckiNeegn9XtW3NxOsbOFn73MZ6GSq"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Baixar versão em podcast do ensaio A Geopolítica da IA e a Soberania Nacional, em M4A"
-                  onClick={() => trackEvent("download_weekly_highlight_podcast", { event_category: "download", event_label: "geopolitica-ia-soberania-nacional-m4a" })}
-                >
-                  <Download size={17} aria-hidden="true" />
-                  Baixar podcast (M4A)
-                </a>
+                <a href="https://drive.google.com/file/d/1mHCzff-0WYGG146KlpidVwn9_oE-cvZU/view?usp=drivesdk" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "entrevista-marcilon-almeida-ia-arte-design" })}>Assistir entrevista <ArrowUpRight size={17} aria-hidden="true" /></a>
               </div>
             </div>
             <button
