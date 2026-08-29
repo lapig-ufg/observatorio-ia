@@ -588,14 +588,14 @@ export function App() {
             aria-label="Ler o ensaio de Bill Gates sobre as escolhas críticas da era da inteligência artificial"
             onClick={() => trackEvent("open_weekly_highlight_image", { event_category: "outbound", event_label: "gates-turbulent-ai-era-illustration" })}
           >
-            <img src={assetUrl("covers/gates-ia-escolhas-coletivas-2026-08-29.png")} alt="Ilustração conceitual de uma pessoa conectando educação, ciência, saúde, trabalho e cuidado em meio a fluxos de inteligência artificial." />
+            <img src={assetUrl("covers/gates-ia-contradicoes-2026-08-29-v3.png")} alt="Ilustração editorial que contrapõe usos sociais articulados e riscos fragmentados da inteligência artificial, separados por um limiar de decisão pública." />
             <span>Ler ensaio <ArrowUpRight size={16} aria-hidden="true" /></span>
           </a>
           <div className="weekly-highlight-copy">
             <p className="eyebrow">Governança, trabalho e futuro coletivo</p>
-            <h2 id="weekly-highlight-title">The turbulent AI era is here. The choices we make now are critical.</h2>
+            <h2 id="weekly-highlight-title">A era turbulenta da IA chegou. As escolhas que fazemos agora são cruciais.</h2>
             <div className="weekly-highlight-aside">
-              <p>Bill Gates argumenta que a IA pode ampliar saúde, educação, agricultura e ciência, mas exige escolhas públicas urgentes para enfrentar trabalho, desigualdade, segurança e os efeitos sobre crianças.</p>
+              <p>Bill Gates argumenta que a IA pode ampliar e transformar o acesso à saúde, educação, agricultura e ciência; mas há também riscos e impactos sobre os quais precisamos debater e fazer escolhas públicas urgentes, para enfrentar os efeitos potencialmente negativos da IA sobre trabalho, desigualdade, segurança e crianças.</p>
               <div className="weekly-highlight-actions">
                 <a href="https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "gates-turbulent-ai-era-critical-choices" })}>Ler ensaio <ArrowUpRight size={17} aria-hidden="true" /></a>
                 <a className="weekly-highlight-podcast" href="https://drive.google.com/uc?export=download&id=1Ku_rnntTaz6fotiaAv3kCDRD8X1Mzo7Q" onClick={() => trackEvent("download_weekly_highlight_podcast", { event_category: "outbound", event_label: "gates-turbulent-ai-era-podcast-m4a" })}>Baixar podcast (M4A) <ArrowUpRight size={17} aria-hidden="true" /></a>
