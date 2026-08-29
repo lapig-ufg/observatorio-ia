@@ -122,6 +122,14 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    date: "22 a 28 de agosto de 2026",
+    source: "Entrevista exclusiva · Observatório UFG-IA",
+    title: "IA, arte e design: repertório crítico em tempos de transformação",
+    summary: "Entrevista com Marcilon Almeida sobre como a IA reconfigura processos criativos, sem substituir repertório, julgamento e expressão humanos.",
+    href: "https://drive.google.com/file/d/1mHCzff-0WYGG146KlpidVwn9_oE-cvZU/view?usp=drivesdk",
+    eventLabel: "entrevista-marcilon-almeida-ia-arte-design",
+  },
+  {
     date: "15 a 21 de agosto de 2026",
     source: "Laerte Ferreira · Ensaio",
     title: "A Geopolítica da IA e a Soberania Nacional",
@@ -569,26 +577,28 @@ export function App() {
       <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
         <div className="weekly-highlight-kicker">
           <span>Em destaque...</span>
-          <span>Entrevista exclusiva · Observatório UFG-IA</span>
+          <span>Bill Gates · Gates Notes</span>
         </div>
         <div className="weekly-highlight-content weekly-highlight-content--with-image">
           <a
             className="weekly-highlight-media"
-            href="https://drive.google.com/file/d/1mHCzff-0WYGG146KlpidVwn9_oE-cvZU/view?usp=drivesdk"
+            href="https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make"
             target="_blank"
             rel="noreferrer"
-            onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "entrevista-marcilon-almeida-ia-arte-design" })}
+            aria-label="Ler o ensaio de Bill Gates sobre as escolhas críticas da era da inteligência artificial"
+            onClick={() => trackEvent("open_weekly_highlight_image", { event_category: "outbound", event_label: "gates-turbulent-ai-era-illustration" })}
           >
-            <img src={assetUrl("highlights/entrevista-ia-arte-design-2026-08-22.png")} alt="Ilustração abstrata que aproxima criação humana, design e inteligência artificial." />
-            <span>Assistir entrevista <ArrowUpRight size={16} aria-hidden="true" /></span>
+            <img src={assetUrl("covers/gates-ia-escolhas-coletivas-2026-08-29.png")} alt="Ilustração conceitual de uma pessoa conectando educação, ciência, saúde, trabalho e cuidado em meio a fluxos de inteligência artificial." />
+            <span>Ler ensaio <ArrowUpRight size={16} aria-hidden="true" /></span>
           </a>
           <div className="weekly-highlight-copy">
-            <p className="eyebrow">Arte, design e cultura digital</p>
-            <h2 id="weekly-highlight-title">IA, arte e design: repertório crítico em tempos de transformação</h2>
+            <p className="eyebrow">Governança, trabalho e futuro coletivo</p>
+            <h2 id="weekly-highlight-title">The turbulent AI era is here. The choices we make now are critical.</h2>
             <div className="weekly-highlight-aside">
-              <p>Em entrevista exclusiva, Marcilon Almeida reflete sobre como a IA reconfigura processos criativos, sem substituir repertório, julgamento e expressão humanos.</p>
+              <p>Bill Gates argumenta que a IA pode ampliar saúde, educação, agricultura e ciência, mas exige escolhas públicas urgentes para enfrentar trabalho, desigualdade, segurança e os efeitos sobre crianças.</p>
               <div className="weekly-highlight-actions">
-                <a href="https://drive.google.com/file/d/1mHCzff-0WYGG146KlpidVwn9_oE-cvZU/view?usp=drivesdk" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "entrevista-marcilon-almeida-ia-arte-design" })}>Assistir entrevista <ArrowUpRight size={17} aria-hidden="true" /></a>
+                <a href="https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "gates-turbulent-ai-era-critical-choices" })}>Ler ensaio <ArrowUpRight size={17} aria-hidden="true" /></a>
+                <a className="weekly-highlight-podcast" href="https://drive.google.com/uc?export=download&id=1Ku_rnntTaz6fotiaAv3kCDRD8X1Mzo7Q" onClick={() => trackEvent("download_weekly_highlight_podcast", { event_category: "outbound", event_label: "gates-turbulent-ai-era-podcast-m4a" })}>Baixar podcast (M4A) <ArrowUpRight size={17} aria-hidden="true" /></a>
               </div>
             </div>
             <button
