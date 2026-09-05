@@ -11,11 +11,11 @@ test("o destaque apresenta o relatório do MIT e preserva Gates e a entrevista n
   assert.match(app, /assetUrl\("covers\/mit-ia-educacao-aprendizagem-2026-09-05\.png"\)/);
   assert.match(app, /Ilustração editorial de uma mesa de estudo que aproxima leitura, escrita e orientação humana/);
   assert.match(app, /usar a IA para ampliar — não automatizar — a aprendizagem/);
-  assert.match(app, /https:\/\/drive\.google\.com\/uc\?export=download&id=15K_wBXRoitcdt6XjWXe0gPGA9I4DjoSI/);
+  assert.match(app, /https:\/\/drive\.google\.com\/file\/d\/15K_wBXRoitcdt6XjWXe0gPGA9I4DjoSI\/view\?usp=drivesdk/);
+  assert.match(app, /Ouvir ou baixar podcast \(M4A\)/);
   assert.match(app, /A era turbulenta da IA chegou\. As escolhas que fazemos agora são cruciais\./);
   assert.match(app, /Bill Gates · Gates Notes/);
   assert.match(app, /https:\/\/www\.gatesnotes\.com\/a-turbulent-ai-era-and-critical-choices-to-make/);
-  assert.match(app, /Baixar podcast \(M4A\)/);
   assert.match(app, /IA, arte e design: repertório crítico em tempos de transformação/);
   assert.match(app, /Entrevista exclusiva · Observatório UFG-IA/);
   assert.match(app, /https:\/\/drive\.google\.com\/file\/d\/1mHCzff-0WYGG146KlpidVwn9_oE-cvZU\/view\?usp=drivesdk/);
