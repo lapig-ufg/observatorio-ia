@@ -42,11 +42,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install interactive lesson dependencies
+        run: pnpm --dir experiencias/por-dentro-da-ia install --frozen-lockfile
+
       - name: Test catalog
         run: pnpm test
 
       - name: Build static site
-        run: pnpm build
+        run: pnpm build:all
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4

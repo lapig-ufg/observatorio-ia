@@ -1,5 +1,13 @@
 # Observatório UFG-IA | LAPIG/UFG
 
+## Experiência “Por dentro da IA”
+
+A aula interativa integra este repositório em `experiencias/por-dentro-da-ia/`. Seu botão aparece na seção **Experiências interativas** da página inicial. O botão **Voltar ao Observatório**, no cabeçalho da aula, retorna à mesma seção.
+
+Endereço: https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/
+
+Para publicar o conjunto, instalar também as dependências da aula com `pnpm --dir experiencias/por-dentro-da-ia install --frozen-lockfile` e executar `pnpm build:all`. Esse comando compila portal e aula, testa a experiência e reúne tudo em `dist/`. O workflow do Observatório já usa esse procedimento; não criar uma publicação independente que substitua o portal.
+
 Catálogo público de conteúdos sobre inteligência artificial. O projeto é uma
 aplicação React/Vite estática, preparada para GitHub Pages, que carrega os
 itens diretamente de uma aba publicada do Google Sheets.

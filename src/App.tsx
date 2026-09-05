@@ -644,6 +644,26 @@ export function App() {
         )}
       </section>
 
+      <section id="experiencias-interativas" className="interactive-experience" aria-labelledby="interactive-experience-title">
+        <div className="interactive-experience-copy">
+          <p className="eyebrow">Experiências interativas · LAPIG / UFG</p>
+          <h2 id="interactive-experience-title">Por dentro da IA <span>Da frase ao próximo token</span></h2>
+          <p>Como um modelo de linguagem gera uma resposta? Acompanhe a jornada de uma frase sobre sensoriamento remoto, explore diagramas e experimente operações matemáticas passo a passo.</p>
+          <p className="interactive-experience-scope">Uma introdução visual à inferência, com o GPT-3 como referência. Não é preciso dominar matemática ou programação.</p>
+          <a className="interactive-experience-action" href={assetUrl("por-dentro-da-ia/")} onClick={() => trackEvent("open_interactive_inference", { event_category: "navigation", event_label: "por-dentro-da-ia" })}>Por dentro da IA <span aria-hidden="true">→</span></a>
+          <small>Explore a aula e volte ao Observatório pelo botão no cabeçalho.</small>
+        </div>
+        <div className="interactive-experience-journey">
+          <p className="eyebrow">A frase que guia a jornada</p>
+          <blockquote>A vegetação saudável apresenta alta reflectância no infravermelho próximo.</blockquote>
+          <ol aria-label="Etapas da geração do próximo token">
+            <li><strong>01 · Tokens e embeddings</strong><span>O texto ganha representações numéricas.</span></li>
+            <li><strong>02 · Blocos Transformer</strong><span>Atenção e redes neurais transformam as representações usando o contexto.</span></li>
+            <li><strong>03 · Próximo token</strong><span>Escores para o vocabulário tornam-se probabilidades para escolher a continuação.</span></li>
+          </ol>
+        </div>
+      </section>
+
       <section className="obia-callout" aria-labelledby="obia-title">
         <a className="obia-logo-link" href="https://obia.nic.br/" target="_blank" rel="noreferrer" aria-label="Acessar o Observatório Brasileiro de Inteligência Artificial" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia" })}>
           <img src="https://obia.nic.br/img/logo-text-white.svg" alt="OBIA" />
