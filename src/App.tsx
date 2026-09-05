@@ -122,6 +122,14 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    date: "29 de agosto a 4 de setembro de 2026",
+    source: "Bill Gates · Gates Notes",
+    title: "A era turbulenta da IA chegou. As escolhas que fazemos agora são cruciais.",
+    summary: "Bill Gates discute como a IA pode ampliar saúde, educação, agricultura e ciência, sem que isso dispense escolhas públicas urgentes sobre trabalho, desigualdade, segurança e infância.",
+    href: "https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make",
+    eventLabel: "gates-turbulent-ai-era-critical-choices",
+  },
+  {
     date: "22 a 28 de agosto de 2026",
     source: "Entrevista exclusiva · Observatório UFG-IA",
     title: "IA, arte e design: repertório crítico em tempos de transformação",
@@ -577,28 +585,28 @@ export function App() {
       <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
         <div className="weekly-highlight-kicker">
           <span>Em destaque...</span>
-          <span>Bill Gates · Gates Notes</span>
+          <span>MIT · Educação, aprendizagem e pesquisa</span>
         </div>
         <div className="weekly-highlight-content weekly-highlight-content--with-image">
           <a
             className="weekly-highlight-media"
-            href="https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make"
+            href="https://drive.google.com/file/d/1aiDFYVOyyv43PWB9TKzP3xzX85iCVf4s/view?usp=drivesdk"
             target="_blank"
             rel="noreferrer"
-            aria-label="Ler o ensaio de Bill Gates sobre as escolhas críticas da era da inteligência artificial"
-            onClick={() => trackEvent("open_weekly_highlight_image", { event_category: "outbound", event_label: "gates-turbulent-ai-era-illustration" })}
+            aria-label="Ler o relatório do MIT sobre uso de IA no ensino, na aprendizagem e na formação para a pesquisa"
+            onClick={() => trackEvent("open_weekly_highlight_image", { event_category: "outbound", event_label: "mit-ai-teaching-learning-research-training-illustration" })}
           >
-            <img src={assetUrl("covers/gates-ia-contradicoes-2026-08-29-v3.png")} alt="Ilustração editorial que contrapõe usos sociais articulados e riscos fragmentados da inteligência artificial, separados por um limiar de decisão pública." />
-            <span>Ler ensaio <ArrowUpRight size={16} aria-hidden="true" /></span>
+            <img src={assetUrl("covers/mit-ia-educacao-aprendizagem-2026-09-05.png")} alt="Ilustração editorial de uma mesa de estudo que aproxima leitura, escrita e orientação humana de estruturas translúcidas de apoio computacional, unidas por uma passagem de avaliação e diálogo." />
+            <span>Ler relatório <ArrowUpRight size={16} aria-hidden="true" /></span>
           </a>
           <div className="weekly-highlight-copy">
-            <p className="eyebrow">Governança, trabalho e futuro coletivo</p>
-            <h2 id="weekly-highlight-title">A era turbulenta da IA chegou. As escolhas que fazemos agora são cruciais.</h2>
+            <p className="eyebrow">Educação superior em tempos de IA</p>
+            <h2 id="weekly-highlight-title">IA na educação: mais do que regular ferramentas</h2>
             <div className="weekly-highlight-aside">
-              <p>Bill Gates argumenta que a IA pode ampliar e transformar o acesso à saúde, educação, agricultura e ciência; mas há também riscos e impactos sobre os quais precisamos debater e fazer escolhas públicas urgentes, para enfrentar os efeitos potencialmente negativos da IA sobre trabalho, desigualdade, segurança e crianças.</p>
+              <p>Em 13 de agosto de 2026, um comitê plural do MIT publicou um chamado à ação sobre IA no ensino, na aprendizagem e na formação para a pesquisa. O relatório reconhece oportunidades de tutoria e pesquisa, mas alerta para isolamento, perda de domínio conceitual, dificuldades de avaliação e erosão do contrato social entre docentes e estudantes. Sua tese é que não basta regulamentar ferramentas: é necessário redesenhar disciplinas e avaliações, formar docentes, garantir acesso equitativo e usar a IA para ampliar — não automatizar — a aprendizagem. Uma agenda que dialoga diretamente com as universidades públicas brasileiras.</p>
               <div className="weekly-highlight-actions">
-                <a href="https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "gates-turbulent-ai-era-critical-choices" })}>Ler ensaio <ArrowUpRight size={17} aria-hidden="true" /></a>
-                <a className="weekly-highlight-podcast" href="https://drive.google.com/uc?export=download&id=1Ku_rnntTaz6fotiaAv3kCDRD8X1Mzo7Q" onClick={() => trackEvent("download_weekly_highlight_podcast", { event_category: "outbound", event_label: "gates-turbulent-ai-era-podcast-m4a" })}>Baixar podcast (M4A) <ArrowUpRight size={17} aria-hidden="true" /></a>
+                <a href="https://drive.google.com/file/d/1aiDFYVOyyv43PWB9TKzP3xzX85iCVf4s/view?usp=drivesdk" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "mit-ai-committee-report" })}>Ler relatório <ArrowUpRight size={17} aria-hidden="true" /></a>
+                <a className="weekly-highlight-podcast" href="https://drive.google.com/uc?export=download&id=15K_wBXRoitcdt6XjWXe0gPGA9I4DjoSI" onClick={() => trackEvent("download_weekly_highlight_podcast", { event_category: "outbound", event_label: "mit-ai-committee-report-podcast-m4a" })}>Baixar podcast (M4A) <ArrowUpRight size={17} aria-hidden="true" /></a>
               </div>
             </div>
             <button
