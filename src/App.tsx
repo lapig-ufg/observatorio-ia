@@ -18,7 +18,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPage } from "./DailyNewsPage";
@@ -926,24 +926,52 @@ function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
 }
 
 function PanoramaPage() {
+  const frameRef = useRef<HTMLIFrameElement>(null);
+  const noteRef = useRef<HTMLParagraphElement>(null);
+
+  // A topbar muda de altura entre breakpoints (uma, duas, três fileiras) e o
+  // rodapé do site fica abaixo da dobra. A altura do iframe é medida, não
+  // chutada: sob a faixa e a nota sobra exatamente a janela, qualquer que seja
+  // a largura — sem cortes e sem rolagem.
+  useEffect(() => {
+    const frame = frameRef.current;
+    const note = noteRef.current;
+    if (!frame) return;
+    const size = () => {
+      const top = frame.getBoundingClientRect().top + window.scrollY;
+      const noteH = note ? note.offsetHeight : 33;
+      frame.style.height = `${Math.max(420, window.innerHeight - top - noteH)}px`;
+    };
+    size();
+    const observer = new ResizeObserver(size);
+    if (frame.parentElement) observer.observe(frame.parentElement);
+    window.addEventListener("resize", size);
+    window.addEventListener("orientationchange", size);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", size);
+      window.removeEventListener("orientationchange", size);
+    };
+  }, []);
+
   return (
     <section id="panorama" className="panorama-page" aria-labelledby="panorama-title">
       <div className="panorama-intro">
-        <p className="eyebrow">Linha do tempo · LAPIG/UFG</p>
-        <h1 id="panorama-title">Panorama Global da IA Generativa</h1>
-        <p>Os lançamentos de modelos desde o ChatGPT (nov/2022), qual modelo usar em cada tipo de tarefa e o que dá para usar de graça.</p>
         <a className="back-to-catalog" href="#top" onClick={() => trackEvent("back_to_catalog")}>← Voltar ao acervo</a>
+        <div className="panorama-heading">
+          <h1 id="panorama-title">Panorama Global da IA Generativa</h1>
+          <p>Os lançamentos de modelos desde o ChatGPT (nov/2022), qual modelo usar em cada tipo de tarefa e o que dá para usar de graça.</p>
+        </div>
+        <a className="panorama-open" href={panoramaUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_panorama_standalone", { event_category: "outbound", event_label: "panorama" })}>Abrir em nova aba <ArrowUpRight size={14} aria-hidden="true" /></a>
       </div>
       <iframe
+        ref={frameRef}
         className="panorama-frame"
         src={panoramaEmbedUrl}
         title="Panorama Global da IA Generativa"
         loading="lazy"
       />
-      <p className="panorama-note">
-        Painel mantido pelo LAPIG, atualizado continuamente.{" "}
-        <a href={panoramaUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_panorama_standalone", { event_category: "outbound", event_label: "panorama" })}>Abrir em nova aba <ArrowUpRight size={14} aria-hidden="true" /></a>
-      </p>
+      <p className="panorama-note" ref={noteRef}>Painel mantido pelo LAPIG, atualizado continuamente.</p>
     </section>
   );
 }
