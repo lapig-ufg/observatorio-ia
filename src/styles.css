@@ -2688,10 +2688,11 @@ h1 {
 }
 
 /* Panorama — painel do LAPIG exibido dentro do site, sem sair para link externo.
-   A faixa é uma linha só (voltar · título · abrir fora); o iframe recebe a
+   A faixa é uma linha só (voltar · título · abrir fora) e o iframe recebe a
    altura exata que sobra da janela via ResizeObserver no componente — a
    topbar muda de altura entre breakpoints, então a altura é medida, não
-   chutada. O rodapé do site segue abaixo da dobra, como no resto do site. */
+   chutada. Sem barra de nota embaixo: os créditos já estão na topbar do site
+   e no rodapé do próprio painel. O rodapé do site segue abaixo da dobra. */
 .panorama-intro {
   display: flex;
   align-items: center;
@@ -2754,14 +2755,6 @@ h1 {
   width: 100%;
   border: 0;
   background: var(--paper);
-}
-
-.panorama-note {
-  margin: 0;
-  padding: 8px clamp(20px, 5vw, 72px);
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.8rem;
 }
 
 @media (max-width: 780px) {
