@@ -927,20 +927,18 @@ function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
 
 function PanoramaPage() {
   const frameRef = useRef<HTMLIFrameElement>(null);
-  const noteRef = useRef<HTMLParagraphElement>(null);
 
   // A topbar muda de altura entre breakpoints (uma, duas, três fileiras) e o
   // rodapé do site fica abaixo da dobra. A altura do iframe é medida, não
-  // chutada: sob a faixa e a nota sobra exatamente a janela, qualquer que seja
-  // a largura — sem cortes e sem rolagem.
+  // chutada: sob a faixa sobra exatamente a janela, qualquer que seja a
+  // largura — sem cortes e sem rolagem. Os créditos ficam na topbar do site
+  // e no rodapé do próprio painel, então não há barra de nota aqui.
   useEffect(() => {
     const frame = frameRef.current;
-    const note = noteRef.current;
     if (!frame) return;
     const size = () => {
       const top = frame.getBoundingClientRect().top + window.scrollY;
-      const noteH = note ? note.offsetHeight : 33;
-      frame.style.height = `${Math.max(420, window.innerHeight - top - noteH)}px`;
+      frame.style.height = `${Math.max(420, window.innerHeight - top)}px`;
     };
     size();
     const observer = new ResizeObserver(size);
@@ -971,7 +969,6 @@ function PanoramaPage() {
         title="Panorama Global da IA Generativa"
         loading="lazy"
       />
-      <p className="panorama-note" ref={noteRef}>Painel mantido pelo LAPIG, atualizado continuamente.</p>
     </section>
   );
 }
