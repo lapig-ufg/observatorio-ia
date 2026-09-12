@@ -122,6 +122,14 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    date: "5 a 11 de setembro de 2026",
+    source: "MIT · Educação, aprendizagem e pesquisa",
+    title: "IA na educação: mais do que regular ferramentas",
+    summary: "Relatório do MIT sobre como redesenhar ensino, avaliação e formação docente para que a IA amplie, sem automatizar, a aprendizagem.",
+    href: "https://drive.google.com/file/d/1aiDFYVOyyv43PWB9TKzP3xzX85iCVf4s/view?usp=drivesdk",
+    eventLabel: "mit-ai-committee-report",
+  },
+  {
     date: "29 de agosto a 4 de setembro de 2026",
     source: "Bill Gates · Gates Notes",
     title: "A era turbulenta da IA chegou. As escolhas que fazemos agora são cruciais.",
@@ -585,28 +593,25 @@ export function App() {
       <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
         <div className="weekly-highlight-kicker">
           <span>Em destaque...</span>
-          <span>MIT · Educação, aprendizagem e pesquisa</span>
+          <span>Guia prático · Panorama da IA generativa</span>
         </div>
         <div className="weekly-highlight-content weekly-highlight-content--with-image">
           <a
             className="weekly-highlight-media"
-            href="https://drive.google.com/file/d/1aiDFYVOyyv43PWB9TKzP3xzX85iCVf4s/view?usp=drivesdk"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Ler o relatório do MIT sobre uso de IA no ensino, na aprendizagem e na formação para a pesquisa"
-            onClick={() => trackEvent("open_weekly_highlight_image", { event_category: "outbound", event_label: "mit-ai-teaching-learning-research-training-illustration" })}
+            href="#panorama"
+            aria-label="Explorar o guia Como usar a IA fora do navegador"
+            onClick={() => trackEvent("open_weekly_highlight_image", { event_category: "navigation", event_label: "ia-fora-do-navegador" })}
           >
-            <img src={assetUrl("covers/mit-ia-educacao-aprendizagem-2026-09-05.png")} alt="Ilustração editorial de uma mesa de estudo que aproxima leitura, escrita e orientação humana de estruturas translúcidas de apoio computacional, unidas por uma passagem de avaliação e diálogo." />
-            <span>Ler relatório <ArrowUpRight size={16} aria-hidden="true" /></span>
+            <img src={assetUrl("covers/ia-fora-do-navegador-agentes-terminal-2026-09-12.png")} alt="Ilustração editorial de um terminal ligado por linhas luminosas a módulos que representam ferramentas e agentes de inteligência artificial." />
+            <span>Explorar guia <ArrowUpRight size={16} aria-hidden="true" /></span>
           </a>
           <div className="weekly-highlight-copy">
-            <p className="eyebrow">Educação superior em tempos de IA</p>
-            <h2 id="weekly-highlight-title">IA na educação: mais do que regular ferramentas</h2>
+            <p className="eyebrow">IA no terminal e agentes</p>
+            <h2 id="weekly-highlight-title">Como usar a IA fora do navegador</h2>
             <div className="weekly-highlight-aside">
-              <p>Em 13 de agosto de 2026, um comitê plural do MIT publicou um chamado à ação sobre IA no ensino, na aprendizagem e na formação para a pesquisa. O relatório reconhece oportunidades de tutoria e pesquisa, mas alerta para isolamento, perda de domínio conceitual, dificuldades de avaliação e erosão do contrato social entre docentes e estudantes. Sua tese é que não basta regulamentar ferramentas: é necessário redesenhar disciplinas e avaliações, formar docentes, garantir acesso equitativo e usar a IA para ampliar — não automatizar — a aprendizagem. Uma agenda que dialoga diretamente com as universidades públicas brasileiras.</p>
+              <p>Aprenda, de forma didática e amigável, a usar IA diretamente no terminal e a explorar o potencial dos agentes para pesquisar, organizar tarefas e automatizar fluxos de trabalho.</p>
               <div className="weekly-highlight-actions">
-                <a href="https://drive.google.com/file/d/1aiDFYVOyyv43PWB9TKzP3xzX85iCVf4s/view?usp=drivesdk" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight", { event_category: "outbound", event_label: "mit-ai-committee-report" })}>Ler relatório <ArrowUpRight size={17} aria-hidden="true" /></a>
-                <a className="weekly-highlight-podcast" href="https://drive.google.com/file/d/15K_wBXRoitcdt6XjWXe0gPGA9I4DjoSI/view?usp=drivesdk" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_weekly_highlight_podcast", { event_category: "outbound", event_label: "mit-ai-committee-report-podcast-m4a" })}>Ouvir ou baixar podcast (M4A) <ArrowUpRight size={17} aria-hidden="true" /></a>
+                <a href="#panorama" onClick={() => trackEvent("open_weekly_highlight", { event_category: "navigation", event_label: "ia-fora-do-navegador" })}>Explorar no Panorama <ArrowUpRight size={17} aria-hidden="true" /></a>
               </div>
             </div>
             <button
