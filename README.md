@@ -56,16 +56,16 @@ pnpm preview
 
 1. Importe `Catalogo_Observatorio_IA.xlsx` no Google Sheets.
 2. Não altere os nomes das colunas da aba `Catalogo`.
-3. No Google Sheets, use **Arquivo > Compartilhar > Publicar na Web**.
-4. Selecione somente a aba `Catalogo` e o formato **CSV**.
-5. Mantenha habilitada a republicação automática das alterações.
-6. Copie o endereço CSV gerado.
-7. No repositório GitHub, abra **Settings > Secrets and variables > Actions > Variables**.
-8. Crie a variável `GOOGLE_SHEETS_CSV_URL` com o endereço CSV.
+3. Confirme que a planilha pode ser consultada pelo Google Visualization API.
+4. No repositório GitHub, abra **Settings > Secrets and variables > Actions > Variables**.
+5. Crie `GOOGLE_SHEETS_ID` com o identificador da planilha.
+6. Crie `GOOGLE_SHEETS_GID` com o identificador numérico da aba `Catalogo`.
+7. Crie `GOOGLE_SHEETS_INITIATIVES_GID` com o identificador numérico da aba `Iniciativas`.
 
 O site consulta a planilha no navegador a cada abertura e repete a consulta a
-cada cinco minutos. Se a planilha estiver temporariamente indisponível, usa
-`public/catalogo.csv` como contingência.
+cada minuto. Antes de testar e compilar, o workflow atualiza
+`public/catalogo.csv` com `pnpm catalog:sync-fallback`. Se a planilha estiver
+temporariamente indisponível, o site usa essa última cópia validada.
 
 > A aba publicada é pública. Não publique a aba `Controle` nem coloque nela
 > dados pessoais, caminhos locais ou informações confidenciais.
@@ -75,7 +75,7 @@ cada cinco minutos. Se a planilha estiver temporariamente indisponível, usa
 1. Crie ou escolha um repositório na organização `lapig-ufg`.
 2. Envie todo o conteúdo deste diretório para a branch `main`.
 3. Em **Settings > Pages > Build and deployment**, escolha **GitHub Actions**.
-4. Cadastre `GOOGLE_SHEETS_CSV_URL` conforme a seção anterior.
+4. Cadastre as três variáveis do Google Sheets conforme a seção anterior.
 5. Execute o workflow **Deploy Observatório UFG-IA to GitHub Pages** ou faça um novo push na `main`.
 
 O endereço será `https://lapig-ufg.github.io/NOME-DO-REPOSITORIO/`. Se o

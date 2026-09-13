@@ -12,7 +12,9 @@
     "build:all": "pnpm build && pnpm --dir experiencias/por-dentro-da-ia build && pnpm --dir experiencias/por-dentro-da-ia test && node scripts/include-interactive-experience.mjs",
     "preview": "vite preview",
     "test": "node --test tests/*.test.mjs",
+    "catalog:audit-links": "node scripts/audit-external-links.mjs",
     "catalog:build": "node scripts/build-catalog.mjs",
+    "catalog:sync-fallback": "node scripts/sync-catalog-fallback.mjs",
     "noticias:build": "node scripts/build-folha-news.mjs"
   },
   "dependencies": {

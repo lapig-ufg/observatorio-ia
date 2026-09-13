@@ -22,7 +22,9 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPage } from "./DailyNewsPage";
-import { isEditorialCloudTerm } from "./keywordCloud";
+import { collectionThemes } from "./catalogNavigation";
+import { newestFirst } from "./catalogOrdering";
+import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordCloud";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./paperResearch";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
@@ -95,16 +97,6 @@ const pageTitles: Record<string, string> = {
   catalog: "Catálogo",
 };
 const pageFromHash = () => pagesByHash[window.location.hash] || "catalog";
-const blogThemes = [
-  "Fundamentos, matemática e deep learning",
-  "Transformers e atenção",
-  "LLMs e IA generativa",
-  "Agentes, RAG e aplicações",
-  "Bases vetoriais e conhecimento",
-  "Modelos, mercado e indústria",
-  "Aprendizado, pesquisa e produtividade",
-];
-
 const ecosystemFeaturedInitiatives: Initiative[] = [
   {
     id: "pos-graduacao-sistemas-agentes-inteligentes",
@@ -203,107 +195,6 @@ function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-// Equivalências editoriais deliberadas. Não há lematização automática: ela
-// criaria aproximações semânticas indevidas em um acervo multidisciplinar.
-const cloudTermAliases: Record<string, string> = {
-  agente: "agentes",
-  agentes: "agentes",
-  "agente de ia": "agentes",
-  "agentes de ia": "agentes",
-  ferramenta: "ferramentas",
-  ferramentas: "ferramentas",
-  "large language model": "llms",
-  "large language models": "llms",
-  llm: "llms",
-  llms: "llms",
-  modelo: "modelos",
-  modelos: "modelos",
-  "rede neural": "redes neurais",
-  "redes neurais": "redes neurais",
-  sistema: "sistemas",
-  sistemas: "sistemas",
-  transformer: "transformers",
-  transformers: "transformers",
-  vetor: "vetores",
-  vetores: "vetores",
-  embedding: "embeddings",
-  embeddings: "embeddings",
-};
-
-const cloudTermLabels: Record<string, string> = {
-  agentes: "Agentes",
-  ferramentas: "Ferramentas",
-  llms: "LLMs",
-  modelos: "Modelos",
-  "redes neurais": "Redes neurais",
-  sistemas: "Sistemas",
-  transformers: "Transformers",
-  vetores: "Vetores",
-};
-
-const cloudExcludedTerms = new Set(["ia", "inteligencia artificial", "artificial intelligence"]);
-
-function cloudTermKey(value: string) {
-  const key = normalize(value.trim());
-  return cloudTermAliases[key] || key;
-}
-
-const portugueseMonths: Record<string, number> = {
-  janeiro: 0,
-  fevereiro: 1,
-  marco: 2,
-  abril: 3,
-  maio: 4,
-  junho: 5,
-  julho: 6,
-  agosto: 7,
-  setembro: 8,
-  outubro: 9,
-  novembro: 10,
-  dezembro: 11,
-};
-
-function catalogDate(value: string) {
-  const text = value.trim();
-  if (!text) return 0;
-
-  const isoDate = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (isoDate) return Date.UTC(Number(isoDate[1]), Number(isoDate[2]) - 1, Number(isoDate[3]));
-
-  const localizedDate = normalize(text).match(/^(\d{1,2})\s+de\s+([a-z]+)\s+de\s+(\d{4})$/);
-  if (localizedDate && localizedDate[2] in portugueseMonths) {
-    return Date.UTC(Number(localizedDate[3]), portugueseMonths[localizedDate[2]], Number(localizedDate[1]));
-  }
-
-  const parsed = Date.parse(text);
-  return Number.isNaN(parsed) ? 0 : parsed;
-}
-
-function recency(article: Article) {
-  return Math.max(catalogDate(article.publishedAt), catalogDate(article.includedAt));
-}
-
-function newestFirst(left: Article, right: Article) {
-  return recency(right) - recency(left)
-    || catalogDate(right.includedAt) - catalogDate(left.includedAt)
-    || right.title.localeCompare(left.title, "pt-BR");
-}
-
-function cloudTerms(article: Article) {
-  const terms = new Map<string, string>();
-  article.tags.forEach((tag) => {
-    if (!isEditorialCloudTerm(tag)) return;
-    const key = cloudTermKey(tag);
-    if (key && !cloudExcludedTerms.has(key)) terms.set(key, cloudTermLabels[key] || tag.trim());
-  });
-  return terms;
-}
-
-function matchesCloudTerm(article: Article, term: string) {
-  const key = cloudTermKey(term);
-  return cloudTerms(article).has(key);
-}
-
 export function App() {
   const [catalog, setCatalog] = useState<CatalogLoadResult | null>(null);
   const [error, setError] = useState("");
@@ -390,55 +281,21 @@ export function App() {
     }));
   }, [counts]);
 
-  const blogCategories = useMemo(() => blogThemes.map((blogTheme) => ({
-    theme: blogTheme,
-    count: articles.filter((article) => article.type === "medium" && article.theme === blogTheme).length,
-  })), [articles]);
-  const videoCategories = useMemo(() => blogThemes.map((blogTheme) => ({
-    theme: blogTheme,
-    count: articles.filter((article) => article.type === "link-video" && article.theme === blogTheme).length,
-  })), [articles]);
-  const presentationCategories = useMemo(() => blogThemes.map((blogTheme) => ({
-    theme: blogTheme,
-    count: articles.filter((article) => article.type === "apresentacao" && article.theme === blogTheme).length,
-  })), [articles]);
+  const blogCategories = useMemo(() => collectionThemes(articles, "medium"), [articles]);
+  const videoCategories = useMemo(() => collectionThemes(articles, "link-video"), [articles]);
+  const presentationCategories = useMemo(() => collectionThemes(articles, "apresentacao"), [articles]);
   const paperCategories = useMemo(() => paperResearchAreas.map((area) => ({
     area,
     count: articles.filter((article) => article.type === "paper" && paperResearchArea(article) === area).length,
   })), [articles]);
 
   const keywordCloud = useMemo(() => {
-    const keywords = new Map<string, { label: string; itemIds: Set<string>; recentItemIds: Set<string> }>();
     const recentIds = new Set(articles
       .slice()
       .sort(newestFirst)
       .slice(0, cloudRecentArticleLimit)
       .map((article) => article.id));
-
-    articles.forEach((article) => cloudTerms(article).forEach((label, key) => {
-      const keyword = keywords.get(key);
-      if (keyword) {
-        keyword.itemIds.add(article.id);
-        if (recentIds.has(article.id)) keyword.recentItemIds.add(article.id);
-      } else {
-        keywords.set(key, {
-          label,
-          itemIds: new Set([article.id]),
-          recentItemIds: recentIds.has(article.id) ? new Set([article.id]) : new Set(),
-        });
-      }
-    }));
-
-    const sorted = Array.from(keywords.entries())
-      .map(([key, keyword]) => ({
-        key,
-        label: keyword.label,
-        count: keyword.itemIds.size,
-        recentCount: keyword.recentItemIds.size,
-        score: keyword.recentItemIds.size + keyword.itemIds.size * cloudHistoricalWeight,
-      }))
-      .sort((a, b) => b.score - a.score || b.recentCount - a.recentCount || b.count - a.count || a.label.localeCompare(b.label, "pt-BR"))
-      .slice(0, maxCloudWords);
+    const sorted = buildKeywordCloud(articles, recentIds, maxCloudWords, cloudHistoricalWeight);
     const maximum = Math.max(...sorted.map((keyword) => keyword.score), 1);
 
     return sorted.map((keyword) => ({
@@ -709,7 +566,7 @@ export function App() {
             <div className="blog-subcategories-heading">
               <div>
                 <p className="eyebrow">{activeCollection.label}</p>
-                <h3>Explore pelas sete coleções</h3>
+                <h3>Explore por tema</h3>
               </div>
               <p>{activeCollection.description}</p>
             </div>
@@ -1003,6 +860,7 @@ function ArticleCard({ article }: { article: Article }) {
   const Icon = typeIcons[article.type];
   const metadata = [article.pages ? `${article.pages} páginas` : "", article.publishedAt].filter(Boolean).join(" • ");
   const thumbnail = fallbackThumbnail(article);
+  const distinctInstitutionalPdf = article.institutionalPdfUrl && article.institutionalPdfUrl !== article.originalUrl;
 
   return (
     <article className={`article-card type-${article.type}`}>
@@ -1022,7 +880,7 @@ function ArticleCard({ article }: { article: Article }) {
         <div className="card-footer">
           <span>{metadata || "Informações editoriais em revisão"}</span>
           <div className="article-actions">
-            {article.institutionalPdfUrl && (
+            {distinctInstitutionalPdf && (
               <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title="Acesso controlado pela UFG"
                 onClick={() => trackEvent("open_article_pdf", { event_category: "article", event_label: article.id, article_type: article.type })}>
                 <LockKeyhole size={16} /> PDF institucional

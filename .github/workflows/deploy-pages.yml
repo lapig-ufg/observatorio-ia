@@ -45,6 +45,9 @@ jobs:
       - name: Install interactive lesson dependencies
         run: pnpm --dir experiencias/por-dentro-da-ia install --frozen-lockfile
 
+      - name: Synchronize catalog fallback
+        run: pnpm catalog:sync-fallback
+
       - name: Test catalog
         run: pnpm test
 

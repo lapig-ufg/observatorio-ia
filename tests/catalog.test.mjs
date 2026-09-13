@@ -42,15 +42,18 @@ function records(file) {
 
 test("catalog contains the complete multidisciplinary collection", () => {
   const catalog = records("public/catalogo.csv");
-  assert.equal(catalog.length, 99);
-  assert.equal(new Set(catalog.map((article) => article.id)).size, 99);
-  assert.equal(catalog.filter((article) => article.ativo === "TRUE").length, 98);
-  assert.ok(catalog.every((article) => article.titulo && article.resumo && article.url_original));
-  assert.ok(catalog.every((article) => article.resumo.split(/\r?\n/).length <= 10));
-  assert.ok(catalog.every((article) => article.url_original.startsWith("https://")));
+  const active = catalog.filter((article) => article.ativo === "TRUE");
+  assert.ok(catalog.length >= 1_000);
+  assert.equal(new Set(catalog.map((article) => article.id)).size, catalog.length);
+  assert.ok(active.length >= 900);
+  assert.ok(active.every((article) => article.titulo && article.tema && article.subtema && article.resumo && article.palavras_chave));
+  assert.ok(active.every((article) => article.url_original || article.url_pdf_institucional));
+  assert.ok(active.every((article) => !article.url_original || article.url_original.startsWith("https://")));
+  assert.ok(active.every((article) => !article.url_pdf_institucional || article.url_pdf_institucional.startsWith("https://")));
+  assert.ok(active.filter((article) => article.tipo === "medium").every((article) => !article.url_pdf_institucional));
   assert.deepEqual(
-    new Set(catalog.map((article) => article.tipo)),
-    new Set(["medium", "documento", "link-video", "noticia", "paper", "apresentacao"]),
+    new Set(active.map((article) => article.tipo)),
+    new Set(["medium", "documento", "link-video", "noticia", "paper", "apresentacao", "entrevista"]),
   );
 });
 
@@ -64,10 +67,8 @@ test("catalog parser recognizes the separate interview collection", () => {
   assert.match(app, /const categoryTypes: ArticleType\[\] = \["medium", "documento", "link-video", "entrevista", "paper", "apresentacao"\];/);
 });
 
-test("duplicate registry matches the catalog", () => {
-  const catalog = records("public/catalogo.csv");
+test("legacy duplicate registry remains internally valid", () => {
   const control = records("data/controle-duplicatas.csv");
-  assert.equal(control.length, catalog.length);
   assert.equal(new Set(control.map((article) => article.sha256_arquivo)).size, control.length);
   assert.ok(control.every((article) => /^[a-f0-9]{64}$/.test(article.sha256_texto)));
   assert.ok(control.every((article) => /^[a-f0-9]{16}$/.test(article.simhash_texto)));
@@ -78,6 +79,7 @@ test("GitHub Pages workflow builds from direct Google Sheets configuration", () 
   assert.match(workflow, /VITE_GOOGLE_SHEETS_ID/);
   assert.match(workflow, /VITE_GOOGLE_SHEETS_GID/);
   assert.match(workflow, /VITE_GOOGLE_SHEETS_INITIATIVES_GID/);
+  assert.match(workflow, /pnpm catalog:sync-fallback/);
   assert.match(workflow, /actions\/upload-pages-artifact@v4/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
 });
@@ -95,5 +97,6 @@ test("cards never render an empty primary-link action", () => {
   const app = fs.readFileSync("src/App.tsx", "utf8");
   assert.match(app, /article\.originalUrl \? \(/);
   assert.match(app, /!article\.institutionalPdfUrl && \(/);
+  assert.match(app, /article\.institutionalPdfUrl !== article\.originalUrl/);
   assert.match(app, /Link em revisão/);
 });
