@@ -23,7 +23,7 @@ import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoad
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPage } from "./DailyNewsPage";
 import { collectionThemes } from "./catalogNavigation";
-import { newestFirst } from "./catalogOrdering";
+import { catalogDate, newestFirst } from "./catalogOrdering";
 import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordCloud";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./paperResearch";
 
@@ -858,7 +858,14 @@ function fallbackThumbnail(article: Article) {
 
 function ArticleCard({ article }: { article: Article }) {
   const Icon = typeIcons[article.type];
-  const metadata = [article.pages ? `${article.pages} páginas` : "", article.publishedAt].filter(Boolean).join(" • ");
+  const publishedAt = article.publishedAt.trim();
+  const includedAt = article.includedAt.trim();
+  const distinctIncludedAt = includedAt && catalogDate(includedAt) !== catalogDate(publishedAt);
+  const metadata = [
+    article.pages ? `${article.pages} páginas` : "",
+    publishedAt ? `Publicado em ${publishedAt}` : "",
+    distinctIncludedAt || (!publishedAt && includedAt) ? `Incluído no acervo em ${includedAt}` : "",
+  ].filter(Boolean).join(" • ");
   const thumbnail = fallbackThumbnail(article);
   const distinctInstitutionalPdf = article.institutionalPdfUrl && article.institutionalPdfUrl !== article.originalUrl;
 
