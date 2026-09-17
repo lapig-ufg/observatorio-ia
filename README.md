@@ -29,6 +29,7 @@ Drive; a planilha publica somente os links de leitura definidos para cada item.
 
 - `src/`: interface, busca, filtros e leitura do Google Sheets.
 - `public/catalogo.csv`: cópia local de contingência e demonstração.
+- `public/catalogo-en.csv`: cópia validada da aba traduzida para a versão `/en/`.
 - `public/covers/`: capas dos artigos.
 - `outputs/observatorio-ia/Catalogo_Observatorio_IA.xlsx`: planilha-mestre para importação no Google Sheets.
 - `data/controle-duplicatas.csv`: hashes e assinaturas para controle de duplicidade.
@@ -61,11 +62,19 @@ pnpm preview
 5. Crie `GOOGLE_SHEETS_ID` com o identificador da planilha.
 6. Crie `GOOGLE_SHEETS_GID` com o identificador numérico da aba `Catalogo`.
 7. Crie `GOOGLE_SHEETS_INITIATIVES_GID` com o identificador numérico da aba `Iniciativas`.
+8. Crie `GOOGLE_SHEETS_EN_GID` com o identificador numérico da aba `Catalogo_EN`.
+
+`Catalogo_EN` deve manter os mesmos IDs e links de `Catalogo`. Tema, subtema,
+título, resumo e palavras-chave podem ser traduzidos com `GOOGLETRANSLATE`; os
+demais campos devem apenas referenciar a célula correspondente da aba original.
 
 O site consulta a planilha no navegador a cada abertura e repete a consulta a
 cada minuto. Antes de testar e compilar, o workflow atualiza
-`public/catalogo.csv` com `pnpm catalog:sync-fallback`. Se a planilha estiver
-temporariamente indisponível, o site usa essa última cópia validada.
+`public/catalogo.csv` e `public/catalogo-en.csv` com
+`pnpm catalog:sync-fallback`. A sincronização só é concluída se as duas versões
+tiverem os mesmos IDs e se nenhuma fórmula de tradução estiver pendente ou com
+erro. Se a planilha estiver temporariamente indisponível, cada idioma usa sua
+última cópia validada.
 
 > A aba publicada é pública. Não publique a aba `Controle` nem coloque nela
 > dados pessoais, caminhos locais ou informações confidenciais.
@@ -75,12 +84,15 @@ temporariamente indisponível, o site usa essa última cópia validada.
 1. Crie ou escolha um repositório na organização `lapig-ufg`.
 2. Envie todo o conteúdo deste diretório para a branch `main`.
 3. Em **Settings > Pages > Build and deployment**, escolha **GitHub Actions**.
-4. Cadastre as três variáveis do Google Sheets conforme a seção anterior.
+4. Cadastre as quatro variáveis do Google Sheets conforme a seção anterior.
 5. Execute o workflow **Deploy Observatório UFG-IA to GitHub Pages** ou faça um novo push na `main`.
 
 O endereço será `https://lapig-ufg.github.io/NOME-DO-REPOSITORIO/`. Se o
 repositório se chamar `lapig-ufg.github.io`, o site será publicado na raiz desse
 domínio. A configuração relativa do Vite funciona nos dois casos.
+
+A versão em inglês é publicada no subdiretório `/en/`. O seletor de idioma
+permite alternar entre português e inglês.
 
 ## PDFs institucionais
 

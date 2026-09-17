@@ -246,11 +246,13 @@ async function fetchGvizInitiatives(sheetId: string, gid: string, signal?: Abort
   return initiativesFromGviz(await fetchGviz(sheetId, gid, signal));
 }
 
-export async function loadCatalog(signal?: AbortSignal): Promise<CatalogLoadResult> {
+export async function loadCatalog(signal?: AbortSignal, locale: "pt" | "en" = "pt"): Promise<CatalogLoadResult> {
   const sheetId = import.meta.env.VITE_GOOGLE_SHEETS_ID?.trim();
-  const sheetGid = import.meta.env.VITE_GOOGLE_SHEETS_GID?.trim();
+  const sheetGid = locale === "en"
+    ? import.meta.env.VITE_GOOGLE_SHEETS_EN_GID?.trim()
+    : import.meta.env.VITE_GOOGLE_SHEETS_GID?.trim();
   const initiativesGid = import.meta.env.VITE_GOOGLE_SHEETS_INITIATIVES_GID?.trim();
-  const localUrl = new URL(`${import.meta.env.BASE_URL}catalogo.csv`, window.location.href).toString();
+  const localUrl = new URL(locale === "en" ? "../catalogo-en.csv" : `${import.meta.env.BASE_URL}catalogo.csv`, window.location.href).toString();
 
   if (sheetId && sheetGid) {
     try {
@@ -269,7 +271,9 @@ export async function loadCatalog(signal?: AbortSignal): Promise<CatalogLoadResu
         }),
         initiatives: [],
         source: "local",
-        warning: "A planilha não respondeu; exibindo a última cópia validada do catálogo.",
+        warning: locale === "en"
+          ? "The live spreadsheet did not respond; showing the latest validated catalog copy."
+          : "A planilha não respondeu; exibindo a última cópia validada do catálogo.",
       };
     }
   }
@@ -281,12 +285,16 @@ export async function loadCatalog(signal?: AbortSignal): Promise<CatalogLoadResu
     }),
     initiatives: [],
     source: "local",
-    warning: "Planilha ainda não conectada; exibindo o catálogo preparado para implantação.",
+    warning: locale === "en"
+      ? "The spreadsheet is not connected; showing the deployment catalog copy."
+      : "Planilha ainda não conectada; exibindo o catálogo preparado para implantação.",
   };
 }
 
 export function assetUrl(path: string) {
   if (!path) return "";
   if (/^https?:\/\//i.test(path)) return path;
-  return `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+  const cleanPath = path.replace(/^\//, "");
+  const prefix = window.location.pathname.split("/").filter(Boolean).at(-1) === "en" ? "../" : import.meta.env.BASE_URL;
+  return new URL(`${prefix}${cleanPath}`, window.location.href).toString();
 }

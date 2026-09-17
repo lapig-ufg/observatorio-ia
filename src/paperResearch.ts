@@ -83,6 +83,10 @@ const excludedPaperIds = new Set([
   "paper-people-use-fast-and-flat-simulation-to-reason-about-new-86-026-10722-1",
   "paper-bots-are-scraping-open-data-how-should-researchers-resp-86-026-01689-0",
   "paper-silicon-valley-s-vision-for-global-ai-is-flawed-each-co-86-026-01951-5",
+  // A tradução inglesa do resumo produz a expressão heurística “AI-generated”,
+  // mas o estudo é sobre percepção de pacientes, fora do recorte científico
+  // curado. A exclusão explícita mantém as duas versões semanticamente iguais.
+  "paper-f3opv6",
 ]);
 
 const generativeResearchAnchors = [
@@ -107,7 +111,21 @@ function hasAnchor(article: Article) {
 }
 
 function declaredResearchArea(article: Article): PaperResearchArea | undefined {
-  return paperResearchAreas.find((area) => area === article.theme);
+  const direct = paperResearchAreas.find((area) => area === article.theme);
+  if (direct) return direct;
+
+  // A versão /en/ traduz a taxonomia no Google Sheets. O valor exibido muda,
+  // mas a decisão editorial precisa continuar apontando para a mesma área
+  // canônica usada pelos filtros e pela contagem do catálogo em português.
+  const translatedAreas: Record<string, PaperResearchArea> = {
+    "Life Sciences and Health": "Ciências da Vida e Saúde",
+    "Humanities, Social Sciences and Linguistics": "Ciências Humanas, Sociais e Linguística",
+    "Engineering and Agriculture": "Engenharias e Agrárias",
+    "Exact and Earth Sciences": "Ciências Exatas e da Terra",
+    "Epistemology and Metascience": "Epistemologia e Metaciência",
+    "Fundamentals of AI": "Fundamentos de IA",
+  };
+  return translatedAreas[article.theme];
 }
 
 export function isPublicResearchPaper(article: Article) {

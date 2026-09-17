@@ -275,6 +275,32 @@ select:focus-visible {
   height: 66px;
 }
 
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.25rem;
+  border: 1px solid rgba(23, 76, 62, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  font-size: 0.72rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.language-switch a,
+.language-switch span {
+  padding: 0.36rem 0.55rem;
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.language-switch [aria-current="page"] {
+  color: #fff;
+  background: var(--green-800);
+}
+
 .obia-callout {
   display: grid;
   grid-template-columns: 178px minmax(0, 1fr) auto;

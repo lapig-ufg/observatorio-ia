@@ -26,6 +26,7 @@ import { collectionThemes } from "./catalogNavigation";
 import { catalogDate, newestFirst } from "./catalogOrdering";
 import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordCloud";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./paperResearch";
+import { languageUrl } from "./locale";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -418,6 +419,10 @@ export function App() {
           <a href="https://ufg.br/" target="_blank" rel="noreferrer" aria-label="Universidade Federal de Goiás">
             <img src={assetUrl("brand/ufg-vertical-colorido.png")} alt="UFG" />
           </a>
+        </div>
+        <div className="language-switch" aria-label="Idioma">
+          <span aria-current="page">Português</span>
+          <a href={languageUrl("en")} lang="en">English</a>
         </div>
       </header>
 
