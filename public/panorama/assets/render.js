@@ -1,0 +1,465 @@
+/* ═══════════════════════════════════════════════════════════════
+   Panorama Global da IA Generativa — Renderização do SVG
+   ═══════════════════════════════════════════════════════════════ */
+
+// Estado global compartilhado com app.js
+let GLOBAL_MAX_DIAS = 1220;
+let RAW = [];
+window.tooltipData = {};
+
+// ─── HELPERS ───
+function escapeXml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function fmtPill(dStr) {
+  const d = new Date(dStr + 'T00:00:00');
+  return `${MESES[d.getMonth()]} '${d.getFullYear().toString().slice(2)}`;
+}
+
+// Delega para o formatador único (data.js) — ver fmtDataBR.
+function fmtFull(dStr) {
+  return fmtDataBR(dStr) || String(dStr == null ? '' : dStr);
+}
+
+// Uma linha é "marco" (nível 1) ou subordinada (níveis 2 e 3). É o único
+// predicado que separa os dois desenhos de pílula — o resto do layout é igual.
+function ehMarco(ev) {
+  return !ev.nivel || ev.nivel === 1;
+}
+
+// Geometria das pílulas. A compacta perde o logo, a linha de data e a sombra:
+// sobra o nome do modelo. Cabe ~40% mais por lane, que é exatamente a pressão
+// do modo ampliado (420 modelos disputando o mesmo eixo de tempo).
+const PILL = {
+  marco:    { h: 32, r: 16, iconR: 11, textPad: 32, charW: 7.4, endPad: 16, min: 90, font: 11.5 },
+  compacta: { h: 20, r: 10, iconR: 4,  textPad: 18, charW: 5.9, endPad: 12, min: 56, font: 10 }
+};
+
+function pillSpec(ev) {
+  return ehMarco(ev) ? PILL.marco : PILL.compacta;
+}
+
+// Largura estimada de texto da pílula. Usa medidas aproximadas por caractere,
+// dando folga para evitar que o colchete de lanes encoste no vizinho.
+function estimatePillWidth(ev) {
+  const s = pillSpec(ev);
+  // Adiciona uma pequena folga proporcional ao tamanho do nome
+  return Math.max(s.min, Math.round(s.textPad + ev.mod.length * s.charW + s.endPad));
+}
+
+// ─── PRÉ-CÁLCULO DO LAYOUT VERTICAL ───
+// Retorna, para cada track, o número máximo de lanes usadas e o topo de cada pílula.
+function computeTrackLayout(maxDias, pxPerDay) {
+  const xOf = (dias) => CONFIG.PAD_L + Math.round(dias * pxPerDay);
+  const PILL_H = PILL.marco.h;  // piso da altura da faixa: a pílula mais alta
+  const LANE_STEP = 40;        // distância vertical entre centros das lanes
+  const GAP_BETWEEN_PILLS = 10; // espaço horizontal mínimo entre pílulas na mesma lane
+
+  const layout = [];
+
+  ACTIVE_GROUPS.forEach((group, gIdx) => {
+    const groupLayout = { tracks: [] };
+
+    group.tracks.forEach(track => {
+      // Régua opcional (catch-all): só é desenhada quando tem eventos
+      if (track.hideIfEmpty && !(track.events || []).length) return;
+
+      const lanes = []; // lanes[l] = x final (right) da última pílula na lane l
+      const events = [];
+      let maxLane = 0;
+
+      /* O teto de lanes é maior no modo ampliado porque o problema é outro: a
+         régua padrão tem ~15 lançamentos por empresa em 3 anos, a ampliada tem
+         até 68 (Alibaba), concentrados nos meses recentes. Com o teto de 24, um
+         punhado de pílulas não achava lane e era empilhado — sobreposição
+         silenciosa, o pior desfecho possível numa figura acadêmica. */
+      const maxLanes = MODO === 'ampliada'
+        ? (CONFIG.MAX_LANES_AMPLIADA || CONFIG.MAX_LANES)
+        : CONFIG.MAX_LANES;
+
+      // Ordena eventos por dia para processar da esquerda para a direita
+      const sorted = [...(track.events || [])].sort((a, b) => a.dias - b.dias);
+
+      sorted.forEach((ev, idx) => {
+        const x = xOf(ev.dias);
+        const w = estimatePillWidth(ev);
+
+        // Encontra uma lane onde a pílula caiba sem encostar na anterior
+        let lane = -1;
+        for (let l = 0; l < maxLanes; l++) {
+          if (!lanes[l] || x >= lanes[l] + GAP_BETWEEN_PILLS) {
+            lane = l;
+            break;
+          }
+        }
+        /* Nenhuma lane livre (só acontece em zoom bem fechado): usa a que
+           termina mais à esquerda — a sobreposição fica mínima e previsível,
+           em vez de cair na lane 0 e colidir bem em cima do eixo. */
+        if (lane === -1) {
+          lane = 0;
+          for (let l = 1; l < maxLanes; l++) if (lanes[l] < lanes[lane]) lane = l;
+        }
+        lanes[lane] = x + w;
+        if (lane > maxLane) maxLane = lane;
+
+        // Offset vertical em torno do eixo: lanes ímpares para cima, pares para baixo
+        const laneOffset = lane === 0
+          ? 0
+          : (lane % 2 === 1
+              ? -Math.ceil(lane / 2) * LANE_STEP
+              : Math.ceil(lane / 2) * LANE_STEP);
+
+        events.push({ ev, idx, x, w, lane, laneOffset });
+      });
+
+      // Altura mínima garante espaço para o eixo central + lanes para cima e para baixo
+      const lanesUp = Math.ceil(maxLane / 2);
+      const lanesDown = Math.floor(maxLane / 2);
+      const trackHeight = Math.max(
+        CONFIG.MIN_TRACK_H,
+        PILL_H + 24 + lanesUp * LANE_STEP + lanesDown * LANE_STEP
+      );
+
+      groupLayout.tracks.push({ track, events, trackHeight });
+    });
+
+    layout.push(groupLayout);
+  });
+
+  return layout;
+}
+
+// ─── FUNÇÃO PRINCIPAL DE DESENHO ───
+function rebuildV2(customMaxDias, pxPerDay) {
+  const maxDias = customMaxDias !== undefined ? customMaxDias : GLOBAL_MAX_DIAS;
+  const scale = (pxPerDay !== undefined && !isNaN(pxPerDay)) ? pxPerDay : CONFIG.PX_PER_DAY;
+  const usableW = Math.round(maxDias * scale);
+  const SVG_W = CONFIG.PAD_L + usableW + CONFIG.PAD_R;
+  const xOf = (dias) => CONFIG.PAD_L + Math.round(dias * scale);
+
+  window.tooltipData = {};
+  let bgSvg = '', gridSvg = '', elementsSvg = '';
+  /* Cópia da faixa de anos que vai virar a régua fixa no topo da área de
+     rolagem (ver .tl-ruler em styles.css). É montada aqui, no mesmo laço que
+     desenha os anos, para nunca sair de sincronia com o eixo real. */
+  let rulerSvg = '';
+
+  const HEADER_H = 48;
+  const GROUP_TITLE_H = 76;
+  const GROUP_GAP = 10;
+
+  // Pré-calcula alturas dinâmicas de cada track
+  const layout = computeTrackLayout(maxDias, scale);
+
+  // ─── DEFS: gradientes + filtro de sombra ───
+  let defsSvg = `<defs>
+    <filter id="pillShadow" x="-20%" y="-50%" width="140%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.2"/>
+      <feOffset dx="0" dy="1.5" result="off"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>`;
+  ACTIVE_GROUPS.forEach((g, i) => {
+    defsSvg += `<linearGradient id="bg-grad-${i}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${g.bg}" stop-opacity="1"/>
+      <stop offset="100%" stop-color="${g.bg}" stop-opacity="0.55"/>
+    </linearGradient>`;
+  });
+  defsSvg += `</defs>`;
+
+  // ─── PASS 1: Backgrounds dos grupos ───
+  let currentY = HEADER_H;
+  ACTIVE_GROUPS.forEach((g, gIdx) => {
+    const groupH = GROUP_TITLE_H + layout[gIdx].tracks.reduce((acc, t) => acc + t.trackHeight, 0) + 16;
+    bgSvg += `<rect x="0" y="${currentY}" width="${SVG_W}" height="${groupH}" fill="url(#bg-grad-${gIdx})"/>`;
+    currentY += groupH + GROUP_GAP;
+  });
+  const SVG_H = currentY + 32;
+
+  // ─── PASS 2: Grade temporal refinada ───
+  gridSvg += `<g aria-hidden="true">`;
+  gridSvg += `<rect x="0" y="0" width="${SVG_W}" height="${HEADER_H}" fill="#fff"/>`;
+
+  /* Legenda dos dois tipos de pílula — só no modo ampliado. Vai no rodapé, na
+     calha à esquerda do eixo (x < PAD_L, onde os rótulos de ano não chegam); o
+     topo é ocupado pelo selo do marco zero. Fica DENTRO do SVG de propósito:
+     quem exporta PNG/SVG para um artigo leva a distinção editorial junto com a
+     figura. Uma régua acadêmica não pode misturar dado curado com censo
+     automático sem dizer qual é qual. */
+  if (MODO === 'ampliada') {
+    const yLeg = SVG_H - 34;
+    gridSvg += `<g font-family="Inter,sans-serif" font-size="9.5" fill="#5e5b54">
+      <rect x="20" y="${yLeg}" width="15" height="9" rx="4.5" fill="#0c0c0c" fill-opacity="0.10" stroke="#0c0c0c" stroke-opacity="0.45" stroke-width="1"/>
+      <text x="40" y="${yLeg + 7.5}" font-weight="600">marco curado</text>
+      <rect x="20" y="${yLeg + 16}" width="15" height="9" rx="4.5" fill="#0c0c0c" fill-opacity="0.05" stroke="#0c0c0c" stroke-opacity="0.45" stroke-width="1" stroke-dasharray="3,2.5"/>
+      <text x="40" y="${yLeg + 23.5}">catálogo / secundário</text>
+    </g>`;
+  }
+
+  const startYear = CONFIG.MARCO.getFullYear();
+  const endYear = new Date(CONFIG.MARCO.getTime() + maxDias * 86400000).getFullYear() + 1;
+
+  // Linhas verticais de ano + labels; ticks trimestrais sutis
+  let firstYearX = null; // x do primeiro selo de ano desenhado, usado para não colidir com o selo do marco zero
+  for (let y = startYear; y <= endYear; y++) {
+    const diasAno = Math.round((Date.UTC(y, 0, 1) - CONFIG.MARCO.getTime()) / 86400000);
+    if (diasAno >= 0 && diasAno <= maxDias) {
+      const x = xOf(diasAno);
+      if (firstYearX === null) firstYearX = x;
+      // Linha de ano sólida e mais suave
+      gridSvg += `<line x1="${x}" y1="${HEADER_H}" x2="${x}" y2="${SVG_H - 30}" stroke="#d6d2c6" stroke-width="1"/>`;
+      // Label do ano com destaque
+      const seloAno = `<g transform="translate(${x}, 20)">
+        <rect x="-22" y="-14" width="44" height="22" rx="11" fill="#f4f2ec"/>
+        <text font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#0c0c0c" text-anchor="middle" letter-spacing="-0.3">${y}</text>
+      </g>`;
+      gridSvg += seloAno;
+      rulerSvg += `<line x1="${x}" y1="34" x2="${x}" y2="${HEADER_H}" stroke="#d6d2c6" stroke-width="1"/>` + seloAno;
+      gridSvg += `<text x="${x}" y="${SVG_H - 12}" font-family="DM Mono,monospace" font-size="10.5" font-weight="500" fill="#8b887f" text-anchor="middle" letter-spacing="0.08em">${y}</text>`;
+
+      // Ticks trimestrais sutis
+      for (let q = 1; q <= 3; q++) {
+        const mes = q * 3;
+        const diasQ = Math.round((Date.UTC(y, mes, 1) - CONFIG.MARCO.getTime()) / 86400000);
+        if (diasQ > 0 && diasQ <= maxDias) {
+          const xq = xOf(diasQ);
+          gridSvg += `<line x1="${xq}" y1="${HEADER_H}" x2="${xq}" y2="${SVG_H - 30}" stroke="#e8e4da" stroke-width="1" stroke-dasharray="2,6"/>`;
+        }
+      }
+    }
+  }
+
+  // Marco zero — selo sólido "preso" ao poste vertical, como uma bandeirinha na régua.
+  // O selo fica colado ao marcador (mesma altura, mesmo eixo), não solto no espaço.
+  const marcoDias = 0;
+  if (marcoDias <= maxDias) {
+    const xMarco = xOf(marcoDias);
+    const tickY = 17; // mesma faixa vertical dos selos de ano (centro em y=20)
+
+    // O selo usa o MESMO sistema de tooltip das pílulas (hover/click/teclado/touch).
+    // O <title> nativo de SVG era pouco confiável: só aparece com o ponteiro parado
+    // por ~1s no desktop e não existe em telas de toque.
+    const marcoAria = PANORAMA_EN
+      ? `Starting point — ${fmtFull(CONFIG.MARCO.toISOString().slice(0, 10))}, ChatGPT release`
+      : `Marco zero — ${fmtFull(CONFIG.MARCO.toISOString().slice(0, 10))}, lançamento do ChatGPT`;
+    window.tooltipData['marco-zero'] = {
+      date: '2022-11-30',
+      dias: 0,
+      mod: 'ChatGPT',
+      emp: 'OpenAI',
+      impact: PANORAMA_EN
+        ? 'Timeline starting point: the release of ChatGPT on 30 Nov 2022 triggered the global generative AI race. All dates on this timeline are measured from that day.'
+        : 'Marco zero da régua: o lançamento do ChatGPT em 30/11/2022 deflagrou a corrida global da IA generativa. Todas as distâncias temporais da timeline são contadas a partir deste dia.',
+      color: '#10a37f'
+    };
+    const marcoAttrs = `class="pill-group" data-pill-id="marco-zero" role="button" tabindex="0" aria-label="${escapeXml(marcoAria)}" style="cursor:pointer"`;
+
+    // Poste único, do topo da régua de rótulos até o fim do gráfico — atravessa o selo
+    gridSvg += `<line x1="${xMarco}" y1="6" x2="${xMarco}" y2="${SVG_H - 30}" stroke="#10a37f" stroke-width="1" opacity="0.25" stroke-dasharray="2,5"/>`;
+
+    const label = 'MARCO ZERO';
+    const pillW = 76;
+    const gap = 5; // respiro entre o selo e o poste
+    // O selo cresce para a esquerda (para dentro da régua de rótulos) e o marcador fica
+    // sobre o poste em x=xMarco; ambos só cabem sem tocar o selo do primeiro ano (raio 22 +
+    // margem) quando há pelo menos ~26px de folga. Abaixo disso o selo de "2023" já alcança
+    // esse ponto, então não há como desenhar nada ali sem sobrepor — a linha tracejada basta.
+    const clearance = firstYearX !== null ? firstYearX - xMarco : Infinity;
+
+    if (clearance >= 26) {
+      // Espaço suficiente: selo cheio, encostado no poste como uma bandeira
+      const seloMarco = `<rect x="${xMarco - gap - pillW}" y="6" width="${pillW}" height="22" rx="11" fill="#0c7a5c"/>
+        <text x="${xMarco - gap - pillW / 2}" y="${tickY + 4}" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.03em">${label}</text>
+        <circle cx="${xMarco}" cy="${tickY}" r="3" fill="#10a37f" stroke="#fff" stroke-width="1.5"/>`;
+      gridSvg += `<g ${marcoAttrs}>${seloMarco}</g>`;
+      rulerSvg += seloMarco;
+    } else {
+      // Zoom extremo: o selo do primeiro ano já cobre esse ponto — evita sobrepor, mantém a área clicável
+      gridSvg += `<g ${marcoAttrs}><rect x="${xMarco - 6}" y="6" width="12" height="22" fill="transparent"/></g>`;
+    }
+  }
+
+  // Sublinha do header
+  gridSvg += `<line x1="0" y1="${HEADER_H}" x2="${SVG_W}" y2="${HEADER_H}" stroke="#0c0c0c" stroke-width="1"/>`;
+  gridSvg += `</g>`;
+  rulerSvg += `<line x1="0" y1="${HEADER_H - 0.5}" x2="${SVG_W}" y2="${HEADER_H - 0.5}" stroke="#0c0c0c" stroke-width="1"/>`;
+
+  // ─── PASS 3: Conteúdo (grupos + tracks + pílulas) ───
+  currentY = HEADER_H;
+  ACTIVE_GROUPS.forEach((group, gIdx) => {
+    const groupLayout = layout[gIdx];
+    const groupHeight = GROUP_TITLE_H + groupLayout.tracks.reduce((acc, t) => acc + t.trackHeight, 0) + 16;
+
+    // Barra de acento regional
+    elementsSvg += `<rect x="20" y="${currentY + 14}" width="44" height="3" rx="1.5" fill="${group.accent}"/>`;
+
+    // Bandeira + título do grupo
+    let titleX = 20;
+    if (group.flag && FLAG_SVG[group.flag]) {
+      const flagLabel = group.flag === 'US' ? 'Bandeira dos EUA' : group.flag === 'CN' ? 'Bandeira da China' : 'Mundo';
+      elementsSvg += `<g transform="translate(20, ${currentY + 24})" role="img" aria-label="${flagLabel}"><title>${flagLabel}</title>${FLAG_SVG[group.flag]}</g>`;
+      titleX = 20 + 30 + 12;
+    }
+    // Título com halo branco para ficar legível sobre qualquer fundo
+    elementsSvg += `<text x="${titleX}" y="${currentY + 41}" font-family="Inter,sans-serif" font-size="17" font-weight="800" fill="#0c0c0c" letter-spacing="0.6" text-transform="uppercase" stroke="white" stroke-width="4" stroke-linejoin="round" paint-order="stroke">${escapeXml(group.title)}</text>`;
+    elementsSvg += `<text x="20" y="${currentY + 63}" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#444" letter-spacing="0.01em" stroke="white" stroke-width="4" stroke-linejoin="round" paint-order="stroke">${escapeXml(group.subtitle)}</text>`;
+
+    // Linha separadora
+    elementsSvg += `<line x1="0" y1="${currentY + GROUP_TITLE_H - 4}" x2="${SVG_W}" y2="${currentY + GROUP_TITLE_H - 4}" stroke="${group.accent}" stroke-width="0.75" opacity="0.30"/>`;
+
+    let trackY = currentY + GROUP_TITLE_H;
+
+    groupLayout.tracks.forEach((trackLayout, tIdx) => {
+      const track = trackLayout.track;
+      const trackHeight = trackLayout.trackHeight;
+      const axisY = trackY + trackHeight / 2;
+      const trackColor = track.events[0] ? companyColor(track.events[0].emp) : '#a5a297';
+
+      // Fundo sutil alternado para facilitar leitura horizontal
+      if (tIdx % 2 === 1) {
+        elementsSvg += `<rect x="0" y="${trackY - 4}" width="${SVG_W}" height="${trackHeight + 8}" fill="${group.accent}" opacity="0.04"/>`;
+      }
+
+      // Eixo do track
+      elementsSvg += `<line x1="${CONFIG.PAD_L - 20}" y1="${axisY}" x2="${SVG_W - 20}" y2="${axisY}" stroke="${trackColor}" opacity="0.22" stroke-width="1.25"/>`;
+
+      // Rótulo do track + contagem
+      const countLabel = track.events.length ? ` (${track.events.length})` : '';
+      elementsSvg += `<text x="${CONFIG.PAD_L - 28}" y="${axisY + 4}" text-anchor="end" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#1a1a1a" letter-spacing="-0.005em">${escapeXml(track.name)}<tspan font-weight="500" fill="#a5a297" font-size="10" font-family="DM Mono,monospace">${escapeXml(countLabel)}</tspan></text>`;
+
+      // Pílulas já pré-computadas
+      trackLayout.events.forEach(({ ev, idx, x, w, lane, laneOffset }) => {
+        const color = companyColor(ev.emp);
+        const marco = ehMarco(ev);
+        const s = pillSpec(ev);
+        const iconCx = x + s.iconR + 2;
+        const pillY = axisY - s.h / 2 + laneOffset;
+        const pillCy = pillY + s.h / 2;
+
+        const globalId = `${gIdx}-${idx}-${ev.emp.replace(/\s+/g, '_')}`;
+        window.tooltipData[globalId] = { ...ev, color };
+
+        const nivelAria = marco ? '' : ev.nivel === 2
+          ? (PANORAMA_EN ? ' (secondary release)' : ' (lançamento secundário)')
+          : (PANORAMA_EN ? ' (Artificial Analysis catalog)' : ' (catálogo Artificial Analysis)');
+        const ariaLabel = `${ev.mod} — ${ev.emp}, ${fmtFull(ev.date)}${nivelAria}`;
+        elementsSvg += `<g class="pill-group${marco ? '' : ' pill-compacta'}" data-pill-id="${globalId}" role="button" tabindex="0" aria-label="${escapeXml(ariaLabel)}" style="cursor:pointer">`;
+
+        /* Área de toque invisível maior que a pílula. A pílula cheia tem 32px
+           de altura e a compacta só 20 — abaixo do alvo mínimo para o dedo. A
+           folga é calculada para caber na distância entre lanes (40px), então
+           nenhuma área invade a da pílula vizinha. */
+        const hitPad = marco ? 4 : 8;
+        elementsSvg += `<rect x="${x - 2}" y="${pillY - hitPad}" width="${w + 4}" height="${s.h + hitPad * 2}" fill="transparent"/>`;
+
+        // Marcador no eixo
+        elementsSvg += `<circle cx="${iconCx}" cy="${axisY}" r="${marco ? 2.5 : 1.8}" fill="${color}" opacity="0.55"/>`;
+
+        // Conector se a pílula estiver fora do eixo
+        if (lane !== 0) {
+          elementsSvg += `<line x1="${iconCx}" y1="${axisY}" x2="${iconCx}" y2="${pillCy + (laneOffset > 0 ? -s.h / 2 : s.h / 2)}" stroke="${color}" stroke-width="${marco ? 1.25 : 1}" opacity="${marco ? 0.40 : 0.28}" stroke-dasharray="2,2"/>`;
+        }
+
+        if (marco) {
+          // ── Nível 1: pílula cheia, com sombra, logo e data ──
+          elementsSvg += `<g filter="url(#pillShadow)">`;
+          elementsSvg += `<rect x="${x}" y="${pillY}" width="${w}" height="${s.h}" rx="${s.r}" fill="#fff"/>`;
+          elementsSvg += `<rect x="${x}" y="${pillY}" width="${w}" height="${s.h}" rx="${s.r}" fill="${color}" opacity="0.09" stroke="${color}" stroke-width="1.25" class="pill-bg"/>`;
+          elementsSvg += `</g>`;
+
+          // Ícone (logo SVG ou inicial)
+          const logoKey = LOGO_MAP[ev.emp];
+          elementsSvg += `<circle cx="${iconCx}" cy="${pillCy}" r="${s.iconR}" fill="${color}"/>`;
+          if (logoKey && LOGO_PATHS[logoKey]) {
+            const sz = s.iconR * 1.1;
+            elementsSvg += `<g transform="translate(${iconCx - sz / 2},${pillCy - sz / 2}) scale(${sz / 24})" fill="#fff">${LOGO_PATHS[logoKey]}</g>`;
+          } else {
+            const initial = ev.emp === 'DeepSeek' ? 'DS' : ev.emp === 'OpenClaw' ? 'OC' : ev.emp[0];
+            elementsSvg += `<text x="${iconCx}" y="${pillCy + 1}" text-anchor="middle" dominant-baseline="central" font-family="Inter,sans-serif" font-size="${initial.length > 1 ? 9 : 13}" font-weight="800" fill="#fff">${escapeXml(initial)}</text>`;
+          }
+
+          // Nome do modelo + data
+          elementsSvg += `<text x="${x + s.textPad}" y="${pillY + 14}" font-family="Inter,sans-serif" font-size="${s.font}" font-weight="700" fill="#0c0c0c" letter-spacing="-0.01em">${escapeXml(ev.mod)}</text>`;
+          elementsSvg += `<text x="${x + s.textPad}" y="${pillY + 26}" font-family="DM Mono,monospace" font-size="9.5" font-weight="500" fill="#6b6860" letter-spacing="0.04em">${escapeXml(fmtPill(ev.date))}</text>`;
+        } else {
+          // ── Níveis 2 e 3: pílula compacta, tracejada, sem sombra ──
+          // O tracejado não é decoração: é a marca visual de "não passou pela
+          // curadoria de marco". Quem exporta a figura leva essa distinção junto.
+          elementsSvg += `<rect x="${x}" y="${pillY}" width="${w}" height="${s.h}" rx="${s.r}" fill="#fff"/>`;
+          elementsSvg += `<rect x="${x}" y="${pillY}" width="${w}" height="${s.h}" rx="${s.r}" fill="${color}" fill-opacity="0.06" stroke="${color}" stroke-opacity="0.55" stroke-width="1" stroke-dasharray="3,2.5" class="pill-bg"/>`;
+          elementsSvg += `<circle cx="${iconCx}" cy="${pillCy}" r="${s.iconR}" fill="${color}" opacity="0.75"/>`;
+          elementsSvg += `<text x="${x + s.textPad}" y="${pillCy + 3.5}" font-family="Inter,sans-serif" font-size="${s.font}" font-weight="600" fill="#43403a" letter-spacing="-0.01em">${escapeXml(ev.mod)}</text>`;
+        }
+
+        // Pontinho âmbar: adicionado recentemente à régua (vale também p/ exportações)
+        if (ev.isNew) {
+          elementsSvg += `<circle cx="${x + w - 3}" cy="${pillY + 3}" r="4.5" fill="#f59e0b" stroke="#fff" stroke-width="1.5"/>`;
+        }
+
+        elementsSvg += `</g>`;
+      });
+
+      trackY += trackHeight;
+    });
+
+    currentY += groupHeight + GROUP_GAP;
+  });
+
+  const sufixoModo = MODO === 'ampliada' ? (PANORAMA_EN ? ' — expanded timeline' : ' — régua ampliada') : '';
+  const finalSvg = `<svg id="global-svg" class="global-svg" viewBox="0 0 ${SVG_W} ${SVG_H}" xmlns="http://www.w3.org/2000/svg" width="${SVG_W}" height="${SVG_H}" role="img" aria-label="${PANORAMA_EN ? 'Timeline of generative AI model releases' : 'Linha do tempo dos lançamentos de modelos de IA generativa'}${sufixoModo}">
+    <title>${PANORAMA_EN ? 'Global Generative AI Landscape — Timeline' : 'Panorama Global da IA Generativa — Linha do Tempo'}${sufixoModo}</title>
+    ${defsSvg}
+    <rect width="100%" height="100%" fill="#fff"/>
+    ${bgSvg}
+    ${gridSvg}
+    ${elementsSvg}
+  </svg>`;
+
+  /* A régua fixa: mesma faixa de 48px do SVG, num elemento próprio que gruda
+     no topo da área de rolagem. margin-bottom negativo (no CSS) faz ela cair
+     exatamente sobre a faixa original, então em repouso não há duplicação
+     visível. aria-hidden porque é cópia — o original continua no SVG. */
+  const rulerHtml = `<div class="tl-ruler" id="tl-ruler" style="width:${SVG_W}px" aria-hidden="true">
+    <svg width="${SVG_W}" height="${HEADER_H}" viewBox="0 0 ${SVG_W} ${HEADER_H}" xmlns="http://www.w3.org/2000/svg" focusable="false">
+      <rect width="100%" height="100%" fill="#fff"/>
+      ${rulerSvg}
+    </svg>
+  </div>`;
+
+  document.getElementById('svg-wrap').innerHTML = rulerHtml + finalSvg + buildOutline(layout);
+
+  // Reinstala os listeners das pílulas (delegação não é trivial em SVG)
+  attachPillHandlers();
+
+  // A affordance de rolagem depende da nova largura; app.js reavalia.
+  if (typeof window.refreshScrollAffordance === 'function') {
+    window.refreshScrollAffordance();
+  }
+}
+
+/* ─── SUMÁRIO ESTRUTURAL (só para leitor de tela) ───
+   A página inteira tinha um único heading: os títulos de seção da timeline são
+   <text> dentro do SVG, invisíveis para a árvore de acessibilidade como
+   estrutura. Este bloco devolve a hierarquia — h2 por região, lista de faixas
+   com a contagem — sem mudar um pixel do desenho. */
+function buildOutline(layout) {
+  let html = `<div class="sr-only" id="tl-outline"><h2>${PANORAMA_EN ? 'Timeline summary' : 'Sumário da linha do tempo'}</h2>`;
+  ACTIVE_GROUPS.forEach((group, gIdx) => {
+    const tracks = (layout[gIdx] && layout[gIdx].tracks) || [];
+    const total = tracks.reduce((acc, t) => acc + ((t.track.events || []).length), 0);
+    html += `<h3>${escapeXml(group.title)} — ${total} ${PANORAMA_EN ? `release${total === 1 ? '' : 's'}` : `lançamento${total === 1 ? '' : 's'}`}</h3>`;
+    html += '<ul>';
+    tracks.forEach(t => {
+      const n = (t.track.events || []).length;
+      html += `<li>${escapeXml(t.track.name)}: ${n} ${PANORAMA_EN ? `release${n === 1 ? '' : 's'}` : `lançamento${n === 1 ? '' : 's'}`}</li>`;
+    });
+    html += '</ul>';
+  });
+  return html + '</div>';
+}

@@ -1,0 +1,4471 @@
+/* ═══════════════════════════════════════════════════════════════
+   Panorama Global da IA Generativa — "Como usar fora do navegador"
+   Estilos próprios da aba: seções longas de leitura, as duas
+   colunas da comparação e o simulador de área de trabalho.
+
+   Herda de styles.css (cores, tipografia, cabeçalho, abas) e de
+   guia.css (.qm-main, .qm-lede). O .qm-source não existe em guia.css:
+   está definido aqui mesmo (e, com outros valores, em gratuitos.css).
+   O que mora neste arquivo é só o que é exclusivo desta página.
+
+   UMA NOTA SOBRE O SIMULADOR: ele é a única parte do site que
+   abandona a paleta bege/verde de propósito. A tela precisa parecer
+   OUTRA COISA — um computador, não mais um card do painel — senão a
+   brincadeira não se lê como brincadeira e a janela vira só mais um
+   quadro cinza. Por isso a moldura escura em volta: ela funciona
+   como o passe-partout de um quadro, avisando "isto aqui é uma
+   citação visual".
+   ═══════════════════════════════════════════════════════════════ */
+
+.cu-main {
+  max-width: 1180px;
+}
+
+.cu-lede-2 {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-light);
+  max-width: 74ch;
+}
+
+.qm-source {
+  margin-top: 12px;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  max-width: 78ch;
+}
+
+/* ─── SUMÁRIO NA BARRA DE CONTROLES ─── */
+.cu-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 100%;
+}
+
+.cu-toc-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-light);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.cu-toc-link:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.cu-toc-n {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent);
+  opacity: 0.75;
+}
+
+/* ─── ESQUELETO DAS SEÇÕES ─── */
+.cu-section {
+  margin-top: 46px;
+  scroll-margin-top: 20px;
+}
+
+.cu-sec-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--ink);
+}
+
+/* O número da seção em mono: é a mesma pista visual que a régua usa para
+   dizer "isto é um eixo, não um enfeite". */
+.cu-sec-n {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  padding-top: 4px;
+}
+
+.cu-sec-head h2 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.cu-sec-sub {
+  margin-top: 7px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+  max-width: 78ch;
+}
+
+.cu-h3 {
+  margin: 30px 0 14px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+}
+
+/* ═══ 07 · O RESUMO ═══
+   O bloco que fecha a página. Fundo escuro porque ele precisa se distinguir
+   de tudo que veio antes: é fechamento, não argumento — e a seção inteira
+   já é o contraste visual que sinaliza "a partir daqui é recado final". */
+.cu-ess {
+  margin: 0 0 34px;
+  padding: 24px 26px 22px;
+  background: var(--ink);
+  border-radius: 16px;
+  color: #e9e5da;
+}
+
+.cu-ess-rot {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--accent-bright);
+  margin-bottom: 16px;
+}
+
+/* A premissa. Corpo maior que as conclusões de propósito: é ela que dá
+   sentido a tudo que vem depois, e um leitor que pula esta frase lê as três
+   conclusões como frases soltas — foi exatamente o que aconteceu na primeira
+   versão deste bloco. */
+.cu-ess-intro {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #d6d1c5;
+  margin-bottom: 20px;
+  max-width: 72ch;
+}
+
+.cu-ess-intro strong { color: #fff; font-weight: 700; }
+
+.cu-ess-sub {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8a8479;
+  margin-bottom: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.cu-ess-lista { list-style: none; display: grid; gap: 14px; }
+
+.cu-ess-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.cu-ess-n {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent-bright);
+  line-height: 1;
+}
+
+.cu-ess-item > div { min-width: 0; }
+
+/* A conclusão em corpo grande; a evidência em corpo pequeno logo abaixo.
+   As duas juntas, sempre: uma orientação sem o número que a sustenta é
+   palpite, e um número sem a orientação não serve para nada. */
+.cu-ess-frase {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  line-height: 1.35;
+  color: #fff;
+  margin-bottom: 5px;
+  max-width: 62ch;
+}
+
+.cu-ess-prova {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #a8a196;
+  max-width: 76ch;
+}
+
+/* O caminho de volta: cada conclusão do resumo liga à seção onde a
+   demonstração mora. É o que separa um resumo de um pôster. */
+.cu-ess-link {
+  white-space: nowrap;
+  color: var(--accent-bright);
+  font-weight: 600;
+}
+
+.cu-ess-proc {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 22px;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.cu-ess-nums { display: flex; gap: 18px; }
+
+.cu-ess-num { text-align: center; }
+
+.cu-ess-num-v {
+  display: block;
+  font-family: var(--mono);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--accent-bright);
+}
+
+.cu-ess-num-r {
+  display: block;
+  margin-top: 4px;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8a8479;
+}
+
+.cu-ess-proc-t {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #8a8479;
+  margin-bottom: 5px;
+}
+
+.cu-ess-proc-txt p {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #c9c4b6;
+  max-width: 76ch;
+}
+
+.cu-ess-proc-txt strong { color: #fff; }
+.cu-ess-proc-txt a { color: var(--accent-bright); }
+
+/* ─── glossário em linha ───
+   Um termo explicado no lugar exato onde ele aparece pela primeira vez. É a
+   diferença entre a pessoa continuar lendo e fechar a aba: "terminal" estava
+   sendo usado cem blocos antes de ser explicado. */
+.cu-gloss {
+  margin-top: 10px;
+  border: 1px dashed var(--ink-muted);
+  border-radius: 9px;
+  background: var(--white);
+}
+
+.cu-gloss > summary {
+  padding: 8px 11px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  list-style: none;
+}
+
+.cu-gloss > summary::-webkit-details-marker { display: none; }
+.cu-gloss > summary::before { content: "? "; font-family: var(--mono); }
+.cu-gloss[open] > summary { border-bottom: 1px dashed var(--hair); }
+
+.cu-gloss > p {
+  padding: 10px 12px 11px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+/* ─── o que você ganha ───
+   Fecha a seção 01. Ela explicava muito bem o mecanismo e não respondia
+   "e daí?" — o leitor saía entendendo a diferença e sem saber se valia a
+   pena para ele. */
+.cu-ganho {
+  margin-top: 24px;
+  padding: 22px 24px 20px;
+  background: linear-gradient(to bottom, var(--white) 50%, rgba(10, 115, 89, 0.05));
+  border: 1px solid rgba(10, 115, 89, 0.3);
+  border-radius: 14px;
+}
+
+.cu-ganho h3 {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  margin-bottom: 5px;
+}
+
+.cu-ganho-lede {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+  max-width: 74ch;
+}
+
+.cu-ganho-itens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.cu-ganho-i {
+  min-width: 0;
+  padding: 14px 15px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 11px;
+}
+
+.cu-ganho-i h4 {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.cu-ganho-i p {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+/* O custo fica na mesma caixa do ganho, de propósito: uma vantagem sem o
+   preço ao lado é propaganda, e a seção 02 tem um bloco inteiro mostrando
+   onde o navegador ganha. */
+.cu-ganho-custo {
+  padding-top: 14px;
+  border-top: 1px dashed rgba(10, 115, 89, 0.3);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-muted);
+  max-width: 78ch;
+}
+
+/* A caixa do cinto de ferramentas guarda uma grade, não prosa: precisa da
+   largura toda. */
+.cu-saiba-larga .cu-saiba-corpo { max-width: none; }
+
+.cu-tools-lede {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-light);
+  margin-bottom: 14px;
+  max-width: 76ch;
+}
+
+/* ═══ 01 · A DIFERENÇA, EXPLICADA ═══ */
+
+/* Esta seção é a única da página escrita em texto corrido antes de qualquer
+   quadro. É de propósito: ela abre a aba para quem nunca instalou nada, e a
+   versão anterior — três cards comparativos logo de cara — mandava o leitor
+   comparar antes de ter entendido o que era cada lado.
+   Largura de medida de leitura, não de card: 68ch. */
+.cu-prosa {
+  max-width: 68ch;
+  margin-bottom: 26px;
+}
+
+.cu-prosa p {
+  font-size: 15px;
+  line-height: 1.68;
+  color: var(--ink);
+  margin-bottom: 13px;
+}
+
+.cu-prosa p:last-child { margin-bottom: 0; }
+.cu-prosa strong { font-weight: 700; color: var(--ink); }
+
+/* Os dois eixos ficam EMPILHADOS, não lado a lado. Lado a lado eles viram
+   um quadro comparativo de novo — e o ponto é justamente que são duas ideias
+   independentes, para entender uma de cada vez. */
+.cu-eixos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.cu-eixo {
+  padding: 20px 22px 18px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 14px;
+  box-shadow: var(--shadow-xs);
+}
+
+.cu-eixo-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-bottom: 16px;
+}
+
+.cu-eixo-n {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--white);
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.cu-eixo-tit { min-width: 0; }
+
+.cu-eixo-tit h3 {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.cu-eixo-q {
+  margin-top: 3px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-light);
+}
+
+/* Os dois lados do eixo. Aqui SIM lado a lado: são a mesma pergunta com duas
+   respostas, e o contraste é o conteúdo. */
+.cu-eixo-par {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.cu-lado {
+  min-width: 0;
+  padding: 14px 15px;
+  border-radius: 11px;
+  border: 1px solid var(--hair);
+}
+
+/* O lado do navegador em papel neutro; o lado instalado com o verde da casa.
+   A cor aqui NÃO diz "bom" e "ruim" — diz "aqui" e "ali". A seção 02 mostra
+   o lado verde errando feio. */
+.cu-lado.is-nav { background: var(--paper); }
+
+.cu-lado.is-maq {
+  background: linear-gradient(to bottom, var(--white) 55%, rgba(10, 115, 89, 0.05));
+  border-color: rgba(10, 115, 89, 0.3);
+}
+
+.cu-lado-rot {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.cu-lado.is-maq .cu-lado-rot { color: var(--accent); }
+
+.cu-lado-tit {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.cu-lado-txt {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+.cu-lado-cons {
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px dashed var(--hair);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* O lastro de cada eixo. Discreto de propósito: a prova sustenta a afirmação,
+   ela não é a afirmação. Antes aqui havia um quadro escuro com a tabela de
+   execuções, que roubava a atenção do texto e apresentava conclusão interna
+   do teste como se fosse regra geral. */
+.cu-lastro {
+  margin-bottom: 16px;
+  padding: 13px 15px;
+  background: var(--paper);
+  border-left: 3px solid var(--ink-muted);
+  border-radius: 0 9px 9px 0;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--ink-light);
+  max-width: 80ch;
+}
+
+.cu-lastro-rot {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+
+.cu-lastro strong { color: var(--ink); font-weight: 700; }
+
+.cu-lastro-link {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 12px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.cu-lastro-link::after { content: " ↓"; }
+
+/* A regra prática de cada eixo. É a frase que a pessoa leva embora, então
+   ela é a única coisa da seção em corpo grande fora dos títulos. */
+.cu-eixo-regra {
+  margin-top: 15px;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+  font-size: 15px;
+  line-height: 1.55;
+  letter-spacing: -0.012em;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ─── CAIXAS "SAIBA MAIS" (a página inteira usa estas) ───
+   O pedido era: superfície curta e objetiva, sem jogar fora o material rico
+   da medição. A resposta é esta caixa. Fechada por padrão, um clique para
+   abrir, e o Ctrl+F do navegador acha o texto de dentro mesmo fechada. */
+.cu-saibas {
+  display: grid;
+  gap: 9px;
+  margin-top: 22px;
+}
+
+.cu-saiba {
+  border: 1px solid var(--hair);
+  border-radius: 11px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.cu-saiba > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 13px 16px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  list-style: none;
+  transition: background 0.15s ease;
+}
+
+.cu-saiba > summary::-webkit-details-marker { display: none; }
+.cu-saiba > summary:hover { background: var(--paper); }
+
+.cu-saiba > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.cu-saiba-rot {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  background: var(--accent-soft);
+  padding: 3px 7px;
+  border-radius: 5px;
+}
+
+/* A seta é ::after no summary, não um caractere no HTML: assim ela nunca
+   entra na seleção de texto nem na busca da página. */
+.cu-saiba > summary::after {
+  content: "";
+  flex-shrink: 0;
+  margin-left: auto;
+  align-self: center;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid var(--ink-muted);
+  border-bottom: 2px solid var(--ink-muted);
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform 0.18s ease;
+}
+
+.cu-saiba[open] > summary::after { transform: rotate(225deg) translate(-1px, -1px); }
+.cu-saiba[open] > summary { background: var(--paper); }
+
+.cu-saiba-corpo {
+  padding: 15px 18px 17px;
+  border-top: 1px solid var(--hair);
+  font-size: 13px;
+  line-height: 1.68;
+  color: var(--ink-light);
+  max-width: 74ch;
+}
+
+.cu-saiba-corpo strong { color: var(--ink); font-weight: 700; }
+.cu-saiba-corpo em { font-style: italic; }
+
+.cu-saiba-corpo code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cu-saiba > summary,
+  .cu-saiba > summary::after { transition: none; }
+}
+
+/* ═══ 02 · COMPARAÇÃO ═══ */
+
+.cu-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.cu-tab {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-light);
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.cu-tab:hover { border-color: var(--accent); color: var(--accent); }
+
+.cu-tab.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+.cu-cen-titulo {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+}
+
+.cu-cen-ctx {
+  margin: 6px 0 16px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  max-width: 80ch;
+}
+
+/* Trechos de comando dentro de prosa. Uma regra só para as várias seções:
+   se `mv -n` mudar de aparência entre o card de custo e a lista de comandos,
+   o leitor passa a achar que são coisas diferentes. */
+.cu-main p code,
+.cu-main dd code,
+.cu-custo code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--paper-tint);
+  padding: 1px 4px;
+  border-radius: 4px;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.cu-term .cu-t-nota code,
+.cu-tese code {
+  background: rgba(233, 230, 216, 0.16);
+  color: #e9e6d8;
+}
+
+/* Lado a lado é o argumento inteiro: a comparação perde a força no instante em
+   que vira uma coluna acima da outra, porque o leitor deixa de ver as duas
+   linhas do tempo correndo em paralelo. Só cede no celular, onde não há
+   escolha. */
+.cu-lado-a-lado {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.cu-col {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.cu-col-head {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--hair);
+  background: var(--paper);
+}
+
+.cu-col-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 500;
+}
+
+/* Índigo, o mesmo do gráfico e do diagrama: a etiqueta da coluna, a bolinha
+   vazada e a seta de volta precisam ser reconhecíveis como a MESMA coisa. */
+.cu-tag-chat { color: #5B53A8; }
+.cu-tag-term { color: var(--accent); }
+
+.cu-col-term .cu-col-head {
+  background: linear-gradient(to right, rgba(10, 115, 89, 0.08), transparent);
+}
+
+/* ─── transcrição de chat ─── */
+.cu-chat {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.cu-c-linha {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 9px;
+  align-items: baseline;
+}
+
+.cu-c-quem {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+  text-align: right;
+}
+
+.cu-c-linha p {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-light);
+}
+
+.cu-c-voce p {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.cu-c-ia p {
+  padding: 8px 10px;
+  background: var(--paper-tint);
+  border-radius: 8px;
+}
+
+/* A nota é a voz do site dentro da transcrição — precisa ser visivelmente
+   OUTRA pessoa falando, senão o leitor a confunde com fala da IA. */
+.cu-c-nota,
+.cu-t-nota {
+  margin: 2px 0;
+  padding: 7px 10px 7px 11px;
+  border-left: 2px solid var(--accent);
+  background: rgba(10, 115, 89, 0.05);
+  border-radius: 0 6px 6px 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--ink-light);
+}
+
+/* ─── transcrição de terminal ─── */
+.cu-term {
+  padding: 12px 14px;
+  background: #14150f;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.62;
+  overflow-x: auto;
+}
+
+.cu-t-linha {
+  display: flex;
+  gap: 7px;
+  color: #e9e6d8;
+  white-space: pre;
+}
+
+.cu-t-linha code {
+  font-family: inherit;
+  white-space: pre;
+}
+
+.cu-t-ps {
+  color: var(--accent-bright);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.cu-t-ps2 { color: #6f6c5e; }
+
+.cu-t-out {
+  color: #a9a598;
+  padding-left: 15px;
+}
+
+.cu-t-err {
+  color: #f0846c;
+  padding-left: 15px;
+}
+
+.cu-t-pedido code { color: #cfe6a6; }
+
+/* Dentro do preto, a nota do site inverte: fundo claro sobre escuro. O
+   contraste de MODO (e não só de cor) é o que a mantém legível como
+   comentário editorial e não como saída de programa. */
+.cu-term .cu-t-nota {
+  white-space: normal;
+  margin: 7px 0;
+  background: rgba(233, 230, 216, 0.09);
+  border-left-color: var(--accent-bright);
+  color: #d8d4c4;
+  font-family: var(--sans);
+  font-size: 11.5px;
+}
+
+.cu-custo {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 12px;
+  padding: 11px 14px;
+  border-top: 1px solid var(--hair);
+  background: var(--paper);
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--ink-light);
+}
+
+.cu-custo span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 2px;
+}
+
+.cu-custo-risco { grid-column: 1 / -1; }
+
+.cu-col-term .cu-custo { background: rgba(10, 115, 89, 0.05); }
+
+/* ─── os comandos explicados ─── */
+.cu-cmd-h {
+  margin: 24px 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+}
+
+.cu-cmds {
+  display: grid;
+  gap: 1px;
+  background: var(--hair);
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cu-cmd {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.9fr) 1.6fr;
+  gap: 14px;
+  padding: 11px 14px;
+  background: var(--white);
+}
+
+.cu-cmd dt code {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--paper-tint);
+  padding: 2px 5px;
+  border-radius: 4px;
+  overflow-wrap: anywhere;
+}
+
+.cu-cmd dd {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-light);
+}
+
+.cu-licao {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--accent);
+  border-left-width: 4px;
+  border-radius: 0 10px 10px 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-light);
+}
+
+.cu-licao strong { color: var(--ink); }
+
+/* ═══ 02b · O DIAGRAMA DO CICLO ═══ */
+
+/* As duas metades ficam lado a lado porque a leitura é comparativa: o que se
+   vê não é "um ciclo" e depois "outro ciclo", é a MESMA figura com a volta em
+   lugares diferentes. Empilhadas, essa simetria some. */
+.cu-ciclo {
+  margin: 0 0 26px;
+  padding: 18px 20px 16px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+}
+
+.cu-ciclo-par {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.cu-ciclo-t { margin-bottom: 10px; }
+
+.cu-ciclo-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 500;
+}
+
+.cu-ciclo-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Divisor tracejado: é a única linha da figura que NÃO representa um caminho,
+   e o tracejado é o que impede de lê-la como mais uma seta. */
+.cu-cd-divisor {
+  stroke: var(--ink-faint);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.cu-cd-col {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  fill: var(--ink-muted);
+  text-anchor: middle;
+}
+
+.cu-cd-no rect {
+  fill: var(--paper);
+  stroke: var(--hair);
+  stroke-width: 1;
+}
+
+.cu-cd-no text {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  fill: var(--ink);
+  text-anchor: middle;
+}
+
+.cu-cd-aprova rect { fill: rgba(16, 163, 127, 0.09); stroke: rgba(16, 163, 127, 0.4); }
+
+.cu-cd-seta {
+  fill: none;
+  stroke: #8d8877;
+  stroke-width: 1.4;
+}
+
+/* A volta é a única linha grossa das duas figuras: ela é a informação. À
+   esquerda ela cruza a fronteira (o resultado precisa de você); à direita ela
+   nem chega perto (a máquina lê a própria saída). */
+.cu-cd-volta {
+  fill: none;
+  stroke-width: 2.6;
+}
+
+.cu-cd-volta-chat { stroke: #5B53A8; }
+.cu-cd-volta-term { stroke: #10a37f; }
+
+.cu-ciclo-leg {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink-light);
+}
+
+.cu-ciclo-leg strong { color: var(--ink); }
+
+.cu-ciclo-cap {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--hair);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+.cu-defs { position: absolute; width: 0; height: 0; }
+
+/* ═══ 02b · A TIRA DAS LIÇÕES ═══ */
+
+.cu-licoes {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.cu-licao-chip {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 11px;
+  text-align: left;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.cu-licao-chip:hover { border-color: var(--accent); }
+
+.cu-licao-chip.is-active {
+  border-color: var(--accent);
+  background: linear-gradient(to bottom, var(--white) 40%, rgba(10, 115, 89, 0.07));
+}
+
+.cu-licao-n {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent);
+  padding-top: 1px;
+}
+
+.cu-licao-txt {
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink-light);
+}
+
+.cu-licao-chip.is-active .cu-licao-txt { color: var(--ink); }
+
+/* ═══ 02b · AS CENAS (a conversa real, tocada) ═══ */
+
+.cn-seletor {
+  margin-bottom: 18px;
+}
+
+.cn-abas-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 9px;
+  padding: 0 4px;
+}
+
+.cn-abas-chamada {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-light);
+}
+
+.cn-abas-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(91, 83, 168, 0.12);
+  color: #5B53A8;
+  flex-shrink: 0;
+}
+
+.cn-abas-contador {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 7px;
+  padding: 3px 9px;
+  box-shadow: 0 1px 2px rgba(15, 12, 4, 0.04);
+}
+
+.cn-abas-contador-atual {
+  font-weight: 700;
+  color: #5B53A8;
+}
+
+.cn-abas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 8px;
+  background: var(--paper-tint);
+  border: 1.5px solid var(--hair);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 2px rgba(15, 12, 4, 0.04);
+}
+
+.cn-aba {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--white);
+  border: 1.5px solid var(--hair);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(15, 12, 4, 0.05);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.18s ease,
+              background 0.18s ease,
+              box-shadow 0.18s ease,
+              color 0.18s ease;
+}
+
+.cn-aba:hover {
+  border-color: #5B53A8;
+  color: #3b347e;
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(91, 83, 168, 0.16);
+}
+
+.cn-aba:hover .cn-aba-num {
+  border-color: #5B53A8;
+  color: #5B53A8;
+}
+
+.cn-aba:hover .cn-aba-seta {
+  transform: translateX(2px);
+  color: #5B53A8;
+}
+
+.cn-aba:active {
+  transform: translateY(0);
+}
+
+.cn-aba:focus-visible {
+  outline: 2px solid #5B53A8;
+  outline-offset: 2px;
+}
+
+.cn-aba.is-active {
+  background: #5B53A8;
+  border-color: #5B53A8;
+  color: #ffffff;
+  box-shadow: 0 5px 16px rgba(91, 83, 168, 0.35);
+  transform: translateY(-1px);
+}
+
+.cn-aba-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  background: var(--paper-tint);
+  border: 1px solid var(--hair);
+  color: var(--ink-muted);
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.cn-aba.is-active .cn-aba-num {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.cn-aba-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.cn-aba-rotulo {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.cn-aba.is-active .cn-aba-rotulo {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.cn-aba-txt {
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: inherit;
+  display: block;
+}
+
+.cn-aba-indicador {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.cn-aba-status-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.cn-aba-status-tag.is-ver {
+  background: transparent;
+  color: var(--ink-muted);
+  border: 1px solid var(--hair);
+}
+
+.cn-aba:hover .cn-aba-status-tag.is-ver {
+  border-color: #5B53A8;
+  color: #5B53A8;
+  background: rgba(91, 83, 168, 0.06);
+}
+
+.cn-aba-check {
+  color: #ffffff;
+}
+
+.cn-aba-seta {
+  color: var(--ink-muted);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.cn-titulo {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+}
+
+.cn-ctx {
+  margin: 6px 0 14px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  max-width: 80ch;
+}
+
+/* ─── a moldura de navegador ─── */
+.cn-quadro {
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.cn-barra {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #e8e5dc;
+  border-bottom: 1px solid var(--hair);
+}
+
+.cn-pontos { display: flex; gap: 5px; }
+.cn-pontos i { width: 9px; height: 9px; border-radius: 50%; background: #c3bfb2; }
+
+.cn-tab {
+  padding: 3px 12px;
+  background: var(--white);
+  border-radius: 6px 6px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-light);
+}
+
+.cn-url {
+  flex: 1;
+  padding: 3px 10px;
+  background: var(--white);
+  border: 1px solid #d4d0c3;
+  border-radius: 20px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-muted);
+}
+
+/* Altura fixa com rolagem interna: a conversa cresce enquanto toca, e sem
+   uma altura estável a página inteira pularia a cada beat revelado. */
+.cn-rolagem {
+  height: 400px;
+  overflow-y: auto;
+  background: var(--paper);
+  scroll-behavior: smooth;
+}
+
+.cn-palco { padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; }
+
+/* ─── as mensagens ─── */
+.cn-msg { display: flex; gap: 9px; align-items: flex-start; }
+.cn-voce { justify-content: flex-end; }
+
+.cn-bolha {
+  max-width: 74%;
+  padding: 10px 13px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.cn-voce .cn-bolha {
+  background: #ece9f7;
+  border: 1px solid #d5cff0;
+  color: var(--ink);
+  border-bottom-right-radius: 3px;
+}
+
+.cn-ia .cn-bolha {
+  background: var(--white);
+  border: 1px solid var(--hair);
+  color: var(--ink-light);
+  border-bottom-left-radius: 3px;
+}
+
+.cn-av {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: 3px;
+  border-radius: 50%;
+  background: conic-gradient(from 200deg, #4285f4, #9b72cb, #d96570, #4285f4);
+}
+
+.cn-corte {
+  display: block;
+  margin-top: 7px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+/* O bloco de código executado vem FECHADO, como vinha na tela do Gemini.
+   Reproduzir isso aberto contaria uma história diferente da que aconteceu:
+   quem usa não vê que houve execução. */
+.cn-sandbox {
+  max-width: 74%;
+  background: #14150f;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cn-sandbox > summary {
+  padding: 9px 12px;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #cfe6a6;
+  list-style: none;
+}
+
+.cn-sandbox > summary::-webkit-details-marker { display: none; }
+.cn-sandbox > summary::before { content: '▸ '; }
+.cn-sandbox[open] > summary::before { content: '▾ '; }
+.cn-sandbox > summary span { font-weight: 400; color: #8a8676; }
+
+.cn-sandbox pre {
+  margin: 0;
+  padding: 0 12px 11px;
+  overflow-x: auto;
+}
+
+.cn-sandbox code {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  line-height: 1.6;
+  color: #e9e6d8;
+  white-space: pre;
+}
+
+.cn-chips { display: flex; flex-wrap: wrap; gap: 7px; padding-left: 31px; }
+
+.cn-chip {
+  padding: 6px 11px;
+  border: 1px solid #d5cff0;
+  border-radius: 16px;
+  background: var(--white);
+  font-size: 11.5px;
+  color: #4a4394;
+}
+
+/* ─── a marca: a voz do site dentro da cena ───
+   Precisa ser inconfundivelmente OUTRA coisa que os balões, senão o leitor
+   atribui ao Gemini uma frase que quem escreveu fomos nós. Por isso: fora do
+   fluxo das bolhas, com filete lateral e tipografia do site. */
+.cn-marca {
+  display: flex;
+  gap: 9px;
+  margin: 2px 0 2px 8px;
+  padding: 10px 13px;
+  border-left: 3px solid var(--ink-muted);
+  background: var(--paper-tint);
+  border-radius: 0 9px 9px 0;
+}
+
+.cn-marca p { font-size: 12px; line-height: 1.55; color: var(--ink-light); }
+.cn-marca strong { color: var(--ink); }
+
+.cn-marca-p {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+}
+
+.cn-tom-ruim { border-left-color: #a33d2a; color: #a33d2a; background: rgba(163, 61, 42, 0.06); }
+.cn-tom-bom { border-left-color: var(--accent); color: var(--accent); background: rgba(10, 115, 89, 0.06); }
+.cn-tom-chave { border-left-color: #5B53A8; color: #4a4394; background: rgba(91, 83, 168, 0.07); }
+.cn-tom-neutro { border-left-color: var(--ink-muted); color: var(--ink-muted); }
+
+/* A entrada é curta de propósito: o que precisa ser percebido é que ALGO
+   novo chegou, não a animação em si. */
+.is-entrando { animation: cn-entra 0.32s ease-out; }
+
+@keyframes cn-entra {
+  from { opacity: 0; transform: translateY(9px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-entrando { animation: none; }
+  .cn-rolagem { scroll-behavior: auto; }
+}
+
+/* ─── controles do player ─── */
+.cn-controles {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  padding: 11px 14px;
+  border-top: 1px solid var(--hair);
+  background: var(--white);
+}
+
+.cn-bt {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.cn-bt-play { background: #5B53A8; border-color: #5B53A8; color: #fff; }
+.cn-bt-play:hover { filter: brightness(1.12); }
+
+.cn-bt-sec {
+  background: var(--white);
+  border-color: var(--hair);
+  color: var(--ink-light);
+  font-weight: 600;
+}
+
+.cn-bt-sec:hover:not(:disabled) { border-color: var(--ink-muted); color: var(--ink); }
+.cn-bt-sec:disabled { opacity: 0.4; cursor: default; }
+
+.cn-prog {
+  flex: 1;
+  min-width: 60px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--hair);
+  overflow: hidden;
+}
+
+.cn-prog-tr { display: block; height: 100%; background: #5B53A8; transition: width 0.25s ease; }
+
+.cn-conta {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── veredito e fonte ─── */
+.cn-veredito {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 13px 15px;
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  background: var(--white);
+}
+
+.cn-veredito p { font-size: 12.5px; line-height: 1.55; color: var(--ink-light); }
+
+.cn-selo {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.cn-selo-ok { background: rgba(10, 115, 89, 0.12); color: var(--accent); }
+.cn-selo-erro { background: rgba(91, 83, 168, 0.14); color: #4a4394; }
+.cn-selo-pior { background: rgba(163, 61, 42, 0.12); color: #a33d2a; }
+
+.cn-licao {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--accent);
+  background: var(--paper);
+  border-radius: 0 9px 9px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+.cn-fonte {
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+.cn-fonte a { color: var(--accent); }
+
+/* ─── o balanço: a página medindo a si mesma ─── */
+/* ─── OS EXEMPLOS ───
+   Uma pergunta, os dois lados narrados, o que muda e quando usar cada um.
+   O que havia aqui antes era um player de duas transcrições tocando em
+   sincronia, com placar de arquivos e etiqueta por comando. Era relatório
+   de medição, não explicação. */
+.cn-ex {
+  display: grid;
+  gap: 18px;
+}
+
+.cn-ex-rot {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+}
+
+.cn-ex-pergunta {
+  padding: 20px 22px 18px;
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-radius: 14px;
+}
+
+.cn-ex-pergunta-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.cn-ex-pergunta-meta .cn-ex-rot {
+  margin-bottom: 0;
+}
+
+.cn-ex-tema {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #5B53A8;
+  background: rgba(91, 83, 168, 0.10);
+  border: 1px solid rgba(91, 83, 168, 0.22);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+
+.cn-ex-pergunta h3 {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  line-height: 1.3;
+  color: var(--ink);
+  max-width: 42ch;
+}
+
+.cn-ex-par {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.cn-lado {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px 16px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 13px;
+  box-shadow: var(--shadow-xs);
+}
+
+.cn-lado.is-maq {
+  background: linear-gradient(to bottom, var(--white) 60%, rgba(10, 115, 89, 0.045));
+  border-color: rgba(10, 115, 89, 0.28);
+}
+
+.cn-lado-head { margin-bottom: 11px; }
+
+.cn-lado-head h4 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.016em;
+  color: var(--ink);
+}
+
+.cn-lado.is-nav .cn-lado-head h4 { color: #4a4394; }
+.cn-lado.is-maq .cn-lado-head h4 { color: var(--accent); }
+
+.cn-lado-sub {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-muted);
+}
+
+.cn-lado-narr {
+  flex: 1;
+  font-size: 13.5px;
+  line-height: 1.68;
+  color: var(--ink-light);
+  margin-bottom: 14px;
+}
+
+/* O saldo de cada lado: o que ele resolve e o que sobra para você. Os dois
+   juntos, sempre — vantagem sem contrapartida é propaganda. */
+.cn-lado-saldo {
+  display: grid;
+  gap: 8px;
+  padding-top: 13px;
+  border-top: 1px dashed var(--hair);
+}
+
+.cn-lado-saldo > div { display: grid; gap: 2px; }
+
+.cn-lado-saldo dt {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.cn-lado-saldo .is-bom dt { color: var(--accent); }
+.cn-lado-saldo .is-lim dt { color: var(--ink-muted); }
+
+.cn-lado-saldo dd {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.cn-ex-dif {
+  padding: 18px 20px 16px;
+  background: var(--ink);
+  border-radius: 13px;
+}
+
+.cn-ex-dif .cn-ex-rot { color: var(--accent-bright); }
+
+.cn-ex-dif p {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #e9e5da;
+  max-width: 76ch;
+}
+
+.cn-ex-dif strong { color: #fff; }
+.cn-ex-dif em { font-style: italic; color: #f4f1e8; }
+
+.cn-ex-quando {
+  padding: 16px 18px 14px;
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+}
+
+.cn-ex-quando dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.cn-ex-quando dt {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+
+.cn-ex-quando dd {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+.cn-ex .cu-saibas { margin-top: 0; }
+
+/* ─── Navegação inferior entre exemplos ─── */
+.cn-ex-nav {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--hair);
+}
+
+.cn-ex-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--white);
+  border: 1.5px solid var(--hair);
+  border-radius: 10px;
+  font-family: var(--sans);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  flex: 1;
+  max-width: 48%;
+  box-shadow: 0 1px 3px rgba(15, 12, 4, 0.04);
+}
+
+.cn-ex-nav-btn.is-prox {
+  justify-content: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+
+.cn-ex-nav-btn:hover {
+  border-color: #5B53A8;
+  color: #3b347e;
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(91, 83, 168, 0.14);
+}
+
+.cn-ex-nav-btn svg {
+  color: #5B53A8;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.cn-ex-nav-btn.is-ant:hover svg {
+  transform: translateX(-3px);
+}
+
+.cn-ex-nav-btn.is-prox:hover svg {
+  transform: translateX(3px);
+}
+
+.cn-ex-nav-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cn-ex-nav-legenda {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.cn-ex-nav-nome {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cn-ex-nav-btn:hover .cn-ex-nav-nome {
+  color: #5B53A8;
+}
+
+@media (max-width: 1080px) {
+  .cn-abas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .cn-abas {
+    grid-template-columns: 1fr;
+  }
+  .cn-ex-nav {
+    flex-direction: column;
+  }
+  .cn-ex-nav-btn {
+    max-width: 100%;
+  }
+  .cn-ex-nav-btn.is-prox {
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+/* ─── O DESENHO DA SEÇÃO 02 ───
+   Uma linha horizontal por modo, três caixas cada. O anterior eram dois
+   fluxogramas de cinco nós numerados com setas cruzando colunas: informação
+   demais para dizer uma coisa só. */
+.cu-fig {
+  margin: 0 0 26px;
+  padding: 20px 22px 16px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 14px;
+}
+
+.cu-fig-svg {
+  display: block;
+  width: 100%;
+  max-width: 620px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.cu-fig-tit {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  fill: var(--ink-muted);
+  text-transform: uppercase;
+}
+
+.cu-fig-no rect {
+  fill: var(--paper);
+  stroke: var(--hair);
+  stroke-width: 1;
+}
+
+.cu-fig-no text {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--ink);
+  text-anchor: middle;
+}
+
+.cu-fig-no.is-voce rect { fill: rgba(91, 83, 168, 0.09); stroke: rgba(91, 83, 168, 0.4); }
+.cu-fig-no.is-voce text { fill: #4a4394; }
+.cu-fig-no.is-alvo rect { fill: var(--white); stroke: var(--ink-muted); stroke-dasharray: 4 3; }
+
+.cu-fig-seta { fill: none; stroke: #8d8877; stroke-width: 1.6; }
+.cu-fig-volta { fill: none; stroke: var(--accent-bright); stroke-width: 2; }
+.cu-fig-linha { stroke: var(--hair); stroke-width: 1; }
+
+.cu-fig-nota {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-style: italic;
+  fill: var(--ink-muted);
+}
+
+.cu-fig-nota.is-verde { fill: var(--accent); font-style: normal; font-weight: 600; }
+
+.cu-fig-cap {
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid var(--hair);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+  max-width: 80ch;
+}
+
+.cn-bal {
+  margin: 22px 0 0;
+  padding: 18px 20px;
+  background: var(--ink);
+  border-radius: 12px;
+  color: #d8d4c4;
+}
+
+.cn-bal h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.cn-bal-lede { font-size: 12.5px; line-height: 1.6; color: #a9a598; margin-bottom: 14px; }
+
+.cn-bal-lista { list-style: none; display: grid; gap: 9px; }
+
+.cn-bal-lista li {
+  display: grid;
+  grid-template-columns: 1fr 18px 1fr;
+  gap: 8px;
+  align-items: baseline;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(233, 230, 216, 0.12);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.cn-bal-antes { color: #8a8676; text-decoration: line-through; text-decoration-color: rgba(163, 61, 42, 0.7); }
+.cn-bal-seta { color: #55534a; text-align: center; }
+.cn-bal-depois { color: #e9e6d8; }
+
+.cn-bal-fecho {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #d8d4c4;
+}
+
+.cn-bal-fecho strong { color: var(--accent-bright); }
+
+@media (max-width: 760px) {
+  .cn-rolagem { height: 340px; }
+  .cn-bolha, .cn-sandbox { max-width: 88%; }
+  .cn-bal-lista li { grid-template-columns: 1fr; gap: 3px; }
+  .cn-bal-seta { display: none; }
+  .cn-bal-antes { font-size: 11.5px; }
+}
+
+/* ─── o outro lado, dentro da mesma cena ─── */
+
+/* Fundo de papel e não branco: a coluna do terminal precisa ler como um
+   bloco SEPARADO da conversa capturada acima dela, senão as duas viram uma
+   coisa só e o selo de "reconstituição" perde o alcance. */
+.cn-term-lado {
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+}
+
+.cn-tl-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.cn-tl-head h4 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+}
+
+.cn-tl-selo {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8c3423;
+  background: rgba(163, 61, 42, 0.1);
+  border: 1px dashed rgba(163, 61, 42, 0.4);
+  padding: 3px 7px;
+  border-radius: 5px;
+}
+
+.cn-tl-aviso {
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+  max-width: 84ch;
+}
+
+.cn-term-lado .cu-term { border-radius: 10px; }
+
+.cn-term-lado .cu-cmd-h {
+  margin: 16px 0 9px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ═══ 02c · O GRÁFICO DOS CUSTOS (removido da página) ═══
+   As regras abaixo ficam porque o gráfico ainda é gerado por renderGrafico()
+   e pode voltar assim que houver medida de tempo real dos dois lados. Hoje
+   não há: os dez números eram estimativa, e cinco foram desmentidos. */
+
+.cu-graf {
+  margin: 22px 0 0;
+  padding: 18px 20px 16px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+}
+
+.cu-graf-cap h3 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.016em;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.cu-graf-cap p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  max-width: 74ch;
+}
+
+/* Legenda sempre presente: são duas séries, e identidade nunca pode depender
+   só da cor. A bolinha vazada contra a cheia repete a distinção sem cor. */
+.cu-graf-leg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 12px 0 4px;
+}
+
+.cu-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  color: var(--ink-light);
+}
+
+.cu-lg-m {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.cu-lg-chat { border: 2.5px solid #5B53A8; background: var(--white); }
+.cu-lg-term { background: #10a37f; }
+
+.cu-graf-rola { overflow-x: auto; }
+
+.cu-graf-svg {
+  display: block;
+  width: 100%;
+  min-width: 520px;
+  height: auto;
+}
+
+/* Grade em filete sólido de 1px e recuada: ela orienta, não compete. */
+.cu-gr-grade { stroke: var(--hair); stroke-width: 1; }
+
+.cu-gr-eixo {
+  font-family: var(--mono);
+  font-size: 10px;
+  fill: var(--ink-muted);
+  text-anchor: middle;
+}
+
+.cu-gr-unid { letter-spacing: 0.04em; }
+
+.cu-gr-faixa { fill: transparent; }
+.cu-gr-linha:hover .cu-gr-faixa { fill: rgba(10, 115, 89, 0.045); }
+
+.cu-gr-rot {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--ink);
+  text-anchor: end;
+}
+
+.cu-gr-haste { stroke: #d8d4c8; stroke-width: 2; }
+
+/* Anel de superfície nas marcas: onde os dois pontos quase se tocam (a linha
+   das planilhas) é ele que impede os dois círculos de virarem uma mancha só. */
+.cu-gr-p { stroke: var(--white); stroke-width: 2; }
+.cu-gr-chat { fill: var(--white); stroke: #5B53A8; stroke-width: 2.5; }
+.cu-gr-term { fill: #10a37f; }
+
+/* Os números usam tinta de texto, nunca a cor da série: a identidade já está
+   na marca ao lado. */
+.cu-gr-val {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  fill: var(--ink-muted);
+}
+
+.cu-graf-nota {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--paper);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+.cu-graf-nota strong { color: var(--ink); }
+
+.cu-graf-tab { margin-top: 12px; }
+
+.cu-graf-tab summary {
+  cursor: pointer;
+  font-size: 11.5px;
+  color: var(--ink-muted);
+}
+
+.cu-graf-tab table {
+  margin-top: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.cu-graf-tab th,
+.cu-graf-tab td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--hair);
+  text-align: left;
+}
+
+.cu-graf-tab th {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.cu-graf-tab td { color: var(--ink-light); }
+
+/* ═══ 02d · O CONTRAPONTO ═══ */
+
+/* Índigo, e não verde: este bloco defende o outro lado, e usar o verde da
+   página aqui faria a contraprova parecer mais uma vitória do terminal. */
+.cu-contra {
+  margin-top: 24px;
+  padding: 20px 22px;
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-top: 3px solid #5B53A8;
+  border-radius: 4px 4px 12px 12px;
+}
+
+.cu-contra h3 {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.cu-contra-lede {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-light);
+  max-width: 82ch;
+  margin-bottom: 16px;
+}
+
+.cu-contra-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.cu-contra-item {
+  padding: 13px 15px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+}
+
+.cu-contra-item h4 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  color: #4a4394;
+  margin-bottom: 5px;
+}
+
+.cu-contra-item p {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink-light);
+}
+
+.cu-contra-fecho {
+  margin-top: 16px;
+  padding: 13px 15px;
+  background: var(--white);
+  border: 1px solid rgba(91, 83, 168, 0.4);
+  border-left-width: 4px;
+  border-radius: 0 10px 10px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+.cu-contra-fecho strong { color: var(--ink); }
+
+/* ═══ 03 · O QUE FICA DEPOIS ═══ */
+
+/* ─── o comparativo: o que resta de cada lado ─── */
+
+/* Listas, e não cartões: a página já tem grade de cartões em quatro seções, e
+   o que este bloco precisa mostrar é uma COLUNA contra a outra, item a item —
+   coisa que cartão lado a lado não faz. As mesmas duas cores do gráfico e do
+   diagrama identificam os dois lados. */
+.cu-resta {
+  padding: 18px 20px 16px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+}
+
+.cu-resta h3 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.016em;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.cu-resta-par {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cu-resta-lado {
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--paper);
+  border: 1px solid var(--hair);
+}
+
+.cu-resta-chat { border-top: 3px solid #5B53A8; }
+.cu-resta-term { border-top: 3px solid #10a37f; }
+
+.cu-resta-rot {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 10px;
+}
+
+.cu-resta-chat .cu-resta-rot { color: #4a4394; }
+.cu-resta-term .cu-resta-rot { color: var(--accent); }
+
+.cu-resta-lado ul {
+  list-style: none;
+  display: grid;
+  gap: 9px;
+}
+
+.cu-resta-lado li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-light);
+}
+
+/* O sinal antes da cor, de novo: × e ✓ dizem a mesma coisa que o tom, para
+   quem imprime em preto e branco ou não distingue os dois. */
+.cu-rst-m {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.cu-resta-lado li.is-some .cu-rst-m { color: #9a95b8; }
+.cu-resta-lado li.is-fica .cu-rst-m { color: var(--accent); }
+.cu-resta-lado li.is-some { color: var(--ink-muted); }
+
+.cu-resta-nota {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--hair);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+/* ─── os quatro mecanismos ─── */
+
+/* Faixa e não cartão: texto à esquerda, artefato à direita. O artefato é o
+   que impede a seção de virar quatro parágrafos de opinião — cada afirmação
+   vem acompanhada da coisa concreta de que ela fala. */
+.cu-mecs {
+  display: grid;
+  gap: 1px;
+  margin-top: 18px;
+  background: var(--hair);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cu-mec {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 18px 20px;
+  background: var(--white);
+  align-items: start;
+}
+
+/* `min-width: 0` nas duas colunas, e ele não é decoração: um item de grid não
+   encolhe abaixo da largura mínima do próprio conteúdo, e o conteúdo da
+   direita é um `git log` de linhas longas em `white-space: pre`. Sem isto a
+   faixa inteira ficava do tamanho do log, a coluna de texto ia junto, e o
+   `overflow: hidden` do contêiner CORTAVA a frase no meio — no celular
+   sumia metade de cada parágrafo. Com min-width: 0 a coluna volta a caber e
+   quem rola é só o artefato, que tem `overflow-x: auto` para isso. */
+.cu-mec-txt,
+.cu-mec-art { min-width: 0; }
+
+.cu-mec-txt h4 {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+  margin-bottom: 7px;
+}
+
+.cu-mec-n {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.cu-mec-txt p {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+.cu-mec-nota {
+  margin-top: 10px;
+  padding: 9px 12px;
+  border-left: 3px solid var(--accent);
+  background: rgba(10, 115, 89, 0.05);
+  border-radius: 0 7px 7px 0;
+  font-size: 11.5px !important;
+  line-height: 1.55 !important;
+  color: var(--ink-muted) !important;
+}
+
+/* ─── os artefatos ─── */
+.cu-art {
+  border-radius: 9px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.cu-art-l { display: flex; gap: 7px; white-space: pre; }
+.cu-art-l code { font-family: inherit; white-space: pre; }
+
+.cu-art-term { background: #14150f; color: #e9e6d8; padding: 11px 13px; }
+.cu-art-term .cu-art-ps { color: var(--accent-bright); flex-shrink: 0; }
+.cu-art-term .cu-art-out { color: #a9a598; padding-left: 15px; }
+
+/* Árvore de pastas em tinta de papel, não em terminal: ela não é uma saída de
+   comando, é um desenho da estrutura — e vestir de preto faria o leitor
+   procurar o `$` que não existe. */
+.cu-art-arv {
+  background: var(--paper-tint);
+  color: var(--ink-light);
+  padding: 12px 14px;
+  border: 1px solid var(--hair);
+}
+
+.cu-art-arq {
+  background: var(--white);
+  border: 1px solid var(--hair);
+}
+
+.cu-art-barra {
+  padding: 6px 12px;
+  background: var(--paper-tint);
+  border-bottom: 1px solid var(--hair);
+  font-size: 10.5px;
+  color: var(--ink-muted);
+}
+
+.cu-art-corpo { padding: 10px 13px; color: var(--ink-light); }
+
+.cu-perm-fecho { margin-top: 18px; }
+
+/* ═══ 04 · CINTO DE FERRAMENTAS ═══ */
+.cu-tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.cu-tool {
+  padding: 14px 15px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 11px;
+  box-shadow: var(--shadow-xs);
+}
+
+.cu-tool h3 {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.cu-tool-oq {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  margin-bottom: 7px;
+}
+
+.cu-tool-dest {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  margin-bottom: 9px;
+}
+
+/* Prefixado com .cu-main para vencer a regra genérica de `p code` acima: sem
+   isso o exemplo do cinto de ferramentas perde o verde e vira mais um chip
+   cinza, igual aos trechos de comando que aparecem no meio de frases. Aqui o
+   verde tem função — é o que marca "isto é o vocabulário da ferramenta". */
+.cu-main .cu-tool-ex code {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 3px 6px;
+  border-radius: 5px;
+  overflow-wrap: anywhere;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   05 · O SIMULADOR DE ÁREA DE TRABALHO
+   ═══════════════════════════════════════════════════════════════ */
+
+.cu-os { margin-top: 4px; }
+
+/* A moldura escura é o passe-partout: ela separa a citação visual (um
+   computador dos anos 2000) do resto da página, que é bege e sóbrio. Sem ela
+   a tela verde-e-azul pareceria um erro de paleta. */
+.cu-os-bezel {
+  padding: 12px;
+  background: linear-gradient(160deg, #2b2b2b, #131313);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Papel de parede: céu, uma nuvem e uma colina. É uma homenagem desenhada em
+   gradiente, não a imagem original — que é obra protegida por direitos. */
+.cu-os-screen {
+  position: relative;
+  /* `width: 100%` não é redundante com o bloco: quando `min-height` vence a
+     proporção (acontece no celular), o navegador reabre o eixo horizontal
+     para honrar o `aspect-ratio` e a tela estoura a moldura — 453px dentro de
+     um pai de 348px. Fixar a largura mantém a proporção como teto de altura,
+     que é o papel que ela tem aqui. */
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 420px;
+  border-radius: 6px;
+  overflow: hidden;
+  background:
+    /* nuvens */
+    radial-gradient(ellipse 30% 13% at 72% 22%, rgba(255, 255, 255, 0.62), transparent 66%),
+    radial-gradient(ellipse 20% 9% at 62% 28%, rgba(255, 255, 255, 0.45), transparent 64%),
+    radial-gradient(ellipse 22% 10% at 22% 15%, rgba(255, 255, 255, 0.4), transparent 66%),
+    /* colina da frente: elipse larga ancorada abaixo da tela, de modo que só
+       a calota apareça — é a curva que faz a mancha verde virar morro */
+    radial-gradient(ellipse 88% 46% at 44% 128%, #7ec13a 0%, #63a52b 42%, #4f8c22 70%, transparent 74%),
+    /* colina do fundo, mais escura e deslocada, para dar profundidade */
+    radial-gradient(ellipse 62% 30% at 88% 118%, #4d8b28 0%, #3f7620 60%, transparent 72%),
+    /* faixa de horizonte esfumaçada: sem ela o encontro do céu com o verde
+       vira uma linha reta, e linha reta lê como erro de gradiente */
+    linear-gradient(180deg,
+      #1d5cb0 0%,
+      #3b84d6 30%,
+      #77b3e6 54%,
+      #c3dcf0 66%,
+      #dcecc9 70%,
+      #7fb534 74%,
+      #4f8c22 100%);
+  font-family: 'Tahoma', 'Segoe UI', var(--sans);
+}
+
+/* ─── ícones da área de trabalho ─── */
+.cu-desk {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1;
+}
+
+.cu-icone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 84px;
+  padding: 7px 4px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1.25;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.cu-icone:hover,
+.cu-icone:focus-visible {
+  background: rgba(49, 106, 197, 0.55);
+  border-color: rgba(255, 255, 255, 0.45);
+  outline: none;
+}
+
+.cu-icone-fig {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 7px;
+  background: linear-gradient(160deg, #f7f6f1, #d9d5c8);
+  color: #24406e;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.28);
+}
+
+.cu-icone-txt { overflow-wrap: anywhere; }
+
+/* ─── janelas ─── */
+.cu-windows {
+  position: absolute;
+  inset: 0 0 34px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 18px 8px 112px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cu-win {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 620px;
+  max-height: 100%;
+  background: #ece9d8;
+  border: 1px solid #0a3a8c;
+  border-radius: 7px 7px 3px 3px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.42);
+  overflow: hidden;
+}
+
+.cu-win-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px 5px 10px;
+  background: linear-gradient(180deg, #4a90e2 0%, #2c65c8 48%, #1c4fae 100%);
+  color: #ffffff;
+}
+
+.cu-win-titulo {
+  flex: 1;
+  min-width: 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cu-win-bts { display: flex; gap: 3px; }
+
+.cu-wb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 17px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: linear-gradient(180deg, #6ea8ea, #3a72c9);
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+  line-height: 1;
+}
+
+.cu-wb-x {
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+  background: linear-gradient(180deg, #e88a72, #c8452a);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.cu-wb-x:hover { background: linear-gradient(180deg, #f3a08a, #d8563b); }
+
+/* ─── terminal dentro da janela ─── */
+.cu-win-term {
+  flex: 1;
+  min-height: 200px;
+  padding: 10px 12px;
+  background: #0d0f0b;
+  color: #e9e6d8;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.6;
+  overflow: auto;
+}
+
+.cu-win.is-term { max-width: 660px; }
+
+/* O cursor pisca porque é assim que um terminal diz "sua vez". Com
+   prefers-reduced-motion ele fica aceso e parado — a informação é a presença,
+   não a piscada. */
+.cu-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  margin-left: 1px;
+  background: var(--accent-bright);
+  vertical-align: text-bottom;
+  animation: cu-pisca 1.05s steps(2, start) infinite;
+}
+
+@keyframes cu-pisca {
+  to { opacity: 0; }
+}
+
+/* ─── a linha em que se digita de verdade ─── */
+
+/* Input real por cima, espelho colorido por baixo, na MESMA célula do grid.
+   O input carrega texto transparente e só empresta o cursor; quem desenha é o
+   espelho. Fonte, tamanho e espaçamento têm de ser idênticos nos dois, senão o
+   cursor descola do caractere. */
+.cu-t-campo {
+  position: relative;
+  display: block;
+  flex: 1;
+  min-width: 0;
+}
+
+.cu-t-espelho,
+.cu-t-input {
+  font-family: var(--mono);
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: 0;
+  white-space: pre;
+}
+
+.cu-t-espelho {
+  display: block;
+  min-height: 1em;
+  pointer-events: none;
+}
+
+.cu-t-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--accent-bright);
+  outline: none;
+}
+
+/* O que já bate com o comando esperado sai claro; o que divergiu, vermelho. */
+.cu-e-ok { color: #e9e6d8; }
+.cu-e-ruim { color: #f0846c; text-decoration: underline wavy rgba(240, 132, 108, 0.6); }
+
+/* O resto do comando, em cinza, à frente do cursor: é a "sugestão" que
+   permite digitar um `curl -fsSL …` inteiro sem decorar nada — e é o que
+   transforma a digitação de obstáculo em leitura ativa. */
+.cu-e-falta { color: #55534a; }
+
+.cu-e-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  margin: 0 -3px 0 0;
+  background: var(--accent-bright);
+  vertical-align: text-bottom;
+  animation: cu-pisca 1.05s steps(2, start) infinite;
+}
+
+.cu-t-viva.is-errado .cu-t-ps { color: #f0846c; }
+
+/* ─── alvos clicáveis dentro da cena ─── */
+
+/* Botão simulado que a pessoa precisa mesmo clicar. O anel pulsante existe
+   porque, numa tela cheia de enfeite, nada distingue o que é decoração do que
+   é a próxima ação. */
+.cu-alvo {
+  position: relative;
+  cursor: pointer;
+  font-family: inherit;
+  animation: cu-alvo-pulso 1.9s ease-out infinite;
+}
+
+@keyframes cu-alvo-pulso {
+  0% { box-shadow: 0 0 0 0 rgba(16, 163, 127, 0.55); }
+  70% { box-shadow: 0 0 0 9px rgba(16, 163, 127, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 163, 127, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cu-alvo { animation: none; box-shadow: 0 0 0 3px rgba(16, 163, 127, 0.5); }
+}
+
+/* ─── o balão do guia ─── */
+
+.cu-balao {
+  position: absolute;
+  z-index: 5;
+  width: min(310px, 68%);
+  padding: 13px 14px 12px;
+  background: #fffdf6;
+  border: 1px solid #0a3a8c;
+  border-radius: 10px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.4);
+  font-family: var(--sans);
+  animation: cu-balao-entra 0.28s ease-out;
+}
+
+@keyframes cu-balao-entra {
+  from { opacity: 0; transform: translateY(6px) scale(0.985); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cu-balao { animation: none; }
+}
+
+/* A seta é o que faz o balão "apontar" em vez de flutuar: ela liga a
+   explicação ao pedaço da cena de que a explicação fala. */
+.cu-balao::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #fffdf6;
+  border-left: 1px solid #0a3a8c;
+  border-bottom: 1px solid #0a3a8c;
+  transform: rotate(45deg);
+}
+
+/* A janela recua para o lado oposto ao do balão. É o que separa "guia por
+   cima da cena" de "guia ao lado da cena" — e só o segundo deixa ler as duas
+   coisas ao mesmo tempo. */
+.cu-os-screen.cu-guia-esq .cu-windows { padding-left: 348px; }
+.cu-os-screen.cu-guia-dir .cu-windows { padding-right: 340px; }
+
+.cu-balao.is-terminal { left: 16px; bottom: 46px; }
+.cu-balao.is-terminal::after { right: -7px; top: 46px; transform: rotate(-135deg); }
+
+.cu-balao.is-janela { right: 16px; bottom: 46px; }
+.cu-balao.is-janela::after { left: -7px; top: 46px; transform: rotate(45deg); }
+
+.cu-balao.is-centro {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(360px, 78%);
+}
+.cu-balao.is-centro::after { display: none; }
+
+/* Encolhido: só um "?" no canto, para quem quer ver a tela sem o guia por
+   cima. Some o balão, não o tutorial. */
+.cu-balao.is-min {
+  width: auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  left: auto;
+  right: 14px;
+  bottom: 46px;
+}
+.cu-balao.is-min::after { display: none; }
+
+.cu-balao-abrir {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #0a3a8c;
+  background: #fffdf6;
+  color: #1c4fae;
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.cu-balao-topo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cu-balao-passo {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--accent);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.cu-balao-tut {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cu-balao-x {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--hair);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink-muted);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.cu-balao-t {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+
+.cu-balao-p {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink-light);
+}
+
+.cu-balao-cmd {
+  margin-top: 9px;
+  padding: 8px 10px;
+  background: #14150f;
+  border-radius: 7px;
+  overflow-x: auto;
+}
+
+.cu-balao-rot {
+  display: block;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8a8676;
+  margin-bottom: 3px;
+}
+
+.cu-balao-cmd code {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: #cfe6a6;
+  white-space: pre;
+}
+
+.cu-balao-erro {
+  margin-top: 9px;
+  padding: 7px 10px;
+  background: rgba(163, 61, 42, 0.09);
+  border-left: 3px solid #a33d2a;
+  border-radius: 0 6px 6px 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #8c3423;
+}
+
+.cu-balao-nota {
+  margin-top: 9px;
+  padding: 8px 10px;
+  border-left: 3px solid var(--accent);
+  background: rgba(10, 115, 89, 0.06);
+  border-radius: 0 6px 6px 0;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--ink-light);
+}
+
+.cu-balao-acoes {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 11px;
+}
+
+.cu-balao-btn {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  padding: 7px 13px;
+  cursor: pointer;
+}
+
+.cu-balao-btn:hover { filter: brightness(1.12); }
+
+.cu-balao-dica {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ink-muted);
+}
+
+.cu-balao-dica strong { color: var(--ink); }
+
+.cu-balao-dica kbd {
+  font-size: 10px;
+  padding: 1px 4px;
+}
+
+.cu-balao-esperando {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+
+.cu-balao-nav {
+  display: flex;
+  gap: 8px;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--hair);
+}
+
+.cu-balao-sec {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  background: transparent;
+  border: 1px solid var(--hair);
+  border-radius: 6px;
+  padding: 5px 9px;
+  cursor: pointer;
+}
+
+.cu-balao-sec:hover { color: var(--ink); border-color: var(--ink-muted); }
+
+/* ─── navegador simulado ─── */
+.cu-win-nav { background: #ffffff; }
+
+.cu-nav-barra {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  background: #dfdcd0;
+  border-bottom: 1px solid #b9b5a6;
+}
+
+.cu-nav-botoes { display: flex; gap: 4px; }
+
+.cu-nav-botoes i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #b9b5a6;
+}
+
+.cu-nav-url {
+  flex: 1;
+  padding: 3px 8px;
+  background: #fff;
+  border: 1px solid #b9b5a6;
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: #3a3833;
+}
+
+.cu-nav-pagina { padding: 18px 20px 20px; }
+
+.cu-nav-pagina h5 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+
+.cu-nav-pagina p {
+  font-size: 12px;
+  color: #55524b;
+  margin-bottom: 12px;
+}
+
+.cu-nav-pagina ul,
+.cu-win-dlg ul {
+  list-style: none;
+  display: grid;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.cu-nav-pagina li,
+.cu-win-dlg li {
+  padding: 7px 10px;
+  background: #f4f2ec;
+  border: 1px solid #ddd9cc;
+  border-radius: 5px;
+  font-size: 11.5px;
+  color: #3a3833;
+}
+
+.cu-nav-pagina li.is-sel {
+  border-color: #2c65c8;
+  background: #e8f0fc;
+  font-weight: 600;
+}
+
+.cu-nav-btn,
+.cu-dlg-btn {
+  display: inline-block;
+  padding: 7px 16px;
+  background: linear-gradient(180deg, #f4f2ec, #d7d3c5);
+  border: 1px solid #8d8877;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #2a2823;
+}
+
+/* ─── revisão em diff (a janela que o terminal não desenha) ─── */
+.cu-win-diff { background: #fff; display: flex; flex-direction: column; min-height: 0; }
+
+.cu-diff-barra {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 12px;
+  background: #dfdcd0;
+  border-bottom: 1px solid #b9b5a6;
+}
+
+.cu-diff-arq { font-family: var(--mono); font-size: 11px; font-weight: 500; color: #2a2823; }
+.cu-diff-cont { font-size: 10px; color: #6b6860; }
+
+.cu-diff-corpo {
+  flex: 1;
+  overflow: auto;
+  padding: 6px 0;
+  background: #fbfaf7;
+}
+
+.cu-diff-l {
+  display: flex;
+  gap: 8px;
+  padding: 1px 12px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+/* O sinal vem antes da cor: em impressão preto-e-branco, com daltonismo, ou
+   quando o leitor copia o texto, é ele que diz o que entrou e o que saiu. */
+.cu-diff-s { flex-shrink: 0; width: 8px; font-weight: 700; }
+
+.cu-diff-ctx { color: #55524b; }
+.cu-diff-mais { background: rgba(16, 163, 127, 0.13); color: #08553f; }
+.cu-diff-menos { background: rgba(163, 61, 42, 0.11); color: #8c3423; }
+
+.cu-diff-bts {
+  display: flex;
+  gap: 8px;
+  padding: 9px 12px;
+  background: #ece9d8;
+  border-top: 1px solid #b9b5a6;
+}
+
+.cu-dlg-btn.is-primario {
+  background: linear-gradient(180deg, #4a90e2, #2c65c8);
+  border-color: #1c4fae;
+  color: #fff;
+}
+
+/* ─── caixa de diálogo ─── */
+.cu-win-dlg { padding: 18px 20px 20px; background: #ece9d8; }
+
+.cu-win-dlg h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.cu-win-dlg p {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #46433c;
+  margin-bottom: 9px;
+}
+
+.cu-win-leiame { max-width: none; }
+
+/* ─── barra de tarefas ─── */
+.cu-taskbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 0 0;
+  background: linear-gradient(180deg, #3a7ad4 0%, #245bb8 9%, #1f52ab 88%, #17408e 100%);
+  border-top: 1px solid #5f9ae8;
+  z-index: 3;
+}
+
+.cu-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  padding: 0 16px 0 10px;
+  border: 0;
+  border-radius: 0 12px 12px 0;
+  background: linear-gradient(180deg, #62b73c 0%, #3d8f22 52%, #2c711a 100%);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  font-style: italic;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.cu-start:hover,
+.cu-start.is-on { filter: brightness(1.12); }
+
+.cu-start-flag {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  background:
+    linear-gradient(135deg, #f36c3d 0 50%, #7bc043 50% 100%),
+    #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+}
+
+.cu-task-items { flex: 1; display: flex; align-items: center; gap: 6px; padding-left: 6px; }
+
+.cu-task-item {
+  max-width: 220px;
+  padding: 4px 10px;
+  background: linear-gradient(180deg, #4b8ce0, #2a63c2);
+  border: 1px solid #6ea8ea;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cu-tray {
+  padding: 0 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #1a92d8, #1268b8);
+  border-left: 1px solid #5f9ae8;
+  color: #fff;
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── menu iniciar ─── */
+.cu-startmenu {
+  position: absolute;
+  left: 6px;
+  bottom: 34px;
+  width: 268px;
+  background: #ece9d8;
+  border: 1px solid #0a3a8c;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -6px 26px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  z-index: 4;
+}
+
+.cu-sm-faixa {
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #4a90e2, #1c4fae);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.cu-sm-lista { padding: 6px; background: #fff; }
+
+.cu-sm-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 8px;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  color: #24406e;
+  font-family: inherit;
+}
+
+.cu-sm-item:hover,
+.cu-sm-item:focus-visible { background: #316ac5; color: #fff; outline: none; }
+
+.cu-sm-item span { display: flex; flex-direction: column; min-width: 0; }
+.cu-sm-item strong { font-size: 11.5px; font-weight: 700; }
+.cu-sm-item em { font-size: 10.5px; font-style: normal; opacity: 0.72; }
+
+.cu-os-legend {
+  margin-top: 9px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+/* ─── roteiro (o painel de controle, fora da moldura) ─── */
+.cu-rot {
+  margin-top: 14px;
+  padding: 16px 18px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.cu-rot-porque {
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  padding-bottom: 11px;
+  margin-bottom: 11px;
+  border-bottom: 1px dashed var(--hair);
+}
+
+.cu-rot-vazio {
+  font-size: 13px;
+  color: var(--ink-muted);
+  text-align: center;
+  padding: 6px 0;
+}
+
+.cu-rot-topo {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 9px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--hair);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-muted);
+}
+
+.cu-rot-passo {
+  color: var(--white);
+  background: var(--accent);
+  padding: 3px 7px;
+  border-radius: 5px;
+  letter-spacing: 0.03em;
+}
+
+.cu-rot-tut { flex: 1; color: var(--ink-light); font-weight: 500; }
+
+.cu-rot-titulo {
+  font-size: 15.5px;
+  font-weight: 700;
+  letter-spacing: -0.016em;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+
+.cu-rot-exp {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-light);
+  max-width: 82ch;
+}
+
+.cu-rot-cmd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 11px;
+  padding: 9px 11px;
+  background: #14150f;
+  border-radius: 8px;
+}
+
+.cu-rot-cmd code {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: #e9e6d8;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.cu-copiar {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #cfe6a6;
+  background: rgba(233, 230, 216, 0.1);
+  border: 1px solid rgba(233, 230, 216, 0.22);
+  border-radius: 5px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.cu-copiar:hover { background: rgba(233, 230, 216, 0.18); }
+.cu-copiar.is-ok { color: var(--accent-bright); border-color: var(--accent-bright); }
+
+.cu-rot-nota {
+  margin-top: 11px;
+  padding: 9px 12px;
+  border-left: 3px solid var(--accent);
+  background: rgba(10, 115, 89, 0.06);
+  border-radius: 0 7px 7px 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-light);
+}
+
+.cu-rot-acoes {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.cu-rot-btn {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.cu-rot-btn:hover { filter: brightness(1.12); }
+.cu-rot-btn.is-esperando { background: var(--ink-muted); border-color: var(--ink-muted); cursor: default; }
+
+.cu-rot-sec {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-light);
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.cu-rot-sec:hover { border-color: var(--ink-muted); color: var(--ink); }
+
+.cu-rot-rapido {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-size: 11.5px;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+
+/* ─── tutoriais em texto ─── */
+.cu-plain {
+  margin-top: 18px;
+  padding: 12px 16px;
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+}
+
+.cu-plain summary {
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-light);
+}
+
+.cu-plain-tut { margin-top: 16px; }
+
+.cu-plain-tut h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.cu-plain-tut h3 span { font-weight: 400; color: var(--ink-muted); }
+
+.cu-plain-tut ol { padding-left: 20px; display: grid; gap: 14px; }
+
+.cu-plain-tut li { font-size: 12.5px; line-height: 1.55; color: var(--ink-light); }
+.cu-plain-tut li strong { color: var(--ink); }
+.cu-plain-tut li p { margin-top: 3px; }
+.cu-plain-tut ul { margin-top: 6px; padding-left: 18px; }
+
+.cu-plain-tut pre {
+  margin-top: 7px;
+  padding: 8px 10px;
+  background: #14150f;
+  border-radius: 7px;
+  overflow-x: auto;
+}
+
+.cu-plain-tut pre code {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #e9e6d8;
+}
+
+.cu-plain-url { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-top: 6px; }
+.cu-plain-nota { margin-top: 6px; font-style: italic; color: var(--ink-muted); font-size: 11.5px; }
+.cu-plain-fecho { margin-top: 12px; font-size: 12.5px; line-height: 1.55; color: var(--ink-muted); }
+
+/* ═══ 06 · CATÁLOGO ═══ */
+.cu-fam { margin-bottom: 30px; }
+
+.cu-fam-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hair);
+}
+
+.cu-fam-head h3 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+}
+
+.cu-fam-sub { font-size: 12.5px; color: var(--accent); font-weight: 500; }
+
+.cu-fam-exp {
+  margin: 10px 0 14px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+  max-width: 84ch;
+}
+
+.cu-fam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.cu-ferr {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 15px 16px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+  box-shadow: var(--shadow-xs);
+}
+
+.cu-ferr.is-destaque {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* O catálogo colapsado no celular esconde os cartões com o atributo `hidden`
+   (ver colapsarCatalogoNoCelular, em como-usar.js). O `display: flex` acima é
+   regra do autor e ganha da folha do navegador ([hidden] { display: none }) —
+   o mesmo conflito que .help-popover[hidden], em styles.css, já resolvia.
+   Sem esta regra, o botão "Mostrar as outras N" aparecia sem esconder nada. */
+.cu-ferr[hidden] {
+  display: none;
+}
+
+.cu-ferr-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cu-ferr-emp {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  margin-bottom: 2px;
+}
+
+.cu-ferr-head h4 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.016em;
+  color: var(--ink);
+}
+
+.cu-ferr-open {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 3px 6px;
+  border-radius: 5px;
+}
+
+.cu-ferr-rot {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+
+.cu-ferr-inst code {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #e9e6d8;
+  background: #14150f;
+  padding: 8px 10px;
+  border-radius: 7px;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Instalação que não é comando: prosa, com quebra de linha normal. O `pre` do
+   bloco acima é o que fazia "Aplicativo com interface gráfica (macOS,
+   Windows, Linux)" sair pela borda direita do card. */
+.cu-ferr-gui {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.cu-ferr-alt {
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.cu-ferr-campo p { font-size: 12px; line-height: 1.5; color: var(--ink-light); }
+
+.cu-ferr-dest {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* Mesma pastilha escura do botão de link das outras abas, redefinida aqui:
+   ela mora em gratuitos.css, e esta página não carrega aquele arquivo — o
+   link vinha saindo como texto sublinhado. */
+.cu-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.cu-link-btn:hover {
+  background: #1c1c1c;
+  transform: translateY(-1px);
+}
+
+/* ─── a ponte: `ollama launch` ─── */
+
+/* O bloco é o fecho do catálogo e precisa parecer um fecho: fundo de papel,
+   moldura inteira e um filete verde no topo. Sem esse contorno ele lia como
+   "mais uma família", e a graça dele é justamente não ser — é o que liga as
+   três. */
+.cu-ponte {
+  margin-top: 8px;
+  padding: 20px 22px 22px;
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-top: 3px solid var(--accent);
+  border-radius: 4px 4px 12px 12px;
+}
+
+.cu-ponte-head { margin-bottom: 16px; }
+
+.cu-ponte-head h3 {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.cu-ponte-lede {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+  max-width: 82ch;
+}
+
+.cu-ponte-cmds { background: var(--hair); }
+
+.cu-ponte-h4 {
+  margin: 26px 0 6px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+}
+
+.cu-ponte-nota {
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  max-width: 84ch;
+  margin-bottom: 12px;
+}
+
+.cu-ponte-fonte { font-style: italic; }
+
+/* A tabela de integrações é longa e monótona de propósito: o valor dela é ser
+   a lista INTEIRA, copiada do `--help`. Três colunas de linhas curtas leem
+   melhor que dezoito linhas de largura total. */
+/* Os filetes moram nas células, e não num `gap` sobre fundo colorido: com 18
+   itens em 4 colunas sobram duas células vazias na última fileira, e no truque
+   do gap elas viravam duas manchas cinza no canto — como se a tabela tivesse
+   quebrado. Com borda por item, célula que não existe simplesmente não
+   aparece. */
+.cu-integs {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.cu-integ {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  background: var(--white);
+  border-right: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+}
+
+.cu-integ code {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 2px 5px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.cu-integ strong {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.cu-integ span {
+  width: 100%;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ink-muted);
+}
+
+/* Caixa de consulta recolhida: o resumo entrega a contagem, que é o que a
+   maioria quer daqui, e as dezoito linhas só aparecem para quem foi procurar
+   uma delas. */
+.cu-integs-caixa {
+  margin: 6px 0 4px;
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.cu-integs-caixa > summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 14px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.cu-integs-caixa > summary::-webkit-details-marker { display: none; }
+
+.cu-integs-sum {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+}
+
+.cu-integs-n {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 3px 7px;
+  border-radius: 5px;
+}
+
+.cu-integs-caixa[open] > summary { border-bottom: 1px solid var(--hair); }
+.cu-integs-caixa .cu-ponte-nota { padding: 10px 14px 0; margin-bottom: 8px; }
+.cu-integs-caixa .cu-integs { border: 0; border-radius: 0; margin-bottom: 0; }
+.cu-integs-caixa .cu-integ:last-child { border-bottom: 0; }
+
+/* Botão "mostrar o resto", só no celular (ver colapsarCatalogoNoCelular). */
+
+/* ─── planos da assinatura ─── */
+.cu-planos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cu-plano {
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 11px;
+}
+
+.cu-plano.is-destaque {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.cu-plano h5 {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.cu-plano-preco {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.024em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+.cu-plano-credito {
+  margin: 4px 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.cu-plano-det {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink-light);
+}
+
+.cu-ponte-fecho { margin-top: 20px; background: var(--white); }
+
+/* ═══ 07 · SEGURANÇA ═══ */
+.cu-seg {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+.cu-seg-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 11px;
+}
+
+.cu-seg-n {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  padding-top: 2px;
+}
+
+.cu-seg-item h3 {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+
+.cu-seg-item p { font-size: 12.5px; line-height: 1.55; color: var(--ink-light); }
+
+.cu-seg-item code {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--paper-tint);
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVIDADE
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+  /* A tira de cinco lições vira 3+2 antes de as frases começarem a quebrar em
+     três linhas — que é quando ela deixa de ser lida de relance. */
+  .cu-licoes { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 980px) {
+  /* Os dois lados de cada eixo empilham. O rótulo no topo de cada um é o que
+     mantém claro qual é qual quando eles deixam de estar lado a lado. */
+  .cu-eixo-par { grid-template-columns: 1fr; }
+
+  /* A linha de medição perde a coluna do meio e o número vai para baixo do
+     pedido, onde continua sendo a primeira coisa que o olho encontra. */
+  .cu-med-linha {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  /* Abaixo desta largura a comparação lado a lado espremeria as duas colunas
+     de terminal a ponto de todo comando quebrar em duas linhas — e um comando
+     quebrado deixa de ser legível como comando. Empilhar preserva a leitura;
+     a etiqueta no topo de cada coluna é o que mantém claro qual é qual. */
+  .cu-lado-a-lado { grid-template-columns: 1fr; }
+
+  /* O duelo empilha pelo mesmo motivo: espremido, todo comando da coluna da
+     direita quebra em duas linhas e deixa de ser legível como comando. O
+     navegador fica em cima porque é o lugar que o leitor já conhece; o de
+     baixo é a novidade. Cada coluna encolhe a moldura para caber duas telas
+     numa rolagem só. */
+  .cn-duelo { grid-template-columns: 1fr; gap: 22px; }
+
+  /* Os dois cartões de resultado empilham. O rótulo de cada um é o que
+     mantém claro qual é qual quando deixam de estar lado a lado. */
+  .cn-ex-par { grid-template-columns: 1fr; }
+  .cn-ex-quando dl { grid-template-columns: 1fr; gap: 11px; }
+  .cn-ex-pergunta h3 { font-size: 18px; max-width: none; }
+
+  /* O desenho perde a coluna da nota lateral: ela some, e a legenda embaixo
+     já diz a mesma coisa em texto corrido. */
+  .cu-fig-nota { display: none; }
+
+  /* Os três ganhos empilham; o bloco do essencial perde a coluna dos
+     números ao lado do texto e os coloca em cima. */
+  .cu-ganho-itens { grid-template-columns: 1fr; }
+  .cu-ess-proc { grid-template-columns: 1fr; gap: 14px; }
+  .cu-ess-nums { justify-content: flex-start; }
+  .cu-ess-frase { font-size: 16px; }
+
+  /* O contraste perde a coluna do meio: o "sim"/"não" vai para baixo do caso,
+     onde continua sendo a primeira coisa que o olho encontra. */
+  .cn-contraste-l { grid-template-columns: 1fr; gap: 4px; }
+
+  .cn-pergunta { font-size: 19px; max-width: none; }
+  .cn-col .cn-rolagem { height: 340px; }
+
+  .cn-vir-par { grid-template-columns: 1fr; gap: 10px; }
+
+  .cn-vir-seta { justify-self: center; transform: rotate(90deg); }
+
+  .cu-cmd { grid-template-columns: 1fr; gap: 5px; }
+
+  /* O par de ciclos empilha: comparar duas figuras de 300px de largura numa
+     tela estreita é pior do que ler uma embaixo da outra com o texto inteiro. */
+  .cu-ciclo-par { grid-template-columns: 1fr; gap: 22px; }
+
+  /* O artefato desce para baixo do texto: espremido em metade de 900px, o
+     `git log` quebraria toda linha em duas e deixaria de parecer um log. */
+  .cu-mec { grid-template-columns: 1fr; gap: 14px; }
+  .cu-resta-par { grid-template-columns: 1fr; gap: 12px; }
+}
+
+@media (max-width: 760px) {
+  .cu-os-screen {
+    aspect-ratio: 4 / 3;
+    min-height: 340px;
+  }
+
+  .cu-windows { padding: 12px 12px 8px 92px; }
+
+  .cu-icone { width: 74px; font-size: 10px; }
+  .cu-icone-fig { width: 34px; height: 34px; }
+
+  .cu-win-term { font-size: 10px; min-height: 150px; }
+  .cu-term { font-size: 10px; }
+
+  .cu-rot-rapido { margin-left: 0; }
+}
+
+@media (max-width: 760px) {
+  /* No celular o balão deixa de flutuar e ocupa a largura da tela, ancorado
+     acima da barra de tarefas: um pop-up de 310px sobre uma tela de 348px
+     esconderia justamente o terminal de que ele fala. */
+  .cu-balao,
+  .cu-balao.is-terminal,
+  .cu-balao.is-janela,
+  .cu-balao.is-centro {
+    left: 6px;
+    right: 6px;
+    bottom: 40px;
+    top: auto;
+    width: auto;
+    transform: none;
+    padding: 10px 11px;
+  }
+
+  .cu-balao::after { display: none; }
+  .cu-balao.is-min { left: auto; right: 8px; }
+
+  .cu-balao-p { font-size: 11.5px; }
+}
+
+@media (max-width: 520px) {
+  .cu-licoes { grid-template-columns: repeat(2, 1fr); }
+  .cu-ciclo { padding: 14px 14px 12px; }
+  .cu-graf { padding: 14px 14px 12px; }
+  .cu-contra { padding: 16px 15px; }
+
+  .cu-os-bezel { padding: 7px; border-radius: 11px; }
+
+  /* No celular a área de trabalho vira uma fileira horizontal no topo: em
+     coluna, os ícones comeriam metade da tela e não sobraria janela. */
+  .cu-desk {
+    flex-direction: row;
+    gap: 2px;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .cu-icone { width: auto; flex: 1; padding: 5px 2px; font-size: 9.5px; }
+  .cu-icone-fig { width: 28px; height: 28px; }
+
+  .cu-windows { padding: 74px 8px 6px; align-items: flex-start; }
+
+  .cu-custo { grid-template-columns: 1fr; }
+
+  .cu-toc { gap: 2px; }
+  .cu-toc-link { font-size: 11px; padding: 5px 7px; }
+}
+
+/* Quem pediu menos movimento no sistema não deveria receber um cursor
+   piscando: a informação "sua vez de agir" é dada pela presença do bloco,
+   não pela piscada. */
+@media (prefers-reduced-motion: reduce) {
+  .cu-cursor { animation: none; }
+}
+
+/* ═══ O RECUO DA JANELA PARA A FAIXA DO GUIA (CELULAR) ═══
+   Mora no fim do arquivo de propósito: os blocos responsivos acima escrevem
+   `padding` no atalho, e um atalho posterior apagaria um `padding-bottom`
+   declarado antes dele. A altura vem de --cu-balao-h, que o JS mede a cada
+   passo (ver medirBalao). */
+@media (max-width: 760px) {
+  /* A tela CRESCE em vez de espremer a janela. Numa tela de 340px não cabem
+     fileira de ícones (74px), janela, faixa do guia (~200px) e barra de
+     tarefas ao mesmo tempo — e espremer a janela até 60px de altura deixava o
+     botão do passo debaixo do balão, ou seja, o tutorial travava. Aqui a
+     proporção 4/3 deixa de ser regra: a altura passa a ser o que o conteúdo
+     pede, medido a cada passo. */
+  .cu-os-screen:is(.cu-guia-esq, .cu-guia-dir) {
+    aspect-ratio: auto;
+    min-height: calc(340px + var(--cu-balao-h, 140px));
+  }
+
+  .cu-os-screen.cu-guia-esq .cu-windows,
+  .cu-os-screen.cu-guia-dir .cu-windows {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: calc(var(--cu-balao-h, 120px) + 46px);
+    align-items: flex-start;
+  }
+}
+
+/* ═══ 08 · COMO ISTO FOI MEDIDO ═══
+   Fecha a página. Visualmente sóbria de propósito: é a seção que dá crédito
+   às outras sete, e crédito não se pede com destaque gráfico. */
+.cu-med-lede {
+  max-width: 72ch;
+  margin-bottom: 22px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--ink-light);
+}
+
+.cu-metodo {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 26px;
+  list-style: none;
+  counter-reset: none;
+}
+
+.cu-metodo-p {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 15px 17px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+}
+
+.cu-metodo-n {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.cu-metodo-p > div { min-width: 0; }
+
+.cu-metodo-p h3 {
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.cu-metodo-p p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+/* A lista do que NÃO foi medido é a única coisa da página que ganha borda
+   pontilhada: ela é literalmente o buraco, e desenhar o buraco com traço
+   cheio faria dele mais uma afirmação. */
+.cu-naomed {
+  padding: 18px 20px 16px;
+  border: 1px dashed var(--ink-muted);
+  border-radius: 13px;
+  background: var(--paper);
+}
+
+.cu-naomed h3 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+
+.cu-naomed-lede {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  margin-bottom: 13px;
+  max-width: 70ch;
+}
+
+.cu-naomed-lista { display: grid; gap: 9px; }
+
+.cu-naomed-l {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+  gap: 14px;
+  align-items: baseline;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--hair);
+}
+
+.cu-naomed-l:last-child { border-bottom: 0; padding-bottom: 0; }
+
+.cu-naomed-l dt {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.cu-naomed-l dd {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+/* A caixa "saiba mais" dentro de uma regra de segurança fica mais discreta:
+   ali ela é nota de rodapé de um item, não um bloco da seção. */
+.cu-saiba-seg { margin-top: 11px; }
+.cu-saiba-seg > summary { padding: 10px 13px; font-size: 12.5px; }
+
+@media (max-width: 980px) {
+  /* Empilha o item e o motivo: em duas colunas estreitas o motivo quebra em
+     cinco linhas ao lado de um título de duas — e o título, que não quebra,
+     transborda a coluna. Esta regra mora AQUI, e não no bloco responsivo lá
+     em cima, porque a definição-base de .cu-naomed-l vem depois dele no
+     arquivo: com a mesma especificidade, quem vem por último ganha. */
+  .cu-naomed-l { grid-template-columns: 1fr; gap: 3px; }
+  .cu-metodo-p { padding: 13px 14px; }
+}
+
+/* O objetivo declarado do tutorial. Fica no topo do guia em texto e é a
+   primeira coisa que a pessoa lê: sem ele, ela passa oito passos sem saber
+   para onde está indo. */
+.cu-rot-objetivo {
+  margin: 12px 0 4px;
+  padding: 12px 15px;
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-light);
+  max-width: 80ch;
+}
+
+.cu-rot-objetivo span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+
+.cu-plain-obj {
+  margin-bottom: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+  padding-left: 12px;
+  border-left: 3px solid var(--accent);
+  max-width: 80ch;
+}
+
+/* O nome do ato abre cada grupo de passos no guia em texto: instalar, ligar
+   na conta, usar. É o que dá linha narrativa a uma lista de oito itens. */
+.cu-plain-ato {
+  display: block;
+  margin-bottom: 5px;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+/* A caixa que fecha cada família do catálogo. O resumo mostra a contagem e os
+   nomes numa linha só: quem procura uma ferramenta específica acha pelo nome
+   e abre; quem está lendo a página passa direto. O catálogo era 30% das
+   palavras visíveis da aba e não é leitura — é referência. */
+.cu-fam-cx {
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.cu-fam-cx > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 15px;
+  cursor: pointer;
+  list-style: none;
+  transition: background 0.15s ease;
+}
+
+.cu-fam-cx > summary::-webkit-details-marker { display: none; }
+.cu-fam-cx > summary:hover { background: var(--white); }
+
+.cu-fam-cx > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.cu-fam-cx-n {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  background: var(--accent-soft);
+  padding: 3px 7px;
+  border-radius: 5px;
+}
+
+.cu-fam-cx-l {
+  min-width: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-light);
+}
+
+/* A seta, desenhada, para não entrar na seleção nem na busca da página. */
+.cu-fam-cx > summary::after {
+  content: "";
+  flex-shrink: 0;
+  margin-left: auto;
+  align-self: center;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid var(--ink-muted);
+  border-bottom: 2px solid var(--ink-muted);
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform 0.18s ease;
+}
+
+.cu-fam-cx[open] > summary::after { transform: rotate(225deg) translate(-1px, -1px); }
+.cu-fam-cx[open] > summary { background: var(--white); border-bottom: 1px solid var(--hair); }
+
+.cu-fam-cx .cu-fam-grid { padding: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cu-fam-cx > summary,
+  .cu-fam-cx > summary::after { transition: none; }
+}

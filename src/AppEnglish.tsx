@@ -76,7 +76,7 @@ const paperAreaLabels: Record<PaperResearchArea, string> = {
   "Fundamentos de IA": "AI Foundations",
 };
 
-const panoramaEnglishUrl = "https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/en/";
+const panoramaEnglishUrl = "https://lapig-ufg.github.io/observatorio-ia/panorama/en/";
 const panoramaEnglishEmbedUrl = `${panoramaEnglishUrl}?embed=1`;
 
 function normalize(value: string) {
