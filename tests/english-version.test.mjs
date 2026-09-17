@@ -49,6 +49,10 @@ test("English route selects the translated catalog and provides a language switc
   assert.match(catalog, /catalogo-en\.csv/);
   assert.match(english, /Português/);
   assert.match(english, /Collection topic radar/);
+  assert.match(english, /app-panorama-global-da-ia-generativa\/en\//);
+  assert.match(english, /href="#panorama"/);
+  assert.match(english, /Global Generative AI Landscape/);
+  assert.doesNotMatch(english, /generative AI · PT/);
   assert.match(workflow, /GOOGLE_SHEETS_EN_GID/);
 });
 
