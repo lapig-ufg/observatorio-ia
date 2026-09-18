@@ -56,6 +56,18 @@ test("English route selects the translated catalog and provides a language switc
   assert.match(workflow, /GOOGLE_SHEETS_EN_GID/);
 });
 
+test("English homepage includes the interactive lesson, OBIA and the complete featured history", () => {
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  assert.match(english, /Inside AI/);
+  assert.match(english, /From a sentence to the next token/);
+  assert.match(english, /href=\{assetUrl\("por-dentro-da-ia\/"\)\}/);
+  assert.match(english, /Healthy vegetation has high reflectance in the near infrared\./);
+  assert.match(english, /Brazilian Artificial Intelligence Observatory/);
+  assert.match(english, /What has been featured before\?/);
+  assert.match(english, /Previously featured topics/);
+  assert.equal((english.match(/eventLabel: "/g) || []).length, 9);
+});
+
 test("translated catalog preserves the same public scientific-paper selection", async () => {
   const source = fs.readFileSync("src/paperResearch.ts", "utf8");
   const compiled = ts.transpileModule(source, {

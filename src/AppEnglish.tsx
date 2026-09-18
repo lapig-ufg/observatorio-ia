@@ -79,6 +79,81 @@ const paperAreaLabels: Record<PaperResearchArea, string> = {
 const panoramaEnglishUrl = "https://lapig-ufg.github.io/observatorio-ia/panorama/en/";
 const panoramaEnglishEmbedUrl = `${panoramaEnglishUrl}?embed=1`;
 
+const featuredHistoryEnglish = [
+  {
+    date: "5–11 September 2026",
+    source: "MIT · Education, learning and research",
+    title: "AI in education: more than regulating tools",
+    summary: "An MIT report on redesigning teaching, assessment and teacher education so AI can support learning without automating it.",
+    href: "https://drive.google.com/file/d/1aiDFYVOyyv43PWB9TKzP3xzX85iCVf4s/view?usp=drivesdk",
+    eventLabel: "mit-ai-committee-report",
+  },
+  {
+    date: "29 August–4 September 2026",
+    source: "Bill Gates · Gates Notes",
+    title: "The turbulent age of AI is here. The choices we make now are crucial.",
+    summary: "Bill Gates discusses how AI can advance health, education, agriculture and science while urgent public choices remain around work, inequality, safety and childhood.",
+    href: "https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make",
+    eventLabel: "gates-turbulent-ai-era-critical-choices",
+  },
+  {
+    date: "22–28 August 2026",
+    source: "Exclusive interview · UFG-AI Observatory",
+    title: "AI, art and design: critical repertoire in a time of transformation",
+    summary: "An interview with Marcilon Almeida on how AI is reshaping creative processes without replacing human repertoire, judgment and expression.",
+    href: "https://drive.google.com/file/d/1mHCzff-0WYGG146KlpidVwn9_oE-cvZU/view?usp=drivesdk",
+    eventLabel: "entrevista-marcilon-almeida-ia-arte-design",
+  },
+  {
+    date: "15–21 August 2026",
+    source: "Laerte Ferreira · Essay",
+    title: "The Geopolitics of AI and National Sovereignty",
+    summary: "An essay on technological competition in AI and its consequences for autonomy, infrastructure and national sovereignty.",
+    href: "https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view",
+    eventLabel: "geopolitica-ia-soberania-nacional",
+  },
+  {
+    date: "7–14 August 2026",
+    source: "Hybrid course · UFG/IESA/CIAMB",
+    title: "Understanding and Using Generative AI for Earth Observation Data Processing and Analysis",
+    summary: "A course on AI foundations and the practical application of models to remote-sensing image processing and classification.",
+    href: "https://docs.google.com/forms/d/e/1FAIpQLScZuIGJyrRGRetn_nlsCNq-Hfih-ZmXBuv5fj82ebU60vs10w/viewform",
+    eventLabel: "curso-ia-generativa-observacao-terra",
+  },
+  {
+    date: "3–6 August 2026",
+    source: "Folha de S.Paulo · Press observatory",
+    title: "AI in the daily news",
+    summary: "An editorial reading of Folha de S.Paulo’s coverage of AI across science, work, culture, regulation, territory and the environment.",
+    href: "../#ia-como-noticia-diaria",
+    eventLabel: "daily-news",
+  },
+  {
+    date: "24 July–2 August 2026",
+    source: "Open Weights Ledger · Open letter",
+    title: "Open Weights and American AI Leadership",
+    summary: "An open letter on open-weight models, competition, cybersecurity, technological autonomy and United States leadership in AI.",
+    href: "https://openweights.gitlawb.com/",
+    eventLabel: "open-weights-american-ai-leadership",
+  },
+  {
+    date: "20 July 2026",
+    source: "The Batch · DeepLearning.AI",
+    title: "Kimi K3 marks a big shift in AI development; Thinking Machines launches its first general-purpose model",
+    summary: "An issue covering model releases, AI agents on Android, Nemotron 3 Embed, NotebookLM and safety.",
+    href: "https://charonhub.deeplearning.ai/kimi-k3-marks-a-big-shift-in-ai-development/",
+    eventLabel: "the-batch-kimi-k3-thinking-machines",
+  },
+  {
+    date: "29 May 2026",
+    source: "The Batch · DeepLearning.AI",
+    title: "Gemini gets more expensive, European regulation slows down and agents start driving web traffic",
+    summary: "An issue on model pricing, changes to the AI Act and the growth of online traffic driven by agents.",
+    href: "https://www.deeplearning.ai/the-batch/tag/may-29-2026",
+    eventLabel: "the-batch-may-29-2026",
+  },
+];
+
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
@@ -187,6 +262,7 @@ export function AppEnglish() {
   const [theme, setTheme] = useState("all");
   const [visible, setVisible] = useState(15);
   const [showAll, setShowAll] = useState(false);
+  const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -277,7 +353,34 @@ export function AppEnglish() {
 
     <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
       <div className="weekly-highlight-kicker"><span>Featured</span><span>Practical guide · Generative AI overview</span></div>
-      <div className="weekly-highlight-content weekly-highlight-content--with-image"><a className="weekly-highlight-media" href="#panorama"><img src={assetUrl("covers/ia-fora-do-navegador-agentes-terminal-2026-09-12.png")} alt="Editorial illustration of a terminal connected to AI tools and agents." /><span>Open guide <ArrowUpRight size={16} /></span></a><div className="weekly-highlight-copy"><p className="eyebrow">AI in the terminal and agents</p><h2 id="weekly-highlight-title">Using AI beyond the browser</h2><div className="weekly-highlight-aside"><p>Learn, step by step, how to use AI directly in the terminal and explore the power of agents for research, task organization and workflow automation.</p><div className="weekly-highlight-actions"><a href="#panorama">Explore the guide <ArrowUpRight size={17} /></a></div></div></div></div>
+      <div className="weekly-highlight-content weekly-highlight-content--with-image"><a className="weekly-highlight-media" href="#panorama" aria-label="Explore the guide Using AI beyond the browser" onClick={() => trackEvent("open_weekly_highlight_image_en", { event_category: "navigation", event_label: "ai-beyond-the-browser" })}><img src={assetUrl("covers/ia-fora-do-navegador-agentes-terminal-2026-09-12.png")} alt="Editorial illustration of a terminal connected to AI tools and agents." /><span>Open guide <ArrowUpRight size={16} aria-hidden="true" /></span></a><div className="weekly-highlight-copy"><p className="eyebrow">AI in the terminal and agents</p><h2 id="weekly-highlight-title">Using AI beyond the browser</h2><div className="weekly-highlight-aside"><p>Learn, step by step, how to use AI directly in the terminal and explore the power of agents for research, task organization and workflow automation.</p><div className="weekly-highlight-actions"><a href="#panorama" onClick={() => trackEvent("open_weekly_highlight_en", { event_category: "navigation", event_label: "ai-beyond-the-browser" })}>Explore the guide <ArrowUpRight size={17} aria-hidden="true" /></a></div></div><button type="button" className="weekly-highlight-history-toggle" aria-expanded={showFeaturedHistory} aria-controls="weekly-highlight-history-en" onClick={() => { setShowFeaturedHistory((isOpen) => !isOpen); trackEvent("toggle_featured_history_en", { event_category: "navigation", event_label: showFeaturedHistory ? "close" : "open" }); }}><Clock3 size={16} aria-hidden="true" /><span>What has been featured before?</span><ChevronDown size={16} className={showFeaturedHistory ? "is-open" : ""} aria-hidden="true" /></button></div></div>
+      {showFeaturedHistory && <div id="weekly-highlight-history-en" className="weekly-highlight-history" aria-label="Previously featured topics"><p className="eyebrow">Previous highlights</p><div className="weekly-highlight-history-grid">{featuredHistoryEnglish.map((featured) => <article key={featured.href} className="weekly-highlight-history-item"><p>{featured.date} · {featured.source}</p><h3>{featured.title}</h3><span>{featured.summary}</span><a href={featured.href} target={featured.href.startsWith("http") ? "_blank" : undefined} rel={featured.href.startsWith("http") ? "noreferrer" : undefined} onClick={() => trackEvent("open_featured_history_en", { event_category: featured.href.startsWith("http") ? "outbound" : "navigation", event_label: featured.eventLabel })}>Open topic <ArrowUpRight size={15} aria-hidden="true" /></a></article>)}</div></div>}
+    </section>
+
+    <section id="interactive-experiences" className="interactive-experience" aria-labelledby="interactive-experience-title-en">
+      <div className="interactive-experience-copy">
+        <p className="eyebrow">Interactive experiences · LAPIG / UFG</p>
+        <h2 id="interactive-experience-title-en">Inside AI <span>From a sentence to the next token</span></h2>
+        <p>How does a language model generate a response? Follow a sentence about remote sensing, explore diagrams and try the mathematical operations step by step.</p>
+        <p className="interactive-experience-scope">A visual introduction to inference, using GPT-3 as a reference. No prior knowledge of mathematics or programming is required.</p>
+        <a className="interactive-experience-action" href={assetUrl("por-dentro-da-ia/")} onClick={() => trackEvent("open_interactive_inference_en", { event_category: "navigation", event_label: "inside-ai" })}>Inside AI <span aria-hidden="true">→</span></a>
+        <small>Explore the interactive lesson and return to the Observatory using the button in its header.</small>
+      </div>
+      <div className="interactive-experience-journey">
+        <p className="eyebrow">The sentence guiding the journey</p>
+        <blockquote>Healthy vegetation has high reflectance in the near infrared.</blockquote>
+        <ol aria-label="Steps in next-token generation">
+          <li><strong>01 · Tokens and embeddings</strong><span>Text is converted into numerical representations.</span></li>
+          <li><strong>02 · Transformer blocks</strong><span>Attention and neural networks transform the representations using context.</span></li>
+          <li><strong>03 · Next token</strong><span>Vocabulary scores become probabilities used to choose the continuation.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section className="obia-callout" aria-labelledby="obia-title-en">
+      <a className="obia-logo-link" href="https://obia.nic.br/" target="_blank" rel="noreferrer" aria-label="Visit the Brazilian Artificial Intelligence Observatory" onClick={() => trackEvent("open_obia_en", { event_category: "outbound", event_label: "obia" })}><img src="https://obia.nic.br/img/logo-text-white.svg" alt="OBIA" /><span>Brazilian Artificial Intelligence Observatory</span></a>
+      <div><p className="eyebrow">Brazil in focus</p><h2 id="obia-title-en">To learn more about the use and outlook of AI in Brazil, visit the Brazilian Artificial Intelligence Observatory.</h2></div>
+      <a className="obia-action" href="https://obia.nic.br/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_obia_en", { event_category: "outbound", event_label: "obia" })}>Visit OBIA <ArrowUpRight size={17} aria-hidden="true" /></a>
     </section>
 
     <section id="collections" className="category-band" aria-labelledby="category-title">
