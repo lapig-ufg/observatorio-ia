@@ -77,7 +77,9 @@ const paperAreaLabels: Record<PaperResearchArea, string> = {
   "Fundamentos de IA": "AI Foundations",
 };
 
-const panoramaEnglishUrl = "https://lapig-ufg.github.io/observatorio-ia/panorama/en/";
+// O Panorama inglês mora no repositório do próprio Panorama, ao lado do
+// português: os dois iframes apontam para o mesmo site vivo e atualizam juntos.
+const panoramaEnglishUrl = "https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/en/";
 const panoramaEnglishEmbedUrl = `${panoramaEnglishUrl}?embed=1`;
 
 const ecosystemFeaturedInitiativesEnglish: Initiative[] = [

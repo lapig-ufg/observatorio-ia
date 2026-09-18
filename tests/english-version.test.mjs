@@ -49,11 +49,26 @@ test("English route selects the translated catalog and provides a language switc
   assert.match(catalog, /catalogo-en\.csv/);
   assert.match(english, /Português/);
   assert.match(english, /Collection topic radar/);
-  assert.match(english, /observatorio-ia\/panorama\/en\//);
+  assert.match(english, /app-panorama-global-da-ia-generativa\/en\//);
   assert.match(english, /href="#panorama"/);
   assert.match(english, /Global Generative AI Landscape/);
   assert.doesNotMatch(english, /generative AI · PT/);
   assert.match(workflow, /GOOGLE_SHEETS_EN_GID/);
+});
+
+/* O Panorama inglês já morou copiado em public/panorama/, e a cópia envelhecia
+   em silêncio: o cron semanal do Panorama reescreve benchmarks e catálogo
+   sozinho, e a planilha ganha lançamentos sem que ninguém toque no Observatório.
+   Este teste existe para que a cópia não volte: os dois idiomas têm de apontar
+   para o site vivo do Panorama, que é quem atualiza. */
+test("both Panorama iframes point at the live Panorama site, never a local copy", () => {
+  const pt = fs.readFileSync("src/App.tsx", "utf8");
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  const host = "https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/";
+  assert.ok(pt.includes(`const panoramaUrl = "${host}"`), "the Portuguese iframe left the live site");
+  assert.ok(english.includes(`const panoramaEnglishUrl = "${host}en/"`), "the English iframe left the live site");
+  assert.equal(fs.existsSync("public/panorama"), false,
+    "public/panorama/ is back: a vendored Panorama goes stale on its own — point the iframe at the live site instead");
 });
 
 test("English homepage includes the interactive lesson, OBIA and the complete featured history", () => {
