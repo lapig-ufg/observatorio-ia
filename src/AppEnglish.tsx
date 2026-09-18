@@ -95,6 +95,54 @@ const ecosystemFeaturedInitiativesEnglish: Initiative[] = [
   },
 ];
 
+const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "name" | "summary" | "areas">> = {
+  "ceia-ufg": {
+    name: "Center of Excellence in Artificial Intelligence",
+    summary: "A UFG innovation hub that develops high-impact solutions using data and artificial intelligence. Founded in 2019, it connects academia, government and companies for research, development and technology transfer.",
+    areas: ["Applied research", "Innovation", "Data and AI", "Partnerships"],
+  },
+  "ciap-ufg": {
+    name: "Interinstitutional Collaboration Center for Artificial Intelligence Applied to Public Policy",
+    summary: "An interinstitutional initiative dedicated to the responsible use of artificial intelligence to strengthen public policy. It brings together CEPASP/UFG, NEPP/Unicamp and ENCE/IBGE in the Research Network on AI for Public Policy Improvement.",
+    areas: ["Public policy", "Knowledge management", "Data and AI", "Interinstitutional cooperation"],
+  },
+  "bacharelado-ia-inf-ufg": {
+    name: "Bachelor's Degree in Artificial Intelligence",
+    summary: "An undergraduate program at UFG's Institute of Informatics that prepares professionals to solve complex problems with artificial intelligence, including embedded and autonomous systems. The curriculum combines foundations in computing and mathematics, AI methods and innovation.",
+    areas: ["Education", "Computing and mathematics", "Autonomous systems", "Innovation"],
+  },
+  "pasto-legal": {
+    name: "Pasto Legal",
+    summary: "An AI platform available through WhatsApp that monitors pasture health using satellite data and field knowledge. It provides real-time information for management decisions as a free, Brazilian open-science initiative.",
+    areas: ["AI through WhatsApp", "Satellite data", "Pasture monitoring", "Open science"],
+  },
+  "cempa-cerrado": {
+    name: "Center of Excellence for Environmental Studies, Monitoring and Forecasting in the Cerrado Biome",
+    summary: "A UFG center dedicated to environmental studies, monitoring and forecasting for the Cerrado. Its PROPEC model uses machine learning and regional data to estimate rainfall probability and intensity every 30 minutes over a six-hour forecast horizon.",
+    areas: ["Environmental monitoring", "Machine learning", "Rainfall forecasting", "Cerrado"],
+  },
+  "lamcad-ufg": {
+    name: "Multiuser High-Performance Computing Laboratory",
+    summary: "UFG's multiuser infrastructure for scientific computing, high-performance computing and cloud computing. It supports AI projects with advanced computing capacity, accelerating research in environmental forecasting, health and public policy.",
+    areas: ["High-performance computing", "Cloud computing", "Artificial intelligence", "Scientific research"],
+  },
+  "cerise-ufg": {
+    name: "Center of Excellence in Intelligent Wireless Networks and Advanced Services",
+    summary: "A center at UFG's School of Electrical, Mechanical and Computer Engineering that combines artificial intelligence, telecommunications, sensing and digital twins to develop technologies with urban impact. It also works in computer vision, autonomous robotics and synthetic-data education.",
+    areas: ["5G and beyond-5G networks", "AI and telecommunications", "Digital twins", "Robotics", "Synthetic data"],
+  },
+  "akcit-ufg": {
+    name: "Embrapii Competence Center for Immersive Technologies Applied to Virtual Worlds",
+    summary: "A UFG competence center focused on immersive technologies, artificial intelligence and virtual worlds. It conducts applied research and education in generative AI, computer vision, virtual and augmented reality, digital twins and the Internet of Things.",
+    areas: ["Generative AI", "Immersive technologies", "Computer vision", "Digital twins", "IoT"],
+  },
+  "labmol-ufg": {
+    name: "Drug Design and Molecular Modeling Laboratory",
+    summary: "A laboratory at UFG's School of Pharmacy coordinated by Professor Carolina Horta Andrade. It uses artificial intelligence, machine learning and virtual compound screening to accelerate the discovery of drug candidates and reduce development time and cost.",
+    areas: ["Medicinal chemistry", "Drug discovery", "Machine learning", "Virtual screening", "Molecular modeling"],
+  },
+};
+
 const featuredHistoryEnglish = [
   {
     date: "5–11 September 2026",
@@ -283,7 +331,14 @@ function InitiativeCardEnglish({ initiative }: { initiative: Initiative }) {
   </article>;
 }
 
-function EcosystemPageEnglish() {
+function EcosystemPageEnglish({ initiatives, loading, warning }: { initiatives: Initiative[]; loading: boolean; warning: string }) {
+  const visibleInitiatives = [
+    ...ecosystemFeaturedInitiativesEnglish,
+    ...initiatives
+      .filter((initiative) => !ecosystemFeaturedInitiativesEnglish.some((featured) => featured.id === initiative.id || featured.url === initiative.url))
+      .map((initiative) => ({ ...initiative, ...ecosystemInitiativeTranslationsEnglish[initiative.id] })),
+  ];
+
   return <section id="ufg-ecosystem" className="ecosystem-page" aria-labelledby="ecosystem-title-en">
     <div className="ecosystem-hero">
       <p className="eyebrow">Federal University of Goiás</p>
@@ -299,8 +354,10 @@ function EcosystemPageEnglish() {
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSe3qfZ5hjL0NifRXvI-SM6NKDN7g8DoFQJyoTTRTvhlptWk-w/viewform" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_mapping_form_en", { event_category: "outbound", event_label: "mapping" })}>Join the mapping <ArrowUpRight size={17} aria-hidden="true" /></a>
     </aside>
     <div className="ecosystem-initiative-grid">
-      {ecosystemFeaturedInitiativesEnglish.map((initiative) => <InitiativeCardEnglish key={initiative.id} initiative={initiative} />)}
+      {visibleInitiatives.map((initiative) => <InitiativeCardEnglish key={initiative.id} initiative={initiative} />)}
     </div>
+    {loading && <div className="ecosystem-empty" role="status">Loading initiatives from the live UFG catalog…</div>}
+    {!loading && warning && initiatives.length === 0 && <div className="ecosystem-empty" role="status">The live initiative catalog is temporarily unavailable. Please try again shortly.</div>}
   </section>;
 }
 
@@ -410,7 +467,7 @@ export function AppEnglish() {
       <div className="language-switch" aria-label="Language"><a href={languageUrl("pt")} lang="pt-BR">Português</a><span aria-current="page">English</span></div>
     </header>
 
-    {page === "panorama" ? <PanoramaPageEnglish /> : page === "ecosystem" ? <EcosystemPageEnglish /> : <><section className="catalog-intro" aria-labelledby="page-title">
+    {page === "panorama" ? <PanoramaPageEnglish /> : page === "ecosystem" ? <EcosystemPageEnglish initiatives={catalog?.initiatives || []} loading={!catalog && !error} warning={catalog?.warning || error} /> : <><section className="catalog-intro" aria-labelledby="page-title">
       <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Blog articles, documents, videos, interviews, scientific papers and presentations in a thematic collection.</p></div>
       <div className="collection-chart" aria-label="Items by category"><p className="collection-chart-title">Items by category</p><ul>{categoryTypes.map((category) => <li key={category} style={{ "--bar-color": chartColors[category].bar, "--bar-track": chartColors[category].track } as CSSProperties}><span className="collection-chart-label">{typeLabels[category]}</span><span className="collection-chart-track" aria-hidden="true"><span className="collection-chart-bar" style={{ "--bar-value": `${Math.max((counts[category] / maximumCount) * 100, 4)}%` } as CSSProperties} /></span><strong>{counts[category]}</strong></li>)}</ul></div>
     </section>

@@ -81,6 +81,12 @@ test("English version includes the UFG ecosystem and linked curator emails", () 
   assert.match(english, /mailto:tiagogoncalves@discente\.ufg\.br/);
   assert.match(locale, /#ufg-ecosystem/);
   assert.match(locale, /#ecossistema-ufg/);
+  for (const initiativeId of [
+    "ceia-ufg", "ciap-ufg", "bacharelado-ia-inf-ufg", "pasto-legal", "cempa-cerrado",
+    "lamcad-ufg", "cerise-ufg", "akcit-ufg", "labmol-ufg",
+  ]) assert.match(english, new RegExp(`"${initiativeId}"`), `missing English translation for ${initiativeId}`);
+  assert.match(english, /initiatives=\{catalog\?\.initiatives \|\| \[\]\}/);
+  assert.match(english, /visibleInitiatives\.map/);
 });
 
 test("translated catalog preserves the same public scientific-paper selection", async () => {
