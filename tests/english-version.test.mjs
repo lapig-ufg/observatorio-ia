@@ -68,6 +68,21 @@ test("English homepage includes the interactive lesson, OBIA and the complete fe
   assert.equal((english.match(/eventLabel: "/g) || []).length, 9);
 });
 
+test("English version includes the UFG ecosystem and linked curator emails", () => {
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  const locale = fs.readFileSync("src/locale.ts", "utf8");
+  assert.match(english, /href="#ufg-ecosystem"/);
+  assert.match(english, /UFG ecosystem in artificial intelligence/);
+  assert.match(english, /Graduate Program in Intelligent Systems and Agents/);
+  assert.match(english, /Mapping AI initiatives at UFG/);
+  assert.doesNotMatch(english, /UFG ecosystem <small>\(PT\)<\/small>/);
+  assert.match(english, /mailto:laerte@ufg\.br/);
+  assert.match(english, /mailto:victor\.amaral@ufg\.br/);
+  assert.match(english, /mailto:tiagogoncalves@discente\.ufg\.br/);
+  assert.match(locale, /#ufg-ecosystem/);
+  assert.match(locale, /#ecossistema-ufg/);
+});
+
 test("translated catalog preserves the same public scientific-paper selection", async () => {
   const source = fs.readFileSync("src/paperResearch.ts", "utf8");
   const compiled = ts.transpileModule(source, {

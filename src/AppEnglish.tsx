@@ -1,6 +1,7 @@
 import {
   ArrowUpRight,
   BookOpen,
+  Building2,
   CheckCircle2,
   ChevronDown,
   Clock3,
@@ -17,7 +18,7 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult } from "./catalog";
+import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
 import { collectionThemes } from "./catalogNavigation";
 import { catalogDate, newestFirst } from "./catalogOrdering";
@@ -78,6 +79,21 @@ const paperAreaLabels: Record<PaperResearchArea, string> = {
 
 const panoramaEnglishUrl = "https://lapig-ufg.github.io/observatorio-ia/panorama/en/";
 const panoramaEnglishEmbedUrl = `${panoramaEnglishUrl}?embed=1`;
+
+const ecosystemFeaturedInitiativesEnglish: Initiative[] = [
+  {
+    id: "pos-graduacao-sistemas-agentes-inteligentes",
+    acronym: "PÓS-AGENTES",
+    name: "Lato Sensu Specialization — Graduate Program in Intelligent Systems and Agents",
+    summary: "A UFG program focused on building systems with intelligent agents. Held online on Saturdays, it combines 11 courses and a final project.",
+    areas: ["Intelligent agents", "AI systems", "Online program", "11 courses + final project"],
+    url: "https://agentes.inf.ufg.br/index.html",
+    sourceUrl: "https://agentes.inf.ufg.br/index.html",
+    color: "azul",
+    order: -1,
+    actionLabel: "Explore the program",
+  },
+];
 
 const featuredHistoryEnglish = [
   {
@@ -250,8 +266,54 @@ function PanoramaPageEnglish() {
   </section>;
 }
 
+function InitiativeCardEnglish({ initiative }: { initiative: Initiative }) {
+  const logoUrl = `https://www.google.com/s2/favicons?sz=128&domain_url=${encodeURIComponent(initiative.url)}`;
+  return <article className={`initiative-card initiative-${normalize(initiative.color).replace(/\s+/g, "-")}`}>
+    <div className="initiative-mark">
+      <img src={logoUrl} alt={`${initiative.acronym} logo`} loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; }} />
+      <Building2 className="initiative-mark-fallback" size={25} aria-hidden="true" />
+    </div>
+    <p className="initiative-acronym">{initiative.acronym}</p>
+    <h3>{initiative.name}</h3>
+    <p>{initiative.summary}</p>
+    <ul aria-label="Areas of activity">{initiative.areas.map((area) => <li key={area}>{area}</li>)}</ul>
+    <a href={initiative.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_initiative_en", { event_category: "ecosystem", event_label: initiative.acronym })}>
+      {initiative.actionLabel || "Explore initiative"} <ArrowUpRight size={17} aria-hidden="true" />
+    </a>
+  </article>;
+}
+
+function EcosystemPageEnglish() {
+  return <section id="ufg-ecosystem" className="ecosystem-page" aria-labelledby="ecosystem-title-en">
+    <div className="ecosystem-hero">
+      <p className="eyebrow">Federal University of Goiás</p>
+      <h1 id="ecosystem-title-en">UFG ecosystem in artificial intelligence</h1>
+      <p>Discover centers, networks and educational programs that connect knowledge, technology and public policy.</p>
+      <a className="back-to-catalog" href="#top" onClick={() => trackEvent("back_to_catalog_en")}>← Back to the collection</a>
+    </div>
+    <aside className="ecosystem-mapping-callout" aria-label="Mapping AI initiatives at UFG">
+      <div>
+        <p className="ecosystem-mapping-kicker">Is your AI initiative missing?</p>
+        <p>Then join our <strong>mapping of AI initiatives at UFG</strong>. It is quick and easy!</p>
+      </div>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSe3qfZ5hjL0NifRXvI-SM6NKDN7g8DoFQJyoTTRTvhlptWk-w/viewform" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_mapping_form_en", { event_category: "outbound", event_label: "mapping" })}>Join the mapping <ArrowUpRight size={17} aria-hidden="true" /></a>
+    </aside>
+    <div className="ecosystem-initiative-grid">
+      {ecosystemFeaturedInitiativesEnglish.map((initiative) => <InitiativeCardEnglish key={initiative.id} initiative={initiative} />)}
+    </div>
+  </section>;
+}
+
+type EnglishPage = "catalog" | "panorama" | "ecosystem";
+
+function englishPageFromHash(): EnglishPage {
+  if (window.location.hash === "#panorama") return "panorama";
+  if (["#ufg-ecosystem", "#ecossistema-ufg"].includes(window.location.hash)) return "ecosystem";
+  return "catalog";
+}
+
 export function AppEnglish() {
-  const [page, setPage] = useState<"catalog" | "panorama">(() => window.location.hash === "#panorama" ? "panorama" : "catalog");
+  const [page, setPage] = useState<EnglishPage>(englishPageFromHash);
   const [catalog, setCatalog] = useState<CatalogLoadResult | null>(null);
   const [error, setError] = useState("");
   const [refreshing, setRefreshing] = useState(false);
@@ -283,9 +345,11 @@ export function AppEnglish() {
 
   useEffect(() => {
     const syncPage = () => {
-      const next = window.location.hash === "#panorama" ? "panorama" : "catalog";
+      const next = englishPageFromHash();
       setPage(next);
-      trackPageView(next === "panorama" ? "/en/#panorama" : "/en/", next === "panorama" ? "Global Generative AI Landscape" : "UFG-AI Observatory — English");
+      const route = next === "panorama" ? "/en/#panorama" : next === "ecosystem" ? "/en/#ufg-ecosystem" : "/en/";
+      const title = next === "panorama" ? "Global Generative AI Landscape" : next === "ecosystem" ? "UFG AI Ecosystem" : "UFG-AI Observatory — English";
+      trackPageView(route, title);
     };
     window.addEventListener("hashchange", syncPage);
     return () => window.removeEventListener("hashchange", syncPage);
@@ -338,7 +402,7 @@ export function AppEnglish() {
       <a className="brand" href="#top" aria-label="UFG-AI Observatory — home"><span className="brand-mark"><Library size={21} aria-hidden="true" /></span><span className="brand-name"><strong>Observatory</strong><strong>UFG-AI</strong></span></a>
       <nav aria-label="Main navigation">
         <div className="catalog-nav-links"><a href="#collections">Collections</a><a href="#topics">Topics</a></div>
-        <a className="ecosystem-nav-link" href="../#ecossistema-ufg">UFG ecosystem <small>(PT)</small> <ArrowUpRight size={15} /></a>
+        <a className="ecosystem-nav-link" href="#ufg-ecosystem" onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem <ArrowUpRight size={15} /></a>
         <a className="daily-news-nav-link" href="../#ia-como-noticia-diaria"><span><strong>AI in the news</strong><small>archive in Portuguese</small></span> <ArrowUpRight size={15} /></a>
         <a className="panorama-nav-link" href="#panorama" onClick={() => trackEvent("nav_panorama_en")}><span><strong>Overview</strong><small>generative AI</small></span> <ArrowUpRight size={15} /></a>
       </nav>
@@ -346,7 +410,7 @@ export function AppEnglish() {
       <div className="language-switch" aria-label="Language"><a href={languageUrl("pt")} lang="pt-BR">Português</a><span aria-current="page">English</span></div>
     </header>
 
-    {page === "panorama" ? <PanoramaPageEnglish /> : <><section className="catalog-intro" aria-labelledby="page-title">
+    {page === "panorama" ? <PanoramaPageEnglish /> : page === "ecosystem" ? <EcosystemPageEnglish /> : <><section className="catalog-intro" aria-labelledby="page-title">
       <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Blog articles, documents, videos, interviews, scientific papers and presentations in a thematic collection.</p></div>
       <div className="collection-chart" aria-label="Items by category"><p className="collection-chart-title">Items by category</p><ul>{categoryTypes.map((category) => <li key={category} style={{ "--bar-color": chartColors[category].bar, "--bar-track": chartColors[category].track } as CSSProperties}><span className="collection-chart-label">{typeLabels[category]}</span><span className="collection-chart-track" aria-hidden="true"><span className="collection-chart-bar" style={{ "--bar-value": `${Math.max((counts[category] / maximumCount) * 100, 4)}%` } as CSSProperties} /></span><strong>{counts[category]}</strong></li>)}</ul></div>
     </section>
@@ -400,6 +464,6 @@ export function AppEnglish() {
 
     {error ? <section className="empty-state" role="alert"><FileText size={30} /><h2>Catalog unavailable</h2><p>{error}</p><button type="button" onClick={() => window.location.reload()}>Try again</button></section> : !catalog ? <section className="loading-state"><LoaderCircle className="spinning" size={28} /><span>Loading collection…</span></section> : <><section className="results-heading" aria-live="polite"><div><p className="eyebrow">{initial ? "Initial selection" : "Catalog"}</p><h2>{initial ? "One recent item from each category" : `${displayed.length} ${displayed.length === 1 ? "item found" : "items found"}`}</h2></div>{initial ? <button type="button" className="clear-filters" onClick={() => { setShowAll(true); setVisible(15); }}>View full collection</button> : (query || type !== "all" || theme !== "all") && <button type="button" className="clear-filters" onClick={reset}><X size={16} /> Clear filters</button>}</section>{displayed.length ? <div className="article-grid">{displayed.slice(0, visible).map((article) => <ArticleCardEnglish key={article.id} article={article} />)}</div> : <section className="empty-state"><Search size={30} /><h2>No items found</h2><p>Try another term or remove the filters.</p><button type="button" onClick={reset}>View full collection</button></section>}{visible < displayed.length && <button type="button" className="load-more" onClick={() => setVisible((value) => value + 15)}>Load more items</button>}</>}</>}
 
-    <footer className="footer"><div><strong>UFG-AI Observatory</strong><p>An educational collection under continuous development.</p><a className="github-footer-link" href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer">LAPIG/UFG on GitHub <ArrowUpRight size={14} /></a></div><div><span>LAPIG • Federal University of Goiás</span><p>Public content with access to original sources.</p><p className="credits"><strong>Development and curation:</strong> Laerte Ferreira, Victor Amaral and Tiago Geraldine.</p><p className="contact-callout">Questions or suggestions? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer">Contact us <ArrowUpRight size={14} /></a></p></div></footer>
+    <footer className="footer"><div><strong>UFG-AI Observatory</strong><p>An educational collection under continuous development.</p><a className="github-footer-link" href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer">LAPIG/UFG on GitHub <ArrowUpRight size={14} /></a></div><div><span>LAPIG • Federal University of Goiás</span><p>Public content with access to original sources.</p><p className="credits"><strong>Development and curation:</strong> <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a> and <a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p><p className="contact-callout">Questions or suggestions? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer">Contact us <ArrowUpRight size={14} /></a></p></div></footer>
   </main>;
 }

@@ -11,6 +11,9 @@ export function siteAssetUrl(path: string) {
 }
 
 export function languageUrl(locale: Locale) {
-  const hash = window.location.hash || "#top";
+  const currentHash = window.location.hash || "#top";
+  const hash = locale === "en" && currentHash === "#ecossistema-ufg"
+    ? "#ufg-ecosystem"
+    : locale === "pt" && currentHash === "#ufg-ecosystem" ? "#ecossistema-ufg" : currentHash;
   return locale === "en" ? `./en/${hash}` : `../${hash}`;
 }
