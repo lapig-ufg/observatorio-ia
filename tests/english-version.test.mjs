@@ -47,7 +47,7 @@ test("English route selects the translated catalog and provides a language switc
   assert.match(main, /locale === "en" \? <AppEnglish \/> : <App \/>/);
   assert.match(catalog, /VITE_GOOGLE_SHEETS_EN_GID/);
   assert.match(catalog, /catalogo-en\.csv/);
-  assert.match(english, /Português/);
+  assert.match(english, /Portuguese/);
   assert.match(english, /Collection topic radar/);
   assert.match(english, /app-panorama-global-da-ia-generativa\/en\//);
   assert.match(english, /href="#panorama"/);
@@ -128,6 +128,26 @@ test("English daily news uses the same archive and preserves source headlines", 
   assert.match(page, /loadFolhaIndex/);
   assert.match(page, /loadFolhaYear/);
   assert.match(page, /lang="pt-BR"/);
+});
+
+test("every news coverage area has an English label while source headlines remain intact", async () => {
+  const source = fs.readFileSync("src/folhaEnglish.ts", "utf8");
+  const compiled = ts.transpileModule(source, {
+    compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
+  }).outputText;
+  const { englishSectionGroups, englishSectionGroup, englishSourceSection } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`);
+  const index = JSON.parse(fs.readFileSync("public/folha-ia/index.json", "utf8"));
+  for (const { label } of index.sections) {
+    assert.ok(Object.hasOwn(englishSectionGroups, label), `untranslated section group: ${label}`);
+    assert.ok(englishSectionGroup(label), `empty translation: ${label}`);
+  }
+  assert.equal(englishSourceSection("C-Level — IA", "Outras seções"), "C-Level — AI");
+  assert.equal(englishSourceSection("Mercado", "Mercado e trabalho"), "Business");
+  assert.equal(englishSourceSection("Colunas — Mônica Bergamo", "Colunas e opinião"), "Columns and opinion");
+  const page = fs.readFileSync("src/DailyNewsPageEnglish.tsx", "utf8");
+  assert.match(page, /<span>\{englishSourceSection\(article\.section, article\.sectionGroup\)\}<\/span>/);
+  assert.doesNotMatch(page, /<span>\{article\.section\}<\/span>/);
+  assert.match(page, /<h3 lang="pt-BR">\{article\.title\}<\/h3>/);
 });
 
 test("build creates a direct English entry point with parent asset URLs", () => {
