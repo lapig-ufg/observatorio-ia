@@ -33,6 +33,7 @@ const typeLabels: Record<"todos" | ArticleType, string> = {
   medium: "Blogs",
   documento: "Documentos gerais",
   "link-video": "Links e vídeos",
+  audio: "Áudios",
   noticia: "Jornais e notícias",
   paper: "IA na pesquisa científica",
   apresentacao: "Apresentações",
@@ -43,6 +44,7 @@ const typeIcons = {
   medium: Sparkles,
   documento: FileText,
   "link-video": Link2,
+  audio: Mic,
   noticia: Newspaper,
   paper: BookOpen,
   apresentacao: Presentation,
@@ -53,6 +55,7 @@ const actionLabels: Record<ArticleType, string> = {
   medium: "Ler publicação",
   documento: "Acessar documento",
   "link-video": "Acessar conteúdo",
+  audio: "Ouvir áudio",
   noticia: "Ler notícia",
   paper: "Acessar paper",
   apresentacao: "Ver apresentação",
@@ -61,12 +64,13 @@ const actionLabels: Record<ArticleType, string> = {
 
 // Notícias têm página editorial própria em “IA como notícia diária”. Os registros
 // permanecem na fonte, mas não fazem parte do catálogo público geral.
-const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "entrevista", "paper", "apresentacao"];
+const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "audio", "entrevista", "paper", "apresentacao"];
 const catalogFilterTypes: Array<"todos" | ArticleType> = ["todos", ...categoryTypes];
 const chartLabels: Record<ArticleType, string> = {
   medium: "Blogs",
   documento: "Documentos",
   "link-video": "Links e vídeos",
+  audio: "Áudios",
   noticia: "Notícias",
   paper: "Pesquisa científica",
   apresentacao: "Apresentações",
@@ -76,6 +80,7 @@ const chartColors: Record<ArticleType, { bar: string; track: string }> = {
   medium: { bar: "#16715b", track: "#cfe6dc" },
   documento: { bar: "#28759f", track: "#d4e6f0" },
   "link-video": { bar: "#bd5a37", track: "#f2d9ce" },
+  audio: { bar: "#497a80", track: "#d9e9e8" },
   noticia: { bar: "#b87516", track: "#f1e3bf" },
   paper: { bar: "#70569b", track: "#e2d9ee" },
   apresentacao: { bar: "#bd4659", track: "#f1d4da" },
@@ -263,6 +268,7 @@ export function App() {
     medium: articles.filter((article) => article.type === "medium").length,
     documento: articles.filter((article) => article.type === "documento").length,
     "link-video": articles.filter((article) => article.type === "link-video").length,
+    audio: articles.filter((article) => article.type === "audio").length,
     noticia: articles.filter((article) => article.type === "noticia").length,
     paper: articles.filter((article) => article.type === "paper").length,
     apresentacao: articles.filter((article) => article.type === "apresentacao").length,
@@ -431,7 +437,7 @@ export function App() {
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
           <h1 id="page-title">Conhecimento sobre IA para estudo, pesquisa e debate</h1>
-          <p className="intro-copy">Artigos de Blogs, documentos, vídeos, entrevistas, papers científicos e apresentações reunidos em um acervo temático.</p>
+          <p className="intro-copy">Artigos de Blogs, documentos, vídeos, áudios, entrevistas, papers científicos e apresentações reunidos em um acervo temático.</p>
         </div>
         <div className="collection-chart" aria-label="Número de itens por categoria">
           <p className="collection-chart-title">Itens por categoria</p>
@@ -893,15 +899,15 @@ function ArticleCard({ article }: { article: Article }) {
           <span>{metadata || "Informações editoriais em revisão"}</span>
           <div className="article-actions">
             {distinctInstitutionalPdf && (
-              <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title="Acesso controlado pela UFG"
+              <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title={article.type === "apresentacao" ? "Ver a apresentação em PDF" : "Acesso controlado pela UFG"}
                 onClick={() => trackEvent("open_article_pdf", { event_category: "article", event_label: article.id, article_type: article.type })}>
-                <LockKeyhole size={16} /> PDF institucional
+                {article.type === "apresentacao" ? <Presentation size={16} /> : <LockKeyhole size={16} />} {article.type === "apresentacao" ? "Ver apresentação (PDF)" : "PDF institucional"}
               </a>
             )}
             {article.originalUrl ? (
               <a className="article-action" href={article.originalUrl} target="_blank" rel="noreferrer"
                 onClick={() => trackEvent("open_article", { event_category: "article", event_label: article.id, article_type: article.type, source: article.source })}>
-                {actionLabels[article.type]} <ArrowUpRight size={17} />
+                {article.type === "apresentacao" && distinctInstitutionalPdf ? "Acessar fonte original" : actionLabels[article.type]} <ArrowUpRight size={17} />
               </a>
             ) : !article.institutionalPdfUrl && (
               <span className="article-action-unavailable">Link em revisão</span>

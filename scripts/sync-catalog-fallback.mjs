@@ -4,7 +4,7 @@ const sheetId = process.env.VITE_GOOGLE_SHEETS_ID?.trim();
 const gid = process.env.VITE_GOOGLE_SHEETS_GID?.trim();
 const englishGid = process.env.VITE_GOOGLE_SHEETS_EN_GID?.trim();
 const requiredHeaders = ["id", "ativo", "tipo", "tema", "subtema", "titulo", "resumo", "palavras_chave", "url_original", "url_pdf_institucional", "data_inclusao"];
-const allowedTypes = new Set(["medium", "documento", "link-video", "noticia", "paper", "apresentacao", "entrevista"]);
+const allowedTypes = new Set(["medium", "documento", "link-video", "audio", "noticia", "paper", "apresentacao", "entrevista"]);
 
 if (!sheetId || !gid || !englishGid) {
   throw new Error("VITE_GOOGLE_SHEETS_ID, VITE_GOOGLE_SHEETS_GID and VITE_GOOGLE_SHEETS_EN_GID are required.");

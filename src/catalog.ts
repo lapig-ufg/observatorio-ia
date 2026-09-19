@@ -1,4 +1,4 @@
-export type ArticleType = "medium" | "documento" | "link-video" | "noticia" | "paper" | "apresentacao" | "entrevista";
+export type ArticleType = "medium" | "documento" | "link-video" | "audio" | "noticia" | "paper" | "apresentacao" | "entrevista";
 
 export type Article = {
   id: string;
@@ -116,6 +116,8 @@ function asType(value: string): ArticleType {
     link_video: "link-video",
     links_videos: "link-video",
     video: "link-video",
+    audio: "audio",
+    audios: "audio",
     noticia: "noticia",
     jornais_noticias_diarias: "noticia",
     paper: "paper",

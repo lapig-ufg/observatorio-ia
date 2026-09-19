@@ -523,7 +523,7 @@ h1 {
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
 }
@@ -1612,6 +1612,10 @@ h1 {
 
 .type-entrevista .type-badge {
   background: rgba(97, 67, 124, 0.94);
+}
+
+.type-audio .type-badge {
+  background: rgba(39, 97, 103, 0.94);
 }
 
 .card-content {

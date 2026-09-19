@@ -32,6 +32,7 @@ const typeLabels: Record<"all" | ArticleType, string> = {
   medium: "Blogs",
   documento: "General documents",
   "link-video": "Links and videos",
+  audio: "Audio",
   noticia: "News",
   paper: "AI in scientific research",
   apresentacao: "Presentations",
@@ -42,6 +43,7 @@ const actionLabels: Record<ArticleType, string> = {
   medium: "Read publication",
   documento: "Open document",
   "link-video": "Open content",
+  audio: "Listen to audio",
   noticia: "Read news",
   paper: "Open paper",
   apresentacao: "View presentation",
@@ -52,18 +54,20 @@ const typeIcons = {
   medium: Sparkles,
   documento: FileText,
   "link-video": Link2,
+  audio: Mic,
   noticia: FileText,
   paper: BookOpen,
   apresentacao: Presentation,
   entrevista: Mic,
 };
 
-const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "entrevista", "paper", "apresentacao"];
+const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "audio", "entrevista", "paper", "apresentacao"];
 const filterTypes: Array<"all" | ArticleType> = ["all", ...categoryTypes];
 const chartColors: Record<ArticleType, { bar: string; track: string }> = {
   medium: { bar: "#16715b", track: "#cfe6dc" },
   documento: { bar: "#28759f", track: "#d4e6f0" },
   "link-video": { bar: "#bd5a37", track: "#f2d9ce" },
+  audio: { bar: "#497a80", track: "#d9e9e8" },
   noticia: { bar: "#b87516", track: "#f1e3bf" },
   paper: { bar: "#70569b", track: "#e2d9ee" },
   apresentacao: { bar: "#bd4659", track: "#f1d4da" },
@@ -274,8 +278,8 @@ function ArticleCardEnglish({ article }: { article: Article }) {
       <div className="card-footer">
         <span>{metadata || "Editorial information under review"}</span>
         <div className="article-actions">
-          {distinctInstitutionalPdf && <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title="Access controlled by UFG"><LockKeyhole size={16} /> Institutional PDF</a>}
-          {article.originalUrl ? <a className="article-action" href={article.originalUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_article", { event_category: "article-en", event_label: article.id })}>{actionLabels[article.type]} <ArrowUpRight size={17} /></a> : !article.institutionalPdfUrl && <span className="article-action-unavailable">Link under review</span>}
+          {distinctInstitutionalPdf && <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title={article.type === "apresentacao" ? "View the presentation PDF" : "Access controlled by UFG"}>{article.type === "apresentacao" ? <Presentation size={16} /> : <LockKeyhole size={16} />} {article.type === "apresentacao" ? "View presentation (PDF)" : "Institutional PDF"}</a>}
+          {article.originalUrl ? <a className="article-action" href={article.originalUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_article", { event_category: "article-en", event_label: article.id })}>{article.type === "apresentacao" && distinctInstitutionalPdf ? "Open original source" : actionLabels[article.type]} <ArrowUpRight size={17} /></a> : !article.institutionalPdfUrl && <span className="article-action-unavailable">Link under review</span>}
         </div>
       </div>
     </div>
@@ -472,7 +476,7 @@ export function AppEnglish() {
     </header>
 
     {page === "panorama" ? <PanoramaPageEnglish /> : page === "ecosystem" ? <EcosystemPageEnglish initiatives={catalog?.initiatives || []} loading={!catalog && !error} warning={catalog?.warning || error} /> : page === "daily-news" ? <DailyNewsPageEnglish /> : <><section className="catalog-intro" aria-labelledby="page-title">
-      <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Blog articles, documents, videos, interviews, scientific papers and presentations in a thematic collection.</p></div>
+      <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Blog articles, documents, videos, audio, interviews, scientific papers and presentations in a thematic collection.</p></div>
       <div className="collection-chart" aria-label="Items by category"><p className="collection-chart-title">Items by category</p><ul>{categoryTypes.map((category) => <li key={category} style={{ "--bar-color": chartColors[category].bar, "--bar-track": chartColors[category].track } as CSSProperties}><span className="collection-chart-label">{typeLabels[category]}</span><span className="collection-chart-track" aria-hidden="true"><span className="collection-chart-bar" style={{ "--bar-value": `${Math.max((counts[category] / maximumCount) * 100, 4)}%` } as CSSProperties} /></span><strong>{counts[category]}</strong></li>)}</ul></div>
     </section>
 

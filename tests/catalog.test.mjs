@@ -53,7 +53,7 @@ test("catalog contains the complete multidisciplinary collection", () => {
   assert.ok(active.filter((article) => article.tipo === "medium").every((article) => !article.url_pdf_institucional));
   assert.deepEqual(
     new Set(active.map((article) => article.tipo)),
-    new Set(["medium", "documento", "link-video", "noticia", "paper", "apresentacao", "entrevista"]),
+    new Set(["medium", "documento", "link-video", "audio", "noticia", "paper", "apresentacao", "entrevista"]),
   );
 });
 
@@ -64,7 +64,28 @@ test("catalog parser recognizes the separate interview collection", () => {
   assert.match(catalogSource, /\| "entrevista";/);
   assert.match(catalogSource, /entrevista: "entrevista"/);
   assert.match(app, /entrevista: "Entrevistas"/);
-  assert.match(app, /const categoryTypes: ArticleType\[\] = \["medium", "documento", "link-video", "entrevista", "paper", "apresentacao"\];/);
+  assert.match(app, /const categoryTypes: ArticleType\[\] = \["medium", "documento", "link-video", "audio", "entrevista", "paper", "apresentacao"\];/);
+});
+
+test("new audio and presentations have distinct destinations in both languages", () => {
+  const pt = records("public/catalogo.csv");
+  const en = records("public/catalogo-en.csv");
+  const added = pt.filter((article) => /^(audio-|apresentacao-(strategic-ai-pacing|model-welfare-myth)-2026)/.test(article.id));
+  assert.equal(added.length, 6);
+  assert.equal(added.filter((article) => article.tipo === "audio").length, 4);
+  assert.equal(added.filter((article) => article.tipo === "apresentacao").length, 2);
+  const translated = new Map(en.map((article) => [article.id, article]));
+  for (const article of added) {
+    const english = translated.get(article.id);
+    assert.ok(english?.titulo && english.resumo && english.palavras_chave, article.id);
+    assert.equal(english.url_original, article.url_original);
+    assert.equal(english.url_pdf_institucional, article.url_pdf_institucional);
+    assert.equal(article.ativo, "TRUE");
+    assert.equal(article.data_inclusao, "2026-09-19");
+    assert.ok(article.tipo === "audio" ? article.url_original.includes("drive.google.com/file/d/") && !article.url_pdf_institucional : article.url_pdf_institucional.includes("drive.google.com/file/d/"));
+  }
+  assert.match(fs.readFileSync("src/App.tsx", "utf8"), /audio: "Ouvir áudio"/);
+  assert.match(fs.readFileSync("src/AppEnglish.tsx", "utf8"), /audio: "Listen to audio"/);
 });
 
 test("legacy duplicate registry remains internally valid", () => {
@@ -86,7 +107,7 @@ test("GitHub Pages workflow builds from direct Google Sheets configuration", () 
 
 test("newspaper records are preserved in the source but suppressed from the general catalog", () => {
   const app = fs.readFileSync("src/App.tsx", "utf8");
-  assert.match(app, /const categoryTypes: ArticleType\[\] = \["medium", "documento", "link-video", "entrevista", "paper", "apresentacao"\];/);
+  assert.match(app, /const categoryTypes: ArticleType\[\] = \["medium", "documento", "link-video", "audio", "entrevista", "paper", "apresentacao"\];/);
   assert.match(app, /filter\(\(article\) => article\.type !== "noticia"\)/);
   assert.match(app, /const catalogFilterTypes: Array<"todos" \| ArticleType> = \["todos", \.\.\.categoryTypes\];/);
   assert.doesNotMatch(app, /Artigos de Blogs, documentos, vídeos, notícias,/);
