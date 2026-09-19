@@ -17,6 +17,13 @@ test("destaque bilíngue oferece fontes, áudios, charge e cenário econômico q
   for (const id of ["1GOWwH68VD1zbG3q9xfS1Q0HNAmFqSBju", "1-0XguO2UMNarM9re8FX0QsGiSR-wu4No", "1zUzJP39dQBKbFNrFtJtSYtxwpay00T5U", "15FnNCNZiOPjDlhyGRyh8YPRXNIwtBI0P"]) {
     assert.ok(feature.includes(id));
   }
+  assert.equal(feature.match(/source: "Mustafa Suleyman"[^\n]*audios: \[sources\.welfareAudio\]/g)?.length, 2);
+  assert.equal(feature.match(/source: "Pedro Novaes"[^\n]*audios: \[sources\.novaesAudio\]/g)?.length, 2);
+  for (const fallback of ["public/catalogo.csv", "public/catalogo-en.csv"]) {
+    const row = fs.readFileSync(fallback, "utf8").split("\n").find((line) => line.startsWith('"audio-ia-entre-apocalipse-redencao-2026"'));
+    assert.ok(row?.includes("Pedro Novaes"), `${fallback} deve identificar o áudio de Pedro Novaes`);
+    assert.ok(!row?.includes("Mustafa Suleyman"), `${fallback} não deve atribuir o áudio a Mustafa Suleyman`);
+  }
   assert.match(pt, /<FeaturedDebate language="pt" \/>/);
   assert.match(en, /<FeaturedDebate language="en" \/>/);
   assert.match(pt, /Como usar a IA fora do navegador/);

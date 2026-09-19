@@ -13,7 +13,7 @@ const sources = {
   welfareSlides: "https://drive.google.com/file/d/1VBmKbUWi5cyC8p_ukdzTQaeif-5Xsvpj/view",
   pacingAudio: "https://drive.google.com/file/d/1GOWwH68VD1zbG3q9xfS1Q0HNAmFqSBju/view",
   welfareAudio: "https://drive.google.com/file/d/1-0XguO2UMNarM9re8FX0QsGiSR-wu4No/view",
-  welfareDebate: "https://drive.google.com/file/d/1zUzJP39dQBKbFNrFtJtSYtxwpay00T5U/view",
+  novaesAudio: "https://drive.google.com/file/d/1zUzJP39dQBKbFNrFtJtSYtxwpay00T5U/view",
   economyAudio: "https://drive.google.com/file/d/15FnNCNZiOPjDlhyGRyh8YPRXNIwtBI0P/view",
 };
 
@@ -31,11 +31,10 @@ const editions = {
     sourceAction: "Ler texto",
     slidesAction: "Ver slides",
     audioAction: "Ouvir análise",
-    extraAudioAction: "Ouvir outra conversa",
     cards: [
       { date: "12 set", source: "Dario Amodei", title: "We Must Pace the Frontier", description: "Uma proposta de desaceleração verificável, avaliação externa e coordenação para enfrentar riscos da IA de fronteira.", href: sources.amodei, slides: sources.pacingSlides, audios: [sources.pacingAudio] },
-      { date: "16 set", source: "Mustafa Suleyman", title: "A warning about ‘model welfare’", description: "Uma crítica à atribuição de consciência e status moral a modelos atuais e ao efeito disso sobre segurança e controle humano.", href: sources.suleyman, slides: sources.welfareSlides, audios: [sources.welfareAudio, sources.welfareDebate] },
-      { date: "15 set", source: "Pedro Novaes", title: "Sem apocalipse ou redenção", description: "Um convite a examinar as escolhas humanas por trás das narrativas de salvação ou danação tecnológica.", href: sources.novaes, audios: [] },
+      { date: "16 set", source: "Mustafa Suleyman", title: "A warning about ‘model welfare’", description: "Uma crítica à atribuição de consciência e status moral a modelos atuais e ao efeito disso sobre segurança e controle humano.", href: sources.suleyman, slides: sources.welfareSlides, audios: [sources.welfareAudio] },
+      { date: "15 set", source: "Pedro Novaes", title: "Sem apocalipse ou redenção", description: "Um convite a examinar as escolhas humanas por trás das narrativas de salvação ou danação tecnológica.", href: sources.novaes, audios: [sources.novaesAudio] },
       { date: "set 2026", source: "Anthropic Institute", title: "What will our economic future look like?", description: "Três cenários condicionais para discutir crescimento, emprego e distribuição dos ganhos da IA nos Estados Unidos.", href: sources.economy, audios: [sources.economyAudio] },
     ],
   },
@@ -52,11 +51,10 @@ const editions = {
     sourceAction: "Read original",
     slidesAction: "View slides",
     audioAction: "Listen to analysis (PT)",
-    extraAudioAction: "Another conversation (PT)",
     cards: [
       { date: "12 Sep", source: "Dario Amodei", title: "We Must Pace the Frontier", description: "A proposal for verifiable pacing, external evaluation and coordination around frontier AI risks.", href: sources.amodei, slides: sources.pacingSlides, audios: [sources.pacingAudio] },
-      { date: "16 Sep", source: "Mustafa Suleyman", title: "A warning about ‘model welfare’", description: "A critique of assigning consciousness or moral standing to current models, and the implications for safety and human control.", href: sources.suleyman, slides: sources.welfareSlides, audios: [sources.welfareAudio, sources.welfareDebate] },
-      { date: "15 Sep", source: "Pedro Novaes", title: "Sem apocalipse ou redenção", description: "A Portuguese essay on the human choices obscured by narratives of technological salvation or doom.", href: sources.novaes, audios: [] },
+      { date: "16 Sep", source: "Mustafa Suleyman", title: "A warning about ‘model welfare’", description: "A critique of assigning consciousness or moral standing to current models, and the implications for safety and human control.", href: sources.suleyman, slides: sources.welfareSlides, audios: [sources.welfareAudio] },
+      { date: "15 Sep", source: "Pedro Novaes", title: "Sem apocalipse ou redenção", description: "A Portuguese essay on the human choices obscured by narratives of technological salvation or doom.", href: sources.novaes, audios: [sources.novaesAudio] },
       { date: "Sep 2026", source: "Anthropic Institute", title: "What will our economic future look like?", description: "Three conditional scenarios for discussing growth, jobs and the distribution of AI's gains in the US.", href: sources.economy, audios: [sources.economyAudio] },
     ],
   },
@@ -88,7 +86,7 @@ export function FeaturedDebate({ language }: { language: Language }) {
           <div className="featured-debate-links">
             <a href={item.href} target="_blank" rel="noreferrer">{edition.sourceAction} <ArrowUpRight size={15} aria-hidden="true" /></a>
             {"slides" in item && item.slides && <a href={item.slides} target="_blank" rel="noreferrer"><Presentation size={15} aria-hidden="true" /> {edition.slidesAction}</a>}
-            {item.audios.map((audio, index) => <a key={audio} href={audio} target="_blank" rel="noreferrer"><Headphones size={15} aria-hidden="true" /> {index ? edition.extraAudioAction : edition.audioAction}</a>)}
+            {item.audios.map((audio) => <a key={audio} href={audio} target="_blank" rel="noreferrer"><Headphones size={15} aria-hidden="true" /> {edition.audioAction}</a>)}
           </div>
         </article>)}
       </div>
