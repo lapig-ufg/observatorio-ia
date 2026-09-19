@@ -14,6 +14,8 @@ export function languageUrl(locale: Locale) {
   const currentHash = window.location.hash || "#top";
   const hash = locale === "en" && currentHash === "#ecossistema-ufg"
     ? "#ufg-ecosystem"
-    : locale === "pt" && currentHash === "#ufg-ecosystem" ? "#ecossistema-ufg" : currentHash;
+    : locale === "pt" && currentHash === "#ufg-ecosystem" ? "#ecossistema-ufg"
+    : locale === "en" && currentHash === "#ia-como-noticia-diaria" ? "#daily-news"
+    : locale === "pt" && currentHash === "#daily-news" ? "#ia-como-noticia-diaria" : currentHash;
   return locale === "en" ? `./en/${hash}` : `../${hash}`;
 }

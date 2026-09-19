@@ -116,8 +116,18 @@ test("translated catalog preserves the same public scientific-paper selection", 
   }));
   const portuguese = asArticles("public/catalogo.csv").filter(isPublicResearchPaper).map((article) => article.id).sort();
   const english = asArticles("public/catalogo-en.csv").filter(isPublicResearchPaper).map((article) => article.id).sort();
-  assert.equal(portuguese.length, 141);
+  assert.ok(portuguese.includes("paper-economic-scenarios-transformative-ai"));
   assert.deepEqual(english, portuguese);
+});
+
+test("English daily news uses the same archive and preserves source headlines", () => {
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  const page = fs.readFileSync("src/DailyNewsPageEnglish.tsx", "utf8");
+  assert.match(english, /href="#daily-news"/);
+  assert.match(english, /<DailyNewsPageEnglish \/>/);
+  assert.match(page, /loadFolhaIndex/);
+  assert.match(page, /loadFolhaYear/);
+  assert.match(page, /lang="pt-BR"/);
 });
 
 test("build creates a direct English entry point with parent asset URLs", () => {

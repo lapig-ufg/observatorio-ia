@@ -20,6 +20,7 @@ import {
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
+import { DailyNewsPageEnglish } from "./DailyNewsPageEnglish";
 import { collectionThemes } from "./catalogNavigation";
 import { catalogDate, newestFirst } from "./catalogOrdering";
 import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordCloud";
@@ -363,10 +364,11 @@ function EcosystemPageEnglish({ initiatives, loading, warning }: { initiatives: 
   </section>;
 }
 
-type EnglishPage = "catalog" | "panorama" | "ecosystem";
+type EnglishPage = "catalog" | "panorama" | "ecosystem" | "daily-news";
 
 function englishPageFromHash(): EnglishPage {
   if (window.location.hash === "#panorama") return "panorama";
+  if (["#daily-news", "#ia-como-noticia-diaria"].includes(window.location.hash)) return "daily-news";
   if (["#ufg-ecosystem", "#ecossistema-ufg"].includes(window.location.hash)) return "ecosystem";
   return "catalog";
 }
@@ -406,8 +408,8 @@ export function AppEnglish() {
     const syncPage = () => {
       const next = englishPageFromHash();
       setPage(next);
-      const route = next === "panorama" ? "/en/#panorama" : next === "ecosystem" ? "/en/#ufg-ecosystem" : "/en/";
-      const title = next === "panorama" ? "Global Generative AI Landscape" : next === "ecosystem" ? "UFG AI Ecosystem" : "UFG-AI Observatory — English";
+      const route = next === "panorama" ? "/en/#panorama" : next === "ecosystem" ? "/en/#ufg-ecosystem" : next === "daily-news" ? "/en/#daily-news" : "/en/";
+      const title = next === "panorama" ? "Global Generative AI Landscape" : next === "ecosystem" ? "UFG AI Ecosystem" : next === "daily-news" ? "AI in the daily news" : "UFG-AI Observatory — English";
       trackPageView(route, title);
     };
     window.addEventListener("hashchange", syncPage);
@@ -462,14 +464,14 @@ export function AppEnglish() {
       <nav aria-label="Main navigation">
         <div className="catalog-nav-links"><a href="#collections">Collections</a><a href="#topics">Topics</a></div>
         <a className="ecosystem-nav-link" href="#ufg-ecosystem" onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem <ArrowUpRight size={15} /></a>
-        <a className="daily-news-nav-link" href="../#ia-como-noticia-diaria"><span><strong>AI in the news</strong><small>archive in Portuguese</small></span> <ArrowUpRight size={15} /></a>
+        <a className="daily-news-nav-link" href="#daily-news"><span><strong>AI in the news</strong><small>daily archive</small></span> <ArrowUpRight size={15} /></a>
         <a className="panorama-nav-link" href="#panorama" onClick={() => trackEvent("nav_panorama_en")}><span><strong>Overview</strong><small>generative AI</small></span> <ArrowUpRight size={15} /></a>
       </nav>
       <div className="institutional-marks" aria-label="Responsible institutions"><a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer"><img src={assetUrl("brand/lapig-remote-sensing-gis-lab.png")} alt="LAPIG" /></a><a href="https://ufg.br/" target="_blank" rel="noreferrer"><img src={assetUrl("brand/ufg-vertical-colorido.png")} alt="UFG" /></a></div>
       <div className="language-switch" aria-label="Language"><a href={languageUrl("pt")} lang="pt-BR">Português</a><span aria-current="page">English</span></div>
     </header>
 
-    {page === "panorama" ? <PanoramaPageEnglish /> : page === "ecosystem" ? <EcosystemPageEnglish initiatives={catalog?.initiatives || []} loading={!catalog && !error} warning={catalog?.warning || error} /> : <><section className="catalog-intro" aria-labelledby="page-title">
+    {page === "panorama" ? <PanoramaPageEnglish /> : page === "ecosystem" ? <EcosystemPageEnglish initiatives={catalog?.initiatives || []} loading={!catalog && !error} warning={catalog?.warning || error} /> : page === "daily-news" ? <DailyNewsPageEnglish /> : <><section className="catalog-intro" aria-labelledby="page-title">
       <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Blog articles, documents, videos, interviews, scientific papers and presentations in a thematic collection.</p></div>
       <div className="collection-chart" aria-label="Items by category"><p className="collection-chart-title">Items by category</p><ul>{categoryTypes.map((category) => <li key={category} style={{ "--bar-color": chartColors[category].bar, "--bar-track": chartColors[category].track } as CSSProperties}><span className="collection-chart-label">{typeLabels[category]}</span><span className="collection-chart-track" aria-hidden="true"><span className="collection-chart-bar" style={{ "--bar-value": `${Math.max((counts[category] / maximumCount) * 100, 4)}%` } as CSSProperties} /></span><strong>{counts[category]}</strong></li>)}</ul></div>
     </section>

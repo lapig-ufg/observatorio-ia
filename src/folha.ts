@@ -23,7 +23,7 @@ export type FolhaIndex = {
 };
 
 function publicUrl(path: string) {
-  return new URL(`${import.meta.env.BASE_URL}${path}`, window.location.href).toString();
+  return assetUrl(path);
 }
 
 export async function loadFolhaIndex(signal?: AbortSignal): Promise<FolhaIndex> {
@@ -37,3 +37,4 @@ export async function loadFolhaYear(year: number, signal?: AbortSignal): Promise
   if (!response.ok) throw new Error(`Não foi possível carregar as notícias de ${year}.`);
   return response.json() as Promise<FolhaArticle[]>;
 }
+import { assetUrl } from "./catalog";

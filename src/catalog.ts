@@ -252,7 +252,10 @@ export async function loadCatalog(signal?: AbortSignal, locale: "pt" | "en" = "p
     ? import.meta.env.VITE_GOOGLE_SHEETS_EN_GID?.trim()
     : import.meta.env.VITE_GOOGLE_SHEETS_GID?.trim();
   const initiativesGid = import.meta.env.VITE_GOOGLE_SHEETS_INITIATIVES_GID?.trim();
-  const localUrl = new URL(locale === "en" ? "../catalogo-en.csv" : `${import.meta.env.BASE_URL}catalogo.csv`, window.location.href).toString();
+  const localPath = import.meta.env.DEV
+    ? `/${locale === "en" ? "catalogo-en.csv" : "catalogo.csv"}`
+    : locale === "en" ? "../catalogo-en.csv" : "./catalogo.csv";
+  const localUrl = new URL(localPath, window.location.href).toString();
 
   if (sheetId && sheetGid) {
     try {
@@ -295,6 +298,6 @@ export function assetUrl(path: string) {
   if (!path) return "";
   if (/^https?:\/\//i.test(path)) return path;
   const cleanPath = path.replace(/^\//, "");
-  const prefix = window.location.pathname.split("/").filter(Boolean).at(-1) === "en" ? "../" : import.meta.env.BASE_URL;
+  const prefix = import.meta.env.DEV ? "/" : window.location.pathname.split("/").filter(Boolean).at(-1) === "en" ? "../" : import.meta.env.BASE_URL;
   return new URL(`${prefix}${cleanPath}`, window.location.href).toString();
 }

@@ -13,6 +13,10 @@ export type PaperResearchArea = typeof paperResearchAreas[number];
 
 const curatedResearchPapers: Record<PaperResearchArea, string[]> = {
   "Ciências da Vida e Saúde": [
+    "paper-2609-19770",
+    "paper-2609-19721",
+    "paper-2609-19180",
+    "paper-2609-12260",
     "ia-redesign-protein-evolution",
     "universal-cell-embedding-foundation-model-cell-biology",
     "paper-fnnx94",
@@ -27,6 +31,9 @@ const curatedResearchPapers: Record<PaperResearchArea, string[]> = {
     "paper-people-are-turning-to-ai-chatbots-to-plug-gaps-in-healt-86-026-01737-9",
   ],
   "Ciências Humanas, Sociais e Linguística": [
+    "paper-2609-20077",
+    "paper-2609-20005",
+    "paper-economic-scenarios-transformative-ai",
     "paper-yaoz55",
     "paper-h56pxu",
     "paper-dnsfw0",
@@ -40,14 +47,23 @@ const curatedResearchPapers: Record<PaperResearchArea, string[]> = {
     "paper-gen-z-scepticism-towards-ai-is-a-wake-up-call-universit-86-026-01814-z",
   ],
   "Engenharias e Agrárias": [
+    "paper-jccee5-cpeng-7640",
+    "paper-2609-19961",
     "paper-1d1qtz3",
   ],
   "Ciências Exatas e da Terra": [
+    "paper-2609-20358",
+    "paper-j-aca-2026-345729",
     "paper-cuo5iu",
     "paper-guiding-generative-models-to-uncover-diverse-and-novel--56-026-01262-4",
     "paper-an-agentic-artificially-intelligent-x-ray-scientist-56-026-01261-5",
   ],
   "Epistemologia e Metaciência": [
+    "paper-2609-19866",
+    "paper-2609-19644",
+    "paper-2609-20543",
+    "paper-2609-17772",
+    "paper-paper2agent-miao-2026",
     "drive-1ga-knowledge-preservation",
     "drive-1s3-fifth-era-science",
     "towards-end-to-end-automation-ai-research",
@@ -58,6 +74,9 @@ const curatedResearchPapers: Record<PaperResearchArea, string[]> = {
     "paper-scientists-have-a-bad-case-of-ai-fomo-nature-poll-revea-86-026-01690-7",
   ],
   "Fundamentos de IA": [
+    "paper-2609-20804",
+    "paper-2609-19513",
+    "paper-2609-19182",
     "paper-1jrkzci",
     "paper-1tcfgji",
     "atencao-alinhamento-humano-ia-multimodal",
