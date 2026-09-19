@@ -21,6 +21,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPageEnglish } from "./DailyNewsPageEnglish";
+import { FeaturedDebate } from "./FeaturedDebate";
 import { collectionThemes } from "./catalogNavigation";
 import { catalogDate, newestFirst } from "./catalogOrdering";
 import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordCloud";
@@ -151,6 +152,14 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 };
 
 const featuredHistoryEnglish = [
+  {
+    date: "12–19 September 2026",
+    source: "UFG-AI Observatory · Practical guide",
+    title: "Using AI beyond the browser",
+    summary: "A step-by-step guide to using AI in the terminal and exploring what agents can do.",
+    href: "#panorama",
+    eventLabel: "ai-beyond-the-browser",
+  },
   {
     date: "5–11 September 2026",
     source: "MIT · Education, learning and research",
@@ -480,9 +489,9 @@ export function AppEnglish() {
       <div className="collection-chart" aria-label="Items by category"><p className="collection-chart-title">Items by category</p><ul>{categoryTypes.map((category) => <li key={category} style={{ "--bar-color": chartColors[category].bar, "--bar-track": chartColors[category].track } as CSSProperties}><span className="collection-chart-label">{typeLabels[category]}</span><span className="collection-chart-track" aria-hidden="true"><span className="collection-chart-bar" style={{ "--bar-value": `${Math.max((counts[category] / maximumCount) * 100, 4)}%` } as CSSProperties} /></span><strong>{counts[category]}</strong></li>)}</ul></div>
     </section>
 
-    <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
-      <div className="weekly-highlight-kicker"><span>Featured</span><span>Practical guide · Generative AI overview</span></div>
-      <div className="weekly-highlight-content weekly-highlight-content--with-image"><a className="weekly-highlight-media" href="#panorama" aria-label="Explore the guide Using AI beyond the browser" onClick={() => trackEvent("open_weekly_highlight_image_en", { event_category: "navigation", event_label: "ai-beyond-the-browser" })}><img src={assetUrl("covers/ia-fora-do-navegador-agentes-terminal-2026-09-12.png")} alt="Editorial illustration of a terminal connected to AI tools and agents." /><span>Open guide <ArrowUpRight size={16} aria-hidden="true" /></span></a><div className="weekly-highlight-copy"><p className="eyebrow">AI in the terminal and agents</p><h2 id="weekly-highlight-title">Using AI beyond the browser</h2><div className="weekly-highlight-aside"><p>Learn, step by step, how to use AI directly in the terminal and explore the power of agents for research, task organization and workflow automation.</p><div className="weekly-highlight-actions"><a href="#panorama" onClick={() => trackEvent("open_weekly_highlight_en", { event_category: "navigation", event_label: "ai-beyond-the-browser" })}>Explore the guide <ArrowUpRight size={17} aria-hidden="true" /></a></div></div><button type="button" className="weekly-highlight-history-toggle" aria-expanded={showFeaturedHistory} aria-controls="weekly-highlight-history-en" onClick={() => { setShowFeaturedHistory((isOpen) => !isOpen); trackEvent("toggle_featured_history_en", { event_category: "navigation", event_label: showFeaturedHistory ? "close" : "open" }); }}><Clock3 size={16} aria-hidden="true" /><span>What has been featured before?</span><ChevronDown size={16} className={showFeaturedHistory ? "is-open" : ""} aria-hidden="true" /></button></div></div>
+    <section className="weekly-highlight weekly-highlight--debate" aria-labelledby="weekly-highlight-title">
+      <FeaturedDebate language="en" />
+      <button type="button" className="weekly-highlight-history-toggle" aria-expanded={showFeaturedHistory} aria-controls="weekly-highlight-history-en" onClick={() => { setShowFeaturedHistory((isOpen) => !isOpen); trackEvent("toggle_featured_history_en", { event_category: "navigation", event_label: showFeaturedHistory ? "close" : "open" }); }}><Clock3 size={16} aria-hidden="true" /><span>What has been featured before?</span><ChevronDown size={16} className={showFeaturedHistory ? "is-open" : ""} aria-hidden="true" /></button>
       {showFeaturedHistory && <div id="weekly-highlight-history-en" className="weekly-highlight-history" aria-label="Previously featured topics"><p className="eyebrow">Previous highlights</p><div className="weekly-highlight-history-grid">{featuredHistoryEnglish.map((featured) => <article key={featured.href} className="weekly-highlight-history-item"><p>{featured.date} · {featured.source}</p><h3>{featured.title}</h3><span>{featured.summary}</span><a href={featured.href} target={featured.href.startsWith("http") ? "_blank" : undefined} rel={featured.href.startsWith("http") ? "noreferrer" : undefined} onClick={() => trackEvent("open_featured_history_en", { event_category: featured.href.startsWith("http") ? "outbound" : "navigation", event_label: featured.eventLabel })}>Open topic <ArrowUpRight size={15} aria-hidden="true" /></a></article>)}</div></div>}
     </section>
 

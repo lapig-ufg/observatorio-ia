@@ -80,7 +80,9 @@ test("English homepage includes the interactive lesson, OBIA and the complete fe
   assert.match(english, /Brazilian Artificial Intelligence Observatory/);
   assert.match(english, /What has been featured before\?/);
   assert.match(english, /Previously featured topics/);
-  assert.equal((english.match(/eventLabel: "/g) || []).length, 9);
+  const portuguese = fs.readFileSync("src/App.tsx", "utf8");
+  assert.equal((english.match(/eventLabel: "/g) || []).length, (portuguese.match(/eventLabel: "/g) || []).length);
+  assert.match(english, /title: "Using AI beyond the browser"/);
 });
 
 test("English version includes the UFG ecosystem and linked curator emails", () => {

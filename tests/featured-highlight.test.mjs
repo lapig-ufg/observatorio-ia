@@ -2,31 +2,25 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 
-test("o destaque direciona ao guia de IA no terminal e preserva temas anteriores", () => {
-  const app = fs.readFileSync("src/App.tsx", "utf8");
+test("destaque bilíngue oferece fontes, áudios, charge e cenário econômico qualificado", () => {
+  const feature = fs.readFileSync("src/FeaturedDebate.tsx", "utf8");
+  const pt = fs.readFileSync("src/App.tsx", "utf8");
+  const en = fs.readFileSync("src/AppEnglish.tsx", "utf8");
 
-  assert.match(app, /Como usar a IA fora do navegador/);
-  assert.match(app, /Guia prático · Panorama da IA generativa/);
-  assert.match(app, /Aprenda, de forma didática e amigável, a usar IA diretamente no terminal/);
-  assert.match(app, /href="#panorama"/);
-  assert.match(app, /assetUrl\("covers\/ia-fora-do-navegador-agentes-terminal-2026-09-12\.png"\)/);
-  assert.match(app, /terminal ligado por linhas luminosas a módulos que representam ferramentas e agentes/);
-  assert.match(app, /IA na educação: mais do que regular ferramentas/);
-  assert.match(app, /MIT · Educação, aprendizagem e pesquisa/);
-  assert.match(app, /https:\/\/drive\.google\.com\/file\/d\/1aiDFYVOyyv43PWB9TKzP3xzX85iCVf4s\/view\?usp=drivesdk/);
-  assert.match(app, /A era turbulenta da IA chegou\. As escolhas que fazemos agora são cruciais\./);
-  assert.match(app, /Bill Gates · Gates Notes/);
-  assert.match(app, /https:\/\/www\.gatesnotes\.com\/a-turbulent-ai-era-and-critical-choices-to-make/);
-  assert.match(app, /IA, arte e design: repertório crítico em tempos de transformação/);
-  assert.match(app, /Entrevista exclusiva · Observatório UFG-IA/);
-  assert.match(app, /https:\/\/drive\.google\.com\/file\/d\/1mHCzff-0WYGG146KlpidVwn9_oE-cvZU\/view\?usp=drivesdk/);
-  assert.match(app, /A Geopolítica da IA e a Soberania Nacional/);
-  assert.match(app, /Laerte Ferreira · Ensaio/);
-  assert.match(app, /https:\/\/drive\.google\.com\/file\/d\/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ\/view/);
-  assert.match(app, /Entendendo e Usando IA Generativa para o Processamento e Análise de Dados de Observação da Terra/);
-  assert.match(app, /Curso híbrido · UFG\/IESA\/CIAMB/);
-  assert.match(app, /https:\/\/docs\.google\.com\/forms\/d\/e\/1FAIpQLScZuIGJyrRGRetn_nlsCNq-Hfih-ZmXBuv5fj82ebU60vs10w\/viewform/);
-  assert.match(app, /title: "IA como notícia diária"/);
-  assert.match(app, /href: "#ia-como-noticia-diaria"/);
-  assert.ok(fs.existsSync("public/covers/ia-fora-do-navegador-agentes-terminal-2026-09-12.png"));
+  assert.ok(fs.existsSync("public/covers/laerte-charge-ia-risco-2026-09.jpg"));
+  assert.match(feature, /Charge: Laerte · Folha de S\.Paulo/);
+  assert.match(feature, /32,4% acima da trajetória sem IA/);
+  assert.match(feature, /11,9%/);
+  assert.match(feature, /45,2%/);
+  assert.match(feature, /oferece cenários, não previsões/);
+  assert.match(feature, /offers scenarios, not forecasts/);
+  for (const id of ["1GOWwH68VD1zbG3q9xfS1Q0HNAmFqSBju", "1-0XguO2UMNarM9re8FX0QsGiSR-wu4No", "1zUzJP39dQBKbFNrFtJtSYtxwpay00T5U", "15FnNCNZiOPjDlhyGRyh8YPRXNIwtBI0P"]) {
+    assert.ok(feature.includes(id));
+  }
+  assert.match(pt, /<FeaturedDebate language="pt" \/>/);
+  assert.match(en, /<FeaturedDebate language="en" \/>/);
+  assert.match(pt, /Como usar a IA fora do navegador/);
+  assert.match(en, /Using AI beyond the browser/);
+  assert.match(pt, /O que já foi destaque\?/);
+  assert.match(en, /What has been featured before\?/);
 });

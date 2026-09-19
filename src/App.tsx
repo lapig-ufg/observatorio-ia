@@ -22,6 +22,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPage } from "./DailyNewsPage";
+import { FeaturedDebate } from "./FeaturedDebate";
 import { collectionThemes } from "./catalogNavigation";
 import { catalogDate, newestFirst } from "./catalogOrdering";
 import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordCloud";
@@ -119,6 +120,14 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 ];
 
 const featuredHistory = [
+  {
+    date: "12 a 19 de setembro de 2026",
+    source: "Observatório UFG-IA · Guia prático",
+    title: "Como usar a IA fora do navegador",
+    summary: "Um guia didático para começar a usar IA no terminal e explorar o potencial dos agentes.",
+    href: "#panorama",
+    eventLabel: "ia-fora-do-navegador",
+  },
   {
     date: "5 a 11 de setembro de 2026",
     source: "MIT · Educação, aprendizagem e pesquisa",
@@ -458,46 +467,22 @@ export function App() {
         </div>
       </section>
 
-      <section className="weekly-highlight" aria-labelledby="weekly-highlight-title">
-        <div className="weekly-highlight-kicker">
-          <span>Em destaque...</span>
-          <span>Guia prático · Panorama da IA generativa</span>
-        </div>
-        <div className="weekly-highlight-content weekly-highlight-content--with-image">
-          <a
-            className="weekly-highlight-media"
-            href="#panorama"
-            aria-label="Explorar o guia Como usar a IA fora do navegador"
-            onClick={() => trackEvent("open_weekly_highlight_image", { event_category: "navigation", event_label: "ia-fora-do-navegador" })}
-          >
-            <img src={assetUrl("covers/ia-fora-do-navegador-agentes-terminal-2026-09-12.png")} alt="Ilustração editorial de um terminal ligado por linhas luminosas a módulos que representam ferramentas e agentes de inteligência artificial." />
-            <span>Explorar guia <ArrowUpRight size={16} aria-hidden="true" /></span>
-          </a>
-          <div className="weekly-highlight-copy">
-            <p className="eyebrow">IA no terminal e agentes</p>
-            <h2 id="weekly-highlight-title">Como usar a IA fora do navegador</h2>
-            <div className="weekly-highlight-aside">
-              <p>Aprenda, de forma didática e amigável, a usar IA diretamente no terminal e a explorar o potencial dos agentes para pesquisar, organizar tarefas e automatizar fluxos de trabalho.</p>
-              <div className="weekly-highlight-actions">
-                <a href="#panorama" onClick={() => trackEvent("open_weekly_highlight", { event_category: "navigation", event_label: "ia-fora-do-navegador" })}>Explorar no Panorama <ArrowUpRight size={17} aria-hidden="true" /></a>
-              </div>
-            </div>
-            <button
-              type="button"
-              className="weekly-highlight-history-toggle"
-              aria-expanded={showFeaturedHistory}
-              aria-controls="weekly-highlight-history"
-              onClick={() => {
-                setShowFeaturedHistory((isOpen) => !isOpen);
-                trackEvent("toggle_featured_history", { event_category: "navigation", event_label: showFeaturedHistory ? "close" : "open" });
-              }}
-            >
-              <Clock3 size={16} aria-hidden="true" />
-              <span>O que já foi destaque?</span>
-              <ChevronDown size={16} className={showFeaturedHistory ? "is-open" : ""} aria-hidden="true" />
-            </button>
-          </div>
-        </div>
+      <section className="weekly-highlight weekly-highlight--debate" aria-labelledby="weekly-highlight-title">
+        <FeaturedDebate language="pt" />
+        <button
+          type="button"
+          className="weekly-highlight-history-toggle"
+          aria-expanded={showFeaturedHistory}
+          aria-controls="weekly-highlight-history"
+          onClick={() => {
+            setShowFeaturedHistory((isOpen) => !isOpen);
+            trackEvent("toggle_featured_history", { event_category: "navigation", event_label: showFeaturedHistory ? "close" : "open" });
+          }}
+        >
+          <Clock3 size={16} aria-hidden="true" />
+          <span>O que já foi destaque?</span>
+          <ChevronDown size={16} className={showFeaturedHistory ? "is-open" : ""} aria-hidden="true" />
+        </button>
         {showFeaturedHistory && (
           <div id="weekly-highlight-history" className="weekly-highlight-history" aria-label="Temas anteriores em destaque">
             <p className="eyebrow">Destaques anteriores</p>
@@ -507,7 +492,7 @@ export function App() {
                   <p>{featured.date} · {featured.source}</p>
                   <h3>{featured.title}</h3>
                   <span>{featured.summary}</span>
-                  <a href={featured.href} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_featured_history", { event_category: "outbound", event_label: featured.eventLabel })}>
+                  <a href={featured.href} target={featured.href.startsWith("http") ? "_blank" : undefined} rel={featured.href.startsWith("http") ? "noreferrer" : undefined} onClick={() => trackEvent("open_featured_history", { event_category: featured.href.startsWith("http") ? "outbound" : "navigation", event_label: featured.eventLabel })}>
                     Acessar tema <ArrowUpRight size={15} aria-hidden="true" />
                   </a>
                 </article>
