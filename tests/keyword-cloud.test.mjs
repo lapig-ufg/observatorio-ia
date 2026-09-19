@@ -54,3 +54,10 @@ test("Radar agrupa sinônimos, prioriza inclusões recentes e cada termo filtra 
   assert.ok(radar.every((term) => articles.some((article) => matchesCloudTerm(article, term.label))));
   assert.ok(!radar.some((term) => term.key.includes("http") || term.key === "chatgpt"));
 });
+
+test("Radar inglês corrige RAG traduzido como RACs sem perder o filtro", () => {
+  const article = { id: "translated-1", tags: ["Agents, RACs, and applications"] };
+  const [term] = buildKeywordCloud([article], new Set([article.id]));
+  assert.equal(term.label, "Agents, RAG and applications");
+  assert.equal(matchesCloudTerm(article, term.label), true);
+});

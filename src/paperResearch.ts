@@ -64,6 +64,7 @@ const curatedResearchPapers: Record<PaperResearchArea, string[]> = {
     "paper-2609-20543",
     "paper-2609-17772",
     "paper-paper2agent-miao-2026",
+    "paper-einstein-test-philip-ball-2026",
     "drive-1ga-knowledge-preservation",
     "drive-1s3-fifth-era-science",
     "towards-end-to-end-automation-ai-research",

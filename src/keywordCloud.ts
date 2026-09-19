@@ -29,6 +29,7 @@ export type KeywordCloudEntry = {
 // Equivalências editoriais deliberadas. Não há lematização automática: ela
 // criaria aproximações semânticas indevidas em um acervo multidisciplinar.
 const cloudTermAliases: Record<string, string> = {
+  "agents, racs, and applications": "agents, rag and applications",
   agente: "agentes",
   agentes: "agentes",
   "agente de ia": "agentes",
@@ -60,6 +61,7 @@ const cloudTermAliases: Record<string, string> = {
 };
 
 const cloudTermLabels: Record<string, string> = {
+  "agents, rag and applications": "Agents, RAG and applications",
   agentes: "Agentes",
   ferramentas: "Ferramentas",
   llms: "LLMs",
