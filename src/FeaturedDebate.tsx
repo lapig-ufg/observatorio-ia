@@ -11,6 +11,7 @@ const sources = {
   economy: "https://www.anthropic.com/institute/econ-scenarios",
   pacingSlides: "https://drive.google.com/file/d/1ZnJ49gJ6q0hUOWsQlz8phglzSlA3l1sN/view",
   welfareSlides: "https://drive.google.com/file/d/1VBmKbUWi5cyC8p_ukdzTQaeif-5Xsvpj/view",
+  economySlides: "https://drive.google.com/file/d/1LfXAriLULWI4V2i1NWfj6JPX9gaPGVeI/view",
   pacingAudio: "https://drive.google.com/file/d/1GOWwH68VD1zbG3q9xfS1Q0HNAmFqSBju/view",
   welfareAudio: "https://drive.google.com/file/d/1-0XguO2UMNarM9re8FX0QsGiSR-wu4No/view",
   novaesAudio: "https://drive.google.com/file/d/1zUzJP39dQBKbFNrFtJtSYtxwpay00T5U/view",
@@ -35,7 +36,7 @@ const editions = {
       { date: "12 set", source: "Dario Amodei", title: "We Must Pace the Frontier", description: "Uma proposta de desaceleração verificável, avaliação externa e coordenação para enfrentar riscos da IA de fronteira.", href: sources.amodei, slides: sources.pacingSlides, audios: [sources.pacingAudio] },
       { date: "16 set", source: "Mustafa Suleyman", title: "A warning about ‘model welfare’", description: "Uma crítica à atribuição de consciência e status moral a modelos atuais e ao efeito disso sobre segurança e controle humano.", href: sources.suleyman, slides: sources.welfareSlides, audios: [sources.welfareAudio] },
       { date: "15 set", source: "Pedro Novaes", title: "Sem apocalipse ou redenção", description: "Um convite a examinar as escolhas humanas por trás das narrativas de salvação ou danação tecnológica.", href: sources.novaes, audios: [sources.novaesAudio] },
-      { date: "set 2026", source: "Anthropic Institute", title: "What will our economic future look like?", description: "Três cenários condicionais para discutir crescimento, emprego e distribuição dos ganhos da IA nos Estados Unidos.", href: sources.economy, audios: [sources.economyAudio] },
+      { date: "set 2026", source: "Anthropic Institute", title: "What will our economic future look like?", description: "Três cenários condicionais para discutir crescimento, emprego e distribuição dos ganhos da IA nos Estados Unidos.", href: sources.economy, slides: sources.economySlides, audios: [sources.economyAudio] },
     ],
   },
   en: {
@@ -55,7 +56,7 @@ const editions = {
       { date: "12 Sep", source: "Dario Amodei", title: "We Must Pace the Frontier", description: "A proposal for verifiable pacing, external evaluation and coordination around frontier AI risks.", href: sources.amodei, slides: sources.pacingSlides, audios: [sources.pacingAudio] },
       { date: "16 Sep", source: "Mustafa Suleyman", title: "A warning about ‘model welfare’", description: "A critique of assigning consciousness or moral standing to current models, and the implications for safety and human control.", href: sources.suleyman, slides: sources.welfareSlides, audios: [sources.welfareAudio] },
       { date: "15 Sep", source: "Pedro Novaes", title: "Sem apocalipse ou redenção", description: "A Portuguese essay on the human choices obscured by narratives of technological salvation or doom.", href: sources.novaes, audios: [sources.novaesAudio] },
-      { date: "Sep 2026", source: "Anthropic Institute", title: "What will our economic future look like?", description: "Three conditional scenarios for discussing growth, jobs and the distribution of AI's gains in the US.", href: sources.economy, audios: [sources.economyAudio] },
+      { date: "Sep 2026", source: "Anthropic Institute", title: "What will our economic future look like?", description: "Three conditional scenarios for discussing growth, jobs and the distribution of AI's gains in the US.", href: sources.economy, slides: sources.economySlides, audios: [sources.economyAudio] },
     ],
   },
 } as const;

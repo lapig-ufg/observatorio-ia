@@ -19,6 +19,8 @@ test("destaque bilíngue oferece fontes, áudios, charge e cenário econômico q
   }
   assert.equal(feature.match(/source: "Mustafa Suleyman"[^\n]*audios: \[sources\.welfareAudio\]/g)?.length, 2);
   assert.equal(feature.match(/source: "Pedro Novaes"[^\n]*audios: \[sources\.novaesAudio\]/g)?.length, 2);
+  assert.match(feature, /economySlides: "https:\/\/drive\.google\.com\/file\/d\/1LfXAriLULWI4V2i1NWfj6JPX9gaPGVeI\/view"/);
+  assert.equal(feature.match(/source: "Anthropic Institute"[^\n]*href: sources\.economy, slides: sources\.economySlides, audios: \[sources\.economyAudio\]/g)?.length, 2);
   for (const fallback of ["public/catalogo.csv", "public/catalogo-en.csv"]) {
     const row = fs.readFileSync(fallback, "utf8").split("\n").find((line) => line.startsWith('"audio-ia-entre-apocalipse-redencao-2026"'));
     assert.ok(row?.includes("Pedro Novaes"), `${fallback} deve identificar o áudio de Pedro Novaes`);
