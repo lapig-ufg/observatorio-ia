@@ -45,7 +45,7 @@ const actionLabels: Record<ArticleType, string> = {
   "link-video": "Open content",
   audio: "Listen to audio",
   noticia: "Read news",
-  paper: "Open paper",
+  paper: "Open publication",
   apresentacao: "View presentation",
   entrevista: "Watch interview",
 };
