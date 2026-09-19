@@ -9,7 +9,6 @@ import {
   Library,
   Link2,
   LoaderCircle,
-  LockKeyhole,
   Mic,
   Presentation,
   RefreshCw,
@@ -287,7 +286,7 @@ function ArticleCardEnglish({ article }: { article: Article }) {
       <div className="card-footer">
         <span>{metadata || "Editorial information under review"}</span>
         <div className="article-actions">
-          {distinctInstitutionalPdf && <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title={article.type === "apresentacao" ? "View the presentation PDF" : "Access controlled by UFG"}>{article.type === "apresentacao" ? <Presentation size={16} /> : <LockKeyhole size={16} />} {article.type === "apresentacao" ? "View presentation (PDF)" : "Institutional PDF"}</a>}
+          {distinctInstitutionalPdf && <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title={article.type === "apresentacao" ? "View the presentation PDF" : "Open PDF copy in Drive"}>{article.type === "apresentacao" ? <Presentation size={16} /> : <FileText size={16} />} {article.type === "apresentacao" ? "View presentation (PDF)" : "PDF in Drive"}</a>}
           {article.originalUrl ? <a className="article-action" href={article.originalUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_article", { event_category: "article-en", event_label: article.id })}>{article.type === "apresentacao" && distinctInstitutionalPdf ? "Open original source" : actionLabels[article.type]} <ArrowUpRight size={17} /></a> : !article.institutionalPdfUrl && <span className="article-action-unavailable">Link under review</span>}
         </div>
       </div>

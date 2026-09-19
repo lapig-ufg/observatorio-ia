@@ -9,7 +9,6 @@ import {
   Link2,
   Library,
   LoaderCircle,
-  LockKeyhole,
   Mic,
   Newspaper,
   Presentation,
@@ -884,9 +883,9 @@ function ArticleCard({ article }: { article: Article }) {
           <span>{metadata || "Informações editoriais em revisão"}</span>
           <div className="article-actions">
             {distinctInstitutionalPdf && (
-              <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title={article.type === "apresentacao" ? "Ver a apresentação em PDF" : "Acesso controlado pela UFG"}
+              <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title={article.type === "apresentacao" ? "Ver a apresentação em PDF" : "Abrir cópia em PDF no Drive"}
                 onClick={() => trackEvent("open_article_pdf", { event_category: "article", event_label: article.id, article_type: article.type })}>
-                {article.type === "apresentacao" ? <Presentation size={16} /> : <LockKeyhole size={16} />} {article.type === "apresentacao" ? "Ver apresentação (PDF)" : "PDF institucional"}
+                {article.type === "apresentacao" ? <Presentation size={16} /> : <FileText size={16} />} {article.type === "apresentacao" ? "Ver apresentação (PDF)" : "PDF no Drive"}
               </a>
             )}
             {article.originalUrl ? (
