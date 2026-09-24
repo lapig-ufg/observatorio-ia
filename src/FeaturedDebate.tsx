@@ -1,4 +1,6 @@
+import { useEffect, useRef } from "react";
 import { ArrowUpRight, Headphones, Presentation } from "lucide-react";
+import { trackEvent } from "./analytics";
 import { assetUrl } from "./catalog";
 
 type Language = "pt" | "en";
@@ -63,13 +65,31 @@ const editions = {
 
 export function FeaturedDebate({ language }: { language: Language }) {
   const edition = editions[language];
+  const introRef = useRef<HTMLDivElement>(null);
+
+  // Registra uma vez por carregamento quando o destaque aparece de fato na tela
+  useEffect(() => {
+    const el = introRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      trackEvent("view_featured_highlight", { event_category: "engagement", event_label: edition.title, language });
+      observer.disconnect();
+    }, { threshold: 0.5 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [edition.title, language]);
+
+  const trackMaterial = (material: "intro" | "texto" | "slides" | "audio", label: string) =>
+    trackEvent("open_featured_material", { event_category: "outbound", event_label: label, material, featured_edition: edition.title, language });
+
   return <>
     <div className="weekly-highlight-kicker"><span>{edition.kicker}</span><span>{edition.period}</span></div>
-    <div className="featured-debate-intro">
+    <div className="featured-debate-intro" ref={introRef}>
       <div className="featured-debate-copy">
         <p className="eyebrow">{edition.eyebrow}</p>
         <h2 id="weekly-highlight-title">{edition.title}</h2>
-        <p>{edition.first.split("Jacob Coxon")[0]}<a href={sources.coxon} target="_blank" rel="noreferrer">Jacob Coxon</a>{edition.first.split("Jacob Coxon")[1]}</p>
+        <p>{edition.first.split("Jacob Coxon")[0]}<a href={sources.coxon} target="_blank" rel="noreferrer" onClick={() => trackMaterial("intro", "Jacob Coxon")}>Jacob Coxon</a>{edition.first.split("Jacob Coxon")[1]}</p>
         <p>{edition.second}</p>
       </div>
       <figure className="featured-debate-art">
@@ -85,9 +105,9 @@ export function FeaturedDebate({ language }: { language: Language }) {
           <h3>{item.title}</h3>
           <p>{item.description}</p>
           <div className="featured-debate-links">
-            <a href={item.href} target="_blank" rel="noreferrer">{edition.sourceAction} <ArrowUpRight size={15} aria-hidden="true" /></a>
-            {"slides" in item && item.slides && <a href={item.slides} target="_blank" rel="noreferrer"><Presentation size={15} aria-hidden="true" /> {edition.slidesAction}</a>}
-            {item.audios.map((audio) => <a key={audio} href={audio} target="_blank" rel="noreferrer"><Headphones size={15} aria-hidden="true" /> {edition.audioAction}</a>)}
+            <a href={item.href} target="_blank" rel="noreferrer" onClick={() => trackMaterial("texto", item.title)}>{edition.sourceAction} <ArrowUpRight size={15} aria-hidden="true" /></a>
+            {"slides" in item && item.slides && <a href={item.slides} target="_blank" rel="noreferrer" onClick={() => trackMaterial("slides", item.title)}><Presentation size={15} aria-hidden="true" /> {edition.slidesAction}</a>}
+            {item.audios.map((audio) => <a key={audio} href={audio} target="_blank" rel="noreferrer" onClick={() => trackMaterial("audio", item.title)}><Headphones size={15} aria-hidden="true" /> {edition.audioAction}</a>)}
           </div>
         </article>)}
       </div>
