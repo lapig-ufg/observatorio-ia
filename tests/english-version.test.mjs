@@ -27,12 +27,17 @@ test("English catalog preserves source identity and access fields", () => {
   const en = parseCsv(fs.readFileSync("public/catalogo-en.csv", "utf8"));
   assert.equal(en.length, pt.length);
   const enById = new Map(en.map((record) => [record.id, record]));
+  const localizedSourceUrls = new Map([
+    ["documento-openai-uma-mente-alienigena-2026", "https://openai.com/index/an-alien-mind/"],
+  ]);
   for (const record of pt) {
     const translated = enById.get(record.id);
     assert.ok(translated, `missing English record ${record.id}`);
-    for (const field of ["ativo", "tipo", "url_original", "url_pdf_institucional", "capa", "idioma", "data_inclusao"]) {
+    for (const field of ["ativo", "tipo", "url_pdf_institucional", "capa", "idioma", "data_inclusao"]) {
       assert.equal(translated[field], record[field], `${record.id}: ${field} changed`);
     }
+    if (localizedSourceUrls.has(record.id)) assert.equal(translated.url_original, localizedSourceUrls.get(record.id));
+    else assert.equal(translated.url_original, record.url_original, `${record.id}: url_original changed`);
   }
   const active = en.filter((record) => record.ativo === "TRUE");
   assert.ok(active.every((record) => record.tema && record.subtema && record.titulo && record.resumo && record.palavras_chave));
