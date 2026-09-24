@@ -270,6 +270,11 @@ select:focus-visible {
   transform: translateY(0);
 }
 
+.institutional-marks .institutional-logo-iesa {
+  width: 47px;
+  height: 58px;
+}
+
 .institutional-marks a:last-child img {
   width: 48px;
   height: 66px;

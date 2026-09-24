@@ -106,6 +106,19 @@ test("English version includes the UFG ecosystem and linked curator emails", () 
   assert.match(english, /visibleInitiatives\.map/);
 });
 
+test("Portuguese and English headers present LAPIG, IESA and UFG in institutional order", () => {
+  const portuguese = fs.readFileSync("src/App.tsx", "utf8");
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  for (const source of [portuguese, english]) {
+    const lapig = source.indexOf('brand/lapig-remote-sensing-gis-lab.png');
+    const iesa = source.indexOf('brand/iesa.png');
+    const ufg = source.indexOf('brand/ufg-vertical-colorido.png');
+    assert.ok(lapig >= 0 && iesa > lapig && ufg > iesa);
+    assert.match(source, /href="https:\/\/iesa\.ufg\.br\/"/);
+  }
+  assert.ok(fs.existsSync("public/brand/iesa.png"));
+});
+
 test("translated catalog preserves the same public scientific-paper selection", async () => {
   const source = fs.readFileSync("src/paperResearch.ts", "utf8");
   const compiled = ts.transpileModule(source, {

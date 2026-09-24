@@ -479,7 +479,7 @@ export function AppEnglish() {
         <a className="daily-news-nav-link" href="#daily-news"><span><strong>AI in the news</strong><small>daily archive</small></span> <ArrowUpRight size={15} /></a>
         <a className="panorama-nav-link" href="#panorama" onClick={() => trackEvent("nav_panorama_en")}><span><strong>Overview</strong><small>generative AI</small></span> <ArrowUpRight size={15} /></a>
       </nav>
-      <div className="institutional-marks" aria-label="Responsible institutions"><a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer"><img src={assetUrl("brand/lapig-remote-sensing-gis-lab.png")} alt="LAPIG" /></a><a href="https://ufg.br/" target="_blank" rel="noreferrer"><img src={assetUrl("brand/ufg-vertical-colorido.png")} alt="UFG" /></a></div>
+      <div className="institutional-marks" aria-label="Responsible institutions"><a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="LAPIG"><img src={assetUrl("brand/lapig-remote-sensing-gis-lab.png")} alt="LAPIG" /></a><a href="https://iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="Institute of Socio-Environmental Studies"><img className="institutional-logo-iesa" src={assetUrl("brand/iesa.png")} alt="IESA" /></a><a href="https://ufg.br/" target="_blank" rel="noreferrer" aria-label="Federal University of Goiás"><img src={assetUrl("brand/ufg-vertical-colorido.png")} alt="UFG" /></a></div>
       <div className="language-switch" aria-label="Language"><a href={languageUrl("pt")}>Portuguese</a><span aria-current="page">English</span></div>
     </header>
 
