@@ -1935,6 +1935,16 @@ h1 {
   text-underline-offset: 3px;
 }
 
+.footer .footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.footer .footer-links .github-footer-link { margin-top: 0; }
+
 .footer .github-footer-link:hover { color: #ffd3cc; }
 
 .footer .credits {
