@@ -9,6 +9,7 @@ import {
   Link2,
   Library,
   LoaderCircle,
+  Menu,
   Mic,
   Newspaper,
   Presentation,
@@ -222,12 +223,13 @@ export function App() {
   const [showAll, setShowAll] = useState(false);
   const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
   const [page, setPage] = useState(pageFromHash);
+  const previousPage = useRef(page);
 
   useEffect(() => {
     let active = true;
 
-    const refresh = async (quiet = false) => {
-      if (!quiet) setRefreshing(true);
+    const refresh = async () => {
+      setRefreshing(true);
       try {
         const result = await loadCatalog();
         if (active) {
@@ -243,21 +245,41 @@ export function App() {
     };
 
     void refresh();
-    const interval = window.setInterval(() => void refresh(true), 60_000);
     return () => {
       active = false;
-      window.clearInterval(interval);
     };
   }, []);
 
   useEffect(() => {
     const syncPage = () => {
       const nextPage = pageFromHash();
+      const pageChanged = nextPage !== previousPage.current;
       setPage(nextPage);
-      trackPageView(window.location.hash || "/", pageTitles[nextPage]);
+      previousPage.current = nextPage;
+      const title = `${pageTitles[nextPage]} | Observatório UFG-IA`;
+      document.title = title;
+      trackPageView(window.location.hash || "/", title);
+      if (pageChanged) {
+        window.requestAnimationFrame(() => {
+          const anchorId = nextPage === "catalog" ? window.location.hash.slice(1) : "";
+          const anchor = ["categorias", "palavras-chave", "catalogo"].includes(anchorId)
+            ? document.getElementById(anchorId)
+            : null;
+          if (anchor) anchor.scrollIntoView();
+          else window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+          const heading = anchor?.querySelector<HTMLElement>("h1, h2, h3")
+            || document.querySelector<HTMLElement>(".site-shell h1");
+          if (heading) {
+            heading.tabIndex = -1;
+            heading.focus({ preventScroll: true });
+          }
+        });
+      }
     };
     window.addEventListener("hashchange", syncPage);
-    trackPageView(window.location.hash || "/", pageTitles[pageFromHash()]);
+    const initialTitle = `${pageTitles[pageFromHash()]} | Observatório UFG-IA`;
+    document.title = initialTitle;
+    trackPageView(window.location.hash || "/", initialTitle);
     return () => window.removeEventListener("hashchange", syncPage);
   }, []);
 
@@ -348,6 +370,14 @@ export function App() {
   const isInitialSelection = !showAll && !query && !selectedKeyword && type === "todos" && theme === "todos";
   const displayedArticles = isInitialSelection ? latestByCategory : filtered;
 
+  const revealCatalog = () => {
+    setSelectedKeyword("");
+    setVisible(15);
+    setShowAll(true);
+    trackEvent("search_from_hero", { event_category: "search", event_label: query.trim() || "all" });
+    window.requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" }));
+  };
+
   const resetFilters = () => {
     setQuery("");
     setSelectedKeyword("");
@@ -416,15 +446,15 @@ export function App() {
           <span className="brand-mark"><Library size={21} aria-hidden="true" /></span>
           <span className="brand-name"><strong>Observatório</strong><strong>UFG-IA</strong></span>
         </a>
-        <nav aria-label="Navegação principal">
+        <nav className="primary-navigation" aria-label="Navegação principal">
           <div className="catalog-nav-links">
             <a href="#categorias">Categorias</a>
             <a href="#palavras-chave" onClick={() => trackEvent("nav_subjects")}>Assuntos</a>
           </div>
-          <a className="ecosystem-nav-link" href="#ecossistema-ufg" onClick={() => trackEvent("nav_ecosystem")}>Ecossistema UFG <ArrowUpRight size={15} aria-hidden="true" /></a>
+          <a className="ecosystem-nav-link" href="#ecossistema-ufg" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem")}>Ecossistema UFG <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a className="form-nav-link" href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { event_category: "outbound", event_label: "forms.gle" })}><span><strong>Participe!</strong><small>Como você está usando a IA?</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
-          <a className="daily-news-nav-link" href="#ia-como-noticia-diaria" onClick={() => trackEvent("nav_daily_news")}><span><strong>IA como notícia</strong><small>diária</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
-          <a className="panorama-nav-link" href="#panorama" onClick={() => trackEvent("nav_panorama")}><span><strong>Panorama</strong><small>IA generativa</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
+          <a className="daily-news-nav-link" href="#ia-como-noticia-diaria" aria-current={page === "daily-news" ? "page" : undefined} onClick={() => trackEvent("nav_daily_news")}><span><strong>IA como notícia</strong><small>diária</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
+          <a className="panorama-nav-link" href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama")}><span><strong>Panorama</strong><small>IA generativa</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
         </nav>
         <div className="institutional-marks" aria-label="Instituições responsáveis">
           <a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="LAPIG">
@@ -441,6 +471,18 @@ export function App() {
           <span aria-current="page">Português</span>
           <a href={languageUrl("en")} lang="en">English</a>
         </div>
+        <details className="mobile-navigation">
+          <summary><Menu size={20} aria-hidden="true" /><span>Menu</span></summary>
+          <div className="mobile-navigation-panel" role="navigation" aria-label="Navegação principal" onClick={(event) => { if ((event.target as HTMLElement).closest("a")) event.currentTarget.closest("details")?.removeAttribute("open"); }}>
+            <a href="#categorias">Categorias</a>
+            <a href="#palavras-chave" onClick={() => trackEvent("nav_subjects")}>Assuntos</a>
+            <a href="#ecossistema-ufg" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem")}>Ecossistema UFG</a>
+            <a href="#ia-como-noticia-diaria" aria-current={page === "daily-news" ? "page" : undefined} onClick={() => trackEvent("nav_daily_news")}>IA como notícia diária</a>
+            <a href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama")}>Panorama IA generativa</a>
+            <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { event_category: "outbound", event_label: "forms.gle" })}>Participe! <ArrowUpRight size={15} aria-hidden="true" /></a>
+            <div className="mobile-language-switch"><span aria-current="page">Português</span><a href={languageUrl("en")} lang="en">English</a></div>
+          </div>
+        </details>
       </header>
 
       {page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "panorama" ? <PanoramaPage /> : <>
@@ -449,6 +491,13 @@ export function App() {
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
           <h1 id="page-title">Conhecimento sobre IA para estudo, pesquisa e debate</h1>
           <p className="intro-copy">Artigos de Blogs, documentos, vídeos, áudios, entrevistas, papers científicos e apresentações reunidos em um acervo temático.</p>
+          <form className="hero-search" role="search" onSubmit={(event) => { event.preventDefault(); revealCatalog(); }}>
+            <Search size={22} aria-hidden="true" />
+            <label className="sr-only" htmlFor="hero-search-pt">Buscar no acervo</label>
+            <input id="hero-search-pt" value={query} onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); }} placeholder="Busque por tema, título, autor ou palavra-chave" />
+            <button type="submit">Pesquisar</button>
+          </form>
+          <p className="hero-search-hint">Pesquise diretamente nos {articles.length || "mais de 1.000"} itens selecionados e resumidos pela UFG.</p>
         </div>
         <div className="collection-chart" aria-label="Número de itens por categoria">
           <p className="collection-chart-title">Itens por categoria</p>

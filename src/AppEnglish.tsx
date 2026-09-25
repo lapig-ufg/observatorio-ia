@@ -9,6 +9,7 @@ import {
   Library,
   Link2,
   LoaderCircle,
+  Menu,
   Mic,
   Presentation,
   RefreshCw,
@@ -398,11 +399,12 @@ export function AppEnglish() {
   const [visible, setVisible] = useState(15);
   const [showAll, setShowAll] = useState(false);
   const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
+  const previousPage = useRef(page);
 
   useEffect(() => {
     let active = true;
-    const refresh = async (quiet = false) => {
-      if (!quiet) setRefreshing(true);
+    const refresh = async () => {
+      setRefreshing(true);
       try {
         const result = await loadCatalog(undefined, "en");
         if (active) { setCatalog(result); setLastUpdated(new Date()); setError(""); }
@@ -411,20 +413,42 @@ export function AppEnglish() {
       } finally { if (active) setRefreshing(false); }
     };
     void refresh();
-    const interval = window.setInterval(() => void refresh(true), 60_000);
     trackPageView("/en/", "UFG-AI Observatory — English");
-    return () => { active = false; window.clearInterval(interval); };
+    return () => { active = false; };
   }, []);
 
   useEffect(() => {
     const syncPage = () => {
       const next = englishPageFromHash();
+      const pageChanged = next !== previousPage.current;
       setPage(next);
+      previousPage.current = next;
       const route = next === "panorama" ? "/en/#panorama" : next === "ecosystem" ? "/en/#ufg-ecosystem" : next === "daily-news" ? "/en/#daily-news" : "/en/";
-      const title = next === "panorama" ? "Global Generative AI Landscape" : next === "ecosystem" ? "UFG AI Ecosystem" : next === "daily-news" ? "AI in the daily news" : "UFG-AI Observatory — English";
+      const pageTitle = next === "panorama" ? "Global Generative AI Landscape" : next === "ecosystem" ? "UFG AI Ecosystem" : next === "daily-news" ? "AI in the daily news" : "UFG-AI Observatory";
+      const title = `${pageTitle} | LAPIG/UFG`;
+      document.title = title;
       trackPageView(route, title);
+      if (pageChanged) {
+        window.requestAnimationFrame(() => {
+          const anchorId = next === "catalog" ? window.location.hash.slice(1) : "";
+          const anchor = ["collections", "topics", "catalog"].includes(anchorId)
+            ? document.getElementById(anchorId)
+            : null;
+          if (anchor) anchor.scrollIntoView();
+          else window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+          const heading = anchor?.querySelector<HTMLElement>("h1, h2, h3")
+            || document.querySelector<HTMLElement>(".site-shell h1");
+          if (heading) {
+            heading.tabIndex = -1;
+            heading.focus({ preventScroll: true });
+          }
+        });
+      }
     };
     window.addEventListener("hashchange", syncPage);
+    const initialPage = englishPageFromHash();
+    const initialPageTitle = initialPage === "panorama" ? "Global Generative AI Landscape" : initialPage === "ecosystem" ? "UFG AI Ecosystem" : initialPage === "daily-news" ? "AI in the daily news" : "UFG-AI Observatory";
+    document.title = `${initialPageTitle} | LAPIG/UFG`;
     return () => window.removeEventListener("hashchange", syncPage);
   }, []);
 
@@ -463,6 +487,14 @@ export function AppEnglish() {
   const initial = !showAll && !query && !selectedKeyword && type === "all" && theme === "all";
   const displayed = initial ? latestByCategory : filtered;
 
+  const revealCatalog = () => {
+    setSelectedKeyword("");
+    setVisible(15);
+    setShowAll(true);
+    trackEvent("search_from_hero_en", { event_category: "search", event_label: query.trim() || "all" });
+    window.requestAnimationFrame(() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" }));
+  };
+
   const selectCategory = (category: ArticleType) => {
     setType(category); setTheme("all"); setVisible(15); setShowAll(true);
     window.requestAnimationFrame(() => document.getElementById("collections")?.scrollIntoView({ behavior: "smooth" }));
@@ -473,18 +505,29 @@ export function AppEnglish() {
     <a className="skip-link" href="#catalog">Skip to catalog</a>
     <header className="topbar">
       <a className="brand" href="#top" aria-label="UFG-AI Observatory — home"><span className="brand-mark"><Library size={21} aria-hidden="true" /></span><span className="brand-name"><strong>Observatory</strong><strong>UFG-AI</strong></span></a>
-      <nav aria-label="Main navigation">
+      <nav className="primary-navigation" aria-label="Main navigation">
         <div className="catalog-nav-links"><a href="#collections">Collections</a><a href="#topics">Topics</a></div>
-        <a className="ecosystem-nav-link" href="#ufg-ecosystem" onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem <ArrowUpRight size={15} /></a>
-        <a className="daily-news-nav-link" href="#daily-news"><span><strong>AI in the news</strong><small>daily archive</small></span> <ArrowUpRight size={15} /></a>
-        <a className="panorama-nav-link" href="#panorama" onClick={() => trackEvent("nav_panorama_en")}><span><strong>Overview</strong><small>generative AI</small></span> <ArrowUpRight size={15} /></a>
+        <a className="ecosystem-nav-link" href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem <ArrowUpRight size={15} /></a>
+        <a className="daily-news-nav-link" href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}><span><strong>AI in the news</strong><small>daily archive</small></span> <ArrowUpRight size={15} /></a>
+        <a className="panorama-nav-link" href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama_en")}><span><strong>Overview</strong><small>generative AI</small></span> <ArrowUpRight size={15} /></a>
       </nav>
       <div className="institutional-marks" aria-label="Responsible institutions"><a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="LAPIG"><img src={assetUrl("brand/lapig-remote-sensing-gis-lab.png")} alt="LAPIG" /></a><a href="https://iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="Institute of Socio-Environmental Studies"><img className="institutional-logo-iesa" src={assetUrl("brand/iesa.png")} alt="IESA" /></a><a href="https://ufg.br/" target="_blank" rel="noreferrer" aria-label="Federal University of Goiás"><img src={assetUrl("brand/ufg-vertical-colorido.png")} alt="UFG" /></a></div>
       <div className="language-switch" aria-label="Language"><a href={languageUrl("pt")}>Portuguese</a><span aria-current="page">English</span></div>
+      <details className="mobile-navigation">
+        <summary><Menu size={20} aria-hidden="true" /><span>Menu</span></summary>
+        <div className="mobile-navigation-panel" role="navigation" aria-label="Main navigation" onClick={(event) => { if ((event.target as HTMLElement).closest("a")) event.currentTarget.closest("details")?.removeAttribute("open"); }}>
+          <a href="#collections">Collections</a>
+          <a href="#topics">Topics</a>
+          <a href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem</a>
+          <a href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}>AI in the news</a>
+          <a href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama_en")}>Generative AI overview</a>
+          <div className="mobile-language-switch"><a href={languageUrl("pt")}>Portuguese</a><span aria-current="page">English</span></div>
+        </div>
+      </details>
     </header>
 
     {page === "panorama" ? <PanoramaPageEnglish /> : page === "ecosystem" ? <EcosystemPageEnglish initiatives={catalog?.initiatives || []} loading={!catalog && !error} warning={catalog?.warning || error} /> : page === "daily-news" ? <DailyNewsPageEnglish /> : <><section className="catalog-intro" aria-labelledby="page-title">
-      <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Blog articles, documents, videos, audio, interviews, scientific papers and presentations in a thematic collection.</p></div>
+      <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Blog articles, documents, videos, audio, interviews, scientific papers and presentations in a thematic collection.</p><form className="hero-search" role="search" onSubmit={(event) => { event.preventDefault(); revealCatalog(); }}><Search size={22} aria-hidden="true" /><label className="sr-only" htmlFor="hero-search-en">Search the collection</label><input id="hero-search-en" value={query} onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); }} placeholder="Search by topic, title, author or keyword" /><button type="submit">Search</button></form><p className="hero-search-hint">Search {articles.length || "more than 1,000"} items selected and summarized by UFG.</p></div>
       <div className="collection-chart" aria-label="Items by category"><p className="collection-chart-title">Items by category</p><ul>{categoryTypes.map((category) => <li key={category} style={{ "--bar-color": chartColors[category].bar, "--bar-track": chartColors[category].track } as CSSProperties}><span className="collection-chart-label">{typeLabels[category]}</span><span className="collection-chart-track" aria-hidden="true"><span className="collection-chart-bar" style={{ "--bar-value": `${Math.max((counts[category] / maximumCount) * 100, 4)}%` } as CSSProperties} /></span><strong>{counts[category]}</strong></li>)}</ul></div>
     </section>
 
