@@ -39,3 +39,20 @@ test("the header has a compact navigation mode without horizontal scrolling", ()
   assert.match(styles, /@media \(max-width: 960px\)[\s\S]*\.topbar > \.primary-navigation\s*\{\s*display: none;/);
   assert.match(styles, /\.mobile-navigation-panel[\s\S]*width: min\(340px, calc\(100vw - 32px\)\)/);
 });
+
+test("both languages present the collection as a portal before editorial modules", () => {
+  for (const source of [portuguese, english]) {
+    assert.match(source, /className="home-page"/);
+    assert.match(source, /className="category-band"/);
+    assert.match(source, /className="search-panel"/);
+    assert.match(source, /className="weekly-highlight weekly-highlight--debate"/);
+    assert.match(source, /className="interactive-experience"/);
+    assert.match(source, /className="obia-callout"/);
+    assert.match(source, /className="keyword-cloud-section"/);
+  }
+
+  assert.match(styles, /\.home-page > \.catalog-intro \{ order: 1; \}/);
+  assert.match(styles, /\.home-page > \.category-band \{ order: 2; \}/);
+  assert.match(styles, /\.home-page > \.weekly-highlight \{ order: 3; \}/);
+  assert.match(styles, /\.home-page > \.search-panel \{ order: 4; \}/);
+});

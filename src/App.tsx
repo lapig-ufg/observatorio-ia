@@ -485,7 +485,7 @@ export function App() {
         </details>
       </header>
 
-      {page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "panorama" ? <PanoramaPage /> : <>
+      {page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "panorama" ? <PanoramaPage /> : <div className="home-page">
       <section className="catalog-intro" aria-labelledby="page-title">
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
@@ -771,7 +771,7 @@ export function App() {
           )}
         </>
       )}
-      </>}
+      </div>}
 
       <footer className="footer">
         <div><strong>Observatório UFG-IA</strong><p>Acervo educacional em desenvolvimento contínuo.</p><div className="footer-links"><a className="github-footer-link" href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_github", { event_category: "outbound", event_label: "github" })}>GitHub do LAPIG/UFG <ArrowUpRight size={14} aria-hidden="true" /></a><a className="github-footer-link" href="https://victorgit10.github.io/audiencia-observatorio/" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_audiencia", { event_category: "outbound", event_label: "audiencia" })}>Quem visita o Observatório? <ArrowUpRight size={14} aria-hidden="true" /></a></div></div>
