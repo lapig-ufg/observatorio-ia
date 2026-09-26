@@ -23,7 +23,7 @@ import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPageEnglish } from "./DailyNewsPageEnglish";
 import { FeaturedDebate } from "./FeaturedDebate";
 import { collectionThemes } from "./catalogNavigation";
-import { catalogDate, newestFirst } from "./catalogOrdering";
+import { catalogDate, newestFirst, recentInclusionIdsWithTies } from "./catalogOrdering";
 import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordCloud";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas, type PaperResearchArea } from "./paperResearch";
 import { languageUrl } from "./locale";
@@ -462,12 +462,12 @@ export function AppEnglish() {
   const selectedCollection = type === "medium" || type === "link-video" || type === "apresentacao" ? type : null;
   const collectionCategories = useMemo(() => selectedCollection ? collectionThemes(articles, selectedCollection) : [], [articles, selectedCollection]);
 
+  const keywordCloudRecentIds = useMemo(() => recentInclusionIdsWithTies(articles, 60), [articles]);
   const keywordCloud = useMemo(() => {
-    const recentIds = new Set(articles.slice().sort(newestFirst).slice(0, 60).map((article) => article.id));
-    const sorted = buildKeywordCloud(articles, recentIds, 18, 0.06);
+    const sorted = buildKeywordCloud(articles, keywordCloudRecentIds, 18, 0.06);
     const maximum = Math.max(...sorted.map((keyword) => keyword.score), 1);
     return sorted.map((keyword) => ({ ...keyword, size: 0.92 + Math.sqrt(keyword.score / maximum) * 2 }));
-  }, [articles]);
+  }, [articles, keywordCloudRecentIds]);
 
   const filtered = useMemo(() => {
     const needle = normalize(query.trim());
@@ -570,7 +570,7 @@ export function AppEnglish() {
       {type === "paper" && <div className="blog-subcategories"><div className="blog-subcategories-heading"><div><p className="eyebrow">AI in scientific research</p><h3>Explore by field of knowledge</h3></div><p>A curated selection on generative AI, foundation models, agents and their effects on research.</p></div><div className="blog-subcategory-grid">{paperResearchAreas.map((area) => <button type="button" key={area} className={theme === area ? "blog-subcategory-button active" : "blog-subcategory-button"} onClick={() => { setTheme(area); setVisible(15); setShowAll(true); }}><span>{paperAreaLabels[area]}</span><strong>{articles.filter((article) => article.type === "paper" && paperResearchArea(article) === area).length}</strong><ArrowUpRight size={16} /></button>)}</div></div>}
     </section>
 
-    {keywordCloud.length > 0 && <section id="topics" className="keyword-cloud-section" aria-labelledby="keyword-cloud-title"><div className="keyword-cloud-heading"><div><p className="eyebrow">Topics in motion</p><h2 id="keyword-cloud-title">Collection topic radar</h2></div><p>Editorial keywords grouped by concept. Ranking emphasizes the 60 most recent additions while preserving recurrence across the full collection.</p></div><div className="keyword-cloud-legend"><span><strong>{Math.min(60, articles.length)}</strong> recent additions shape the weight</span><span><strong>{articles.length}</strong> active items form the historical base</span></div><div className="keyword-cloud" aria-label="Collection topic radar">{keywordCloud.map((keyword, index) => <button type="button" key={keyword.key} className={`keyword-cloud-item cloud-color-${index % 5}${selectedKeyword && cloudTermKey(selectedKeyword) === keyword.key ? " active" : ""}`} style={{ "--cloud-size": `${keyword.size}rem` } as CSSProperties} onClick={() => { setQuery(keyword.label); setSelectedKeyword(keyword.label); setType("all"); setTheme("all"); setVisible(15); setShowAll(true); }}><span>{keyword.label}</span><small className="sr-only">{keyword.recentCount} recent additions and {keyword.count} items in the collection</small></button>)}</div></section>}
+    {keywordCloud.length > 0 && <section id="topics" className="keyword-cloud-section" aria-labelledby="keyword-cloud-title"><div className="keyword-cloud-heading"><div><p className="eyebrow">Topics in motion</p><h2 id="keyword-cloud-title">Collection topic radar</h2></div><p>Editorial keywords grouped by concept. Ranking emphasizes the {keywordCloudRecentIds.size} most recent additions without splitting date ties, while preserving recurrence across the full collection.</p></div><div className="keyword-cloud-legend"><span><strong>{keywordCloudRecentIds.size}</strong> recent additions shape the weight</span><span><strong>{articles.length}</strong> active items form the historical base</span></div><div className="keyword-cloud" aria-label="Collection topic radar">{keywordCloud.map((keyword, index) => <button type="button" key={keyword.key} className={`keyword-cloud-item cloud-color-${index % 5}${selectedKeyword && cloudTermKey(selectedKeyword) === keyword.key ? " active" : ""}`} style={{ "--cloud-size": `${keyword.size}rem` } as CSSProperties} onClick={() => { setQuery(keyword.label); setSelectedKeyword(keyword.label); setType("all"); setTheme("all"); setVisible(15); setShowAll(true); }}><span>{keyword.label}</span><small className="sr-only">{keyword.recentCount} recent additions and {keyword.count} items in the collection</small></button>)}</div></section>}
 
     <section id="catalog" className="search-panel" aria-label="Search the collection">
       <label className="search-field"><Search size={23} /><span className="sr-only">Search the collection</span><input value={query} onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setVisible(15); setShowAll(true); }} placeholder="Search by title, author, summary, topic or keyword" />{query && <button type="button" className="icon-button" onClick={() => { setQuery(""); setSelectedKeyword(""); }} aria-label="Clear search"><X size={18} /></button>}</label>

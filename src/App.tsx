@@ -24,7 +24,7 @@ import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPage } from "./DailyNewsPage";
 import { FeaturedDebate } from "./FeaturedDebate";
 import { collectionThemes } from "./catalogNavigation";
-import { catalogDate, newestFirst } from "./catalogOrdering";
+import { catalogDate, newestFirst, recentInclusionIdsWithTies } from "./catalogOrdering";
 import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordCloud";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./paperResearch";
 import { languageUrl } from "./locale";
@@ -326,20 +326,20 @@ export function App() {
     count: articles.filter((article) => article.type === "paper" && paperResearchArea(article) === area).length,
   })), [articles]);
 
+  const keywordCloudRecentIds = useMemo(
+    () => recentInclusionIdsWithTies(articles, cloudRecentArticleLimit),
+    [articles],
+  );
+
   const keywordCloud = useMemo(() => {
-    const recentIds = new Set(articles
-      .slice()
-      .sort(newestFirst)
-      .slice(0, cloudRecentArticleLimit)
-      .map((article) => article.id));
-    const sorted = buildKeywordCloud(articles, recentIds, maxCloudWords, cloudHistoricalWeight);
+    const sorted = buildKeywordCloud(articles, keywordCloudRecentIds, maxCloudWords, cloudHistoricalWeight);
     const maximum = Math.max(...sorted.map((keyword) => keyword.score), 1);
 
     return sorted.map((keyword) => ({
       ...keyword,
       size: 0.92 + Math.sqrt(keyword.score / maximum) * 2,
     }));
-  }, [articles]);
+  }, [articles, keywordCloudRecentIds]);
 
   const filtered = useMemo(() => {
     const needle = normalize(query.trim());
@@ -651,10 +651,10 @@ export function App() {
               <p className="eyebrow">Temas em movimento</p>
               <h2 id="keyword-cloud-title">Radar de assuntos do acervo</h2>
             </div>
-            <p>Palavras-chave editoriais, agrupadas por conceito. A ordem prioriza as {Math.min(cloudRecentArticleLimit, articles.length)} inclusões mais recentes e preserva a recorrência no acervo.</p>
+            <p>Palavras-chave editoriais, agrupadas por conceito. A ordem prioriza as {keywordCloudRecentIds.size} inclusões mais recentes, sem cortar empates de data, e preserva a recorrência no acervo.</p>
           </div>
           <div className="keyword-cloud-legend" aria-label="Como ler o radar">
-            <span><strong>{Math.min(cloudRecentArticleLimit, articles.length)}</strong> inclusões recentes orientam o peso</span>
+            <span><strong>{keywordCloudRecentIds.size}</strong> inclusões recentes orientam o peso</span>
             <span><strong>{articles.length}</strong> itens ativos formam a base histórica</span>
           </div>
           <div className="keyword-cloud" aria-label="Radar de assuntos do acervo">

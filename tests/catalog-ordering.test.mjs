@@ -39,7 +39,7 @@ const source = fs.readFileSync("src/catalogOrdering.ts", "utf8");
 const compiled = ts.transpileModule(source, {
   compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
 }).outputText;
-const { articleRecency, catalogDate, newestFirst } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`);
+const { articleRecency, catalogDate, newestFirst, recentInclusionIdsWithTies } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`);
 
 function catalogArticles() {
   const rows = parseCsv(fs.readFileSync("public/catalogo.csv", "utf8"));
@@ -82,4 +82,19 @@ test("a interface aplica a mesma ordem à seleção inicial e a todos os filtros
   const app = fs.readFileSync("src/App.tsx", "utf8");
   assert.match(app, /return matchesType && matchesTheme && matchesKeyword && \(!needle \|\| haystack\.includes\(needle\)\);\s*}\)\.sort\(newestFirst\);/);
   assert.match(app, /latestByCategory[\s\S]*\.sort\(newestFirst\)/);
+});
+
+test("o Radar inclui todo o lote empatado na data-limite", () => {
+  const articles = Array.from({ length: 137 }, (_, index) => ({
+    id: `novo-${index}`,
+    includedAt: "2026-09-26",
+  })).concat(Array.from({ length: 20 }, (_, index) => ({
+    id: `antigo-${index}`,
+    includedAt: "2026-09-19",
+  })));
+
+  const recentIds = recentInclusionIdsWithTies(articles, 60);
+  assert.equal(recentIds.size, 137);
+  assert.ok(articles.slice(0, 137).every((article) => recentIds.has(article.id)));
+  assert.ok(articles.slice(137).every((article) => !recentIds.has(article.id)));
 });

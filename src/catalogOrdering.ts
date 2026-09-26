@@ -44,3 +44,18 @@ export function newestFirst(left: Article, right: Article) {
     || catalogDate(right.includedAt) - catalogDate(left.includedAt)
     || right.title.localeCompare(left.title, "pt-BR");
 }
+
+export function recentInclusionIdsWithTies(
+  articles: Array<Pick<Article, "id" | "includedAt">>,
+  minimum = 60,
+) {
+  const sorted = articles.slice().sort((left, right) =>
+    catalogDate(right.includedAt) - catalogDate(left.includedAt)
+    || right.id.localeCompare(left.id, "pt-BR"));
+  if (sorted.length <= minimum) return new Set(sorted.map((article) => article.id));
+
+  const cutoff = catalogDate(sorted[minimum - 1].includedAt);
+  return new Set(sorted
+    .filter((article) => catalogDate(article.includedAt) >= cutoff)
+    .map((article) => article.id));
+}
