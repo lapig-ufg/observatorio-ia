@@ -121,6 +121,14 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    date: "19 a 26 de setembro de 2026",
+    source: "Curadoria do Observatório UFG-IA",
+    title: "IA entre o alarme e a evidência",
+    summary: "Quatro leituras sobre segurança, consciência, escolhas sociais e cenários econômicos, separando alertas plausíveis de previsões e extrapolações.",
+    href: "https://darioamodei.com/post/we-must-pace-the-frontier",
+    eventLabel: "ia-entre-alarme-e-evidencia",
+  },
+  {
     date: "12 a 19 de setembro de 2026",
     source: "Observatório UFG-IA · Guia prático",
     title: "Como usar a IA fora do navegador",

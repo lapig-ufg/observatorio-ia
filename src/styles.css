@@ -1112,7 +1112,10 @@ h1 {
 .weekly-highlight-history-item a:hover { text-decoration: underline; }
 
 .weekly-highlight--debate {
-  background: #f3f5f1;
+  background:
+    radial-gradient(circle at 96% 2%, rgba(91, 117, 230, 0.13), transparent 28rem),
+    radial-gradient(circle at 4% 96%, rgba(34, 168, 146, 0.12), transparent 30rem),
+    #f3f5f1;
 }
 
 .featured-debate-intro {
@@ -1148,9 +1151,10 @@ h1 {
   display: block;
   width: 100%;
   height: auto;
-  border: 1px solid #b8cbd1;
+  border: 1px solid #96b7c7;
   border-radius: 10px;
   background: #cbe4ff;
+  box-shadow: 0 22px 50px rgba(13, 40, 72, 0.16);
 }
 
 .featured-debate-art figcaption {
@@ -1183,7 +1187,13 @@ h1 {
   border: 1px solid #c8d9cf;
   border-radius: 10px;
   background: #fff;
+  box-shadow: 0 12px 28px rgba(28, 61, 74, 0.06);
 }
+
+.featured-debate-card:nth-child(1) { border-top: 4px solid #1e9f8b; }
+.featured-debate-card:nth-child(2) { border-top: 4px solid #4c79d8; }
+.featured-debate-card:nth-child(3) { border-top: 4px solid #8a63c9; }
+.featured-debate-card:nth-child(4) { border-top: 4px solid #d47b42; }
 
 .featured-debate-meta {
   margin: 0 0 9px;

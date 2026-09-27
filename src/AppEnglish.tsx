@@ -153,6 +153,14 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 
 const featuredHistoryEnglish = [
   {
+    date: "19–26 September 2026",
+    source: "UFG-AI Observatory · Curated dossier",
+    title: "AI between alarm and evidence",
+    summary: "Four readings on safety, consciousness, social choices and economic scenarios, distinguishing plausible warnings from forecasts and extrapolations.",
+    href: "https://darioamodei.com/post/we-must-pace-the-frontier",
+    eventLabel: "ai-between-alarm-and-evidence",
+  },
+  {
     date: "12–19 September 2026",
     source: "UFG-AI Observatory · Practical guide",
     title: "Using AI beyond the browser",
