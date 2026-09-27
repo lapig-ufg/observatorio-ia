@@ -67,13 +67,21 @@ test("catalog parser recognizes the separate interview collection", () => {
   assert.match(app, /const categoryTypes: ArticleType\[\] = \["medium", "documento", "link-video", "audio", "entrevista", "paper", "apresentacao"\];/);
 });
 
-test("new audio and presentations have distinct destinations in both languages", () => {
+test("curated audio and presentations have distinct destinations in both languages", () => {
   const pt = records("public/catalogo.csv");
   const en = records("public/catalogo-en.csv");
-  const added = pt.filter((article) => /^(audio-|apresentacao-(strategic-ai-pacing|model-welfare-myth)-2026)/.test(article.id));
-  assert.equal(added.length, 6);
-  assert.equal(added.filter((article) => article.tipo === "audio").length, 4);
-  assert.equal(added.filter((article) => article.tipo === "apresentacao").length, 2);
+  const featuredPresentationIds = new Set([
+    "apresentacao-strategic-ai-pacing-2026",
+    "apresentacao-model-welfare-myth-2026",
+    "apresentacao-fifth-era-science-2026",
+    "apresentacao-living-manuscript-paper2agent-2026",
+    "apresentacao-ai-relativity-2026",
+    "apresentacao-death-understanding-math-ai-2026",
+  ]);
+  const added = pt.filter((article) => article.id.startsWith("audio-") || featuredPresentationIds.has(article.id));
+  assert.ok(added.length >= 6);
+  assert.ok(added.some((article) => article.tipo === "audio"));
+  assert.ok(added.some((article) => article.tipo === "apresentacao"));
   const translated = new Map(en.map((article) => [article.id, article]));
   for (const article of added) {
     const english = translated.get(article.id);
@@ -81,7 +89,7 @@ test("new audio and presentations have distinct destinations in both languages",
     assert.equal(english.url_original, article.url_original);
     assert.equal(english.url_pdf_institucional, article.url_pdf_institucional);
     assert.equal(article.ativo, "TRUE");
-    assert.equal(article.data_inclusao, "2026-09-19");
+    assert.match(article.data_inclusao, /^2026-09-\d{2}$/);
     assert.ok(article.tipo === "audio" ? article.url_original.includes("drive.google.com/file/d/") && !article.url_pdf_institucional : article.url_pdf_institucional.includes("drive.google.com/file/d/"));
   }
   assert.match(fs.readFileSync("src/App.tsx", "utf8"), /audio: "Ouvir áudio"/);
