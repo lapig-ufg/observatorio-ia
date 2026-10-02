@@ -465,8 +465,14 @@ export function App() {
           <a className="panorama-nav-link" href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama")}><span><strong>Panorama</strong><small>IA generativa</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
         </nav>
         <div className="institutional-marks" aria-label="Instituições responsáveis">
-          <a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="LAPIG, IESA e UFG">
-            <img src={assetUrl("brand/lapig-iesa-ufg.png")} alt="LAPIG • IESA • UFG" />
+          <a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="LAPIG">
+            <img src={assetUrl("brand/lapig-iesa-ufg-lapig.png")} alt="LAPIG" />
+          </a>
+          <a href="https://iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="Instituto de Estudos Socioambientais">
+            <img className="institutional-logo-iesa" src={assetUrl("brand/lapig-iesa-ufg-iesa.png")} alt="IESA" />
+          </a>
+          <a href="https://ufg.br/" target="_blank" rel="noreferrer" aria-label="Universidade Federal de Goiás">
+            <img src={assetUrl("brand/lapig-iesa-ufg-ufg.png")} alt="UFG" />
           </a>
         </div>
         <div className="language-switch" aria-label="Idioma">

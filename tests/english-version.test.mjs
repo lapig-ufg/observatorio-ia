@@ -111,14 +111,21 @@ test("English version includes the UFG ecosystem and linked curator emails", () 
   assert.match(english, /visibleInitiatives\.map/);
 });
 
-test("Portuguese and English headers present the institutional lockup", () => {
+test("Portuguese and English headers present LAPIG, IESA and UFG in institutional order", () => {
   const portuguese = fs.readFileSync("src/App.tsx", "utf8");
   const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
   for (const source of [portuguese, english]) {
-    assert.ok(source.includes('brand/lapig-iesa-ufg.png'), "missing institutional lockup");
+    const lapig = source.indexOf('brand/lapig-iesa-ufg-lapig.png');
+    const iesa = source.indexOf('brand/lapig-iesa-ufg-iesa.png');
+    const ufg = source.indexOf('brand/lapig-iesa-ufg-ufg.png');
+    assert.ok(lapig >= 0 && iesa > lapig && ufg > iesa);
     assert.match(source, /href="https:\/\/lapig\.iesa\.ufg\.br\/"/);
+    assert.match(source, /href="https:\/\/iesa\.ufg\.br\/"/);
+    assert.match(source, /href="https:\/\/ufg\.br\/"/);
   }
-  assert.ok(fs.existsSync("public/brand/lapig-iesa-ufg.png"));
+  assert.ok(fs.existsSync("public/brand/lapig-iesa-ufg-lapig.png"));
+  assert.ok(fs.existsSync("public/brand/lapig-iesa-ufg-iesa.png"));
+  assert.ok(fs.existsSync("public/brand/lapig-iesa-ufg-ufg.png"));
 });
 
 test("translated catalog preserves the same public scientific-paper selection", async () => {
