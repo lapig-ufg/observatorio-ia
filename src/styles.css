@@ -264,24 +264,9 @@ select:focus-visible {
 
 .institutional-marks img {
   display: block;
-  object-fit: contain;
-}
-
-.institutional-marks a:first-child img {
-  width: 150px;
-  height: 150px;
-  max-width: none;
-  transform: translateY(0);
-}
-
-.institutional-marks .institutional-logo-iesa {
-  width: 47px;
-  height: 58px;
-}
-
-.institutional-marks a:last-child img {
-  width: 48px;
+  width: 305px;
   height: 66px;
+  object-fit: contain;
 }
 
 .language-switch {
@@ -2732,18 +2717,8 @@ h1 {
     height: 50px;
   }
 
-  .institutional-marks a:first-child img {
-    width: 124px;
-    height: 124px;
-  }
-
-  .institutional-marks .institutional-logo-iesa {
-    width: 38px;
-    height: 47px;
-  }
-
-  .institutional-marks a:last-child img {
-    width: 38px;
+  .institutional-marks img {
+    width: 231px;
     height: 50px;
   }
 
@@ -3302,18 +3277,8 @@ body {
   height: 50px;
 }
 
-.institutional-marks a:first-child img {
-  width: 118px;
-  height: 118px;
-}
-
-.institutional-marks .institutional-logo-iesa {
-  width: 38px;
-  height: 46px;
-}
-
-.institutional-marks a:last-child img {
-  width: 37px;
+.institutional-marks img {
+  width: 231px;
   height: 50px;
 }
 
@@ -3961,18 +3926,8 @@ body {
     height: 42px;
   }
 
-  .institutional-marks a:first-child img {
-    width: 103px;
-    height: 103px;
-  }
-
-  .institutional-marks .institutional-logo-iesa {
-    width: 31px;
-    height: 38px;
-  }
-
-  .institutional-marks a:last-child img {
-    width: 30px;
+  .institutional-marks img {
+    width: 194px;
     height: 42px;
   }
 
