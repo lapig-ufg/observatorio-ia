@@ -10,6 +10,8 @@ test("destaque bilíngue articula intuição, J-Space e o podcast", () => {
   assert.ok(fs.existsSync("public/covers/intuicao-jspace-2026-10-04.png"));
   assert.match(feature, /Da intuição ao J-Space: padrões, linguagem e reflexão/);
   assert.match(feature, /From intuition to J-Space: patterns, language and reflection/);
+  assert.match(feature, /processos possivelmente análogos à intuição em humanos e LLMs/);
+  assert.match(feature, /functionally analogous to intuition in humans and LLMs/);
   assert.match(feature, /não prova consciência, experiência subjetiva ou equivalência com o inconsciente humano/);
   assert.match(feature, /does not establish consciousness, subjective experience or equivalence with the human unconscious/);
   assert.match(feature, /semiengineering\.com\/intuition-and-ai/);
