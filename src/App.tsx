@@ -667,11 +667,11 @@ export function App() {
               <p className="eyebrow">Temas em movimento</p>
               <h2 id="keyword-cloud-title">Radar de assuntos do acervo</h2>
             </div>
-            <p>Palavras-chave editoriais, agrupadas por conceito. A ordem prioriza as {keywordCloudRecentIds.size} inclusões mais recentes, sem cortar empates de data, e preserva a recorrência no acervo.</p>
+            <p>Palavras-chave editoriais, agrupadas por conceito. A ordem prioriza as {keywordCloudRecentIds.size} inclusões mais recentes, sem cortar empates de data, e preserva a recorrência na totalidade do catálogo publicado.</p>
           </div>
           <div className="keyword-cloud-legend" aria-label="Como ler o radar">
             <span><strong>{keywordCloudRecentIds.size}</strong> inclusões recentes orientam o peso</span>
-            <span><strong>{articles.length}</strong> itens ativos formam a base histórica</span>
+            <span>a totalidade dos <strong>{articles.length}</strong> itens ativos publicados forma a base histórica</span>
           </div>
           <div className="keyword-cloud" aria-label="Radar de assuntos do acervo">
             {keywordCloud.map((keyword, index) => {
