@@ -121,6 +121,14 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    date: "27 de setembro a 3 de outubro de 2026",
+    source: "Curadoria do Observatório UFG-IA",
+    title: "IA na ciência: da ferramenta ao agente",
+    summary: "Uma síntese crítica sobre a passagem da IA de ferramenta analítica a agente científico, articulando descoberta, manuscritos executáveis, criatividade, autoria e responsabilidade.",
+    href: "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003230",
+    eventLabel: "ia-na-ciencia-da-ferramenta-ao-agente",
+  },
+  {
     date: "19 a 26 de setembro de 2026",
     source: "Curadoria do Observatório UFG-IA",
     title: "IA entre o alarme e a evidência",

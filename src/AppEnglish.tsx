@@ -153,6 +153,14 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 
 const featuredHistoryEnglish = [
   {
+    date: "27 September–3 October 2026",
+    source: "UFG-AI Observatory · Curated dossier",
+    title: "AI in science: from tool to agent",
+    summary: "A critical synthesis of the shift from analytical tool to scientific agent, connecting discovery, executable manuscripts, creativity, authorship and responsibility.",
+    href: "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003230",
+    eventLabel: "ai-in-science-from-tool-to-agent",
+  },
+  {
     date: "19–26 September 2026",
     source: "UFG-AI Observatory · Curated dossier",
     title: "AI between alarm and evidence",

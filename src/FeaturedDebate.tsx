@@ -1,138 +1,88 @@
 import { useEffect, useRef } from "react";
-import { ArrowUpRight, FileText, Headphones, Presentation } from "lucide-react";
+import { ArrowUpRight, Headphones } from "lucide-react";
 import { trackEvent } from "./analytics";
 import { assetUrl } from "./catalog";
 
 type Language = "pt" | "en";
-type MaterialKind = "article" | "document" | "slides" | "audio";
+type MaterialKind = "article" | "audio";
 
 const sources = {
-  fifthEra: "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003230",
-  knowledgePreservation: "https://www.nature.com/articles/s41467-026-72667-3",
-  paper2Agent: "https://www.nature.com/articles/s41586-026-11044-y",
-  relativity: "https://www.nature.com/articles/d41586-026-02804-x",
-  mathControversy: "https://www.science.org/content/article/how-ai-math-breakthrough-ignited-controversy",
-  severeMisalignment: "https://zenodo.org/records/22737751",
-  leidenDeclaration: "https://zenodo.org/records/20302944",
-  fifthEraSlides: "https://drive.google.com/file/d/1o6A1vPeyzAfgkWTYZgKgtgPicxxz8grd/view",
-  livingManuscriptSlides: "https://drive.google.com/file/d/1d8w6RpIEEwIQPbqXussWOgxf6_PB4Hms/view",
-  relativitySlides: "https://drive.google.com/file/d/1H2X2XISoaQGK7gHUC_Jl-6AgPdIPJE1-/view",
-  understandingSlides: "https://drive.google.com/file/d/1yXOgbJ7sN1lR6wDvX9FbfD6nM3T7EHMT/view",
-  fifthEraAudio: "https://drive.google.com/file/d/1KHG_DpLv7Fe7c-Ay-awfuzI5aT0pd3jQ/view",
-  paper2AgentAudio: "https://drive.google.com/file/d/1xFZwjvXq0A8bojd8MY8TxIqYcxJ2CGA3/view",
-  relativityAudio: "https://drive.google.com/file/d/12-wpVpC1-XYSkTvI1NBtTs8HcG1lkmr3/view",
-  mathematicsAudio: "https://drive.google.com/file/d/1AOlNLNczg9o6u6GEnumCR825U125ek8w/view",
+  intuition: "https://semiengineering.com/intuition-and-ai/",
+  jSpace: "https://transformer-circuits.pub/2026/workspace/index.html",
+  podcast: "https://drive.google.com/file/d/1ro42roPdwrfXNghWYzhM7n3R1RIiWYr0/view",
 };
 
 const editions = {
   pt: {
     kicker: "Em destaque...",
-    period: "27 set a 3 out 2026 · leituras, escutas e apresentações",
-    eyebrow: "Descoberta, reprodutibilidade e responsabilidade",
-    title: "IA na ciência: da ferramenta ao agente",
-    first: "Os Nobel de 2024 mostraram que métodos de IA já mudaram a forma como a ciência reconhece padrões e modela estruturas complexas. O passo seguinte é mais profundo: sistemas que formulam hipóteses, executam métodos, conectam artigos a código e exploram problemas que exigem criatividade. É nesse contexto que surge a ideia de uma “quinta era” da ciência — não sem o pesquisador, mas com novas formas de colaboração entre inteligência humana e computacional.",
-    second: "A questão decisiva não é apenas se a IA produz uma resposta, mas se o resultado tem proveniência, pode ser auditado, reproduzido e validado de forma independente. Paper2Agent revela o potencial de manuscritos executáveis; experimentos com uma IA treinada em conhecimento anterior a 1900 expõem capacidades e limites da redescoberta; e as controvérsias na matemática tornam visíveis os conflitos sobre autoria, crédito e responsabilidade. Produtividade só se converte em conhecimento quando permanece aberta ao escrutínio da comunidade.",
-    imageAlt: "Ilustração conceitual das cinco eras da ciência: uma pesquisadora dialoga com uma rede de IA entre observação, teoria, computação, dados e agentes científicos, sob um símbolo de orientação e responsabilidade humana.",
+    period: "4 a 10 out 2026 · duas leituras e um podcast",
+    eyebrow: "Intuição, processamento implícito e reflexão deliberada",
+    title: "Da intuição ao J-Space: padrões, linguagem e reflexão",
+    first: "O ensaio “Intuition and AI” pergunta se criatividade e intuição podem ser reduzidas à recombinação do passado. Entre as concepções de Freud, Jung e Gary Klein, emerge uma formulação operacional fértil: a intuição como reconhecimento de padrões sob restrição de tempo, seguido por análise deliberada para testar a viabilidade da solução. É uma provocação conceitual — não uma demonstração de que sistemas de IA tenham intuição humana.",
+    second: "O estudo da Anthropic oferece uma ponte mecanicista. Nos modelos analisados, um pequeno conjunto de representações verbalizáveis forma o J-Space: um espaço funcionalmente privilegiado para relato, modulação, raciocínio interno e generalização flexível, sobre um volume muito maior de processamento automático. Operações rotineiras continuam sem ele; tarefas que exigem planejamento e encadeamento deliberado se degradam quando esse espaço é suprimido. A analogia com o espaço de trabalho global ilumina como o modelo organiza informação — mas não prova consciência, experiência subjetiva ou equivalência com o inconsciente humano.",
+    imageAlt: "Ilustração conceitual que distingue intuição humana e processamento em redes neurais: muitos padrões implícitos convergem para um espaço central restrito, no qual algumas representações se tornam disponíveis para avaliação deliberada e expressão verbal.",
     imageCredit: "Ilustração conceitual: Observatório UFG-IA · gerada com IA",
-    explore: "Explore o dossiê",
+    explore: "Explore as conexões",
     cards: [
       {
-        meta: "Perspectiva · ciência aberta",
-        title: "Uma quinta era da ciência?",
-        description: "Nina Miolane propõe a inteligência científica artificial como uma nova etapa da prática científica. A promessa depende, porém, de conhecimento bem documentado, curadoria especializada e supervisão humana.",
+        meta: "Ensaio · intuição e criatividade",
+        title: "Reconhecer primeiro, verificar depois",
+        description: "Brian Bailey contrapõe intuição, experiência e criatividade à otimização baseada no passado. A definição de Gary Klein organiza o problema em dois momentos: correspondência rápida de padrões e revisão deliberada da solução.",
         links: [
-          { kind: "article", label: "Ler artigo", href: sources.fifthEra },
-          { kind: "article", label: "Preservação do conhecimento", href: sources.knowledgePreservation },
-          { kind: "slides", label: "Ver apresentação", href: sources.fifthEraSlides },
-          { kind: "audio", label: "Ouvir análise", href: sources.fifthEraAudio },
+          { kind: "article", label: "Ler Intuition and AI", href: sources.intuition },
         ],
       },
       {
-        meta: "Nature · agentes científicos",
-        title: "Do artigo estático ao manuscrito executável",
-        description: "O Paper2Agent transforma texto, dados e código em agentes interativos. O avanço reduz barreiras ao reuso, mas depende de repositórios completos, ambientes reproduzíveis e validação humana.",
+        meta: "Anthropic · interpretabilidade mecanicista",
+        title: "O que chega ao J-Space",
+        description: "A Jacobian Lens identifica representações disponíveis para verbalização. O J-Space reúne uma fração pequena e mutável dessas representações, utilizada em relato, controle dirigido e raciocínio flexível, enquanto grande parte do processamento permanece automática.",
         links: [
-          { kind: "article", label: "Ler artigo", href: sources.paper2Agent },
-          { kind: "slides", label: "Ver apresentação", href: sources.livingManuscriptSlides },
-          { kind: "audio", label: "Ouvir análise", href: sources.paper2AgentAudio },
+          { kind: "article", label: "Ler o estudo do J-Space", href: sources.jSpace },
         ],
       },
       {
-        meta: "Nature · criatividade científica",
-        title: "Uma IA conseguiria reinventar a relatividade?",
-        description: "A Machina Mirabilis foi treinada com conhecimento histórico para testar se um modelo poderia reconstruir ideias da física moderna. Houve lampejos úteis, não uma redescoberta autônoma: o sistema falhou em muitas tarefas e precisou de orientação.",
+        meta: "Podcast · síntese crítica",
+        title: "A ponte — e o limite da analogia",
+        description: "O podcast articula os dois textos: correspondência implícita de padrões, seleção de representações e verificação deliberada. A semelhança funcional é informativa, mas não autoriza concluir que o J-Space seja consciência ou inconsciente humano em uma rede neural.",
         links: [
-          { kind: "article", label: "Ler análise", href: sources.relativity },
-          { kind: "slides", label: "Ver apresentação", href: sources.relativitySlides },
-          { kind: "audio", label: "Ouvir análise", href: sources.relativityAudio },
-        ],
-      },
-      {
-        meta: "Matemática · autoria e integridade",
-        title: "Quando resolver não basta",
-        description: "Resultados recentes reacenderam uma pergunta difícil: uma prova formalmente verificada basta para produzir compreensão matemática? A controvérsia envolve prioridade, acesso a trabalho não publicado, atribuição e responsabilidade humana.",
-        links: [
-          { kind: "article", label: "Ler reportagem", href: sources.mathControversy },
-          { kind: "document", label: "Severe Misalignment", href: sources.severeMisalignment },
-          { kind: "document", label: "Declaração de Leiden", href: sources.leidenDeclaration },
-          { kind: "slides", label: "Ver apresentação", href: sources.understandingSlides },
-          { kind: "audio", label: "Ouvir análise", href: sources.mathematicsAudio },
+          { kind: "audio", label: "Ouvir o podcast", href: sources.podcast },
         ],
       },
     ],
   },
   en: {
     kicker: "Featured",
-    period: "27 Sep–3 Oct 2026 · reading, listening and presentations",
-    eyebrow: "Discovery, reproducibility and responsibility",
-    title: "AI in science: from tool to agent",
-    first: "The 2024 Nobel Prizes showed that AI methods have already changed how science recognizes patterns and models complex structures. The next step is deeper: systems that formulate hypotheses, execute methods, connect papers to code and explore problems that demand creativity. This is the context for the idea of a “fifth era” of science — not without researchers, but with new forms of collaboration between human and computational intelligence.",
-    second: "The decisive question is not merely whether AI produces an answer, but whether the result has provenance and can be audited, reproduced and independently validated. Paper2Agent demonstrates the potential of executable manuscripts; experiments with an AI trained on pre-1900 knowledge expose both the possibilities and limits of rediscovery; and disputes in mathematics make conflicts over authorship, credit and responsibility visible. Productivity becomes knowledge only when it remains open to scrutiny by the scientific community.",
-    imageAlt: "Conceptual illustration of five eras of science: a researcher engages with an AI network among observation, theory, computation, data and scientific agents, under a symbol of human direction and responsibility.",
+    period: "4–10 Oct 2026 · two readings and one podcast",
+    eyebrow: "Intuition, implicit processing and deliberate reflection",
+    title: "From intuition to J-Space: patterns, language and reflection",
+    first: "The essay “Intuition and AI” asks whether creativity and intuition can be reduced to recombining the past. Across the views of Freud, Jung and Gary Klein, one operational account proves especially useful: intuition as pattern matching under time pressure, followed by deliberate analysis to test whether the solution is feasible. This is a conceptual provocation — not evidence that AI systems possess human intuition.",
+    second: "Anthropic’s study supplies a mechanistic bridge. In the models examined, a small set of verbalizable representations forms the J-Space: a functionally privileged workspace for report, modulation, internal reasoning and flexible generalization, above a much larger volume of automatic processing. Routine operations continue without it; tasks requiring planning and deliberate chaining deteriorate when it is suppressed. The global-workspace analogy helps explain how models organize information, but it does not establish consciousness, subjective experience or equivalence with the human unconscious.",
+    imageAlt: "Conceptual illustration distinguishing human intuition from neural-network processing: many implicit patterns converge on a restricted central workspace where selected representations become available for deliberate evaluation and verbal expression.",
     imageCredit: "Conceptual illustration: UFG-AI Observatory · AI-generated",
-    explore: "Explore the dossier",
+    explore: "Explore the connections",
     cards: [
       {
-        meta: "Perspective · open science",
-        title: "A fifth era of science?",
-        description: "Nina Miolane proposes artificial scientific intelligence as a new stage of scientific practice. Its promise, however, depends on well-documented knowledge, expert curation and human oversight.",
+        meta: "Essay · intuition and creativity",
+        title: "Recognize first, verify next",
+        description: "Brian Bailey contrasts intuition, experience and creativity with optimization over the past. Gary Klein’s definition structures the problem in two stages: rapid pattern matching followed by deliberate review of the proposed solution.",
         links: [
-          { kind: "article", label: "Read article", href: sources.fifthEra },
-          { kind: "article", label: "Knowledge preservation", href: sources.knowledgePreservation },
-          { kind: "slides", label: "View presentation", href: sources.fifthEraSlides },
-          { kind: "audio", label: "Listen to analysis (PT)", href: sources.fifthEraAudio },
+          { kind: "article", label: "Read Intuition and AI", href: sources.intuition },
         ],
       },
       {
-        meta: "Nature · scientific agents",
-        title: "From static paper to executable manuscript",
-        description: "Paper2Agent turns text, data and code into interactive agents. It lowers barriers to reuse, but still depends on complete repositories, reproducible environments and human validation.",
+        meta: "Anthropic · mechanistic interpretability",
+        title: "What enters the J-Space",
+        description: "The Jacobian Lens identifies representations available for verbalization. J-Space contains a small, changing fraction of them, used for report, directed control and flexible reasoning while much of the model’s processing remains automatic.",
         links: [
-          { kind: "article", label: "Read article", href: sources.paper2Agent },
-          { kind: "slides", label: "View presentation", href: sources.livingManuscriptSlides },
-          { kind: "audio", label: "Listen to analysis (PT)", href: sources.paper2AgentAudio },
+          { kind: "article", label: "Read the J-Space study", href: sources.jSpace },
         ],
       },
       {
-        meta: "Nature · scientific creativity",
-        title: "Could AI reinvent relativity?",
-        description: "Machina Mirabilis was trained on historical knowledge to test whether a model could reconstruct ideas from modern physics. It showed useful glimpses, not an autonomous rediscovery: the system failed many tasks and needed guidance.",
+        meta: "Podcast · critical synthesis",
+        title: "The bridge — and the analogy’s limit",
+        description: "The podcast brings the two texts together through implicit pattern matching, selective representation and deliberate verification. The functional similarity is informative, but it does not make J-Space human consciousness or a human unconscious inside a neural network.",
         links: [
-          { kind: "article", label: "Read analysis", href: sources.relativity },
-          { kind: "slides", label: "View presentation", href: sources.relativitySlides },
-          { kind: "audio", label: "Listen to analysis (PT)", href: sources.relativityAudio },
-        ],
-      },
-      {
-        meta: "Mathematics · authorship and integrity",
-        title: "When solving is not enough",
-        description: "Recent results revived a difficult question: is a formally verified proof enough to produce mathematical understanding? The dispute involves priority, access to unpublished work, attribution and human responsibility.",
-        links: [
-          { kind: "article", label: "Read report", href: sources.mathControversy },
-          { kind: "document", label: "Severe Misalignment", href: sources.severeMisalignment },
-          { kind: "document", label: "Leiden Declaration", href: sources.leidenDeclaration },
-          { kind: "slides", label: "View presentation", href: sources.understandingSlides },
-          { kind: "audio", label: "Listen to analysis (PT)", href: sources.mathematicsAudio },
+          { kind: "audio", label: "Listen to the podcast (PT)", href: sources.podcast },
         ],
       },
     ],
@@ -141,8 +91,6 @@ const editions = {
 
 function MaterialIcon({ kind }: { kind: MaterialKind }) {
   if (kind === "audio") return <Headphones size={15} aria-hidden="true" />;
-  if (kind === "slides") return <Presentation size={15} aria-hidden="true" />;
-  if (kind === "document") return <FileText size={15} aria-hidden="true" />;
   return <ArrowUpRight size={15} aria-hidden="true" />;
 }
 
@@ -175,7 +123,7 @@ export function FeaturedDebate({ language }: { language: Language }) {
         <p>{edition.second}</p>
       </div>
       <figure className="featured-debate-art">
-        <img src={assetUrl("covers/ia-quinta-era-ciencia-2026-09-26.jpg")} alt={edition.imageAlt} width="1672" height="941" />
+        <img src={assetUrl("covers/intuicao-jspace-2026-10-04.png")} alt={edition.imageAlt} width="1672" height="941" />
         <figcaption>{edition.imageCredit}</figcaption>
       </figure>
     </div>
