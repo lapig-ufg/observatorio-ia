@@ -27,4 +27,17 @@ test("destaque bilíngue articula intuição, J-Space e o podcast", () => {
   assert.match(en, /AI in science: from tool to agent/);
   assert.match(pt, /O que já foi destaque\?/);
   assert.match(en, /What has been featured before\?/);
+  for (const link of [
+    "s41586-026-11044-y",
+    "d41586-026-02804-x",
+    "how-ai-math-breakthrough-ignited-controversy",
+    "a-warning-about-model-welfare",
+    "sem-apocalipse-ou-redencao",
+    "anthropic.com\/institute\/econ-scenarios",
+  ]) {
+    assert.match(pt, new RegExp(link));
+    assert.match(en, new RegExp(link));
+  }
+  assert.match(pt, /weekly-highlight-history-links/);
+  assert.match(en, /weekly-highlight-history-links/);
 });

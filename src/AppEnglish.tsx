@@ -157,7 +157,12 @@ const featuredHistoryEnglish = [
     source: "UFG-AI Observatory · Curated dossier",
     title: "AI in science: from tool to agent",
     summary: "A critical synthesis of the shift from analytical tool to scientific agent, connecting discovery, executable manuscripts, creativity, authorship and responsibility.",
-    href: "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003230",
+    links: [
+      { label: "The fifth age of science", href: "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003230" },
+      { label: "Paper2Agent", href: "https://www.nature.com/articles/s41586-026-11044-y" },
+      { label: "AI and relativity", href: "https://www.nature.com/articles/d41586-026-02804-x" },
+      { label: "The mathematics controversy", href: "https://www.science.org/content/article/how-ai-math-breakthrough-ignited-controversy" },
+    ],
     eventLabel: "ai-in-science-from-tool-to-agent",
   },
   {
@@ -165,7 +170,12 @@ const featuredHistoryEnglish = [
     source: "UFG-AI Observatory · Curated dossier",
     title: "AI between alarm and evidence",
     summary: "Four readings on safety, consciousness, social choices and economic scenarios, distinguishing plausible warnings from forecasts and extrapolations.",
-    href: "https://darioamodei.com/post/we-must-pace-the-frontier",
+    links: [
+      { label: "Dario Amodei", href: "https://darioamodei.com/post/we-must-pace-the-frontier" },
+      { label: "Mustafa Suleyman", href: "https://mustafa-suleyman.ai/a-warning-about-model-welfare" },
+      { label: "Pedro Novaes", href: "https://pnovaes.substack.com/p/sem-apocalipse-ou-redencao" },
+      { label: "Anthropic economic scenarios", href: "https://www.anthropic.com/institute/econ-scenarios" },
+    ],
     eventLabel: "ai-between-alarm-and-evidence",
   },
   {
@@ -189,7 +199,10 @@ const featuredHistoryEnglish = [
     source: "Bill Gates · Gates Notes",
     title: "The turbulent age of AI is here. The choices we make now are crucial.",
     summary: "Bill Gates discusses how AI can advance health, education, agriculture and science while urgent public choices remain around work, inequality, safety and childhood.",
-    href: "https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make",
+    links: [
+      { label: "Read the essay", href: "https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make" },
+      { label: "Listen to the podcast (PT)", href: "https://drive.google.com/uc?export=download&id=1Ku_rnntTaz6fotiaAv3kCDRD8X1Mzo7Q" },
+    ],
     eventLabel: "gates-turbulent-ai-era-critical-choices",
   },
   {
@@ -205,7 +218,10 @@ const featuredHistoryEnglish = [
     source: "Laerte Ferreira · Essay",
     title: "The Geopolitics of AI and National Sovereignty",
     summary: "An essay on technological competition in AI and its consequences for autonomy, infrastructure and national sovereignty.",
-    href: "https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view",
+    links: [
+      { label: "Read the essay (PT)", href: "https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view" },
+      { label: "Listen to the podcast (PT)", href: "https://drive.google.com/uc?export=download&id=1NfkckiNeegn9XtW3NxOsbOFn73MZ6GSq" },
+    ],
     eventLabel: "geopolitica-ia-soberania-nacional",
   },
   {
@@ -550,7 +566,10 @@ export function AppEnglish() {
     <section className="weekly-highlight weekly-highlight--debate" aria-labelledby="weekly-highlight-title">
       <FeaturedDebate language="en" />
       <button type="button" className="weekly-highlight-history-toggle" aria-expanded={showFeaturedHistory} aria-controls="weekly-highlight-history-en" onClick={() => { setShowFeaturedHistory((isOpen) => !isOpen); trackEvent("toggle_featured_history_en", { event_category: "navigation", event_label: showFeaturedHistory ? "close" : "open" }); }}><Clock3 size={16} aria-hidden="true" /><span>What has been featured before?</span><ChevronDown size={16} className={showFeaturedHistory ? "is-open" : ""} aria-hidden="true" /></button>
-      {showFeaturedHistory && <div id="weekly-highlight-history-en" className="weekly-highlight-history" aria-label="Previously featured topics"><p className="eyebrow">Previous highlights</p><div className="weekly-highlight-history-grid">{featuredHistoryEnglish.map((featured) => <article key={featured.href} className="weekly-highlight-history-item"><p>{featured.date} · {featured.source}</p><h3>{featured.title}</h3><span>{featured.summary}</span><a href={featured.href} target={featured.href.startsWith("http") ? "_blank" : undefined} rel={featured.href.startsWith("http") ? "noreferrer" : undefined} onClick={() => trackEvent("open_featured_history_en", { event_category: featured.href.startsWith("http") ? "outbound" : "navigation", event_label: featured.eventLabel })}>Open topic <ArrowUpRight size={15} aria-hidden="true" /></a></article>)}</div></div>}
+      {showFeaturedHistory && <div id="weekly-highlight-history-en" className="weekly-highlight-history" aria-label="Previously featured topics"><p className="eyebrow">Previous highlights</p><div className="weekly-highlight-history-grid">{featuredHistoryEnglish.map((featured) => {
+        const links = featured.links ?? [{ label: "Open topic", href: featured.href || "#" }];
+        return <article key={featured.eventLabel} className="weekly-highlight-history-item"><p>{featured.date} · {featured.source}</p><h3>{featured.title}</h3><span>{featured.summary}</span><div className="weekly-highlight-history-links">{links.map((link) => <a key={link.href} href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noreferrer" : undefined} onClick={() => trackEvent("open_featured_history_en", { event_category: link.href.startsWith("http") ? "outbound" : "navigation", event_label: `${featured.eventLabel}:${link.label}` })}>{link.label} <ArrowUpRight size={15} aria-hidden="true" /></a>)}</div></article>;
+      })}</div></div>}
     </section>
 
     <section id="interactive-experiences" className="interactive-experience" aria-labelledby="interactive-experience-title-en">
@@ -582,7 +601,7 @@ export function AppEnglish() {
     <section id="collections" className="category-band" aria-labelledby="category-title">
       <div className="category-heading"><p className="eyebrow">Collections</p><h2 id="category-title">Browse by content type</h2></div>
       <div className="category-grid">{categoryTypes.map((category) => { const Icon = typeIcons[category]; return <button type="button" key={category} className={type === category ? "category-button active" : "category-button"} onClick={() => selectCategory(category)} aria-pressed={type === category}><Icon size={22} /><span>{typeLabels[category]}</span><strong>{counts[category]}</strong></button>; })}</div>
-      {selectedCollection && collectionCategories.length > 0 && <div className="blog-subcategories"><div className="blog-subcategories-heading"><div><p className="eyebrow">{typeLabels[selectedCollection]}</p><h3>Explore by topic</h3></div><p>Select a subcategory to view related content.</p></div><div className="blog-subcategory-grid">{collectionCategories.map(({ theme: item, count }) => <button type="button" key={item} className={theme === item ? "blog-subcategory-button active" : "blog-subcategory-button"} onClick={() => { setTheme(item); setVisible(15); setShowAll(true); }}><span>{item}</span><strong>{count}</strong><ArrowUpRight size={16} /></button>)}</div></div>}
+      {selectedCollection && collectionCategories.length > 0 && <div className="blog-subcategories"><div className="blog-subcategories-heading"><div><p className="eyebrow">{typeLabels[selectedCollection]}</p><h3>Explore by topic</h3></div><p>{selectedCollection === "link-video" ? "Seven topics organize every link and video, without duplicate categories." : "Select a topic to view related content."}</p></div><div className="blog-subcategory-grid">{collectionCategories.map(({ theme: item, count }) => <button type="button" key={item} className={theme === item ? "blog-subcategory-button active" : "blog-subcategory-button"} onClick={() => { setTheme(item); setVisible(15); setShowAll(true); }}><span>{item}</span><strong>{count}</strong><ArrowUpRight size={16} /></button>)}</div></div>}
       {type === "paper" && <div className="blog-subcategories"><div className="blog-subcategories-heading"><div><p className="eyebrow">AI in scientific research</p><h3>Explore by field of knowledge</h3></div><p>A curated selection on generative AI, foundation models, agents and their effects on research.</p></div><div className="blog-subcategory-grid">{paperResearchAreas.map((area) => <button type="button" key={area} className={theme === area ? "blog-subcategory-button active" : "blog-subcategory-button"} onClick={() => { setTheme(area); setVisible(15); setShowAll(true); }}><span>{paperAreaLabels[area]}</span><strong>{articles.filter((article) => article.type === "paper" && paperResearchArea(article) === area).length}</strong><ArrowUpRight size={16} /></button>)}</div></div>}
     </section>
 

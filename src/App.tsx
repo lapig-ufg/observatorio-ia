@@ -125,7 +125,12 @@ const featuredHistory = [
     source: "Curadoria do Observatório UFG-IA",
     title: "IA na ciência: da ferramenta ao agente",
     summary: "Uma síntese crítica sobre a passagem da IA de ferramenta analítica a agente científico, articulando descoberta, manuscritos executáveis, criatividade, autoria e responsabilidade.",
-    href: "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003230",
+    links: [
+      { label: "Quinta era da ciência", href: "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003230" },
+      { label: "Paper2Agent", href: "https://www.nature.com/articles/s41586-026-11044-y" },
+      { label: "IA e relatividade", href: "https://www.nature.com/articles/d41586-026-02804-x" },
+      { label: "Controvérsia na matemática", href: "https://www.science.org/content/article/how-ai-math-breakthrough-ignited-controversy" },
+    ],
     eventLabel: "ia-na-ciencia-da-ferramenta-ao-agente",
   },
   {
@@ -133,7 +138,12 @@ const featuredHistory = [
     source: "Curadoria do Observatório UFG-IA",
     title: "IA entre o alarme e a evidência",
     summary: "Quatro leituras sobre segurança, consciência, escolhas sociais e cenários econômicos, separando alertas plausíveis de previsões e extrapolações.",
-    href: "https://darioamodei.com/post/we-must-pace-the-frontier",
+    links: [
+      { label: "Dario Amodei", href: "https://darioamodei.com/post/we-must-pace-the-frontier" },
+      { label: "Mustafa Suleyman", href: "https://mustafa-suleyman.ai/a-warning-about-model-welfare" },
+      { label: "Pedro Novaes", href: "https://pnovaes.substack.com/p/sem-apocalipse-ou-redencao" },
+      { label: "Cenários econômicos da Anthropic", href: "https://www.anthropic.com/institute/econ-scenarios" },
+    ],
     eventLabel: "ia-entre-alarme-e-evidencia",
   },
   {
@@ -157,7 +167,10 @@ const featuredHistory = [
     source: "Bill Gates · Gates Notes",
     title: "A era turbulenta da IA chegou. As escolhas que fazemos agora são cruciais.",
     summary: "Bill Gates discute como a IA pode ampliar saúde, educação, agricultura e ciência, sem que isso dispense escolhas públicas urgentes sobre trabalho, desigualdade, segurança e infância.",
-    href: "https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make",
+    links: [
+      { label: "Ler o ensaio", href: "https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make" },
+      { label: "Ouvir o podcast", href: "https://drive.google.com/uc?export=download&id=1Ku_rnntTaz6fotiaAv3kCDRD8X1Mzo7Q" },
+    ],
     eventLabel: "gates-turbulent-ai-era-critical-choices",
   },
   {
@@ -173,7 +186,10 @@ const featuredHistory = [
     source: "Laerte Ferreira · Ensaio",
     title: "A Geopolítica da IA e a Soberania Nacional",
     summary: "Ensaio sobre a disputa tecnológica em IA e seus efeitos sobre autonomia, infraestrutura e soberania nacional.",
-    href: "https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view",
+    links: [
+      { label: "Ler o ensaio", href: "https://drive.google.com/file/d/1phb__uTl7uxzr0gIdj5SBd_1rCqLtHFJ/view" },
+      { label: "Ouvir o podcast", href: "https://drive.google.com/uc?export=download&id=1NfkckiNeegn9XtW3NxOsbOFn73MZ6GSq" },
+    ],
     eventLabel: "geopolitica-ia-soberania-nacional",
   },
   {
@@ -446,11 +462,11 @@ export function App() {
   };
 
   const activeCollection = type === "medium"
-    ? { label: "Blogs", description: "Selecione uma subcategoria para ver os artigos relacionados.", categories: blogCategories, contentType: "medium" as const }
+    ? { label: "Blogs", description: "Selecione um tema para ver os artigos relacionados.", categories: blogCategories, contentType: "medium" as const }
     : type === "link-video"
-      ? { label: "Links & vídeos", description: "Selecione uma subcategoria para ver os links e vídeos relacionados.", categories: videoCategories, contentType: "link-video" as const }
+      ? { label: "Links & vídeos", description: "Sete temas organizam todos os links e vídeos, sem categorias repetidas.", categories: videoCategories, contentType: "link-video" as const }
       : type === "apresentacao"
-        ? { label: "Apresentações", description: "Selecione uma subcategoria para ver as apresentações relacionadas.", categories: presentationCategories, contentType: "apresentacao" as const }
+        ? { label: "Apresentações", description: "Selecione um tema para ver as apresentações relacionadas.", categories: presentationCategories, contentType: "apresentacao" as const }
         : null;
 
   return (
@@ -554,16 +570,19 @@ export function App() {
           <div id="weekly-highlight-history" className="weekly-highlight-history" aria-label="Temas anteriores em destaque">
             <p className="eyebrow">Destaques anteriores</p>
             <div className="weekly-highlight-history-grid">
-              {featuredHistory.map((featured) => (
-                <article key={featured.href} className="weekly-highlight-history-item">
+              {featuredHistory.map((featured) => {
+                const links = featured.links ?? [{ label: "Acessar tema", href: featured.href || "#" }];
+                return <article key={featured.eventLabel} className="weekly-highlight-history-item">
                   <p>{featured.date} · {featured.source}</p>
                   <h3>{featured.title}</h3>
                   <span>{featured.summary}</span>
-                  <a href={featured.href} target={featured.href.startsWith("http") ? "_blank" : undefined} rel={featured.href.startsWith("http") ? "noreferrer" : undefined} onClick={() => trackEvent("open_featured_history", { event_category: featured.href.startsWith("http") ? "outbound" : "navigation", event_label: featured.eventLabel })}>
-                    Acessar tema <ArrowUpRight size={15} aria-hidden="true" />
-                  </a>
-                </article>
-              ))}
+                  <div className="weekly-highlight-history-links">
+                    {links.map((link) => <a key={link.href} href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noreferrer" : undefined} onClick={() => trackEvent("open_featured_history", { event_category: link.href.startsWith("http") ? "outbound" : "navigation", event_label: `${featured.eventLabel}:${link.label}` })}>
+                      {link.label} <ArrowUpRight size={15} aria-hidden="true" />
+                    </a>)}
+                  </div>
+                </article>;
+              })}
             </div>
           </div>
         )}
@@ -625,7 +644,7 @@ export function App() {
           })}
         </div>
         {activeCollection && (
-          <div className="blog-subcategories" aria-label={`Subcategorias de ${activeCollection.label}`}>
+          <div className="blog-subcategories" aria-label={`Temas de ${activeCollection.label}`}>
             <div className="blog-subcategories-heading">
               <div>
                 <p className="eyebrow">{activeCollection.label}</p>

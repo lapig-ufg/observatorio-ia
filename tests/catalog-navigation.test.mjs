@@ -29,3 +29,11 @@ test("interface não promete um número fixo de coleções", () => {
   assert.match(app, /Explore por tema/);
   assert.doesNotMatch(app, /Explore pelas sete coleções/);
 });
+
+test("Links e vídeos apresentam temas, não subcategorias repetidas", () => {
+  const pt = fs.readFileSync("src/App.tsx", "utf8");
+  const en = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  assert.match(pt, /Sete temas organizam todos os links e vídeos, sem categorias repetidas/);
+  assert.match(en, /Seven topics organize every link and video, without duplicate categories/);
+  assert.doesNotMatch(pt, /Selecione uma subcategoria para ver os links e vídeos relacionados/);
+});
