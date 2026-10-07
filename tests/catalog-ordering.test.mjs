@@ -80,8 +80,9 @@ test("todas as inclusões têm data reconhecida e cada coleção pode ser ordena
 
 test("a interface aplica a mesma ordem à seleção inicial e a todos os filtros", () => {
   const app = fs.readFileSync("src/App.tsx", "utf8");
-  assert.match(app, /return matchesType && matchesTheme && matchesKeyword && \(!needle \|\| haystack\.includes\(needle\)\);\s*}\)\.sort\(newestFirst\);/);
-  assert.match(app, /latestByCategory[\s\S]*\.sort\(newestFirst\)/);
+  assert.match(app, /return matchesType && matchesTheme && matchesKeyword && \(!needle \|\| haystack\.includes\(needle\)\);\s*}\)\.sort\(orderArticles\);/);
+  assert.match(app, /latestByCategory[\s\S]*\.sort\(orderArticles\)/);
+  assert.match(app, /sort === "published" \? catalogDate\(right.publishedAt\) - catalogDate\(left.publishedAt\) : catalogDate\(right.includedAt\) - catalogDate\(left.includedAt\)/);
 });
 
 test("o Radar inclui todo o lote empatado na data-limite", () => {

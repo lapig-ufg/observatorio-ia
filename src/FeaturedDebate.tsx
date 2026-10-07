@@ -119,14 +119,24 @@ export function FeaturedDebate({ language }: { language: Language }) {
       <div className="featured-debate-copy">
         <p className="eyebrow">{edition.eyebrow}</p>
         <h2 id="weekly-highlight-title">{edition.title}</h2>
-        <p>{edition.first}</p>
-        <p>{edition.second}</p>
+        <p>{language === "pt" ? "Como o reconhecimento de padrões se conecta à reflexão deliberada? Duas leituras e um podcast aproximam intuição humana e processamento em LLMs — uma analogia funcional, não uma prova de consciência." : "How does pattern recognition connect to deliberate reflection? Two readings and a podcast connect human intuition and LLM processing — a functional analogy, not evidence of consciousness."}</p>
+        <div className="featured-quick-links">
+          <a href={sources.intuition} target="_blank" rel="noreferrer">Intuition and AI <ArrowUpRight size={15} /></a>
+          <a href={sources.jSpace} target="_blank" rel="noreferrer">J-Space <ArrowUpRight size={15} /></a>
+          <a href={sources.podcast} target="_blank" rel="noreferrer"><Headphones size={15} /> {language === "pt" ? "Ouvir podcast" : "Listen to podcast (PT)"}</a>
+        </div>
       </div>
       <figure className="featured-debate-art">
-        <img src={assetUrl("covers/intuicao-jspace-2026-10-04.png")} alt={edition.imageAlt} width="1672" height="941" />
+        <picture>
+        <source type="image/webp" srcSet={`${assetUrl("covers/intuicao-jspace-2026-10-04-640.webp")} 640w, ${assetUrl("covers/intuicao-jspace-2026-10-04-1280.webp")} 1280w`} sizes="(max-width: 700px) calc(100vw - 64px), 550px" />
+        <img src={assetUrl("covers/intuicao-jspace-2026-10-04.png")} alt={edition.imageAlt} width="1672" height="941" decoding="async" />
+        </picture>
         <figcaption>{edition.imageCredit}</figcaption>
       </figure>
     </div>
+    <details className="featured-reading">
+    <summary>{language === "pt" ? "Explorar a análise e as conexões" : "Explore the analysis and connections"}</summary>
+    <div className="featured-full-analysis"><p>{edition.first}</p><p>{edition.second}</p></div>
     <div className="featured-debate-list" aria-label={edition.explore}>
       <p className="eyebrow">{edition.explore}</p>
       <div className="featured-debate-grid">
@@ -140,5 +150,6 @@ export function FeaturedDebate({ language }: { language: Language }) {
         </article>)}
       </div>
     </div>
+    </details>
   </>;
 }

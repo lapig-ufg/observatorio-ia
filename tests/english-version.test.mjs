@@ -115,6 +115,9 @@ test("Portuguese and English headers present LAPIG, IESA and UFG in institutiona
   const portuguese = fs.readFileSync("src/App.tsx", "utf8");
   const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
   for (const source of [portuguese, english]) {
+    assert.match(source, /<InstitutionalBand/);
+  }
+  for (const source of [fs.readFileSync("src/CatalogExperience.tsx", "utf8")]) {
     const lapig = source.indexOf('brand/lapig-iesa-ufg-lapig.png');
     const iesa = source.indexOf('brand/lapig-iesa-ufg-iesa.png');
     const ufg = source.indexOf('brand/lapig-iesa-ufg-ufg.png');

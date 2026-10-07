@@ -4,6 +4,7 @@ import { App } from "./App";
 import { AppEnglish } from "./AppEnglish";
 import { currentLocale } from "./locale";
 import "./styles.css";
+import "./portal.css";
 
 const locale = currentLocale();
 document.documentElement.lang = locale === "en" ? "en" : "pt-BR";

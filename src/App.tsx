@@ -28,6 +28,7 @@ import { catalogDate, newestFirst, recentInclusionIdsWithTies } from "./catalogO
 import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordCloud";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./paperResearch";
 import { languageUrl } from "./locale";
+import { ArticleDetail, CatalogCard, InstitutionalBand, useCatalogExperience } from "./CatalogExperience";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -52,16 +53,7 @@ const typeIcons = {
   entrevista: Mic,
 };
 
-const actionLabels: Record<ArticleType, string> = {
-  medium: "Ler publicação",
-  documento: "Acessar documento",
-  "link-video": "Acessar conteúdo",
-  audio: "Ouvir áudio",
-  noticia: "Ler notícia",
-  paper: "Acessar publicação",
-  apresentacao: "Ver apresentação",
-  entrevista: "Assistir entrevista",
-};
+
 
 // Notícias têm página editorial própria em “IA como notícia diária”. Os registros
 // permanecem na fonte, mas não fazem parte do catálogo público geral.
@@ -234,7 +226,6 @@ const featuredHistory = [
   },
 ];
 
-const maxCloudWords = 18;
 const cloudRecentArticleLimit = 60;
 const cloudHistoricalWeight = 0.06;
 
@@ -247,12 +238,7 @@ export function App() {
   const [error, setError] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [query, setQuery] = useState("");
-  const [selectedKeyword, setSelectedKeyword] = useState("");
-  const [type, setType] = useState<"todos" | ArticleType>("todos");
-  const [theme, setTheme] = useState("todos");
-  const [visible, setVisible] = useState(15);
-  const [showAll, setShowAll] = useState(false);
+  const { query, setQuery, selectedKeyword, setSelectedKeyword, type, setType, theme, setTheme, visible, setVisible, showAll, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, allTopics, setAllTopics, detailHref, openDetail, closeDetail } = useCatalogExperience("todos");
   const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
   const [page, setPage] = useState(pageFromHash);
   const previousPage = useRef(page);
@@ -324,7 +310,7 @@ export function App() {
     [nonNewsArticles],
   );
   const initiatives = catalog?.initiatives || [];
-  const themes = useMemo(() => Array.from(new Set(articles.map((article) => article.theme))).sort(), [articles]);
+  const themes = useMemo(() => Array.from(new Set(articles.filter((article) => type === "todos" || article.type === type).map((article) => article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme))).sort(), [articles, type]);
   const counts = useMemo(() => ({
     todos: articles.length,
     medium: articles.filter((article) => article.type === "medium").length,
@@ -364,7 +350,7 @@ export function App() {
   );
 
   const keywordCloud = useMemo(() => {
-    const sorted = buildKeywordCloud(articles, keywordCloudRecentIds, maxCloudWords, cloudHistoricalWeight);
+    const sorted = buildKeywordCloud(articles, keywordCloudRecentIds, Number.MAX_SAFE_INTEGER, cloudHistoricalWeight);
     const maximum = Math.max(...sorted.map((keyword) => keyword.score), 1);
 
     return sorted.map((keyword) => ({
@@ -372,6 +358,9 @@ export function App() {
       size: 0.92 + Math.sqrt(keyword.score / maximum) * 2,
     }));
   }, [articles, keywordCloudRecentIds]);
+
+  const orderArticles = useMemo(() => (left: Article, right: Article) =>
+    (sort === "published" ? catalogDate(right.publishedAt) - catalogDate(left.publishedAt) : catalogDate(right.includedAt) - catalogDate(left.includedAt)) || newestFirst(left, right), [sort]);
 
   const filtered = useMemo(() => {
     const needle = normalize(query.trim());
@@ -389,15 +378,15 @@ export function App() {
         ...article.tags,
       ].join(" "));
       return matchesType && matchesTheme && matchesKeyword && (!needle || haystack.includes(needle));
-    }).sort(newestFirst);
-  }, [articles, query, selectedKeyword, theme, type]);
+    }).sort(orderArticles);
+  }, [articles, query, selectedKeyword, theme, type, orderArticles]);
 
   const latestByCategory = useMemo(() => categoryTypes.flatMap((category) => {
     const items = articles.filter((article) => article.type === category);
     if (!items.length) return [];
 
-    return items.reduce((latest, article) => newestFirst(article, latest) < 0 ? article : latest);
-  }).sort(newestFirst), [articles]);
+    return items.reduce((latest, article) => orderArticles(article, latest) < 0 ? article : latest);
+  }).sort(orderArticles), [articles, orderArticles]);
 
   const isInitialSelection = !showAll && !query && !selectedKeyword && type === "todos" && theme === "todos";
   const displayedArticles = isInitialSelection ? latestByCategory : filtered;
@@ -421,7 +410,7 @@ export function App() {
   };
 
   const selectKeyword = (keyword: string) => {
-    setQuery(keyword);
+    setQuery("");
     setSelectedKeyword(keyword);
     setType("todos");
     setTheme("todos");
@@ -473,8 +462,9 @@ export function App() {
     <main id="top" className="site-shell">
       <a className="skip-link" href="#catalogo">Ir para o catálogo</a>
 
-      <header className="topbar">
-        <a className="brand" href="#top" aria-label="Observatório UFG-IA - início">
+      <InstitutionalBand />
+    <header className="topbar">
+        <a className="brand" href="#top" onClick={() => { if (item) closeDetail(); }} aria-label="Observatório UFG-IA - início">
           <span className="brand-mark"><Library size={21} aria-hidden="true" /></span>
           <span className="brand-name"><strong>Observatório</strong><strong>UFG-IA</strong></span>
         </a>
@@ -488,22 +478,12 @@ export function App() {
           <a className="daily-news-nav-link" href="#ia-como-noticia-diaria" aria-current={page === "daily-news" ? "page" : undefined} onClick={() => trackEvent("nav_daily_news")}><span><strong>IA como notícia</strong><small>diária</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a className="panorama-nav-link" href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama")}><span><strong>Panorama</strong><small>IA generativa</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
         </nav>
-        <div className="institutional-marks" aria-label="Instituições responsáveis">
-          <a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="LAPIG">
-            <img src={assetUrl("brand/lapig-iesa-ufg-lapig.png")} alt="LAPIG" />
-          </a>
-          <a href="https://iesa.ufg.br/" target="_blank" rel="noreferrer" aria-label="Instituto de Estudos Socioambientais">
-            <img className="institutional-logo-iesa" src={assetUrl("brand/lapig-iesa-ufg-iesa.png")} alt="IESA" />
-          </a>
-          <a href="https://ufg.br/" target="_blank" rel="noreferrer" aria-label="Universidade Federal de Goiás">
-            <img src={assetUrl("brand/lapig-iesa-ufg-ufg.png")} alt="UFG" />
-          </a>
-        </div>
-        <div className="language-switch" aria-label="Idioma">
+  <div className="language-switch" aria-label="Idioma">
           <span aria-current="page">Português</span>
           <a href={languageUrl("en")} lang="en">English</a>
         </div>
-        <details className="mobile-navigation">
+        <a className="header-search" href="#catalogo" aria-label="Buscar no acervo"><Search size={21} aria-hidden="true" /></a>
+      <details className="mobile-navigation">
           <summary><Menu size={20} aria-hidden="true" /><span>Menu</span></summary>
           <div className="mobile-navigation-panel" role="navigation" aria-label="Navegação principal" onClick={(event) => { if ((event.target as HTMLElement).closest("a")) event.currentTarget.closest("details")?.removeAttribute("open"); }}>
             <a href="#categorias">Categorias</a>
@@ -517,7 +497,7 @@ export function App() {
         </details>
       </header>
 
-      {page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "panorama" ? <PanoramaPage /> : <div className="home-page">
+      {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} onClose={closeDetail} /> : page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "panorama" ? <PanoramaPage /> : <div className="home-page">
       <section className="catalog-intro" aria-labelledby="page-title">
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
@@ -588,38 +568,108 @@ export function App() {
         )}
       </section>
 
-      <section id="experiencias-interativas" className="interactive-experience" aria-labelledby="interactive-experience-title">
-        <div className="interactive-experience-copy">
-          <p className="eyebrow">Experiências interativas · LAPIG / UFG</p>
-          <h2 id="interactive-experience-title">Por dentro da IA <span>Da frase ao próximo token</span></h2>
-          <p>Como um modelo de linguagem gera uma resposta? Acompanhe a jornada de uma frase sobre sensoriamento remoto, explore diagramas e experimente operações matemáticas passo a passo.</p>
-          <p className="interactive-experience-scope">Uma introdução visual à inferência, com o GPT-3 como referência. Não é preciso dominar matemática ou programação.</p>
-          <a className="interactive-experience-action" href={assetUrl("por-dentro-da-ia/")} onClick={() => trackEvent("open_interactive_inference", { event_category: "navigation", event_label: "por-dentro-da-ia" })}>Por dentro da IA <span aria-hidden="true">→</span></a>
-          <small>Explore a aula e volte ao Observatório pelo botão no cabeçalho.</small>
+      <section id="catalogo" className="search-panel" aria-label="Busca no acervo">
+        <label className="search-field">
+          <Search size={23} aria-hidden="true" />
+          <span className="sr-only">Buscar no acervo</span>
+          <input
+            value={query}
+            onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setVisible(15); setShowAll(true); }}
+            placeholder="Busque por título, autor, resumo, tema ou palavra-chave"
+          />
+          {query && <button type="button" className="icon-button" onClick={() => { setQuery(""); setSelectedKeyword(""); trackEvent("clear_search"); }} aria-label="Limpar busca"><X size={18} /></button>}
+        </label>
+        <button className="mobile-filter-toggle" aria-expanded={filtersOpen} aria-controls="catalog-filter-options" onClick={() => setFiltersOpen(!filtersOpen)}>Filtrar e ordenar <ChevronDown size={18} aria-hidden="true" /></button>
+        <div id="catalog-filter-options" className={filtersOpen ? "filter-row is-open" : "filter-row"}>
+          <div className="type-tabs" role="group" aria-label="Tipo de publicação">
+            {catalogFilterTypes.map((key) => (
+              <button
+                type="button"
+                key={key}
+                className={type === key ? "active" : ""}
+                onClick={() => { setType(key); setTheme("todos"); setVisible(15); setShowAll(true); trackEvent("select_type_tab", { event_category: "filter", event_label: key }); }}
+                aria-pressed={type === key}
+              >
+                {typeLabels[key]} <span>{counts[key]}</span>
+              </button>
+            ))}
+          </div>
+          <label className="select-filter">
+            <span className="sr-only">Filtrar por tema</span>
+            <select id="temas" value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(15); setShowAll(true); trackEvent("select_theme", { event_category: "filter", event_label: event.target.value }); }}>
+              <option value="todos">Todos os temas</option>
+              {(type === "paper" ? paperResearchAreas : themes).map((item) => <option key={item} value={item}>{item}</option>)}
+            </select>
+            <ChevronDown size={17} aria-hidden="true" />
+          </label>
         </div>
-        <div className="interactive-experience-journey">
-          <p className="eyebrow">A frase que guia a jornada</p>
-          <blockquote>A vegetação saudável apresenta alta reflectância no infravermelho próximo.</blockquote>
-          <ol aria-label="Etapas da geração do próximo token">
-            <li><strong>01 · Tokens e embeddings</strong><span>O texto ganha representações numéricas.</span></li>
-            <li><strong>02 · Blocos Transformer</strong><span>Atenção e redes neurais transformam as representações usando o contexto.</span></li>
-            <li><strong>03 · Próximo token</strong><span>Escores para o vocabulário tornam-se probabilidades para escolher a continuação.</span></li>
-          </ol>
+        <div className="catalog-toolbar">
+        <label className="sort-control">Ordenar por <select value={sort} onChange={(event) => { setSort(event.target.value as "added" | "published"); setVisible(15); }}>
+          <option value="added">Inclusão mais recente</option><option value="published">Publicação mais recente</option>
+        </select></label>
+        <div className="view-switch" role="group" aria-label="Visualização"><button aria-pressed={view === "cards"} onClick={() => setView("cards")}>Cartões</button><button aria-pressed={view === "list"} onClick={() => setView("list")}>Lista</button></div>
+      </div>
+      {(query || selectedKeyword || type !== "todos" || theme !== "todos") && <div className="active-filters" aria-label="Filtros ativos">
+        {query && <button onClick={() => { setQuery(""); setSelectedKeyword(""); }}>Busca: {query} ×</button>}{selectedKeyword && <button onClick={() => setSelectedKeyword("")}>Assunto: {selectedKeyword} ×</button>}
+        {type !== "todos" && <button onClick={() => { setType("todos"); setTheme("todos"); }}>{typeLabels[type]} ×</button>}
+        {theme !== "todos" && <button onClick={() => setTheme("todos")}>{theme} ×</button>}
+        <button onClick={resetFilters}>Limpar tudo</button>
+      </div>}
+      <div className={`sync-line ${catalog?.warning ? "has-warning" : ""}`} aria-live="polite">
+          <span>
+            {catalog?.source === "google-sheets" ? <CheckCircle2 size={15} /> : <Clock3 size={15} />}
+            {catalog?.warning || (lastUpdated ? `Catálogo sincronizado às ${lastUpdated.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}` : "Carregando catálogo")}
+          </span>
+          <button type="button" onClick={() => { trackEvent("refresh_catalog"); window.location.reload(); }} title="Atualizar catálogo" aria-label="Atualizar catálogo">
+            <RefreshCw size={15} className={refreshing ? "spinning" : ""} />
+          </button>
         </div>
       </section>
 
-      <section className="obia-callout" aria-labelledby="obia-title">
-        <a className="obia-logo-link" href="https://obia.nic.br/" target="_blank" rel="noreferrer" aria-label="Acessar o Observatório Brasileiro de Inteligência Artificial" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia" })}>
-          <img src="https://obia.nic.br/img/logo-text-white.svg" alt="OBIA" />
-          <span>Observatório Brasileiro de Inteligência Artificial</span>
-        </a>
-        <div>
-          <p className="eyebrow">Brasil em foco</p>
-          <h2 id="obia-title">Para saber mais sobre o uso e as perspectivas da IA no Brasil, acesse o Observatório Brasileiro de Inteligência Artificial.</h2>
-        </div>
-        <a className="obia-action" href="https://obia.nic.br/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia" })}>Conhecer o OBIA <ArrowUpRight size={17} aria-hidden="true" /></a>
-      </section>
+      {error ? (
+        <section className="empty-state" role="alert">
+          <FileText size={30} />
+          <h2>Catálogo indisponível</h2>
+          <p>{error}</p>
+          <button type="button" onClick={() => { trackEvent("retry_load"); window.location.reload(); }}>Tentar novamente</button>
+        </section>
+      ) : !catalog ? (
+        <section className="loading-state" aria-live="polite">
+          <LoaderCircle className="spinning" size={28} />
+          <span>Carregando acervo…</span>
+        </section>
+      ) : (
+        <>
+          <section className="results-heading" aria-live="polite">
+            <div>
+              <p className="eyebrow">{isInitialSelection ? "Seleção inicial" : "Catálogo"}</p>
+              <h2>{isInitialSelection ? "Explore as novidades do acervo" : `${displayedArticles.length} ${displayedArticles.length === 1 ? "item encontrado" : "itens encontrados"}`}</h2>
+            </div>
+            {isInitialSelection ? (
+              <button type="button" className="clear-filters" onClick={() => { setShowAll(true); setVisible(15); trackEvent("view_all_catalog"); }}>Ver todo o acervo</button>
+            ) : (query || type !== "todos" || theme !== "todos") && (
+              <button type="button" className="clear-filters" onClick={resetFilters}><X size={16} /> Limpar filtros</button>
+            )}
+          </section>
 
+          {displayedArticles.length ? (
+            <div className={`article-grid view-${view}`}>
+              {displayedArticles.slice(0, visible).map((article) => <CatalogCard key={article.id} article={article} href={detailHref(article.id)} onOpen={openDetail} />)}
+            </div>
+          ) : (
+            <section className="empty-state">
+              <Search size={30} />
+              <h2>Nenhum item encontrado</h2>
+              <p>Tente outro termo ou remova os filtros.</p>
+              <button type="button" onClick={() => { resetFilters(); trackEvent("view_all_empty"); }}>Ver todo o acervo</button>
+            </section>
+          )}
+
+          {visible < displayedArticles.length && (
+            <button type="button" className="load-more" onClick={() => { setVisible((value) => value + 15); trackEvent("load_more", { event_category: "pagination" }); }}>Carregar mais itens</button>
+          )}
+        </>
+      )}
       <section id="categorias" className="category-band" aria-labelledby="category-title">
         <div className="category-heading">
           <p className="eyebrow">Coleções</p>
@@ -693,7 +743,7 @@ export function App() {
             <span>a totalidade dos <strong>{articles.length}</strong> itens ativos publicados forma a base histórica</span>
           </div>
           <div className="keyword-cloud" aria-label="Radar de assuntos do acervo">
-            {keywordCloud.map((keyword, index) => {
+            {(allTopics ? keywordCloud : keywordCloud.slice(0, 8)).map((keyword, index) => {
               const recentLabel = `${keyword.recentCount} ${keyword.recentCount === 1 ? "inclusão recente" : "inclusões recentes"}`;
               const positionStyle = {
                 "--cloud-size": `${keyword.size}rem`,
@@ -714,98 +764,43 @@ export function App() {
               );
             })}
           </div>
+          <button className="radar-toggle" aria-expanded={allTopics} onClick={() => setAllTopics(!allTopics)}>{allTopics ? "Mostrar principais assuntos" : `Ver todos os assuntos (${keywordCloud.length})`}</button>
         </section>
       )}
 
-      <section id="catalogo" className="search-panel" aria-label="Busca no acervo">
-        <label className="search-field">
-          <Search size={23} aria-hidden="true" />
-          <span className="sr-only">Buscar no acervo</span>
-          <input
-            value={query}
-            onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setVisible(15); setShowAll(true); }}
-            placeholder="Busque por título, autor, resumo, tema ou palavra-chave"
-          />
-          {query && <button type="button" className="icon-button" onClick={() => { setQuery(""); setSelectedKeyword(""); trackEvent("clear_search"); }} aria-label="Limpar busca"><X size={18} /></button>}
-        </label>
-        <div className="filter-row">
-          <div className="type-tabs" role="group" aria-label="Tipo de publicação">
-            {catalogFilterTypes.map((key) => (
-              <button
-                type="button"
-                key={key}
-                className={type === key ? "active" : ""}
-                onClick={() => { setType(key); setVisible(15); setShowAll(true); trackEvent("select_type_tab", { event_category: "filter", event_label: key }); }}
-                aria-pressed={type === key}
-              >
-                {typeLabels[key]} <span>{counts[key]}</span>
-              </button>
-            ))}
-          </div>
-          <label className="select-filter">
-            <span className="sr-only">Filtrar por tema</span>
-            <select id="temas" value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(15); setShowAll(true); trackEvent("select_theme", { event_category: "filter", event_label: event.target.value }); }}>
-              <option value="todos">Todos os temas</option>
-              {themes.map((item) => <option key={item} value={item}>{item}</option>)}
-            </select>
-            <ChevronDown size={17} aria-hidden="true" />
-          </label>
+      <section id="experiencias-interativas" className="interactive-experience" aria-labelledby="interactive-experience-title">
+        <div className="interactive-experience-copy">
+          <p className="eyebrow">Experiências interativas · LAPIG / UFG</p>
+          <h2 id="interactive-experience-title">Por dentro da IA <span>Da frase ao próximo token</span></h2>
+          <p>Como um modelo de linguagem gera uma resposta? Acompanhe a jornada de uma frase sobre sensoriamento remoto, explore diagramas e experimente operações matemáticas passo a passo.</p>
+          <p className="interactive-experience-scope">Uma introdução visual à inferência, com o GPT-3 como referência. Não é preciso dominar matemática ou programação.</p>
+          <a className="interactive-experience-action" href={assetUrl("por-dentro-da-ia/")} onClick={() => trackEvent("open_interactive_inference", { event_category: "navigation", event_label: "por-dentro-da-ia" })}>Por dentro da IA <span aria-hidden="true">→</span></a>
+          <small>Explore a aula e volte ao Observatório pelo botão no cabeçalho.</small>
         </div>
-        <div className={`sync-line ${catalog?.warning ? "has-warning" : ""}`} aria-live="polite">
-          <span>
-            {catalog?.source === "google-sheets" ? <CheckCircle2 size={15} /> : <Clock3 size={15} />}
-            {catalog?.warning || (lastUpdated ? `Catálogo sincronizado às ${lastUpdated.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}` : "Carregando catálogo")}
-          </span>
-          <button type="button" onClick={() => { trackEvent("refresh_catalog"); window.location.reload(); }} title="Atualizar catálogo" aria-label="Atualizar catálogo">
-            <RefreshCw size={15} className={refreshing ? "spinning" : ""} />
-          </button>
-        </div>
+        <details className="interactive-experience-journey"><summary>Ver o percurso de aprendizagem</summary>
+          <p className="eyebrow">A frase que guia a jornada</p>
+          <blockquote>A vegetação saudável apresenta alta reflectância no infravermelho próximo.</blockquote>
+          <ol aria-label="Etapas da geração do próximo token">
+            <li><strong>01 · Tokens e embeddings</strong><span>O texto ganha representações numéricas.</span></li>
+            <li><strong>02 · Blocos Transformer</strong><span>Atenção e redes neurais transformam as representações usando o contexto.</span></li>
+            <li><strong>03 · Próximo token</strong><span>Escores para o vocabulário tornam-se probabilidades para escolher a continuação.</span></li>
+          </ol>
+        </details>
       </section>
 
-      {error ? (
-        <section className="empty-state" role="alert">
-          <FileText size={30} />
-          <h2>Catálogo indisponível</h2>
-          <p>{error}</p>
-          <button type="button" onClick={() => { trackEvent("retry_load"); window.location.reload(); }}>Tentar novamente</button>
-        </section>
-      ) : !catalog ? (
-        <section className="loading-state" aria-live="polite">
-          <LoaderCircle className="spinning" size={28} />
-          <span>Carregando acervo…</span>
-        </section>
-      ) : (
-        <>
-          <section className="results-heading" aria-live="polite">
-            <div>
-              <p className="eyebrow">{isInitialSelection ? "Seleção inicial" : "Catálogo"}</p>
-              <h2>{isInitialSelection ? "Um conteúdo recente por categoria" : `${displayedArticles.length} ${displayedArticles.length === 1 ? "item encontrado" : "itens encontrados"}`}</h2>
-            </div>
-            {isInitialSelection ? (
-              <button type="button" className="clear-filters" onClick={() => { setShowAll(true); setVisible(15); trackEvent("view_all_catalog"); }}>Ver todo o acervo</button>
-            ) : (query || type !== "todos" || theme !== "todos") && (
-              <button type="button" className="clear-filters" onClick={resetFilters}><X size={16} /> Limpar filtros</button>
-            )}
-          </section>
+<section className="portal-news"><h2>IA como notícia diária</h2><p>Explore o arquivo de imprensa por ano e assunto, com acesso às fontes originais.</p><a href="#ia-como-noticia-diaria">Explorar notícias →</a></section>
+      <section className="obia-callout" aria-labelledby="obia-title">
+        <a className="obia-logo-link" href="https://obia.nic.br/" target="_blank" rel="noreferrer" aria-label="Acessar o Observatório Brasileiro de Inteligência Artificial" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia" })}>
+          <img src="https://obia.nic.br/img/logo-text-white.svg" alt="OBIA" />
+          <span>Observatório Brasileiro de Inteligência Artificial</span>
+        </a>
+        <div>
+          <p className="eyebrow">Brasil em foco</p>
+          <h2 id="obia-title">Para saber mais sobre o uso e as perspectivas da IA no Brasil, acesse o Observatório Brasileiro de Inteligência Artificial.</h2>
+        </div>
+        <a className="obia-action" href="https://obia.nic.br/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia" })}>Conhecer o OBIA <ArrowUpRight size={17} aria-hidden="true" /></a>
+      </section>
 
-          {displayedArticles.length ? (
-            <div className="article-grid">
-              {displayedArticles.slice(0, visible).map((article) => <ArticleCard key={article.id} article={article} />)}
-            </div>
-          ) : (
-            <section className="empty-state">
-              <Search size={30} />
-              <h2>Nenhum item encontrado</h2>
-              <p>Tente outro termo ou remova os filtros.</p>
-              <button type="button" onClick={() => { resetFilters(); trackEvent("view_all_empty"); }}>Ver todo o acervo</button>
-            </section>
-          )}
-
-          {visible < displayedArticles.length && (
-            <button type="button" className="load-more" onClick={() => { setVisible((value) => value + 15); trackEvent("load_more", { event_category: "pagination" }); }}>Carregar mais itens</button>
-          )}
-        </>
-      )}
       </div>}
 
       <footer className="footer">
@@ -914,78 +909,5 @@ function PanoramaPage() {
         loading="lazy"
       />
     </section>
-  );
-}
-
-function driveFileId(url: string) {
-  return url.match(/drive\.google\.com\/file\/d\/([^/?]+)/)?.[1] || url.match(/[?&]id=([^&]+)/)?.[1] || "";
-}
-
-function youtubeVideoId(url: string) {
-  try {
-    const parsed = new URL(url);
-    if (parsed.hostname.includes("youtu.be")) return parsed.pathname.slice(1);
-    if (parsed.hostname.includes("youtube.com")) return parsed.searchParams.get("v") || "";
-  } catch { /* The source link is optional. */ }
-  return "";
-}
-
-function fallbackThumbnail(article: Article) {
-  const videoId = article.type === "link-video" ? youtubeVideoId(article.originalUrl) : "";
-  if (videoId) return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-
-  const fileId = driveFileId(article.institutionalPdfUrl || article.originalUrl);
-  return fileId ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w800` : "";
-}
-
-function ArticleCard({ article }: { article: Article }) {
-  const Icon = typeIcons[article.type];
-  const publishedAt = article.publishedAt.trim();
-  const includedAt = article.includedAt.trim();
-  const distinctIncludedAt = includedAt && catalogDate(includedAt) !== catalogDate(publishedAt);
-  const metadata = [
-    article.pages ? `${article.pages} páginas` : "",
-    publishedAt ? `Publicado em ${publishedAt}` : "",
-    distinctIncludedAt || (!publishedAt && includedAt) ? `Incluído no acervo em ${includedAt}` : "",
-  ].filter(Boolean).join(" • ");
-  const thumbnail = fallbackThumbnail(article);
-  const distinctInstitutionalPdf = article.institutionalPdfUrl && article.institutionalPdfUrl !== article.originalUrl;
-
-  return (
-    <article className={`article-card type-${article.type}`}>
-      <div className="cover-frame">
-        {article.cover ? <img src={assetUrl(article.cover)} alt="" loading="lazy" /> : thumbnail ? <img className="source-thumbnail" src={thumbnail} alt="" loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; }} /> : null}
-        {!article.cover && <Icon className="cover-fallback-icon" size={42} aria-hidden="true" />}
-        <span className="type-badge"><Icon size={14} aria-hidden="true" /> {typeLabels[article.type]}</span>
-      </div>
-      <div className="card-content">
-        <p className="card-theme">{article.subtheme || article.theme}</p>
-        <h3>{article.title}</h3>
-        <p className="byline">{article.author} <span>•</span> {article.source}</p>
-        <p className="summary">{article.summary}</p>
-        <ul className="tag-list" aria-label="Palavras-chave">
-          {article.tags.map((tag) => <li key={tag}>{tag}</li>)}
-        </ul>
-        <div className="card-footer">
-          <span>{metadata || "Informações editoriais em revisão"}</span>
-          <div className="article-actions">
-            {distinctInstitutionalPdf && (
-              <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer" title={article.type === "apresentacao" ? "Ver a apresentação em PDF" : "Abrir cópia em PDF no Drive"}
-                onClick={() => trackEvent("open_article_pdf", { event_category: "article", event_label: article.id, article_type: article.type })}>
-                {article.type === "apresentacao" ? <Presentation size={16} /> : <FileText size={16} />} {article.type === "apresentacao" ? "Ver apresentação (PDF)" : "PDF no Drive"}
-              </a>
-            )}
-            {article.originalUrl ? (
-              <a className="article-action" href={article.originalUrl} target="_blank" rel="noreferrer"
-                onClick={() => trackEvent("open_article", { event_category: "article", event_label: article.id, article_type: article.type, source: article.source })}>
-                {article.type === "apresentacao" && distinctInstitutionalPdf ? "Acessar fonte original" : actionLabels[article.type]} <ArrowUpRight size={17} />
-              </a>
-            ) : !article.institutionalPdfUrl && (
-              <span className="article-action-unavailable">Link em revisão</span>
-            )}
-          </div>
-        </div>
-      </div>
-    </article>
   );
 }

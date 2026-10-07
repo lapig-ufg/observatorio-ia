@@ -17,5 +17,8 @@ export function languageUrl(locale: Locale) {
     : locale === "pt" && currentHash === "#ufg-ecosystem" ? "#ecossistema-ufg"
     : locale === "en" && currentHash === "#ia-como-noticia-diaria" ? "#daily-news"
     : locale === "pt" && currentHash === "#daily-news" ? "#ia-como-noticia-diaria" : currentHash;
-  return locale === "en" ? `./en/${hash}` : `../${hash}`;
+  const mappedHash = locale === "en"
+    ? ({ "#catalogo": "#catalog", "#categorias": "#collections", "#palavras-chave": "#topics" }[hash] || hash)
+    : ({ "#catalog": "#catalogo", "#collections": "#categorias", "#topics": "#palavras-chave" }[hash] || hash);
+  return locale === "en" ? `./en/${window.location.search}${mappedHash}` : `../${window.location.search}${mappedHash}`;
 }

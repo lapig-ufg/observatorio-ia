@@ -19,5 +19,5 @@ test("experience preserves the inference scope and remote-sensing narrative", ()
   assert.match(section, /inferência, com o GPT-3 como referência/);
   assert.match(section, /Escores para o vocabulário tornam-se probabilidades/);
   assert.equal((section.match(/<li>/g) || []).length, 3);
-  assert.ok(app.indexOf('id="experiencias-interativas"') < app.indexOf('id="categorias" className='));
+  assert.ok(app.indexOf('id="categorias" className=') < app.indexOf('id="experiencias-interativas"'));
 });

@@ -30,7 +30,8 @@ test("Radar exclui URLs e identificadores bibliográficos dos temas", () => {
   assert.equal(cloudTermKey("Modelos de linguagem"), "llms");
   assert.match(source, /if \(!isEditorialCloudTerm\(tag\)\) return;/);
   assert.match(source, /"agentes de ia": "agentes"/);
-  assert.match(app, /const maxCloudWords = 18;/);
+  assert.match(app, /keywordCloud.slice\(0, 8\)/);
+  assert.match(app, /buildKeywordCloud\(articles, keywordCloudRecentIds, Number.MAX_SAFE_INTEGER/);
   assert.doesNotMatch(app, /cloudPositions/);
   assert.match(cloudStyles, /display: flex;/);
   assert.match(cloudStyles, /flex-wrap: wrap;/);
