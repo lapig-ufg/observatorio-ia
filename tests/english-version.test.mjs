@@ -126,9 +126,13 @@ test("Portuguese and English headers present LAPIG, IESA and UFG in institutiona
     assert.match(source, /url: "https:\/\/iesa\.ufg\.br\/"/);
     assert.match(source, /url: "https:\/\/ufg\.br\/"/);
   }
-  assert.ok(fs.existsSync("public/brand/lapig-iesa-ufg-lapig.png"));
-  assert.ok(fs.existsSync("public/brand/lapig-iesa-ufg-iesa.png"));
-  assert.ok(fs.existsSync("public/brand/lapig-iesa-ufg-ufg.png"));
+  for (const key of ["lapig", "iesa", "ufg"]) {
+    const svg = fs.readFileSync(`public/brand/${key}-symbol.svg`, "utf8");
+    assert.match(svg, /viewBox=/);
+    assert.match(svg, /<path/);
+    assert.doesNotMatch(svg, /<image|<script|<text|data:image|<!DOCTYPE/i);
+  }
+  assert.match(fs.readFileSync("src/CatalogExperience.tsx", "utf8"), /brand\/\$\{key\}-symbol\.svg/);
 });
 
 test("translated catalog preserves the same public scientific-paper selection", async () => {
