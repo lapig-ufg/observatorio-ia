@@ -64,6 +64,7 @@ test("institutional band uses only official logos, with full accessible names in
   assert.match(styles, /a:focus-visible \.institutional-tooltip \{ display: block;/);
   assert.match(styles, /a:hover \.institutional-tooltip \{ display: block;/);
   assert.match(band, /aria-label=\{`\$\{acronym\} — \$\{name\}`\}/);
-  assert.match(styles, /grid-template-columns: 160px 140px 180px; justify-content: center/);
+  assert.match(styles, /grid-template-columns: 160px 140px 63px; justify-content: center/);
+  assert.match(styles, /grid-template-columns: min\(28vw, 120px\) min\(24.5vw, 105px\) 47px/);
   assert.match(styles, /height: 96px; object-fit: contain/);
 });

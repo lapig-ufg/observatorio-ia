@@ -3,7 +3,8 @@
 html { scroll-padding-top: 88px; }
 body { min-width: 0; font-size: 16px; }
 .site-shell { box-shadow: none; }
-.institutional-band { position: relative; z-index: 100; display: grid; grid-template-columns: 160px 140px 180px; justify-content: center; align-items: center; gap: 48px; padding: 10px 24px; background: #fff; border-bottom: 1px solid #e1e9e4; }
+/* Match the slots to the visible SVG proportions so the group, not empty image space, is centered. */
+.institutional-band { position: relative; z-index: 100; display: grid; grid-template-columns: 160px 140px 63px; justify-content: center; align-items: center; gap: 48px; padding: 10px 24px; background: #fff; border-bottom: 1px solid #e1e9e4; }
 .institutional-band a { position: relative; display: flex; justify-content: center; align-items: center; min-width: 0; min-height: 44px; border-radius: 8px; }
 .institutional-band img { display: block; width: 100%; height: 96px; object-fit: contain; }
 .institutional-tooltip { display: none; position: absolute; top: calc(100% - 2px); left: 50%; transform: translateX(-50%); width: max-content; max-width: min(360px, calc(100vw - 32px)); padding: 14px 18px; border-radius: 12px; background: #163f33; color: #fff; font-size: 18px; font-weight: 500; line-height: 1.45; text-align: center; box-shadow: 0 8px 24px #123d3126; }
@@ -117,7 +118,7 @@ body { min-width: 0; font-size: 16px; }
   .article-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 700px) {
-  .institutional-band { grid-template-columns: minmax(0, 140fr) minmax(0, 120fr) minmax(0, 160fr); gap: clamp(12px, 4vw, 28px); padding: 8px max(16px, calc((100vw - 500px) / 2)); }
+  .institutional-band { grid-template-columns: min(28vw, 120px) min(24.5vw, 105px) 47px; gap: clamp(12px, 4vw, 28px); padding: 8px 16px; }
   .institutional-band img { height: 72px; }
   .institutional-tooltip { font-size: 16px; }
   .institutional-band a:first-child .institutional-tooltip { left: 0; transform: none; }
