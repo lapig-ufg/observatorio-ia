@@ -58,8 +58,11 @@ test("both languages expose equivalent responsive portal controls and full-catal
 
 test("institutional band uses only official logos, with full accessible names instead of duplicated visible text", () => {
   const band = shared.slice(shared.indexOf("export function InstitutionalBand"));
-  assert.doesNotMatch(band, /<span|<p[ >]/);
-  assert.match(band, /title=\{`\$\{acronym\} — \$\{name\}`\}/);
+  assert.doesNotMatch(band, /<p[ >]/);
+  assert.match(band, /<span className="institutional-tooltip" aria-hidden="true">\{name\}<\/span>/);
+  assert.match(styles, /institutional-tooltip \{ display: none;/);
+  assert.match(styles, /a:focus-visible \.institutional-tooltip \{ display: block;/);
+  assert.match(styles, /a:hover \.institutional-tooltip \{ display: block;/);
   assert.match(band, /aria-label=\{`\$\{acronym\} — \$\{name\}`\}/);
   assert.match(styles, /grid-template-columns: 160px 140px 180px; justify-content: center/);
   assert.match(styles, /height: 96px; object-fit: contain/);

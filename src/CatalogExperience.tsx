@@ -140,14 +140,16 @@ export function ArticleDetail({ article, loading, english = false, onClose }: { 
 }
 
 export function InstitutionalBand({ english = false }: { english?: boolean }) {
+  const [tooltipDismissed, setTooltipDismissed] = useState(false);
   const institutions = [
     { key: "lapig", acronym: "LAPIG", url: "https://lapig.iesa.ufg.br/", name: english ? "Remote Sensing and GIS Laboratory" : "Laboratório de Sensoriamento Remoto e Geoprocessamento", width: 140 },
     { key: "iesa", acronym: "IESA", url: "https://iesa.ufg.br/", name: english ? "Institute of Socio-Environmental Studies" : "Instituto de Estudos Socioambientais", width: 120 },
     { key: "ufg", acronym: "UFG", url: "https://ufg.br/", name: english ? "Federal University of Goiás" : "Universidade Federal de Goiás", width: 160 },
   ];
-  return <aside className="institutional-band" aria-label={english ? "Responsible institutions" : "Instituições responsáveis"}>
-    {institutions.map(({ key, acronym, url, name, width }) => <a key={key} href={url} target="_blank" rel="noreferrer" title={`${acronym} — ${name}`} aria-label={`${acronym} — ${name}`}>
+  return <aside className="institutional-band" data-tooltip-dismissed={tooltipDismissed} aria-label={english ? "Responsible institutions" : "Instituições responsáveis"} onMouseLeave={() => setTooltipDismissed(false)} onMouseEnter={() => setTooltipDismissed(false)} onFocus={() => setTooltipDismissed(false)} onKeyDown={(event) => { if (event.key === "Escape") setTooltipDismissed(true); }}>
+    {institutions.map(({ key, acronym, url, name, width }) => <a key={key} href={url} target="_blank" rel="noreferrer" aria-label={`${acronym} — ${name}`}>
       <img src={assetUrl(`brand/lapig-iesa-ufg-${key}.png`)} width={width} height="91" alt={acronym} />
+      <span className="institutional-tooltip" aria-hidden="true">{name}</span>
     </a>)}
   </aside>;
 }

@@ -3,9 +3,13 @@
 html { scroll-padding-top: 88px; }
 body { min-width: 0; font-size: 16px; }
 .site-shell { box-shadow: none; }
-.institutional-band { display: grid; grid-template-columns: 160px 140px 180px; justify-content: center; align-items: center; gap: 48px; padding: 10px 24px; background: #fff; border-bottom: 1px solid #e1e9e4; }
-.institutional-band a { display: flex; justify-content: center; align-items: center; min-width: 0; min-height: 44px; border-radius: 8px; }
+.institutional-band { position: relative; z-index: 100; display: grid; grid-template-columns: 160px 140px 180px; justify-content: center; align-items: center; gap: 48px; padding: 10px 24px; background: #fff; border-bottom: 1px solid #e1e9e4; }
+.institutional-band a { position: relative; display: flex; justify-content: center; align-items: center; min-width: 0; min-height: 44px; border-radius: 8px; }
 .institutional-band img { display: block; width: 100%; height: 96px; object-fit: contain; }
+.institutional-tooltip { display: none; position: absolute; top: calc(100% - 2px); left: 50%; transform: translateX(-50%); width: max-content; max-width: min(360px, calc(100vw - 32px)); padding: 14px 18px; border-radius: 12px; background: #163f33; color: #fff; font-size: 18px; font-weight: 500; line-height: 1.45; text-align: center; box-shadow: 0 8px 24px #123d3126; }
+.institutional-band a:focus-visible .institutional-tooltip { display: block; }
+@media (hover: hover) { .institutional-band a:hover .institutional-tooltip { display: block; } }
+.institutional-band[data-tooltip-dismissed="true"] a .institutional-tooltip { display: none; }
 .topbar { display: flex; flex-wrap: nowrap; min-height: 68px; gap: 16px; padding: 8px clamp(16px, 4vw, 60px); box-shadow: 0 2px 8px #123d3108; }
 .topbar .primary-navigation { flex: 1; justify-content: center; }
 .topbar .language-switch { margin-left: auto; }
@@ -115,6 +119,9 @@ body { min-width: 0; font-size: 16px; }
 @media (max-width: 700px) {
   .institutional-band { grid-template-columns: minmax(0, 140fr) minmax(0, 120fr) minmax(0, 160fr); gap: clamp(12px, 4vw, 28px); padding: 8px max(16px, calc((100vw - 500px) / 2)); }
   .institutional-band img { height: 72px; }
+  .institutional-tooltip { font-size: 16px; }
+  .institutional-band a:first-child .institutional-tooltip { left: 0; transform: none; }
+  .institutional-band a:last-child .institutional-tooltip { left: auto; right: 0; transform: none; }
   .topbar { gap: 8px; padding: 7px 12px; min-height: 60px; }
   .topbar > .language-switch { display: none; }.header-search { margin-left: auto; }
   .mobile-navigation summary { padding: 8px; min-height: 44px; gap: 5px; }
