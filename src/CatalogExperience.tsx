@@ -140,9 +140,14 @@ export function ArticleDetail({ article, loading, english = false, onClose }: { 
 }
 
 export function InstitutionalBand({ english = false }: { english?: boolean }) {
+  const institutions = [
+    { key: "lapig", acronym: "LAPIG", url: "https://lapig.iesa.ufg.br/", name: english ? "Remote Sensing and GIS Laboratory" : "Laboratório de Sensoriamento Remoto e Geoprocessamento", width: 140 },
+    { key: "iesa", acronym: "IESA", url: "https://iesa.ufg.br/", name: english ? "Institute of Socio-Environmental Studies" : "Instituto de Estudos Socioambientais", width: 120 },
+    { key: "ufg", acronym: "UFG", url: "https://ufg.br/", name: english ? "Federal University of Goiás" : "Universidade Federal de Goiás", width: 160 },
+  ];
   return <aside className="institutional-band" aria-label={english ? "Responsible institutions" : "Instituições responsáveis"}>
-    <a href="https://lapig.iesa.ufg.br/" target="_blank" rel="noreferrer"><img src={assetUrl("brand/lapig-iesa-ufg-lapig.png")} width="144" height="72" alt="LAPIG" /><span>{english ? "Remote Sensing and GIS Laboratory" : "Laboratório de Sensoriamento Remoto e Geoprocessamento"}</span></a>
-    <a href="https://iesa.ufg.br/" target="_blank" rel="noreferrer"><img src={assetUrl("brand/lapig-iesa-ufg-iesa.png")} width="120" height="72" alt="IESA" /><span>{english ? "Institute of Socio-Environmental Studies" : "Instituto de Estudos Socioambientais"}</span></a>
-    <a href="https://ufg.br/" target="_blank" rel="noreferrer"><img src={assetUrl("brand/lapig-iesa-ufg-ufg.png")} width="150" height="72" alt="UFG" /><span>{english ? "Federal University of Goiás" : "Universidade Federal de Goiás"}</span></a>
+    {institutions.map(({ key, acronym, url, name, width }) => <a key={key} href={url} target="_blank" rel="noreferrer" title={`${acronym} — ${name}`} aria-label={`${acronym} — ${name}`}>
+      <img src={assetUrl(`brand/lapig-iesa-ufg-${key}.png`)} width={width} height="91" alt={acronym} />
+    </a>)}
   </aside>;
 }

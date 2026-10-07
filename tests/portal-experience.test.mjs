@@ -55,3 +55,12 @@ test("both languages expose equivalent responsive portal controls and full-catal
   assert.match(shared, /Remote Sensing and GIS Laboratory/);
   assert.match(styles, /\.type-tabs \{ display: grid; grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
 });
+
+test("institutional band uses only official logos, with full accessible names instead of duplicated visible text", () => {
+  const band = shared.slice(shared.indexOf("export function InstitutionalBand"));
+  assert.doesNotMatch(band, /<span|<p[ >]/);
+  assert.match(band, /title=\{`\$\{acronym\} — \$\{name\}`\}/);
+  assert.match(band, /aria-label=\{`\$\{acronym\} — \$\{name\}`\}/);
+  assert.match(styles, /grid-template-columns: 160px 140px 180px; justify-content: center/);
+  assert.match(styles, /height: 96px; object-fit: contain/);
+});

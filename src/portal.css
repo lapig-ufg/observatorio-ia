@@ -3,11 +3,9 @@
 html { scroll-padding-top: 88px; }
 body { min-width: 0; font-size: 16px; }
 .site-shell { box-shadow: none; }
-.institutional-band { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; padding: 16px clamp(20px, 5vw, 76px); background: #fff; border-bottom: 1px solid #e1e9e4; }
-.institutional-band a { display: flex; align-items: center; gap: 14px; text-decoration: none; color: #425950; font-size: 14px; line-height: 1.4; }
-.institutional-band img { width: 120px; height: 64px; object-fit: contain; flex-shrink: 0; }
-.institutional-band a:first-child img { width: 136px; }
-.institutional-band a:last-child img { width: 142px; }
+.institutional-band { display: grid; grid-template-columns: 160px 140px 180px; justify-content: center; align-items: center; gap: 48px; padding: 10px 24px; background: #fff; border-bottom: 1px solid #e1e9e4; }
+.institutional-band a { display: flex; justify-content: center; align-items: center; min-width: 0; min-height: 44px; border-radius: 8px; }
+.institutional-band img { display: block; width: 100%; height: 96px; object-fit: contain; }
 .topbar { display: flex; flex-wrap: nowrap; min-height: 68px; gap: 16px; padding: 8px clamp(16px, 4vw, 60px); box-shadow: 0 2px 8px #123d3108; }
 .topbar .primary-navigation { flex: 1; justify-content: center; }
 .topbar .language-switch { margin-left: auto; }
@@ -111,14 +109,12 @@ body { min-width: 0; font-size: 16px; }
 .portal-news h2 { margin: 0 0 8px; font-size: 1.5rem; }.portal-news p { font-size: 16px; line-height: 1.6; }.portal-news a { min-height: 44px; display: inline-flex; align-items: center; color: #254b73; font-weight: 700; }
 .obia-callout { padding: 22px; box-shadow: none; }.obia-callout h2 { font-size: 1.25rem; }
 @media (max-width: 1200px) {
-  .institutional-band a { flex-direction: column; text-align: center; gap: 4px; }
   .topbar > .primary-navigation { display: none; }.mobile-navigation { display: block; }
   .article-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 700px) {
-  .institutional-band { gap: 12px; padding: 12px 16px; }
-  .institutional-band a { font-size: 11px; line-height: 1.3; }
-  .institutional-band img, .institutional-band a:first-child img, .institutional-band a:last-child img { width: 100%; max-width: 130px; height: 60px; }
+  .institutional-band { grid-template-columns: minmax(0, 140fr) minmax(0, 120fr) minmax(0, 160fr); gap: clamp(12px, 4vw, 28px); padding: 8px max(16px, calc((100vw - 500px) / 2)); }
+  .institutional-band img { height: 72px; }
   .topbar { gap: 8px; padding: 7px 12px; min-height: 60px; }
   .topbar > .language-switch { display: none; }.header-search { margin-left: auto; }
   .mobile-navigation summary { padding: 8px; min-height: 44px; gap: 5px; }

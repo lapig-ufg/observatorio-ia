@@ -118,13 +118,13 @@ test("Portuguese and English headers present LAPIG, IESA and UFG in institutiona
     assert.match(source, /<InstitutionalBand/);
   }
   for (const source of [fs.readFileSync("src/CatalogExperience.tsx", "utf8")]) {
-    const lapig = source.indexOf('brand/lapig-iesa-ufg-lapig.png');
-    const iesa = source.indexOf('brand/lapig-iesa-ufg-iesa.png');
-    const ufg = source.indexOf('brand/lapig-iesa-ufg-ufg.png');
+    const lapig = source.indexOf('key: "lapig"');
+    const iesa = source.indexOf('key: "iesa"');
+    const ufg = source.indexOf('key: "ufg"');
     assert.ok(lapig >= 0 && iesa > lapig && ufg > iesa);
-    assert.match(source, /href="https:\/\/lapig\.iesa\.ufg\.br\/"/);
-    assert.match(source, /href="https:\/\/iesa\.ufg\.br\/"/);
-    assert.match(source, /href="https:\/\/ufg\.br\/"/);
+    assert.match(source, /url: "https:\/\/lapig\.iesa\.ufg\.br\/"/);
+    assert.match(source, /url: "https:\/\/iesa\.ufg\.br\/"/);
+    assert.match(source, /url: "https:\/\/ufg\.br\/"/);
   }
   assert.ok(fs.existsSync("public/brand/lapig-iesa-ufg-lapig.png"));
   assert.ok(fs.existsSync("public/brand/lapig-iesa-ufg-iesa.png"));
