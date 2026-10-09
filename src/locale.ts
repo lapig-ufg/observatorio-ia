@@ -15,6 +15,8 @@ export function languageUrl(locale: Locale) {
   const hash = locale === "en" && currentHash === "#ecossistema-ufg"
     ? "#ufg-ecosystem"
     : locale === "pt" && currentHash === "#ufg-ecosystem" ? "#ecossistema-ufg"
+    : locale === "en" && currentHash === "#leituras-em-ia" ? "#ai-readings"
+    : locale === "pt" && currentHash === "#ai-readings" ? "#leituras-em-ia"
     : locale === "en" && currentHash === "#ia-como-noticia-diaria" ? "#daily-news"
     : locale === "pt" && currentHash === "#daily-news" ? "#ia-como-noticia-diaria" : currentHash;
   const mappedHash = locale === "en"

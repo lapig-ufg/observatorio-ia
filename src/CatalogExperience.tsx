@@ -5,8 +5,8 @@ import { trackEvent } from "./analytics";
 import { articlePreview, readCatalogLocation, videoThumbnail } from "./catalogExperienceState";
 
 const labels = {
-  pt: { medium: "Blogs", documento: "Documentos gerais", "link-video": "Links e vídeos", audio: "Áudios", entrevista: "Entrevistas", paper: "Pesquisa científica", apresentacao: "Apresentações", noticia: "Notícias" },
-  en: { medium: "Blogs", documento: "General documents", "link-video": "Links and videos", audio: "Audio", entrevista: "Interviews", paper: "Scientific research", apresentacao: "Presentations", noticia: "News" },
+  pt: { medium: "Leituras em IA", documento: "Documentos gerais", "link-video": "Links e vídeos", audio: "Áudios", entrevista: "Entrevistas", paper: "Pesquisa científica", apresentacao: "Apresentações", noticia: "Notícias" },
+  en: { medium: "AI readings", documento: "General documents", "link-video": "Links and videos", audio: "Audio", entrevista: "Interviews", paper: "Scientific research", apresentacao: "Presentations", noticia: "News" },
 };
 const icons = { medium: Sparkles, documento: FileText, "link-video": Link2, audio: Headphones, entrevista: Video, paper: BookOpen, apresentacao: Presentation, noticia: FileText };
 
@@ -93,7 +93,7 @@ export function CatalogCard({ article, english = false, expanded = false, href, 
   const [failed, setFailed] = useState(false);
   const author = english ? article.author.replace("Autoria não identificada", "Author not identified").replace("(entrevistado)", "(interviewee)") : article.author;
   const byline = [...new Set([author, article.source].filter(Boolean))].join(" · ");
-  const action = article.type === "audio" ? (english ? "Listen" : "Ouvir áudio") : article.type === "entrevista" || thumbnail ? (english ? "Watch video" : "Assistir vídeo") : article.type === "apresentacao" ? (english ? "View presentation" : "Ver apresentação") : english ? "Read source" : "Acessar fonte";
+  const action = article.type === "medium" ? (english ? "Read publication" : "Ler publicação") : article.type === "audio" ? (english ? "Listen" : "Ouvir áudio") : article.type === "entrevista" || thumbnail ? (english ? "Watch video" : "Assistir vídeo") : article.type === "apresentacao" ? (english ? "View presentation" : "Ver apresentação") : english ? "Read source" : "Acessar fonte";
   const primaryUrl = article.originalUrl || (article.type !== "medium" ? article.institutionalPdfUrl : "");
   return <article className={`article-card compact-card type-${article.type}${expanded ? " expanded-card" : ""}`}>
     {!expanded && <div className={`cover-frame${cover && !failed ? " has-image" : " category-cover"}`}>

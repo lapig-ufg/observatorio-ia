@@ -29,10 +29,11 @@ import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordClou
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./paperResearch";
 import { languageUrl } from "./locale";
 import { ArticleDetail, CatalogCard, InstitutionalBand, useCatalogExperience } from "./CatalogExperience";
+import { MediumReadingsPage } from "./MediumReadingsPage";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
-  medium: "Blogs",
+  medium: "Leituras em IA",
   documento: "Documentos gerais",
   "link-video": "Links e vídeos",
   audio: "Áudios",
@@ -60,7 +61,7 @@ const typeIcons = {
 const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "audio", "entrevista", "paper", "apresentacao"];
 const catalogFilterTypes: Array<"todos" | ArticleType> = ["todos", ...categoryTypes];
 const chartLabels: Record<ArticleType, string> = {
-  medium: "Blogs",
+  medium: "Leituras em IA",
   documento: "Documentos",
   "link-video": "Links e vídeos",
   audio: "Áudios",
@@ -87,11 +88,14 @@ const panoramaEmbedUrl = `${panoramaUrl}?embed=1`;
 const pagesByHash: Record<string, string> = {
   "#ecossistema-ufg": "ecosystem",
   "#ia-como-noticia-diaria": "daily-news",
+  "#leituras-em-ia": "readings",
+  "#ai-readings": "readings",
   "#panorama": "panorama",
 };
 const pageTitles: Record<string, string> = {
   ecosystem: "Ecossistema UFG",
   "daily-news": "IA como notícia diária",
+  readings: "Leituras em IA",
   panorama: "Panorama da IA generativa",
   catalog: "Catálogo",
 };
@@ -421,12 +425,17 @@ export function App() {
   };
 
   const selectCategory = (category: ArticleType) => {
+    if (category === "medium") {
+      trackEvent("open_ai_readings", { event_category: "navigation", event_label: "collection-card" });
+      window.location.hash = "leituras-em-ia";
+      return;
+    }
     setType(category);
     setTheme("todos");
     setVisible(15);
     setShowAll(true);
     trackEvent("select_category", { event_category: "filter", event_label: category });
-    const destination = category === "medium" || category === "link-video" || category === "apresentacao" || category === "paper"
+    const destination = category === "link-video" || category === "apresentacao" || category === "paper"
       ? "categorias"
       : "catalogo";
     window.requestAnimationFrame(() => document.getElementById(destination)?.scrollIntoView({ behavior: "smooth" }));
@@ -451,7 +460,7 @@ export function App() {
   };
 
   const activeCollection = type === "medium"
-    ? { label: "Blogs", description: "Selecione um tema para ver os artigos relacionados.", categories: blogCategories, contentType: "medium" as const }
+    ? { label: "Leituras em IA", description: "Selecione um tema para ver os artigos e ensaios relacionados.", categories: blogCategories, contentType: "medium" as const }
     : type === "link-video"
       ? { label: "Links & vídeos", description: "Sete temas organizam todos os links e vídeos, sem categorias repetidas.", categories: videoCategories, contentType: "link-video" as const }
       : type === "apresentacao"
@@ -460,7 +469,7 @@ export function App() {
 
   return (
     <main id="top" className="site-shell">
-      <a className="skip-link" href="#catalogo">Ir para o catálogo</a>
+      <a className="skip-link" href={page === "readings" ? "#readings-results-title" : "#catalogo"}>{page === "readings" ? "Ir para as leituras" : "Ir para o catálogo"}</a>
 
       <InstitutionalBand />
     <header className="topbar">
@@ -473,6 +482,7 @@ export function App() {
             <a href="#categorias">Categorias</a>
             <a href="#palavras-chave" onClick={() => trackEvent("nav_subjects")}>Assuntos</a>
           </div>
+          <a className="readings-nav-link" href="#leituras-em-ia" aria-current={page === "readings" ? "page" : undefined} onClick={() => trackEvent("nav_ai_readings")}><span><strong>Leituras</strong><small>em IA</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a className="ecosystem-nav-link" href="#ecossistema-ufg" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem")}>Ecossistema UFG <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a className="form-nav-link" href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { event_category: "outbound", event_label: "forms.gle" })}><span><strong>Participe!</strong><small>Como você está usando a IA?</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
           <a className="daily-news-nav-link" href="#ia-como-noticia-diaria" aria-current={page === "daily-news" ? "page" : undefined} onClick={() => trackEvent("nav_daily_news")}><span><strong>IA como notícia</strong><small>diária</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
@@ -488,6 +498,7 @@ export function App() {
           <div className="mobile-navigation-panel" role="navigation" aria-label="Navegação principal" onClick={(event) => { if ((event.target as HTMLElement).closest("a")) event.currentTarget.closest("details")?.removeAttribute("open"); }}>
             <a href="#categorias">Categorias</a>
             <a href="#palavras-chave" onClick={() => trackEvent("nav_subjects")}>Assuntos</a>
+            <a href="#leituras-em-ia" aria-current={page === "readings" ? "page" : undefined} onClick={() => trackEvent("nav_ai_readings")}>Leituras em IA</a>
             <a href="#ecossistema-ufg" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem")}>Ecossistema UFG</a>
             <a href="#ia-como-noticia-diaria" aria-current={page === "daily-news" ? "page" : undefined} onClick={() => trackEvent("nav_daily_news")}>IA como notícia diária</a>
             <a href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama")}>Panorama IA generativa</a>
@@ -497,12 +508,12 @@ export function App() {
         </details>
       </header>
 
-      {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} onClose={closeDetail} /> : page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "panorama" ? <PanoramaPage /> : <div className="home-page">
+      {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} onClose={closeDetail} /> : page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} detailHref={detailHref} onOpen={openDetail} /> : page === "panorama" ? <PanoramaPage /> : <div className="home-page">
       <section className="catalog-intro" aria-labelledby="page-title">
         <div className="intro-copy-block">
           <p className="eyebrow">Inteligência artificial em perspectiva</p>
           <h1 id="page-title">Conhecimento sobre IA para estudo, pesquisa e debate</h1>
-          <p className="intro-copy">Artigos de Blogs, documentos, vídeos, áudios, entrevistas, papers científicos e apresentações reunidos em um acervo temático.</p>
+          <p className="intro-copy">Leituras selecionadas, documentos, vídeos, áudios, entrevistas, papers científicos e apresentações reunidos em um acervo temático.</p>
           <form className="hero-search" role="search" onSubmit={(event) => { event.preventDefault(); revealCatalog(); }}>
             <Search size={22} aria-hidden="true" />
             <label className="sr-only" htmlFor="hero-search-pt">Buscar no acervo</label>
