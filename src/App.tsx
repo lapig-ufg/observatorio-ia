@@ -117,6 +117,18 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    date: "4 a 10 de outubro de 2026",
+    source: "Curadoria do Observatório UFG-IA",
+    title: "Da intuição ao J-Space: padrões, linguagem e reflexão",
+    summary: "Duas leituras e um podcast aproximam reconhecimento implícito de padrões, seleção de representações e verificação deliberada, sem confundir analogia funcional com consciência.",
+    links: [
+      { label: "Intuition and AI", href: "https://semiengineering.com/intuition-and-ai/" },
+      { label: "Estudo do J-Space", href: "https://transformer-circuits.pub/2026/workspace/index.html" },
+      { label: "Ouvir o podcast", href: "https://drive.google.com/file/d/1ro42roPdwrfXNghWYzhM7n3R1RIiWYr0/view" },
+    ],
+    eventLabel: "intuicao-jspace-padroes-linguagem-reflexao",
+  },
+  {
     date: "27 de setembro a 3 de outubro de 2026",
     source: "Curadoria do Observatório UFG-IA",
     title: "IA na ciência: da ferramenta ao agente",

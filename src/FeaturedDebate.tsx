@@ -1,88 +1,90 @@
 import { useEffect, useRef } from "react";
-import { ArrowUpRight, Headphones } from "lucide-react";
+import { ArrowUpRight, Headphones, Presentation } from "lucide-react";
 import { trackEvent } from "./analytics";
 import { assetUrl } from "./catalog";
 
 type Language = "pt" | "en";
-type MaterialKind = "article" | "audio";
+type MaterialKind = "audio" | "presentation" | "video";
 
 const sources = {
-  intuition: "https://semiengineering.com/intuition-and-ai/",
-  jSpace: "https://transformer-circuits.pub/2026/workspace/index.html",
-  podcast: "https://drive.google.com/file/d/1ro42roPdwrfXNghWYzhM7n3R1RIiWYr0/view",
+  podcast: "https://drive.google.com/file/d/1L1ChcDaz6ves1ddobAzVgPyBmYIgwi7x/view",
+  presentation: "https://drive.google.com/file/d/1BwCAoazLO6euEso_W63046oPTuTFsIc9/view",
+  video: "https://www.youtube.com/watch?v=HIUzrxQxTtw",
 };
 
 const editions = {
   pt: {
     kicker: "Em destaque...",
-    period: "4 a 10 out 2026 · duas leituras e um podcast",
-    eyebrow: "Intuição, processamento implícito e reflexão deliberada",
-    title: "Da intuição ao J-Space: padrões, linguagem e reflexão",
-    first: "O ensaio “Intuition and AI” pergunta se criatividade e intuição podem ser reduzidas à recombinação do passado. Entre as concepções de Freud, Jung e Gary Klein, emerge uma formulação operacional fértil: a intuição como reconhecimento de padrões sob restrição de tempo, seguido por análise deliberada para testar a viabilidade da solução. É uma provocação conceitual — não uma demonstração de que sistemas de IA tenham intuição humana.",
-    second: "O estudo da Anthropic oferece uma ponte mecanicista. Nos modelos analisados, um pequeno conjunto de representações verbalizáveis forma o J-Space: um espaço funcionalmente privilegiado para relato, modulação, raciocínio interno e generalização flexível, sobre um volume muito maior de processamento automático. Operações rotineiras continuam sem ele; tarefas que exigem planejamento e encadeamento deliberado se degradam quando esse espaço é suprimido. A analogia com o espaço de trabalho global ilumina como o modelo organiza informação — mas não prova consciência, experiência subjetiva ou equivalência com o inconsciente humano.",
-    imageAlt: "Ilustração conceitual de processos possivelmente análogos à intuição em humanos e LLMs: em ambos, muitos padrões implícitos convergem em uma representação emergente, que então se torna disponível para avaliação deliberada; no modelo, esse espaço restrito é representado pelo J-Space.",
+    period: "11 a 17 out 2026 · um podcast, uma apresentação e um vídeo",
+    eyebrow: "Proveniência, detecção estatística e limites técnicos",
+    title: "Assinaturas invisíveis: até onde resistem as marcas d’água da IA?",
+    lead: "Foi-se o tempo em que aparência ou estilo bastavam para reconhecer conteúdo sintético. À medida que textos, imagens, áudios e vídeos se tornam mais convincentes, marcas d’água digitais tentam registrar sua origem — mas sua presença não é necessariamente definitiva.",
+    first: "As marcas d’água contemporâneas não são um carimbo visível. Elas inserem sinais discretos na escolha de tokens, nos pixels, no áudio ou em outras estruturas geradas. Podem apoiar a proveniência, a atribuição e a segurança, além de ajudar a identificar dados sintéticos antes que retornem inadvertidamente ao treinamento de novos modelos. A mesma lógica já é investigada em sequências de aminoácidos produzidas por IA generativa.",
+    second: "O limite é decisivo: detecção não equivale a prova absoluta de autoria. Paráfrase, reescrita, recorte, compressão, ruído, baixa entropia ou alteração do amostrador podem enfraquecer ou remover o sinal; textos curtos também oferecem pouca evidência estatística. O podcast, a apresentação e o vídeo desta semana mostram por que a marca d’água deve ser tratada como uma camada de proveniência — útil, mas combinada a metadados, assinatura criptográfica e governança.",
+    imageAlt: "Ilustração editorial de duas folhas translúcidas vistas contra a luz: a primeira contém uma grande marca d’água em forma de gota, com padrões de texto, imagem, áudio e proteína; na segunda, a marca aparece parcialmente fragmentada.",
     imageCredit: "Ilustração conceitual: Observatório UFG-IA · gerada com IA",
-    explore: "Explore as conexões",
+    explore: "Explore os três materiais",
     cards: [
       {
-        meta: "Ensaio · intuição e criatividade",
-        title: "Reconhecer primeiro, verificar depois",
-        description: "Brian Bailey contrapõe intuição, experiência e criatividade à otimização baseada no passado. A definição de Gary Klein organiza o problema em dois momentos: correspondência rápida de padrões e revisão deliberada da solução.",
-        links: [
-          { kind: "article", label: "Ler Intuition and AI", href: sources.intuition },
-        ],
-      },
-      {
-        meta: "Anthropic · interpretabilidade mecanicista",
-        title: "O que chega ao J-Space",
-        description: "A Jacobian Lens identifica representações disponíveis para verbalização. O J-Space reúne uma fração pequena e mutável dessas representações, utilizada em relato, controle dirigido e raciocínio flexível, enquanto grande parte do processamento permanece automática.",
-        links: [
-          { kind: "article", label: "Ler o estudo do J-Space", href: sources.jSpace },
-        ],
-      },
-      {
-        meta: "Podcast · síntese crítica",
-        title: "A ponte — e o limite da analogia",
-        description: "O podcast articula os dois textos: correspondência implícita de padrões, seleção de representações e verificação deliberada. A semelhança funcional é informativa, mas não autoriza concluir que o J-Space seja consciência ou inconsciente humano em uma rede neural.",
+        meta: "Podcast · análise crítica",
+        title: "Por que as marcas d’água falham?",
+        description: "Uma análise dos limites das assinaturas invisíveis, sobretudo em textos: reescrita, paráfrase e outras transformações podem degradar o sinal e tornar a detecção inconclusiva.",
         links: [
           { kind: "audio", label: "Ouvir o podcast", href: sources.podcast },
+        ],
+      },
+      {
+        meta: "Apresentação · fundamentos e métodos",
+        title: "Como a assinatura entra nos tokens",
+        description: "A apresentação explica greenlists, viés de amostragem, escore z, valor-p e o papel da entropia, além de falsos positivos, robustez e ataques de reescrita.",
+        links: [
+          { kind: "presentation", label: "Ver LLM Watermark", href: sources.presentation },
+        ],
+      },
+      {
+        meta: "Google DeepMind · vídeo",
+        title: "De deepfakes ao DNA",
+        description: "Hannah Fry, Pushmeet Kohli e Jeremy Ratcliffe mostram como o SynthID marca texto, imagem, áudio e vídeo — e como a ideia se estende a sequências biológicas, conectando proveniência e biossegurança.",
+        links: [
+          { kind: "video", label: "Assistir ao vídeo", href: sources.video },
         ],
       },
     ],
   },
   en: {
     kicker: "Featured",
-    period: "4–10 Oct 2026 · two readings and one podcast",
-    eyebrow: "Intuition, implicit processing and deliberate reflection",
-    title: "From intuition to J-Space: patterns, language and reflection",
-    first: "The essay “Intuition and AI” asks whether creativity and intuition can be reduced to recombining the past. Across the views of Freud, Jung and Gary Klein, one operational account proves especially useful: intuition as pattern matching under time pressure, followed by deliberate analysis to test whether the solution is feasible. This is a conceptual provocation — not evidence that AI systems possess human intuition.",
-    second: "Anthropic’s study supplies a mechanistic bridge. In the models examined, a small set of verbalizable representations forms the J-Space: a functionally privileged workspace for report, modulation, internal reasoning and flexible generalization, above a much larger volume of automatic processing. Routine operations continue without it; tasks requiring planning and deliberate chaining deteriorate when it is suppressed. The global-workspace analogy helps explain how models organize information, but it does not establish consciousness, subjective experience or equivalence with the human unconscious.",
-    imageAlt: "Conceptual illustration of processes that may be functionally analogous to intuition in humans and LLMs: in both, many implicit patterns converge into an emergent representation that becomes available for deliberate evaluation; in the model, the restricted workspace represents J-Space.",
+    period: "11–17 Oct 2026 · one podcast, one presentation and one video",
+    eyebrow: "Provenance, statistical detection and technical limits",
+    title: "Invisible signatures: how well do AI watermarks survive?",
+    lead: "The time when appearance or style alone could reveal synthetic content is over. As text, images, audio and video become more convincing, digital watermarks seek to record their origin — but their presence is not necessarily permanent.",
+    first: "Contemporary watermarks are not visible stamps. They place subtle signals in token selection, pixels, audio or other generated structures. They can support provenance, attribution and safety, and help identify synthetic data before it inadvertently returns to the training sets of new models. The same logic is already being investigated in amino-acid sequences produced by generative AI.",
+    second: "The limitation is crucial: detection is not absolute proof of authorship. Paraphrasing, rewriting, cropping, compression, noise, low entropy or changes to the sampler can weaken or remove the signal; short texts also provide little statistical evidence. This week’s podcast, presentation and video show why a watermark is best understood as one provenance layer — useful, but combined with metadata, cryptographic signatures and governance.",
+    imageAlt: "Editorial illustration of two translucent sheets held against the light: the first contains a large droplet-shaped watermark with text, image, audio and protein motifs; on the second, the watermark is partially fragmented.",
     imageCredit: "Conceptual illustration: UFG-AI Observatory · AI-generated",
-    explore: "Explore the connections",
+    explore: "Explore the three materials",
     cards: [
       {
-        meta: "Essay · intuition and creativity",
-        title: "Recognize first, verify next",
-        description: "Brian Bailey contrasts intuition, experience and creativity with optimization over the past. Gary Klein’s definition structures the problem in two stages: rapid pattern matching followed by deliberate review of the proposed solution.",
-        links: [
-          { kind: "article", label: "Read Intuition and AI", href: sources.intuition },
-        ],
-      },
-      {
-        meta: "Anthropic · mechanistic interpretability",
-        title: "What enters the J-Space",
-        description: "The Jacobian Lens identifies representations available for verbalization. J-Space contains a small, changing fraction of them, used for report, directed control and flexible reasoning while much of the model’s processing remains automatic.",
-        links: [
-          { kind: "article", label: "Read the J-Space study", href: sources.jSpace },
-        ],
-      },
-      {
-        meta: "Podcast · critical synthesis",
-        title: "The bridge — and the analogy’s limit",
-        description: "The podcast brings the two texts together through implicit pattern matching, selective representation and deliberate verification. The functional similarity is informative, but it does not make J-Space human consciousness or a human unconscious inside a neural network.",
+        meta: "Podcast · critical analysis",
+        title: "Why do AI watermarks fail?",
+        description: "An analysis of the limits of invisible signatures, especially in text: rewriting, paraphrasing and other transformations can degrade the signal and make detection inconclusive.",
         links: [
           { kind: "audio", label: "Listen to the podcast (PT)", href: sources.podcast },
+        ],
+      },
+      {
+        meta: "Presentation · foundations and methods",
+        title: "How the signature enters the tokens",
+        description: "The presentation explains greenlists, sampling bias, z-scores, p-values and the role of entropy, along with false positives, robustness and rewriting attacks.",
+        links: [
+          { kind: "presentation", label: "View LLM Watermark (PT)", href: sources.presentation },
+        ],
+      },
+      {
+        meta: "Google DeepMind · video",
+        title: "From deepfakes to DNA",
+        description: "Hannah Fry, Pushmeet Kohli and Jeremy Ratcliffe show how SynthID marks text, images, audio and video — and how the idea extends to biological sequences, linking provenance and biosecurity.",
+        links: [
+          { kind: "video", label: "Watch the video", href: sources.video },
         ],
       },
     ],
@@ -91,6 +93,7 @@ const editions = {
 
 function MaterialIcon({ kind }: { kind: MaterialKind }) {
   if (kind === "audio") return <Headphones size={15} aria-hidden="true" />;
+  if (kind === "presentation") return <Presentation size={15} aria-hidden="true" />;
   return <ArrowUpRight size={15} aria-hidden="true" />;
 }
 
@@ -119,17 +122,17 @@ export function FeaturedDebate({ language }: { language: Language }) {
       <div className="featured-debate-copy">
         <p className="eyebrow">{edition.eyebrow}</p>
         <h2 id="weekly-highlight-title">{edition.title}</h2>
-        <p>{language === "pt" ? "Como o reconhecimento de padrões se conecta à reflexão deliberada? Duas leituras e um podcast aproximam intuição humana e processamento em LLMs — uma analogia funcional, não uma prova de consciência." : "How does pattern recognition connect to deliberate reflection? Two readings and a podcast connect human intuition and LLM processing — a functional analogy, not evidence of consciousness."}</p>
+        <p>{edition.lead}</p>
         <div className="featured-quick-links">
-          <a href={sources.intuition} target="_blank" rel="noreferrer">Intuition and AI <ArrowUpRight size={15} /></a>
-          <a href={sources.jSpace} target="_blank" rel="noreferrer">J-Space <ArrowUpRight size={15} /></a>
           <a href={sources.podcast} target="_blank" rel="noreferrer"><Headphones size={15} /> {language === "pt" ? "Ouvir podcast" : "Listen to podcast (PT)"}</a>
+          <a href={sources.presentation} target="_blank" rel="noreferrer"><Presentation size={15} /> {language === "pt" ? "Ver apresentação" : "View presentation (PT)"}</a>
+          <a href={sources.video} target="_blank" rel="noreferrer">{language === "pt" ? "Assistir ao vídeo" : "Watch the video"} <ArrowUpRight size={15} /></a>
         </div>
       </div>
       <figure className="featured-debate-art">
         <picture>
-        <source type="image/webp" srcSet={`${assetUrl("covers/intuicao-jspace-2026-10-04-640.webp")} 640w, ${assetUrl("covers/intuicao-jspace-2026-10-04-1280.webp")} 1280w`} sizes="(max-width: 700px) calc(100vw - 64px), 550px" />
-        <img src={assetUrl("covers/intuicao-jspace-2026-10-04.png")} alt={edition.imageAlt} width="1672" height="941" decoding="async" />
+        <source type="image/webp" srcSet={`${assetUrl("covers/watermarking-proveniencia-2026-10-11-640.webp")} 640w, ${assetUrl("covers/watermarking-proveniencia-2026-10-11-1280.webp")} 1280w`} sizes="(max-width: 700px) calc(100vw - 64px), 550px" />
+        <img src={assetUrl("covers/watermarking-proveniencia-2026-10-11.png")} alt={edition.imageAlt} width="1672" height="941" decoding="async" />
         </picture>
         <figcaption>{edition.imageCredit}</figcaption>
       </figure>

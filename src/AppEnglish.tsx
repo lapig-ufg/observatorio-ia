@@ -146,6 +146,18 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 
 const featuredHistoryEnglish = [
   {
+    date: "4–10 October 2026",
+    source: "UFG-AI Observatory · Curated dossier",
+    title: "From intuition to J-Space: patterns, language and reflection",
+    summary: "Two readings and a podcast connect implicit pattern recognition, selective representation and deliberate verification without mistaking a functional analogy for consciousness.",
+    links: [
+      { label: "Intuition and AI", href: "https://semiengineering.com/intuition-and-ai/" },
+      { label: "J-Space study", href: "https://transformer-circuits.pub/2026/workspace/index.html" },
+      { label: "Listen to the podcast (PT)", href: "https://drive.google.com/file/d/1ro42roPdwrfXNghWYzhM7n3R1RIiWYr0/view" },
+    ],
+    eventLabel: "intuition-jspace-patterns-language-reflection",
+  },
+  {
     date: "27 September–3 October 2026",
     source: "UFG-AI Observatory · Curated dossier",
     title: "AI in science: from tool to agent",
