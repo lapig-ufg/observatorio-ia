@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-10-04T11:27:27.044Z",
+  "generatedAt": "2026-10-10T20:47:23.839Z",
   "source": {
-    "name": "folha_ia_2026-10-03.md",
-    "updatedAt": "2026-10-04T11:27:17.154Z",
+    "name": "folha_ia_2026-10-10.md",
+    "updatedAt": "2026-10-10T20:46:33.060Z",
     "files": [
       {
-        "name": "folha_ia_2026-10-03.md",
-        "updatedAt": "2026-10-04T11:27:17.154Z"
+        "name": "folha_ia_2026-10-10.md",
+        "updatedAt": "2026-10-10T20:46:33.060Z"
       }
     ],
     "exactDuplicates": 0,
     "revisedArticles": 0,
     "canonicalUrlDuplicates": 5
   },
-  "articleCount": 6642,
+  "articleCount": 6727,
   "firstDate": "2022-11-09",
-  "lastDate": "2026-10-03",
-  "daysCovered": 1425,
+  "lastDate": "2026-10-10",
+  "daysCovered": 1432,
   "years": [
     2026,
     2025,
@@ -27,31 +27,31 @@
   "themes": [
     {
       "label": "Modelos, produtos e empresas",
-      "count": 1926
+      "count": 1948
     },
     {
       "label": "Sociedade e vida cotidiana",
-      "count": 1232
+      "count": 1260
     },
     {
       "label": "Trabalho, economia e profissões",
-      "count": 985
+      "count": 995
     },
     {
       "label": "Educação, cultura e comunicação",
-      "count": 759
+      "count": 767
     },
     {
       "label": "Infraestrutura, dados e geopolítica",
-      "count": 748
+      "count": 756
     },
     {
       "label": "Ciência, saúde e ambiente",
-      "count": 476
+      "count": 482
     },
     {
       "label": "Regulação, direitos e governança",
-      "count": 416
+      "count": 419
     },
     {
       "label": "Segurança, fraudes e plataformas",
@@ -61,39 +61,39 @@
   "sections": [
     {
       "label": "Mercado e trabalho",
-      "count": 1630
+      "count": 1640
     },
     {
       "label": "Tecnologia",
-      "count": 1345
+      "count": 1347
     },
     {
       "label": "Colunas e opinião",
-      "count": 1140
+      "count": 1146
     },
     {
       "label": "Cultura e comunicação",
-      "count": 660
+      "count": 666
     },
     {
       "label": "Política",
-      "count": 355
+      "count": 359
     },
     {
       "label": "Mundo",
-      "count": 309
+      "count": 310
     },
     {
       "label": "Ciência e ambiente",
-      "count": 276
+      "count": 280
     },
     {
       "label": "Outras seções",
-      "count": 227
+      "count": 270
     },
     {
       "label": "Saúde",
-      "count": 227
+      "count": 231
     },
     {
       "label": "Cotidiano",
@@ -101,11 +101,11 @@
     },
     {
       "label": "Educação",
-      "count": 199
+      "count": 203
     },
     {
       "label": "Esporte",
-      "count": 56
+      "count": 57
     }
   ],
   "monthly": [
@@ -299,7 +299,7 @@
     },
     {
       "month": "2026-10",
-      "count": 26
+      "count": 111
     }
   ]
 }
