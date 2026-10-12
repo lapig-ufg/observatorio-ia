@@ -40,6 +40,8 @@ const cloudTermAliases: Record<string, string> = {
   "ferramentas de ia": "ferramentas",
   "large language model": "llms",
   "large language models": "llms",
+  "language model": "llms",
+  "language models": "llms",
   llm: "llms",
   llms: "llms",
   "modelo de linguagem": "llms",

@@ -28,6 +28,8 @@ test("Radar exclui URLs e identificadores bibliográficos dos temas", () => {
   assert.equal(cloudTermKey("Modelos de IA"), "modelos");
   assert.equal(cloudTermKey("Ferramentas de IA"), "ferramentas");
   assert.equal(cloudTermKey("Modelos de linguagem"), "llms");
+  assert.equal(cloudTermKey("Language models"), "llms");
+  assert.equal(cloudTermKey("Language model"), "llms");
   assert.match(source, /if \(!isEditorialCloudTerm\(tag\)\) return;/);
   assert.match(source, /"agentes de ia": "agentes"/);
   assert.match(fs.readFileSync("src/TopicRadar.tsx", "utf8"), /topics.slice\(0, 12\)/);
