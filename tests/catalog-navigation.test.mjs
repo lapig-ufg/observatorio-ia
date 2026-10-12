@@ -23,17 +23,17 @@ test("coleções incluem automaticamente todos os temas existentes no tipo", () 
   ]);
 });
 
-test("interface não promete um número fixo de coleções", () => {
+test("coleções da entrada são independentes da taxonomia completa dos filtros", () => {
   const app = fs.readFileSync("src/App.tsx", "utf8");
-  assert.match(app, /collectionThemes\(articles, "link-video"\)/);
-  assert.match(app, /Explore por tema/);
+  assert.match(app, /<PortalCollections articles=\{articles\}/);
+  assert.ok(app.includes("new Set(articles.filter"));
   assert.doesNotMatch(app, /Explore pelas sete coleções/);
 });
 
 test("Links e vídeos apresentam temas, não subcategorias repetidas", () => {
   const pt = fs.readFileSync("src/App.tsx", "utf8");
   const en = fs.readFileSync("src/AppEnglish.tsx", "utf8");
-  assert.match(pt, /Sete temas organizam todos os links e vídeos, sem categorias repetidas/);
-  assert.match(en, /Seven topics organize every link and video, without duplicate categories/);
+  assert.match(pt, /themes\).map\(\(item\) => <option key=\{item\}/);
+  assert.match(en, /availableThemes.map\(\(item\) => <option key=\{item\} value=\{item\}/);
   assert.doesNotMatch(pt, /Selecione uma subcategoria para ver os links e vídeos relacionados/);
 });

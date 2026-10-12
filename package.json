@@ -15,7 +15,8 @@
     "catalog:audit-links": "node scripts/audit-external-links.mjs",
     "catalog:build": "node scripts/build-catalog.mjs",
     "catalog:sync-fallback": "node scripts/sync-catalog-fallback.mjs",
-    "noticias:build": "node scripts/build-folha-news.mjs"
+    "noticias:build": "node scripts/build-folha-news.mjs",
+    "editorial:build": "node scripts/build-weekly-digests.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.24.0",

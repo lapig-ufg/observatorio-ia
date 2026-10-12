@@ -10,12 +10,13 @@ export function readCatalogLocation<A extends "all" | "todos">(search: string, a
   return {
     query: params.get("q") || "",
     keyword: params.get("keyword") || "",
+    added: params.get("added") === "7d" ? "7d" : "",
     type: publicTypes.includes(candidate as ArticleType) ? candidate as ArticleType : all,
     theme: params.get("theme") || all,
     sort: (params.get("sort") === "published" ? "published" : "added") as CatalogOrder,
-    view: (params.get("view") === "list" ? "list" : "cards") as CatalogView,
+    view: (params.get("view") === "list" ? "list" : params.get("view") === "cards" || candidate === "link-video" || candidate === "paper" ? "cards" : "list") as CatalogView,
     showAll: params.get("all") === "1",
-    visible: Math.min(10000, Math.max(15, Number(params.get("limit")) || 15)),
+    visible: Math.min(10000, Math.max(6, Number(params.get("limit")) || 6)),
     item: params.get("item") || "",
   };
 }

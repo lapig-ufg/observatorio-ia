@@ -1,30 +1,29 @@
 import {
   ArrowUpRight,
-  BookOpen,
   Building2,
   CheckCircle2,
   ChevronDown,
   Clock3,
   FileText,
   Library,
-  Link2,
   LoaderCircle,
   Menu,
-  Mic,
-  Presentation,
   RefreshCw,
   Search,
-  Sparkles,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPageEnglish } from "./DailyNewsPageEnglish";
 import { FeaturedDebate } from "./FeaturedDebate";
-import { collectionThemes } from "./catalogNavigation";
-import { catalogDate, newestFirst, recentInclusionIdsWithTies } from "./catalogOrdering";
-import { buildKeywordCloud, cloudTermKey, matchesCloudTerm } from "./keywordCloud";
+import { PortalCollections, RecentDiscovery } from "./PortalDiscovery";
+import { TopicRadar } from "./TopicRadar";
+import { addedInWindow, radarDateWindow } from "./radarPeriod";
+import { NavigationMore } from "./NavigationMore";
+import { defaultCatalogView } from "./discoverySelection";
+import { catalogDate, newestFirst } from "./catalogOrdering";
+import { matchesCloudTerm } from "./keywordCloud";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas, type PaperResearchArea } from "./paperResearch";
 import { languageUrl } from "./locale";
 import { ArticleDetail, CatalogCard, InstitutionalBand, useCatalogExperience } from "./CatalogExperience";
@@ -44,29 +43,8 @@ const typeLabels: Record<"all" | ArticleType, string> = {
 
 
 
-const typeIcons = {
-  medium: Sparkles,
-  documento: FileText,
-  "link-video": Link2,
-  audio: Mic,
-  noticia: FileText,
-  paper: BookOpen,
-  apresentacao: Presentation,
-  entrevista: Mic,
-};
-
 const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "audio", "entrevista", "paper", "apresentacao"];
 const filterTypes: Array<"all" | ArticleType> = ["all", ...categoryTypes];
-const chartColors: Record<ArticleType, { bar: string; track: string }> = {
-  medium: { bar: "#16715b", track: "#cfe6dc" },
-  documento: { bar: "#28759f", track: "#d4e6f0" },
-  "link-video": { bar: "#bd5a37", track: "#f2d9ce" },
-  audio: { bar: "#497a80", track: "#d9e9e8" },
-  noticia: { bar: "#b87516", track: "#f1e3bf" },
-  paper: { bar: "#70569b", track: "#e2d9ee" },
-  apresentacao: { bar: "#bd4659", track: "#f1d4da" },
-  entrevista: { bar: "#76568d", track: "#e5dbee" },
-};
 const paperAreaLabels: Record<PaperResearchArea, string> = {
   "Ciências da Vida e Saúde": "Life and Health Sciences",
   "Ciências Humanas, Sociais e Linguística": "Humanities, Social Sciences and Linguistics",
@@ -373,7 +351,7 @@ export function AppEnglish() {
   const [error, setError] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const { query, setQuery, selectedKeyword, setSelectedKeyword, type, setType, theme, setTheme, visible, setVisible, showAll, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, allTopics, setAllTopics, detailHref, openDetail, closeDetail } = useCatalogExperience("all");
+  const { added, setAdded, query, setQuery, selectedKeyword, setSelectedKeyword, type, setType, theme, setTheme, visible, setVisible, showAll, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, allTopics, setAllTopics, detailHref, openDetail, closeDetail } = useCatalogExperience("all");
   const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
   const previousPage = useRef(page);
 
@@ -432,18 +410,9 @@ export function AppEnglish() {
     .filter((article) => article.type !== "noticia")
     .filter((article) => article.type !== "paper" || isPublicResearchPaper(article)), [catalog]);
   const counts = useMemo(() => Object.fromEntries(["all", ...categoryTypes].map((key) => [key, key === "all" ? articles.length : articles.filter((article) => article.type === key).length])) as Record<"all" | ArticleType, number>, [articles]);
-  const maximumCount = Math.max(...categoryTypes.map((category) => counts[category]), 1);
   const nonPaperThemes = useMemo(() => Array.from(new Set(articles.filter((article) => type === "all" || article.type === type).map((article) => article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme))).sort(), [articles, type]);
   const availableThemes = type === "paper" ? [...paperResearchAreas] : nonPaperThemes;
-  const selectedCollection = type === "medium" || type === "link-video" || type === "apresentacao" ? type : null;
-  const collectionCategories = useMemo(() => selectedCollection ? collectionThemes(articles, selectedCollection) : [], [articles, selectedCollection]);
-
-  const keywordCloudRecentIds = useMemo(() => recentInclusionIdsWithTies(articles, 60), [articles]);
-  const keywordCloud = useMemo(() => {
-    const sorted = buildKeywordCloud(articles, keywordCloudRecentIds, Number.MAX_SAFE_INTEGER, 0.06);
-    const maximum = Math.max(...sorted.map((keyword) => keyword.score), 1);
-    return sorted.map((keyword) => ({ ...keyword, size: 0.92 + Math.sqrt(keyword.score / maximum) * 2 }));
-  }, [articles, keywordCloudRecentIds]);
+  const radarWindow = radarDateWindow();
 
   const orderArticles = useMemo(() => (left: Article, right: Article) =>
     (sort === "published" ? catalogDate(right.publishedAt) - catalogDate(left.publishedAt) : catalogDate(right.includedAt) - catalogDate(left.includedAt)) || newestFirst(left, right), [sort]);
@@ -455,20 +424,16 @@ export function AppEnglish() {
       const matchesTheme = theme === "all" || (article.type === "paper" ? paperResearchArea(article) === theme : article.theme === theme);
       const matchesKeyword = !selectedKeyword || matchesCloudTerm(article, selectedKeyword);
       const haystack = normalize([article.title, article.author, article.source, article.theme, article.subtheme, article.summary, ...article.tags].join(" "));
-      return matchesType && matchesTheme && matchesKeyword && (!needle || haystack.includes(needle));
+      return (!added || addedInWindow(article, radarWindow)) && matchesType && matchesTheme && matchesKeyword && (!needle || haystack.includes(needle));
     }).sort(orderArticles);
-  }, [articles, query, selectedKeyword, theme, type, orderArticles]);
+  }, [articles, query, selectedKeyword, theme, type, orderArticles, added, radarWindow.start, radarWindow.end]);
 
-  const latestByCategory = useMemo(() => categoryTypes.flatMap((category) => {
-    const items = articles.filter((article) => article.type === category);
-    return items.length ? [items.slice().sort(orderArticles)[0]] : [];
-  }).sort(orderArticles), [articles, orderArticles]);
-  const initial = !showAll && !query && !selectedKeyword && type === "all" && theme === "all";
-  const displayed = initial ? latestByCategory : filtered;
+  const initial = !added && !showAll && !query && !selectedKeyword && type === "all" && theme === "all";
+  const displayed = filtered;
 
   const revealCatalog = () => {
-    setSelectedKeyword("");
-    setVisible(15);
+    setSelectedKeyword(""); setAdded("");
+    setVisible(6);
     setShowAll(true);
     trackEvent("search_from_hero_en", { event_category: "search", event_label: query.trim() || "all" });
     window.requestAnimationFrame(() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" }));
@@ -480,43 +445,39 @@ export function AppEnglish() {
       window.location.hash = "ai-readings";
       return;
     }
-    setType(category); setTheme("all"); setVisible(15); setShowAll(true);
-    window.requestAnimationFrame(() => document.getElementById("collections")?.scrollIntoView({ behavior: "smooth" }));
+    setQuery(""); setSelectedKeyword(""); setAdded(""); setType(category); setTheme("all"); setView(defaultCatalogView(category)); setVisible(6); setShowAll(true);
+    window.requestAnimationFrame(() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" }));
   };
-  const reset = () => { setQuery(""); setSelectedKeyword(""); setType("all"); setTheme("all"); setVisible(15); setShowAll(true); };
+  const reset = () => { setQuery(""); setSelectedKeyword(""); setAdded(""); setType("all"); setTheme("all"); setVisible(6); setShowAll(true); };
 
   return <main id="top" className="site-shell">
     <a className="skip-link" href={page === "readings" ? "#readings-results-title" : "#catalog"}>{page === "readings" ? "Skip to readings" : "Skip to catalog"}</a>
     <InstitutionalBand english />
     <header className="topbar">
       <a className="brand" href="#top" onClick={() => { if (item) closeDetail(); }} aria-label="UFG-AI Observatory — home"><span className="brand-mark"><Library size={21} aria-hidden="true" /></span><span className="brand-name"><strong>Observatory</strong><strong>UFG-AI</strong></span></a>
-      <nav className="primary-navigation" aria-label="Main navigation">
-        <div className="catalog-nav-links"><a href="#collections">Collections</a><a href="#topics">Topics</a></div>
-        <a className="readings-nav-link" href="#ai-readings" aria-current={page === "readings" ? "page" : undefined} onClick={() => trackEvent("nav_ai_readings_en")}><span><strong>AI</strong><small>readings</small></span> <ArrowUpRight size={15} aria-hidden="true" /></a>
-        <a className="ecosystem-nav-link" href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem <ArrowUpRight size={15} /></a>
-        <a className="daily-news-nav-link" href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}><span><strong>AI in the news</strong><small>daily archive</small></span> <ArrowUpRight size={15} /></a>
-        <a className="panorama-nav-link" href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama_en")}><span><strong>Overview</strong><small>generative AI</small></span> <ArrowUpRight size={15} /></a>
-      </nav>
+      <nav className="primary-navigation" aria-label="Main navigation"><a href="#collections">Categories</a><a className="readings-nav-link" href="#ai-readings" aria-current={page === "readings" ? "page" : undefined}>AI Readings</a><a className="daily-news-nav-link" href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}>AI in the news</a><a href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined}>UFG ecosystem</a><NavigationMore english /></nav>
 <div className="language-switch" aria-label="Language"><a href={languageUrl("pt")}>Portuguese</a><span aria-current="page">English</span></div>
-      <a className="header-search" href="#catalog" aria-label="Search collection"><Search size={21} aria-hidden="true" /></a>
+      <a className="header-search" href="#catalog" onClick={revealCatalog} aria-label="Search collection"><Search size={21} aria-hidden="true" /></a>
       <details className="mobile-navigation">
         <summary><Menu size={20} aria-hidden="true" /><span>Menu</span></summary>
         <div className="mobile-navigation-panel" role="navigation" aria-label="Main navigation" onClick={(event) => { if ((event.target as HTMLElement).closest("a")) event.currentTarget.closest("details")?.removeAttribute("open"); }}>
-          <a href="#collections">Collections</a>
-          <a href="#topics">Topics</a>
+          <a href="#collections">Categories</a>
           <a href="#ai-readings" aria-current={page === "readings" ? "page" : undefined} onClick={() => trackEvent("nav_ai_readings_en")}>AI Readings</a>
           <a href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem</a>
           <a href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}>AI in the news</a>
           <a href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama_en")}>Generative AI overview</a>
+          <a href={assetUrl("por-dentro-da-ia/")}>Inside AI · interactive lesson</a>
+          <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer">Participate <ArrowUpRight size={15} aria-hidden="true" /></a>
           <div className="mobile-language-switch"><a href={languageUrl("pt")}>Portuguese</a><span aria-current="page">English</span></div>
         </div>
       </details>
     </header>
 
     {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} english onClose={closeDetail} /> : page === "panorama" ? <PanoramaPageEnglish /> : page === "ecosystem" ? <EcosystemPageEnglish initiatives={catalog?.initiatives || []} loading={!catalog && !error} warning={catalog?.warning || error} /> : page === "daily-news" ? <DailyNewsPageEnglish /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} english detailHref={detailHref} onOpen={openDetail} /> : <div className="home-page"><section className="catalog-intro" aria-labelledby="page-title">
-      <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Curated readings, documents, videos, audio, interviews, scientific papers and presentations in a thematic collection.</p><form className="hero-search" role="search" onSubmit={(event) => { event.preventDefault(); revealCatalog(); }}><Search size={22} aria-hidden="true" /><label className="sr-only" htmlFor="hero-search-en">Search the collection</label><input id="hero-search-en" value={query} onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); }} placeholder="Search by topic, title, author or keyword" /><button type="submit">Search</button></form><p className="hero-search-hint">Search {articles.length || "more than 1,000"} items selected and summarized by UFG.</p></div>
-      <div className="collection-chart" aria-label="Items by category"><p className="collection-chart-title">Items by category</p><ul>{categoryTypes.map((category) => <li key={category} style={{ "--bar-color": chartColors[category].bar, "--bar-track": chartColors[category].track } as CSSProperties}><span className="collection-chart-label">{typeLabels[category]}</span><span className="collection-chart-track" aria-hidden="true"><span className="collection-chart-bar" style={{ "--bar-value": `${Math.max((counts[category] / maximumCount) * 100, 4)}%` } as CSSProperties} /></span><strong>{counts[category]}</strong></li>)}</ul></div>
+      <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Curated readings, documents, videos, audio, interviews, scientific papers and presentations in a thematic collection.</p><form className="hero-search" role="search" onSubmit={(event) => { event.preventDefault(); revealCatalog(); }}><Search size={22} aria-hidden="true" /><label className="sr-only" htmlFor="hero-search-en">Search the collection</label><input id="hero-search-en" value={query} onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setAdded(""); }} placeholder="Search by topic, title, author or keyword" /><button type="submit">Search</button></form><p className="hero-search-hint">Search {articles.length || "more than 1,000"} items selected and summarized by UFG.</p></div>
     </section>
+
+    <PortalCollections articles={articles} type={type} onSelect={selectCategory} onExplore={revealCatalog} english />
 
     <section className="weekly-highlight weekly-highlight--debate" aria-labelledby="weekly-highlight-title">
       <FeaturedDebate language="en" />
@@ -527,26 +488,19 @@ export function AppEnglish() {
       })}</div></div>}
     </section>
 
-    <section id="catalog" className="search-panel" aria-label="Search the collection">
-      <label className="search-field"><Search size={23} /><span className="sr-only">Search the collection</span><input value={query} onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setVisible(15); setShowAll(true); }} placeholder="Search by title, author, summary, topic or keyword" />{query && <button type="button" className="icon-button" onClick={() => { setQuery(""); setSelectedKeyword(""); }} aria-label="Clear search"><X size={18} /></button>}</label>
+    <section id="catalog" hidden={initial} className="search-panel" aria-label="Search the collection">
+      <label className="search-field"><Search size={23} /><span className="sr-only">Search the collection</span><input value={query} onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setAdded(""); setVisible(6); setShowAll(true); }} placeholder="Search by title, author, summary, topic or keyword" />{query && <button type="button" className="icon-button" onClick={() => { setQuery(""); setSelectedKeyword(""); setAdded(""); }} aria-label="Clear search"><X size={18} /></button>}</label>
       <button className="mobile-filter-toggle" aria-expanded={filtersOpen} aria-controls="catalog-filter-options" onClick={() => setFiltersOpen(!filtersOpen)}>Filter and sort <ChevronDown size={18} aria-hidden="true" /></button>
-      <div id="catalog-filter-options" className={filtersOpen ? "filter-row is-open" : "filter-row"}><div className="type-tabs" role="group" aria-label="Publication type">{filterTypes.map((key) => <button type="button" key={key} className={type === key ? "active" : ""} onClick={() => { setType(key); setTheme("all"); setVisible(15); setShowAll(true); }}>{typeLabels[key]} <span>{counts[key]}</span></button>)}</div><label className="select-filter"><span className="sr-only">Filter by topic</span><select value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(15); setShowAll(true); }}><option value="all">All topics</option>{availableThemes.map((item) => <option key={item} value={item}>{paperAreaLabels[item as PaperResearchArea] || item}</option>)}</select><ChevronDown size={17} /></label></div>
-      <div className="catalog-toolbar"><label className="sort-control">Order by <select value={sort} onChange={(event) => { setSort(event.target.value as "added" | "published"); setVisible(15); }}><option value="added">Most recently added</option><option value="published">Most recently published</option></select></label><div className="view-switch" role="group" aria-label="Display"><button aria-pressed={view === "cards"} onClick={() => setView("cards")}>Cards</button><button aria-pressed={view === "list"} onClick={() => setView("list")}>List</button></div></div>
-      {(query || selectedKeyword || type !== "all" || theme !== "all") && <div className="active-filters" aria-label="Active filters">{query && <button onClick={() => { setQuery(""); setSelectedKeyword(""); }}>Search: {query} ×</button>}{selectedKeyword && <button onClick={() => setSelectedKeyword("")}>Topic: {selectedKeyword} ×</button>}{type !== "all" && <button onClick={() => { setType("all"); setTheme("all"); }}>{typeLabels[type]} ×</button>}{theme !== "all" && <button onClick={() => setTheme("all")}>{type === "paper" ? paperAreaLabels[theme as PaperResearchArea] || theme : theme} ×</button>}<button onClick={reset}>Clear all</button></div>}
+      <div id="catalog-filter-options" className={filtersOpen ? "filter-row is-open" : "filter-row"}><div className="type-tabs" role="group" aria-label="Publication type">{filterTypes.map((key) => <button type="button" key={key} className={type === key ? "active" : ""} onClick={() => { setType(key); setView(defaultCatalogView(key)); setTheme("all"); setVisible(6); setShowAll(true); }}>{typeLabels[key]} <span>{counts[key]}</span></button>)}</div><label className="select-filter"><span className="sr-only">Filter by topic</span><select value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(6); setShowAll(true); }}><option value="all">All topics</option>{availableThemes.map((item) => <option key={item} value={item}>{paperAreaLabels[item as PaperResearchArea] || item}</option>)}</select><ChevronDown size={17} /></label></div>
+      <div className="catalog-toolbar"><label className="sort-control">Order by <select value={sort} onChange={(event) => { setSort(event.target.value as "added" | "published"); setVisible(6); }}><option value="added">Most recently added</option><option value="published">Most recently published</option></select></label><div hidden={defaultCatalogView(type) !== "cards"} className="view-switch" role="group" aria-label="Display"><button aria-pressed={view === "cards"} onClick={() => setView("cards")}>Cards</button><button aria-pressed={view === "list"} onClick={() => setView("list")}>List</button></div></div>
+      {(added || query || selectedKeyword || type !== "all" || theme !== "all") && <div className="active-filters" aria-label="Active filters">{added && <button onClick={() => setAdded("")}>Added in the last 7 days ×</button>}{query && <button onClick={() => { setQuery(""); setSelectedKeyword(""); setAdded(""); }}>Search: {query} ×</button>}{selectedKeyword && <button onClick={() => setSelectedKeyword("")}>Topic: {selectedKeyword} ×</button>}{type !== "all" && <button onClick={() => { setType("all"); setTheme("all"); }}>{typeLabels[type]} ×</button>}{theme !== "all" && <button onClick={() => setTheme("all")}>{type === "paper" ? paperAreaLabels[theme as PaperResearchArea] || theme : theme} ×</button>}<button onClick={reset}>Clear all</button></div>}
       <div className={`sync-line ${catalog?.warning ? "has-warning" : ""}`} aria-live="polite"><span>{catalog?.source === "google-sheets" ? <CheckCircle2 size={15} /> : <Clock3 size={15} />}{catalog?.warning || (lastUpdated ? `Catalog synchronized at ${lastUpdated.toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit" })}` : "Loading catalog")}</span><button type="button" onClick={() => window.location.reload()} title="Refresh catalog" aria-label="Refresh catalog"><RefreshCw size={15} className={refreshing ? "spinning" : ""} /></button></div>
     </section>
 
-    {error ? <section className="empty-state" role="alert"><FileText size={30} /><h2>Catalog unavailable</h2><p>{error}</p><button type="button" onClick={() => window.location.reload()}>Try again</button></section> : !catalog ? <section className="loading-state"><LoaderCircle className="spinning" size={28} /><span>Loading collection…</span></section> : <><section className="results-heading" aria-live="polite"><div><p className="eyebrow">{initial ? "Initial selection" : "Catalog"}</p><h2>{initial ? "Explore the latest additions" : `${displayed.length} ${displayed.length === 1 ? "item found" : "items found"}`}</h2></div>{initial ? <button type="button" className="clear-filters" onClick={() => { setShowAll(true); setVisible(15); }}>View full collection</button> : (query || type !== "all" || theme !== "all") && <button type="button" className="clear-filters" onClick={reset}><X size={16} /> Clear filters</button>}</section>{displayed.length ? <div className={`article-grid view-${view}`}>{displayed.slice(0, visible).map((article) => <CatalogCard key={article.id} article={article} english href={detailHref(article.id)} onOpen={openDetail} />)}</div> : <section className="empty-state"><Search size={30} /><h2>No items found</h2><p>Try another term or remove the filters.</p><button type="button" onClick={reset}>View full collection</button></section>}{visible < displayed.length && <button type="button" className="load-more" onClick={() => setVisible((value) => value + 15)}>Load more items</button>}</>}
-    <section id="collections" className="category-band" aria-labelledby="category-title">
-      <div className="category-heading"><p className="eyebrow">Collections</p><h2 id="category-title">Browse by content type</h2></div>
-      <div className="category-grid">{categoryTypes.map((category) => { const Icon = typeIcons[category]; return <button type="button" key={category} className={type === category ? "category-button active" : "category-button"} onClick={() => selectCategory(category)} aria-pressed={type === category}><Icon size={22} /><span>{typeLabels[category]}</span><strong>{counts[category]}</strong></button>; })}</div>
-      {selectedCollection && collectionCategories.length > 0 && <div className="blog-subcategories"><div className="blog-subcategories-heading"><div><p className="eyebrow">{typeLabels[selectedCollection]}</p><h3>Explore by topic</h3></div><p>{selectedCollection === "link-video" ? "Seven topics organize every link and video, without duplicate categories." : "Select a topic to view related content."}</p></div><div className="blog-subcategory-grid">{collectionCategories.map(({ theme: item, count }) => <button type="button" key={item} className={theme === item ? "blog-subcategory-button active" : "blog-subcategory-button"} onClick={() => { setTheme(item); setVisible(15); setShowAll(true); }}><span>{item}</span><strong>{count}</strong><ArrowUpRight size={16} /></button>)}</div></div>}
-      {type === "paper" && <div className="blog-subcategories"><div className="blog-subcategories-heading"><div><p className="eyebrow">AI in scientific research</p><h3>Explore by field of knowledge</h3></div><p>A curated selection on generative AI, foundation models, agents and their effects on research.</p></div><div className="blog-subcategory-grid">{paperResearchAreas.map((area) => <button type="button" key={area} className={theme === area ? "blog-subcategory-button active" : "blog-subcategory-button"} onClick={() => { setTheme(area); setVisible(15); setShowAll(true); }}><span>{paperAreaLabels[area]}</span><strong>{articles.filter((article) => article.type === "paper" && paperResearchArea(article) === area).length}</strong><ArrowUpRight size={16} /></button>)}</div></div>}
-    </section>
+    {error ? <section className="empty-state" role="alert"><FileText size={30} /><h2>Catalog unavailable</h2><p>{error}</p><button type="button" onClick={() => window.location.reload()}>Try again</button></section> : !catalog ? <section className="loading-state"><LoaderCircle className="spinning" size={28} /><span>Loading collection…</span></section> : initial ? <RecentDiscovery articles={articles} english onSelect={selectCategory} detailHref={detailHref} onOpen={openDetail} /> : <><section className="results-heading" aria-live="polite"><div><p className="eyebrow">{initial ? "Initial selection" : "Catalog"}</p><h2>{initial ? "Explore the latest additions" : `${displayed.length} ${displayed.length === 1 ? "item found" : "items found"}`}</h2></div>{initial ? <button type="button" className="clear-filters" onClick={() => { setShowAll(true); setVisible(6); }}>View full collection</button> : (query || type !== "all" || theme !== "all") && <button type="button" className="clear-filters" onClick={reset}><X size={16} /> Clear filters</button>}</section>{displayed.length ? <div className={`article-grid view-${defaultCatalogView(type) === "cards" ? view : "list"}`}>{displayed.slice(0, visible).map((article) => <CatalogCard key={article.id} article={article} english layout={defaultCatalogView(type) === "cards" ? view : "list"} href={detailHref(article.id)} onOpen={openDetail} />)}</div> : <section className="empty-state"><Search size={30} /><h2>No items found</h2><p>Try another term or remove the filters.</p><button type="button" onClick={reset}>View full collection</button></section>}{visible < displayed.length && <button type="button" className="load-more" onClick={() => setVisible((value) => value + 6)}>Load more items</button>}</>}
+    {articles.length > 0 && <TopicRadar articles={articles} selected={selectedKeyword} english onSelect={(label, period) => { setAdded(period === "7d" ? "7d" : ""); setQuery(""); setSelectedKeyword(label); setType("all"); setTheme("all"); setVisible(6); setShowAll(true); requestAnimationFrame(() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" })); }} />}
 
-    {keywordCloud.length > 0 && <section id="topics" className="keyword-cloud-section" aria-labelledby="keyword-cloud-title"><div className="keyword-cloud-heading"><div><p className="eyebrow">Topics in motion</p><h2 id="keyword-cloud-title">Collection topic radar</h2></div><p>Editorial keywords grouped by concept. Ranking emphasizes the {keywordCloudRecentIds.size} most recent additions without splitting date ties, while preserving recurrence across the entire published catalog.</p></div><div className="keyword-cloud-legend"><span><strong>{keywordCloudRecentIds.size}</strong> recent additions shape the weight</span><span>all <strong>{articles.length}</strong> published active items form the historical base</span></div><div className="keyword-cloud" aria-label="Collection topic radar">{(allTopics ? keywordCloud : keywordCloud.slice(0, 8)).map((keyword, index) => <button type="button" key={keyword.key} className={`keyword-cloud-item cloud-color-${index % 5}${selectedKeyword && cloudTermKey(selectedKeyword) === keyword.key ? " active" : ""}`} style={{ "--cloud-size": `${keyword.size}rem` } as CSSProperties} onClick={() => { setQuery(""); setSelectedKeyword(keyword.label); setType("all"); setTheme("all"); setVisible(15); setShowAll(true); requestAnimationFrame(() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" })); }}><span>{keyword.label}</span><small className="sr-only">{keyword.recentCount} recent additions and {keyword.count} items in the collection</small></button>)}</div><button className="radar-toggle" aria-expanded={allTopics} onClick={() => setAllTopics(!allTopics)}>{allTopics ? "Show main topics" : `View all topics (${keywordCloud.length})`}</button></section>}
-
-    <section id="interactive-experiences" className="interactive-experience" aria-labelledby="interactive-experience-title-en">
+      <section id="interactive-experiences" className="interactive-experience" aria-labelledby="interactive-experience-title-en">
       <div className="interactive-experience-copy">
         <p className="eyebrow">Interactive experiences · LAPIG / UFG</p>
         <h2 id="interactive-experience-title-en">Inside AI <span>From a sentence to the next token</span></h2>

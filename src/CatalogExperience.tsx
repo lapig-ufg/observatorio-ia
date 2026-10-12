@@ -11,13 +11,20 @@ const labels = {
 const icons = { medium: Sparkles, documento: FileText, "link-video": Link2, audio: Headphones, entrevista: Video, paper: BookOpen, apresentacao: Presentation, noticia: FileText };
 
 export function useCatalogExperience<A extends "all" | "todos">(all: A) {
+  const [, refreshLocationLinks] = useState(0);
+  useEffect(() => {
+    const refresh = () => refreshLocationLinks(value => value + 1);
+    window.addEventListener("observatorio:location", refresh);
+    return () => window.removeEventListener("observatorio:location", refresh);
+  }, []);
   const [initial] = useState(() => readCatalogLocation(window.location.search, all));
   const [query, setQuery] = useState(initial.query);
+  const [added, setAdded] = useState(initial.added);
   const [selectedKeyword, setSelectedKeyword] = useState(initial.keyword);
   const [type, setType] = useState<A | ArticleType>(initial.type);
   const [theme, setTheme] = useState(initial.theme);
   const [visible, setVisible] = useState(initial.visible);
-  const [showAll, setShowAll] = useState(initial.showAll);
+  const [showAll, setShowAll] = useState(initial.showAll || ["#catalogo", "#catalog"].includes(window.location.hash));
   const [sort, setSort] = useState(initial.sort);
   const [view, setView] = useState(initial.view);
   const [item, setItem] = useState(initial.item);
@@ -27,15 +34,16 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
 
   useEffect(() => {
     const url = new URL(window.location.href);
-    const values = { q: query, keyword: selectedKeyword, type: type === all ? "" : type, theme: theme === all ? "" : theme, sort: sort === "added" ? "" : sort, view: view === "cards" ? "" : view, all: showAll ? "1" : "", limit: visible > 15 ? String(visible) : "", item };
+    const values = { added, q: query, keyword: selectedKeyword, type: type === all ? "" : type, theme: theme === all ? "" : theme, sort: sort === "added" ? "" : sort, view: view === "cards" ? "" : view, all: showAll ? "1" : "", limit: visible > 6 ? String(visible) : "", item };
     Object.entries(values).forEach(([key, value]) => value ? url.searchParams.set(key, value) : url.searchParams.delete(key));
     window.history.replaceState(window.history.state, "", url);
-  }, [query, selectedKeyword, type, theme, sort, view, showAll, visible, item, all]);
+    window.dispatchEvent(new Event("observatorio:location"));
+  }, [added, query, selectedKeyword, type, theme, sort, view, showAll, visible, item, all]);
 
   useEffect(() => {
     const restore = () => {
       const state = readCatalogLocation(window.location.search, all);
-      setQuery(state.query); setSelectedKeyword(state.keyword); setType(state.type); setTheme(state.theme);
+      setAdded(state.added); setQuery(state.query); setSelectedKeyword(state.keyword); setType(state.type); setTheme(state.theme);
       setSort(state.sort); setView(state.view); setVisible(state.visible); setShowAll(state.showAll); setItem(state.item);
       if (!state.item && returnPosition.current) {
         const position = returnPosition.current;
@@ -47,6 +55,7 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
     };
     window.addEventListener("popstate", restore);
     const leaveDetail = () => {
+      if (["#catalogo", "#catalog"].includes(window.location.hash)) setShowAll(true);
       if (window.location.hash !== "#item") {
         const url = new URL(window.location.href);
         url.searchParams.delete("item");
@@ -61,7 +70,7 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
   const detailHref = (id: string) => {
     const url = new URL(window.location.href);
     // Include this render's state even before the history-sync effect has run.
-    const values = { q: query, keyword: selectedKeyword, type: type === all ? "" : type, theme: theme === all ? "" : theme, sort: sort === "added" ? "" : sort, view: view === "cards" ? "" : view, all: showAll ? "1" : "", limit: visible > 15 ? String(visible) : "" };
+    const values = { added, q: query, keyword: selectedKeyword, type: type === all ? "" : type, theme: theme === all ? "" : theme, sort: sort === "added" ? "" : sort, view: view === "cards" ? "" : view, all: showAll ? "1" : "", limit: visible > 6 ? String(visible) : "" };
     Object.entries(values).forEach(([key, value]) => value ? url.searchParams.set(key, value) : url.searchParams.delete(key));
     url.searchParams.set("item", id); url.hash = "item";
     return `${url.pathname}${url.search}${url.hash}`;
@@ -78,13 +87,13 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
     if (returnPosition.current && window.history.state?.catalogDetail) window.history.back();
     else {
       const url = new URL(window.location.href); url.searchParams.delete("item"); url.hash = all === "todos" ? "catalogo" : "catalog";
-      window.history.replaceState(null, "", url); setItem("");
+      window.history.replaceState(null, "", url); setItem(""); setShowAll(true);
     }
   };
-  return { query, setQuery, selectedKeyword, setSelectedKeyword, type, setType, theme, setTheme, visible, setVisible, showAll, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, allTopics, setAllTopics, detailHref, openDetail, closeDetail };
+  return { added, setAdded, query, setQuery, selectedKeyword, setSelectedKeyword, type, setType, theme, setTheme, visible, setVisible, showAll, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, allTopics, setAllTopics, detailHref, openDetail, closeDetail };
 }
 
-export function CatalogCard({ article, english = false, expanded = false, href, onOpen }: { article: Article; english?: boolean; expanded?: boolean; href?: string; onOpen?: (event: MouseEvent<HTMLAnchorElement>, id: string) => void }) {
+export function CatalogCard({ article, english = false, expanded = false, layout = "cards", href, onOpen }: { article: Article; english?: boolean; expanded?: boolean; layout?: "cards" | "list"; href?: string; onOpen?: (event: MouseEvent<HTMLAnchorElement>, id: string) => void }) {
   const Icon = icons[article.type];
   const typeLabel = labels[english ? "en" : "pt"][article.type];
   const thumbnail = videoThumbnail(article.originalUrl);
@@ -96,16 +105,16 @@ export function CatalogCard({ article, english = false, expanded = false, href, 
   const action = article.type === "medium" ? (english ? "Read publication" : "Ler publicação") : article.type === "audio" ? (english ? "Listen" : "Ouvir áudio") : article.type === "entrevista" || thumbnail ? (english ? "Watch video" : "Assistir vídeo") : article.type === "apresentacao" ? (english ? "View presentation" : "Ver apresentação") : english ? "Read source" : "Acessar fonte";
   const primaryUrl = article.originalUrl || (article.type !== "medium" ? article.institutionalPdfUrl : "");
   return <article className={`article-card compact-card type-${article.type}${expanded ? " expanded-card" : ""}`}>
-    {!expanded && <div className={`cover-frame${cover && !failed ? " has-image" : " category-cover"}`}>
+    {!expanded && layout === "cards" && <div className={`cover-frame${cover && !failed ? " has-image" : " category-cover"}`}>
       {cover && !failed ? <img src={cover} alt="" loading="lazy" decoding="async" width="320" height="180" onError={() => setFailed(true)} /> : <Icon size={40} aria-hidden="true" />}
       <span className="type-badge">{typeLabel}</span>
     </div>}
     <div className="card-content">
       <p className="card-theme">{expanded ? typeLabel : article.subtheme || article.theme}</p>
-      {expanded ? <h1 tabIndex={-1} id="article-detail-title">{article.title}</h1> : <h3>{article.title}</h3>}
+      {expanded ? <h1 tabIndex={-1} id="article-detail-title">{article.title}</h1> : <h3><a id={`title-${article.id}`} href={href} onClick={(event) => onOpen?.(event, article.id)}>{article.title}</a></h3>}
       <p className="byline">{byline}</p>
       <p className="summary">{expanded ? article.summary : articlePreview(article, english)}</p>
-      {!expanded && <p className="preview-note">{english ? "Preview · full context and caveats in the summary" : "Prévia · contexto e ressalvas no resumo completo"}</p>}
+      {!expanded && article.publishedAt && <p className="card-date">{english ? "Published:" : "Publicado em:"} {article.publishedAt}</p>}
       <ul className="tag-list" aria-label={english ? "Keywords" : "Palavras-chave"}>{(expanded ? article.tags : article.tags.slice(0, 3)).map((tag) => <li key={tag}>{tag}</li>)}</ul>
       <div className="card-footer">
         {expanded && <dl className="detail-metadata">

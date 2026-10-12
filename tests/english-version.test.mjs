@@ -53,7 +53,7 @@ test("English route selects the translated catalog and provides a language switc
   assert.match(catalog, /VITE_GOOGLE_SHEETS_EN_GID/);
   assert.match(catalog, /catalogo-en\.csv/);
   assert.match(english, /Portuguese/);
-  assert.match(english, /Collection topic radar/);
+  assert.match(fs.readFileSync("src/TopicRadar.tsx", "utf8"), /Collection topic radar/);
   assert.match(english, /app-panorama-global-da-ia-generativa\/en\//);
   assert.match(english, /href="#panorama"/);
   assert.match(english, /Global Generative AI Landscape/);
@@ -178,7 +178,7 @@ test("every news coverage area has an English label while source headlines remai
   const page = fs.readFileSync("src/DailyNewsPageEnglish.tsx", "utf8");
   assert.match(page, /<span>\{englishSourceSection\(article\.section, article\.sectionGroup\)\}<\/span>/);
   assert.doesNotMatch(page, /<span>\{article\.section\}<\/span>/);
-  assert.match(page, /<h3 lang="pt-BR">\{article\.title\}<\/h3>/);
+  assert.match(page, /<h3 lang="pt-BR"><a href=\{article.url\}[^>]*>\{article\.title\}<\/a><\/h3>/);
 });
 
 test("build creates a direct English entry point with parent asset URLs", () => {

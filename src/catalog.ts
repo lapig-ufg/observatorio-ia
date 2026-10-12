@@ -211,13 +211,18 @@ function initiativesFromGviz(response: GvizResponse): Initiative[] {
 
 function fetchGviz(sheetId: string, gid: string, signal?: AbortSignal): Promise<GvizResponse> {
   return new Promise((resolve, reject) => {
+    if (signal?.aborted) { reject(new DOMException("Consulta cancelada.", "AbortError")); return; }
     const callbackName = `observatorioGviz_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     const script = document.createElement("script");
     const target = window as typeof window & Record<string, unknown>;
 
+    let timeout: ReturnType<typeof setTimeout>;
     const cleanup = () => {
+      clearTimeout(timeout);
       script.remove();
-      delete target[callbackName];
+      // Removing a JSONP script does not cancel a response already queued by the
+      // browser. Keep a tiny inert callback until page unload for late responses.
+      target[callbackName] = () => {};
       signal?.removeEventListener("abort", onAbort);
     };
     const onAbort = () => {
@@ -235,6 +240,10 @@ function fetchGviz(sheetId: string, gid: string, signal?: AbortSignal): Promise<
       reject(new Error("Não foi possível consultar a planilha."));
     };
     signal?.addEventListener("abort", onAbort, { once: true });
+    timeout = setTimeout(() => {
+      cleanup();
+      reject(new Error("A consulta à planilha excedeu o tempo disponível."));
+    }, 10_000);
     script.src = `https://docs.google.com/spreadsheets/d/${encodeURIComponent(sheetId)}/gviz/tq?gid=${encodeURIComponent(gid)}&tqx=responseHandler:${callbackName}&cacheBust=${Date.now()}`;
     document.head.appendChild(script);
   });
@@ -261,9 +270,13 @@ export async function loadCatalog(signal?: AbortSignal, locale: "pt" | "en" = "p
 
   if (sheetId && sheetGid) {
     try {
+      const [articles, initiatives] = await Promise.all([
+        fetchGvizCatalog(sheetId, sheetGid, signal),
+        initiativesGid ? fetchGvizInitiatives(sheetId, initiativesGid, signal).catch(() => []) : Promise.resolve([]),
+      ]);
       return {
-        articles: await fetchGvizCatalog(sheetId, sheetGid, signal),
-        initiatives: initiativesGid ? await fetchGvizInitiatives(sheetId, initiativesGid, signal).catch(() => []) : [],
+        articles,
+        initiatives,
         source: "google-sheets",
         warning: "",
       };

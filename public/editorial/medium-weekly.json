@@ -1,0 +1,278 @@
+{
+  "start": "2026-10-04",
+  "end": "2026-10-10",
+  "reviewedAt": "2026-10-12",
+  "title": {
+    "pt": "Do entusiasmo com modelos à engenharia de sistemas confiáveis",
+    "en": "From model enthusiasm to engineering dependable systems"
+  },
+  "summary": {
+    "pt": "Nas leituras selecionadas, a atenção se desloca do modelo isolado para o sistema que o cerca: ferramentas, contexto, avaliação e supervisão humana. Tutoriais sobre agentes convivem com relatos de produtividade e previsões ambiciosas sobre mercado e trabalho. O ponto de atenção é a distância entre demonstração e evidência: um exemplo bem-sucedido não comprova confiabilidade em produção, nem um anúncio estabelece superioridade geral.",
+    "en": "The selected readings shift attention from individual models to the surrounding system: tools, context, evaluation and human oversight. Agent tutorials sit alongside productivity accounts and ambitious forecasts about markets and work. The key issue is the gap between demonstration and evidence: a successful example does not establish production reliability, and an announcement does not establish general superiority."
+  },
+  "method": {
+    "pt": "Síntese editorial dos resumos críticos de 29 textos com publicação entre 4 e 10 de outubro e inclusão no catálogo até 10/10/2026. Esta revisão não releu os 29 originais. São ensaios e relatos predominantemente do Medium, não uma revisão científica nem uma amostra representativa de todo o campo de IA. Os seis eixos abaixo organizam os temas presentes nesta seleção; a lista completa de fontes permite conferir o recorte.",
+    "en": "Editorial synthesis of the critical catalog summaries of 29 texts published on 4–10 October and added by 10 October 2026. This review did not re-read all 29 originals. These are predominantly Medium essays and accounts, not a scientific review or a representative sample of the AI field. The six themes below organize this selection; the complete source list makes its scope inspectable."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Agentes, RAG e aplicações",
+        "en": "Agents, RAG and applications"
+      },
+      "summary": {
+        "pt": "Os relatos destacam a orquestração: limites de execução, contexto, ferramentas e diagnóstico das etapas de recuperação. Revisão humana calibrada pelo risco aparece como alternativa à aprovação indiscriminada. São propostas e experiências de implementação; ganhos de confiabilidade precisam ser testados em tarefas reais.",
+        "en": "The accounts emphasize orchestration: execution limits, context, tools and diagnosis of retrieval stages. Risk-calibrated human review is proposed as an alternative to blanket approval. These are implementation proposals and experiences; reliability gains need testing on real tasks."
+      },
+      "sourceIds": [
+        "what-an-ai-agent-actually-does-between-your-question-and-its-answer-9359321ad914",
+        "designing-calibrated-human-in-the-loop-agents-bayes-risk-gating-with-system-1-decision-models-e8b7b0cf90cd"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Estratégia, mercado e impactos",
+        "en": "Strategy, market and impacts"
+      },
+      "summary": {
+        "pt": "Comparativos de modelos e cenários de automação exigem cautela. Custos de infraestrutura, avaliação e manutenção importam tanto quanto o preço anunciado. Previsões de demissões e autoaperfeiçoamento não devem ser confundidas com resultados demonstrados; algumas fichas registram ausência de documentação primária suficiente.",
+        "en": "Model comparisons and automation scenarios require caution. Infrastructure, evaluation and maintenance costs matter alongside advertised prices. Predictions about layoffs or self-improvement are not demonstrated outcomes; some catalog entries flag insufficient primary documentation."
+      },
+      "sourceIds": [
+        "before-your-ai-agent-places-its-first-order-f0b78ecfd07c",
+        "jev-vs-laya-the-free-ai-model-that-might-cost-you-more-a95dbec83280"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Dados, vetores e gestão do conhecimento",
+        "en": "Data, vectors and knowledge management"
+      },
+      "summary": {
+        "pt": "A organização das fontes ganha protagonismo: busca vetorial, relações em grafos e arquivos de conhecimento curado atendem necessidades diferentes. A combinação pode ser útil, mas exemplos sintéticos e regras heurísticas não justificam percentuais universais de acurácia ou uma arquitetura única.",
+        "en": "Source organization takes center stage: vector retrieval, graph relationships and curated knowledge files serve different needs. Combining them may help, but synthetic examples and heuristics do not establish universal accuracy rates or a single best architecture."
+      },
+      "sourceIds": [
+        "your-data-has-a-shape-does-your-ai-know-it-2eed4168cf21",
+        "rag-vs-okf-stop-choosing-one-why-ai-agents-need-both-72caf114acef"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aprendizado, pesquisa e produtividade",
+        "en": "Learning, research and productivity"
+      },
+      "summary": {
+        "pt": "Fluxos pessoais, repositórios de estudo e ferramentas de pesquisa ampliam possibilidades de trabalho. O contraponto é preservar prática independente e capacidade de verificar respostas. Relatos individuais de produtividade e preocupações com perda de habilidade não demonstram, por si, efeitos universais.",
+        "en": "Personal workflows, learning repositories and research tools expand practical possibilities. The counterpoint is preserving independent practice and the ability to check answers. Individual productivity accounts and concerns about skill erosion do not by themselves demonstrate universal effects."
+      },
+      "sourceIds": [
+        "10-github-repositories-that-will-make-you-dangerous-at-ai-agents-ff6e1b70e36a",
+        "ai-skill-atrophy-are-we-forgetting-how-to-think-1afbf92eb496"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos de linguagem e IA generativa",
+        "en": "Language models and generative AI"
+      },
+      "summary": {
+        "pt": "Os textos questionam a ideia de que gerar código equivale a compreender um problema. A interpretabilidade oferece evidências parciais sobre mecanismos, mas não transforma a explicação verbal de um modelo em descrição fiel de seu processamento. Verificação e limites de inferência continuam centrais.",
+        "en": "The texts challenge the idea that generating code means understanding a problem. Interpretability provides partial evidence about mechanisms, but does not make a model’s verbal explanation a faithful account of its processing. Verification and limits of inference remain central."
+      },
+      "sourceIds": [
+        "are-llms-silver-bullets-a764c668338e",
+        "opening-the-black-box-can-we-finally-see-how-ai-thinks-154cf2f36dca"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Transformers e mecanismos de atenção",
+        "en": "Transformers and attention mechanisms"
+      },
+      "summary": {
+        "pt": "Uma leitura didática revisita o gargalo dos modelos sequência a sequência que comprimiam a entrada em um único vetor. Esse percurso ajuda a compreender a motivação da atenção, sem confundir a introdução histórica com uma descrição completa dos LLMs atuais.",
+        "en": "A tutorial revisits the bottleneck of sequence-to-sequence models that compressed the input into a single vector. This helps explain the motivation for attention, without treating a historical introduction as a complete account of current LLMs."
+      },
+      "sourceIds": [
+        "chasing-attention-part-i-one-vector-too-much-to-remember-1c99b88e54a1"
+      ]
+    }
+  ],
+  "corpus": [
+    {
+      "id": "before-your-ai-agent-places-its-first-order-f0b78ecfd07c",
+      "date": "2026-10-05",
+      "title": "Most AI Projects Fail Before Anyone Writes Code. Here’s How to Pick the Right Approach",
+      "url": "https://medium.com/@dorien-herremans/before-your-ai-agent-places-its-first-order-f0b78ecfd07c"
+    },
+    {
+      "id": "jev-vs-laya-the-free-ai-model-that-might-cost-you-more-a95dbec83280",
+      "date": "2026-10-04",
+      "title": "Jev vs Laya: The Free AI Model That Might Cost You More",
+      "url": "https://medium.com/@gursimarsm/jev-vs-laya-the-free-ai-model-that-might-cost-you-more-a95dbec83280"
+    },
+    {
+      "id": "what-an-ai-agent-actually-does-between-your-question-and-its-answer-9359321ad914",
+      "date": "2026-10-04",
+      "title": "What an AI Agent Actually Does Between Your Question and Its Answer",
+      "url": "https://medium.com/@shreyasnaphad/what-an-ai-agent-actually-does-between-your-question-and-its-answer-9359321ad914"
+    },
+    {
+      "id": "the-godfather-of-ai-thinks-something-huge-is-about-to-happen-bb571396f1f6",
+      "date": "2026-10-04",
+      "title": "The Godfather of AI Thinks Something Huge Is About to Happen",
+      "url": "https://medium.com/@jimclydemonge/the-godfather-of-ai-thinks-something-huge-is-about-to-happen-bb571396f1f6"
+    },
+    {
+      "id": "7-ways-your-rag-system-fails-and-how-to-tell-which-one-you-have-c31cecafbba3",
+      "date": "2026-10-05",
+      "title": "7 Ways Your RAG System Fails (And How to Tell Which One You Have)",
+      "url": "https://medium.com/@yadavdivy296/7-ways-your-rag-system-fails-and-how-to-tell-which-one-you-have-c31cecafbba3"
+    },
+    {
+      "id": "why-use-python-if-ai-writes-your-code-2026-guide-459bd8f81604",
+      "date": "2026-10-05",
+      "title": "Why Use Python If AI Writes Your Code? (2026 Guide)",
+      "url": "https://medium.com/@buyfreecourse7/why-use-python-if-ai-writes-your-code-2026-guide-459bd8f81604"
+    },
+    {
+      "id": "i-turned-claude-into-a-one-person-ai-company-for-100-a-month-7311be99bffc",
+      "date": "2026-10-04",
+      "title": "I Turned Claude Into a One-Person AI Company for $100 a Month",
+      "url": "https://medium.com/@nitingavhane/i-turned-claude-into-a-one-person-ai-company-for-100-a-month-7311be99bffc"
+    },
+    {
+      "id": "your-data-has-a-shape-does-your-ai-know-it-2eed4168cf21",
+      "date": "2026-10-06",
+      "title": "Your Data Has a Shape. Does Your AI Know It?",
+      "url": "https://medium.com/@cekikjmiodrag/your-data-has-a-shape-does-your-ai-know-it-2eed4168cf21"
+    },
+    {
+      "id": "i-built-a-claude-code-mod-to-break-the-test-retry-loop-b5d0fad13aff",
+      "date": "2026-10-06",
+      "title": "I Built a Claude Code Mod to Break the Test Retry Loop",
+      "url": "https://medium.com/@adham__khaled__/i-built-a-claude-code-mod-to-break-the-test-retry-loop-b5d0fad13aff"
+    },
+    {
+      "id": "this-changes-everything-you-thought-about-ai-coding-03f9f295eef3",
+      "date": "2026-10-06",
+      "title": "AI Coding Just Got a Killer Competitor. You’d Better Catch Up",
+      "url": "https://medium.com/@pepitoscrespo/this-changes-everything-you-thought-about-ai-coding-03f9f295eef3"
+    },
+    {
+      "id": "claude-just-moved-cowork-to-the-cloud-heres-what-that-actually-changes-d2d87c73ebab",
+      "date": "2026-10-06",
+      "title": "Claude Just Moved Cowork to the Cloud. Here’s What That Actually Changes",
+      "url": "https://medium.com/@mubashirburfat4/claude-just-moved-cowork-to-the-cloud-heres-what-that-actually-changes-d2d87c73ebab"
+    },
+    {
+      "id": "5-claude-skills-that-kill-ai-slop-websites-00ac0355f11d",
+      "date": "2026-10-06",
+      "title": "5 Claude Skills That Kill AI-Slop Websites",
+      "url": "https://medium.com/@yadavdivy296/5-claude-skills-that-kill-ai-slop-websites-00ac0355f11d"
+    },
+    {
+      "id": "chasing-attention-part-i-one-vector-too-much-to-remember-1c99b88e54a1",
+      "date": "2026-10-06",
+      "title": "Chasing “Attention” (Part I) — One Vector, Too Much to Remember",
+      "url": "https://medium.com/@sumanthpsv/chasing-attention-part-i-one-vector-too-much-to-remember-1c99b88e54a1"
+    },
+    {
+      "id": "10-github-repositories-that-will-make-you-dangerous-at-ai-agents-ff6e1b70e36a",
+      "date": "2026-10-07",
+      "title": "10 GitHub Repositories That Will Make You Dangerous at AI Agents",
+      "url": "https://medium.com/@iffywhy/10-github-repositories-that-will-make-you-dangerous-at-ai-agents-ff6e1b70e36a"
+    },
+    {
+      "id": "are-llms-silver-bullets-a764c668338e",
+      "date": "2026-10-07",
+      "title": "Are LLMs silver bullets?",
+      "url": "https://medium.com/@thegoldenmule/are-llms-silver-bullets-a764c668338e"
+    },
+    {
+      "id": "companies-are-blindly-firing-people-who-shouldnt-be-fired-because-of-ai-yet-the-real-carnage-54f4605722b8",
+      "date": "2026-10-06",
+      "title": "Companies Are Blindly Firing People Who Shouldn’t Be Fired Because of AI (Yet the Real Carnage Starts in 2028)",
+      "url": "https://medium.com/@sergeykleftzov/companies-are-blindly-firing-people-who-shouldnt-be-fired-because-of-ai-yet-the-real-carnage-54f4605722b8"
+    },
+    {
+      "id": "has-google-finally-broken-the-ai-ceiling-a-deep-dive-into-gemini-4-argon-accf1439bf2e",
+      "date": "2026-10-06",
+      "title": "Has Google Finally Broken the AI Ceiling? A Deep Dive into Gemini 4 Argon",
+      "url": "https://medium.com/@tanmay.bansal20/has-google-finally-broken-the-ai-ceiling-a-deep-dive-into-gemini-4-argon-accf1439bf2e"
+    },
+    {
+      "id": "rag-vs-okf-stop-choosing-one-why-ai-agents-need-both-72caf114acef",
+      "date": "2026-10-06",
+      "title": "RAG vs OKF: Stop Choosing One. Why AI Agents Need Both",
+      "url": "https://medium.com/@rohanmistry231/rag-vs-okf-stop-choosing-one-why-ai-agents-need-both-72caf114acef"
+    },
+    {
+      "id": "new-claude-sonnet-5-5-is-absolutely-insane-30b8ffd33d8d",
+      "date": "2026-10-06",
+      "title": "New Claude Sonnet 5.5 is Absolutely INSANE!",
+      "url": "https://medium.com/@pranithnaikpranit/new-claude-sonnet-5-5-is-absolutely-insane-30b8ffd33d8d"
+    },
+    {
+      "id": "i-built-a-claude-skill-that-turns-short-briefs-into-slides-you-can-actually-present-a0c0ffb1a924",
+      "date": "2026-10-06",
+      "title": "I Built a Claude Skill That Turns Short Briefs Into Slides You Can Actually Present",
+      "url": "https://medium.com/@umairali.khan/i-built-a-claude-skill-that-turns-short-briefs-into-slides-you-can-actually-present-a0c0ffb1a924"
+    },
+    {
+      "id": "gemini-notebook-october-9-changes-7cdc0b4c5270",
+      "date": "2026-10-05",
+      "title": "October 9: What Google Is Changing and What It Means for Your Gemini Notebook",
+      "url": "https://medium.com/@MihailoZoin/gemini-notebook-october-9-changes-7cdc0b4c5270"
+    },
+    {
+      "id": "designing-calibrated-human-in-the-loop-agents-bayes-risk-gating-with-system-1-decision-models-e8b7b0cf90cd",
+      "date": "2026-10-06",
+      "title": "Designing Calibrated Human-in-the-Loop Agents: Bayes Risk Gating with System-1 Decision Models",
+      "url": "https://medium.com/@saptarshi7karmakar/designing-calibrated-human-in-the-loop-agents-bayes-risk-gating-with-system-1-decision-models-e8b7b0cf90cd"
+    },
+    {
+      "id": "5-ai-interview-terms-you-think-you-know-but-the-follow-up-question-exposes-you-2ca456bc3bae",
+      "date": "2026-10-08",
+      "title": "5 AI Interview Terms You Think You Know, but the Follow-Up Question Exposes You",
+      "url": "https://medium.com/@shreyasnaphad/5-ai-interview-terms-you-think-you-know-but-the-follow-up-question-exposes-you-2ca456bc3bae"
+    },
+    {
+      "id": "how-will-ai-takeover-c3b95e0187a1",
+      "date": "2026-10-07",
+      "title": "How Will AI Takeover?",
+      "url": "https://medium.com/@CasparAI/how-will-ai-takeover-c3b95e0187a1"
+    },
+    {
+      "id": "what-if-an-ai-agent-could-grow-its-own-tools-02c87c3195cb",
+      "date": "2026-10-08",
+      "title": "What if an AI Agent Could Grow Its Own Tools?",
+      "url": "https://medium.com/@ozanzal_81488/what-if-an-ai-agent-could-grow-its-own-tools-02c87c3195cb"
+    },
+    {
+      "id": "something-has-gone-terribly-wrong-at-anthropic-7f685b625b26",
+      "date": "2026-10-07",
+      "title": "Something Has Gone Terribly Wrong at Anthropic",
+      "url": "https://medium.com/@albertoromgar/something-has-gone-terribly-wrong-at-anthropic-7f685b625b26"
+    },
+    {
+      "id": "opus-5-5-vs-gpt-6-i-made-opus-5-5-and-gpt-6-grade-each-others-work-779c1cc9fb57",
+      "date": "2026-10-06",
+      "title": "Opus 5.5 vs GPT-6: I Made Opus 5.5 and GPT-6 Grade Each Other’s Work",
+      "url": "https://medium.com/@sumit.ai/opus-5-5-vs-gpt-6-i-made-opus-5-5-and-gpt-6-grade-each-others-work-779c1cc9fb57"
+    },
+    {
+      "id": "ai-skill-atrophy-are-we-forgetting-how-to-think-1afbf92eb496",
+      "date": "2026-10-05",
+      "title": "AI skill atrophy: Are we forgetting how to think?",
+      "url": "https://medium.com/@slavaxyz/ai-skill-atrophy-are-we-forgetting-how-to-think-1afbf92eb496"
+    },
+    {
+      "id": "opening-the-black-box-can-we-finally-see-how-ai-thinks-154cf2f36dca",
+      "date": "2026-10-08",
+      "title": "Opening the Black Box: Can We Finally See How AI Thinks?",
+      "url": "https://medium.com/@hayanan/opening-the-black-box-can-we-finally-see-how-ai-thinks-154cf2f36dca"
+    }
+  ]
+}

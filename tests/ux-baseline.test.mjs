@@ -43,12 +43,12 @@ test("the header has a compact navigation mode without horizontal scrolling", ()
 test("both languages present the collection as a portal before editorial modules", () => {
   for (const source of [portuguese, english]) {
     assert.match(source, /className="home-page"/);
-    assert.match(source, /className="category-band"/);
+    assert.match(source, /<PortalCollections/);
     assert.match(source, /className="search-panel"/);
     assert.match(source, /className="weekly-highlight weekly-highlight--debate"/);
     assert.match(source, /className="interactive-experience"/);
     assert.match(source, /className="obia-callout"/);
-    assert.match(source, /className="keyword-cloud-section"/);
+    assert.match(source, /<TopicRadar/);
   }
 
   assert.match(styles, /\.home-page > \.catalog-intro \{ order: 1; \}/);

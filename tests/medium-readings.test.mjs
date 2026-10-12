@@ -24,11 +24,11 @@ test("the dedicated collection is driven only by Medium records and filters date
   assert.match(page, /Título, autor ou palavra-chave/);
   assert.match(page, /Publication year/);
   assert.match(page, /Ano de publicação/);
-  assert.match(page, /value=\{theme\}/);
-  assert.match(page, /value=\{subtheme\}/);
+  assert.match(page, /value=\{readingTopic\(theme\).id\}/);
+  assert.match(page, /value=\{readingSubtopic\(subtheme\)\.id\}/);
   assert.match(page, /value=\{sort\}/);
-  assert.match(page, /racs\?/i);
-  assert.match(page, /Agents, RAG and applications/);
+  assert.match(fs.readFileSync("src/readingTopics.ts", "utf8"), /Agents, RACs and applications/);
+  assert.match(fs.readFileSync("src/readingTopics.ts", "utf8"), /Agents, RAG and applications/);
 });
 
 test("Medium cards point to the original publication and never advertise an institutional PDF", () => {

@@ -2,6 +2,10 @@ import { CalendarDays, ChevronDown, ExternalLink, Filter, LoaderCircle, Search, 
 import { useEffect, useMemo, useState } from "react";
 import { loadFolhaIndex, loadFolhaYear, type FolhaArticle, type FolhaIndex } from "./folha";
 import { trackEvent } from "./analytics";
+import { WeeklyDigest } from "./WeeklyDigest";
+
+import { useArchiveFilters, ShareSearch, ArchiveFilterDetails } from "./ArchiveControls";
+import { matchesSearch, parseNewsPeriod } from "./archiveSearch";
 
 type Period = "30d" | "all" | number;
 
@@ -32,7 +36,7 @@ function yearsForPeriod(lastDate: string, availableYears: number[], period: Peri
 
 function Stars({ count }: { count: number }) {
   if (!count) return <span className="daily-news-no-stars">Sem estrelas</span>;
-  return <span className="daily-news-stars" aria-label={`${count} de 5 estrelas`}>{Array.from({ length: count }, (_, index) => <Star key={index} size={13} fill="currentColor" aria-hidden="true" />)}</span>;
+  return <span className="daily-news-stars" aria-label={`${count} estrela(s) editorial(is)`}>{Array.from({ length: count }, (_, index) => <Star key={index} size={13} fill="currentColor" aria-hidden="true" />)}</span>;
 }
 
 export function DailyNewsPage() {
@@ -41,12 +45,15 @@ export function DailyNewsPage() {
   const [loading, setLoading] = useState(true);
   const [loadingRecords, setLoadingRecords] = useState(false);
   const [error, setError] = useState("");
-  const [period, setPeriod] = useState<Period>("30d");
-  const [theme, setTheme] = useState("todos");
-  const [section, setSection] = useState("todos");
-  const [stars, setStars] = useState("todas");
-  const [query, setQuery] = useState("");
-  const [visible, setVisible] = useState(18);
+  const [filters, setFilter] = useArchiveFilters("news", { period: "30d", theme: "todos", section: "todos", stars: "todas", q: "" });
+  const { theme, section, stars, q: query } = filters;
+  const period = parseNewsPeriod(filters.period);
+  const setPeriod = (value: Period) => setFilter("period", String(value));
+  const setTheme = (value: string) => setFilter("theme", value);
+  const setSection = (value: string) => setFilter("section", value);
+  const setStars = (value: string) => setFilter("stars", value);
+  const setQuery = (value: string) => setFilter("q", value);
+  const [visible, setVisible] = useState(10);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -64,26 +71,26 @@ export function DailyNewsPage() {
     const controller = new AbortController();
     const selectedYears = yearsForPeriod(index.lastDate, index.years, period);
     setLoadingRecords(true);
+    setRecords([]); setError("");
     void Promise.all(selectedYears.map((year) => loadFolhaYear(year, controller.signal))).then((annualRecords) => {
-      setRecords(annualRecords.flat());
+      setRecords(annualRecords.flat()); setError("");
     }).catch((reason) => {
       if (reason.name !== "AbortError") setError(reason instanceof Error ? reason.message : "Não foi possível carregar o período solicitado.");
     })
-      .finally(() => setLoadingRecords(false));
+      .finally(() => { if (!controller.signal.aborted) setLoadingRecords(false); });
     return () => controller.abort();
   }, [index, period]);
 
   const relevantRecords = useMemo(() => {
     if (!index) return [];
     const cutoff = cutoffDate(index.lastDate, period);
-    const needle = query.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
     return records.filter((article) => {
       const inPeriod = period === "all" || (period === "30d" ? article.date >= cutoff : article.date.startsWith(`${period}-`));
       const matchesTheme = theme === "todos" || article.theme === theme;
       const matchesSection = section === "todos" || article.sectionGroup === section;
       const matchesStars = stars === "todas" || article.stars === Number(stars);
       const haystack = `${article.title} ${article.section} ${article.theme}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-      return inPeriod && matchesTheme && matchesSection && matchesStars && (!needle || haystack.includes(needle));
+      return inPeriod && matchesTheme && matchesSection && matchesStars && matchesSearch(haystack, query);
     }).sort((left, right) => right.date.localeCompare(left.date) || left.title.localeCompare(right.title, "pt-BR"));
   }, [index, period, query, records, section, stars, theme]);
 
@@ -96,12 +103,12 @@ export function DailyNewsPage() {
   const hasFilters = period !== "30d" || theme !== "todos" || section !== "todos" || stars !== "todas" || Boolean(query);
 
   const clearFilters = () => {
-    setPeriod("30d"); setTheme("todos"); setSection("todos"); setStars("todas"); setQuery(""); setVisible(18);
+    setPeriod("30d"); setTheme("todos"); setSection("todos"); setStars("todas"); setQuery(""); setVisible(10);
     trackEvent("daily_news_clear_filters");
   };
 
   if (loading) return <section className="daily-news-loading" aria-live="polite"><LoaderCircle className="spinning" size={28} /> Carregando o observatório de imprensa…</section>;
-  if (error || !index) return <section className="daily-news-unavailable"><p className="eyebrow">Observatório de imprensa</p><h1>IA como notícia diária</h1><p>{error || "A base de notícias está em preparação."}</p><p className="daily-news-unavailable-note">A página será alimentada pelo arquivo histórico da Folha de S.Paulo, sem alterar o original no Google Drive.</p></section>;
+  if (!index) return <section className="daily-news-unavailable"><p className="eyebrow">Observatório de imprensa</p><h1>IA como notícia diária</h1><p>{error || "A base de notícias está em preparação."}</p><p className="daily-news-unavailable-note">A página será alimentada pelo arquivo histórico da Folha de S.Paulo, sem alterar o original no Google Drive.</p></section>;
 
   return <section className="daily-news-page" aria-labelledby="daily-news-title">
     <header className="daily-news-hero">
@@ -119,7 +126,27 @@ export function DailyNewsPage() {
       <div><strong>{formatDate(index.lastDate)}</strong><span>última notícia registrada</span></div>
     </div>
 
-    <section className="daily-news-reading" aria-labelledby="daily-news-reading-title">
+    <WeeklyDigest collection="folha" />
+    <p className="archive-rating-note">As estrelas seguem a curadoria da fonte: 2–5 indicam relevância editorial; 1 é um marcador especial de sensoriamento remoto/ambiente. Os registros mais antigos usam marcação binária, não uma escala comparável de cinco pontos.</p>
+    {error && <p className="archive-error" role="alert">{error}</p>}
+    <section className="daily-news-explorer" aria-labelledby="daily-news-results-title">
+      <aside className="daily-news-filters">
+        <p className="search-scope">Buscando em: {period === "30d" ? `${formatDate(cutoffDate(index.lastDate, period))} – ${formatDate(index.lastDate)}` : period === "all" ? "todo o acervo" : period}</p><div className="daily-news-filter-title"><Filter size={17} aria-hidden="true" /><strong>Filtrar matérias</strong></div>
+        <label className="daily-news-search"><Search size={18} aria-hidden="true" /><span className="sr-only">Buscar título ou assunto</span><input value={query} onChange={(event) => { setQuery(event.target.value); setVisible(10); }} placeholder="Buscar título ou assunto" /></label>
+        <ArchiveFilterDetails label="Assuntos, datas e relevância">
+ <label className="daily-news-select"><span>Período</span><select value={String(period)} onChange={event => { setPeriod(parseNewsPeriod(event.target.value)); setVisible(10); }}><option value="30d">Últimos 30 dias do acervo</option><option value="all">Todo o acervo</option>{index.years.map(year => <option key={year} value={year}>{year}</option>)}</select><ChevronDown size={16} aria-hidden="true" /></label>
+ <label className="daily-news-select"><span>Assunto</span><select value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(10); }}><option value="todos">Todos os assuntos</option>{index.themes.map((item) => <option value={item.label} key={item.label}>{item.label} ({item.count})</option>)}</select><ChevronDown size={16} aria-hidden="true" /></label>
+        <label className="daily-news-select"><span>Seção da Folha</span><select value={section} onChange={(event) => { setSection(event.target.value); setVisible(10); }}><option value="todos">Todas as seções</option>{index.sections.map((item) => <option value={item.label} key={item.label}>{item.label} ({item.count})</option>)}</select><ChevronDown size={16} aria-hidden="true" /></label>
+        <label className="daily-news-select"><span>Relevância editorial</span><select value={stars} onChange={(event) => { setStars(event.target.value); setVisible(10); }}><option value="todas">Todas as relevâncias</option>{[5, 4, 3, 2, 1, 0].map((count) => <option value={count} key={count}>{count ? `${"★".repeat(count)} (${count} estrela${count > 1 ? "s" : ""})` : "Sem estrelas"}</option>)}</select><ChevronDown size={16} aria-hidden="true" /></label>
+        </ArchiveFilterDetails>{hasFilters && <button type="button" className="daily-news-clear" onClick={clearFilters}><X size={15} /> Limpar filtros</button>}
+      </aside>
+      <div className="daily-news-results"><ShareSearch />
+        <div className="daily-news-results-heading"><div><p className="eyebrow">Matérias encontradas</p><h2 id="daily-news-results-title">{loadingRecords ? "Carregando período…" : `${relevantRecords.length.toLocaleString("pt-BR")} ${relevantRecords.length === 1 ? "matéria" : "matérias"}`}</h2></div><span><CalendarDays size={16} aria-hidden="true" /> {period === "30d" ? "recorte recente" : period === "all" ? "série histórica" : `ano de ${period}`}</span></div>
+        {relevantRecords.length ? <ol className="daily-news-list">{relevantRecords.slice(0, visible).map((article) => <li key={article.id}><div className="daily-news-record-meta"><time dateTime={article.date}>{formatDate(article.date)}</time><span>{article.section}</span><Stars count={article.stars} /></div><h3><a href={article.url} target="_blank" rel="noreferrer">{article.title}</a></h3><div className="daily-news-record-footer"><span>{article.theme}</span><a href={article.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("daily_news_open_article", { event_category: "outbound", event_label: article.id })}>Ler na Folha <ExternalLink size={15} aria-hidden="true" /></a></div></li>)}</ol> : <div className="daily-news-empty"><Search size={25} /><strong>Nenhuma matéria neste recorte</strong><p>Altere os filtros ou pesquise em todo o acervo.</p><button className="text-action" onClick={() => { setPeriod("all"); setTheme("todos"); setSection("todos"); setStars("todas"); }}>Buscar em todo o acervo</button></div>}
+        {visible < relevantRecords.length && <button type="button" className="daily-news-more" onClick={() => setVisible((value) => value + 10)}>Carregar mais matérias</button>}
+      </div>
+    </section>
+    <details className="daily-news-reading" aria-labelledby="daily-news-reading-title"><summary>Contexto e curadoria da série histórica</summary>
       <header className="daily-news-reading-heading">
         <p className="eyebrow">Leitura do acervo</p>
         <h2 id="daily-news-reading-title">O que aconteceu em {index.daysCovered.toLocaleString("pt-BR")} dias de IA</h2>
@@ -154,45 +181,31 @@ export function DailyNewsPage() {
         <p>Três tensões organizam o material: a concentração de poder em poucas empresas e países; consequências concretas em corpos, direitos e relações sociais; e a presença cada vez maior da IA no território e no meio ambiente. Ao longo da série, aparecem reflorestamento monitorado por satélite, detecção de desmatamento em tempo real, medição de carbono, vigilância de rios e discussões locais na UFG.</p>
         <p>Assim, a IA deixa de ser curiosidade de tecnologia e passa a funcionar como infraestrutura — da previsão do tempo e do monitoramento ambiental à segurança pública, ao agronegócio e à comunicação — enquanto sua própria pegada de energia e água também se torna tema de interesse público.</p>
       </div>
-    </section>
+    </details>
 
     <section className="daily-news-timeline" aria-labelledby="daily-news-timeline-title">
       <div className="daily-news-section-heading"><div><p className="eyebrow">Linha do tempo</p><h2 id="daily-news-timeline-title">Presença da IA no noticiário</h2></div><p>O volume mensal mostra o ritmo da cobertura no período selecionado.</p></div>
       <div className="daily-news-periods" role="group" aria-label="Período da análise">
-        <button type="button" className={period === "30d" ? "active" : ""} onClick={() => { setPeriod("30d"); setVisible(18); trackEvent("daily_news_period", { event_label: "30d" }); }}>Últimos 30 dias</button>
+        <button type="button" className={period === "30d" ? "active" : ""} onClick={() => { setPeriod("30d"); setVisible(10); trackEvent("daily_news_period", { event_label: "30d" }); }}>Últimos 30 dias</button>
         <label className={`daily-news-year-picker ${typeof period === "number" ? "active" : ""}`}>
           <span className="sr-only">Selecionar ano</span>
           <select value={typeof period === "number" ? String(period) : ""} onChange={(event) => {
             const year = Number(event.target.value);
             if (!year) return;
-            setPeriod(year); setVisible(18); trackEvent("daily_news_period", { event_label: String(year) });
+            setPeriod(year); setVisible(10); trackEvent("daily_news_period", { event_label: String(year) });
           }}>
             <option value="" disabled>Selecionar ano</option>
             {index.years.map((year) => <option value={year} key={year}>{year}</option>)}
           </select>
           <ChevronDown size={16} aria-hidden="true" />
         </label>
-        <button type="button" className={period === "all" ? "active" : ""} onClick={() => { setPeriod("all"); setVisible(18); trackEvent("daily_news_period", { event_label: "all" }); }}>Todo o período</button>
+        <button type="button" className={period === "all" ? "active" : ""} onClick={() => { setPeriod("all"); setVisible(10); trackEvent("daily_news_period", { event_label: "all" }); }}>Todo o período</button>
       </div>
       <div className="daily-news-timeline-bars" aria-label="Quantidade de matérias por mês">
         {filteredTimeline.map(({ month, count }) => <div key={month} className="daily-news-month"><span className="daily-news-month-label">{formatMonth(month)}</span><span className="daily-news-month-track"><span style={{ width: `${(count / maxMonthlyCount) * 100}%` }} /></span><strong>{count}</strong></div>)}
       </div>
     </section>
 
-    <section className="daily-news-explorer" aria-labelledby="daily-news-results-title">
-      <aside className="daily-news-filters">
-        <div className="daily-news-filter-title"><Filter size={17} aria-hidden="true" /><strong>Filtrar matérias</strong></div>
-        <label className="daily-news-search"><Search size={18} aria-hidden="true" /><span className="sr-only">Buscar título ou assunto</span><input value={query} onChange={(event) => { setQuery(event.target.value); setVisible(18); }} placeholder="Buscar título ou assunto" /></label>
-        <label className="daily-news-select"><span>Assunto</span><select value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(18); }}><option value="todos">Todos os assuntos</option>{index.themes.map((item) => <option value={item.label} key={item.label}>{item.label} ({item.count})</option>)}</select><ChevronDown size={16} aria-hidden="true" /></label>
-        <label className="daily-news-select"><span>Seção da Folha</span><select value={section} onChange={(event) => { setSection(event.target.value); setVisible(18); }}><option value="todos">Todas as seções</option>{index.sections.map((item) => <option value={item.label} key={item.label}>{item.label} ({item.count})</option>)}</select><ChevronDown size={16} aria-hidden="true" /></label>
-        <label className="daily-news-select"><span>Relevância editorial</span><select value={stars} onChange={(event) => { setStars(event.target.value); setVisible(18); }}><option value="todas">Todas as relevâncias</option>{[5, 4, 3, 2, 1, 0].map((count) => <option value={count} key={count}>{count ? `${"★".repeat(count)} (${count} estrela${count > 1 ? "s" : ""})` : "Sem estrelas"}</option>)}</select><ChevronDown size={16} aria-hidden="true" /></label>
-        {hasFilters && <button type="button" className="daily-news-clear" onClick={clearFilters}><X size={15} /> Limpar filtros</button>}
-      </aside>
-      <div className="daily-news-results">
-        <div className="daily-news-results-heading"><div><p className="eyebrow">Matérias encontradas</p><h2 id="daily-news-results-title">{loadingRecords ? "Carregando período…" : `${relevantRecords.length.toLocaleString("pt-BR")} ${relevantRecords.length === 1 ? "matéria" : "matérias"}`}</h2></div><span><CalendarDays size={16} aria-hidden="true" /> {period === "30d" ? "recorte recente" : period === "all" ? "série histórica" : `ano de ${period}`}</span></div>
-        {relevantRecords.length ? <ol className="daily-news-list">{relevantRecords.slice(0, visible).map((article) => <li key={article.id}><div className="daily-news-record-meta"><time dateTime={article.date}>{formatDate(article.date)}</time><span>{article.section}</span><Stars count={article.stars} /></div><h3>{article.title}</h3><div className="daily-news-record-footer"><span>{article.theme}</span><a href={article.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("daily_news_open_article", { event_category: "outbound", event_label: article.id })}>Ler na Folha <ExternalLink size={15} aria-hidden="true" /></a></div></li>)}</ol> : <div className="daily-news-empty"><Search size={25} /><strong>Nenhuma matéria neste recorte</strong><p>Altere os filtros ou escolha outro período.</p></div>}
-        {visible < relevantRecords.length && <button type="button" className="daily-news-more" onClick={() => setVisible((value) => value + 18)}>Carregar mais matérias</button>}
-      </div>
-    </section>
+
   </section>;
 }

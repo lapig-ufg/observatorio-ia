@@ -11,10 +11,12 @@ const styles = fs.readFileSync("src/portal.css", "utf8");
 
 test("shareable location preserves query, filters, ordering, view, page length and detail ID", () => {
   const state = readCatalogLocation("?q=Navier&type=documento&theme=Ci%C3%AAncia&keyword=IA&sort=published&view=list&all=1&limit=45&item=documento-123", "todos");
-  assert.deepEqual(state, { query: "Navier", type: "documento", theme: "Ciência", keyword: "IA", sort: "published", view: "list", showAll: true, visible: 45, item: "documento-123" });
+  assert.deepEqual(state, { query: "Navier", type: "documento", theme: "Ciência", keyword: "IA", added: "", sort: "published", view: "list", showAll: true, visible: 45, item: "documento-123" });
   assert.equal(readCatalogLocation("?type=noticia&view=invalid&sort=invalid&limit=-1", "all").type, "all");
   assert.equal(readCatalogLocation("?limit=Infinity", "all").visible, 10000);
-  assert.equal(readCatalogLocation("?limit=nan", "todos").visible, 15);
+  assert.equal(readCatalogLocation("?limit=nan", "todos").visible, 6);
+  assert.equal(readCatalogLocation("?type=documento", "todos").view, "list");
+  assert.equal(readCatalogLocation("?type=paper", "todos").view, "cards");
 });
 
 test("previews do not cut an abbreviation and preserve the Navier–Stokes distinction", () => {
@@ -46,9 +48,8 @@ test("cards preserve full text in detail and cap only preview keywords", () => {
 test("both languages expose equivalent responsive portal controls and full-catalog radar", () => {
   for (const name of ["App.tsx", "AppEnglish.tsx"]) {
     const app = fs.readFileSync(`src/${name}`, "utf8");
-    for (const feature of ["useCatalogExperience", "<CatalogCard", "<ArticleDetail", "<InstitutionalBand", "catalog-filter-options", "catalog-toolbar", "view-switch", "active-filters", "radar-toggle", "portal-news"]) assert.ok(app.includes(feature), feature);
-    assert.match(app, /buildKeywordCloud\(articles, keywordCloudRecentIds, Number.MAX_SAFE_INTEGER/);
-    assert.match(app, /keywordCloud.slice\(0, 8\)/);
+    for (const feature of ["useCatalogExperience", "<CatalogCard", "<ArticleDetail", "<InstitutionalBand", "catalog-filter-options", "catalog-toolbar", "view-switch", "active-filters", "<TopicRadar", "portal-news"]) assert.ok(app.includes(feature), feature);
+    assert.match(app, /<TopicRadar articles=\{articles\}/);
     assert.ok(app.indexOf('className="weekly-highlight weekly-highlight--debate"') < app.indexOf('className="results-heading"'));
   }
   assert.match(shared, /Laboratório de Sensoriamento Remoto e Geoprocessamento/);
