@@ -10,6 +10,8 @@
 .digest-links { padding-left: 20px; font-size: 0.9rem; line-height: 1.6; }.digest-links li { padding-block: 4px; }.digest-links a { color: #245b48; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .digest-method { border-top: 1px solid #e1dace; }.digest-method summary { font-weight: 500; font-size: 0.9rem; }.digest-method time { color: #5e6a62; }
 .archive-rating-note, .archive-error { margin: 20px clamp(20px, 6vw, 92px) 0; font-size: 0.85rem; line-height: 1.6; color: #52665b; }.archive-error { color: #9d3526; }
+.daily-news-periods { flex-wrap: wrap; }
+.daily-news-periods button, .daily-news-year-picker select { min-height: 44px; }
 @media (max-width: 700px) { .weekly-digest { margin: 20px 16px 0; padding: 20px 16px; }.digest-topics > div { grid-template-columns: 1fr; gap: 14px; }.archive-rating-note, .archive-error { margin-inline: 16px; } }
 [hidden] { display: none !important; }
 .home-page.home-page > * { order: initial; }

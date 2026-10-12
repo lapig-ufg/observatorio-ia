@@ -455,17 +455,16 @@ export function AppEnglish() {
     <InstitutionalBand english />
     <header className="topbar">
       <a className="brand" href="#top" onClick={() => { if (item) closeDetail(); }} aria-label="UFG-AI Observatory — home"><span className="brand-mark"><Library size={21} aria-hidden="true" /></span><span className="brand-name"><strong>Observatory</strong><strong>UFG-AI</strong></span></a>
-      <nav className="primary-navigation" aria-label="Main navigation"><a href="#collections">Categories</a><a className="readings-nav-link" href="#ai-readings" aria-current={page === "readings" ? "page" : undefined}>AI Readings</a><a className="daily-news-nav-link" href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}>AI in the news</a><a href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined}>UFG ecosystem</a><NavigationMore english /></nav>
+      <nav className="primary-navigation" aria-label="Main navigation"><a className="readings-nav-link" href="#ai-readings" aria-current={page === "readings" ? "page" : undefined}>AI Readings</a><a className="daily-news-nav-link" href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}>AI in the news</a><a className="panorama-nav-link" href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama_en")}>Generative AI overview</a><a href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined}>UFG ecosystem</a><NavigationMore english /></nav>
 <div className="language-switch" aria-label="Language"><a href={languageUrl("pt")}>Portuguese</a><span aria-current="page">English</span></div>
       <a className="header-search" href="#catalog" onClick={revealCatalog} aria-label="Search collection"><Search size={21} aria-hidden="true" /></a>
       <details className="mobile-navigation">
         <summary><Menu size={20} aria-hidden="true" /><span>Menu</span></summary>
         <div className="mobile-navigation-panel" role="navigation" aria-label="Main navigation" onClick={(event) => { if ((event.target as HTMLElement).closest("a")) event.currentTarget.closest("details")?.removeAttribute("open"); }}>
-          <a href="#collections">Categories</a>
           <a href="#ai-readings" aria-current={page === "readings" ? "page" : undefined} onClick={() => trackEvent("nav_ai_readings_en")}>AI Readings</a>
-          <a href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem</a>
           <a href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}>AI in the news</a>
           <a href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama_en")}>Generative AI overview</a>
+          <a href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem</a>
           <a href={assetUrl("por-dentro-da-ia/")}>Inside AI · interactive lesson</a>
           <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer">Participate <ArrowUpRight size={15} aria-hidden="true" /></a>
           <div className="mobile-language-switch"><a href={languageUrl("pt")}>Portuguese</a><span aria-current="page">English</span></div>

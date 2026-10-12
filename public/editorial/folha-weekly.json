@@ -7,8 +7,8 @@
     "en": "Promises of progress, expansion costs and demands for verification"
   },
   "summary": {
-    "pt": "O recorte da semana aproxima três debates: o que a IA efetivamente consegue fazer, quem financia sua expansão e como distribuir responsabilidades. Anúncios na matemática aparecem ao lado de reações críticas; investimentos em infraestrutura convivem com dúvidas econômicas; saúde, educação e segurança expõem consequências concretas. A leitura conjunta recomenda separar alegações empresariais, projeções e opiniões daquilo que recebeu verificação independente.",
-    "en": "This week’s selection connects three debates: what AI can actually do, who funds its expansion and how responsibility should be distributed. Mathematics announcements appear alongside critical responses; infrastructure investment coexists with economic uncertainty; health, education and security reveal practical consequences. Reading them together calls for separating company claims, forecasts and opinions from independently verified findings."
+    "pt": "As 85 matérias selecionadas aproximam a promessa de avanço dos custos e responsabilidades de sua adoção. O anúncio de resultados em matemática provoca entusiasmo e perguntas sobre validação; a expansão de chips e centros de dados convive com pressão financeira e energética. Educação, saúde, emprego e conteúdos sintéticos mostram onde essas disputas chegam ao cotidiano. A questão que atravessa a semana é quem verifica as alegações, supervisiona os usos e responde pelas consequências. Anúncios, previsões, opiniões e resultados comprovados precisam permanecer distintos.",
+    "en": "The 85 selected articles connect promises of progress with the costs and responsibilities of adoption. Announced mathematics results prompt enthusiasm and questions about validation; expanding chip and data-center capacity coexists with financial and energy pressures. Education, health, employment and synthetic content show how these debates reach everyday life. The recurring question is who verifies claims, oversees uses and bears responsibility for the consequences. Announcements, forecasts, opinions and demonstrated results must remain distinct."
   },
   "method": {
     "pt": "Síntese de títulos e notas descritivas das 85 matérias catalogadas entre 4 e 10/10/2026 no retrato folha_ia_2026-10-10.md. Não equivale à releitura integral de todas as reportagens. Os oito eixos abaixo são uma organização editorial desta síntese e podem cruzar a classificação histórica dos filtros. A presença de um tema neste jornal não mede sua prevalência na sociedade. Os links mantêm a fonte e podem exigir assinatura.",
@@ -36,12 +36,13 @@
         "en": "Infrastructure, data and geopolitics"
       },
       "summary": {
-        "pt": "Energia, chips e financiamento de centros de dados mostram a base material da expansão da IA. Projeções de demanda não são consumo já realizado; compromissos financeiros tampouco garantem retorno. O ponto de atenção é a relação entre escala computacional, recursos e risco.",
-        "en": "Energy, chips and data-center financing reveal the material foundations of AI expansion. Demand forecasts are not realized consumption, and financial commitments do not guarantee returns. The relationship between compute scale, resources and risk deserves attention."
+        "pt": "Energia, chips e financiamento revelam a base material da expansão da IA. As notas reúnem projeções de demanda elétrica, pressão sobre crédito e negociações para comprar chips. O ponto de atenção é a exposição a custos e riscos: consumo projetado não é consumo realizado, e intenção de investimento não garante retorno.",
+        "en": "Energy, chips and financing reveal the material foundations of AI expansion. The notes bring together electricity-demand forecasts, credit pressures and negotiations to purchase chips. The issue to watch is exposure to costs and risks: projected consumption is not realized consumption, and investment intentions do not guarantee returns."
       },
       "sourceIds": [
         "4bfc99c0ec648a",
-        "da6239d3dd0073"
+        "da6239d3dd0073",
+        "43e08c19da79b1"
       ]
     },
     {
