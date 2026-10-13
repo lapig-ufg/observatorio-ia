@@ -463,7 +463,7 @@ export function AppEnglish() {
         <div className="mobile-navigation-panel" role="navigation" aria-label="Main navigation" onClick={(event) => { if ((event.target as HTMLElement).closest("a")) event.currentTarget.closest("details")?.removeAttribute("open"); }}>
           <a href="#ai-readings" aria-current={page === "readings" ? "page" : undefined} onClick={() => trackEvent("nav_ai_readings_en")}>AI Readings</a>
           <a href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}>AI in the news</a>
-          <a href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama_en")}>Generative AI overview</a>
+          <a className="panorama-mobile-link" href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama_en")}>Generative AI overview</a>
           <a href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem</a>
           <a href={assetUrl("por-dentro-da-ia/")}>Inside AI · interactive lesson</a>
           <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer">Participate <ArrowUpRight size={15} aria-hidden="true" /></a>

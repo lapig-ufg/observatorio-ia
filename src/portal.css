@@ -45,8 +45,31 @@ body { min-width: 0; font-size: 16px; }
 .radar-method p { max-width: 90ch; margin-top: 4px; }
 @media (min-width: 1201px) {
   .topbar { flex-wrap: nowrap; }
-  .topbar > .primary-navigation { order: 0; flex: 1 1 auto; width: auto; padding: 0; border: 0; gap: clamp(4px, 1vw, 16px); }
-  .topbar > .primary-navigation > a { font-size: 1rem; line-height: 1.35; padding: 10px 8px; max-width: 180px; }
+  .topbar > .primary-navigation {
+    order: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 900px;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    gap: 8px;
+  }
+  .topbar > .primary-navigation > a,
+  .topbar > .primary-navigation > .navigation-more { width: 100%; min-width: 0; }
+  .topbar > .primary-navigation > a,
+  .topbar > .primary-navigation > .navigation-more > summary {
+    box-sizing: border-box;
+    min-height: 48px;
+    justify-content: center;
+    padding: 8px 10px;
+    font-size: 1rem;
+    line-height: 1.25;
+    text-align: center;
+    text-wrap: balance;
+  }
 }
 .header-search { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; border-radius: 10px; background: #edf5f1; }
 .brand { min-width: 0; flex-shrink: 0; }
@@ -210,39 +233,30 @@ body { min-width: 0; font-size: 16px; }
 .topbar nav .panorama-nav-link small { font-size: 0.96rem; }
 .mobile-navigation-panel > a { font-size: 1rem; }
 
-.topbar nav .readings-nav-link {
+.topbar nav .panorama-nav-link {
   padding: 7px 10px;
   border: 1px solid #c4b48d;
   border-radius: 8px;
   background: #fff9ea;
   color: #254f43;
 }
-.topbar nav .readings-nav-link > span { display: grid; gap: 1px; }
-.topbar nav .readings-nav-link strong { color: #9a5725; font-size: 0.92rem; line-height: 1; }
-.topbar nav .readings-nav-link small { font-size: 0.96rem; font-weight: 750; line-height: 1.15; white-space: nowrap; }
-.topbar nav .readings-nav-link:hover { border-color: #ad7b43; background: #fff2cf; color: #173e32; }
+.topbar nav .panorama-nav-link:hover { border-color: #ad7b43; background: #fff2cf; color: #173e32; }
+.mobile-navigation-panel > .panorama-mobile-link { border: 1px solid #d7c79f; background: #fff9ea; }
 
 /* Keep the larger labels without horizontal overflow on laptop-size desktops. */
 @media (min-width: 1201px) and (max-width: 1720px) {
   .topbar {
     display: flex;
-    grid-template-columns: auto minmax(0, 1fr) auto;
     column-gap: 14px;
     row-gap: 8px;
     padding: 8px clamp(16px, 3vw, 42px);
   }
-  .topbar > .brand { grid-column: 1; grid-row: 1; }
-  .topbar > .language-switch { grid-column: 2; grid-row: 1; justify-self: end; margin-left: 0; }
-  .topbar > .header-search { grid-column: 3; grid-row: 1; }
+  .topbar > .language-switch { margin-left: 0; }
   .topbar > .primary-navigation {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    width: auto;
+    width: 100%;
     margin: 0;
     padding-top: 0;
     border-top: 0;
-    flex-wrap: nowrap;
-    row-gap: 6px;
   }
 }
 
