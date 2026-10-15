@@ -16,6 +16,7 @@ import {
   type PanoramaGvizResponse,
   type PanoramaLaunch,
 } from "./panoramaData";
+import { editorialFromScript } from "./panoramaEditorial";
 
 /* Busca de rede do Panorama. Tudo vem do site vivo do Panorama e da planilha
    dele, a cada abertura: o Observatório não guarda cópia (ver o teste
@@ -129,4 +130,23 @@ export async function loadPanoramaBenchmarks(locale: PanoramaLocale = "pt", sign
 export async function loadPanoramaCatalog(signal?: AbortSignal): Promise<PanoramaCatalogModel[]> {
   const [{ config }, json] = await Promise.all([loadPanoramaConfig(signal), fetchJson("catalogo.json", signal)]);
   return catalogFromJson(json, config);
+}
+
+async function fetchEditorialScript(file: string, locale: PanoramaLocale, signal?: AbortSignal) {
+  const path = `${file}${locale === "en" ? "-en" : ""}.js`;
+  const response = await fetch(assetUrl(path), { cache: "no-cache", signal });
+  if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
+  return response.text();
+}
+
+export async function loadPanoramaFreeTools(locale: PanoramaLocale = "pt", signal?: AbortSignal) {
+  return editorialFromScript(await fetchEditorialScript("gratuitos-data", locale, signal), "GRATUITOS_DATA");
+}
+
+export async function loadPanoramaUsage(locale: PanoramaLocale = "pt", signal?: AbortSignal) {
+  const [text, scenes] = await Promise.all([
+    fetchEditorialScript("como-usar-data", locale, signal),
+    fetchEditorialScript("como-usar-cenas", locale, signal),
+  ]);
+  return { data: editorialFromScript(text, "COMO_USAR_DATA"), scenes: editorialFromScript(scenes, "COMO_USAR_CENAS") };
 }

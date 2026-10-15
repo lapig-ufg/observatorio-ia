@@ -1,9 +1,11 @@
-import { ArrowUpRight, Hammer } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
 import { PANORAMA_SITE } from "../panoramaData";
 import { Timeline } from "./Timeline";
 import { ModelGuide } from "./ModelGuide";
+import { FreeTools } from "./FreeTools";
+import { UsageGuide } from "./UsageGuide";
 
 /* Página do Panorama dentro do Observatório — a casca que as quatro abas
    compartilham. O iframe acabou: cada aba renderiza o próprio conteúdo, lendo
@@ -12,7 +14,7 @@ import { ModelGuide } from "./ModelGuide";
    Rotas por hash: `#panorama` (régua) e as sub-rotas `#panorama/guia`,
    `#panorama/gratuitos` e `#panorama/como-usar`. O App resolve qualquer hash
    que comece com `#panorama` como a página "panorama"; a sub-rota é lida aqui.
-   O guia é nativo; as duas abas editoriais ficam para a fase 3. */
+   Cada aba lê sua fonte viva, inclusive os textos e as cenas editoriais. */
 
 type TabKey = "" | "guia" | "gratuitos" | "como-usar";
 
@@ -29,21 +31,6 @@ function panoramaSubRoute(route: string): TabKey {
   if (hash === "#panorama/gratuitos") return "gratuitos";
   if (hash === "#panorama/como-usar") return "como-usar";
   return "";
-}
-
-function PanoramaComingSoon({ tab, english }: { tab: TabKey; english: boolean }) {
-  const label = TABS.find((entry) => entry.key === tab);
-  return (
-    <div className="panorama-soon" role="status">
-      <Hammer size={24} aria-hidden="true" />
-      <p>
-        <strong>{english ? label?.en : label?.pt}</strong>
-        {english
-          ? " This section is being prepared and will open here soon, reading the live data from the Panorama site."
-          : " Esta seção está sendo preparada e chega em breve aqui, lendo os dados ao vivo do site do Panorama."}
-      </p>
-    </div>
-  );
 }
 
 export function PanoramaPage({ english = false }: { english?: boolean }) {
@@ -132,7 +119,7 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
         ))}
       </nav>
 
-      {tab === "" ? <Timeline english={english} /> : tab === "guia" ? <ModelGuide english={english} /> : <PanoramaComingSoon tab={tab} english={english} />}
+      {tab === "" ? <Timeline english={english} /> : tab === "guia" ? <ModelGuide english={english} /> : tab === "gratuitos" ? <FreeTools english={english} /> : <UsageGuide english={english} />}
     </section>
   );
 }

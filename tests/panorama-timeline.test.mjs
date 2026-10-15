@@ -13,6 +13,17 @@ const compiled = ts.transpileModule(source, {
 }).outputText;
 const timeline = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`);
 
+test("detalhe fica no viewport mesmo quando o catálogo tardio desloca a âncora", () => {
+  const anchor = { left: 500, top: 300, bottom: 330, width: 100 };
+  assert.equal(timeline.popoverPlacement(anchor, 1280, 900, 80).top, 340, "abaixo quando cabe");
+  assert.equal(timeline.popoverPlacement({ ...anchor, top: 700, bottom: 730 }, 1280, 900, 80).top, 330, "acima perto do rodapé");
+  for (const moved of [{ ...anchor, top: -800, bottom: -770, left: -200 }, { ...anchor, top: 1600, bottom: 1630, left: 1400 }]) {
+    const box = timeline.popoverPlacement(moved, 1280, 900, 80);
+    assert.ok(box.top >= 90 && box.top + box.maxHeight <= 890);
+    assert.ok(box.left >= 10 && box.left + box.width <= 1270);
+  }
+});
+
 /* Fabrica um item já enriquecido — o componente faz isso com as regras de
    panoramaData.ts, que têm testes próprios. Aqui interessa o desenho. */
 function item(overrides = {}) {

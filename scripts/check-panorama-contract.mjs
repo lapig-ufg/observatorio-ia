@@ -10,6 +10,10 @@ const compiled = ts.transpileModule(source, {
   compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
 }).outputText;
 const panorama = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`);
+const editorialCompiled = ts.transpileModule(fs.readFileSync(new URL("../src/panoramaEditorial.ts", import.meta.url), "utf8"), {
+  compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
+}).outputText;
+const editorial = await import(`data:text/javascript;base64,${Buffer.from(editorialCompiled).toString("base64")}`);
 
 const asset = (path) => new URL(`assets/${path}`, panorama.PANORAMA_SITE);
 const failures = [];
@@ -21,6 +25,18 @@ const check = async (label, run) => {
     console.log(`FALHA ${label}: ${error.message}`);
   }
 };
+
+// O conteúdo das abas editoriais também é contrato de rede: os seis scripts
+// precisam continuar válidos nos dois idiomas, sem guardar uma cópia local.
+await Promise.all([
+  ["gratuitos-data", "GRATUITOS_DATA"], ["como-usar-data", "COMO_USAR_DATA"], ["como-usar-cenas", "COMO_USAR_CENAS"],
+].flatMap(([file, name]) => ["", "-en"].map(suffix => check(`${file}${suffix}.js`, async () => {
+  const response = await fetch(asset(`${file}${suffix}.js`));
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  if (response.headers.get("access-control-allow-origin") !== "*") throw new Error("sem CORS aberto");
+  const data = editorial.editorialFromScript(await response.text(), name);
+  return name === "GRATUITOS_DATA" ? `${data.items.length} ferramentas` : name === "COMO_USAR_DATA" ? `${data.tutoriais.length} tutoriais` : `${data.cenas.length} cenas`;
+}))));
 
 async function sheet(tab) {
   const callback = "panoramaCheck";

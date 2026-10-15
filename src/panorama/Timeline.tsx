@@ -27,6 +27,7 @@ import {
   groupedByMonth,
   MIN_COMPANY_TRACK,
   pillSpec,
+  popoverPlacement,
   recentMilestones,
   stackPills,
   timelineCsv,
@@ -570,8 +571,12 @@ export function Timeline({ english = false }: { english?: boolean }) {
 
   const [pendingLink, setPendingLink] = useState<PanoramaLaunch | null>(null);
   const [linkMissing, setLinkMissing] = useState(false);
+  const handledLink = useRef<string | null>(null);
   useEffect(() => {
-    if (!data) return;
+    if (!data || loading || handledLink.current === hash) return;
+    // A navegação é consumida uma vez, depois do carregamento. Atualizações
+    // dos dados não podem limpar um detalhe já aberto pelo mesmo endereço.
+    handledLink.current = hash;
     const request = parseRulerDeepLink(hash);
     setDetail(null);
     setLinkMissing(false);
@@ -584,7 +589,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
     if (target?.level === 2) setExpanded(true);
     if (!request.model && company && !data.launches.some((launch) => launch.level === 1 && canonicalCompany(launch.company, data.config) === company)) setExpanded(true);
     setPendingLink(target);
-  }, [data, hash]);
+  }, [data, hash, loading]);
 
   useEffect(() => {
     if (!pendingLink || loading || error || !data) return;
@@ -594,6 +599,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
     // Espera a renderização dos filtros e abre o ano recolhido antes de
     // medir a âncora. O detalhe nasce junto da pílula/cartão real, inclusive
     // quando o deep-link foi aberto diretamente ou pelo histórico.
+    let focusFrame = 0;
     const frame = window.requestAnimationFrame(() => {
       const source = [...(rootRef.current?.querySelectorAll<HTMLElement | SVGElement>("[data-panorama-launch]") || [])]
         .find((element) => element.dataset.panoramaLaunch === id);
@@ -601,12 +607,17 @@ export function Timeline({ english = false }: { english?: boolean }) {
       const year = source.closest("details");
       if (year) year.open = true;
       source.scrollIntoView({ block: "center", inline: "center", behavior: "instant" });
-      source.focus({ preventScroll: true });
-      setDetail({ item, source, rect: source.getBoundingClientRect() });
-      setPendingLink(null);
-      trackEvent(english ? "panorama_deep_link_en" : "panorama_deep_link", { event_category: "timeline", event_label: item.model });
+      // Rolagem e layout precisam terminar antes de medir a âncora e focar o
+      // diálogo. Se catálogo/zoom mudarem neste intervalo, o pedido continua
+      // pendente e o próximo efeito usa a pílula na posição definitiva.
+      focusFrame = window.requestAnimationFrame(() => {
+        source.focus({ preventScroll: true });
+        setDetail({ item, source, rect: source.getBoundingClientRect() });
+        setPendingLink(null);
+        trackEvent(english ? "panorama_deep_link_en" : "panorama_deep_link", { event_category: "timeline", event_label: item.model });
+      });
     });
-    return () => window.cancelAnimationFrame(frame);
+    return () => { window.cancelAnimationFrame(frame); window.cancelAnimationFrame(focusFrame); };
   }, [pendingLink, filtered, data, isDesktop, english, loading, error]);
 
   // ─── Exportações ───
@@ -1116,7 +1127,7 @@ function DesktopRuler({
         const axisY = trackTop + trackLayout.height / 2;
         const trackColor = trackLayout.placed[0]?.item.color || "#a5a297";
         labels.push(
-          <div key={`label:${trackLayout.track.key}`} className="panorama-label" style={{ top: axisY }}>
+          <div key={`label:${entry.group.ecosystem}:${trackLayout.track.key}`} className="panorama-label" style={{ top: axisY }}>
             <strong>{trackLayout.track.label}</strong>
             <span> ({trackLayout.track.items.length})</span>
           </div>,
@@ -1305,7 +1316,7 @@ function DetailContent({ item, benchmarks, benchmarksPending, config, english, o
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    closeRef.current?.focus();
+    closeRef.current?.focus({ preventScroll: true });
   }, []);
 
   const scores = useMemo(() => {
@@ -1391,6 +1402,24 @@ function DetailPopover({ detail, benchmarks, benchmarksPending, config, english,
   onClose: () => void;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const [anchor, setAnchor] = useState(detail.rect);
+
+  useEffect(() => {
+    const measure = () => setAnchor(detail.source.getBoundingClientRect());
+    measure();
+    // O catálogo pode aumentar trilhas acima da pílula depois da abertura.
+    // Reancorar mantém o detalhe aberto e acompanha também zoom e rolagem.
+    const observer = new ResizeObserver(measure);
+    const stage = detail.source.closest(".panorama-stage");
+    if (stage) observer.observe(stage);
+    window.addEventListener("scroll", measure, true);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", measure, true);
+      window.removeEventListener("resize", measure);
+    };
+  }, [detail.source]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -1410,20 +1439,13 @@ function DetailPopover({ detail, benchmarks, benchmarksPending, config, english,
   /* Painel de ~344px: abaixo da pílula quando cabe, senão acima; nunca sob o
      cabeçalho fixo do site nem fora da janela. A altura acompanha o espaço
      que sobrou abaixo da posição escolhida. */
-  const width = 344;
-  const minTop = headerOffset + 10;
-  const left = Math.min(Math.max(detail.rect.left + detail.rect.width / 2 - width / 2, 10), window.innerWidth - width - 10);
-  const estimatedHeight = 360;
-  let top = detail.rect.bottom + 10;
-  if (top + estimatedHeight > window.innerHeight - 10) top = detail.rect.top - estimatedHeight - 10;
-  if (top < minTop) top = minTop;
-  const maxHeight = Math.max(160, window.innerHeight - top - 10);
+  const placement = popoverPlacement(anchor, window.innerWidth, window.innerHeight, headerOffset);
 
   return (
     <div
       ref={panelRef}
       className="panorama-detail panorama-detail--popover"
-      style={{ left, top, width, maxHeight }}
+      style={placement}
       role="dialog"
       aria-label={texts(english).details}
     >

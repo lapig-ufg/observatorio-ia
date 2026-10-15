@@ -336,3 +336,14 @@ export function timelineCsv(items: TimelineItem[], labels: TimelineCsvLabels): s
     ].map(csvEscape).join(","));
   return [labels.headers.map(csvEscape).join(","), ...rows].join("\r\n");
 }
+/* Um detalhe continua visível se a chegada do catálogo mover sua âncora.
+   A posição usa o retângulo atual, sem fechar o painel durante a rolagem. */
+export function popoverPlacement(anchor: { left: number; top: number; bottom: number; width: number }, viewportWidth: number, viewportHeight: number, headerOffset: number) {
+  const width = Math.min(344, viewportWidth - 20);
+  const minTop = headerOffset + 10;
+  const maxTop = Math.max(minTop, viewportHeight - 170);
+  const below = anchor.bottom + 10;
+  const preferred = below + 360 > viewportHeight - 10 ? anchor.top - 370 : below;
+  const top = Math.min(maxTop, Math.max(minTop, preferred));
+  return { width, left: Math.max(10, Math.min(anchor.left + anchor.width / 2 - width / 2, viewportWidth - width - 10)), top, maxHeight: Math.max(160, viewportHeight - top - 10) };
+}

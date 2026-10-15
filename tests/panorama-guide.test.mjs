@@ -137,6 +137,17 @@ test("deep-link guia ↔ régua preserva empresa, data, Unicode e nomes com +, u
   assert.equal(panorama.launchForModel(launch.model, launch.company, [launch], config, "2026-04-05"), null);
 });
 
+test("deep-link da revisão encontra a mesma pílula quando a população ampliada chega depois", () => {
+  const request = guide.parseRulerDeepLink("#panorama?modelo=Claude%20Opus%205.5&empresa=Anthropic&data=2026-09-22");
+  const target = { model: "Claude Opus 5.5", company: "Anthropic", date: "2026-09-22", level: 1 };
+  const other = { ...target, date: "2026-09-21", level: 2 };
+  const config = panorama.emptyPanoramaConfig;
+  const find = launches => panorama.launchForModel(request.model, request.company, launches, config, request.date);
+  assert.strictEqual(find([other, target]), target);
+  assert.strictEqual(find([other, target, { ...target, company: "Outra", level: 3 }]), target);
+  assert.equal(`${target.date}|${target.company}|${target.model}`, "2026-09-22|Anthropic|Claude Opus 5.5");
+});
+
 test("o parser preserva listas ricas e completas separadas, com fallback para JSON antigo", () => {
   const raw = { models_total: 80, benchmarks: [{ key: "test", is_fraction: true, top: [{ model: "modelo", creator: "OpenAI", score: 95, price_1m_blended: 2, tok_per_sec: 50 }], full: [{ model: "modelo", creator: "OpenAI", score: 95 }, { model: "outro", creator: "OpenAI", score: 80 }] }] };
   const parsed = panorama.benchmarksFromJson(raw, panorama.emptyPanoramaConfig);

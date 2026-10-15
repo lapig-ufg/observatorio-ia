@@ -84,6 +84,12 @@ test("both Panorama pages read the live Panorama site, never a local copy", () =
   assert.match(page, /<ModelGuide english=\{english\} \/>/);
   assert.match(guide, /loadPanoramaBenchmarks\(locale/);
   assert.match(guide, /loadPanoramaLaunches\(locale/);
+  assert.match(page, /<FreeTools english=\{english\} \/>/);
+  assert.match(page, /<UsageGuide english=\{english\} \/>/);
+  assert.doesNotMatch(page, /ComingSoon|está sendo preparada|being prepared/);
+  for (const path of ["src/panorama/FreeTools.tsx", "src/panorama/UsageGuide.tsx", "src/panoramaEditorial.ts"]) {
+    assert.doesNotMatch(fs.readFileSync(path, "utf8"), /\.panorama-ref|public\/panorama/);
+  }
   assert.doesNotMatch(guide, /assets\/benchmarks(?:-en)?\.json|\.panorama-ref/);
   assert.equal(fs.existsSync("public/panorama"), false,
     "public/panorama/ is back: a vendored Panorama goes stale on its own — read the live site instead");
