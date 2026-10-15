@@ -174,19 +174,21 @@ test("trilhas por país são traduzidas pelos rótulos", () => {
   assert.equal(groups[0].tracks[0].label, "Japan");
 });
 
-test("filtros combinam ecossistema, empresa e busca sem acento", () => {
+test("filtros combinam ecossistema, conjunto de empresas e busca sem acento", () => {
   const items = [
     item({ id: "1", model: "GPT-4o", company: "OpenAI", ecosystem: "ECOSSISTEMA NORTE-AMERICANO" }),
     item({ id: "2", model: "DeepSeek-V3", company: "DeepSeek", ecosystem: "ECOSSISTEMA CHINÊS" }),
     item({ id: "3", model: "MiniMax-Text-01", company: "MiniMax", ecosystem: "ECOSSISTEMA CHINÊS" }),
   ];
-  assert.equal(timeline.filterTimelineItems(items, { ecosystem: "", company: "", query: "" }).length, 3);
-  assert.deepEqual(timeline.filterTimelineItems(items, { ecosystem: "ECOSSISTEMA CHINÊS", company: "", query: "" }).map((entry) => entry.id), ["2", "3"]);
-  assert.deepEqual(timeline.filterTimelineItems(items, { ecosystem: "", company: "DeepSeek", query: "" }).map((entry) => entry.id), ["2"]);
+  assert.equal(timeline.filterTimelineItems(items, { ecosystem: "", companies: [], query: "" }).length, 3);
+  assert.deepEqual(timeline.filterTimelineItems(items, { ecosystem: "ECOSSISTEMA CHINÊS", companies: [], query: "" }).map((entry) => entry.id), ["2", "3"]);
+  // Várias empresas selecionadas ao mesmo tempo: o seletor tem caixas de seleção.
+  assert.deepEqual(timeline.filterTimelineItems(items, { ecosystem: "", companies: ["DeepSeek", "MiniMax"], query: "" }).map((entry) => entry.id), ["2", "3"]);
+  assert.deepEqual(timeline.filterTimelineItems(items, { ecosystem: "", companies: ["OpenAI"], query: "" }).map((entry) => entry.id), ["1"]);
   // "minimax" acha "MiniMax-Text-01"; "deepseek" acha "DeepSeek-V3".
-  assert.deepEqual(timeline.filterTimelineItems(items, { ecosystem: "", company: "", query: "minimax" }).map((entry) => entry.id), ["3"]);
-  assert.deepEqual(timeline.filterTimelineItems(items, { ecosystem: "", company: "", query: "DEEPSEEK" }).map((entry) => entry.id), ["2"]);
-  assert.equal(timeline.filterTimelineItems(items, { ecosystem: "ECOSSISTEMA NORTE-AMERICANO", company: "", query: "deep" }).length, 0);
+  assert.deepEqual(timeline.filterTimelineItems(items, { ecosystem: "", companies: [], query: "minimax" }).map((entry) => entry.id), ["3"]);
+  assert.deepEqual(timeline.filterTimelineItems(items, { ecosystem: "", companies: [], query: "DEEPSEEK" }).map((entry) => entry.id), ["2"]);
+  assert.equal(timeline.filterTimelineItems(items, { ecosystem: "ECOSSISTEMA NORTE-AMERICANO", companies: [], query: "deep" }).length, 0);
 });
 
 test("chips de filtro trazem contagens por ecossistema e empresa", () => {
@@ -220,16 +222,43 @@ test("agrupamento por mês: mais recente primeiro, lançamentos do mês também"
   assert.deepEqual(timeline.groupedByMonth([], label), []);
 });
 
-test("novidades trazem só os marcos mais recentes", () => {
+test("últimas adições ordenam por updatedAt, não pela data do lançamento", () => {
+  const day = 86_400_000;
+  const now = Date.parse("2026-10-15T00:00:00Z");
   const items = [
-    item({ id: "a", level: 1, days: 100 }),
-    item({ id: "b", level: 1, days: 300 }),
-    item({ id: "c", level: 2, days: 400 }),
-    item({ id: "d", level: 3, days: 500 }),
-    item({ id: "e", level: 1, days: 200 }),
+    item({ id: "recente", date: "2024-03-10", updatedAt: now - 2 * day }),
+    item({ id: "velho", date: "2026-09-01", updatedAt: now - 90 * day }),
+    item({ id: "sem-updated", date: "2026-08-01", updatedAt: 0 }),
+    item({ id: "catalogo", date: "2026-07-01" }),
   ];
-  assert.deepEqual(timeline.recentMilestones(items, 5).map((entry) => entry.id), ["b", "e", "a"]);
-  assert.deepEqual(timeline.recentMilestones(items, 2).map((entry) => entry.id), ["b", "e"]);
+  // A adição mais recente da PLANILHA vem primeiro, mesmo com data antiga; sem
+  // updatedAt vale a data do lançamento (catálogo da AA não tem timestamp).
+  const additions = timeline.latestAdditions(items, 4, now);
+  assert.deepEqual(additions.map((addition) => addition.item.id), ["recente", "sem-updated", "velho", "catalogo"]);
+  assert.deepEqual(additions.map((addition) => addition.isNew), [true, false, false, false]);
+  // Contagem e empate por id (mesmo updatedAt não muda a ordem visível).
+  assert.deepEqual(timeline.latestAdditions(items, 2, now).map((addition) => addition.item.id), ["recente", "sem-updated"]);
+  const tied = [
+    item({ id: "b", updatedAt: now - day }),
+    item({ id: "a", updatedAt: now - day }),
+  ];
+  assert.deepEqual(timeline.latestAdditions(tied, 2, now).map((addition) => addition.item.id), ["a", "b"]);
+  // O ponto âmbar vale só para adições com menos de 14 dias.
+  assert.equal(timeline.NOVIDADES_DOT_DAYS, 14);
+  const edge = timeline.latestAdditions([item({ id: "exato", updatedAt: now - 14 * day })], 1, now);
+  assert.equal(edge[0].isNew, true, "14 dias contam como novo (corte inclusivo do Panorama)");
+  const beyond = timeline.latestAdditions([item({ id: "fora", updatedAt: now - 15 * day })], 1, now);
+  assert.equal(beyond[0].isNew, false);
+});
+
+test("iniciais da empresa sem logo: DS, OC e primeira letra", () => {
+  assert.equal(timeline.companyInitials("DeepSeek"), "DS");
+  assert.equal(timeline.companyInitials("OpenClaw"), "OC");
+  assert.equal(timeline.companyInitials("Motif Technologies"), "M");
+  assert.equal(timeline.companyInitials(""), "");
+  // Duas letras usam fonte menor dentro do círculo (regra do render.js).
+  assert.equal(timeline.initialsFontSize("DS"), 9);
+  assert.equal(timeline.initialsFontSize("M"), 13);
 });
 
 test("zoom fica entre os limites e o encaixe usa a largura útil", () => {

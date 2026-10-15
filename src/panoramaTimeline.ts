@@ -32,6 +32,10 @@ export type TimelineItem = {
   /* Empresa com identidade em COMPANY_COLORS: ganha trilha própria. */
   known: boolean;
   untranslated?: boolean;
+  /* Quando a planilha tocou na linha por último (`updatedAt`, em ms). É a data
+     de "adição" que alimenta as Últimas adições — não a data do lançamento.
+     Ausente ou 0 (catálogo da AA): cai para a data do lançamento. */
+  updatedAt?: number;
 };
 
 export const ECOSYSTEM_ORDER: TimelineEcosystem[] = [
@@ -52,6 +56,21 @@ export const PILL_COMPACTA: PillSpec = { h: 20, r: 10, iconR: 4, textPad: 18, ch
 
 export function pillSpec(level: TimelineLevel): PillSpec {
   return level === 1 ? PILL_MARCO : PILL_COMPACTA;
+}
+
+// ─── Selo de empresa: iniciais quando não há logo (regra de assets/render.js) ───
+
+/* Duas empresas têm inicial dupla no original (espaço curto no círculo);
+   as demais mostram só a primeira letra. */
+export function companyInitials(company: string): string {
+  if (company === "DeepSeek") return "DS";
+  if (company === "OpenClaw") return "OC";
+  return company.slice(0, 1);
+}
+
+/* Fonte da inicial dentro do círculo: menor quando são duas letras. */
+export function initialsFontSize(initials: string): number {
+  return initials.length > 1 ? 9 : 13;
 }
 
 export function estimatePillWidth(item: TimelineItem): number {
@@ -224,7 +243,9 @@ export function buildTimelineGroups(items: TimelineItem[], labels: TimelineGroup
 
 export type TimelineFilters = {
   ecosystem: string;
-  company: string;
+  /* Uma ou mais empresas: o menu do seletor tem caixas de seleção, então a
+     escolha é um conjunto, não um valor único. */
+  companies: string[];
   query: string;
 };
 
@@ -238,7 +259,7 @@ export function filterTimelineItems(items: TimelineItem[], filters: TimelineFilt
   const needle = stripDiacritics(filters.query.trim().toLowerCase());
   return items.filter((item) =>
     (!filters.ecosystem || item.ecosystem === filters.ecosystem)
-    && (!filters.company || item.company === filters.company)
+    && (!filters.companies.length || filters.companies.includes(item.company))
     && (!needle || stripDiacritics(item.model.toLowerCase()).includes(needle)));
 }
 
@@ -281,13 +302,36 @@ export function groupedByMonth(items: TimelineItem[], monthLabel: (year: number,
     }));
 }
 
-/* Bloco de novidades: os lançamentos mais recentes entre os marcos (nível 1),
-   que é o recorte que a curadoria considera o essencial do período. */
-export function recentMilestones(items: TimelineItem[], count: number): TimelineItem[] {
+// ─── Últimas adições (bloco de novidades) ───
+
+/* Idade máxima (em dias) para o ponto âmbar de "novo" (`NOVIDADES_DOT_DAYS`
+   no Panorama). */
+export const NOVIDADES_DOT_DAYS = 14;
+
+export type TimelineAddition = {
+  item: TimelineItem;
+  /* Momento efetivo da adição: `updatedAt` da planilha, caindo para a data do
+     lançamento quando a linha nunca foi tocada pela aprovação/automação. */
+  addedMs: number;
+  isNew: boolean;
+};
+
+/* "Últimas adições" são as linhas que a planilha recebeu/aprovou mais
+   recentemente (`updatedAt`), NÃO os lançamentos de data mais recente — uma
+   retificação de 2024 pode ter entrado ontem. Sem `updatedAt` (catálogo,
+   linha antiga), vale a data do lançamento. */
+export function latestAdditions(items: TimelineItem[], count: number, nowMs: number): TimelineAddition[] {
+  const addedMs = (item: TimelineItem) => {
+    if (item.updatedAt && item.updatedAt > 0) return item.updatedAt;
+    const parsed = Date.parse(`${item.date}T00:00:00Z`);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  };
   return items
-    .filter((item) => item.level === 1)
-    .sort((left, right) => right.days - left.days || right.date.localeCompare(left.date))
-    .slice(0, count);
+    .map((item) => ({ item, addedMs: addedMs(item) }))
+    .filter((addition) => addition.addedMs > 0)
+    .sort((left, right) => right.addedMs - left.addedMs || left.item.id.localeCompare(right.item.id))
+    .slice(0, count)
+    .map((addition) => ({ ...addition, isNew: nowMs - addition.addedMs <= NOVIDADES_DOT_DAYS * 86_400_000 }));
 }
 
 // ─── Zoom ───

@@ -3357,20 +3357,16 @@ h1 {
   color: var(--muted);
 }
 
-/* Filtros: chips + busca. No computador ficam abertos; no celular só a busca
-   e o botão "Filtros" ficam visíveis (a primeira tela precisa mostrar o
-   conteúdo, não o formulário). */
-.panorama-filters {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
+/* Filtros. No computador a barra de ferramentas é única: busca à esquerda,
+   Ecossistema segmentado, Empresas num menu, ações à direita. No celular só a
+   busca e o botão "Filtros" ficam visíveis (a primeira tela precisa mostrar o
+   conteúdo, não o formulário); o resto abre numa folha inferior. */
 .panorama-filters--mobile {
+  display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
+  margin-bottom: 10px;
 }
 
 .panorama-filters--mobile .panorama-search {
@@ -3382,7 +3378,8 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 9px 13px;
+  min-height: 36px;
+  padding: 6px 13px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
@@ -3398,33 +3395,41 @@ h1 {
   color: var(--green-900);
 }
 
-/* "Mais empresas": a cauda longa dos chips de empresa num select simples e
-   acessível (66 empresas na régua ampliada não cabem como chips). */
-.panorama-more-companies {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  position: relative;
+/* Barra de ferramentas (computador): grupos com rótulo pequeno em cima e
+   controle de 36px embaixo, tudo na mesma linguagem visual — nada de
+   controles de tamanhos diferentes lado a lado. */
+.panorama-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 14px;
+  margin-bottom: 12px;
 }
 
-.panorama-more-companies select {
-  appearance: none;
-  max-width: 210px;
-  padding: 5px 26px 5px 11px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: #fff;
-  color: var(--ink);
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
+.panorama-toolbar .panorama-search {
+  align-self: flex-end;
+  min-height: 36px;
 }
 
-.panorama-more-companies svg {
-  position: absolute;
-  right: 8px;
-  pointer-events: none;
+.panorama-tool-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.panorama-tool-label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   color: var(--muted);
+}
+
+.panorama-toolbar-side {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
 }
 
 .panorama-search {
@@ -3432,7 +3437,8 @@ h1 {
   align-items: center;
   gap: 8px;
   max-width: 340px;
-  padding: 8px 12px;
+  min-height: 36px;
+  padding: 6px 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
@@ -3445,6 +3451,11 @@ h1 {
   border: 0;
   background: none;
   color: var(--ink);
+  /* Altura explícita: sem ela o input estica o contêiner a 37px e quebra a
+     linha uniforme de controles de 36px. */
+  font-size: 0.85rem;
+  line-height: 1.2;
+  padding: 0;
 }
 
 .panorama-search input:focus {
@@ -3456,12 +3467,190 @@ h1 {
   outline-offset: 2px;
 }
 
-.panorama-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+/* Controle segmentado de ecossistema: botões colados como um controle só. */
+.panorama-segmented {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
 }
 
+.panorama-segment {
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.panorama-segment:last-child {
+  border-right: 0;
+}
+
+.panorama-segment:hover {
+  background: #f4f7f5;
+}
+
+.panorama-segment.is-active {
+  background: var(--green-100);
+  color: var(--green-900);
+}
+
+/* Menu popover da barra (Empresas, Exportar): painel branco com sombra,
+   fechado por Esc/clique fora no componente. */
+.panorama-pop {
+  position: relative;
+}
+
+.panorama-pop-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.panorama-pop-trigger:hover,
+.panorama-pop-trigger.is-open {
+  border-color: var(--green-700);
+  color: var(--green-900);
+}
+
+.panorama-pop-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 40;
+  width: min(320px, calc(100vw - 40px));
+  max-height: min(60vh, 420px);
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(23, 35, 31, 0.18);
+}
+
+.panorama-pop-search {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--muted);
+}
+
+.panorama-pop-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: 0.84rem;
+}
+
+.panorama-pop-search input:focus {
+  outline: none;
+}
+
+.panorama-pop-search:focus-within {
+  border-color: var(--green-700);
+}
+
+.panorama-pop-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.panorama-pop-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.panorama-pop-option:hover,
+.panorama-pop-option:focus-visible {
+  background: #f4f7f5;
+}
+
+.panorama-pop-option small {
+  margin-left: auto;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.panorama-pop-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  border: 1.5px solid var(--muted);
+  border-radius: 4px;
+  color: var(--green-900);
+}
+
+.panorama-pop-option.is-checked .panorama-pop-check {
+  border-color: var(--green-700);
+  background: var(--green-100);
+}
+
+.panorama-pop-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.panorama-pop-action:hover,
+.panorama-pop-action:focus-visible {
+  background: #f4f7f5;
+}
+
+.panorama-pop-empty {
+  padding: 10px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+/* Chips (filtros ativos e estados soltos). */
 .panorama-chip {
   padding: 5px 11px;
   border: 1px solid var(--line);
@@ -3492,23 +3681,38 @@ h1 {
   color: var(--green-700);
 }
 
-/* Barra de ações: régua ampliada, zoom (computador) e exportações */
-.panorama-toolbar {
+/* Linha de chips removíveis: só existe com filtro ativo. */
+.panorama-active-filters {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px 16px;
-  margin-bottom: 10px;
+  gap: 6px;
+  margin: 0 0 12px;
 }
 
+.panorama-chip--removable {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-color: var(--green-700);
+  background: var(--green-100);
+  color: var(--green-900);
+}
+
+/* Barra de ações: régua ampliada, zoom (computador) e exportar. O interruptor
+   da ampliada é `role="switch"` — o visual é o mesmo botão de sempre. */
 .panorama-toggle {
-  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 14px;
   border: 1px solid var(--navy-800);
   border-radius: 999px;
   background: #fff;
   color: var(--navy-800);
   font-size: 0.85rem;
   font-weight: 800;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -3527,9 +3731,10 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  min-height: 36px;
   padding: 6px 10px;
   border: 1px solid var(--line);
-  border-radius: 7px;
+  border-radius: 8px;
   background: #fff;
   color: var(--ink);
   font-size: 0.8rem;
@@ -3548,47 +3753,23 @@ h1 {
   white-space: nowrap;
 }
 
-.panorama-export {
-  display: flex;
-  gap: 8px;
-  margin-left: auto;
-}
-
-.panorama-export button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: #fff;
-  color: var(--ink);
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.panorama-export button:hover {
-  border-color: var(--green-700);
-  color: var(--green-900);
-}
-
 .panorama-warnings {
   margin: 0 0 10px;
   color: var(--muted);
   font-size: 0.8rem;
 }
 
-/* Novidades: os marcos mais recentes, em cartõezinhos que abrem o detalhe */
+/* Últimas adições: grade de cartões no computador, lista compacta no celular.
+   Clicar localiza na régua; "fonte" é um link ao lado, fora do botão. */
 .panorama-news {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .panorama-news-title {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: var(--green-900);
   font-size: 0.85rem;
   font-weight: 800;
@@ -3596,50 +3777,130 @@ h1 {
   letter-spacing: 0.04em;
 }
 
+.panorama-news-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #f59e0b;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #f59e0b;
+}
+
 .panorama-news-items {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  /* Grade de mesma altura: as cartas esticam juntas e o impacto corta em
+     duas linhas com reticências. */
+  .panorama-news-items {
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  }
+}
+
+.panorama-news-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
 }
 
 .panorama-news-item {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border: 1px solid var(--line);
-  border-radius: 9px;
-  background: #fff;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  padding: 0;
   cursor: pointer;
   text-align: left;
+  font: inherit;
+  color: inherit;
 }
 
-.panorama-news-item:hover {
-  border-color: var(--green-700);
+.panorama-news-item:hover .panorama-news-model {
+  color: var(--green-800);
 }
 
-.panorama-swatch {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 800;
-  flex: 0 0 auto;
+.panorama-news-item:focus-visible {
+  outline: 3px solid #e49a43;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.panorama-news-body {
+  min-width: 0;
 }
 
 .panorama-news-model {
-  font-weight: 700;
+  display: block;
+  font-weight: 800;
   font-size: 0.85rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.panorama-news-badge {
+  margin-left: 5px;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: #fef3e2;
+  color: #92610a;
+  font-size: 0.62rem;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  vertical-align: 1px;
 }
 
 .panorama-news-meta {
+  display: block;
+  margin-top: 1px;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.3;
+}
+
+.panorama-news-impact {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-top: 4px;
+  overflow: hidden;
   color: var(--muted);
   font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+.panorama-news-fonte {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: var(--green-700);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-decoration: none;
   white-space: nowrap;
+}
+
+.panorama-news-fonte:hover {
+  text-decoration: underline;
+}
+
+/* Selo da empresa (CompanyMark): o mesmo componente em toda a página —
+   logo quando existe, iniciais quando não. */
+.panorama-mark {
+  flex: 0 0 auto;
 }
 
 /* Legenda curado × automático (só na régua ampliada) */
@@ -3762,6 +4023,34 @@ h1 {
   outline-offset: 1px;
 }
 
+/* Flash da pílula/cartão localizado pelas Últimas adições ou por um deep-link:
+   dois pulsos no fundo, como o `pillFlash` do Panorama. Quem pediu menos
+   movimento recebe o destaque sem animação (o foco e o detalhe bastam). */
+@keyframes panoramaPillFlash {
+  0%, 100% { opacity: 0.09; }
+  50% { opacity: 0.5; }
+}
+
+.panorama-pill--flash .panorama-pill-bg {
+  animation: panoramaPillFlash 0.75s ease-in-out 2;
+}
+
+@keyframes panoramaCardFlash {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(228, 154, 67, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(228, 154, 67, 0.9); }
+}
+
+.panorama-card--flash {
+  animation: panoramaCardFlash 0.75s ease-in-out 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panorama-pill--flash .panorama-pill-bg,
+  .panorama-card--flash {
+    animation: none;
+  }
+}
+
 /* Lista de celular: meses dentro de anos recolhíveis. 168 cartões esticavam a
    página em 16 mil pixels; o ano corrente abre e os anteriores vêm como
    <details> com a contagem no resumo. */
@@ -3847,16 +4136,10 @@ h1 {
   border-color: var(--green-700);
 }
 
+/* O tamanho do selo vem do próprio CompanyMark (34px nos marcos, 24 nas
+   compactas); a classe só garante que ele não encolhe dentro do cartão. */
 .panorama-card-logo {
-  width: 34px;
-  height: 34px;
-  font-size: 0.9rem;
-}
-
-.panorama-card-logo.is-compact {
-  width: 24px;
-  height: 24px;
-  font-size: 0.7rem;
+  flex: 0 0 auto;
 }
 
 .panorama-card-body {
@@ -3938,8 +4221,74 @@ h1 {
 .panorama-filters-sheet-body {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
   align-items: flex-start;
+}
+
+/* Seções da folha de filtros: as mesmas da barra do computador. */
+.panorama-sheet-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.panorama-pop-search--sheet {
+  margin-bottom: 2px;
+}
+
+/* Lista de empresas com caixas de seleção nativas: a folha inteira rola,
+   sem rolagem dentro de rolagem. */
+.panorama-check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.panorama-check-list label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.panorama-check-list label:hover {
+  background: #f4f7f5;
+}
+
+.panorama-check-list input {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  accent-color: var(--green-700);
+}
+
+.panorama-check-list small {
+  margin-left: auto;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Botão "Ver resultados": fecha a folha e devolve o leitor à régua. */
+.panorama-sheet-cta {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 2px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--green-900);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 .panorama-clear-filters {
@@ -4295,17 +4644,10 @@ h1 {
   grid-row: 1;
 }
 
+/* Selo da empresa no guia: o CompanyMark da régua em 24px (o tamanho vem do
+   componente; a classe só prende a largura no layout). */
 .guide-company-mark {
-  display: inline-flex;
   flex: 0 0 24px;
-  width: 24px;
-  height: 24px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  color: #fff;
-  font-weight: 800;
-  font-size: .75rem;
 }
 
 .guide-identity > div {

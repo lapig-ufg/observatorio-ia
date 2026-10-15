@@ -1,6 +1,7 @@
-import { ArrowUpRight, CalendarDays, ChevronDown, Download, FileDown, Filter, LoaderCircle, Maximize2, Minus, Plus, RefreshCw, Search, X } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Check, ChevronDown, Download, FileDown, Filter, LoaderCircle, Maximize2, Minus, Plus, RefreshCw, Search, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { trackEvent } from "../analytics";
+import { CompanyMark } from "./CompanyMark";
 import {
   PANORAMA_EPOCH,
   PANORAMA_SITE,
@@ -21,15 +22,18 @@ import { loadPanoramaBenchmarks, loadPanoramaCatalog, loadPanoramaLaunches, type
 import {
   buildTimelineGroups,
   clampPxPerDay,
+  companyInitials,
   filterOptions,
   filterTimelineItems,
   fitPxPerDay,
   groupedByMonth,
+  initialsFontSize,
+  latestAdditions,
   MIN_COMPANY_TRACK,
   pillSpec,
   popoverPlacement,
-  recentMilestones,
   stackPills,
+  stripDiacritics,
   timelineCsv,
   trackHeight,
   ZOOM,
@@ -75,8 +79,6 @@ const MIN_TRACK_H = 72;
 const MAX_LANES = 24;
 const MAX_LANES_EXPANDED = 48;
 const EXPANDED_KEY = "observatorio-panorama-expanded";
-/* Chips de empresa visíveis; a cauda longa vai para um "Mais empresas". */
-const COMPANY_CHIPS = 8;
 
 const MONTHS_SHORT_PT = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 const MONTHS_SHORT_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -102,13 +104,16 @@ function texts(english: boolean) {
     empty: english ? "No releases match the current filters." : "Nenhum lançamento corresponde aos filtros atuais.",
     searchLabel: english ? "Search by model name" : "Buscar por nome de modelo",
     searchPlaceholder: english ? "Model name…" : "Nome do modelo…",
-    allEcosystems: english ? "All ecosystems" : "Todos os ecossistemas",
-    allCompanies: english ? "All companies" : "Todas as empresas",
-    moreCompanies: english ? "More companies" : "Mais empresas",
+    allEcosystems: english ? "All" : "Todos",
+    ecosystemLabel: english ? "Ecosystem" : "Ecossistema",
+    companiesLabel: english ? "Companies" : "Empresas",
+    searchCompanies: english ? "Search company" : "Buscar empresa",
     filterEcosystem: english ? "Filter by ecosystem" : "Filtrar por ecossistema",
     filterCompany: english ? "Filter by company" : "Filtrar por empresa",
     filters: english ? "Filters" : "Filtros",
-    clearFilters: english ? "Clear filters" : "Limpar filtros",
+    clearFilters: english ? "Clear all" : "Limpar tudo",
+    removeFilter: (label: string) => english ? `Remove filter: ${label}` : `Remover filtro: ${label}`,
+    viewResults: english ? "See results" : "Ver resultados",
     expanded: english ? "Expanded timeline" : "Régua ampliada",
     expandedHint: english
       ? "Adds secondary releases from the spreadsheet and the automatic Artificial Analysis catalog."
@@ -117,9 +122,14 @@ function texts(english: boolean) {
     zoomIn: english ? "Zoom in" : "Aproximar",
     zoomOut: english ? "Zoom out" : "Afastar",
     zoomFit: english ? "Fit to width" : "Ajustar à largura",
+    export: english ? "Export" : "Exportar",
     exportCsv: english ? "Export CSV" : "Exportar CSV",
     exportSvg: english ? "Export SVG" : "Exportar SVG",
-    news: english ? "Latest milestones" : "Novidades",
+    news: english ? "Latest additions" : "Últimas adições",
+    newsNewSr: english ? " — with recent additions" : " — com adições recentes",
+    newBadge: english ? "new" : "novo",
+    locateHint: english ? "Locate on the timeline" : "Localizar na régua",
+    sourceLink: english ? "source ↗" : "fonte ↗",
     today: english ? "today" : "hoje",
     marcoZero: english ? "Starting point · 30 Nov 2022" : "Marco zero · 30 nov 2022",
     level: english ? "Curation level" : "Nível de curadoria",
@@ -158,6 +168,13 @@ function ecosystemLabel(ecosystem: TimelineEcosystem, english: boolean) {
   return english ? "Other countries" : "Outros países";
 }
 
+/* Rótulo curto do controle segmentado de filtros: o espaço ali é apertado. */
+function ecosystemShortLabel(ecosystem: TimelineEcosystem, english: boolean) {
+  if (ecosystem === "ECOSSISTEMA NORTE-AMERICANO") return english ? "North American" : "Norte-Americano";
+  if (ecosystem === "ECOSSISTEMA CHINÊS") return english ? "Chinese" : "Chinês";
+  return english ? "Other" : "Outros";
+}
+
 function formatDay(iso: string, english: boolean) {
   const match = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (!match) return iso;
@@ -193,6 +210,9 @@ function launchToItem(launch: PanoramaLaunch, config: PanoramaConfig): TimelineI
     logoPath: config.logoPaths[config.logoMap[company]] || "",
     known: Boolean(config.companyColors[company]),
     untranslated: launch.untranslated,
+    /* A data de "adição" da linha (quando a planilha a aprovou/atualizou),
+       que alimenta as Últimas adições — não é a data do lançamento. */
+    updatedAt: launch.updatedAt,
   };
 }
 
@@ -334,6 +354,14 @@ export function Timeline({ english = false }: { english?: boolean }) {
 
   useEffect(() => writeExpandedPreference(expanded), [expanded]);
 
+  const toggleExpanded = () => {
+    setExpanded((value) => !value);
+    trackEvent(english ? "panorama_toggle_expanded_en" : "panorama_toggle_expanded", {
+      event_category: "timeline",
+      event_label: expanded ? "off" : "on",
+    });
+  };
+
   useEffect(() => {
     if (!expanded || catalog || !data) return;
     const controller = new AbortController();
@@ -379,17 +407,31 @@ export function Timeline({ english = false }: { english?: boolean }) {
   }, [data, locale]);
 
   // ─── Filtros ───
-  const [filters, setFilters] = useState<TimelineFilters>({ ecosystem: "", company: "", query: "" });
+  /* A escolha de empresas é um conjunto (o seletor tem caixas de seleção);
+     ecossistema continua sendo uma escolha única por vez. */
+  const [filters, setFilters] = useState<TimelineFilters>({ ecosystem: "", companies: [], query: "" });
   const setFilter = (patch: Partial<TimelineFilters>, label: string) => {
     setFilters((current) => ({ ...current, ...patch }));
     if (label) trackEvent(english ? "panorama_filter_en" : "panorama_filter", { event_category: "filter", event_label: label });
   };
-  /* Aba de filtros do celular: os chips ocupavam a primeira tela inteira em
+  const toggleCompany = (name: string) => {
+    setFilters((current) => ({
+      ...current,
+      companies: current.companies.includes(name)
+        ? current.companies.filter((entry) => entry !== name)
+        : [...current.companies, name],
+    }));
+    trackEvent(english ? "panorama_filter_en" : "panorama_filter", {
+      event_category: "filter",
+      event_label: `company:${name}`,
+    });
+  };
+  /* Aba de filtros do celular: os controles ocupavam a primeira tela inteira em
      375px. A busca fica visível; o resto mora numa folha inferior. */
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
-  const activeFilterCount = (filters.ecosystem ? 1 : 0) + (filters.company ? 1 : 0);
-  const hasActiveFilters = Boolean(filters.ecosystem || filters.company || filters.query.trim());
+  const activeFilterCount = (filters.ecosystem ? 1 : 0) + filters.companies.length + (filters.query.trim() ? 1 : 0);
+  const hasActiveFilters = activeFilterCount > 0;
 
   // ─── Itens e trilhas ───
   const items = useMemo(() => {
@@ -422,7 +464,12 @@ export function Timeline({ english = false }: { english?: boolean }) {
        >= 3 modelos, inclusive sem identidade visual cadastrada. */
   }, { minCompanyTrack: expanded ? MIN_COMPANY_TRACK : 1, population: items }), [filtered, items, english, expanded]);
 
-  const novelties = useMemo(() => recentMilestones(filtered, 5), [filtered]);
+  /* Últimas adições: as linhas que a planilha tocou mais recentemente
+     (`updatedAt`), não os lançamentos de data mais recente. Vêm da população
+     visível — clicar localiza a pílula, então o alvo tem de estar desenhado.
+     O ponto âmbar marca adições com menos de 14 dias (regra do Panorama). */
+  const additions = useMemo(() => latestAdditions(filtered, isDesktop ? 5 : 3, Date.now()), [filtered, isDesktop]);
+  const newIds = useMemo(() => new Set(additions.filter((addition) => addition.isNew).map((addition) => addition.item.id)), [additions]);
   const months = useMemo(() => groupedByMonth(filtered, (year, monthIndex) => monthLabel(year, monthIndex, english)), [filtered, english]);
 
   // ─── "Hoje" e o alcance do eixo ───
@@ -569,7 +616,10 @@ export function Timeline({ english = false }: { english?: boolean }) {
     });
   };
 
-  const [pendingLink, setPendingLink] = useState<PanoramaLaunch | null>(null);
+  /* Item pendente de localização: vindo de um deep-link ou do bloco Últimas
+     adições — os dois caminhos rolam até a pílula/cartão, dão o flash e abrem
+     o detalhe (o `focusPill` do Panorama original faz o mesmo serviço). */
+  const [pendingLink, setPendingLink] = useState<TimelineItem | null>(null);
   const [linkMissing, setLinkMissing] = useState(false);
   const handledLink = useRef<string | null>(null);
   useEffect(() => {
@@ -584,41 +634,53 @@ export function Timeline({ english = false }: { english?: boolean }) {
     if (!request) return;
     const target = request.model ? launchForModel(request.model, request.company, data.launches, data.config, request.date) : null;
     const company = canonicalCompany(request.company, data.config);
-    setFilters({ ecosystem: "", query: "", company: target ? "" : company });
+    setFilters({ ecosystem: "", query: "", companies: target || !company ? [] : [company] });
     if (request.model && !target) setLinkMissing(true);
     if (target?.level === 2) setExpanded(true);
     if (!request.model && company && !data.launches.some((launch) => launch.level === 1 && canonicalCompany(launch.company, data.config) === company)) setExpanded(true);
-    setPendingLink(target);
-  }, [data, hash, loading]);
+    setPendingLink(target ? launchToItem(target, data.config) : null);
+    if (target) trackEvent(english ? "panorama_deep_link_en" : "panorama_deep_link", { event_category: "timeline", event_label: target.model });
+  }, [data, hash, loading, english]);
 
   useEffect(() => {
     if (!pendingLink || loading || error || !data) return;
-    const id = launchToItem(pendingLink, data.config).id;
-    const item = filtered.find((entry) => entry.id === id);
-    if (!item) return;
+    const item = filtered.find((entry) => entry.id === pendingLink.id) || pendingLink;
+    let flashTimer = 0;
     // Espera a renderização dos filtros e abre o ano recolhido antes de
     // medir a âncora. O detalhe nasce junto da pílula/cartão real, inclusive
     // quando o deep-link foi aberto diretamente ou pelo histórico.
-    let focusFrame = 0;
     const frame = window.requestAnimationFrame(() => {
       const source = [...(rootRef.current?.querySelectorAll<HTMLElement | SVGElement>("[data-panorama-launch]") || [])]
-        .find((element) => element.dataset.panoramaLaunch === id);
+        .find((element) => element.dataset.panoramaLaunch === item.id);
       if (!source) return;
       const year = source.closest("details");
       if (year) year.open = true;
-      source.scrollIntoView({ block: "center", inline: "center", behavior: "instant" });
-      // Rolagem e layout precisam terminar antes de medir a âncora e focar o
-      // diálogo. Se catálogo/zoom mudarem neste intervalo, o pedido continua
-      // pendente e o próximo efeito usa a pílula na posição definitiva.
-      focusFrame = window.requestAnimationFrame(() => {
+      // Rolagem suave até a pílula (instantânea para quem pediu menos
+      // movimento); o detalhe só abre com a rolagem acomodada, para a âncora
+      // ser medida no lugar certo.
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      source.scrollIntoView({ block: "center", inline: "center", behavior: reduced ? "instant" : "smooth" });
+      flashTimer = window.setTimeout(() => {
+        // Flash breve na pílula localizada (a animação em si respeita
+        // prefers-reduced-motion no CSS) e o detalhe por cima.
+        source.classList.add(isDesktop ? "panorama-pill--flash" : "panorama-card--flash");
+        window.setTimeout(() => source.classList.remove(isDesktop ? "panorama-pill--flash" : "panorama-card--flash"), 1800);
         source.focus({ preventScroll: true });
         setDetail({ item, source, rect: source.getBoundingClientRect() });
         setPendingLink(null);
-        trackEvent(english ? "panorama_deep_link_en" : "panorama_deep_link", { event_category: "timeline", event_label: item.model });
-      });
+      }, reduced ? 60 : 500);
     });
-    return () => { window.cancelAnimationFrame(frame); window.cancelAnimationFrame(focusFrame); };
+    return () => { window.cancelAnimationFrame(frame); window.clearTimeout(flashTimer); };
   }, [pendingLink, filtered, data, isDesktop, english, loading, error]);
+
+  /* Clique em "Últimas adições": localiza o lançamento na régua. */
+  const locateAddition = (item: TimelineItem) => {
+    setPendingLink(item);
+    trackEvent(english ? "panorama_locate_en" : "panorama_locate", {
+      event_category: "timeline",
+      event_label: `${item.company}:${item.model}`,
+    });
+  };
 
   // ─── Exportações ───
   const exportCsv = () => {
@@ -667,15 +729,29 @@ export function Timeline({ english = false }: { english?: boolean }) {
   return (
     <div className="panorama-timeline" ref={rootRef}>
       {linkMissing && <p className="panorama-warnings" role="status">{english ? "This release is no longer available on the timeline." : "Este lançamento não está mais disponível na régua."}</p>}
-      {/* Filtros. No computador, chips de ecossistema + as empresas com mais
-          lançamentos como chips e a cauda num "Mais empresas". No celular, só a
-          busca fica visível; o resto abre numa folha inferior — o primeiro mês
-          da lista tem de aparecer na primeira tela. */}
+      {/* Barra de ferramentas única: busca à esquerda; Ecossistema como
+          controle segmentado; Empresas num botão com menu (a cauda longa não
+          cabe em chips); à direita, discretos, régua ampliada, zoom e
+          exportar. Os filtros ativos viram chips removíveis na linha de
+          baixo — o leitor vê o que está filtrando sem abrir menu nenhum. */}
       {isDesktop ? (
-        <div className="panorama-filters" aria-label={english ? "Timeline filters" : "Filtros da linha do tempo"}>
+        <div className="panorama-toolbar" aria-label={english ? "Timeline filters" : "Filtros da linha do tempo"}>
           <SearchField filters={filters} onChange={(value) => setFilters((current) => ({ ...current, query: value }))} t={t} />
-          <EcosystemChips options={options.ecosystems} selected={filters.ecosystem} english={english} onSelect={(value) => setFilter({ ecosystem: value }, `ecosystem:${value || "all"}`)} />
-          <CompanyChips options={options.companies} selected={filters.company} english={english} onSelect={(value) => setFilter({ company: value }, `company:${value || "all"}`)} />
+          <div className="panorama-tool-group">
+            <span className="panorama-tool-label" id="panorama-ecosystem-label">{t.ecosystemLabel}</span>
+            <EcosystemSegmented options={options.ecosystems} selected={filters.ecosystem} english={english} onSelect={(value) => setFilter({ ecosystem: value }, `ecosystem:${value || "all"}`)} labelledBy="panorama-ecosystem-label" />
+          </div>
+          <CompanyMenu options={options.companies} selected={filters.companies} english={english} onToggle={toggleCompany} />
+          <div className="panorama-toolbar-side">
+            <ExpandedSwitch expanded={expanded} hint={t.expandedHint} label={t.expanded} onToggle={toggleExpanded} />
+            <div className="panorama-zoom" role="group" aria-label={t.zoom}>
+              <button type="button" onClick={() => zoomBy(-1)} aria-label={t.zoomOut}><Minus size={15} aria-hidden="true" /></button>
+              <span className="panorama-zoom-value" aria-hidden="true">{zoomPercent}%</span>
+              <button type="button" onClick={() => zoomBy(1)} aria-label={t.zoomIn}><Plus size={15} aria-hidden="true" /></button>
+              <button type="button" className="panorama-zoom-fit" onClick={zoomFit}><Maximize2 size={14} aria-hidden="true" /> {t.zoomFit}</button>
+            </div>
+            <ExportMenu english={english} onCsv={exportCsv} onSvg={exportSvg} showSvg={isDesktop} />
+          </div>
         </div>
       ) : (
         <div className="panorama-filters panorama-filters--mobile" aria-label={english ? "Timeline filters" : "Filtros da linha do tempo"}>
@@ -695,52 +771,54 @@ export function Timeline({ english = false }: { english?: boolean }) {
         </div>
       )}
 
-      <div className="panorama-toolbar">
-        <button
-          type="button"
-          className={`panorama-toggle${expanded ? " is-active" : ""}`}
-          aria-pressed={expanded}
-          title={t.expandedHint}
-          onClick={() => {
-            setExpanded((value) => !value);
-            trackEvent(english ? "panorama_toggle_expanded_en" : "panorama_toggle_expanded", {
-              event_category: "timeline",
-              event_label: expanded ? "off" : "on",
-            });
-          }}
-        >
-          {t.expanded}
-        </button>
-        {isDesktop && (
-          <div className="panorama-zoom" role="group" aria-label={t.zoom}>
-            <button type="button" onClick={() => zoomBy(-1)} aria-label={t.zoomOut}><Minus size={15} aria-hidden="true" /></button>
-            <span className="panorama-zoom-value" aria-hidden="true">{t.zoom} {zoomPercent}%</span>
-            <button type="button" onClick={() => zoomBy(1)} aria-label={t.zoomIn}><Plus size={15} aria-hidden="true" /></button>
-            <button type="button" className="panorama-zoom-fit" onClick={zoomFit}><Maximize2 size={14} aria-hidden="true" /> {t.zoomFit}</button>
-          </div>
-        )}
-        <div className="panorama-export" role="group" aria-label={english ? "Export" : "Exportar"}>
-          <button type="button" onClick={exportCsv}><FileDown size={15} aria-hidden="true" /> {t.exportCsv}</button>
-          {isDesktop && <button type="button" onClick={exportSvg}><Download size={15} aria-hidden="true" /> {t.exportSvg}</button>}
-        </div>
-      </div>
+      {hasActiveFilters && (
+        <ActiveFilters
+          filters={filters}
+          english={english}
+          t={t}
+          onRemove={(patch, label) => setFilter(patch, label)}
+        />
+      )}
 
       {warnings.length > 0 && <p className="panorama-warnings">{warnings.join(" · ")}</p>}
 
-      {/* Novidades: os 5 marcos mais recentes; clicar abre o detalhe. */}
-      {novelties.length > 0 && (
-        <div className="panorama-news" aria-label={t.news}>
-          <p className="panorama-news-title"><CalendarDays size={15} aria-hidden="true" /> {t.news}</p>
-          <div className="panorama-news-items">
-            {novelties.map((item) => (
-              <button type="button" key={item.id} className="panorama-news-item" onClick={(event) => openDetail(item, event.currentTarget)}>
-                <span className="panorama-swatch" style={{ background: item.color }} aria-hidden="true">{item.company.slice(0, 1)}</span>
-                <span className="panorama-news-model">{item.model}</span>
-                <span className="panorama-news-meta">{item.company} · {formatDay(item.date, english)}</span>
-              </button>
+      {/* Últimas adições: as linhas que a planilha recebeu/aprovou mais
+          recentemente. Clicar localiza na régua (rola até a pílula, dá o flash
+          e abre o detalhe); "fonte" abre a referência sem disparar a busca. */}
+      {additions.length > 0 && (
+        <section className="panorama-news" aria-labelledby="panorama-news-title">
+          <h2 className="panorama-news-title" id="panorama-news-title">
+            <CalendarDays size={15} aria-hidden="true" /> {t.news}
+            {additions.some((addition) => addition.isNew) && (
+              <>
+                <span className="panorama-news-dot" aria-hidden="true" />
+                <span className="sr-only">{t.newsNewSr}</span>
+              </>
+            )}
+          </h2>
+          <ul className="panorama-news-items">
+            {additions.map(({ item, isNew }) => (
+              <li key={item.id} className="panorama-news-card">
+                <button type="button" className="panorama-news-item" title={t.locateHint} onClick={() => locateAddition(item)}>
+                  <CompanyMark company={item.company} color={item.color} logoPath={item.logoPath} size={22} />
+                  <span className="panorama-news-body">
+                    <span className="panorama-news-model">
+                      {item.model}
+                      {isNew && <em className="panorama-news-badge">{t.newBadge}</em>}
+                    </span>
+                    <span className="panorama-news-meta">{item.company} · {formatDay(item.date, english)}</span>
+                    {item.impact && <span className="panorama-news-impact">{item.impact}</span>}
+                  </span>
+                </button>
+                {/^https?:\/\//.test(item.reference) && (
+                  <a className="panorama-news-fonte" href={item.reference} target="_blank" rel="noreferrer">
+                    {t.sourceLink}
+                  </a>
+                )}
+              </li>
             ))}
-          </div>
-        </div>
+          </ul>
+        </section>
       )}
 
       {expanded && (
@@ -768,6 +846,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
           texts={{ today: t.today, marcoZero: t.marcoZero, summary: t.summary, releases: t.releases }}
           english={english}
           legend={expanded ? { curated: t.legendCurated, dashed: t.legendDashed } : null}
+          newIds={newIds}
           scrollRef={scrollRef}
           svgRef={svgRef}
           onOpen={openDetail}
@@ -808,6 +887,9 @@ export function Timeline({ english = false }: { english?: boolean }) {
           filters={filters}
           english={english}
           onSelect={(patch, label) => setFilter(patch, label)}
+          onToggleCompany={toggleCompany}
+          expanded={expanded}
+          onToggleExpanded={toggleExpanded}
           onClose={() => {
             setMobileFiltersOpen(false);
             filterButtonRef.current?.focus();
@@ -835,105 +917,331 @@ function SearchField({ filters, onChange, t }: { filters: TimelineFilters; onCha
   );
 }
 
-function EcosystemChips({ options, selected, english, onSelect }: {
+/* Controle segmentado de ecossistema: uma escolha por vez, botões do mesmo
+   tamanho colados como um controle só. "Todos" é o estado neutro. */
+function EcosystemSegmented({ options, selected, english, onSelect, labelledBy }: {
   options: Array<{ name: TimelineEcosystem; count: number }>;
   selected: string;
   english: boolean;
   onSelect: (value: string) => void;
+  labelledBy?: string;
 }) {
   const t = texts(english);
+  const entries: Array<{ value: TimelineEcosystem | ""; label: string }> = [
+    { value: "", label: t.allEcosystems },
+    ...options.map((option) => ({ value: option.name, label: ecosystemShortLabel(option.name, english) })),
+  ];
   return (
-    <div className="panorama-chip-row" role="group" aria-label={t.filterEcosystem}>
-      <button type="button" className={`panorama-chip${!selected ? " is-active" : ""}`} aria-pressed={!selected} onClick={() => onSelect("")}>{t.allEcosystems}</button>
-      {options.filter((option) => option.count).map((option) => (
+    <div className="panorama-segmented" role="group" aria-label={t.filterEcosystem} aria-labelledby={labelledBy}>
+      {entries.map((entry) => (
         <button
           type="button"
-          key={option.name}
-          className={`panorama-chip${selected === option.name ? " is-active" : ""}`}
-          aria-pressed={selected === option.name}
-          onClick={() => onSelect(selected === option.name ? "" : option.name)}
+          key={entry.value || "all"}
+          className={`panorama-segment${selected === entry.value ? " is-active" : ""}`}
+          aria-pressed={selected === entry.value}
+          onClick={() => onSelect(selected === entry.value ? "" : entry.value)}
         >
-          {ecosystemLabel(option.name, english)} <span>{option.count}</span>
+          {entry.label}
         </button>
       ))}
     </div>
   );
 }
 
-/* Empresas: os chips mostram as que têm mais lançamentos; a cauda longa (26
-   na régua padrão, 66 na ampliada) vive num "Mais empresas" pesquisável —
-   um select simples e acessível. A empresa escolhida aparece sempre como
-   chip, mesmo quando veio do select. */
-function CompanyChips({ options, selected, english, onSelect }: {
-  options: Array<{ name: string; count: number }>;
-  selected: string;
-  english: boolean;
-  onSelect: (value: string) => void;
+/* Interruptor da régua ampliada: `role="switch"` com `aria-checked`, o
+   estado que leitores de tela anunciam como ligado/desligado. */
+function ExpandedSwitch({ expanded, hint, label, onToggle }: {
+  expanded: boolean;
+  hint: string;
+  label: string;
+  onToggle: () => void;
 }) {
-  const t = texts(english);
-  const top = options.slice(0, COMPANY_CHIPS);
-  const rest = options.slice(COMPANY_CHIPS);
-  const selectedOption = options.find((option) => option.name === selected);
-  const chips = selectedOption && !top.some((option) => option.name === selected)
-    ? [...top, selectedOption]
-    : top;
   return (
-    <div className="panorama-chip-row panorama-chip-row--companies" role="group" aria-label={t.filterCompany}>
-      <button type="button" className={`panorama-chip${!selected ? " is-active" : ""}`} aria-pressed={!selected} onClick={() => onSelect("")}>{t.allCompanies}</button>
-      {chips.map((option) => (
-        <button
-          type="button"
-          key={option.name}
-          className={`panorama-chip${selected === option.name ? " is-active" : ""}`}
-          aria-pressed={selected === option.name}
-          onClick={() => onSelect(selected === option.name ? "" : option.name)}
-        >
-          {option.name} <span>{option.count}</span>
-        </button>
-      ))}
-      {rest.length > 0 && (
-        <label className="panorama-more-companies">
-          <span className="sr-only">{t.moreCompanies}</span>
-          <select
-            value={rest.some((option) => option.name === selected) ? selected : ""}
-            onChange={(event) => onSelect(event.target.value)}
-          >
-            <option value="">{t.moreCompanies} ({rest.length})</option>
-            {rest.map((option) => <option key={option.name} value={option.name}>{option.name} ({option.count})</option>)}
-          </select>
-          <ChevronDown size={15} aria-hidden="true" />
-        </label>
+    <button
+      type="button"
+      role="switch"
+      aria-checked={expanded}
+      title={hint}
+      className={`panorama-toggle${expanded ? " is-active" : ""}`}
+      onClick={onToggle}
+    >
+      {label}
+    </button>
+  );
+}
+
+/* Painel popover de botão da barra de ferramentas: abre e fecha com Esc
+   (devolvendo o foco ao gatilho) e com clique fora; as setas navegam entre
+   os itens marcados com `data-pop-item`. */
+function ToolbarPopover({ label, panelLabel, open, onOpenChange, children, className = "" }: {
+  label: ReactNode;
+  panelLabel: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  children: ReactNode;
+  className?: string;
+}) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onOpenChange(false);
+        buttonRef.current?.focus();
+      }
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (!wrapRef.current?.contains(event.target as Node)) onOpenChange(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [open, onOpenChange]);
+
+  /* Setas ↑/↓ movem o foco entre os itens do painel (Space/Enter seguem o
+     comportamento nativo do botão). */
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+    event.preventDefault();
+    const items = [...(panelRef.current?.querySelectorAll<HTMLButtonElement>("[data-pop-item]") || [])];
+    if (!items.length) return;
+    const index = items.indexOf(document.activeElement as HTMLButtonElement);
+    const next = event.key === "ArrowDown" ? (index + 1) % items.length : (index - 1 + items.length) % items.length;
+    items[next].focus();
+  };
+
+  return (
+    <div className={`panorama-pop${className ? ` ${className}` : ""}`} ref={wrapRef}>
+      <button
+        ref={buttonRef}
+        type="button"
+        className={`panorama-pop-trigger${open ? " is-open" : ""}`}
+        aria-expanded={open}
+        aria-haspopup="true"
+        onClick={() => onOpenChange(!open)}
+      >
+        {label} <ChevronDown size={15} aria-hidden="true" />
+      </button>
+      {open && (
+        <div className="panorama-pop-panel" role="menu" aria-label={panelLabel} ref={panelRef} onKeyDown={onKeyDown}>
+          {children}
+        </div>
       )}
     </div>
   );
 }
 
-/* Folha inferior de filtros do celular: os mesmos chips do computador, numa
-   folha que fecha com Esc/X e devolve o foco ao botão que a abriu. */
-function FilterSheet({ options, filters, english, onSelect, onClose }: {
+/* Menu de empresas: caixas de seleção com busca dentro, as empresas com mais
+   lançamentos no topo (filterOptions já ordena) e o contador no gatilho. A
+   busca não remove seleção fora da vista — quem filtra aqui está escolhendo,
+   não limpando. */
+function CompanyMenu({ options, selected, english, onToggle }: {
+  options: Array<{ name: string; count: number }>;
+  selected: string[];
+  english: boolean;
+  onToggle: (name: string) => void;
+}) {
+  const t = texts(english);
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const needle = stripDiacritics(query.trim().toLowerCase());
+  const visible = needle
+    ? options.filter((option) => stripDiacritics(option.name.toLowerCase()).includes(needle))
+    : options;
+  const close = () => {
+    setOpen(false);
+    setQuery("");
+  };
+  return (
+    <div className="panorama-tool-group">
+      <span className="panorama-tool-label" id="panorama-companies-label">{t.companiesLabel}</span>
+      <ToolbarPopover
+        open={open}
+        onOpenChange={(next) => (next ? setOpen(true) : close())}
+        label={<>{t.companiesLabel}{selected.length ? ` (${selected.length})` : ""}</>}
+        panelLabel={t.filterCompany}
+      >
+        <label className="panorama-pop-search">
+          <Search size={14} aria-hidden="true" />
+          <span className="sr-only">{t.searchCompanies}</span>
+          <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t.searchCompanies} />
+        </label>
+        <ul className="panorama-pop-list">
+          {visible.map((option) => {
+            const checked = selected.includes(option.name);
+            return (
+              <li key={option.name}>
+                <button
+                  type="button"
+                  role="menuitemcheckbox"
+                  aria-checked={checked}
+                  data-pop-item
+                  className={`panorama-pop-option${checked ? " is-checked" : ""}`}
+                  onClick={() => onToggle(option.name)}
+                >
+                  <span className="panorama-pop-check" aria-hidden="true">{checked && <Check size={13} />}</span>
+                  <span>{option.name}</span>
+                  <small>({option.count})</small>
+                </button>
+              </li>
+            );
+          })}
+          {visible.length === 0 && <li className="panorama-pop-empty">{t.empty}</li>}
+        </ul>
+      </ToolbarPopover>
+    </div>
+  );
+}
+
+/* Menu de exportação: CSV sempre; SVG só na régua de computador. */
+function ExportMenu({ english, onCsv, onSvg, showSvg }: {
+  english: boolean;
+  onCsv: () => void;
+  onSvg: () => void;
+  showSvg: boolean;
+}) {
+  const t = texts(english);
+  const [open, setOpen] = useState(false);
+  return (
+    <ToolbarPopover
+      open={open}
+      onOpenChange={setOpen}
+      label={<><Download size={14} aria-hidden="true" /> {t.export}</>}
+      panelLabel={t.export}
+    >
+      <button type="button" role="menuitem" data-pop-item className="panorama-pop-action" onClick={() => { setOpen(false); onCsv(); }}>
+        <FileDown size={15} aria-hidden="true" /> {t.exportCsv}
+      </button>
+      {showSvg && (
+        <button type="button" role="menuitem" data-pop-item className="panorama-pop-action" onClick={() => { setOpen(false); onSvg(); }}>
+          <Download size={15} aria-hidden="true" /> {t.exportSvg}
+        </button>
+      )}
+    </ToolbarPopover>
+  );
+}
+
+/* Chips removíveis dos filtros ativos: o leitor vê o que está filtrando e
+   desfaz um critério por vez, sem reabrir menu nenhum. */
+function ActiveFilters({ filters, english, t, onRemove }: {
+  filters: TimelineFilters;
+  english: boolean;
+  t: Texts;
+  onRemove: (patch: Partial<TimelineFilters>, label: string) => void;
+}) {
+  const chips: Array<{ label: string; remove: () => void }> = [];
+  if (filters.query.trim()) {
+    chips.push({
+      label: `“${filters.query.trim()}”`,
+      remove: () => onRemove({ query: "" }, "clear:query"),
+    });
+  }
+  if (filters.ecosystem) {
+    const label = ecosystemLabel(filters.ecosystem as TimelineEcosystem, english);
+    chips.push({ label, remove: () => onRemove({ ecosystem: "" }, "clear:ecosystem") });
+  }
+  for (const name of filters.companies) {
+    chips.push({ label: name, remove: () => onRemove({ companies: filters.companies.filter((entry) => entry !== name) }, `clear:company:${name}`) });
+  }
+  return (
+    <div className="panorama-active-filters" aria-label={t.filters}>
+      {chips.map((chip) => (
+        <button
+          type="button"
+          key={chip.label}
+          className="panorama-chip panorama-chip--removable"
+          aria-label={t.removeFilter(chip.label)}
+          onClick={chip.remove}
+        >
+          {chip.label} <X size={12} aria-hidden="true" />
+        </button>
+      ))}
+      <button
+        type="button"
+        className="panorama-clear-filters"
+        onClick={() => onRemove({ ecosystem: "", companies: [], query: "" }, "clear:all")}
+      >
+        <X size={14} aria-hidden="true" /> {t.clearFilters}
+      </button>
+    </div>
+  );
+}
+
+/* Folha inferior de filtros do celular: as mesmas seções da barra do
+   computador (ecossistema, empresas com busca, régua ampliada) e um botão
+   "Ver resultados" que fecha. Fecha com Esc/X e devolve o foco ao botão. */
+function FilterSheet({ options, filters, english, onSelect, onToggleCompany, expanded, onToggleExpanded, onClose }: {
   options: ReturnType<typeof filterOptions>;
   filters: TimelineFilters;
   english: boolean;
   onSelect: (patch: Partial<TimelineFilters>, label: string) => void;
+  onToggleCompany: (name: string) => void;
+  expanded: boolean;
+  onToggleExpanded: () => void;
   onClose: () => void;
 }) {
   const t = texts(english);
+  const [query, setQuery] = useState("");
+  const needle = stripDiacritics(query.trim().toLowerCase());
+  const visible = needle
+    ? options.companies.filter((option) => stripDiacritics(option.name.toLowerCase()).includes(needle))
+    : options.companies;
+  const active = (filters.ecosystem ? 1 : 0) + filters.companies.length + (filters.query.trim() ? 1 : 0);
   return (
     <Sheet label={t.filters} onClose={onClose}>
       <header className="panorama-sheet-header">
-        <h2>{t.filters}{(filters.ecosystem || filters.company) ? ` (${(filters.ecosystem ? 1 : 0) + (filters.company ? 1 : 0)})` : ""}</h2>
+        <h2>{t.filters}{active ? ` (${active})` : ""}</h2>
         <button type="button" className="panorama-detail-close" onClick={onClose} aria-label={t.close} autoFocus>
           <X size={17} aria-hidden="true" />
         </button>
       </header>
       <div className="panorama-filters-sheet-body">
-        <EcosystemChips options={options.ecosystems} selected={filters.ecosystem} english={english} onSelect={(value) => onSelect({ ecosystem: value }, `ecosystem:${value || "all"}`)} />
-        <CompanyChips options={options.companies} selected={filters.company} english={english} onSelect={(value) => onSelect({ company: value }, `company:${value || "all"}`)} />
-        {(filters.ecosystem || filters.company) && (
-          <button type="button" className="panorama-clear-filters" onClick={() => { onSelect({ ecosystem: "", company: "" }, "clear"); }}>
+        <section className="panorama-sheet-section">
+          <span className="panorama-tool-label">{t.ecosystemLabel}</span>
+          <EcosystemSegmented options={options.ecosystems} selected={filters.ecosystem} english={english} onSelect={(value) => onSelect({ ecosystem: value }, `ecosystem:${value || "all"}`)} />
+        </section>
+        <section className="panorama-sheet-section">
+          <span className="panorama-tool-label">{t.companiesLabel}</span>
+          <label className="panorama-pop-search panorama-pop-search--sheet">
+            <Search size={14} aria-hidden="true" />
+            <span className="sr-only">{t.searchCompanies}</span>
+            <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t.searchCompanies} />
+          </label>
+          {/* A cauda é longa (66 empresas na ampliada): a folha inteira rola,
+              sem rolagem dentro de rolagem, e as mais frequentes vêm primeiro. */}
+          <ul className="panorama-check-list">
+            {visible.map((option) => (
+              <li key={option.name}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={filters.companies.includes(option.name)}
+                    onChange={() => onToggleCompany(option.name)}
+                  />
+                  <span>{option.name}</span>
+                  <small>({option.count})</small>
+                </label>
+              </li>
+            ))}
+            {visible.length === 0 && <li className="panorama-pop-empty">{t.empty}</li>}
+          </ul>
+        </section>
+        <section className="panorama-sheet-section">
+          <span className="panorama-tool-label">{t.expanded}</span>
+          <ExpandedSwitch expanded={expanded} hint={t.expandedHint} label={t.expanded} onToggle={onToggleExpanded} />
+        </section>
+        {active > 0 && (
+          <button type="button" className="panorama-clear-filters" onClick={() => { onSelect({ ecosystem: "", companies: [], query: "" }, "clear:all"); }}>
             <X size={14} aria-hidden="true" /> {t.clearFilters}
           </button>
         )}
+        <button type="button" className="panorama-sheet-cta" onClick={onClose}>{t.viewResults}</button>
       </div>
     </Sheet>
   );
@@ -995,7 +1303,7 @@ function MobileList({ months, currentYear, hasActiveFilters, english, t, onOpen 
                   {month.items.map((item) => (
                     <li key={item.id}>
                       <button type="button" className="panorama-card" data-panorama-launch={item.id} onClick={(event) => onOpen(item, event.currentTarget)}>
-                        <span className={`panorama-swatch panorama-card-logo${item.level === 1 ? "" : " is-compact"}`} style={{ background: item.color }} aria-hidden="true">{item.company.slice(0, 1)}</span>
+                        <CompanyMark company={item.company} color={item.color} logoPath={item.logoPath} size={item.level === 1 ? 34 : 24} className="panorama-card-logo" />
                         <span className="panorama-card-body">
                           <span className="panorama-card-model">
                             {item.model}
@@ -1032,6 +1340,8 @@ type DesktopRulerProps = {
   texts: RulerTexts;
   english: boolean;
   legend: { curated: string; dashed: string } | null;
+  /*Ids das linhas adicionadas há menos de 14 dias: ganham o ponto âmbar. */
+  newIds: Set<string>;
   scrollRef: React.RefObject<HTMLDivElement | null>;
   svgRef: React.RefObject<SVGSVGElement | null>;
   onOpen: (item: TimelineItem, source: HTMLElement | SVGElement) => void;
@@ -1072,7 +1382,7 @@ function YearPills({ width, yearTicks, todayDays, pxPerDay, texts }: {
 
 function DesktopRuler({
   layout, svgWidth, svgHeight, pxPerDay, yearTicks, quarterTicks, todayDays,
-  headerOffset, texts, english, legend, scrollRef, svgRef, onOpen,
+  headerOffset, texts, english, legend, newIds, scrollRef, svgRef, onOpen,
 }: DesktopRulerProps) {
   const axisRef = useRef<HTMLDivElement>(null);
   const xOf = (days: number) => PAD_L + Math.round(days * pxPerDay);
@@ -1141,7 +1451,7 @@ function DesktopRuler({
               <tspan fontWeight="500" fill="#8a958f" fontSize="10"> ({trackLayout.track.items.length})</tspan>
             </text>
             {trackLayout.placed.map((placed) => (
-              <PillGraphic key={placed.item.id} placed={placed} axisY={axisY} english={english} onOpen={onOpen} />
+              <PillGraphic key={placed.item.id} placed={placed} axisY={axisY} english={english} isNew={newIds.has(placed.item.id)} onOpen={onOpen} />
             ))}
           </g>,
         );
@@ -1236,11 +1546,14 @@ function DesktopRuler({
 
 /* Pílula de computador: cheia (nível 1, com logo e data) ou compacta tracejada
    (níveis 2 e 3 — o tracejado é a marca visual de "não passou pela curadoria
-   de marco", não decoração). */
-function PillGraphic({ placed, axisY, english, onOpen }: {
+   de marco", não decoração). O logo segue a proporção do render.js original:
+   círculo r = iconR e logo em caixa de iconR * 1.1 (folga de 10% para o
+   traço não encostar na borda). */
+function PillGraphic({ placed, axisY, english, isNew, onOpen }: {
   placed: PlacedPill;
   axisY: number;
   english: boolean;
+  isNew: boolean;
   onOpen: (item: TimelineItem, source: HTMLElement | SVGElement) => void;
 }) {
   const { item, x, width, lane, laneOffset } = placed;
@@ -1249,6 +1562,8 @@ function PillGraphic({ placed, axisY, english, onOpen }: {
   const y = axisY - spec.h / 2 + laneOffset;
   const cy = y + spec.h / 2;
   const iconCx = x + spec.iconR + 2;
+  const logoBox = spec.iconR * 1.1;
+  const initials = companyInitials(item.company);
   const hitPad = isMarco ? 4 : 8;
   const levelSuffix = item.level === 2
     ? (english ? " (secondary release)" : " (lançamento secundário)")
@@ -1279,22 +1594,25 @@ function PillGraphic({ placed, axisY, english, onOpen }: {
       {isMarco ? (
         <>
           <rect x={x} y={y} width={width} height={spec.h} rx={spec.r} fill="#fff" />
-          <rect x={x} y={y} width={width} height={spec.h} rx={spec.r} fill={item.color} opacity="0.09" stroke={item.color} strokeWidth="1.25" />
+          <rect className="panorama-pill-bg" x={x} y={y} width={width} height={spec.h} rx={spec.r} fill={item.color} opacity="0.09" stroke={item.color} strokeWidth="1.25" />
           <circle cx={iconCx} cy={cy} r={spec.iconR} fill={item.color} />
           {item.logoPath
-            ? <g transform={`translate(${iconCx - 11}, ${cy - 11}) scale(0.9167)`} fill="#fff" dangerouslySetInnerHTML={{ __html: item.logoPath }} />
-            : <text x={iconCx} y={cy + 1} textAnchor="middle" dominantBaseline="central" fontSize="13" fontWeight="800" fill="#fff">{item.company.slice(0, 1)}</text>}
+            ? <g transform={`translate(${iconCx - logoBox / 2}, ${cy - logoBox / 2}) scale(${logoBox / 24})`} fill="#fff" dangerouslySetInnerHTML={{ __html: item.logoPath }} />
+            : <text x={iconCx} y={cy + 1} textAnchor="middle" dominantBaseline="central" fontSize={initialsFontSize(initials)} fontWeight="800" fill="#fff">{initials}</text>}
           <text x={x + spec.textPad} y={y + 14} fontSize={spec.font} fontWeight="700" fill="#17231f">{item.model}</text>
           <text x={x + spec.textPad} y={y + 26} fontSize="9.5" fill="#61706a">{formatDay(item.date, english)}</text>
         </>
       ) : (
         <>
           <rect x={x} y={y} width={width} height={spec.h} rx={spec.r} fill="#fff" />
-          <rect x={x} y={y} width={width} height={spec.h} rx={spec.r} fill={item.color} fillOpacity="0.06" stroke={item.color} strokeOpacity="0.55" strokeWidth="1" strokeDasharray="3,2.5" />
+          <rect className="panorama-pill-bg" x={x} y={y} width={width} height={spec.h} rx={spec.r} fill={item.color} fillOpacity="0.06" stroke={item.color} strokeOpacity="0.55" strokeWidth="1" strokeDasharray="3,2.5" />
           <circle cx={iconCx} cy={cy} r={spec.iconR} fill={item.color} opacity="0.75" />
           <text x={x + spec.textPad} y={cy + 3.5} fontSize={spec.font} fontWeight="600" fill="#43403a">{item.model}</text>
         </>
       )}
+      {/* Pontinho âmbar: a planilha adicionou esta linha há menos de 14 dias
+          (`NOVIDADES_DOT_DAYS`) — o mesmo aviso das Últimas adições. */}
+      {isNew && <circle cx={x + width - 3} cy={y + 3} r="4.5" fill="#f59e0b" stroke="#fff" strokeWidth="1.5" />}
     </g>
   );
 }
@@ -1345,7 +1663,7 @@ function DetailContent({ item, benchmarks, benchmarksPending, config, english, o
         </button>
       </header>
       <p className="panorama-detail-meta">
-        <span className="panorama-swatch" style={{ background: item.color }} aria-hidden="true" />
+        <CompanyMark company={item.company} color={item.color} logoPath={item.logoPath} size={22} />
         <strong>{item.company}</strong>
         <span> · {formatDay(item.date, english)}</span>
         {item.country && <span> · {item.country}</span>}

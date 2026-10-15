@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
 import { benchmarkModelKey, canonicalCompany, companyColor, emptyPanoramaConfig, launchForModel, type PanoramaBenchmarks, type PanoramaConfig } from "../panoramaData";
 import { loadPanoramaBenchmarks, loadPanoramaConfig, loadPanoramaLaunches } from "../panoramaSource";
+import { CompanyMark } from "./CompanyMark";
 import {
   AA_METHOD_URL, GUIDE_CATEGORIES, GUIDE_SORTS, MAX_COMPARE, barPercent, buildModelIndex,
   categoryHasData, comparisonTable, firstCategoryWithData, formatGuidePrice, formatGuideScore,
@@ -19,8 +20,19 @@ function Editorial({ text }: { text: string }) {
   return <span dangerouslySetInnerHTML={{ __html: text }} />;
 }
 
-function CompanyMark({ company, config }: { company: string; config: PanoramaConfig }) {
-  return <span className="guide-company-mark" style={{ background: companyColor(company, config) }} aria-hidden="true">{company.slice(0, 1)}</span>;
+/* Selo da empresa no guia: o MESMO CompanyMark da régua (círculo na cor da
+   empresa + logo na proporção do Panorama original), só o tamanho muda pela
+   classe do guia. Nada de "bolinha" com a letra onde o Panorama tem vetor. */
+function GuideCompanyMark({ company, config }: { company: string; config: PanoramaConfig }) {
+  return (
+    <CompanyMark
+      company={company}
+      color={companyColor(company, config)}
+      logoPath={config.logoPaths[config.logoMap[company]] || ""}
+      size={24}
+      className="guide-company-mark"
+    />
+  );
 }
 
 export function ModelGuide({ english = false }: { english?: boolean }) {
@@ -146,7 +158,7 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
         <p id="guide-search-hint" className="guide-search-hint">{english ? `Use + or search all evaluated models to compare up to ${MAX_COMPARE}.` : `Use + ou busque em todos os modelos avaliados para comparar até ${MAX_COMPARE}.`}</p>
         {query.trim() && <div className="guide-suggestions">
           <p role="status">{suggestions.length ? (english ? "Add to comparison:" : "Adicionar à comparação:") : (english ? "No other models found." : "Nenhum outro modelo encontrado.")}</p>
-          {suggestions.map((profile) => <button type="button" key={profile.key} disabled={compare.length >= MAX_COMPARE} onClick={() => { toggleModel(profile.key); searchInput.current?.focus(); }}><CompanyMark company={profile.company} config={config} /><span><strong>{profile.name}</strong><small>{profile.company}</small></span><Plus size={16} aria-hidden="true" /></button>)}
+          {suggestions.map((profile) => <button type="button" key={profile.key} disabled={compare.length >= MAX_COMPARE} onClick={() => { toggleModel(profile.key); searchInput.current?.focus(); }}><GuideCompanyMark company={profile.company} config={config} /><span><strong>{profile.name}</strong><small>{profile.company}</small></span><Plus size={16} aria-hidden="true" /></button>)}
         </div>}
 
         {!bench?.top.length ? <p className="panorama-state" role="status">{english ? "No data for this category in the latest collection." : "Sem dados nesta rodada para esta categoria."}</p> : <>
@@ -174,7 +186,7 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
               const href = launchHref(entry.model, entry.company);
               return <li key={key} className={`guide-row${row.belowFloor ? " is-below-floor" : ""}`}>
                 <span className="guide-position" aria-label={`${english ? "Position" : "Posição"} ${position + 1}`}>{position + 1}</span>
-                <div className="guide-identity"><CompanyMark company={entry.company} config={config} /><div>
+                <div className="guide-identity"><GuideCompanyMark company={entry.company} config={config} /><div>
                   {href ? <a className="guide-model" href={href} onClick={() => event("timeline", entry.model)} title={english ? "Open release on the timeline" : "Abrir lançamento na régua"}>{entry.model} <ArrowUpRight size={13} aria-hidden="true" /></a> : <strong className="guide-model">{entry.model}</strong>}
                   {entry.variant && <small className="guide-variant">{entry.variant}</small>}
                   <small>{launchData ? <a href={rulerCompanyHref(canonicalCompany(entry.company, config))} onClick={() => event("company", entry.company)}>{entry.company}</a> : entry.company}{sort !== "best" && ` · #${row.baseRank} ${english ? "in capability" : "em capacidade"}`}</small>
@@ -231,7 +243,7 @@ function ComparisonDialog({ profiles, english, config, onClose }: { profiles: Gu
       <header className="panorama-sheet-header"><h2 id="guide-comparison-title">{english ? "Compare models" : "Comparar modelos"}</h2><button type="button" className="panorama-detail-close" onClick={onClose} aria-label={english ? "Close comparison" : "Fechar comparação"} autoFocus><X size={20} aria-hidden="true" /></button></header>
       <div className="guide-comparison-grid" style={{ gridTemplateColumns: `repeat(${profiles.length}, minmax(0, 1fr))` }}>
         {profiles.map((profile, i) => <section className="guide-comparison-model" key={profile.key} aria-label={profile.name}>
-          <CompanyMark company={profile.company} config={config} /><h3>{profile.name}</h3><small>{profile.company}</small>
+          <GuideCompanyMark company={profile.company} config={config} /><h3>{profile.name}</h3><small>{profile.company}</small>
           <p className="guide-wins">{comparison.wins[i] > 0 && comparison.wins[i] === comparison.maxWins ? "★ " : ""}{comparison.wins[i]} {english ? "category wins" : "vitórias em categorias"}</p>
           <dl>{comparison.rows.map((row) => <div key={row.categoryId} className={row.cells[i]?.isWinner ? "is-winner" : ""}><dt>{row.label}{row.kind === "price" ? " (USD/M)" : ""}</dt><dd>{value(row, i)}</dd></div>)}</dl>
         </section>)}
