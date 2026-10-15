@@ -1,0 +1,635 @@
+{
+ "status": "ok",
+ "table": {
+  "cols": [
+   {
+    "id": "A",
+    "label": "data",
+    "type": "date",
+    "pattern": "yyyy-mm-dd"
+   },
+   {
+    "id": "B",
+    "label": "empresa",
+    "type": "string"
+   },
+   {
+    "id": "C",
+    "label": "modelo",
+    "type": "string"
+   },
+   {
+    "id": "D",
+    "label": "impacto",
+    "type": "string"
+   },
+   {
+    "id": "E",
+    "label": "referencia",
+    "type": "string"
+   },
+   {
+    "id": "F",
+    "label": "status",
+    "type": "string"
+   },
+   {
+    "id": "G",
+    "label": "categoria",
+    "type": "string"
+   },
+   {
+    "id": "H",
+    "label": "dias",
+    "type": "number",
+    "pattern": "General"
+   },
+   {
+    "id": "I",
+    "label": "origem",
+    "type": "string"
+   },
+   {
+    "id": "J",
+    "label": "data_criacao",
+    "type": "datetime",
+    "pattern": "dd/MM/yyyy HH:mm:ss"
+   },
+   {
+    "id": "K",
+    "label": "data_atualizacao",
+    "type": "datetime",
+    "pattern": "dd/MM/yyyy HH:mm:ss"
+   },
+   {
+    "id": "L",
+    "label": "grupo",
+    "type": "string"
+   },
+   {
+    "id": "M",
+    "label": "pais",
+    "type": "string"
+   }
+  ],
+  "rows": [
+   {
+    "c": [
+     {
+      "v": "Date(2022,10,30)",
+      "f": "2022-11-30"
+     },
+     {
+      "v": "OpenAI"
+     },
+     {
+      "v": "ChatGPT (GPT-3.5)"
+     },
+     {
+      "v": "Marco zero. Popularizou globalmente a IA generativa conversacional e abriu o ciclo competitivo moderno."
+     },
+     {
+      "v": "https://openai.com/index/chatgpt/"
+     },
+     {
+      "v": "publicado"
+     },
+     {
+      "v": "modelo"
+     },
+     {
+      "v": 0.0,
+      "f": "0"
+     },
+     {
+      "v": "manual"
+     },
+     {
+      "v": "Date(2026,3,30,14,27,33)",
+      "f": "30/04/2026 14:27:33"
+     },
+     {
+      "v": "Date(2026,3,30,14,27,33)",
+      "f": "30/04/2026 14:27:33"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2023,2,14)",
+      "f": "2023-03-14"
+     },
+     {
+      "v": "OpenAI"
+     },
+     {
+      "v": "GPT-4"
+     },
+     {
+      "v": "Primeiro grande salto pós-ChatGPT: avanço forte em raciocínio, multimodalidade inicial e benchmarks de alto nível."
+     },
+     {
+      "v": "https://openai.com/index/gpt-4-research/"
+     },
+     {
+      "v": "publicado"
+     },
+     {
+      "v": "modelo"
+     },
+     {
+      "v": 104.0,
+      "f": "104"
+     },
+     {
+      "v": "manual"
+     },
+     {
+      "v": "Date(2026,3,30,14,27,33)",
+      "f": "30/04/2026 14:27:33"
+     },
+     {
+      "v": "Date(2026,3,30,14,27,33)",
+      "f": "30/04/2026 14:27:33"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2022,10,30)",
+      "f": "2022-11-30"
+     },
+     {
+      "v": "OpenAI"
+     },
+     {
+      "v": "ChatGPT (GPT-3.5)"
+     },
+     {
+      "v": "Marco zero. Popularizou globalmente a IA generativa conversacional e abriu o ciclo competitivo moderno."
+     },
+     {
+      "v": "https://openai.com/index/chatgpt/"
+     },
+     {
+      "v": "publicado"
+     },
+     {
+      "v": "modelo"
+     },
+     {
+      "v": 0.0,
+      "f": "0"
+     },
+     {
+      "v": "manual"
+     },
+     {
+      "v": "Date(2026,3,30,14,27,33)",
+      "f": "30/04/2026 14:27:33"
+     },
+     {
+      "v": "Date(2026,4,11,0,0,0)",
+      "f": "11/05/2026"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2026,3,22)",
+      "f": "2026-04-22"
+     },
+     {
+      "v": "Xiaomi"
+     },
+     {
+      "v": "MiMo-V2.5-Pro"
+     },
+     {
+      "v": "MoE de 1.02T parâmetros (42B ativos), contexto de 1M tokens, open source (MIT), líder em benchmarks agênticos e engenharia de software"
+     },
+     null,
+     {
+      "v": "Publicado"
+     },
+     null,
+     null,
+     null,
+     null,
+     {
+      "v": "Date(2026,4,28,0,0,0)",
+      "f": "2026-05-28"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2025,8,29)",
+      "f": "2025-09-29"
+     },
+     {
+      "v": "Anthropic"
+     },
+     {
+      "v": "Claude Sonnet 4.5"
+     },
+     {
+      "v": "Anunciado como \"o melhor modelo de código do mundo\", com salto em construção de agentes e uso de computador, além de ganhos em raciocínio e matemática."
+     },
+     {
+      "v": "https://www.anthropic.com/news/claude-sonnet-4-5"
+     },
+     {
+      "v": "publicado"
+     },
+     {
+      "v": "modelo"
+     },
+     null,
+     {
+      "v": "manual"
+     },
+     {
+      "v": "Date(2026,7,5,17,14,48)",
+      "f": "05/08/2026 17:14:48"
+     },
+     {
+      "v": "Date(2026,7,5,17,14,48)",
+      "f": "05/08/2026 17:14:48"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2026,6,7)",
+      "f": "07/07/2026"
+     },
+     {
+      "v": "Meta"
+     },
+     {
+      "v": "Muse Image"
+     },
+     {
+      "v": "Meta lançou o Muse Image, primeiro modelo de geração de imagens do Meta Superintelligence Labs, integrado ao Meta AI, Instagram e WhatsApp. O modelo usa raciocínio em múltiplas etapas, em conjunto com o Muse Spark, para combinar referências visuais e contexto web em tempo real na composição das imagens."
+     },
+     {
+      "v": "https://about.fb.com/news/2026/07/introducing-muse-image-meta-ai/"
+     },
+     {
+      "v": "secundario"
+     },
+     null,
+     null,
+     {
+      "v": "auto"
+     },
+     null,
+     {
+      "v": "Date(2026,7,7,18,11,44)",
+      "f": "07/08/2026 18:11:44"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2026,6,31)",
+      "f": "31/07/2026"
+     },
+     {
+      "v": "MiniMax"
+     },
+     {
+      "v": "MiniMax H3"
+     },
+     {
+      "v": "MiniMax lançou o H3, modelo multimodal de geração que unifica texto, imagem, vídeo e áudio, produzindo vídeos de 4 a 15 segundos em 2K com áudio estéreo nativo integrado. A empresa anunciou planos de liberar os pesos do modelo publicamente nos dias seguintes."
+     },
+     {
+      "v": "https://www.minimax.io/blog/minimax-h3"
+     },
+     {
+      "v": "secundario"
+     },
+     null,
+     null,
+     {
+      "v": "auto"
+     },
+     null,
+     {
+      "v": "Date(2026,7,7,18,12,9)",
+      "f": "07/08/2026 18:12:09"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2026,7,10)",
+      "f": "10/08/2026"
+     },
+     {
+      "v": "OpenAI"
+     },
+     {
+      "v": "GPT-5.6-Cyber"
+     },
+     {
+      "v": "GPT-5.6-Cyber é um modelo derivado do GPT-5.6 Sol, treinado especificamente para tarefas ofensivas de cibersegurança, como descoberta de vulnerabilidades zero-day e construção de cadeias de exploração. É o primeiro modelo da OpenAI a atingir o nível 'High' de capacidade cibernética sob seu Preparedness Framework, distribuído apenas a parceiros aprovados via programa Daybreak Red."
+     },
+     {
+      "v": "https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows/"
+     },
+     {
+      "v": "secundario"
+     },
+     {
+      "v": "modelo"
+     },
+     null,
+     {
+      "v": "auto"
+     },
+     null,
+     {
+      "v": "Date(2026,7,15,7,21,4)",
+      "f": "15/08/2026 07:21:05"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2026,7,11)",
+      "f": "11/08/2026"
+     },
+     {
+      "v": "NVIDIA"
+     },
+     {
+      "v": "Nemotron 3.5 Lightning"
+     },
+     {
+      "v": "Nemotron 3.5 Lightning é um modelo aberto de mistura de especialistas (MoE) com 30 bilhões de parâmetros totais e 3 bilhões ativos, voltado à camada de execução de alto volume de agentes sempre ativos. A NVIDIA afirma até 4x mais velocidade de saída e conclusão de tarefas 30% mais rápida que modelos comparáveis, podendo rodar em uma única GPU."
+     },
+     {
+      "v": "https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/"
+     },
+     {
+      "v": "secundario"
+     },
+     {
+      "v": "modelo"
+     },
+     null,
+     {
+      "v": "auto"
+     },
+     null,
+     {
+      "v": "Date(2026,7,15,7,21,20)",
+      "f": "15/08/2026 07:21:21"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2026,8,2)",
+      "f": "02/09/2026"
+     },
+     {
+      "v": "Google"
+     },
+     {
+      "v": "Gemini 3.8 Flash Cyber"
+     },
+     {
+      "v": "Variante do Gemini 3.8 Flash especializada em ciberseguranca, voltada a descoberta autonoma de vulnerabilidades e geracao automatizada de patches, com acesso restrito a testadores confiaveis via Fairwind Program. Reporta desempenho de ponta em benchmarks de pentest a custo menor que modelos maiores. Anunciado junto do Gemini 3.8 Flash."
+     },
+     {
+      "v": "https://deepmind.google/models/gemini/cyber/"
+     },
+     {
+      "v": "secundario"
+     },
+     {
+      "v": "modelo"
+     },
+     null,
+     {
+      "v": "auto"
+     },
+     null,
+     {
+      "v": "Date(2026,8,8,21,22,51)",
+      "f": "08/09/2026 21:22:51"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2026,7,27)",
+      "f": "27/08/2026"
+     },
+     {
+      "v": "Google"
+     },
+     {
+      "v": "Gemini Omni 1.1 Flash"
+     },
+     {
+      "v": "Google lançou o Gemini Omni 1.1 Flash em disponibilidade geral via Gemini API, Google AI Studio e Google Flow, ampliando a duração máxima de vídeos gerados de 10 para 40 segundos por meio de extensões em blocos de 10 segundos, com análise de até dez segundos de material existente para manter consistência. O modelo adiciona controle de primeiro/último quadro, modo rascunho em 360p e exportação em até 4K."
+     },
+     {
+      "v": "https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-omni-1-1-flash/"
+     },
+     {
+      "v": "secundario"
+     },
+     {
+      "v": "modelo"
+     },
+     null,
+     {
+      "v": "auto"
+     },
+     null,
+     {
+      "v": "Date(2026,8,8,21,23,49)",
+      "f": "08/09/2026 21:23:49"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2026,8,15)",
+      "f": "15/09/2026"
+     },
+     {
+      "v": "Google"
+     },
+     {
+      "v": "Gemini 3.8 Live"
+     },
+     {
+      "v": "Gemini 3.8 Live é um modelo de voz conversacional em tempo real (áudio-para-áudio) da Google, voltado para escala e baixo custo, com aterramento visual em tempo real e suporte a 97 idiomas. Anunciado junto do Gemini 3.8 Live Extended Thinking."
+     },
+     {
+      "v": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-8-live-gemini-3-8-live-extended-thinking/"
+     },
+     {
+      "v": "secundario"
+     },
+     {
+      "v": "modelo"
+     },
+     null,
+     {
+      "v": "auto"
+     },
+     null,
+     {
+      "v": "Date(2026,8,18,9,22,35)",
+      "f": "18/09/2026 09:22:36"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2026,8,15)",
+      "f": "15/09/2026"
+     },
+     {
+      "v": "Google"
+     },
+     {
+      "v": "Gemini 3.8 Live Extended Thinking"
+     },
+     {
+      "v": "Gemini 3.8 Live Extended Thinking é a variante de nível empresarial do novo modelo de voz em tempo real da Google, capaz de raciocínio em múltiplas etapas enquanto fala, mantendo fluxo conversacional natural em tarefas de alta complexidade. Anunciado junto do Gemini 3.8 Live."
+     },
+     {
+      "v": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-8-live-gemini-3-8-live-extended-thinking/"
+     },
+     {
+      "v": "secundario"
+     },
+     {
+      "v": "modelo"
+     },
+     null,
+     {
+      "v": "auto"
+     },
+     null,
+     {
+      "v": "Date(2026,8,18,9,23,7)",
+      "f": "18/09/2026 09:23:08"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   },
+   {
+    "c": [
+     {
+      "v": "Date(2026,8,18)",
+      "f": "18/09/2026"
+     },
+     {
+      "v": "Alibaba"
+     },
+     {
+      "v": "Qwen3.8-Omni-Flash"
+     },
+     {
+      "v": "Qwen3.8-Omni-Flash é um novo modelo nativamente omnimodal da Alibaba (texto, imagem, áudio e vídeo), com janela de contexto de 1 milhão de tokens e foco em capacidades agênticas, como planejamento de tarefas e uso de ferramentas. A empresa relata melhora média de mais de 25% em cerca de 30 avaliações frente ao Qwen3.5-Omni-Plus, além de forte redução no custo de entradas de áudio e vídeo."
+     },
+     {
+      "v": "https://qwen.ai/blog?id=qwen3.8-omni-flash"
+     },
+     {
+      "v": "secundario"
+     },
+     {
+      "v": "modelo"
+     },
+     null,
+     {
+      "v": "auto"
+     },
+     null,
+     {
+      "v": "Date(2026,8,23,19,15,25)",
+      "f": "23/09/2026 19:15:26"
+     },
+     null,
+     {
+      "v": null
+     }
+    ]
+   }
+  ]
+ }
+}

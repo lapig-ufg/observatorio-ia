@@ -1,0 +1,323 @@
+{
+ "source": "Artificial Analysis Data API v2",
+ "source_url": "https://artificialanalysis.ai/",
+ "attribution": "Dados: Artificial Analysis — artificialanalysis.ai",
+ "api_tier": "free",
+ "models_total": 699,
+ "fetched_at": "2026-10-12T18:26:19.166Z",
+ "has_open_weights": false,
+ "benchmarks": [
+  {
+   "key": "artificial_analysis_intelligence_index",
+   "label": "Intelligence Index",
+   "category": "Inteligência",
+   "description": "Composite AA de raciocínio geral (v4.1: GDPval-AA, τ³-Banking, Terminal-Bench, SciCode, AA-LCR, AA-Omniscience, HLE, GPQA Diamond, CritPt)",
+   "unit": "índice (0–100)",
+   "is_fraction": false,
+   "models_evaluated": 689,
+   "families_evaluated": 474,
+   "top": [
+    {
+     "model": "Claude Opus 5.5",
+     "variant": "Max, Default Fallback",
+     "creator": "Anthropic",
+     "score": 57.6,
+     "release_date": "2026-09-22",
+     "price_1m_blended": 8,
+     "tok_per_sec": 95.63,
+     "open_weights": null
+    },
+    {
+     "model": "Claude Sonnet 5.5",
+     "variant": "Max, Default Fallback",
+     "creator": "Anthropic",
+     "score": 56,
+     "release_date": "2026-09-28",
+     "price_1m_blended": 4,
+     "tok_per_sec": 135.45,
+     "open_weights": null
+    },
+    {
+     "model": "Muse Wonder Full",
+     "variant": "Max",
+     "creator": "Meta",
+     "score": 55.8,
+     "release_date": "2026-10-12",
+     "price_1m_blended": null,
+     "tok_per_sec": 0,
+     "open_weights": null
+    }
+   ],
+   "full": [
+    {
+     "model": "Claude Opus 5.5",
+     "creator": "Anthropic",
+     "score": 57.6
+    },
+    {
+     "model": "Claude Sonnet 5.5",
+     "creator": "Anthropic",
+     "score": 56
+    },
+    {
+     "model": "Claude Fable 5.1",
+     "creator": "Anthropic",
+     "score": 53.4
+    },
+    {
+     "model": "GPT-6 Astra",
+     "creator": "OpenAI",
+     "score": 52.7
+    },
+    {
+     "model": "GPT-6.1 Sol",
+     "creator": "OpenAI",
+     "score": 51.8
+    },
+    {
+     "model": "Claude Opus 5",
+     "creator": "Anthropic",
+     "score": 50.8
+    },
+    {
+     "model": "Claude Fable 5",
+     "creator": "Anthropic",
+     "score": 49.6
+    },
+    {
+     "model": "GPT-6 Sol",
+     "creator": "OpenAI",
+     "score": 47.6
+    },
+    {
+     "model": "GPT-5.6 Sol",
+     "creator": "OpenAI",
+     "score": 47
+    },
+    {
+     "model": "Kimi K3",
+     "creator": "Moonshot AI",
+     "score": 43.6
+    },
+    {
+     "model": "Claude Haiku 5.5",
+     "creator": "Anthropic",
+     "score": 43.4
+    },
+    {
+     "model": "GPT-5.6 Terra",
+     "creator": "OpenAI",
+     "score": 42.1
+    }
+   ]
+  },
+  {
+   "key": "artificial_analysis_coding_index",
+   "label": "Coding Index",
+   "category": "Coding",
+   "description": "Composite AA de código, derivado de um subconjunto das avaliações do Intelligence Index",
+   "unit": "índice (0–100)",
+   "is_fraction": false,
+   "models_evaluated": 258,
+   "families_evaluated": 195,
+   "top": [
+    {
+     "model": "Claude Fable 5.1",
+     "variant": "Max, Default Fallback",
+     "creator": "Anthropic",
+     "score": 81.6,
+     "release_date": "2026-09-01",
+     "price_1m_blended": 20,
+     "tok_per_sec": 66.79,
+     "open_weights": null
+    },
+    {
+     "model": "GPT-5.6 Sol",
+     "variant": "Xhigh",
+     "creator": "OpenAI",
+     "score": 78.3,
+     "release_date": "2026-07-09",
+     "price_1m_blended": 8,
+     "tok_per_sec": 88.64,
+     "open_weights": null
+    },
+    {
+     "model": "Claude Opus 5",
+     "variant": "Max",
+     "creator": "Anthropic",
+     "score": 78,
+     "release_date": "2026-07-24",
+     "price_1m_blended": 10,
+     "tok_per_sec": 54.44,
+     "open_weights": null
+    }
+   ],
+   "full": [
+    {
+     "model": "Claude Fable 5.1",
+     "creator": "Anthropic",
+     "score": 81.6
+    },
+    {
+     "model": "GPT-5.6 Sol",
+     "creator": "OpenAI",
+     "score": 78.3
+    },
+    {
+     "model": "Claude Opus 5",
+     "creator": "Anthropic",
+     "score": 78
+    },
+    {
+     "model": "GPT-6 Astra",
+     "creator": "OpenAI",
+     "score": 77.1
+    },
+    {
+     "model": "GPT-5.6 Terra",
+     "creator": "OpenAI",
+     "score": 76.7
+    },
+    {
+     "model": "Claude Fable 5",
+     "creator": "Anthropic",
+     "score": 76.5
+    },
+    {
+     "model": "Kimi K3",
+     "creator": "Moonshot AI",
+     "score": 76.2
+    },
+    {
+     "model": "GPT-5.5",
+     "creator": "OpenAI",
+     "score": 74.9
+    },
+    {
+     "model": "Claude Opus 4.8",
+     "creator": "Anthropic",
+     "score": 74.3
+    },
+    {
+     "model": "Claude Opus 4.7",
+     "creator": "Anthropic",
+     "score": 73.6
+    },
+    {
+     "model": "Claude Sonnet 5",
+     "creator": "Anthropic",
+     "score": 71.5
+    },
+    {
+     "model": "GPT-5.6 Luna",
+     "creator": "OpenAI",
+     "score": 71.4
+    }
+   ]
+  },
+  {
+   "key": "artificial_analysis_agentic_index",
+   "label": "Agentic Index",
+   "category": "Agents",
+   "description": "Composite AA de uso autônomo de ferramentas e terminal",
+   "unit": "índice (0–100)",
+   "is_fraction": false,
+   "models_evaluated": 166,
+   "families_evaluated": 124,
+   "top": [
+    {
+     "model": "Claude Fable 5.1",
+     "variant": "Max, Default Fallback",
+     "creator": "Anthropic",
+     "score": 57.9,
+     "release_date": "2026-09-01",
+     "price_1m_blended": 20,
+     "tok_per_sec": 66.79,
+     "open_weights": null
+    },
+    {
+     "model": "Claude Opus 5",
+     "variant": "Max",
+     "creator": "Anthropic",
+     "score": 56.5,
+     "release_date": "2026-07-24",
+     "price_1m_blended": 10,
+     "tok_per_sec": 54.44,
+     "open_weights": null
+    },
+    {
+     "model": "Qwen3.8 Max",
+     "variant": "0902",
+     "creator": "Alibaba",
+     "score": 56,
+     "release_date": "2026-09-02",
+     "price_1m_blended": 3,
+     "tok_per_sec": 36.24,
+     "open_weights": null
+    }
+   ],
+   "full": [
+    {
+     "model": "Claude Fable 5.1",
+     "creator": "Anthropic",
+     "score": 57.9
+    },
+    {
+     "model": "Claude Opus 5",
+     "creator": "Anthropic",
+     "score": 56.5
+    },
+    {
+     "model": "GPT-6 Astra",
+     "creator": "OpenAI",
+     "score": 51
+    },
+    {
+     "model": "Claude Fable 5",
+     "creator": "Anthropic",
+     "score": 50.7
+    },
+    {
+     "model": "GPT-5.6 Sol",
+     "creator": "OpenAI",
+     "score": 50.2
+    },
+    {
+     "model": "Kimi K3",
+     "creator": "Moonshot AI",
+     "score": 50
+    },
+    {
+     "model": "Claude Sonnet 5",
+     "creator": "Anthropic",
+     "score": 43.6
+    },
+    {
+     "model": "GPT-5.6 Terra",
+     "creator": "OpenAI",
+     "score": 43.2
+    },
+    {
+     "model": "GPT-5.6 Luna",
+     "creator": "OpenAI",
+     "score": 42.1
+    },
+    {
+     "model": "Claude Opus 4.8",
+     "creator": "Anthropic",
+     "score": 41.9
+    },
+    {
+     "model": "Claude Opus 4.7",
+     "creator": "Anthropic",
+     "score": 38.6
+    },
+    {
+     "model": "GPT-5.5",
+     "creator": "OpenAI",
+     "score": 36.4
+    }
+   ]
+  }
+ ]
+}
