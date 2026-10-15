@@ -3803,11 +3803,14 @@ h1 {
   }
 }
 
+/* O link "fonte" fica embaixo, alinhado ao texto: ao lado do título ele
+   roubava largura e quebrava o nome do modelo em duas linhas. */
 .panorama-news-card {
   display: flex;
-  align-items: flex-start;
-  gap: 4px;
-  padding: 10px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: #fff;
@@ -3884,8 +3887,9 @@ h1 {
 }
 
 .panorama-news-fonte {
-  flex: 0 0 auto;
-  margin-top: 1px;
+  align-self: flex-start;
+  margin-top: auto;
+  margin-left: 32px;
   color: var(--green-700);
   font-size: 0.74rem;
   font-weight: 700;
@@ -5034,26 +5038,6 @@ a.guide-model {
 
   .panorama-news-meta {
     white-space: normal;
-  }
-
-  /* Novidades em linha única rolável: cinco cartões empilhados empurravam o
-     primeiro mês da lista para fora da primeira tela. */
-  .panorama-news-items {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .panorama-news-items::-webkit-scrollbar {
-    display: none;
-  }
-
-  .panorama-news-item {
-    flex: 0 0 auto;
-  }
-
-  .panorama-news-meta {
-    white-space: nowrap;
   }
 }
 
