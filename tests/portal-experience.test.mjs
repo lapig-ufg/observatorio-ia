@@ -65,7 +65,9 @@ test("institutional band uses only official logos, with full accessible names in
   assert.match(styles, /a:focus-visible \.institutional-tooltip \{ display: block;/);
   assert.match(styles, /a:hover \.institutional-tooltip \{ display: block;/);
   assert.match(band, /aria-label=\{`\$\{acronym\} — \$\{name\}`\}/);
-  assert.match(styles, /grid-template-columns: 160px 140px 63px; justify-content: center/);
-  assert.match(styles, /grid-template-columns: min\(28vw, 120px\) min\(24.5vw, 105px\) 47px/);
-  assert.match(styles, /height: 96px; object-fit: contain/);
+  assert.match(band, /className="institutional-lockup-image".*width="420" height="91" alt=""/);
+  assert.doesNotMatch(band, /-symbol\.svg/);
+  assert.match(styles, /\.institutional-lockup \{ position: relative; width: 420px; max-width: 100%;/);
+  assert.match(styles, /\.institutional-lockup-image \{ display: block; width: 100%; height: auto;/);
+  assert.match(styles, /grid-template-columns: 140fr 120fr 160fr/);
 });

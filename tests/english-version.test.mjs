@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import test from "node:test";
 import ts from "typescript";
 
@@ -126,13 +127,10 @@ test("Portuguese and English headers present LAPIG, IESA and UFG in institutiona
     assert.match(source, /url: "https:\/\/iesa\.ufg\.br\/"/);
     assert.match(source, /url: "https:\/\/ufg\.br\/"/);
   }
-  for (const key of ["lapig", "iesa", "ufg"]) {
-    const svg = fs.readFileSync(`public/brand/${key}-symbol.svg`, "utf8");
-    assert.match(svg, /viewBox=/);
-    assert.match(svg, /<path/);
-    assert.doesNotMatch(svg, /<image|<script|<text|data:image|<!DOCTYPE/i);
-  }
-  assert.match(fs.readFileSync("src/CatalogExperience.tsx", "utf8"), /brand\/\$\{key\}-symbol\.svg/);
+  // Protect the exact artwork approved by UFG communications, including its colors and full names.
+  const approved = fs.readFileSync("public/brand/lapig-iesa-ufg-approved.png");
+  assert.equal(createHash("sha256").update(approved).digest("hex"), "4cd9ce5a7e70e88f5f51b0d39e7d25df1fd2c85299acf0f826d06535bf25de49");
+  assert.match(fs.readFileSync("src/CatalogExperience.tsx", "utf8"), /brand\/lapig-iesa-ufg-approved\.png/);
 });
 
 test("translated catalog preserves the same public scientific-paper selection", async () => {

@@ -36,6 +36,12 @@ Drive; a planilha publica somente os links de leitura definidos para cada item.
 - `scripts/build-catalog.mjs`: atualização local do CSV, das capas e do controle de duplicatas.
 - `.github/workflows/deploy-pages.yml`: teste, build e publicação automática no GitHub Pages.
 
+## Marcas institucionais
+
+O cabeçalho em português e inglês usa `public/brand/lapig-iesa-ufg-approved.png`, a composição aprovada pela comunicação da UFG. Preservar a imagem inteira, suas cores, os nomes por extenso e as proporções; não substituir por símbolos isolados.
+
+`InstitutionalBand` apresenta a arte original de 420 × 91 pixels, centralizada sobre fundo branco e reduzida proporcionalmente em telas estreitas. Três áreas de link sobre a imagem mantêm os destinos de LAPIG, IESA e UFG, com larguras proporcionais de 140:120:160, nomes acessíveis e foco visível. O teste da identidade do arquivo protege a composição aprovada contra substituições acidentais.
+
 ## Executar localmente
 
 Requer Node.js 22 ou superior e pnpm.
