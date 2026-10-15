@@ -131,6 +131,17 @@ export type TimelineGroupLabels = {
   countries?: Record<string, string>;
 };
 
+/* Régua ampliada: mínimo de modelos para uma empresa ganhar trilha própria
+   (`MIN_MODELOS_TRACK` no Panorama). Na régua padrão o mínimo é 1 — toda
+   empresa com identidade tem faixa. A ampliada preserva essas faixas e
+   promove também empresas sem identidade visual com pelo menos 3 modelos. */
+export const MIN_COMPANY_TRACK = 3;
+
+export type TimelineGroupOptions = {
+  minCompanyTrack?: number;
+  population?: TimelineItem[];
+};
+
 function byCountThenName(left: [string, number], right: [string, number]) {
   return right[1] - left[1] || left[0].localeCompare(right[0]);
 }
@@ -142,43 +153,69 @@ function counted(entries: Map<string, TimelineItem[]>) {
     .map(([name]) => name);
 }
 
-/* Três faixas (swimlanes), na ordem fixa dos ecossistemas. Nos ecossistemas
-   norte-americano e chinês cada empresa com identidade ganha trilha própria e
-   a cauda longa cai no "Outros" do grupo; em Outros Países a trilha é por
-   PAÍS, não por empresa — dois laboratórios coreanos dividem a faixa "Coreia
-   do Sul" (a régua padrão do Panorama desenha assim). */
-export function buildTimelineGroups(items: TimelineItem[], labels: TimelineGroupLabels): TimelineGroup[] {
-  const countryLabel = (country: string) => labels.countries?.[country] || country;
-  const byCountryOrCompany = (source: TimelineItem[], byCountry: boolean) => {
-    const known = new Map<string, TimelineItem[]>();
-    const rest: TimelineItem[] = [];
-    for (const item of source) {
-      const key = byCountry ? item.country : item.known ? item.company : "";
-      if (key) {
-        const list = known.get(key) || [];
-        list.push(item);
-        known.set(key, list);
-      } else rest.push(item);
-    }
-    const tracks: TimelineTrack[] = counted(known).map((key) => ({
+function byCountryOrCompany(source: TimelineItem[], population: TimelineItem[], byCountry: boolean, minOwnTrack: number, labels: TimelineGroupLabels) {
+  /* Conta antes de separar: na régua ampliada (minOwnTrack > 1), a decisão de
+     trilha própria é da EMPRESA — ou todas as linhas dela entram, ou nenhuma.
+     As empresas já nomeadas permanecem; a cauda nova com 1–2 modelos vai
+     para "Outros". Contamos antes dos filtros, para a busca não desfazer
+     uma promoção nem trocar a identidade da trilha.
+     Em Outros Países o agrupamento é por país e o mínimo não se aplica
+     (regra do Panorama: a faixa é do país, não da empresa). */
+  const counts = new Map<string, number>();
+  for (const item of population) {
+    const key = byCountry ? item.country : item.company;
+    if (key) counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  const known = new Map<string, TimelineItem[]>();
+  const rest: TimelineItem[] = [];
+  for (const item of source) {
+    const key = byCountry ? item.country : item.company;
+    if (key && (byCountry || item.known || (minOwnTrack > 1 && (counts.get(key) || 0) >= minOwnTrack))) {
+      const list = known.get(key) || [];
+      list.push(item);
+      known.set(key, list);
+    } else rest.push(item);
+  }
+  const names = counted(known);
+  if (!byCountry && minOwnTrack > 1) {
+    const named = new Set(population.filter((item) => item.known).map((item) => item.company));
+    const milestones = new Map<string, number>();
+    for (const item of population) if (item.level === 1) milestones.set(item.company, (milestones.get(item.company) || 0) + 1);
+    // As trilhas que o leitor já conhece vêm antes das promovidas, na ordem
+    // dos marcos da régua padrão. O catálogo não reembaralha essas faixas.
+    names.sort((a, b) => Number(named.has(b)) - Number(named.has(a))
+      || (named.has(a) ? (milestones.get(b) || 0) - (milestones.get(a) || 0) : (counts.get(b) || 0) - (counts.get(a) || 0))
+      || a.localeCompare(b));
+  }
+  const tracks: TimelineTrack[] = names
+    .map((key) => ({
       key: `${byCountry ? "country" : "company"}:${key}`,
       kind: byCountry ? "country" : "company",
-      label: byCountry ? countryLabel(key) : key,
+      label: byCountry ? (labels.countries?.[key] || key) : key,
       items: (known.get(key) || []).slice().sort((left, right) => left.days - right.days),
     }));
-    if (rest.length) {
-      tracks.push({ key: "other", kind: "other", label: labels.other, items: rest.slice().sort((left, right) => left.days - right.days) });
-    }
-    return tracks;
-  };
+  if (rest.length) {
+    tracks.push({ key: "other", kind: "other", label: labels.other, items: rest.slice().sort((left, right) => left.days - right.days) });
+  }
+  return tracks;
+}
 
+/* Três faixas (swimlanes), na ordem fixa dos ecossistemas. Nos ecossistemas
+   norte-americano e chinês cada empresa com identidade ganha trilha própria
+   e a ampliada promove as demais com >= minCompanyTrack modelos; a cauda longa
+   cai no "Outros" do grupo; em Outros Países a trilha é por PAÍS, não por
+   empresa — dois laboratórios coreanos dividem a faixa "Coreia do Sul"
+   (a régua padrão do Panorama desenha assim). */
+export function buildTimelineGroups(items: TimelineItem[], labels: TimelineGroupLabels, options: TimelineGroupOptions = {}): TimelineGroup[] {
+  const minCompanyTrack = options.minCompanyTrack ?? 1;
   const groups: TimelineGroup[] = [];
   for (const ecosystem of ECOSYSTEM_ORDER) {
     const inGroup = items.filter((item) => item.ecosystem === ecosystem);
     if (!inGroup.length) continue;
     /* Sem país cadastrado não há trilha de país — o país não é chutado; a
        linha cai no "Outros" (mesma regra da régua do Panorama). */
-    groups.push({ ecosystem, tracks: byCountryOrCompany(inGroup, ecosystem === "OUTROS PAÍSES") });
+    const population = (options.population || items).filter((item) => item.ecosystem === ecosystem);
+    groups.push({ ecosystem, tracks: byCountryOrCompany(inGroup, population, ecosystem === "OUTROS PAÍSES", minCompanyTrack, labels) });
   }
   return groups;
 }

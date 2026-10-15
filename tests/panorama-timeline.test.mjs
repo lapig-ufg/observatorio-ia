@@ -117,6 +117,46 @@ test("trilhas por ecossistema: empresa nos EUA/China, país em Outros, cauda no 
   assert.deepEqual(onlyChina.map((group) => group.ecosystem), ["ECOSSISTEMA CHINÊS"]);
 });
 
+test("a ampliada promove empresas com >= 3 modelos mesmo sem identidade visual", () => {
+  const items = [
+    item({ id: "1", company: "OpenAI", known: true, ecosystem: "ECOSSISTEMA NORTE-AMERICANO", days: 10 }),
+    item({ id: "2", company: "OpenAI", known: true, ecosystem: "ECOSSISTEMA NORTE-AMERICANO", days: 11 }),
+    item({ id: "3", company: "OpenAI", known: true, ecosystem: "ECOSSISTEMA NORTE-AMERICANO", days: 12 }),
+    item({ id: "4", company: "Liquid AI", known: false, ecosystem: "ECOSSISTEMA NORTE-AMERICANO", days: 20 }),
+    item({ id: "5", company: "Liquid AI", known: false, ecosystem: "ECOSSISTEMA NORTE-AMERICANO", days: 21 }),
+    item({ id: "6", company: "Liquid AI", known: false, ecosystem: "ECOSSISTEMA NORTE-AMERICANO", days: 30 }),
+    item({ id: "7", company: "Desconhecida", known: false, ecosystem: "ECOSSISTEMA NORTE-AMERICANO", days: 40 }),
+    item({ id: "8", company: "Meta", known: true, ecosystem: "ECOSSISTEMA NORTE-AMERICANO", days: 50 }),
+    item({ id: "9", company: "Nous Research", known: false, ecosystem: "ECOSSISTEMA NORTE-AMERICANO", days: 60 }),
+    item({ id: "10", company: "Nous Research", known: false, ecosystem: "ECOSSISTEMA NORTE-AMERICANO", days: 61 }),
+  ];
+  const labels = { other: "Outros" };
+
+  // Padrão: toda empresa com identidade tem faixa própria (comportamento da fase 1).
+  const standard = timeline.buildTimelineGroups(items, labels);
+  assert.deepEqual(standard[0].tracks.map((track) => track.label), ["OpenAI", "Meta", "Outros"]);
+
+  // A trilha existente da Meta permanece com um único modelo. Liquid ganha
+  // trilha sem exigir cor/logo; a cauda com 1–2 modelos continua no Outros.
+  const options = { minCompanyTrack: timeline.MIN_COMPANY_TRACK, population: items };
+  const expanded = timeline.buildTimelineGroups(items, labels, options);
+  assert.deepEqual(expanded[0].tracks.map((track) => track.label), ["OpenAI", "Meta", "Liquid AI", "Outros"]);
+  assert.deepEqual(expanded[0].tracks[3].items.map((entry) => entry.company), ["Desconhecida", "Nous Research", "Nous Research"]);
+  assert.equal(expanded[0].tracks[3].kind, "other");
+  assert.deepEqual(expanded[0].tracks[2].items.map((entry) => entry.id), ["4", "5", "6"]);
+  const filtered = timeline.buildTimelineGroups(items.filter(item => item.id === "4"), labels, options);
+  assert.equal(filtered[0].tracks[0].label, "Liquid AI", "busca não desfaz a promoção");
+  const chinese = items.map(item => ({ ...item, ecosystem: "ECOSSISTEMA CHINÊS" }));
+  assert.ok(timeline.buildTimelineGroups(chinese, labels, { minCompanyTrack: 3 })[0].tracks.some(track => track.label === "Liquid AI"));
+
+  // Em Outros Países o agrupamento continua por país, mesmo no modo ampliado.
+  const abroad = timeline.buildTimelineGroups([
+    item({ id: "a", company: "Sakana AI", known: true, ecosystem: "OUTROS PAÍSES", country: "Japão", days: 1 }),
+    item({ id: "b", company: "AI21 Labs", known: true, ecosystem: "OUTROS PAÍSES", country: "Israel", days: 2 }),
+  ], labels, { minCompanyTrack: timeline.MIN_COMPANY_TRACK });
+  assert.deepEqual(abroad[0].tracks.map((track) => track.label), ["Israel", "Japão"]);
+});
+
 test("trilhas por país são traduzidas pelos rótulos", () => {
   const items = [item({ company: "Sakana AI", ecosystem: "OUTROS PAÍSES", country: "Japão" })];
   const groups = timeline.buildTimelineGroups(items, { other: "Other", countries: { "Japão": "Japan" } });

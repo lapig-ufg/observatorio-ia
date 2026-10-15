@@ -82,7 +82,10 @@ let configRequest: Promise<{ config: PanoramaConfig; warning: string }> | null =
 /* Uma busca por carga de página: cores e apelidos mudam só quando alguém
    cadastra empresa no Panorama. Falhou, segue com a configuração vazia. */
 export function loadPanoramaConfig(signal?: AbortSignal) {
-  configRequest ??= fetch(assetUrl("data.js"), { cache: "no-cache", signal })
+  // A requisição é compartilhada: sair de uma aba não pode cancelar a
+  // configuração que outra aba ainda está esperando.
+  void signal;
+  configRequest ??= fetch(assetUrl("data.js"), { cache: "no-cache" })
     .then(async (response) => {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return { config: panoramaConfigFromDataJs(await response.text()), warning: "" };

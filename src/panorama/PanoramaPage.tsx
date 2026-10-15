@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
 import { PANORAMA_SITE } from "../panoramaData";
 import { Timeline } from "./Timeline";
+import { ModelGuide } from "./ModelGuide";
 
 /* Página do Panorama dentro do Observatório — a casca que as quatro abas
    compartilham. O iframe acabou: cada aba renderiza o próprio conteúdo, lendo
@@ -11,9 +12,7 @@ import { Timeline } from "./Timeline";
    Rotas por hash: `#panorama` (régua) e as sub-rotas `#panorama/guia`,
    `#panorama/gratuitos` e `#panorama/como-usar`. O App resolve qualquer hash
    que comece com `#panorama` como a página "panorama"; a sub-rota é lida aqui.
-   Nas fases 2 e 3 as outras três abas ganham conteúdo nativo; por enquanto elas
-   existem no roteamento com um aviso de preparação, para os links já serem os
-   definitivos. */
+   O guia é nativo; as duas abas editoriais ficam para a fase 3. */
 
 type TabKey = "" | "guia" | "gratuitos" | "como-usar";
 
@@ -24,8 +23,8 @@ const TABS: Array<{ key: TabKey; pt: string; en: string }> = [
   { key: "como-usar", pt: "Como usar fora do navegador", en: "Using AI beyond the browser" },
 ];
 
-function panoramaSubRoute(): TabKey {
-  const hash = window.location.hash;
+function panoramaSubRoute(route: string): TabKey {
+  const hash = route.split("?")[0];
   if (hash === "#panorama/guia") return "guia";
   if (hash === "#panorama/gratuitos") return "gratuitos";
   if (hash === "#panorama/como-usar") return "como-usar";
@@ -48,11 +47,12 @@ function PanoramaComingSoon({ tab, english }: { tab: TabKey; english: boolean })
 }
 
 export function PanoramaPage({ english = false }: { english?: boolean }) {
-  const [tab, setTab] = useState<TabKey>(panoramaSubRoute);
+  const [route, setRoute] = useState(() => window.location.hash);
+  const tab = panoramaSubRoute(route);
   const activeTabRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
-    const onHashChange = () => setTab(panoramaSubRoute());
+    const onHashChange = () => setRoute(window.location.hash);
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
@@ -60,14 +60,25 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
   /* Ao trocar de sub-página, o foco vai para o <h1> — a mesma convenção das
      páginas do App, para leitores de tela não continuarem na aba anterior. */
   useEffect(() => {
-    window.requestAnimationFrame(() => {
+    const frame = window.requestAnimationFrame(() => {
       const heading = document.getElementById("panorama-title");
       if (heading) {
         heading.tabIndex = -1;
         heading.focus({ preventScroll: true });
       }
     });
-  }, [tab]);
+    return () => window.cancelAnimationFrame(frame);
+  }, [tab, english]);
+
+  useEffect(() => {
+    const label = TABS.find((entry) => entry.key === tab);
+    // O App trata a página maior; depois dele, a sub-rota dá o título
+    // específico, inclusive na entrada direta e na navegação pelo histórico.
+    const frame = window.requestAnimationFrame(() => {
+      document.title = `${english ? label?.en : label?.pt} | ${english ? "UFG-AI Observatory" : "Observatório UFG-IA"}`;
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [route, tab, english]);
 
   /* A barra de abas é uma linha só, com rolagem horizontal: em 375px elas
      quebravam em três fileiras. A aba ativa entra na vista ao trocar, para o
@@ -121,7 +132,7 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
         ))}
       </nav>
 
-      {tab === "" ? <Timeline english={english} /> : <PanoramaComingSoon tab={tab} english={english} />}
+      {tab === "" ? <Timeline english={english} /> : tab === "guia" ? <ModelGuide english={english} /> : <PanoramaComingSoon tab={tab} english={english} />}
     </section>
   );
 }

@@ -72,6 +72,7 @@ test("both Panorama pages read the live Panorama site, never a local copy", () =
   const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
   const page = fs.readFileSync("src/panorama/PanoramaPage.tsx", "utf8");
   const timeline = fs.readFileSync("src/panorama/Timeline.tsx", "utf8");
+  const guide = fs.readFileSync("src/panorama/ModelGuide.tsx", "utf8");
   const data = fs.readFileSync("src/panoramaData.ts", "utf8");
   assert.match(data, /PANORAMA_SITE = "https:\/\/lapig-ufg\.github\.io\/app-panorama-global-da-ia-generativa\/"/);
   assert.doesNotMatch(pt, /iframe|panoramaEmbedUrl|\?embed=1/);
@@ -80,6 +81,10 @@ test("both Panorama pages read the live Panorama site, never a local copy", () =
   assert.match(page, /<Timeline english=\{english\} \/>/);
   assert.match(timeline, /loadPanoramaLaunches\(locale/);
   assert.match(timeline, /loadPanoramaCatalog|loadPanoramaBenchmarks/);
+  assert.match(page, /<ModelGuide english=\{english\} \/>/);
+  assert.match(guide, /loadPanoramaBenchmarks\(locale/);
+  assert.match(guide, /loadPanoramaLaunches\(locale/);
+  assert.doesNotMatch(guide, /assets\/benchmarks(?:-en)?\.json|\.panorama-ref/);
   assert.equal(fs.existsSync("public/panorama"), false,
     "public/panorama/ is back: a vendored Panorama goes stale on its own — read the live site instead");
 });

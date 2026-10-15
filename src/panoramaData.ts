@@ -75,8 +75,16 @@ export type PanoramaBenchmark = {
   category: string;
   description: string;
   unit: string;
+  /* A nota é porcentagem de acerto (exibir "95,2%") ou índice 0–100. */
+  isFraction: boolean;
   modelsEvaluated: number;
+  /* Lista completa dos avaliados (full): alimenta a comparação e os "outros
+     testes" do guia — um modelo tem nota e posto mesmo fora do top-20. */
   entries: PanoramaBenchmarkEntry[];
+  /* Top-20 com campos ricos (preço, velocidade, variante): o corte dos mais
+     capazes que vira o ranking do guia e o piso de qualidade das ordenações
+     alternativas. Reserva para JSONs antigos sem `full`: o mesmo corte. */
+  top: PanoramaBenchmarkEntry[];
 };
 
 export type PanoramaBenchmarks = {
@@ -84,6 +92,7 @@ export type PanoramaBenchmarks = {
   sourceUrl: string;
   attribution: string;
   fetchedAt: string;
+  modelsTotal: number;
   benchmarks: PanoramaBenchmark[];
 };
 
@@ -427,7 +436,7 @@ export function catalogWithoutCurated(models: PanoramaCatalogModel[], launches: 
 
 export function benchmarksFromJson(json: unknown, config: PanoramaConfig): PanoramaBenchmarks {
   const file = json as {
-    source?: unknown; source_url?: unknown; attribution?: unknown; fetched_at?: unknown; benchmarks?: unknown;
+    source?: unknown; source_url?: unknown; attribution?: unknown; fetched_at?: unknown; models_total?: unknown; benchmarks?: unknown;
   };
   if (!Array.isArray(file?.benchmarks)) throw new Error("benchmarks.json do Panorama sem a lista de testes.");
   return {
@@ -435,32 +444,40 @@ export function benchmarksFromJson(json: unknown, config: PanoramaConfig): Panor
     sourceUrl: String(file.source_url || ""),
     attribution: String(file.attribution || ""),
     fetchedAt: String(file.fetched_at || ""),
+    modelsTotal: finite(file.models_total) ?? 0,
     benchmarks: file.benchmarks.flatMap((entry) => {
       const bench = entry as Record<string, unknown>;
       if (!bench?.key) return [];
-      // `full` traz todos os avaliados; `top` (os 20 primeiros) fica de reserva, como no guia.
-      const list = Array.isArray(bench.full) ? bench.full : Array.isArray(bench.top) ? bench.top : [];
+      // `full` traz todos os avaliados; `top` (os 20 primeiros, campos ricos)
+      // é o ranking do guia. JSON antigo sem `full`: o top serve para os dois.
+      const full = Array.isArray(bench.full) ? bench.full : [];
+      const top = Array.isArray(bench.top) ? bench.top : full;
+      const entryFrom = (row: unknown) => {
+        const item = row as Record<string, unknown>;
+        const score = finite(item?.score);
+        if (!item?.model || score === null) return [];
+        return [{
+          model: String(item.model),
+          variant: String(item.variant || ""),
+          company: canonicalCompany(item.creator, config),
+          score,
+          releaseDate: /^\d{4}-\d{2}-\d{2}$/.test(String(item.release_date || "")) ? String(item.release_date) : "",
+          pricePerMillion: finite(item.price_1m_blended),
+          tokensPerSecond: finite(item.tok_per_sec),
+        }];
+      };
+      const topEntries = top.flatMap(entryFrom);
+      const entries = full.length ? full.flatMap(entryFrom) : topEntries;
       return [{
         key: String(bench.key),
         label: String(bench.label || bench.key),
         category: String(bench.category || ""),
         description: String(bench.description || ""),
         unit: String(bench.unit || ""),
-        modelsEvaluated: finite(bench.models_evaluated) ?? list.length,
-        entries: list.flatMap((row) => {
-          const item = row as Record<string, unknown>;
-          const score = finite(item?.score);
-          if (!item?.model || score === null) return [];
-          return [{
-            model: String(item.model),
-            variant: String(item.variant || ""),
-            company: canonicalCompany(item.creator, config),
-            score,
-            releaseDate: /^\d{4}-\d{2}-\d{2}$/.test(String(item.release_date || "")) ? String(item.release_date) : "",
-            pricePerMillion: finite(item.price_1m_blended),
-            tokensPerSecond: finite(item.tok_per_sec),
-          }];
-        }),
+        isFraction: Boolean(bench.is_fraction),
+        modelsEvaluated: finite(bench.models_evaluated) ?? entries.length,
+        entries,
+        top: topEntries,
       }];
     }),
   };
@@ -479,4 +496,16 @@ export function benchmarkScoresForLaunch(launch: PanoramaLaunch, data: PanoramaB
         : []
     ));
   });
+}
+
+/* O vínculo do guia exige empresa e apelido explícito, sem aproximação fuzzy.
+   Marcos agrupados também cobrem seus nomes individuais; preferimos o marco
+   ao secundário quando ambos representam a mesma família. */
+export function launchForModel(model: string, company: string, launches: PanoramaLaunch[], config: PanoramaConfig, date = "") {
+  const key = launchModelKey(model, config);
+  const canonical = canonicalCompany(company, config).toUpperCase();
+  return launches.filter((launch) => (!canonical || canonicalCompany(launch.company, config).toUpperCase() === canonical)
+    && (!date || launch.date === date)
+    && modelNameParts(launch.model).some((part) => launchModelKey(part, config) === key))
+    .sort((a, b) => a.level - b.level || b.date.localeCompare(a.date))[0] || null;
 }

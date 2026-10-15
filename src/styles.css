@@ -3908,7 +3908,592 @@ h1 {
   font-size: 0.8rem;
 }
 
-/* Aviso de seção em preparação (abas das fases 2 e 3) */
+/* Guia de modelos: ranking em cartões no celular, colunas no computador. */
+.panorama-guide {
+  padding: 0 clamp(20px, 5vw, 72px) 16px;
+}
+
+.guide-heading {
+  margin: 24px 0;
+}
+
+.guide-heading h2 {
+  color: var(--green-900);
+  margin: 0 0 8px;
+  font-size: 1.6rem;
+}
+
+.guide-heading p {
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+
+.guide-heading small, .guide-search-hint, .guide-sort-hint {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.guide-categories, .guide-sorts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.guide-categories button, .guide-sorts button, .guide-extras-toggle, .guide-tray button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--paper);
+  color: var(--green-900);
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.guide-categories button[aria-pressed="true"], .guide-sorts button[aria-pressed="true"], .guide-tray .guide-compare-open {
+  background: var(--green-900);
+  color: #fff;
+  border-color: var(--green-900);
+}
+
+.guide-panel {
+  margin-top: 24px;
+}
+
+.guide-panel h3 {
+  font-size: 1.15rem;
+  margin: 0 0 8px;
+}
+
+.guide-question {
+  margin: 0 0 18px;
+  line-height: 1.5;
+}
+
+.guide-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.guide-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 270px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 4px 10px;
+  min-width: 0;
+}
+
+.guide-search input {
+  border: 0;
+  padding: 8px 0;
+  width: 100%;
+  min-width: 0;
+  color: var(--ink);
+  background: transparent;
+}
+
+.guide-search input::placeholder {
+  color: var(--muted);
+}
+
+.guide-search-hint {
+  font-size: .79rem;
+  margin: 10px 0 16px;
+}
+
+.guide-sort-hint {
+  font-size: .88rem;
+}
+
+.guide-suggestions {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 16px;
+  background: var(--surface);
+}
+
+.guide-suggestions p {
+  font-size: .85rem;
+  margin: 0 0 10px;
+}
+
+.guide-suggestions button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.guide-suggestions button > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.guide-suggestions small {
+  display: block;
+  color: var(--muted);
+}
+
+.guide-method {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin: 16px 0;
+  background: var(--surface);
+  font-size: .88rem;
+  line-height: 1.6;
+}
+
+.guide-method summary {
+  cursor: pointer;
+  padding: 12px 16px;
+  font-weight: 700;
+  color: var(--green-900);
+}
+
+.guide-method summary:focus-visible {
+  outline: 3px solid #e49a43;
+  outline-offset: 2px;
+}
+
+.guide-method > div {
+  padding: 0 16px 10px;
+}
+
+.guide-method a {
+  color: var(--green-900);
+  text-underline-offset: 3px;
+}
+
+.guide-composition {
+  list-style: none;
+  padding: 0;
+}
+
+.guide-composition li {
+  display: flex;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.guide-composition li > b {
+  flex: 0 0 52px;
+  color: var(--green-900);
+}
+
+.guide-caveat {
+  border-left: 3px solid var(--coral-600);
+  padding-left: 12px;
+}
+
+.guide-overlap ul {
+  padding-left: 20px;
+}
+
+.guide-ranking-head {
+  display: none;
+}
+
+.guide-ranking {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: grid;
+  gap: 10px;
+}
+
+.guide-row {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 38px;
+  gap: 8px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.guide-position {
+  grid-column: 1;
+  grid-row: 1;
+  font-weight: 800;
+  color: var(--green-900);
+  font-size: .95rem;
+  align-self: start;
+  padding-top: 6px;
+}
+
+.guide-identity {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  min-width: 0;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.guide-company-mark {
+  display: inline-flex;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 800;
+  font-size: .75rem;
+}
+
+.guide-identity > div {
+  min-width: 0;
+}
+
+.guide-model {
+  font-size: .9rem;
+  line-height: 1.4;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+a.guide-model {
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+}
+
+.guide-model svg {
+  vertical-align: middle;
+}
+
+.guide-identity small {
+  display: block;
+  font-size: .74rem;
+  color: var(--muted);
+  line-height: 1.45;
+  margin-top: 3px;
+  overflow-wrap: anywhere;
+}
+
+.guide-identity .guide-variant {
+  color: var(--navy-800);
+}
+
+.guide-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  grid-column: 2;
+  font-weight: 800;
+  font-size: .9rem;
+}
+
+.guide-bar {
+  display: block;
+  flex: 1;
+  min-width: 32px;
+  height: 6px;
+  background: var(--surface);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.guide-bar > span {
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+}
+
+.guide-metric {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: .7rem;
+}
+
+.guide-price, .guide-speed {
+  grid-column: 2 / -1;
+  font-size: .76rem;
+  color: var(--muted);
+}
+
+.guide-costs {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.guide-price {
+  grid-row: 3;
+}
+
+.guide-speed {
+  grid-row: 4;
+}
+
+.guide-add {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: start;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--green-900);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.guide-add[aria-pressed="true"] {
+  color: #fff;
+  background: var(--green-900);
+}
+
+.panorama-guide button:disabled {
+  cursor: default;
+  opacity: .5;
+}
+
+.guide-row-note {
+  grid-column: 2 / -1;
+  color: var(--coral-600);
+  font-size: .75rem;
+}
+
+.guide-extra {
+  grid-column: 2 / -1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: .75rem;
+}
+
+.guide-extra > span:first-child {
+  flex: 1 1 120px;
+}
+
+.guide-extra .guide-bar {
+  flex: 1 1 60px;
+}
+
+.guide-tray {
+  position: sticky;
+  bottom: 0;
+  z-index: 15;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px 12px 0 0;
+  padding: 10px;
+  box-shadow: 0 -4px 18px #17231f12;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.guide-chips {
+  flex: 1 1 100%;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.guide-chips button {
+  font-size: .72rem;
+  padding: 6px 8px;
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
+.guide-chips svg {
+  flex: 0 0 13px;
+}
+
+.guide-comparison {
+  position: fixed;
+  inset: auto 0 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: 85dvh;
+  border: 1px solid var(--line);
+  border-radius: 14px 14px 0 0;
+  padding: 0;
+  color: var(--ink);
+  background: var(--paper);
+  overflow: auto;
+}
+
+.guide-comparison::backdrop {
+  background: #17231f80;
+}
+
+.guide-comparison-content {
+  padding: 18px;
+}
+
+.guide-comparison-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.guide-comparison-model {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  overflow-wrap: anywhere;
+}
+
+.guide-comparison-model h3 {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 8px 0 0;
+}
+
+.guide-comparison-model > small {
+  color: var(--muted);
+}
+
+.guide-wins {
+  color: var(--green-900);
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.guide-comparison-model dl {
+  margin-bottom: 0;
+}
+
+.guide-comparison-model dl > div {
+  padding: 10px 6px;
+  border-top: 1px solid var(--line);
+  font-size: .8rem;
+}
+
+.guide-comparison-model dd {
+  margin: 4px 0 0;
+  font-weight: 700;
+}
+
+.guide-comparison-model .is-winner {
+  background: var(--green-100);
+}
+
+.guide-comparison-note {
+  color: var(--muted);
+  font-size: .8rem;
+  line-height: 1.6;
+}
+
+.panorama-guide .panorama-provenance small {
+  flex-basis: 100%;
+}
+
+@media (max-width: 899px) {
+  .guide-comparison-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .guide-comparison-model dl > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .guide-comparison-model dd {
+    margin: 0;
+  }
+}
+
+@media (min-width: 900px) {
+  .guide-ranking {
+    gap: 0;
+    margin-top: 0;
+  }
+  .guide-ranking-head, .guide-row {
+    display: grid;
+    grid-template-columns: 32px minmax(150px, 1fr) 115px 120px 100px 38px;
+    gap: 12px;
+  }
+  .guide-ranking-head {
+    padding: 14px;
+    font-size: .75rem;
+    color: var(--muted);
+  }
+  .guide-row {
+    border-radius: 0;
+    border-width: 0 0 1px;
+    padding: 16px 14px;
+  }
+  .guide-identity {
+    grid-column: 2;
+  }
+  .guide-score {
+    grid-column: 3;
+    grid-row: 1;
+    flex-wrap: wrap;
+  }
+  .guide-score > span:first-child {
+    flex: 1 1 100%;
+  }
+  .guide-price {
+    grid-column: 4;
+    grid-row: 1;
+  }
+  .guide-speed {
+    grid-column: 5;
+    grid-row: 1;
+  }
+  .guide-costs {
+    display: contents;
+  }
+  .guide-add {
+    grid-column: 6;
+  }
+  .guide-mobile-label {
+    display: none;
+  }
+  .guide-tray {
+    flex-wrap: nowrap;
+  }
+  .guide-chips {
+    flex: 1;
+  }
+  .guide-comparison {
+    inset: 0;
+    margin: auto;
+    width: min(1100px, 94vw);
+    max-height: 85vh;
+    border-radius: 14px;
+  }
+  .guide-comparison-model {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    gap: 8px;
+  }
+  .guide-comparison-model h3, .guide-comparison-model p {
+    margin: 0;
+  }
+}
+
+/* Aviso de seção em preparação (abas da fase 3). */
 .panorama-soon {
   display: flex;
   align-items: center;

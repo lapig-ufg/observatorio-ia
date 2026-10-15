@@ -11,6 +11,7 @@ import {
   companyCountry,
   companyEcosystem,
   daysSinceEpoch,
+  launchForModel,
   type PanoramaBenchmarks,
   type PanoramaCatalogModel,
   type PanoramaConfig,
@@ -24,6 +25,7 @@ import {
   filterTimelineItems,
   fitPxPerDay,
   groupedByMonth,
+  MIN_COMPANY_TRACK,
   pillSpec,
   recentMilestones,
   stackPills,
@@ -40,6 +42,7 @@ import {
   type TimelineMonthGroup,
   type TimelineTrack,
 } from "../panoramaTimeline";
+import { guideModelHref, parseRulerDeepLink } from "../panoramaGuide";
 
 /* A régua (linha do tempo) do Panorama, desenhada aqui dentro — sem iframe.
 
@@ -285,6 +288,13 @@ export function Timeline({ english = false }: { english?: boolean }) {
   const t = texts(english);
   const isDesktop = useMediaQuery("(min-width: 900px)");
   const headerOffset = useStickyHeaderOffset();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [hash, setHash] = useState(() => window.location.hash);
+  useEffect(() => {
+    const changed = () => setHash(window.location.hash);
+    window.addEventListener("hashchange", changed);
+    return () => window.removeEventListener("hashchange", changed);
+  }, []);
 
   // ─── Dados da planilha (níveis 1 e 2) ───
   const [data, setData] = useState<LaunchData | null>(null);
@@ -407,7 +417,9 @@ export function Timeline({ english = false }: { english?: boolean }) {
       "Suíça": "Switzerland",
       "Espanha": "Spain",
     } : undefined,
-  }), [filtered, english]);
+    /* A ampliada preserva as empresas já nomeadas e promove a cauda com
+       >= 3 modelos, inclusive sem identidade visual cadastrada. */
+  }, { minCompanyTrack: expanded ? MIN_COMPANY_TRACK : 1, population: items }), [filtered, items, english, expanded]);
 
   const novelties = useMemo(() => recentMilestones(filtered, 5), [filtered]);
   const months = useMemo(() => groupedByMonth(filtered, (year, monthIndex) => monthLabel(year, monthIndex, english)), [filtered, english]);
@@ -448,7 +460,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
     observer.observe(area);
     setContainerWidth(area.clientWidth);
     return () => observer.disconnect();
-  }, [isDesktop]);
+  }, [isDesktop, loading, error]);
 
   useEffect(() => {
     if (!autoFit || !isDesktop || !containerWidth) return;
@@ -538,7 +550,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
     };
-  }, [isDesktop]);
+  }, [isDesktop, loading, error]);
 
   // ─── Detalhe do lançamento ───
   const [detail, setDetail] = useState<DetailState | null>(null);
@@ -555,6 +567,47 @@ export function Timeline({ english = false }: { english?: boolean }) {
       event_label: `${item.company}:${item.model}`,
     });
   };
+
+  const [pendingLink, setPendingLink] = useState<PanoramaLaunch | null>(null);
+  const [linkMissing, setLinkMissing] = useState(false);
+  useEffect(() => {
+    if (!data) return;
+    const request = parseRulerDeepLink(hash);
+    setDetail(null);
+    setLinkMissing(false);
+    setPendingLink(null);
+    if (!request) return;
+    const target = request.model ? launchForModel(request.model, request.company, data.launches, data.config, request.date) : null;
+    const company = canonicalCompany(request.company, data.config);
+    setFilters({ ecosystem: "", query: "", company: target ? "" : company });
+    if (request.model && !target) setLinkMissing(true);
+    if (target?.level === 2) setExpanded(true);
+    if (!request.model && company && !data.launches.some((launch) => launch.level === 1 && canonicalCompany(launch.company, data.config) === company)) setExpanded(true);
+    setPendingLink(target);
+  }, [data, hash]);
+
+  useEffect(() => {
+    if (!pendingLink || loading || error || !data) return;
+    const id = launchToItem(pendingLink, data.config).id;
+    const item = filtered.find((entry) => entry.id === id);
+    if (!item) return;
+    // Espera a renderização dos filtros e abre o ano recolhido antes de
+    // medir a âncora. O detalhe nasce junto da pílula/cartão real, inclusive
+    // quando o deep-link foi aberto diretamente ou pelo histórico.
+    const frame = window.requestAnimationFrame(() => {
+      const source = [...(rootRef.current?.querySelectorAll<HTMLElement | SVGElement>("[data-panorama-launch]") || [])]
+        .find((element) => element.dataset.panoramaLaunch === id);
+      if (!source) return;
+      const year = source.closest("details");
+      if (year) year.open = true;
+      source.scrollIntoView({ block: "center", inline: "center", behavior: "instant" });
+      source.focus({ preventScroll: true });
+      setDetail({ item, source, rect: source.getBoundingClientRect() });
+      setPendingLink(null);
+      trackEvent(english ? "panorama_deep_link_en" : "panorama_deep_link", { event_category: "timeline", event_label: item.model });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [pendingLink, filtered, data, isDesktop, english, loading, error]);
 
   // ─── Exportações ───
   const exportCsv = () => {
@@ -601,7 +654,8 @@ export function Timeline({ english = false }: { english?: boolean }) {
   const warnings = [...data.warnings, ...(catalogWarning && expanded ? [catalogWarning] : [])];
 
   return (
-    <div className="panorama-timeline">
+    <div className="panorama-timeline" ref={rootRef}>
+      {linkMissing && <p className="panorama-warnings" role="status">{english ? "This release is no longer available on the timeline." : "Este lançamento não está mais disponível na régua."}</p>}
       {/* Filtros. No computador, chips de ecossistema + as empresas com mais
           lançamentos como chips e a cauda num "Mais empresas". No celular, só a
           busca fica visível; o resto abre numa folha inferior — o primeiro mês
@@ -929,7 +983,7 @@ function MobileList({ months, currentYear, hasActiveFilters, english, t, onOpen 
                 <ul>
                   {month.items.map((item) => (
                     <li key={item.id}>
-                      <button type="button" className="panorama-card" onClick={(event) => onOpen(item, event.currentTarget)}>
+                      <button type="button" className="panorama-card" data-panorama-launch={item.id} onClick={(event) => onOpen(item, event.currentTarget)}>
                         <span className={`panorama-swatch panorama-card-logo${item.level === 1 ? "" : " is-compact"}`} style={{ background: item.color }} aria-hidden="true">{item.company.slice(0, 1)}</span>
                         <span className="panorama-card-body">
                           <span className="panorama-card-model">
@@ -1196,6 +1250,7 @@ function PillGraphic({ placed, axisY, english, onOpen }: {
       tabIndex={0}
       aria-label={ariaLabel}
       className={`panorama-pill${isMarco ? "" : " panorama-pill--compact"}`}
+      data-panorama-launch={item.id}
       onClick={(event) => onOpen(item, event.currentTarget)}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -1305,13 +1360,18 @@ function DetailContent({ item, benchmarks, benchmarksPending, config, english, o
           <h3>{t.benchmarks}</h3>
           <ul>
             {scores.map((score) => (
-              <li key={score.benchmark}>
+              <li key={`${score.benchmark}:${score.entry.model}`}>
                 <span>{score.label}</span>
                 <strong>{score.entry.score}</strong>
                 <small> · {t.rankOf(score.rank, score.of)}</small>
               </li>
             ))}
           </ul>
+          {[...new Set(scores.map((score) => score.entry.model))].map((model) => (
+            <p key={model}><a href={guideModelHref(model)} onClick={() => trackEvent(english ? "panorama_open_guide_en" : "panorama_open_guide", { event_category: "guide", event_label: model })}>
+              {english ? "Compare in the model guide" : "Comparar no guia de modelos"}: {model} ↗
+            </a></p>
+          ))}
         </div>
       )}
       {benchmarksPending && item.level <= 2 && (
