@@ -3130,19 +3130,28 @@ h1 {
 }
 
 /* Barra de abas do Panorama: leva às quatro sub-rotas (#panorama,
-   #panorama/guia, #panorama/gratuitos, #panorama/como-usar). No celular as
-   abas quebram linha em vez de rolar: nenhuma rolagem horizontal além da
-   página. */
+   #panorama/guia, #panorama/gratuitos, #panorama/como-usar). Uma linha só,
+   com rolagem horizontal e scroll-snap: no celular as abas quebravam em três
+   fileiras. A barra não mostra scrollbar. */
 .panorama-tabs {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 2px;
   padding: 0 clamp(20px, 5vw, 72px);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
   border-bottom: 1px solid var(--line);
   background: var(--surface);
 }
 
+.panorama-tabs::-webkit-scrollbar {
+  display: none;
+}
+
 .panorama-tabs a {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
   padding: 11px 14px;
   color: var(--muted);
   font-size: 0.87rem;
@@ -3197,12 +3206,74 @@ h1 {
   color: var(--muted);
 }
 
-/* Filtros: chips + busca, nos dois tamanhos */
+/* Filtros: chips + busca. No computador ficam abertos; no celular só a busca
+   e o botão "Filtros" ficam visíveis (a primeira tela precisa mostrar o
+   conteúdo, não o formulário). */
 .panorama-filters {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 12px;
+}
+
+.panorama-filters--mobile {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.panorama-filters--mobile .panorama-search {
+  flex: 1;
+  max-width: none;
+}
+
+.panorama-filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.panorama-filter-toggle[aria-expanded="true"] {
+  border-color: var(--green-700);
+  color: var(--green-900);
+}
+
+/* "Mais empresas": a cauda longa dos chips de empresa num select simples e
+   acessível (66 empresas na régua ampliada não cabem como chips). */
+.panorama-more-companies {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+
+.panorama-more-companies select {
+  appearance: none;
+  max-width: 210px;
+  padding: 5px 26px 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.panorama-more-companies svg {
+  position: absolute;
+  right: 8px;
+  pointer-events: none;
+  color: var(--muted);
 }
 
 .panorama-search {
@@ -3443,18 +3514,43 @@ h1 {
   border-style: dashed;
 }
 
-/* Régua de computador: contêiner de rolagem próprio; a página só rola na
-   vertical. A régua de anos gruda no topo com margin negativo (repousa sobre
-   a faixa original quando o scroll está no zero). */
+/* Régua de computador. Quem rola na vertical é a PÁGINA: o contêiner não tem
+   altura própria (sem caixa com rolagem dentro de rolagem, o defeito do
+   iframe que viemos aposentar) e só rola na horizontal — o overflow-y
+   "visible" computa como auto, mas nunca engata: o contêiner é exatamente da
+   altura do conteúdo. O eixo de anos é um elemento sticky da página, logo
+   abaixo do cabeçalho fixo do site (o `top` vem medido do componente), com o
+   scrollLeft espelhado no da régua; a faixa de anos do próprio SVG desliza
+   por trás dele (margin negativo). A coluna de rótulos gruda na esquerda do
+   contêiner (sticky left) com fundo opaco: os rótulos desenhados no SVG
+   passam por trás, e quem rola para o lado não perde as trilhas de vista. */
+.panorama-stage {
+  position: relative;
+}
+
+.panorama-axis {
+  position: sticky;
+  z-index: 5;
+  height: 48px;
+  margin-bottom: -48px;
+  overflow: hidden;
+  pointer-events: none;
+  background: #fff;
+  box-shadow: 0 6px 14px -10px rgba(23, 35, 31, 0.4);
+}
+
+.panorama-axis svg {
+  display: block;
+}
+
 .panorama-scroll {
   position: relative;
-  height: clamp(420px, 66vh, 860px);
-  overflow: auto;
+  overflow-x: auto;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: #fff;
   cursor: grab;
-  overscroll-behavior: contain;
+  overscroll-behavior-x: contain;
 }
 
 .panorama-scroll--dragging {
@@ -3462,18 +3558,33 @@ h1 {
   user-select: none;
 }
 
-.panorama-ruler {
+.panorama-labels {
   position: sticky;
-  top: 0;
-  z-index: 3;
-  height: 48px;
-  margin-bottom: -48px;
+  left: 0;
+  z-index: 2;
+  width: 170px;
   pointer-events: none;
   background: #fff;
-  box-shadow: 0 6px 14px -10px rgba(23, 35, 31, 0.4);
+  border-right: 1px solid rgba(215, 223, 219, 0.6);
 }
 
-.panorama-ruler svg,
+.panorama-label {
+  position: absolute;
+  right: 28px;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 700;
+  color: #17231f;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.panorama-label span {
+  color: #8a958f;
+  font-size: 10px;
+  font-weight: 500;
+}
+
 .panorama-svg {
   display: block;
 }
@@ -3500,11 +3611,54 @@ h1 {
   outline-offset: 1px;
 }
 
-/* Lista de celular: meses, cartões, rolagem natural da página */
+/* Lista de celular: meses dentro de anos recolhíveis. 168 cartões esticavam a
+   página em 16 mil pixels; o ano corrente abre e os anteriores vêm como
+   <details> com a contagem no resumo. */
 .panorama-months-intro {
   margin: 0 0 10px;
   color: var(--muted);
   font-size: 0.83rem;
+}
+
+.panorama-year {
+  margin-bottom: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.panorama-year > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 14px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.panorama-year > summary::-webkit-details-marker {
+  display: none;
+}
+
+.panorama-year > summary strong {
+  color: var(--green-900);
+  font-size: 0.95rem;
+}
+
+.panorama-year > summary svg:last-child {
+  margin-left: auto;
+  transition: rotate 0.15s ease;
+  color: var(--muted);
+}
+
+.panorama-year[open] > summary svg:last-child {
+  rotate: 180deg;
+}
+
+.panorama-year .panorama-month {
+  padding: 0 10px 10px;
 }
 
 .panorama-month h3 {
@@ -3580,7 +3734,8 @@ h1 {
   line-height: 1.35;
 }
 
-/* Detalhe do lançamento: popover ancorado (computador) e folha inferior (celular) */
+/* Detalhe do lançamento: popover ancorado (computador) e folha inferior (celular).
+   A folha é genérica: serve ao detalhe e à aba de filtros do celular. */
 .panorama-detail {
   max-height: min(72vh, 560px);
   overflow: auto;
@@ -3603,14 +3758,51 @@ h1 {
   background: rgba(23, 35, 31, 0.45);
 }
 
-.panorama-detail--sheet {
+.panorama-sheet {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   max-height: 78vh;
+  padding: 16px 18px;
+  overflow: auto;
   border-radius: 14px 14px 0 0;
+  background: #fff;
   box-shadow: 0 -10px 30px rgba(23, 35, 31, 0.25);
+}
+
+.panorama-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.panorama-sheet-header h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.panorama-filters-sheet-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.panorama-clear-filters {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--coral-600);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .panorama-detail-body header {
@@ -3734,15 +3926,31 @@ h1 {
   color: var(--ink);
 }
 
-/* Procedência */
+/* Procedência: texto e link separados por uma barra vertical — sem ela, a
+   data da coleta e o "Abrir o Panorama original" colavam um no outro. */
 .panorama-provenance {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 6px 0;
   padding: 14px 0 20px;
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.78rem;
   text-align: center;
+}
+
+.panorama-provenance a {
+  padding-left: 18px;
+  margin-left: 18px;
+  border-left: 1px solid var(--line);
+  font-weight: 700;
+  color: var(--green-900);
+  text-decoration: none;
+}
+
+.panorama-provenance a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 780px) {
@@ -3767,11 +3975,32 @@ h1 {
   .panorama-news-meta {
     white-space: normal;
   }
+
+  /* Novidades em linha única rolável: cinco cartões empilhados empurravam o
+     primeiro mês da lista para fora da primeira tela. */
+  .panorama-news-items {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .panorama-news-items::-webkit-scrollbar {
+    display: none;
+  }
+
+  .panorama-news-item {
+    flex: 0 0 auto;
+  }
+
+  .panorama-news-meta {
+    white-space: nowrap;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .panorama-pill rect,
-  .panorama-detail {
+  .panorama-detail,
+  .panorama-year > summary svg:last-child {
     transition: none;
   }
 }

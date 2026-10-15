@@ -1,5 +1,5 @@
 import { ArrowUpRight, Hammer } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
 import { PANORAMA_SITE } from "../panoramaData";
 import { Timeline } from "./Timeline";
@@ -49,6 +49,7 @@ function PanoramaComingSoon({ tab, english }: { tab: TabKey; english: boolean })
 
 export function PanoramaPage({ english = false }: { english?: boolean }) {
   const [tab, setTab] = useState<TabKey>(panoramaSubRoute);
+  const activeTabRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const onHashChange = () => setTab(panoramaSubRoute());
@@ -66,6 +67,13 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
         heading.focus({ preventScroll: true });
       }
     });
+  }, [tab]);
+
+  /* A barra de abas é uma linha só, com rolagem horizontal: em 375px elas
+     quebravam em três fileiras. A aba ativa entra na vista ao trocar, para o
+     leitor nunca perder de vista onde está. */
+  useEffect(() => {
+    activeTabRef.current?.scrollIntoView({ block: "nearest", inline: "center" });
   }, [tab]);
 
   const openOriginalUrl = english ? `${PANORAMA_SITE}en/` : PANORAMA_SITE;
@@ -92,7 +100,7 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
             event_label: english ? "panorama-en" : "panorama",
           })}
         >
-          {english ? "Open in a new tab" : "Abrir em nova aba"} <ArrowUpRight size={14} aria-hidden="true" />
+          {english ? "Original Panorama" : "Panorama original"} <ArrowUpRight size={14} aria-hidden="true" />
         </a>
       </div>
 
@@ -100,6 +108,7 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
         {TABS.map((entry) => (
           <a
             key={entry.key || "regua"}
+            ref={tab === entry.key ? activeTabRef : undefined}
             href={`#panorama${entry.key ? `/${entry.key}` : ""}`}
             aria-current={tab === entry.key ? "page" : undefined}
             onClick={() => trackEvent(english ? "panorama_tab_en" : "panorama_tab", {
