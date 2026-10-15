@@ -157,7 +157,7 @@ export function InstitutionalBand({ english = false }: { english?: boolean }) {
   ];
   return <aside className="institutional-band" data-tooltip-dismissed={tooltipDismissed} aria-label={english ? "Responsible institutions" : "Instituições responsáveis"} onMouseLeave={() => setTooltipDismissed(false)} onMouseEnter={() => setTooltipDismissed(false)} onFocus={() => setTooltipDismissed(false)} onKeyDown={(event) => { if (event.key === "Escape") setTooltipDismissed(true); }}>
     <div className="institutional-lockup">
-      <img className="institutional-lockup-image" src={assetUrl("brand/lapig-iesa-ufg-approved.png")} width="420" height="91" alt="" />
+      <img className="institutional-lockup-image" src={assetUrl("brand/lapig-iesa-ufg-approved.svg")} width="1127.49" height="265.53" alt="" />
       <div className="institutional-lockup-links">
         {institutions.map(({ key, acronym, url, name }) => <a key={key} href={url} target="_blank" rel="noreferrer" aria-label={`${acronym} — ${name}`}>
           <span className="institutional-tooltip" aria-hidden="true">{name}</span>
