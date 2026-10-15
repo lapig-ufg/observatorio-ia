@@ -28,6 +28,7 @@ import { isPublicResearchPaper, paperResearchArea, paperResearchAreas, type Pape
 import { languageUrl } from "./locale";
 import { ArticleDetail, CatalogCard, InstitutionalBand, useCatalogExperience } from "./CatalogExperience";
 import { MediumReadingsPage } from "./MediumReadingsPage";
+import { PanoramaPage } from "./panorama/PanoramaPage";
 
 const typeLabels: Record<"all" | ArticleType, string> = {
   all: "All",
@@ -55,9 +56,7 @@ const paperAreaLabels: Record<PaperResearchArea, string> = {
 };
 
 // O Panorama inglês mora no repositório do próprio Panorama, ao lado do
-// português: os dois iframes apontam para o mesmo site vivo e atualizam juntos.
-const panoramaEnglishUrl = "https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/en/";
-const panoramaEnglishEmbedUrl = `${panoramaEnglishUrl}?embed=1`;
+// português: a página nativa lê as mesmas fontes vivas nos dois idiomas.
 
 const ecosystemFeaturedInitiativesEnglish: Initiative[] = [
   {
@@ -253,41 +252,6 @@ function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-function PanoramaPageEnglish() {
-  const frameRef = useRef<HTMLIFrameElement>(null);
-
-  useEffect(() => {
-    const frame = frameRef.current;
-    if (!frame) return;
-    const size = () => {
-      const top = frame.getBoundingClientRect().top + window.scrollY;
-      frame.style.height = `${Math.max(420, window.innerHeight - top)}px`;
-    };
-    size();
-    const observer = new ResizeObserver(size);
-    if (frame.parentElement) observer.observe(frame.parentElement);
-    window.addEventListener("resize", size);
-    window.addEventListener("orientationchange", size);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", size);
-      window.removeEventListener("orientationchange", size);
-    };
-  }, []);
-
-  return <section id="panorama" className="panorama-page" aria-labelledby="panorama-title">
-    <div className="panorama-intro">
-      <a className="back-to-catalog" href="#top" onClick={() => trackEvent("back_to_catalog_en")}>← Back to the collection</a>
-      <div className="panorama-heading">
-        <h1 id="panorama-title">Global Generative AI Landscape</h1>
-        <p>Model releases since ChatGPT (Nov 2022), which model to use for each task, free AI tools, and a practical guide to agents in the terminal.</p>
-      </div>
-      <a className="panorama-open" href={panoramaEnglishUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_panorama_standalone_en", { event_category: "outbound", event_label: "panorama-en" })}>Open in a new tab <ArrowUpRight size={14} aria-hidden="true" /></a>
-    </div>
-    <iframe ref={frameRef} className="panorama-frame" src={panoramaEnglishEmbedUrl} title="Global Generative AI Landscape" loading="lazy" />
-  </section>;
-}
-
 function InitiativeCardEnglish({ initiative }: { initiative: Initiative }) {
   const logoUrl = `https://www.google.com/s2/favicons?sz=128&domain_url=${encodeURIComponent(initiative.url)}`;
   return <article className={`initiative-card initiative-${normalize(initiative.color).replace(/\s+/g, "-")}`}>
@@ -337,8 +301,10 @@ function EcosystemPageEnglish({ initiatives, loading, warning }: { initiatives: 
 
 type EnglishPage = "catalog" | "panorama" | "ecosystem" | "daily-news" | "readings";
 
+/* O Panorama tem sub-rotas próprias (#panorama/guia etc.): qualquer hash que
+   comece com #panorama resolve para a página, que decide a aba internamente. */
 function englishPageFromHash(): EnglishPage {
-  if (window.location.hash === "#panorama") return "panorama";
+  if (window.location.hash.startsWith("#panorama")) return "panorama";
   if (["#daily-news", "#ia-como-noticia-diaria"].includes(window.location.hash)) return "daily-news";
   if (["#ai-readings", "#leituras-em-ia"].includes(window.location.hash)) return "readings";
   if (["#ufg-ecosystem", "#ecossistema-ufg"].includes(window.location.hash)) return "ecosystem";
@@ -472,7 +438,7 @@ export function AppEnglish() {
       </details>
     </header>
 
-    {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} english onClose={closeDetail} /> : page === "panorama" ? <PanoramaPageEnglish /> : page === "ecosystem" ? <EcosystemPageEnglish initiatives={catalog?.initiatives || []} loading={!catalog && !error} warning={catalog?.warning || error} /> : page === "daily-news" ? <DailyNewsPageEnglish /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} english detailHref={detailHref} onOpen={openDetail} /> : <div className="home-page"><section className="catalog-intro" aria-labelledby="page-title">
+    {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} english onClose={closeDetail} /> : page === "panorama" ? <PanoramaPage english /> : page === "ecosystem" ? <EcosystemPageEnglish initiatives={catalog?.initiatives || []} loading={!catalog && !error} warning={catalog?.warning || error} /> : page === "daily-news" ? <DailyNewsPageEnglish /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} english detailHref={detailHref} onOpen={openDetail} /> : <div className="home-page"><section className="catalog-intro" aria-labelledby="page-title">
       <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Curated readings, documents, videos, audio, interviews, scientific papers and presentations in a thematic collection.</p><form className="hero-search" role="search" onSubmit={(event) => { event.preventDefault(); revealCatalog(); }}><Search size={22} aria-hidden="true" /><label className="sr-only" htmlFor="hero-search-en">Search the collection</label><input id="hero-search-en" value={query} onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setAdded(""); }} placeholder="Search by topic, title, author or keyword" /><button type="submit">Search</button></form><p className="hero-search-hint">Search {articles.length || "more than 1,000"} items selected and summarized by UFG.</p></div>
     </section>
 

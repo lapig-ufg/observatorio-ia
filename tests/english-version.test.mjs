@@ -55,9 +55,9 @@ test("English route selects the translated catalog and provides a language switc
   assert.match(catalog, /catalogo-en\.csv/);
   assert.match(english, /Portuguese/);
   assert.match(fs.readFileSync("src/TopicRadar.tsx", "utf8"), /Collection topic radar/);
-  assert.match(english, /app-panorama-global-da-ia-generativa\/en\//);
+  assert.match(fs.readFileSync("src/panorama/PanoramaPage.tsx", "utf8"), /`\$\{PANORAMA_SITE\}en\/`/);
   assert.match(english, /href="#panorama"/);
-  assert.match(english, /Global Generative AI Landscape/);
+  assert.match(fs.readFileSync("src/panorama/PanoramaPage.tsx", "utf8"), /Global Generative AI Landscape/);
   assert.doesNotMatch(english, /generative AI · PT/);
   assert.match(workflow, /GOOGLE_SHEETS_EN_GID/);
 });
@@ -65,16 +65,23 @@ test("English route selects the translated catalog and provides a language switc
 /* O Panorama inglês já morou copiado em public/panorama/, e a cópia envelhecia
    em silêncio: o cron semanal do Panorama reescreve benchmarks e catálogo
    sozinho, e a planilha ganha lançamentos sem que ninguém toque no Observatório.
-   Este teste existe para que a cópia não volte: os dois idiomas têm de apontar
-   para o site vivo do Panorama, que é quem atualiza. */
-test("both Panorama iframes point at the live Panorama site, never a local copy", () => {
+   Este teste existe para que a cópia não volte: sem iframe, os dois idiomas
+   têm de ler os dados ao vivo do site do Panorama, que é quem atualiza. */
+test("both Panorama pages read the live Panorama site, never a local copy", () => {
   const pt = fs.readFileSync("src/App.tsx", "utf8");
   const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
-  const host = "https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/";
-  assert.ok(pt.includes(`const panoramaUrl = "${host}"`), "the Portuguese iframe left the live site");
-  assert.ok(english.includes(`const panoramaEnglishUrl = "${host}en/"`), "the English iframe left the live site");
+  const page = fs.readFileSync("src/panorama/PanoramaPage.tsx", "utf8");
+  const timeline = fs.readFileSync("src/panorama/Timeline.tsx", "utf8");
+  const data = fs.readFileSync("src/panoramaData.ts", "utf8");
+  assert.match(data, /PANORAMA_SITE = "https:\/\/lapig-ufg\.github\.io\/app-panorama-global-da-ia-generativa\/"/);
+  assert.doesNotMatch(pt, /iframe|panoramaEmbedUrl|\?embed=1/);
+  assert.doesNotMatch(english, /iframe|panoramaEnglishEmbedUrl|\?embed=1/);
+  assert.doesNotMatch(fs.readFileSync("src/styles.css", "utf8"), /\.panorama-frame/);
+  assert.match(page, /<Timeline english=\{english\} \/>/);
+  assert.match(timeline, /loadPanoramaLaunches\(locale/);
+  assert.match(timeline, /loadPanoramaCatalog|loadPanoramaBenchmarks/);
   assert.equal(fs.existsSync("public/panorama"), false,
-    "public/panorama/ is back: a vendored Panorama goes stale on its own — point the iframe at the live site instead");
+    "public/panorama/ is back: a vendored Panorama goes stale on its own — read the live site instead");
 });
 
 test("English homepage includes the interactive lesson, OBIA and the complete featured history", () => {

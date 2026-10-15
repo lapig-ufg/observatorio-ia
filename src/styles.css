@@ -3066,12 +3066,12 @@ h1 {
   }
 }
 
-/* Panorama — painel do LAPIG exibido dentro do site, sem sair para link externo.
-   A faixa é uma linha só (voltar · título · abrir fora) e o iframe recebe a
-   altura exata que sobra da janela via ResizeObserver no componente — a
-   topbar muda de altura entre breakpoints, então a altura é medida, não
-   chutada. Sem barra de nota embaixo: os créditos já estão na topbar do site
-   e no rodapé do próprio painel. O rodapé do site segue abaixo da dobra. */
+/* Panorama — seção nativa do Observatório (o iframe acabou). A faixa de
+   apresentação continua uma linha só (voltar · título · abrir fora); o
+   conteúdo vem dos dados ao vivo do Panorama, desenhados com a tipografia e
+   as cores da casa. A régua de computador rola num contêiner próprio (só a
+   página rola na vertical); no celular é uma lista por mês, sem rolagem
+   dentro de rolagem. */
 .panorama-intro {
   display: flex;
   align-items: center;
@@ -3129,11 +3129,620 @@ h1 {
   background: rgba(255, 255, 255, 0.12);
 }
 
-.panorama-frame {
-  display: block;
-  width: 100%;
+/* Barra de abas do Panorama: leva às quatro sub-rotas (#panorama,
+   #panorama/guia, #panorama/gratuitos, #panorama/como-usar). No celular as
+   abas quebram linha em vez de rolar: nenhuma rolagem horizontal além da
+   página. */
+.panorama-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 0 clamp(20px, 5vw, 72px);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.panorama-tabs a {
+  padding: 11px 14px;
+  color: var(--muted);
+  font-size: 0.87rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+
+.panorama-tabs a:hover {
+  color: var(--ink);
+}
+
+.panorama-tabs a[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--green-700);
+}
+
+/* Corpo da régua */
+.panorama-timeline {
+  padding: 18px clamp(20px, 5vw, 72px) 8px;
+}
+
+.panorama-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 28px clamp(20px, 5vw, 72px);
+  color: var(--muted);
+}
+
+.panorama-state--error {
+  flex-direction: column;
+  text-align: center;
+}
+
+.panorama-state--error button,
+.panorama-state--empty button {
+  margin-top: 8px;
+  padding: 8px 14px;
   border: 0;
-  background: var(--paper);
+  border-radius: 6px;
+  background: var(--green-700);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.panorama-state--empty {
+  flex-direction: column;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* Filtros: chips + busca, nos dois tamanhos */
+.panorama-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.panorama-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 340px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--muted);
+}
+
+.panorama-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+}
+
+.panorama-search input:focus {
+  outline: none;
+}
+
+.panorama-search:focus-within {
+  outline: 3px solid #e49a43;
+  outline-offset: 2px;
+}
+
+.panorama-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.panorama-chip {
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.panorama-chip span {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.panorama-chip:hover {
+  border-color: var(--muted);
+}
+
+.panorama-chip.is-active {
+  border-color: var(--green-700);
+  background: var(--green-100);
+  color: var(--green-900);
+}
+
+.panorama-chip.is-active span {
+  color: var(--green-700);
+}
+
+/* Barra de ações: régua ampliada, zoom (computador) e exportações */
+.panorama-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-bottom: 10px;
+}
+
+.panorama-toggle {
+  padding: 8px 14px;
+  border: 1px solid var(--navy-800);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy-800);
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.panorama-toggle.is-active {
+  background: var(--navy-800);
+  color: #fff;
+}
+
+.panorama-zoom {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.panorama-zoom button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.panorama-zoom button:hover {
+  border-color: var(--muted);
+}
+
+.panorama-zoom-value {
+  padding: 0 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.panorama-export {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.panorama-export button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.panorama-export button:hover {
+  border-color: var(--green-700);
+  color: var(--green-900);
+}
+
+.panorama-warnings {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* Novidades: os marcos mais recentes, em cartõezinhos que abrem o detalhe */
+.panorama-news {
+  margin-bottom: 14px;
+}
+
+.panorama-news-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  color: var(--green-900);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.panorama-news-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.panorama-news-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.panorama-news-item:hover {
+  border-color: var(--green-700);
+}
+
+.panorama-swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  flex: 0 0 auto;
+}
+
+.panorama-news-model {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.panorama-news-meta {
+  color: var(--muted);
+  font-size: 0.76rem;
+  white-space: nowrap;
+}
+
+/* Legenda curado × automático (só na régua ampliada) */
+.panorama-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.panorama-legend-pill {
+  display: inline-block;
+  width: 16px;
+  height: 10px;
+  border: 1px solid #17231f;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.panorama-legend-pill--dashed {
+  border-style: dashed;
+}
+
+/* Régua de computador: contêiner de rolagem próprio; a página só rola na
+   vertical. A régua de anos gruda no topo com margin negativo (repousa sobre
+   a faixa original quando o scroll está no zero). */
+.panorama-scroll {
+  position: relative;
+  height: clamp(420px, 66vh, 860px);
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  cursor: grab;
+  overscroll-behavior: contain;
+}
+
+.panorama-scroll--dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.panorama-ruler {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  height: 48px;
+  margin-bottom: -48px;
+  pointer-events: none;
+  background: #fff;
+  box-shadow: 0 6px 14px -10px rgba(23, 35, 31, 0.4);
+}
+
+.panorama-ruler svg,
+.panorama-svg {
+  display: block;
+}
+
+.panorama-pill {
+  cursor: pointer;
+}
+
+.panorama-pill rect {
+  transition: filter 0.15s ease;
+}
+
+.panorama-pill:hover rect,
+.panorama-pill:focus-visible rect {
+  filter: brightness(0.96);
+}
+
+.panorama-pill:focus {
+  outline: none;
+}
+
+.panorama-pill:focus-visible {
+  outline: 3px solid #e49a43;
+  outline-offset: 1px;
+}
+
+/* Lista de celular: meses, cartões, rolagem natural da página */
+.panorama-months-intro {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.83rem;
+}
+
+.panorama-month h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 22px 0 8px;
+  color: var(--green-900);
+  font-size: 0.95rem;
+}
+
+.panorama-month ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.panorama-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.panorama-card:hover {
+  border-color: var(--green-700);
+}
+
+.panorama-card-logo {
+  width: 34px;
+  height: 34px;
+  font-size: 0.9rem;
+}
+
+.panorama-card-logo.is-compact {
+  width: 24px;
+  height: 24px;
+  font-size: 0.7rem;
+}
+
+.panorama-card-body {
+  min-width: 0;
+}
+
+.panorama-card-model {
+  display: block;
+  font-weight: 800;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.panorama-card-model em {
+  color: var(--muted);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.78rem;
+}
+
+.panorama-card-meta {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.79rem;
+  line-height: 1.35;
+}
+
+/* Detalhe do lançamento: popover ancorado (computador) e folha inferior (celular) */
+.panorama-detail {
+  max-height: min(72vh, 560px);
+  overflow: auto;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(23, 35, 31, 0.22);
+}
+
+.panorama-detail--popover {
+  position: fixed;
+  z-index: 60;
+}
+
+.panorama-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(23, 35, 31, 0.45);
+}
+
+.panorama-detail--sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 78vh;
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 -10px 30px rgba(23, 35, 31, 0.25);
+}
+
+.panorama-detail-body header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.panorama-detail-body h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.panorama-detail-close {
+  display: inline-flex;
+  padding: 6px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.panorama-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.83rem;
+}
+
+.panorama-detail-body dl {
+  margin: 0 0 10px;
+}
+
+.panorama-detail-body dl > div {
+  margin-bottom: 8px;
+}
+
+.panorama-detail-body dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.panorama-detail-body dd {
+  margin: 2px 0 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.panorama-detail-untranslated {
+  display: block;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-style: italic;
+}
+
+.panorama-detail-benchmarks h3 {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+}
+
+.panorama-detail-benchmarks ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.panorama-detail-benchmarks li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  padding: 5px 0;
+  border-top: 1px dashed var(--line);
+  font-size: 0.83rem;
+}
+
+.panorama-detail-benchmarks li:first-child {
+  border-top: 0;
+}
+
+.panorama-detail-benchmarks small {
+  color: var(--muted);
+}
+
+.panorama-detail-loading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* Aviso de seção em preparação (abas das fases 2 e 3) */
+.panorama-soon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  padding: 18px 20px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.panorama-soon strong {
+  display: block;
+  color: var(--ink);
+}
+
+/* Procedência */
+.panorama-provenance {
+  display: flex;
+  justify-content: center;
+  padding: 14px 0 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-align: center;
 }
 
 @media (max-width: 780px) {
@@ -3149,6 +3758,21 @@ h1 {
 
   .panorama-heading p {
     display: none;
+  }
+
+  .panorama-export {
+    margin-left: 0;
+  }
+
+  .panorama-news-meta {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panorama-pill rect,
+  .panorama-detail {
+    transition: none;
   }
 }
 

@@ -28,6 +28,7 @@ import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./
 import { languageUrl } from "./locale";
 import { ArticleDetail, CatalogCard, InstitutionalBand, useCatalogExperience } from "./CatalogExperience";
 import { MediumReadingsPage } from "./MediumReadingsPage";
+import { PanoramaPage } from "./panorama/PanoramaPage";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -45,10 +46,6 @@ const typeLabels: Record<"todos" | ArticleType, string> = {
 // permanecem na fonte, mas não fazem parte do catálogo público geral.
 const categoryTypes: ArticleType[] = ["medium", "documento", "link-video", "audio", "entrevista", "paper", "apresentacao"];
 const catalogFilterTypes: Array<"todos" | ArticleType> = ["todos", ...categoryTypes];
-// Painel externo do LAPIG exibido dentro do site. O parâmetro embed pede ao
-// painel que esconda o próprio cabeçalho, já que ele roda aqui dentro.
-const panoramaUrl = "https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/";
-const panoramaEmbedUrl = `${panoramaUrl}?embed=1`;
 
 const pagesByHash: Record<string, string> = {
   "#ecossistema-ufg": "ecosystem",
@@ -64,7 +61,13 @@ const pageTitles: Record<string, string> = {
   panorama: "Panorama da IA generativa",
   catalog: "Catálogo",
 };
-const pageFromHash = () => pagesByHash[window.location.hash] || "catalog";
+/* O Panorama tem sub-rotas próprias (#panorama/guia etc.): qualquer hash que
+   comece com #panorama resolve para a página, que decide a aba internamente. */
+const pageFromHash = () => {
+  const hash = window.location.hash;
+  if (hash.startsWith("#panorama")) return "panorama";
+  return pagesByHash[hash] || "catalog";
+};
 const ecosystemFeaturedInitiatives: Initiative[] = [
   {
     id: "pos-graduacao-sistemas-agentes-inteligentes",
@@ -658,54 +661,6 @@ function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
       ) : (
         <div className="ecosystem-empty">As iniciativas estão sendo carregadas.</div>
       )}
-    </section>
-  );
-}
-
-function PanoramaPage() {
-  const frameRef = useRef<HTMLIFrameElement>(null);
-
-  // A topbar muda de altura entre breakpoints (uma, duas, três fileiras) e o
-  // rodapé do site fica abaixo da dobra. A altura do iframe é medida, não
-  // chutada: sob a faixa sobra exatamente a janela, qualquer que seja a
-  // largura — sem cortes e sem rolagem. Os créditos ficam na topbar do site
-  // e no rodapé do próprio painel, então não há barra de nota aqui.
-  useEffect(() => {
-    const frame = frameRef.current;
-    if (!frame) return;
-    const size = () => {
-      const top = frame.getBoundingClientRect().top + window.scrollY;
-      frame.style.height = `${Math.max(420, window.innerHeight - top)}px`;
-    };
-    size();
-    const observer = new ResizeObserver(size);
-    if (frame.parentElement) observer.observe(frame.parentElement);
-    window.addEventListener("resize", size);
-    window.addEventListener("orientationchange", size);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", size);
-      window.removeEventListener("orientationchange", size);
-    };
-  }, []);
-
-  return (
-    <section id="panorama" className="panorama-page" aria-labelledby="panorama-title">
-      <div className="panorama-intro">
-        <a className="back-to-catalog" href="#top" onClick={() => trackEvent("back_to_catalog")}>← Voltar ao acervo</a>
-        <div className="panorama-heading">
-          <h1 id="panorama-title">Panorama Global da IA Generativa</h1>
-          <p>Os lançamentos de modelos desde o ChatGPT (nov/2022), qual modelo usar em cada tipo de tarefa e o que dá para usar de graça.</p>
-        </div>
-        <a className="panorama-open" href={panoramaUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_panorama_standalone", { event_category: "outbound", event_label: "panorama" })}>Abrir em nova aba <ArrowUpRight size={14} aria-hidden="true" /></a>
-      </div>
-      <iframe
-        ref={frameRef}
-        className="panorama-frame"
-        src={panoramaEmbedUrl}
-        title="Panorama Global da IA Generativa"
-        loading="lazy"
-      />
     </section>
   );
 }
