@@ -6,6 +6,10 @@ import {
   Clock3,
   FileText,
   LoaderCircle,
+  History,
+  Scale,
+  Gift,
+  Terminal,
   RefreshCw,
   Search,
   X,
@@ -19,7 +23,10 @@ import { PortalCollections } from "./PortalDiscovery";
 import { TopicRadar } from "./TopicRadar";
 import { addedInWindow, radarDateWindow } from "./radarPeriod";
 import { PortalNavigation, PortalSitemap } from "./PortalNavigation";
-import { canonicalPortalHash, portalPage, latestAdditions, portalNavigation, combineInitiatives } from "./portalStructure";
+import { canonicalPortalHash, portalPage, selectRecentAdditions, portalNavigation, combineInitiatives } from "./portalStructure";
+import { videoThumbnail } from "./catalogExperienceState";
+import { HomeAdditions } from "./HomeAdditions";
+import { RealizationBand } from "./RealizationBand";
 import { AboutPage } from "./AboutPage";
 import { PressSummary, useNewsSummary } from "./PressSummary";
 import { PortalSectionCards } from "./PortalSectionCards";
@@ -27,7 +34,7 @@ import { defaultCatalogView } from "./discoverySelection";
 import { catalogDate, newestFirst } from "./catalogOrdering";
 import { matchesCloudTerm } from "./keywordCloud";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./paperResearch";
-import { ArticleDetail, CatalogCard, InstitutionalBand, useCatalogExperience } from "./CatalogExperience";
+import { ArticleDetail, CatalogCard, useCatalogExperience } from "./CatalogExperience";
 import { MediumReadingsPage } from "./MediumReadingsPage";
 import { PanoramaPage } from "./panorama/PanoramaPage";
 
@@ -322,7 +329,7 @@ export function App() {
     }).sort(orderArticles);
   }, [articles, query, selectedKeyword, theme, type, orderArticles, added, radarWindow.start, radarWindow.end]);
 
-  const recentArticles = useMemo(() => latestAdditions(articles, (left, right) => catalogDate(right.includedAt) - catalogDate(left.includedAt) || newestFirst(left, right)), [articles]);
+  const recentArticles = useMemo(() => selectRecentAdditions(articles, (left, right) => catalogDate(right.includedAt) - catalogDate(left.includedAt) || newestFirst(left, right), article => article.type === "link-video" && !!videoThumbnail(article.originalUrl)), [articles]);
   const displayedArticles = filtered;
 
   const revealCatalog = () => {
@@ -535,25 +542,26 @@ export function App() {
       </section>
 
 
-      <section className="pt-home-section" aria-labelledby="home-panorama-title">
+      <section className="pt-home-section pt-home-panorama" aria-labelledby="home-panorama-title">
         <div className="discovery-heading"><h2 id="home-panorama-title">Panorama da IA</h2><a className="text-action" href="#panorama" onClick={() => trackEvent("nav_panorama", { position: "home" })}>Abrir o Panorama →</a></div>
-        <div className="pt-panorama-grid">{portalNavigation[0].links.map(link => <a key={link.href} href={link.href} onClick={() => trackEvent(link.event, { position: "home", event_label: link.href })}><strong>{link.label}</strong><span>{link.description}</span><span aria-hidden="true">→</span></a>)}</div>
+        <div className="pt-panorama-grid">{portalNavigation[0].links.map((link, i) => { const Icon = [History, Scale, Gift, Terminal][i]; return <a key={link.href} href={link.href} onClick={() => trackEvent(link.event, { position: "home", event_label: link.href })}><Icon className="pt-panorama-icon" size={20} aria-hidden="true" /><strong>{link.label}</strong><span>{link.description}</span><span className="pt-panorama-arrow" aria-hidden="true">→</span></a>; })}</div>
       </section>
       <section className="pt-home-section" aria-labelledby="home-recent-title">
         <div className="discovery-heading"><div><p className="eyebrow">Novidades do acervo</p><h2 id="home-recent-title">Adicionados recentemente</h2></div><a className="text-action" href="#acervo">Ver todo o acervo →</a></div>
-        {error ? <p role="alert">{error}</p> : !catalog ? <p role="status">Carregando acervo…</p> : <div className="article-grid pt-recent-grid">{recentArticles.map(article => <CatalogCard key={article.id} article={article} position="home-recent" href={detailHref(article.id)} onOpen={openDetail} />)}</div>}
+        {error ? <p role="alert">{error}</p> : !catalog ? <p role="status">Carregando acervo…</p> : <HomeAdditions {...recentArticles} detailHref={detailHref} onOpen={openDetail} />}
       </section>
       <PressSummary summary={newsSummary} />
       <section id="experiencias-interativas" className="interactive-experience" aria-labelledby="interactive-experience-title">
         <div className="interactive-experience-copy">
-          <p className="eyebrow">Experiências interativas · LAPIG / UFG</p>
+          <p className="eyebrow">Aula interativa · LAPIG / UFG</p>
           <h2 id="interactive-experience-title">Por dentro da IA <span>Da frase ao próximo token</span></h2>
-          <p>Como um modelo de linguagem gera uma resposta? Acompanhe a jornada de uma frase sobre sensoriamento remoto, explore diagramas e experimente operações matemáticas passo a passo.</p>
-          <p className="interactive-experience-scope">Uma introdução visual à inferência, com o GPT-3 como referência. Não é preciso dominar matemática ou programação.</p>
-          <a className="interactive-experience-action" href={assetUrl("por-dentro-da-ia/")} onClick={() => trackEvent("open_interactive_inference", { event_category: "navigation", event_label: "por-dentro-da-ia" })}>Por dentro da IA <span aria-hidden="true">→</span></a>
-          <small>Explore a aula e volte ao Observatório pelo botão no cabeçalho.</small>
+          <p>Veja como um modelo gera respostas, com diagramas e operações passo a passo.</p>
+          <p className="interactive-experience-scope">Sem pré-requisitos.</p>
+          <a className="interactive-experience-action" href={assetUrl("por-dentro-da-ia/")} onClick={() => trackEvent("open_interactive_inference", { event_category: "navigation", event_label: "por-dentro-da-ia", position: "home" })}>Abrir a aula interativa <span aria-hidden="true">→</span></a>
         </div>
+        <div className="pt-token-illustration" aria-hidden="true"><span className="pt-token-label">A frase vira tokens</span><div className="pt-tokens">{["A", "UFG", "fica", "em"].map(token => <span key={token}>{token}</span>)}<b>↓</b></div><span className="pt-token-label">Possíveis próximos tokens</span><div className="pt-token-candidates">{[{ token: "Goiânia", probability: 87 }, { token: "Goiás", probability: 9 }, { token: "Brasil", probability: 3 }].map(candidate => <div key={candidate.token}><span>{candidate.token}</span><span className="pt-token-bar"><i style={{ width: `${candidate.probability}%` }} /></span><strong>{candidate.probability}%</strong></div>)}</div></div>
         <details className="interactive-experience-journey"><summary>Ver o percurso de aprendizagem</summary>
+          <p>Uma introdução visual à inferência, com o GPT-3 como referência. Acompanhe uma frase sobre sensoriamento remoto e experimente operações matemáticas passo a passo. Não é preciso dominar matemática ou programação. Depois, volte ao Observatório pelo cabeçalho.</p>
           <p className="eyebrow">A frase que guia a jornada</p>
           <blockquote>A vegetação saudável apresenta alta reflectância no infravermelho próximo.</blockquote>
           <ol aria-label="Etapas da geração do próximo token">
@@ -571,9 +579,9 @@ export function App() {
       </section>
       </div>}
 
+      <RealizationBand />
       <footer className="footer pt-footer"><div className="pt-footer-content">
         <PortalSitemap />
-        <div className="pt-footer-institutions"><InstitutionalBand /></div>
         <p className="pt-footer-references">Outras referências: <a href="https://obia.nic.br/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia", position: "footer" })}>OBIA</a></p>
         <div><strong>Observatório UFG-IA</strong><p>Acervo educacional em desenvolvimento contínuo.</p><div className="footer-links"><a className="github-footer-link" href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_github", { event_category: "outbound", event_label: "github" })}>GitHub do LAPIG/UFG <ArrowUpRight size={14} aria-hidden="true" /></a><a className="github-footer-link" href="https://victorgit10.github.io/audiencia-observatorio/" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_audiencia", { event_category: "outbound", event_label: "audiencia" })}>Quem visita o Observatório? <ArrowUpRight size={14} aria-hidden="true" /></a></div></div>
         <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p><p className="credits"><strong>Desenvolvimento e curadoria:</strong> <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a> e <a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p><p className="contact-callout">Dúvidas? Sugestões? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_contact_form", { event_category: "outbound", event_label: "contato" })}>Entre em contato <ArrowUpRight size={14} aria-hidden="true" /></a> · <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { position: "footer" })}>Participe <ArrowUpRight size={14} aria-hidden="true" /></a></p></div>

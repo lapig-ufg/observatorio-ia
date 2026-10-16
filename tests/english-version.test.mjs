@@ -130,12 +130,11 @@ test("English version includes the UFG ecosystem and linked curator emails", () 
   assert.match(english, /visibleInitiatives\.map/);
 });
 
-test("Portuguese and English headers present LAPIG, IESA and UFG in institutional order", () => {
+test("English preserves the institutional lockup; Portuguese uses the approved separate logos", () => {
   const portuguese = fs.readFileSync("src/App.tsx", "utf8");
   const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
-  for (const source of [portuguese, english]) {
-    assert.match(source, /<InstitutionalBand/);
-  }
+  assert.match(english, /<InstitutionalBand english/);
+  assert.match(portuguese, /<RealizationBand \/>\s*<footer/);
   for (const source of [fs.readFileSync("src/CatalogExperience.tsx", "utf8")]) {
     const lapig = source.indexOf('key: "lapig"');
     const iesa = source.indexOf('key: "iesa"');

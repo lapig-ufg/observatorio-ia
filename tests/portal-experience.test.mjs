@@ -48,7 +48,7 @@ test("cards preserve full text in detail and cap only preview keywords", () => {
 test("both languages expose equivalent responsive portal controls and full-catalog radar", () => {
   for (const name of ["App.tsx", "AppEnglish.tsx"]) {
     const app = fs.readFileSync(`src/${name}`, "utf8");
-    for (const feature of ["useCatalogExperience", "<CatalogCard", "<ArticleDetail", "<InstitutionalBand", "catalog-filter-options", "catalog-toolbar", "view-switch", "active-filters", "<TopicRadar"]) assert.ok(app.includes(feature), feature);
+    for (const feature of ["useCatalogExperience", "<CatalogCard", "<ArticleDetail", name === "AppEnglish.tsx" ? "<InstitutionalBand" : "<RealizationBand", "catalog-filter-options", "catalog-toolbar", "view-switch", "active-filters", "<TopicRadar"]) assert.ok(app.includes(feature), feature);
     assert.match(app, /<TopicRadar articles=\{articles\}/);
     if (name === 'AppEnglish.tsx') assert.ok(app.indexOf('className="weekly-highlight weekly-highlight--debate"') < app.indexOf('className="results-heading"'));
     else assert.match(fs.readFileSync('src/PressSummary.tsx', 'utf8'), /portal-news/);

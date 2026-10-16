@@ -11,6 +11,11 @@ const labels = {
 };
 const icons = { medium: Sparkles, documento: FileText, "link-video": Link2, audio: Headphones, entrevista: Video, paper: BookOpen, apresentacao: Presentation, noticia: FileText };
 
+export function CatalogFormatIcon({ type, size = 20 }: { type: ArticleType; size?: number }) {
+  const Icon = icons[type];
+  return <Icon size={size} aria-hidden="true" />;
+}
+
 export function useCatalogExperience<A extends "all" | "todos">(all: A) {
   const [, refreshLocationLinks] = useState(0);
   useEffect(() => {

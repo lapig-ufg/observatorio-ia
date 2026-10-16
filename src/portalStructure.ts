@@ -51,16 +51,36 @@ export function portalPage(hash: string) {
 }
 
 // O comparador do catálogo resolve empates, sem duplicar a regra de datas.
-export function latestAdditions<T extends { type: string }>(articles: T[], compare: (left: T, right: T) => number) {
+export function latestAdditions<T extends { type: string }>(articles: T[], compare: (left: T, right: T) => number, limit = 6, readingLimit = 2) {
   const sorted = [...articles].sort(compare);
-  const readings = sorted.filter(article => article.type === "medium");
-  const others = sorted.filter(article => article.type !== "medium");
-  // Reserva espaço aos outros formatos; Leituras só excede dois se faltar material.
-  const readingCount = Math.max(2, 6 - others.length);
-  return [...readings.slice(0, readingCount), ...others.slice(0, 6)].sort(compare).slice(0, 6);
+  let readings = 0;
+  // A cota é um teto mesmo quando faltam outros formatos.
+  return sorted.filter(article => article.type !== "medium" || ++readings <= readingLimit).slice(0, limit);
+}
+
+export function selectRecentAdditions<T extends { type: string }>(articles: T[], compare: (left: T, right: T) => number, isVideo: (article: T) => boolean) {
+  const sorted = [...articles].sort(compare);
+  const featured = sorted.find(isVideo) || sorted[0];
+  const items = latestAdditions(sorted.filter(article => article !== featured), compare, 5, featured?.type === "medium" ? 1 : 2);
+  return { featured, items };
+}
+
+// A janela termina no mês da última publicação, não no relógio de quem gera o arquivo.
+export function monthlyNewsCounts(articles: Array<{ date: string }>, lastDate: string) {
+  const validDate = (value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+  if (!validDate(lastDate)) return [];
+  const end = new Date(`${lastDate}T00:00:00Z`);
+  const months = Array.from({ length: 12 }, (_, i) => ({ month: new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth() - 11 + i, 1)).toISOString().slice(0, 7), count: 0 }));
+  for (const article of articles) {
+    if (!validDate(article.date)) continue;
+    const month = months.find(month => month.month === article.date.slice(0, 7));
+    if (month) month.count++;
+  }
+  return months;
 }
 
 export function summarizeNews(articles: Array<{ date: string; title: string; url: string }>) {
   const latest = [...articles].sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title, "pt-BR"));
-  return { total: articles.length, lastDate: latest[0]?.date || "", articles: latest.slice(0, 3).map(({ date, title, url }) => ({ date, title, url })) };
+  const lastDate = latest[0]?.date || "";
+  return { total: articles.length, lastDate, monthlyCounts: monthlyNewsCounts(articles, lastDate), articles: latest.slice(0, 3).map(({ date, title, url }) => ({ date, title, url })) };
 }
