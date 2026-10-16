@@ -7,8 +7,50 @@ async function moduleFrom(name) {
   const compiled = ts.transpileModule(fs.readFileSync(`src/${name}.ts`, "utf8"), { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
   return import(`data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`);
 }
-const { portalNavigation, canonicalPortalHash, portalPage, latestAdditions, summarizeNews } = await moduleFrom("portalStructure");
+const { portalNavigation, featuredPortalSections, portalMetricLabel, combineInitiatives, canonicalPortalHash, portalPage, latestAdditions, summarizeNews } = await moduleFrom("portalStructure");
 const { catalogDate, newestFirst } = await moduleFrom("catalogOrdering");
+
+test("featured sections follow the navigation, target pages and accept a fifth section", () => {
+  const sections = featuredPortalSections();
+  assert.deepEqual(sections.map(section => section.title), ["Panorama da IA", "Acervo", "IA na imprensa", "IA na UFG"]);
+  assert.deepEqual(sections.map(section => section.href), ["#panorama", "#acervo", "#ia-como-noticia-diaria", "#ecossistema-ufg"]);
+  for (const section of sections) {
+    assert.notEqual(portalPage(section.href), "home");
+    assert.ok(section.description && section.icon && section.event);
+    assert.ok(portalNavigation.some(entry => entry.href === section.href || entry.links?.some(link => link.href === section.href)));
+  }
+  assert.equal(sections[0].metric, undefined);
+  const next = { id: "nova", label: "Nova seção", href: "#nova", event: "nav_new", featured: { title: "Nova seção", description: "Uma nova porta do portal.", icon: "acervo", href: "#nova", event: "nav_new" } };
+  const extended = [...portalNavigation, next];
+  assert.equal(featuredPortalSections(extended).length, 5);
+  assert.equal(featuredPortalSections(extended)[4], next.featured);
+  assert.equal(portalNavigation.length, 5);
+});
+
+test("hero metrics omit pending values and a lone initiative, with real localized counts", () => {
+  for (const metric of ["materials", "news", "initiatives"]) {
+    assert.equal(portalMetricLabel(metric, {}), "");
+    for (const value of [NaN, Infinity, -1]) assert.equal(portalMetricLabel(metric, { [metric]: value }), "");
+  }
+  assert.equal(portalMetricLabel(undefined, { materials: 42 }), "");
+  assert.equal(portalMetricLabel("materials", { materials: 1445 }), "1.445 materiais");
+  assert.equal(portalMetricLabel("materials", { materials: 0 }), "0 materiais");
+  assert.equal(portalMetricLabel("materials", { materials: 1 }), "1 material");
+  assert.equal(portalMetricLabel("news", { news: 6727 }), "6.727 matérias");
+  assert.equal(portalMetricLabel("news", { news: 1 }), "1 matéria");
+  for (const count of [0, 1]) assert.equal(portalMetricLabel("initiatives", { initiatives: count }), "");
+  assert.equal(portalMetricLabel("initiatives", { initiatives: 3 }), "3 iniciativas");
+});
+
+test("initiative count uses the same editorial combination as the page and preview", () => {
+  const featured = [{ id: "course", url: "https://ufg.br/course" }];
+  const incoming = [{ id: "course", url: "https://ufg.br/duplicate-id" }, { id: "other-id", url: "https://ufg.br/course" }, { id: "lab", url: "https://ufg.br/lab" }];
+  const original = structuredClone({ incoming, featured });
+  assert.deepEqual(combineInitiatives(incoming, featured), [featured[0], incoming[2]]);
+  assert.deepEqual(combineInitiatives([], featured), featured);
+  assert.deepEqual(combineInitiatives([], []), []);
+  assert.deepEqual({ incoming, featured }, original);
+});
 
 test("PT menu and sitemap share five sections with explicit product routes", () => {
   assert.deepEqual(portalNavigation.map(section => section.label), ["Panorama", "Acervo", "Atualidade", "IA na UFG", "Sobre"]);

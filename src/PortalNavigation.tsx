@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, Search } from "lucide-react";
+import { ChevronDown, Globe, Menu, Search } from "lucide-react";
 import { assetUrl } from "./catalog";
 import { trackEvent } from "./analytics";
 import { languageUrl } from "./locale";
@@ -26,6 +26,7 @@ export function PortalNavigation({ route, onSearch }: { route: string; onSearch:
       else if (mobile) { setMobile(false); menuButton.current?.focus(); }
     }
   }}>
+    <div className="pt-topbar-content">
     <a className="brand" href="#top" aria-label="Observatório UFG-IA - início">
       <span className="brand-mark"><img src={assetUrl("brand/observatorio-coruja.svg")} width="946" height="826" alt="" /></span>
       <span className="brand-name"><strong>Observatório</strong><strong>UFG · Inteligência Artificial</strong></span>
@@ -43,10 +44,12 @@ export function PortalNavigation({ route, onSearch }: { route: string; onSearch:
           </div>
         </div>;
       })}
+      <a className="pt-language-switch pt-language-mobile" href={languageUrl("en")} lang="en" aria-label="Read in English"><Globe size={16} aria-hidden="true" />English</a>
     </nav>
     <a className="pt-header-search" href="#acervo" aria-label="Buscar no acervo" onClick={() => { setOpen(""); setMobile(false); onSearch(); }}><Search size={20} aria-hidden="true" /><span>Buscar no acervo</span></a>
-    <div className="pt-language-switch" aria-label="Idioma"><span aria-current="page"><span aria-hidden="true">PT</span><span className="sr-only">Português</span></span><span aria-hidden="true">|</span><a href={languageUrl("en")} lang="en" aria-label="English — versão em inglês">EN</a></div>
+    <a className="pt-language-switch" href={languageUrl("en")} lang="en" aria-label="Read in English"><Globe size={16} aria-hidden="true" />English</a>
     <button ref={menuButton} type="button" className="pt-menu-toggle" aria-expanded={mobile} aria-controls="pt-primary-navigation" onClick={() => { setMobile(!mobile); setOpen(""); }}><Menu size={20} aria-hidden="true" />Menu</button>
+    </div>
   </header>;
 }
 

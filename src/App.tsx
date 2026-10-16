@@ -19,9 +19,10 @@ import { PortalCollections } from "./PortalDiscovery";
 import { TopicRadar } from "./TopicRadar";
 import { addedInWindow, radarDateWindow } from "./radarPeriod";
 import { PortalNavigation, PortalSitemap } from "./PortalNavigation";
-import { canonicalPortalHash, portalPage, latestAdditions, portalNavigation } from "./portalStructure";
+import { canonicalPortalHash, portalPage, latestAdditions, portalNavigation, combineInitiatives } from "./portalStructure";
 import { AboutPage } from "./AboutPage";
-import { PressSummary } from "./PressSummary";
+import { PressSummary, useNewsSummary } from "./PressSummary";
+import { PortalSectionCards } from "./PortalSectionCards";
 import { defaultCatalogView } from "./discoverySelection";
 import { catalogDate, newestFirst } from "./catalogOrdering";
 import { matchesCloudTerm } from "./keywordCloud";
@@ -208,6 +209,7 @@ export function App() {
   const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
   const [page, setPage] = useState(pageFromHash);
   const [route, setRoute] = useState(window.location.hash);
+  const newsSummary = useNewsSummary(page === "home");
   const focusSearch = useRef(false);
   const previousPage = useRef(page);
 
@@ -368,7 +370,7 @@ export function App() {
   };
 
   return (
-    <main id="top" className="site-shell">
+    <main id="top" className="site-shell pt-site-shell">
       <a className="skip-link" href={item ? "#article-detail-title" : page === "catalog" ? "#acervo-title" : page === "readings" ? "#readings-results-title" : page === "home" ? "#page-title" : page === "about" ? "#about-title" : page === "ecosystem" ? "#ecosystem-title" : page === "panorama" ? "#panorama-title" : "#daily-news-title"}>Ir para o conteúdo</a>
       <PortalNavigation route={route} onSearch={() => {
         focusSearch.current = true; setShowAll(true);
@@ -487,12 +489,7 @@ export function App() {
         <p className="eyebrow">Inteligência artificial em perspectiva</p>
         <h1 id="page-title">IA generativa explicada, comparada e acompanhada pela UFG</h1>
         <p>Acervo curado, comparação de modelos, notícias e uma aula interativa para quem estuda, pesquisa e ensina.</p>
-        <div className="pt-task-grid">{[
-          { title: "Escolher uma IA", text: "Compare modelos para sua tarefa.", href: "#panorama/guia" },
-          { title: "Acompanhar a semana", text: "Veja o tema em destaque.", href: "#em-destaque" },
-          { title: "Explorar o acervo", text: "Encontre materiais para estudar e pesquisar.", href: "#acervo" },
-          { title: "Entender como a IA funciona", text: "Experimente a aula interativa.", href: assetUrl("por-dentro-da-ia/") },
-        ].map(task => <a key={task.href} href={task.href} onClick={() => trackEvent(task.href.includes("por-dentro") ? "open_interactive_inference" : "nav_home_task", { event_label: task.href, position: "hero" })}><strong>{task.title}</strong><span>{task.text}</span><span aria-hidden="true">→</span></a>)}</div>
+        <PortalSectionCards counts={{ materials: catalog ? articles.length : undefined, news: newsSummary?.total, initiatives: catalog ? combineInitiatives(initiatives, ecosystemFeaturedInitiatives).length : undefined }} />
         <form className="hero-search pt-hero-search" role="search" onSubmit={event => { event.preventDefault(); revealCatalog(); }}>
           <Search size={20} aria-hidden="true" /><label className="sr-only" htmlFor="hero-search-pt">Buscar no acervo</label>
           <input id="hero-search-pt" value={query} onChange={event => { setQuery(event.target.value); setSelectedKeyword(""); setAdded(""); }} placeholder={catalog ? "Buscar entre " + articles.length.toLocaleString("pt-BR") + " materiais" : "Buscar no acervo"} />
@@ -546,7 +543,7 @@ export function App() {
         <div className="discovery-heading"><div><p className="eyebrow">Novidades do acervo</p><h2 id="home-recent-title">Adicionados recentemente</h2></div><a className="text-action" href="#acervo">Ver todo o acervo →</a></div>
         {error ? <p role="alert">{error}</p> : !catalog ? <p role="status">Carregando acervo…</p> : <div className="article-grid pt-recent-grid">{recentArticles.map(article => <CatalogCard key={article.id} article={article} position="home-recent" href={detailHref(article.id)} onOpen={openDetail} />)}</div>}
       </section>
-      <PressSummary />
+      <PressSummary summary={newsSummary} />
       <section id="experiencias-interativas" className="interactive-experience" aria-labelledby="interactive-experience-title">
         <div className="interactive-experience-copy">
           <p className="eyebrow">Experiências interativas · LAPIG / UFG</p>
@@ -569,18 +566,18 @@ export function App() {
 
       <section className="pt-home-section" aria-labelledby="home-ufg-title">
         <div className="discovery-heading"><h2 id="home-ufg-title">IA na UFG</h2><a className="text-action" href="#ecossistema-ufg" onClick={() => trackEvent("nav_ecosystem", { position: "home" })}>Ver todas →</a></div>
-        <div className="ecosystem-initiative-grid">{combineInitiatives(initiatives).slice(0, 3).map(initiative => <InitiativeCard key={initiative.id} initiative={initiative} position="home" />)}</div>
+        <div className="ecosystem-initiative-grid">{combineInitiatives(initiatives, ecosystemFeaturedInitiatives).slice(0, 3).map(initiative => <InitiativeCard key={initiative.id} initiative={initiative} position="home" />)}</div>
         <div className="pt-participate"><h3>Participe: como você usa a IA?</h3><p>Compartilhe sua experiência com o Observatório.</p><a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { event_category: "outbound", event_label: "forms.gle", position: "home" })}>Participar →</a></div>
       </section>
       </div>}
 
-      <footer className="footer pt-footer">
+      <footer className="footer pt-footer"><div className="pt-footer-content">
         <PortalSitemap />
         <div className="pt-footer-institutions"><InstitutionalBand /></div>
         <p className="pt-footer-references">Outras referências: <a href="https://obia.nic.br/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia", position: "footer" })}>OBIA</a></p>
         <div><strong>Observatório UFG-IA</strong><p>Acervo educacional em desenvolvimento contínuo.</p><div className="footer-links"><a className="github-footer-link" href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_github", { event_category: "outbound", event_label: "github" })}>GitHub do LAPIG/UFG <ArrowUpRight size={14} aria-hidden="true" /></a><a className="github-footer-link" href="https://victorgit10.github.io/audiencia-observatorio/" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_audiencia", { event_category: "outbound", event_label: "audiencia" })}>Quem visita o Observatório? <ArrowUpRight size={14} aria-hidden="true" /></a></div></div>
         <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p><p className="credits"><strong>Desenvolvimento e curadoria:</strong> <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a> e <a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p><p className="contact-callout">Dúvidas? Sugestões? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_contact_form", { event_category: "outbound", event_label: "contato" })}>Entre em contato <ArrowUpRight size={14} aria-hidden="true" /></a> · <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { position: "footer" })}>Participe <ArrowUpRight size={14} aria-hidden="true" /></a></p></div>
-      </footer>
+      </div></footer>
     </main>
   );
 }
@@ -606,12 +603,8 @@ function InitiativeCard({ initiative, position = "ecosystem" }: { initiative: In
   );
 }
 
-function combineInitiatives(initiatives: Initiative[]) {
-  return [...ecosystemFeaturedInitiatives, ...initiatives.filter(initiative => !ecosystemFeaturedInitiatives.some(featured => featured.id === initiative.id || featured.url === initiative.url))];
-}
-
 function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
-  const visibleInitiatives = combineInitiatives(initiatives);
+  const visibleInitiatives = combineInitiatives(initiatives, ecosystemFeaturedInitiatives);
 
   return (
     <section id="ecossistema-ufg" className="ecosystem-page" aria-labelledby="ecosystem-title">
