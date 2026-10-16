@@ -26,6 +26,7 @@ import { PortalNavigation, PortalSitemap } from "./PortalNavigation";
 import { canonicalPortalHash, portalPage, selectRecentAdditions, portalNavigation, combineInitiatives } from "./portalStructure";
 import { videoThumbnail } from "./catalogExperienceState";
 import { HomeAdditions } from "./HomeAdditions";
+import { HomeSectionHeading } from "./HomeSectionHeading";
 import { RealizationBand } from "./RealizationBand";
 import { AboutPage } from "./AboutPage";
 import { PressSummary, useNewsSummary } from "./PressSummary";
@@ -503,11 +504,10 @@ export function App() {
           <button type="submit">Buscar</button>
         </form>
       </section>
-      <section id="em-destaque" className="weekly-highlight weekly-highlight--debate" aria-labelledby="weekly-highlight-title">
-        <FeaturedDebate language="pt" weeklyBadge />
-        <button
+      <section id="em-destaque" className="pt-home-section weekly-highlight weekly-highlight--debate" aria-labelledby="home-featured-title">
+        <HomeSectionHeading id="home-featured-title" eyebrow="Destaque semanal" title="Em destaque" action={<button
           type="button"
-          className="weekly-highlight-history-toggle"
+          className="text-action pt-featured-history-action"
           aria-expanded={showFeaturedHistory}
           aria-controls="weekly-highlight-history"
           onClick={() => {
@@ -518,7 +518,8 @@ export function App() {
           <Clock3 size={16} aria-hidden="true" />
           <span>O que já foi destaque?</span>
           <ChevronDown size={16} className={showFeaturedHistory ? "is-open" : ""} aria-hidden="true" />
-        </button>
+        </button>} />
+        <FeaturedDebate language="pt" weeklyBadge />
         {showFeaturedHistory && (
           <div id="weekly-highlight-history" className="weekly-highlight-history" aria-label="Temas anteriores em destaque">
             <p className="eyebrow">Destaques anteriores</p>
@@ -543,23 +544,18 @@ export function App() {
 
 
       <section className="pt-home-section pt-home-panorama" aria-labelledby="home-panorama-title">
-        <div className="discovery-heading"><h2 id="home-panorama-title">Panorama da IA</h2><a className="text-action" href="#panorama" onClick={() => trackEvent("nav_panorama", { position: "home" })}>Abrir o Panorama →</a></div>
+        <HomeSectionHeading id="home-panorama-title" eyebrow="Panorama da IA" title="Panorama da IA" action={<a className="text-action" href="#panorama" onClick={() => trackEvent("nav_panorama", { position: "home" })}>Abrir o Panorama →</a>} />
         <div className="pt-panorama-grid">{portalNavigation[0].links.map((link, i) => { const Icon = [History, Scale, Gift, Terminal][i]; return <a key={link.href} href={link.href} onClick={() => trackEvent(link.event, { position: "home", event_label: link.href })}><Icon className="pt-panorama-icon" size={20} aria-hidden="true" /><strong>{link.label}</strong><span>{link.description}</span><span className="pt-panorama-arrow" aria-hidden="true">→</span></a>; })}</div>
       </section>
-      <section className="pt-home-section" aria-labelledby="home-recent-title">
-        <div className="discovery-heading"><div><p className="eyebrow">Novidades do acervo</p><h2 id="home-recent-title">Adicionados recentemente</h2></div><a className="text-action" href="#acervo">Ver todo o acervo →</a></div>
+      <section className="pt-home-section pt-home-recent" aria-labelledby="home-recent-title">
+        <HomeSectionHeading id="home-recent-title" eyebrow="Novidades do acervo" title="Adicionados recentemente" action={<a className="text-action" href="#acervo">Ver todo o acervo →</a>} />
         {error ? <p role="alert">{error}</p> : !catalog ? <p role="status">Carregando acervo…</p> : <HomeAdditions {...recentArticles} detailHref={detailHref} onOpen={openDetail} />}
       </section>
       <PressSummary summary={newsSummary} />
-      <section id="experiencias-interativas" className="interactive-experience" aria-labelledby="interactive-experience-title">
+      <section id="experiencias-interativas" className="pt-home-section interactive-experience" aria-labelledby="interactive-experience-title">
         <div className="interactive-experience-copy">
-          <p className="eyebrow">Aula interativa · LAPIG / UFG</p>
-          <h2 id="interactive-experience-title">Por dentro da IA <span>Da frase ao próximo token</span></h2>
-          <p>Veja como um modelo gera respostas, com diagramas e operações passo a passo.</p>
-          <p className="interactive-experience-scope">Sem pré-requisitos.</p>
+          <HomeSectionHeading id="interactive-experience-title" eyebrow="Aula interativa" title="Por dentro da IA" description="Da frase ao próximo token: veja como um modelo gera respostas, com diagramas e operações passo a passo. Sem pré-requisitos." />
           <a className="interactive-experience-action" href={assetUrl("por-dentro-da-ia/")} onClick={() => trackEvent("open_interactive_inference", { event_category: "navigation", event_label: "por-dentro-da-ia", position: "home" })}>Abrir a aula interativa <span aria-hidden="true">→</span></a>
-        </div>
-        <div className="pt-token-illustration" aria-hidden="true"><span className="pt-token-label">A frase vira tokens</span><div className="pt-tokens">{["A", "UFG", "fica", "em"].map(token => <span key={token}>{token}</span>)}<b>↓</b></div><span className="pt-token-label">Possíveis próximos tokens</span><div className="pt-token-candidates">{[{ token: "Goiânia", probability: 87 }, { token: "Goiás", probability: 9 }, { token: "Brasil", probability: 3 }].map(candidate => <div key={candidate.token}><span>{candidate.token}</span><span className="pt-token-bar"><i style={{ width: `${candidate.probability}%` }} /></span><strong>{candidate.probability}%</strong></div>)}</div></div>
         <details className="interactive-experience-journey"><summary>Ver o percurso de aprendizagem</summary>
           <p>Uma introdução visual à inferência, com o GPT-3 como referência. Acompanhe uma frase sobre sensoriamento remoto e experimente operações matemáticas passo a passo. Não é preciso dominar matemática ou programação. Depois, volte ao Observatório pelo cabeçalho.</p>
           <p className="eyebrow">A frase que guia a jornada</p>
@@ -570,10 +566,12 @@ export function App() {
             <li><strong>03 · Próximo token</strong><span>Escores para o vocabulário tornam-se probabilidades para escolher a continuação.</span></li>
           </ol>
         </details>
+        </div>
+        <div className="pt-token-illustration" aria-hidden="true"><span className="pt-token-label">A frase vira tokens</span><div className="pt-tokens">{["A", "UFG", "fica", "em"].map(token => <span key={token}>{token}</span>)}</div><span className="pt-token-arrow">↓</span><span className="pt-token-label">Possíveis próximos tokens</span><div className="pt-token-candidates">{[{ token: "Goiânia", probability: 87 }, { token: "Goiás", probability: 9 }, { token: "Brasil", probability: 3 }].map(candidate => <div key={candidate.token}><span>{candidate.token}</span><span className="pt-token-bar"><i style={{ width: `${candidate.probability}%` }} /></span><strong>{candidate.probability}%</strong></div>)}</div></div>
       </section>
 
-      <section className="pt-home-section" aria-labelledby="home-ufg-title">
-        <div className="discovery-heading"><h2 id="home-ufg-title">IA na UFG</h2><a className="text-action" href="#ecossistema-ufg" onClick={() => trackEvent("nav_ecosystem", { position: "home" })}>Ver todas →</a></div>
+      <section className="pt-home-section pt-home-ufg" aria-labelledby="home-ufg-title">
+        <HomeSectionHeading id="home-ufg-title" eyebrow="Universidade" title="IA na UFG" action={<a className="text-action" href="#ecossistema-ufg" onClick={() => trackEvent("nav_ecosystem", { position: "home" })}>Ver todas →</a>} />
         <div className="ecosystem-initiative-grid">{combineInitiatives(initiatives, ecosystemFeaturedInitiatives).slice(0, 3).map(initiative => <InitiativeCard key={initiative.id} initiative={initiative} position="home" />)}</div>
         <div className="pt-participate"><h3>Participe: como você usa a IA?</h3><p>Compartilhe sua experiência com o Observatório.</p><a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { event_category: "outbound", event_label: "forms.gle", position: "home" })}>Participar →</a></div>
       </section>

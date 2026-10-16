@@ -4,6 +4,7 @@ import { assetUrl } from "./catalog";
 import { trackEvent } from "./analytics";
 import { formatPublicDate } from "./dateLabels";
 import type { summarizeNews } from "./portalStructure";
+import { HomeSectionHeading } from "./HomeSectionHeading";
 
 export type NewsSummary = ReturnType<typeof summarizeNews>;
 export function useNewsSummary(enabled = true) {
@@ -20,7 +21,7 @@ export function useNewsSummary(enabled = true) {
 }
 export function PressSummary({ summary }: { summary: NewsSummary | null }) {
   return <section className="pt-home-section portal-news pt-press" aria-labelledby="home-press-title">
-    <div className="discovery-heading"><h2 id="home-press-title">IA na imprensa</h2><a className="text-action" href="#ia-como-noticia-diaria" onClick={() => trackEvent("nav_daily_news", { position: "home" })}>Explorar notícias →</a></div>
+    <HomeSectionHeading id="home-press-title" eyebrow="Imprensa" title="IA na imprensa" action={<a className="text-action" href="#ia-como-noticia-diaria" onClick={() => trackEvent("nav_daily_news", { position: "home" })}>Explorar notícias →</a>} />
     {summary ? <div className="pt-press-layout"><div className="pt-press-overview">
       <p className="pt-press-total"><strong>{summary.total.toLocaleString("pt-BR")}</strong> matérias</p>
       <p>Folha de S.Paulo · Última publicação: <time dateTime={summary.lastDate}>{formatPublicDate(summary.lastDate)}</time></p>
