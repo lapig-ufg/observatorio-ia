@@ -267,9 +267,39 @@
   .pt-home-page .weekly-highlight-history-toggle { justify-content: center; margin-top: 8px; }
 }
 
-/* A linha laranja era a assinatura do destaque semanal; volta em todas as larguras, agora de ponta a ponta. */
-.pt-site-shell .pt-home-page > .weekly-highlight { border-top: 5px solid var(--portal-orange); }
-/* "Em destaque" ganha um traço de marca-texto laranja: destaca o título sem a pílula escura e mantém o H2 no padrão das seções. */
-.pt-home-page > .weekly-highlight .pt-section-eyebrow { color: #a8461f; }
-.pt-home-page > .weekly-highlight .pt-section-heading h2 { justify-self: start; padding: 0 4px; margin-left: -4px; background: linear-gradient(transparent 58%, color-mix(in srgb, var(--portal-orange) 32%, transparent) 58%, color-mix(in srgb, var(--portal-orange) 32%, transparent) 92%, transparent 92%); }
-@media (max-width: 600px) { .pt-site-shell .pt-home-page > .weekly-highlight { border-top-width: 4px; } }
+/* Destaque semanal volta a ser um cartão logo abaixo da abertura, como na versão anterior:
+   a linha laranja fica no cartão (não atravessa o verde) e o título aparece já na primeira tela. */
+.pt-home-opening { padding-bottom: 20px; }
+.pt-site-shell .pt-home-page > .weekly-highlight {
+  margin: 0; padding: 0 calc(var(--pt-wide-gutter) + var(--pt-home-gutter)) 62px;
+  border: 0; background: linear-gradient(#f9faf5, #f9faf5 60%, #f6f7f3);
+}
+.pt-home-page > .weekly-highlight > * { position: relative; }
+.pt-home-page > .weekly-highlight::before {
+  content: ""; position: absolute; inset: 0 calc(var(--pt-wide-gutter) + var(--pt-home-gutter)) 36px;
+  border: 1px solid #e3d5c1; border-top: 6px solid var(--portal-orange); border-radius: 18px; background: #fffaf2;
+}
+.pt-home-page > .weekly-highlight > :not(.weekly-highlight-history) { margin-inline: 30px; }
+/* Cabeçalho do cartão numa linha só: etiqueta laranja refinada no lugar da pílula escura. */
+.pt-home-page > .weekly-highlight .pt-section-heading { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 0 30px 8px; padding-top: 22px; }
+.pt-home-page > .weekly-highlight .pt-section-eyebrow { display: none; }
+.pt-home-page > .weekly-highlight .pt-section-heading h2 {
+  margin: 0; padding: 5px 12px; border-radius: 7px; background: var(--portal-orange); color: #fff;
+  font-size: 14px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; line-height: 1.3;
+}
+.pt-home-page > .weekly-highlight .pt-section-action { margin-left: auto; }
+.pt-home-page > .weekly-highlight .weekly-highlight-kicker { margin-bottom: 10px; }
+@media (max-width: 600px) {
+  .pt-home-page > .weekly-highlight > :not(.weekly-highlight-history), .pt-home-page > .weekly-highlight .pt-section-heading { margin-inline: 18px; }
+  .pt-home-page > .weekly-highlight::before { border-top-width: 5px; border-radius: 14px; }
+  .pt-site-shell .pt-home-page > .weekly-highlight { padding-bottom: 42px; }
+  .pt-home-page > .weekly-highlight::before { bottom: 24px; }
+  .pt-home-page > .weekly-highlight .pt-section-action { margin-left: auto; font-size: 13px; }
+}
+/* Cartões da abertura mais baixos: ícone na linha do título. */
+.pt-task-grid > a { grid-template-columns: 22px minmax(0, 1fr) auto; grid-template-rows: auto auto auto; column-gap: 10px; padding: 14px 16px; }
+.pt-task-grid .pt-section-icon { grid-column: 1; grid-row: 1; margin: 0; align-self: center; }
+.pt-task-grid strong { grid-column: 2; grid-row: 1; }
+.pt-task-grid .pt-section-arrow { grid-column: 3; grid-row: 1; align-self: center; margin: 0; }
+.pt-task-grid .pt-section-description { grid-column: 1 / -1; grid-row: 2; }
+.pt-task-grid .pt-section-metric { grid-column: 1 / -1; grid-row: 3; }
