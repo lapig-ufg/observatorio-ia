@@ -32,11 +32,16 @@
 .pt-home-section { margin: 32px clamp(20px, 6vw, 92px); }
 .pt-home-section h2 { color: #123d31; font-size: clamp(1.5rem, 2.5vw, 2rem); }
 .pt-home-section .pt-recent-grid { margin: 0; padding: 0; }
-.pt-weekly-badge { display: inline-flex; margin: 0 0 14px; padding: 7px 12px; border-radius: 999px; background: #fff7e8; color: #79552f; font-size: 13px; font-weight: 700; }
+.pt-home-page .weekly-highlight-kicker { align-items: center; flex-wrap: wrap; gap: 8px 12px; margin-bottom: 16px; }
+.pt-weekly-badge { display: inline-flex; margin: 0; padding: 7px 12px; border-radius: 999px; background: #fff7e8; color: #79552f; font-size: 13px; font-weight: 700; text-transform: none; }
 .pt-home-page > .weekly-highlight { margin-top: 24px; }
 .pt-home-page > .interactive-experience { margin-top: 32px; }
 .pt-press ul { display: grid; gap: 14px; padding-left: 20px; line-height: 1.6; }
 .pt-press a { color: #164e3d; }
+.pt-press li a { display: flex; align-items: baseline; gap: 5px; font-weight: 500; text-decoration: none; }
+.pt-press li a span { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.pt-press li a svg { flex-shrink: 0; align-self: center; }
+.pt-press li a:hover, .pt-press li a:focus-visible { text-decoration: underline; }
 .pt-home-section .ecosystem-initiative-grid { padding: 0; margin: 20px 0; }
 .pt-home-page .initiative-card { background: var(--navy-800); color: #fff; }
 .pt-home-page .initiative-card h3 { color: #fff; }
@@ -51,13 +56,14 @@
 .pt-footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
 .pt-footer > * { min-width: 0; }
 .pt-sitemap { grid-column: 1 / -1; display: grid; grid-template-columns: 1.3fr 1.1fr 1.1fr .8fr .6fr; gap: 24px; }
-.pt-sitemap h2 { margin: 0 0 14px; font-size: 17px; }
+.pt-sitemap h2 { margin: 0 0 14px; font-size: 17px; line-height: 1.5; }
 .pt-sitemap a { display: block; width: fit-content; padding: 7px 0; min-height: 32px; color: inherit; line-height: 1.5; text-decoration: none; }
+.pt-sitemap h2 a { padding: 0; min-height: 0; line-height: inherit; }
 .pt-sitemap a:hover { text-decoration: underline; }
 .pt-footer > .pt-footer-institutions, .pt-footer > .pt-footer-references { grid-column: 1 / -1; }
-.pt-footer-institutions .institutional-band { z-index: 0; padding: 18px; border-radius: 12px; }
-/* Os símbolos têm cerca de 50 px na composição de 420 px, reduzida proporcionalmente no celular. */
-.pt-footer-institutions .institutional-lockup { width: 420px; min-width: 0; }
+.pt-footer-institutions .institutional-band { z-index: 0; padding: 6px 12px; border-radius: 12px; }
+/* A arte e os três links em frações crescem juntos, sem alterar a composição oficial. */
+.pt-footer-institutions .institutional-lockup { width: 640px; min-width: 0; }
 .pt-footer-institutions .institutional-lockup-image { height: auto; width: 100%; }
 .pt-footer-references a { color: inherit; }
 @media (max-width: 1199px) { .pt-header-search > span { display: none; } .pt-topbar { gap: 8px; padding-inline: 16px; } .pt-navigation > a, .pt-nav-group > button { padding-inline: 8px; } }
@@ -89,6 +95,8 @@
   .pt-home-opening .pt-hero-search input { width: 0; flex: 1 1 0; }
   .pt-home-opening .pt-hero-search button { flex: 0 0 auto; padding-inline: 12px; }
   .pt-home-section { margin: 24px 16px; }.pt-home-section .discovery-heading { align-items: flex-start; }
+  .pt-home-page .weekly-highlight-kicker { flex-direction: column; align-items: flex-start; }
+  .pt-home-page .weekly-highlight-kicker > span:last-child { margin-left: 0; text-align: left; }
   .pt-sitemap { grid-template-columns: 1fr 1fr; gap: 20px; }
   .pt-footer { grid-template-columns: minmax(0, 1fr); }.pt-footer > * { grid-column: 1 / -1; }
 }

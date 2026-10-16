@@ -45,6 +45,28 @@ test("six recent inclusions include readings, use newestFirst for ties and do no
   assert.deepEqual(latestAdditions([], newestFirst), []);
 });
 
+test("recent additions cap readings at two and retain the newest other formats in date order", () => {
+  const articles = Array.from({ length: 12 }, (_, i) => ({ id: String(i), title: String(i), type: i < 7 ? "medium" : ["paper", "audio", "documento", "link-video", "entrevista"][i - 7], includedAt: `2026-10-${String(20 - i).padStart(2, "0")}` }));
+  const original = structuredClone(articles);
+  const compare = (a, b) => catalogDate(b.includedAt) - catalogDate(a.includedAt) || newestFirst(a, b);
+  const selected = latestAdditions(articles, compare);
+  assert.deepEqual(selected.map(item => item.id), ["0", "1", "7", "8", "9", "10"]);
+  assert.equal(selected.filter(item => item.type === "medium").length, 2);
+  assert.deepEqual(articles, original);
+  // Leituras mais antigas não precisam ocupar a cota se houver seis materiais mais novos.
+  assert.deepEqual(latestAdditions(articles.map(item => ({ ...item, type: Number(item.id) < 7 ? "paper" : "medium" })), compare).map(item => item.id), ["0", "1", "2", "3", "4", "5"]);
+});
+
+test("recent additions fill missing formats with readings and handle small collections", () => {
+  const readings = Array.from({ length: 8 }, (_, i) => ({ id: `reading-${i}`, type: "medium", includedAt: `2026-10-${20 - i}` }));
+  const other = { id: "audio", type: "audio", includedAt: "2026-10-01" };
+  const compare = (a, b) => catalogDate(b.includedAt) - catalogDate(a.includedAt) || newestFirst(a, b);
+  assert.deepEqual(latestAdditions([...readings, other], compare).map(item => item.id), ["reading-0", "reading-1", "reading-2", "reading-3", "reading-4", "audio"]);
+  assert.deepEqual(latestAdditions(readings, compare), readings.slice(0, 6));
+  assert.deepEqual(latestAdditions([other, ...readings.slice(0, 2)], compare), [...readings.slice(0, 2), other]);
+  assert.deepEqual(latestAdditions([other], compare), [other]);
+});
+
 test("small news summary matches all local annual records, latest date and source titles", () => {
   const records = fs.readdirSync("public/folha-ia").filter(file => /^\d{4}\.json$/.test(file)).flatMap(file => JSON.parse(fs.readFileSync(`public/folha-ia/${file}`, "utf8")));
   const result = summarizeNews(records);

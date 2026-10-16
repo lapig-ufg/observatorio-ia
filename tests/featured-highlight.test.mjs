@@ -17,7 +17,7 @@ test("destaque bilíngue apresenta marcas d’água e preserva integralmente a e
   assert.match(feature, /1L1ChcDaz6ves1ddobAzVgPyBmYIgwi7x/);
   assert.match(feature, /1BwCAoazLO6euEso_W63046oPTuTFsIc9/);
   assert.match(feature, /HIUzrxQxTtw/);
-  assert.match(pt, /<FeaturedDebate language="pt" \/>/);
+  assert.match(pt, /<FeaturedDebate language="pt" weeklyBadge \/>/);
   assert.match(en, /<FeaturedDebate language="en" \/>/);
   assert.match(pt, /Como usar a IA fora do navegador/);
   assert.match(en, /Using AI beyond the browser/);

@@ -500,8 +500,7 @@ export function App() {
         </form>
       </section>
       <section id="em-destaque" className="weekly-highlight weekly-highlight--debate" aria-labelledby="weekly-highlight-title">
-        <p className="pt-weekly-badge">Nova edição todo domingo</p>
-        <FeaturedDebate language="pt" />
+        <FeaturedDebate language="pt" weeklyBadge />
         <button
           type="button"
           className="weekly-highlight-history-toggle"
@@ -578,9 +577,9 @@ export function App() {
       <footer className="footer pt-footer">
         <PortalSitemap />
         <div className="pt-footer-institutions"><InstitutionalBand /></div>
-        <p className="pt-footer-references">Outras referências: <a href="https://obia.nic.br/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia", position: "footer" })}>OBIA</a> · <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { position: "footer" })}>Participe</a></p>
+        <p className="pt-footer-references">Outras referências: <a href="https://obia.nic.br/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia", position: "footer" })}>OBIA</a></p>
         <div><strong>Observatório UFG-IA</strong><p>Acervo educacional em desenvolvimento contínuo.</p><div className="footer-links"><a className="github-footer-link" href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_github", { event_category: "outbound", event_label: "github" })}>GitHub do LAPIG/UFG <ArrowUpRight size={14} aria-hidden="true" /></a><a className="github-footer-link" href="https://victorgit10.github.io/audiencia-observatorio/" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_audiencia", { event_category: "outbound", event_label: "audiencia" })}>Quem visita o Observatório? <ArrowUpRight size={14} aria-hidden="true" /></a></div></div>
-        <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p><p className="credits"><strong>Desenvolvimento e curadoria:</strong> <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a> e <a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p><p className="contact-callout">Dúvidas? Sugestões? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_contact_form", { event_category: "outbound", event_label: "contato" })}>Entre em contato <ArrowUpRight size={14} aria-hidden="true" /></a></p></div>
+        <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p><p className="credits"><strong>Desenvolvimento e curadoria:</strong> <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a> e <a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p><p className="contact-callout">Dúvidas? Sugestões? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_contact_form", { event_category: "outbound", event_label: "contato" })}>Entre em contato <ArrowUpRight size={14} aria-hidden="true" /></a> · <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { position: "footer" })}>Participe <ArrowUpRight size={14} aria-hidden="true" /></a></p></div>
       </footer>
     </main>
   );

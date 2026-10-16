@@ -100,7 +100,7 @@ function MaterialIcon({ kind }: { kind: MaterialKind }) {
   return <ArrowUpRight size={15} aria-hidden="true" />;
 }
 
-export function FeaturedDebate({ language }: { language: Language }) {
+export function FeaturedDebate({ language, weeklyBadge = false }: { language: Language; weeklyBadge?: boolean }) {
   const edition = editions[language];
   const introRef = useRef<HTMLDivElement>(null);
 
@@ -120,7 +120,7 @@ export function FeaturedDebate({ language }: { language: Language }) {
     trackEvent("open_featured_material", { event_category: "outbound", event_label: label, material, featured_edition: edition.title, language });
 
   return <>
-    <div className="weekly-highlight-kicker"><span>{edition.kicker}</span><span>{edition.period}</span></div>
+    <div className="weekly-highlight-kicker"><span>{edition.kicker}</span>{weeklyBadge && <p className="pt-weekly-badge">Nova edição todo domingo</p>}<span>{edition.period}</span></div>
     <div className="featured-debate-intro" ref={introRef}>
       <div className="featured-debate-copy">
         <p className="eyebrow">{edition.eyebrow}</p>

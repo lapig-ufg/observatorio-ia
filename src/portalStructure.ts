@@ -31,8 +31,13 @@ export function portalPage(hash: string) {
 }
 
 // O comparador do catálogo resolve empates, sem duplicar a regra de datas.
-export function latestAdditions<T>(articles: T[], compare: (left: T, right: T) => number) {
-  return [...articles].sort(compare).slice(0, 6);
+export function latestAdditions<T extends { type: string }>(articles: T[], compare: (left: T, right: T) => number) {
+  const sorted = [...articles].sort(compare);
+  const readings = sorted.filter(article => article.type === "medium");
+  const others = sorted.filter(article => article.type !== "medium");
+  // Reserva espaço aos outros formatos; Leituras só excede dois se faltar material.
+  const readingCount = Math.max(2, 6 - others.length);
+  return [...readings.slice(0, readingCount), ...others.slice(0, 6)].sort(compare).slice(0, 6);
 }
 
 export function summarizeNews(articles: Array<{ date: string; title: string; url: string }>) {
