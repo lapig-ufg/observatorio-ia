@@ -6,17 +6,17 @@ import { WeeklyDigest } from "./WeeklyDigest";
 
 import { useArchiveFilters, ShareSearch, ArchiveFilterDetails } from "./ArchiveControls";
 import { matchesSearch, parseNewsPeriod } from "./archiveSearch";
+import { formatPublicDate } from "./dateLabels";
+import { aggregateNewsMonths } from "./newsTimeline";
 
 type Period = "30d" | "all" | number;
 
 function formatDate(date: string) {
-  return new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" })
-    .format(new Date(`${date}T00:00:00Z`)).replace(".", "");
+  return formatPublicDate(date);
 }
 
 function formatMonth(month: string) {
-  return new Intl.DateTimeFormat("pt-BR", { month: "short", year: "numeric", timeZone: "UTC" })
-    .format(new Date(`${month}-01T00:00:00Z`)).replace(".", "");
+  return formatPublicDate(month);
 }
 
 function cutoffDate(lastDate: string, period: Period) {
@@ -85,7 +85,7 @@ export function DailyNewsPage() {
     if (!index) return [];
     const cutoff = cutoffDate(index.lastDate, period);
     return records.filter((article) => {
-      const inPeriod = period === "all" || (period === "30d" ? article.date >= cutoff : article.date.startsWith(`${period}-`));
+      const inPeriod = period === "all" || (period === "30d" ? article.date >= cutoff && article.date <= index.lastDate : article.date.startsWith(`${period}-`));
       const matchesTheme = theme === "todos" || article.theme === theme;
       const matchesSection = section === "todos" || article.sectionGroup === section;
       const matchesStars = stars === "todas" || article.stars === Number(stars);
@@ -94,11 +94,7 @@ export function DailyNewsPage() {
     }).sort((left, right) => right.date.localeCompare(left.date) || left.title.localeCompare(right.title, "pt-BR"));
   }, [index, period, query, records, section, stars, theme]);
 
-  const filteredTimeline = useMemo(() => {
-    if (!index) return [];
-    const cutoff = cutoffDate(index.lastDate, period);
-    return index.monthly.filter(({ month }) => period === "all" || (period === "30d" ? month >= cutoff.slice(0, 7) : month.startsWith(`${period}-`)));
-  }, [index, period]);
+  const filteredTimeline = useMemo(() => aggregateNewsMonths(relevantRecords), [relevantRecords]);
   const maxMonthlyCount = Math.max(...filteredTimeline.map(({ count }) => count), 1);
   const hasFilters = period !== "30d" || theme !== "todos" || section !== "todos" || stars !== "todas" || Boolean(query);
 
@@ -184,7 +180,7 @@ export function DailyNewsPage() {
     </details>
 
     <section className="daily-news-timeline" aria-labelledby="daily-news-timeline-title">
-      <div className="daily-news-section-heading"><div><p className="eyebrow">Linha do tempo</p><h2 id="daily-news-timeline-title">Presença da IA no noticiário</h2></div><p>O volume mensal mostra o ritmo da cobertura no período selecionado.</p></div>
+      <div className="daily-news-section-heading"><div><p className="eyebrow">Linha do tempo</p><h2 id="daily-news-timeline-title">Presença da IA no noticiário</h2></div><p>Matérias da lista agrupadas por mês, respeitando os dias do recorte e os filtros selecionados.</p></div>
       <div className="daily-news-periods" role="group" aria-label="Período da análise">
         <button type="button" className={period === "30d" ? "active" : ""} onClick={() => { setPeriod("30d"); setVisible(10); trackEvent("daily_news_period", { event_label: "30d" }); }}>Últimos 30 dias</button>
         <label className={`daily-news-year-picker ${typeof period === "number" ? "active" : ""}`}>

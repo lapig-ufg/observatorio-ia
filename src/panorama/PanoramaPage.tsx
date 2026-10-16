@@ -67,9 +67,8 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
     return () => window.cancelAnimationFrame(frame);
   }, [route, tab, english]);
 
-  /* A barra de abas é uma linha só, com rolagem horizontal: em 375px elas
-     quebravam em três fileiras. A aba ativa entra na vista ao trocar, para o
-     leitor nunca perder de vista onde está. */
+  /* Em telas maiores a aba ativa entra na vista ao trocar. No celular a
+     grade de duas colunas já mantém todos os destinos visíveis. */
   useEffect(() => {
     activeTabRef.current?.scrollIntoView({ block: "nearest", inline: "center" });
   }, [tab]);

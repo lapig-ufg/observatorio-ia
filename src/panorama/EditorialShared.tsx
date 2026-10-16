@@ -1,3 +1,4 @@
+import { formatPublicDate } from "../dateLabels";
 import { useEffect, useState, type ReactNode } from "react";
 import { trackEvent } from "../analytics";
 import { PANORAMA_SITE } from "../panoramaData";
@@ -42,7 +43,7 @@ export function EditorialExternal({ href, children, english, label = "editorial"
 }
 
 export function EditorialFooter({ english, date, page }: { english: boolean; date: string; page: "gratuitos" | "como-usar" }) {
-  return <footer className="panorama-provenance"><span>{english ? "Curation by LAPIG/UFG · content from the live Panorama" : "Curadoria LAPIG/UFG · conteúdo do Panorama ao vivo"} · <time dateTime={date}>{date}</time></span>
+  return <footer className="panorama-provenance"><span>{english ? "Curation by LAPIG/UFG · content from the live Panorama" : "Curadoria LAPIG/UFG · conteúdo do Panorama ao vivo"} · <time dateTime={date}>{formatPublicDate(date, english ? "en" : "pt")}</time></span>
     <EditorialExternal href={`${PANORAMA_SITE}${english ? "en/" : ""}${page}.html`} english={english}>{english ? "Open the original Panorama" : "Abrir o Panorama original"}</EditorialExternal>
   </footer>;
 }

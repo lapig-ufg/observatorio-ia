@@ -3,6 +3,7 @@ import { ArrowUpRight, BookOpen, FileText, Headphones, Link2, Presentation, Spar
 import { assetUrl, type Article, type ArticleType } from "./catalog";
 import { trackEvent } from "./analytics";
 import { articlePreview, readCatalogLocation, videoThumbnail } from "./catalogExperienceState";
+import { formatPublicDate } from "./dateLabels";
 
 const labels = {
   pt: { medium: "Leituras em IA", documento: "Documentos gerais", "link-video": "Links e vídeos", audio: "Áudios", entrevista: "Entrevistas", paper: "Pesquisa científica", apresentacao: "Apresentações", noticia: "Notícias" },
@@ -114,12 +115,12 @@ export function CatalogCard({ article, english = false, expanded = false, layout
       {expanded ? <h1 tabIndex={-1} id="article-detail-title">{article.title}</h1> : <h3><a id={`title-${article.id}`} href={href} onClick={(event) => onOpen?.(event, article.id)}>{article.title}</a></h3>}
       <p className="byline">{byline}</p>
       <p className="summary">{expanded ? article.summary : articlePreview(article, english)}</p>
-      {!expanded && article.publishedAt && <p className="card-date">{english ? "Published:" : "Publicado em:"} {article.publishedAt}</p>}
+      {!expanded && article.publishedAt && <p className="card-date">{english ? "Published:" : "Publicado em:"} {formatPublicDate(article.publishedAt, english ? "en" : "pt")}</p>}
       <ul className="tag-list" aria-label={english ? "Keywords" : "Palavras-chave"}>{(expanded ? article.tags : article.tags.slice(0, 3)).map((tag) => <li key={tag}>{tag}</li>)}</ul>
       <div className="card-footer">
         {expanded && <dl className="detail-metadata">
-          {article.publishedAt && <><dt>{english ? "Published" : "Publicado em"}</dt><dd>{article.publishedAt}</dd></>}
-          {article.includedAt && <><dt>{english ? "Added to collection" : "Incluído no acervo"}</dt><dd>{article.includedAt}</dd></>}
+          {article.publishedAt && <><dt>{english ? "Published" : "Publicado em"}</dt><dd>{formatPublicDate(article.publishedAt, english ? "en" : "pt")}</dd></>}
+          {article.includedAt && <><dt>{english ? "Added to collection" : "Incluído no acervo"}</dt><dd>{formatPublicDate(article.includedAt, english ? "en" : "pt")}</dd></>}
           {article.pages > 0 && <><dt>{english ? "Pages" : "Páginas"}</dt><dd>{article.pages}</dd></>}
           <dt>{english ? "Topic" : "Tema"}</dt><dd>{article.theme}</dd>
         </dl>}

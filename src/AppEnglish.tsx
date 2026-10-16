@@ -430,7 +430,7 @@ export function AppEnglish() {
           <a href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}>AI in the news</a>
           <a className="panorama-mobile-link" href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama_en")}>Generative AI overview</a>
           <a href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined} onClick={() => trackEvent("nav_ecosystem_en")}>UFG ecosystem</a>
-          <a href={assetUrl("por-dentro-da-ia/")}>Inside AI · interactive lesson</a>
+          <a href={assetUrl("por-dentro-da-ia/")}>Inside AI · interactive lesson (PT)</a>
           <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer">Participate <ArrowUpRight size={15} aria-hidden="true" /></a>
           <div className="mobile-language-switch"><a href={languageUrl("pt")}>Portuguese</a><span aria-current="page">English</span></div>
         </div>
@@ -470,8 +470,8 @@ export function AppEnglish() {
         <h2 id="interactive-experience-title-en">Inside AI <span>From a sentence to the next token</span></h2>
         <p>How does a language model generate a response? Follow a sentence about remote sensing, explore diagrams and try the mathematical operations step by step.</p>
         <p className="interactive-experience-scope">A visual introduction to inference, using GPT-3 as a reference. No prior knowledge of mathematics or programming is required.</p>
-        <a className="interactive-experience-action" href={assetUrl("por-dentro-da-ia/")} onClick={() => trackEvent("open_interactive_inference_en", { event_category: "navigation", event_label: "inside-ai" })}>Inside AI <span aria-hidden="true">→</span></a>
-        <small>Explore the interactive lesson and return to the Observatory using the button in its header.</small>
+        <a className="interactive-experience-action" href={assetUrl("por-dentro-da-ia/")} onClick={() => trackEvent("open_interactive_inference_en", { event_category: "navigation", event_label: "inside-ai" })}>Inside AI (PT) <span aria-hidden="true">→</span></a>
+        <small>The interactive lesson is in Portuguese (PT). Return to the Observatory using the button in its header.</small>
       </div>
       <details className="interactive-experience-journey"><summary>See the learning path</summary>
         <p className="eyebrow">The sentence guiding the journey</p>

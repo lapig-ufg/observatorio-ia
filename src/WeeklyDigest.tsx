@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { assetUrl } from "./catalog";
+import { formatPublicDate } from "./dateLabels";
 
 type Bilingual = { pt: string; en: string };
 type Reference = { id: string; title: string; url: string; date: string };
@@ -19,7 +20,7 @@ export function WeeklyDigest({ collection, english = false }: { collection: "med
   }, [collection]);
   if (!digest) return null;
   const lang = english ? "en" : "pt";
-  const date = (value: string) => new Intl.DateTimeFormat(english ? "en-GB" : "pt-BR", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${value}T00:00:00Z`));
+  const date = (value: string) => formatPublicDate(value, lang);
   const sourceById = new Map(digest.corpus.map(source => [source.id, source]));
   return <section className="weekly-digest" aria-labelledby={`${collection}-digest-title`}>
     <div className="digest-heading"><p className="eyebrow">{english ? "Weekly briefing · latest published edition" : "Síntese da semana · última edição publicada"}</p><span>{date(digest.start)} – {date(digest.end)}</span></div>

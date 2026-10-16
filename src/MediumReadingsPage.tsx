@@ -8,6 +8,7 @@ import type { Article } from "./catalog";
 import { CatalogCard } from "./CatalogExperience";
 import { catalogDate, newestFirst } from "./catalogOrdering";
 import { trackEvent } from "./analytics";
+import { formatPublicDate } from "./dateLabels";
 
 type ReadingSort = "published-newest" | "published-oldest" | "added-newest" | "title";
 
@@ -38,14 +39,8 @@ function readingTheme(article: Article, english: boolean) {
 }
 
 function formatReadingDate(article: Article, english: boolean) {
-  const timestamp = readingTimestamp(article);
-  if (!timestamp) return english ? "Date not available" : "Data não informada";
-  return new Intl.DateTimeFormat(english ? "en-US" : "pt-BR", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(timestamp));
+  const value = catalogDate(article.publishedAt) ? article.publishedAt : article.includedAt;
+  return value ? formatPublicDate(value, english ? "en" : "pt") : english ? "Date not available" : "Data não informada";
 }
 
 function countedOptions(values: string[]) {

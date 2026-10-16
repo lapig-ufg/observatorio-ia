@@ -1,3 +1,4 @@
+import { formatPublicDate } from "../dateLabels";
 import { useEffect, useState, type ReactNode } from "react";
 import { trackEvent } from "../analytics";
 import { PANORAMA_SITE } from "../panoramaData";
@@ -106,7 +107,7 @@ function SceneComparison({ scenes, english }: { scenes: UsageScenes; english: bo
       <h4>{english ? "When to use each" : "Quando usar cada um"}</h4><dl className="panorama-reading-definitions"><div><dt>{english ? "Browser" : "Navegador"}</dt><dd><Prose text={scene.quandoUsar.navegador} /></dd></div><div><dt>{english ? "Installed program" : "Programa instalado"}</dt><dd><Prose text={scene.quandoUsar.instalado} /></dd></div></dl><More items={scene.saibaMais} english={english} />
     </article>
     <nav className="panorama-example-nav" aria-label={english ? "Browse examples" : "Navegar pelos exemplos"}><button type="button" onClick={() => choose((selected + scenes.cenas.length - 1) % scenes.cenas.length)}>← {english ? "Previous example" : "Exemplo anterior"}</button><span>{selected + 1}/{scenes.cenas.length}</span><button type="button" onClick={() => choose((selected + 1) % scenes.cenas.length)}>{english ? "Next example" : "Próximo exemplo"} →</button></nav>
-    <p className="panorama-editorial-meta">{scenes.fontes.navegador.rotulo} · {scenes.fontes.navegador.data}; {scenes.fontes.agente.rotulo} · {scenes.fontes.agente.data}. <a href={usageHref("medicao")}>{english ? "Method and provenance" : "Método e procedência"}</a></p>
+    <p className="panorama-editorial-meta">{scenes.fontes.navegador.rotulo} · {formatPublicDate(scenes.fontes.navegador.data, english ? "en" : "pt")}; {scenes.fontes.agente.rotulo} · {formatPublicDate(scenes.fontes.agente.data, english ? "en" : "pt")}. <a href={usageHref("medicao")}>{english ? "Method and provenance" : "Método e procedência"}</a></p>
   </div>;
 }
 

@@ -255,7 +255,7 @@ export function App() {
       const pageChanged = nextPage !== previousPage.current;
       setPage(nextPage);
       previousPage.current = nextPage;
-      const title = `${pageTitles[nextPage]} | Observatório UFG-IA`;
+      const title = nextPage === "catalog" ? "Observatório UFG-IA | LAPIG/UFG" : `${pageTitles[nextPage]} | Observatório UFG-IA`;
       document.title = title;
       trackPageView(window.location.hash || "/", title);
       if (pageChanged) {
@@ -276,7 +276,7 @@ export function App() {
       }
     };
     window.addEventListener("hashchange", syncPage);
-    const initialTitle = `${pageTitles[pageFromHash()]} | Observatório UFG-IA`;
+    const initialTitle = pageFromHash() === "catalog" ? "Observatório UFG-IA | LAPIG/UFG" : `${pageTitles[pageFromHash()]} | Observatório UFG-IA`;
     document.title = initialTitle;
     trackPageView(window.location.hash || "/", initialTitle);
     return () => window.removeEventListener("hashchange", syncPage);

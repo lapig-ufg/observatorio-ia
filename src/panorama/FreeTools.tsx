@@ -1,3 +1,4 @@
+import { formatPublicDate } from "../dateLabels";
 import { useState } from "react";
 import { trackEvent } from "../analytics";
 import { filterFreeTools, type FreeTool } from "../panoramaEditorial";
@@ -20,7 +21,7 @@ export function FreeTools({ english = false }: { english?: boolean }) {
   ];
   return <div className="panorama-free">
     <h2>{english ? "Free AI tools" : "IAs gratuitas"}</h2>
-    <p className="panorama-editorial-meta">{data.source.attribution} · {english ? "Verified on" : "Verificado em"} <time dateTime={data.source.lastChecked}>{data.source.lastChecked}</time> · <EditorialExternal href={data.source.url} english={english}>{data.source.name}</EditorialExternal></p>
+    <p className="panorama-editorial-meta">{data.source.attribution} · {english ? "Verified on" : "Verificado em"} <time dateTime={data.source.lastChecked}>{formatPublicDate(data.source.lastChecked, english ? "en" : "pt")}</time> · <EditorialExternal href={data.source.url} english={english}>{data.source.name}</EditorialExternal></p>
     <label className="panorama-search"><span>{english ? "Search tools" : "Buscar ferramentas"}</span><input type="search" value={query} placeholder={english ? "Name, model, use…" : "Nome, modelo, uso…"} onChange={e => setQuery(e.target.value)} onBlur={() => {
       if (query.trim()) trackEvent(english ? "panorama_free_search_en" : "panorama_free_search", { event_category: "filter", event_label: "search" });
     }} /></label>
@@ -35,7 +36,7 @@ export function FreeTools({ english = false }: { english?: boolean }) {
       <dl>{fields.map(({ key, label }) => item[key] ? <div key={key}><dt>{label}</dt><dd>{String(item[key])}</dd></div> : null)}</dl>
       <ul className="panorama-free-tags" aria-label={english ? "Tags" : "Etiquetas"}>{item.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
       <footer><EditorialExternal href={item.link} english={english} label={item.id}>{english ? "Access for free" : "Acessar gratuitamente"}</EditorialExternal>
-        <small><EditorialExternal href={item.sourceUrl || data.source.url} english={english} label={`source:${item.id}`}>{english ? "Source" : "Fonte"}</EditorialExternal> · {english ? "Verified" : "Verificado"} <time dateTime={data.source.lastChecked}>{data.source.lastChecked}</time></small>
+        <small><EditorialExternal href={item.sourceUrl || data.source.url} english={english} label={`source:${item.id}`}>{english ? "Source" : "Fonte"}</EditorialExternal> · {english ? "Verified" : "Verificado"} <time dateTime={data.source.lastChecked}>{formatPublicDate(data.source.lastChecked, english ? "en" : "pt")}</time></small>
       </footer>
     </article>)}</div>
     <EditorialFooter date={data.updatedAt} page="gratuitos" english={english} />

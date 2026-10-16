@@ -12,8 +12,7 @@ const html = fs.readFileSync(source, "utf8")
   .replace(/(content=")\.\//g, "$1../")
   .replace('<html lang="pt-BR">', '<html lang="en">')
   .replaceAll("Observatório UFG-IA", "UFG-AI Observatory")
-  .replace("Acervo de leituras sobre inteligência artificial organizado pelo LAPIG/UFG.", "A curated collection of readings on artificial intelligence organized by LAPIG/UFG.")
-  .replace("Artigos de opinião, notícias e ciência aberta sobre inteligência artificial.", "Articles, documents, videos and open science on artificial intelligence.");
+  .replaceAll("Portal do LAPIG/UFG com acervo curado, Panorama da IA para escolher modelos e IAs gratuitas, IA na imprensa, destaque semanal e aula interativa.", "LAPIG/UFG portal with a curated collection, an AI overview to choose models and free AI tools, AI in the news, weekly highlights and an interactive lesson.");
 fs.writeFileSync(destination, html, "utf8");
 
 const built = fs.readFileSync(destination, "utf8");

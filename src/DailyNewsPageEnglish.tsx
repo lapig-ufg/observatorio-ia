@@ -7,6 +7,8 @@ import { englishSectionGroup, englishSourceSection } from "./folhaEnglish";
 
 import { useArchiveFilters, ShareSearch, ArchiveFilterDetails } from "./ArchiveControls";
 import { matchesSearch, parseNewsPeriod } from "./archiveSearch";
+import { formatPublicDate } from "./dateLabels";
+import { aggregateNewsMonths } from "./newsTimeline";
 
 type Period = "30d" | "all" | number;
 
@@ -21,11 +23,11 @@ const themes: Record<string, string> = {
   "Segurança, fraudes e plataformas": "Security, fraud and platforms",
 };
 function dateLabel(date: string) {
-  return new Intl.DateTimeFormat("en-US", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`));
+  return formatPublicDate(date, "en");
 }
 
 function monthLabel(month: string) {
-  return new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${month}-01T00:00:00Z`));
+  return formatPublicDate(month, "en");
 }
 
 function cutoffDate(lastDate: string, period: Period) {
@@ -82,17 +84,13 @@ export function DailyNewsPageEnglish() {
     if (!index) return [];
     const cutoff = cutoffDate(index.lastDate, period);
     return records.filter((article) => {
-      const inPeriod = period === "all" || (period === "30d" ? article.date >= cutoff : article.date.startsWith(`${period}-`));
+      const inPeriod = period === "all" || (period === "30d" ? article.date >= cutoff && article.date <= index.lastDate : article.date.startsWith(`${period}-`));
       const haystack = `${article.title} ${article.section} ${article.theme} ${englishSectionGroup(article.sectionGroup)} ${themes[article.theme] || ""}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
       return inPeriod && (theme === "todos" || article.theme === theme) && (section === "todos" || article.sectionGroup === section)
         && (stars === "todas" || article.stars === Number(stars)) && matchesSearch(haystack, query);
     }).sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title, "pt-BR"));
   }, [index, period, query, records, section, stars, theme]);
-  const timeline = useMemo(() => {
-    if (!index) return [];
-    const cutoff = cutoffDate(index.lastDate, period);
-    return index.monthly.filter(({ month }) => period === "all" || (period === "30d" ? month >= cutoff.slice(0, 7) : month.startsWith(`${period}-`)));
-  }, [index, period]);
+  const timeline = useMemo(() => aggregateNewsMonths(relevantRecords), [relevantRecords]);
   const maximum = Math.max(...timeline.map(({ count }) => count), 1);
   const reset = () => { setPeriod("30d"); setTheme("todos"); setSection("todos"); setStars("todas"); setQuery(""); setVisible(10); trackEvent("daily_news_clear_filters_en"); };
   const hasFilters = period !== "30d" || theme !== "todos" || section !== "todos" || stars !== "todas" || Boolean(query);
@@ -116,7 +114,7 @@ export function DailyNewsPageEnglish() {
       <div className="daily-news-reading-phases" aria-label="Phases of news coverage"><article><p className="eyebrow">November 2022 to June 2023</p><h3>The awakening</h3><p>Coverage shifted from scattered applications to a broad public debate after ChatGPT launched. Safety warnings, regulation, labor disputes, culture and technology markets brought AI into the daily news.</p></article><article><p className="eyebrow">July 2023 to December 2024</p><h3>Institutions and early fractures</h3><p>OpenAI’s governance crisis, copyright disputes, deepfakes, regulation and public-sector use became recurring themes. The series also documents environmental applications, from satellite methane monitoring to wildfire prediction and weather forecasting.</p></article><article><p className="eyebrow">January 2025 onward</p><h3>Competition, infrastructure and uncertainty</h3><p>DeepSeek, data centers, sovereign AI, election campaigns and investment concerns shaped the debate. The archive follows both promised productivity gains and the social, environmental and political costs of deployment.</p></article></div>
       <div className="daily-news-reading-thread"><h3>A thread across the whole series</h3><p>Three tensions recur: concentrated power, consequences for rights and everyday life, and AI’s growing presence in physical territory and the environment. The archive also follows the energy and water demands of AI infrastructure.</p></div>
     </details>
-    <section className="daily-news-timeline" aria-labelledby="daily-news-timeline-title"><div className="daily-news-section-heading"><div><p className="eyebrow">Timeline</p><h2 id="daily-news-timeline-title">AI in the news</h2></div><p>Monthly article counts show the pace of coverage in the selected period.</p></div><div className="daily-news-periods" role="group" aria-label="Analysis period"><button type="button" className={period === "30d" ? "active" : ""} onClick={() => { setPeriod("30d"); setVisible(10); }}>Last 30 days</button><label className={`daily-news-year-picker ${typeof period === "number" ? "active" : ""}`}><span className="sr-only">Select a year</span><select value={typeof period === "number" ? String(period) : ""} onChange={(event) => { const year = Number(event.target.value); if (year) { setPeriod(year); setVisible(10); } }}><option value="" disabled>Select a year</option>{index.years.map((year) => <option value={year} key={year}>{year}</option>)}</select><ChevronDown size={16} aria-hidden="true" /></label><button type="button" className={period === "all" ? "active" : ""} onClick={() => { setPeriod("all"); setVisible(10); }}>Full period</button></div><div className="daily-news-timeline-bars" aria-label="Articles per month">{timeline.map(({ month, count }) => <div key={month} className="daily-news-month"><span className="daily-news-month-label">{monthLabel(month)}</span><span className="daily-news-month-track"><span style={{ width: `${count / maximum * 100}%` }} /></span><strong>{count}</strong></div>)}</div></section>
+    <section className="daily-news-timeline" aria-labelledby="daily-news-timeline-title"><div className="daily-news-section-heading"><div><p className="eyebrow">Timeline</p><h2 id="daily-news-timeline-title">AI in the news</h2></div><p>Articles in the list grouped by month, respecting the exact date range and selected filters.</p></div><div className="daily-news-periods" role="group" aria-label="Analysis period"><button type="button" className={period === "30d" ? "active" : ""} onClick={() => { setPeriod("30d"); setVisible(10); }}>Last 30 days</button><label className={`daily-news-year-picker ${typeof period === "number" ? "active" : ""}`}><span className="sr-only">Select a year</span><select value={typeof period === "number" ? String(period) : ""} onChange={(event) => { const year = Number(event.target.value); if (year) { setPeriod(year); setVisible(10); } }}><option value="" disabled>Select a year</option>{index.years.map((year) => <option value={year} key={year}>{year}</option>)}</select><ChevronDown size={16} aria-hidden="true" /></label><button type="button" className={period === "all" ? "active" : ""} onClick={() => { setPeriod("all"); setVisible(10); }}>Full period</button></div><div className="daily-news-timeline-bars" aria-label="Articles per month">{timeline.map(({ month, count }) => <div key={month} className="daily-news-month"><span className="daily-news-month-label">{monthLabel(month)}</span><span className="daily-news-month-track"><span style={{ width: `${count / maximum * 100}%` }} /></span><strong>{count}</strong></div>)}</div></section>
 
   </section>;
 }

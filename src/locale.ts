@@ -20,7 +20,7 @@ export function languageUrl(locale: Locale) {
     : locale === "en" && currentHash === "#ia-como-noticia-diaria" ? "#daily-news"
     : locale === "pt" && currentHash === "#daily-news" ? "#ia-como-noticia-diaria" : currentHash;
   const mappedHash = locale === "en"
-    ? ({ "#catalogo": "#catalog", "#categorias": "#collections", "#palavras-chave": "#topics" }[hash] || hash)
-    : ({ "#catalog": "#catalogo", "#collections": "#categorias", "#topics": "#palavras-chave" }[hash] || hash);
+    ? ({ "#catalogo": "#catalog", "#categorias": "#collections", "#palavras-chave": "#topics", "#experiencias-interativas": "#interactive-experiences" }[hash] || hash)
+    : ({ "#catalog": "#catalogo", "#collections": "#categorias", "#topics": "#palavras-chave", "#interactive-experiences": "#experiencias-interativas" }[hash] || hash);
   return locale === "en" ? `./en/${window.location.search}${mappedHash}` : `../${window.location.search}${mappedHash}`;
 }
