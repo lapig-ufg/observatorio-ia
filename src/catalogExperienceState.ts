@@ -35,12 +35,13 @@ export function articlePreview(article: Article, english: boolean) {
   return english ? `Topics covered: ${topics}.` : `Temas abordados: ${topics}.`;
 }
 
-export function videoThumbnail(url: string) {
+// mqdefault (320 px) basta nos cartões pequenos; cartões grandes pedem hqdefault ou maxresdefault.
+export function videoThumbnail(url: string, size: "mqdefault" | "hqdefault" | "maxresdefault" = "mqdefault") {
   try {
     const parsed = new URL(url);
     const host = parsed.hostname.replace(/^www\./, "");
     const id = host === "youtu.be" ? parsed.pathname.slice(1) : ["youtube.com", "m.youtube.com"].includes(host)
       ? parsed.searchParams.get("v") || parsed.pathname.match(/^\/(?:live|shorts|embed)\/([^/]+)/)?.[1] : "";
-    return id && /^[\w-]{11}$/.test(id) ? `https://i.ytimg.com/vi/${id}/mqdefault.jpg` : "";
+    return id && /^[\w-]{11}$/.test(id) ? `https://i.ytimg.com/vi/${id}/${size}.jpg` : "";
   } catch { return ""; }
 }
