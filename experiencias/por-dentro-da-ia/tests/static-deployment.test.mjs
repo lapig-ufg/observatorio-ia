@@ -4,7 +4,7 @@ import test from "node:test";
 
 test("all built local assets resolve under the GitHub Pages project path", () => {
   const html = readFileSync("dist/index.html", "utf8");
-  const paths = [...html.matchAll(/(?:src|href)="(\/[^"#]+)"/g)].map(match => match[1]);
+  const paths = [...html.matchAll(/(?:src|href)="(\/[^"#]+)"/g)].map(match => new URL(match[1], "https://lapig-ufg.github.io").pathname);
   assert.ok(paths.some(path => path.endsWith(".js")));
   assert.ok(paths.some(path => path.endsWith(".css")));
   for (const path of paths) {

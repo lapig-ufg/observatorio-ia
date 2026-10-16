@@ -467,3 +467,22 @@ body { min-width: 0; font-size: 16px; }
   .hero-search { gap: 8px; }.hero-search button { flex: 1 1 100%; }
   .hero-search input { min-height: 44px; }
 }
+
+/* Official owl: preserve its silhouette and keep the name readable on narrow screens. */
+.topbar .brand { gap: 10px; }
+.topbar .brand-mark { width: 48px; height: 44px; border-radius: 0; background: none; box-shadow: none; }
+.topbar .brand-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.topbar .brand-name { gap: 0; }
+.topbar .brand-name strong:first-child { font-family: Georgia, "Times New Roman", serif; font-size: 21px; font-weight: 700; letter-spacing: -0.035em; line-height: 1.08; color: #114d3b; }
+.topbar .brand-name strong:last-child { margin-top: 5px; font-size: 8px; font-weight: 700; letter-spacing: 0.1em; line-height: 1.2; text-transform: uppercase; color: #315e4d; }
+@media (max-width: 700px) {
+  .topbar .brand { gap: 7px; }
+  .topbar .brand-mark { width: 41px; height: 38px; }
+  .topbar .brand-name strong:first-child { font-size: 19px; }
+  .topbar .brand-name strong:last-child { font-size: 7px; letter-spacing: 0.07em; }
+}
+@media (max-width: 360px) {
+  .topbar .brand-mark { width: 36px; height: 34px; }
+  .topbar .brand-name strong:first-child { font-size: 17px; }
+  .topbar .brand-name strong:last-child { font-size: 6.5px; letter-spacing: 0.02em; }
+}

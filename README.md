@@ -36,6 +36,12 @@ Drive; a planilha publica somente os links de leitura definidos para cada item.
 - `scripts/build-catalog.mjs`: atualização local do CSV, das capas e do controle de duplicatas.
 - `.github/workflows/deploy-pages.yml`: teste, build e publicação automática no GitHub Pages.
 
+## Marca do Observatório
+
+A marca oficial é a coruja da opção 01, aprovada em 16/10/2026. `public/brand/observatorio-coruja.svg` contém a versão vetorial do símbolo original, com fundo transparente, olhos brancos e cores planas verde `#114d3b` e terracota `#d76832`. Preservar a assimetria, o contorno e o desenho dos olhos; a imagem de referência permanece em `public/logos/assets/opcao-1.png`.
+
+Os cabeçalhos português e inglês usam esse mesmo símbolo, acompanhado do nome em Georgia. O favicon usa a mesma arte sobre uma base clara para manter o contraste em abas claras e escuras. Há versões SVG, PNG de 32 pixels, ICO de 16/32/48/64 pixels e Apple Touch Icon de 180 pixels. A aula interativa e a página de propostas usam a mesma identidade. Ao atualizar os ícones, atualizar também a versão `coruja-1` nos links para invalidar o cache do navegador.
+
 ## Marcas institucionais
 
 O cabeçalho em português e inglês usa `public/brand/lapig-iesa-ufg-approved.svg`, a composição aprovada pela comunicação da UFG. Preservar a imagem inteira, suas cores, os nomes por extenso e as proporções; não substituir por símbolos isolados.

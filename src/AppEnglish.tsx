@@ -5,7 +5,6 @@ import {
   ChevronDown,
   Clock3,
   FileText,
-  Library,
   LoaderCircle,
   Menu,
   RefreshCw,
@@ -420,7 +419,7 @@ export function AppEnglish() {
     <a className="skip-link" href={page === "readings" ? "#readings-results-title" : "#catalog"}>{page === "readings" ? "Skip to readings" : "Skip to catalog"}</a>
     <InstitutionalBand english />
     <header className="topbar">
-      <a className="brand" href="#top" onClick={() => { if (item) closeDetail(); }} aria-label="UFG-AI Observatory — home"><span className="brand-mark"><Library size={21} aria-hidden="true" /></span><span className="brand-name"><strong>Observatory</strong><strong>UFG-AI</strong></span></a>
+      <a className="brand" href="#top" onClick={() => { if (item) closeDetail(); }} aria-label="UFG-AI Observatory — home"><span className="brand-mark"><img src={assetUrl("brand/observatorio-coruja.svg")} width="946" height="826" alt="" /></span><span className="brand-name"><strong>Observatory</strong><strong>UFG · Artificial Intelligence</strong></span></a>
       <nav className="primary-navigation" aria-label="Main navigation"><a className="readings-nav-link" href="#ai-readings" aria-current={page === "readings" ? "page" : undefined}>AI Readings</a><a className="daily-news-nav-link" href="#daily-news" aria-current={page === "daily-news" ? "page" : undefined}>AI in the news</a><a className="panorama-nav-link" href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama_en")}>Generative AI overview</a><a href="#ufg-ecosystem" aria-current={page === "ecosystem" ? "page" : undefined}>UFG ecosystem</a><NavigationMore english /></nav>
 <div className="language-switch" aria-label="Language"><a href={languageUrl("pt")}>Portuguese</a><span aria-current="page">English</span></div>
       <a className="header-search" href="#catalog" onClick={revealCatalog} aria-label="Search collection"><Search size={21} aria-hidden="true" /></a>

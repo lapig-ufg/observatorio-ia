@@ -5,7 +5,6 @@ import {
   ChevronDown,
   Clock3,
   FileText,
-  Library,
   LoaderCircle,
   Menu,
   RefreshCw,
@@ -386,8 +385,8 @@ export function App() {
       <InstitutionalBand />
     <header className="topbar">
         <a className="brand" href="#top" onClick={() => { if (item) closeDetail(); }} aria-label="Observatório UFG-IA - início">
-          <span className="brand-mark"><Library size={21} aria-hidden="true" /></span>
-          <span className="brand-name"><strong>Observatório</strong><strong>UFG-IA</strong></span>
+          <span className="brand-mark"><img src={assetUrl("brand/observatorio-coruja.svg")} width="946" height="826" alt="" /></span>
+          <span className="brand-name"><strong>Observatório</strong><strong>UFG · Inteligência Artificial</strong></span>
         </a>
         <nav className="primary-navigation" aria-label="Navegação principal"><a className="readings-nav-link" href="#leituras-em-ia" aria-current={page === "readings" ? "page" : undefined}>Leituras em IA</a><a className="daily-news-nav-link" href="#ia-como-noticia-diaria" aria-current={page === "daily-news" ? "page" : undefined}>IA como notícia diária</a><a className="panorama-nav-link" href="#panorama" aria-current={page === "panorama" ? "page" : undefined} onClick={() => trackEvent("nav_panorama")}>Panorama da IA generativa</a><a href="#ecossistema-ufg" aria-current={page === "ecosystem" ? "page" : undefined}>Ecossistema UFG</a><NavigationMore /></nav>
   <div className="language-switch" aria-label="Idioma">
