@@ -91,6 +91,9 @@ const editions = {
   },
 } as const;
 
+// O Sobre reaproveita a data editorial da edição, sem manter uma segunda cópia.
+export const featuredPeriod = { label: editions.pt.period.split(" · ")[0] };
+
 function MaterialIcon({ kind }: { kind: MaterialKind }) {
   if (kind === "audio") return <Headphones size={15} aria-hidden="true" />;
   if (kind === "presentation") return <Presentation size={15} aria-hidden="true" />;

@@ -5087,18 +5087,7 @@ body {
   background: #f7f9f7;
 }
 
-.home-page > .catalog-intro { order: 1; }
-.home-page > .category-band { order: 2; }
-.home-page > .weekly-highlight { order: 3; }
-.home-page > .search-panel { order: 4; }
-.home-page > .results-heading,
-.home-page > .loading-state,
-.home-page > .empty-state { order: 5; }
-.home-page > .article-grid { order: 6; }
-.home-page > .load-more { order: 7; }
-.home-page > .interactive-experience { order: 8; }
-.home-page > .obia-callout { order: 9; }
-.home-page > .keyword-cloud-section { order: 10; }
+/* A ordem de leitura segue o DOM nas duas versões do portal. */
 
 .topbar {
   position: sticky;

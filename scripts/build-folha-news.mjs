@@ -1,3 +1,4 @@
+import { writeNewsSummary } from "./news-summary.mjs";
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -307,3 +308,5 @@ const index = {
 };
 await fs.writeFile(path.join(outputDirectory, "index.json"), `${JSON.stringify(index, null, 2)}\n`);
 console.log(`Folha IA: ${articles.length} matérias de ${sourceFiles.length} arquivo(s), ${years.length} anos, ${daysCovered} dias. ${exactDuplicates} duplicada(s) idêntica(s) ignorada(s), ${revisedArticles} versão(ões) mais nova(s) aplicada(s), ${canonicalUrlDuplicates} par(es) canônico(s) de data e URL consolidados, ${overrides.size} tema(s) editorial(is) aplicado(s).`);
+
+await writeNewsSummary(outputDirectory, articles);

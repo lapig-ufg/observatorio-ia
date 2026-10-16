@@ -68,8 +68,8 @@ test('real weekly generation is repeatable and a broken edition leaves BOTH publ
   for (const [i, file] of targets.entries()) assert.equal(fs.readFileSync(file, 'utf8'), before[i].content);
 });
 
-test('Panorama is a direct bilingual header link, without a Categories link or duplicate in More', () => {
-  for (const file of ['src/App.tsx', 'src/AppEnglish.tsx']) {
+test('English Panorama remains a direct header link, without a Categories link or duplicate in More', () => {
+  for (const file of ['src/AppEnglish.tsx']) {
     const app = fs.readFileSync(file, 'utf8');
     const header = app.slice(app.indexOf('<header className="topbar">'), app.indexOf('</header>'));
     assert.match(header, /className="panorama-nav-link" href="#panorama"/);
@@ -79,13 +79,20 @@ test('Panorama is a direct bilingual header link, without a Categories link or d
   assert.doesNotMatch(fs.readFileSync('src/NavigationMore.tsx', 'utf8'), /href="#panorama"/);
 });
 
-test('desktop navigation uses equal slots and gives the permanent emphasis to Panorama', () => {
+test('English desktop navigation preserves equal slots and permanent emphasis on Panorama', () => {
   const styles = fs.readFileSync('src/portal.css', 'utf8');
   assert.match(styles, /grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/);
   assert.match(styles, /\.topbar nav \.panorama-nav-link\s*\{[^}]*background: #fff9ea;/s);
   assert.doesNotMatch(styles, /\.topbar nav \.readings-nav-link\s*\{[^}]*background:/s);
-  for (const file of ['src/App.tsx', 'src/AppEnglish.tsx']) {
+  for (const file of ['src/AppEnglish.tsx']) {
     const app = fs.readFileSync(file, 'utf8');
     assert.match(app, /className="panorama-mobile-link" href="#panorama"/);
   }
+});
+
+test("Portuguese Panorama opens explicit submenu destinations", () => {
+  const nav=fs.readFileSync("src/portalStructure.ts","utf8");
+  assert.match(nav, /label: "Panorama"/);
+  for (const route of ["#panorama", "#panorama/guia", "#panorama/gratuitos", "#panorama/como-usar"]) assert.ok(nav.includes(route));
+  assert.match(fs.readFileSync("src/PortalNavigation.tsx","utf8"), /aria-expanded/);
 });

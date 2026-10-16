@@ -25,7 +25,7 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
   const [type, setType] = useState<A | ArticleType>(initial.type);
   const [theme, setTheme] = useState(initial.theme);
   const [visible, setVisible] = useState(initial.visible);
-  const [showAll, setShowAll] = useState(initial.showAll || ["#catalogo", "#catalog"].includes(window.location.hash));
+  const [showAll, setShowAll] = useState(initial.showAll || ["#acervo", "#acervo/colecoes", "#acervo/radar", "#catalogo", "#catalog"].includes(window.location.hash));
   const [sort, setSort] = useState(initial.sort);
   const [view, setView] = useState(initial.view);
   const [item, setItem] = useState(initial.item);
@@ -56,7 +56,7 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
     };
     window.addEventListener("popstate", restore);
     const leaveDetail = () => {
-      if (["#catalogo", "#catalog"].includes(window.location.hash)) setShowAll(true);
+      if (["#acervo", "#acervo/colecoes", "#acervo/radar", "#catalogo", "#catalog"].includes(window.location.hash)) setShowAll(true);
       if (window.location.hash !== "#item") {
         const url = new URL(window.location.href);
         url.searchParams.delete("item");
@@ -87,14 +87,15 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
   const closeDetail = () => {
     if (returnPosition.current && window.history.state?.catalogDetail) window.history.back();
     else {
-      const url = new URL(window.location.href); url.searchParams.delete("item"); url.hash = all === "todos" ? "catalogo" : "catalog";
+      const url = new URL(window.location.href); url.searchParams.delete("item"); url.hash = all === "todos" ? "acervo" : "catalog";
       window.history.replaceState(null, "", url); setItem(""); setShowAll(true);
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
     }
   };
   return { added, setAdded, query, setQuery, selectedKeyword, setSelectedKeyword, type, setType, theme, setTheme, visible, setVisible, showAll, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, allTopics, setAllTopics, detailHref, openDetail, closeDetail };
 }
 
-export function CatalogCard({ article, english = false, expanded = false, layout = "cards", href, onOpen }: { article: Article; english?: boolean; expanded?: boolean; layout?: "cards" | "list"; href?: string; onOpen?: (event: MouseEvent<HTMLAnchorElement>, id: string) => void }) {
+export function CatalogCard({ article, position = "catalog", english = false, expanded = false, layout = "cards", href, onOpen }: { article: Article; position?: string; english?: boolean; expanded?: boolean; layout?: "cards" | "list"; href?: string; onOpen?: (event: MouseEvent<HTMLAnchorElement>, id: string) => void }) {
   const Icon = icons[article.type];
   const typeLabel = labels[english ? "en" : "pt"][article.type];
   const thumbnail = videoThumbnail(article.originalUrl);
@@ -126,7 +127,7 @@ export function CatalogCard({ article, english = false, expanded = false, layout
         </dl>}
         <div className="article-actions">
           {!expanded && <a id={`summary-${article.id}`} className="secondary-action summary-action" href={href} onClick={(event) => onOpen?.(event, article.id)} aria-label={`${english ? "Read summary" : "Ver resumo"}: ${article.title}`}>{english ? "Read summary" : "Ver resumo"}</a>}
-          {primaryUrl ? <a className="article-action" href={primaryUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_article", { event_category: "article", event_label: article.id, article_type: article.type })}>{action} <ArrowUpRight size={17} aria-hidden="true" /></a> : <span>{english ? "Link under review" : "Link em revisão"}</span>}
+          {primaryUrl ? <a className="article-action" href={primaryUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_article", { event_category: "article", event_label: article.id, article_type: article.type, position })}>{action} <ArrowUpRight size={17} aria-hidden="true" /></a> : <span>{english ? "Link under review" : "Link em revisão"}</span>}
           {expanded && article.type !== "medium" && article.institutionalPdfUrl && article.originalUrl && article.institutionalPdfUrl !== article.originalUrl && <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer">{english ? "Institutional PDF" : "PDF institucional"} <ArrowUpRight size={16} aria-hidden="true" /></a>}
         </div>
       </div>

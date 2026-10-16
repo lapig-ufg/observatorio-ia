@@ -10,7 +10,7 @@ const cards = fs.readFileSync("src/CatalogExperience.tsx", "utf8");
 const styles = fs.readFileSync("src/portal.css", "utf8");
 
 test("Leituras em IA has equivalent Portuguese and English routes in the header and mobile menu", () => {
-  assert.match(portuguese, /href="#leituras-em-ia"/);
+  assert.match(fs.readFileSync("src/portalStructure.ts", "utf8"), /href: "#leituras-em-ia"/);
   assert.match(portuguese, /page === "readings" \? <MediumReadingsPage/);
   assert.match(english, /href="#ai-readings"/);
   assert.match(english, /page === "readings" \? <MediumReadingsPage/);

@@ -78,7 +78,7 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
   return (
     <section id="panorama" className="panorama-page" aria-labelledby="panorama-title">
       <div className="panorama-intro">
-        <a className="back-to-catalog" href="#top" onClick={() => trackEvent(english ? "back_to_catalog_en" : "back_to_catalog")}>
+        <a className="back-to-catalog" href={english ? "#top" : "#acervo"} onClick={() => trackEvent(english ? "back_to_catalog_en" : "back_to_catalog")}>
           ← {english ? "Back to the collection" : "Voltar ao acervo"}
         </a>
         <div className="panorama-heading">

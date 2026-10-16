@@ -14,7 +14,7 @@ test("the catalog loads once instead of polling every minute", () => {
 });
 
 test("both languages expose catalog search in the opening section", () => {
-  assert.match(portuguese, /className="hero-search"/);
+  assert.match(portuguese, /className="hero-search pt-hero-search"/);
   assert.match(portuguese, /id="hero-search-pt"/);
   assert.match(portuguese, /search_from_hero/);
   assert.match(english, /className="hero-search"/);
@@ -30,8 +30,8 @@ test("section changes update the browser title, scroll and keyboard focus", () =
   }
 });
 
-test("the header has a compact navigation mode without horizontal scrolling", () => {
-  for (const source of [portuguese, english]) {
+test("the English header preserves its compact navigation mode", () => {
+  for (const source of [english]) {
     assert.match(source, /className="primary-navigation"/);
     assert.match(source, /className="mobile-navigation"/);
   }
@@ -40,8 +40,8 @@ test("the header has a compact navigation mode without horizontal scrolling", ()
   assert.match(styles, /\.mobile-navigation-panel[\s\S]*width: min\(340px, calc\(100vw - 32px\)\)/);
 });
 
-test("both languages present the collection as a portal before editorial modules", () => {
-  for (const source of [portuguese, english]) {
+test("English preserves collections and editorial modules on its home page", () => {
+  for (const source of [english]) {
     assert.match(source, /className="home-page"/);
     assert.match(source, /<PortalCollections/);
     assert.match(source, /className="search-panel"/);
@@ -51,8 +51,12 @@ test("both languages present the collection as a portal before editorial modules
     assert.match(source, /<TopicRadar/);
   }
 
-  assert.match(styles, /\.home-page > \.catalog-intro \{ order: 1; \}/);
-  assert.match(styles, /\.home-page > \.category-band \{ order: 2; \}/);
-  assert.match(styles, /\.home-page > \.weekly-highlight \{ order: 3; \}/);
-  assert.match(styles, /\.home-page > \.search-panel \{ order: 4; \}/);
+});
+
+test("Portuguese portal uses D1–D9 navigation and DOM order", () => {
+  assert.match(portuguese, /<PortalNavigation/);
+  assert.match(portuguese, /className="pt-home-page"/);
+  assert.match(portuguese, /className="pt-acervo-page"/);
+  assert.doesNotMatch(portuguese, /obia-callout|<NavigationMore/);
+  assert.match(fs.readFileSync("src/prototype.css", "utf8"), /@media \(max-width: 1023px\)/);
 });

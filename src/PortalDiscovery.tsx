@@ -5,10 +5,10 @@ import { CatalogCard } from "./CatalogExperience";
 import { homeCollections, recentDiscovery } from "./discoverySelection";
 
 const names = {
-  pt: { documento: "Documentos gerais", "link-video": "Links e vídeos", audio: "Áudios", entrevista: "Entrevistas", paper: "IA na pesquisa científica", apresentacao: "Apresentações" },
-  en: { documento: "General documents", "link-video": "Links and videos", audio: "Audio", entrevista: "Interviews", paper: "AI in scientific research", apresentacao: "Presentations" },
+  pt: { medium: "Leituras em IA", documento: "Documentos gerais", "link-video": "Links e vídeos", audio: "Áudios", entrevista: "Entrevistas", paper: "IA na pesquisa científica", apresentacao: "Apresentações" },
+  en: { medium: "AI readings", documento: "General documents", "link-video": "Links and videos", audio: "Audio", entrevista: "Interviews", paper: "AI in scientific research", apresentacao: "Presentations" },
 };
-const icons = { documento: FileText, "link-video": Video, audio: Headphones, entrevista: Video, paper: BookOpen, apresentacao: Presentation };
+const icons = { medium: BookOpen, documento: FileText, "link-video": Video, audio: Headphones, entrevista: Video, paper: BookOpen, apresentacao: Presentation };
 
 export function PortalCollections({ articles, type, onSelect, onExplore, english = false }: { articles: Article[]; type: string; onSelect: (type: ArticleType) => void; onExplore: () => void; english?: boolean }) {
   return <section id={english ? "collections" : "categorias"} className="category-band" aria-labelledby="category-title">
@@ -16,7 +16,7 @@ export function PortalCollections({ articles, type, onSelect, onExplore, english
       <div><p className="eyebrow">{english ? "Collections" : "Coleções"}</p><h2 id="category-title">{english ? "What would you like to explore?" : "O que você quer explorar?"}</h2></div>
       <button className="text-action" onClick={onExplore}>{english ? "Search all content" : "Pesquisar todo o acervo"} <ArrowRight size={18} aria-hidden="true" /></button>
     </div>
-    <div className="category-grid">{homeCollections.map(category => {
+    <div className="category-grid">{(english ? homeCollections : [...homeCollections, "medium" as const]).map(category => {
       const key = category as keyof typeof icons;
       const Icon = icons[key];
       return <button type="button" key={key} className={`category-button category-${key}${type === key ? " active" : ""}`} onClick={() => onSelect(category)} aria-pressed={type === key}>

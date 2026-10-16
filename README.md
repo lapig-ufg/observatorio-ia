@@ -44,7 +44,7 @@ Os cabeçalhos português e inglês usam esse mesmo símbolo, acompanhado do nom
 
 ## Marcas institucionais
 
-O cabeçalho em português e inglês usa `public/brand/lapig-iesa-ufg-approved.svg`, a composição aprovada pela comunicação da UFG. Preservar a imagem inteira, suas cores, os nomes por extenso e as proporções; não substituir por símbolos isolados.
+A faixa institucional usa `public/brand/lapig-iesa-ufg-approved.svg`, a composição aprovada pela comunicação da UFG. No protótipo português, ela aparece no rodapé compartilhado; o inglês mantém a faixa no cabeçalho. Preservar a imagem inteira, suas cores, os nomes por extenso e as proporções; não substituir por símbolos isolados.
 
 `InstitutionalBand` apresenta a arte vetorial original (viewBox 1127,49 × 265,53), com largura de exibição de 420 pixels, centralizada sobre fundo branco e reduzida proporcionalmente em telas estreitas. Três áreas de link sobre a imagem mantêm os destinos de LAPIG, IESA e UFG, com larguras proporcionais de 140:120:160, nomes acessíveis e foco visível. O teste da identidade do arquivo protege a composição aprovada contra substituições acidentais.
 
