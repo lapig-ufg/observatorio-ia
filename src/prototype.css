@@ -266,3 +266,10 @@
   .pt-home-page .featured-reading { margin-top: 12px; }
   .pt-home-page .weekly-highlight-history-toggle { justify-content: center; margin-top: 8px; }
 }
+
+/* A linha laranja era a assinatura do destaque semanal; volta em todas as larguras, agora de ponta a ponta. */
+.pt-site-shell .pt-home-page > .weekly-highlight { border-top: 5px solid var(--portal-orange); }
+/* "Em destaque" ganha um traço de marca-texto laranja: destaca o título sem a pílula escura e mantém o H2 no padrão das seções. */
+.pt-home-page > .weekly-highlight .pt-section-eyebrow { color: #a8461f; }
+.pt-home-page > .weekly-highlight .pt-section-heading h2 { justify-self: start; padding: 0 4px; margin-left: -4px; background: linear-gradient(transparent 58%, color-mix(in srgb, var(--portal-orange) 32%, transparent) 58%, color-mix(in srgb, var(--portal-orange) 32%, transparent) 92%, transparent 92%); }
+@media (max-width: 600px) { .pt-site-shell .pt-home-page > .weekly-highlight { border-top-width: 4px; } }
