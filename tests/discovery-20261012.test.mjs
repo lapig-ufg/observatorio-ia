@@ -39,6 +39,7 @@ test('equivalent historical labels resolve to bilingual topic IDs without mergin
   assert.equal(readingTopic('Agents, RACs and applications', true).label, 'Agents, RAG and applications');
   assert.equal(readingTopic('Transformers e atenção').id, readingTopic('Transformers and attention mechanisms').id);
   assert.notEqual(readingTopic('Cultura, sociedade e comportamento').id, readingTopic('Estratégia, mercado e impactos').id);
+  assert.equal(readingSubtopic('Technology, politics, and imaginations of the future.').id, readingSubtopic('Tecnologia, política e imaginários do futuro').id);
   assert.deepEqual(readingTopic('Unknown subject'), { id:'Unknown subject', label:'Unknown subject' });
 });
 

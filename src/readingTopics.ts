@@ -37,7 +37,7 @@ const subgroups = [
   ["neural-networks", "Redes neurais e aprendizado", "Neural networks and learning"],
   ["ai-governance", "Regulação e governança de IA", "AI regulation and governance"],
   ["unspecified", "Sem subtema", "No subtopic"],
-  ["imaginaries", "Tecnologia, política e imaginários do futuro", "Technology, politics, and imaginaries of the future"],
+  ["imaginaries", "Tecnologia, política e imaginários do futuro", "Technology, politics, and imaginaries of the future", "Technology, politics, and imaginations of the future"],
   ["attention", "Transformers e atenção", "Transformers and attention", "Transformers e mecanismos de atenção", "Transformers and attention mechanisms"],
 ];
 export function readingSubtopic(value: string, english = false) {
