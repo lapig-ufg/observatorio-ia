@@ -1,6 +1,6 @@
 {
-  "total": 6727,
-  "lastDate": "2026-10-10",
+  "total": 6818,
+  "lastDate": "2026-10-17",
   "monthlyCounts": [
     {
       "month": "2025-11",
@@ -48,24 +48,24 @@
     },
     {
       "month": "2026-10",
-      "count": 111
+      "count": 202
     }
   ],
   "articles": [
     {
-      "date": "2026-10-10",
-      "title": "Filho de Lira, eleito antes da idade em lei, fez campanha no rastro da projeção do pai — vídeo sintético do avô falecido foi usado na campanha do deputado eleito",
-      "url": "https://www1.folha.uol.com.br/poder/2026/10/filho-de-lira-eleito-antes-da-idade-em-lei-fez-campanha-no-rastro-da-projecao-do-pai.shtml"
+      "date": "2026-10-17",
+      "title": "'Óculos pervertidos': versão sem câmera poderá salvar o produto da Meta? — debate sobre privacidade e câmeras em óculos com IA",
+      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/oculos-pervertidos-versao-sem-camera-podera-salvar-o-produto-da-meta.shtml"
     },
     {
-      "date": "2026-10-09",
-      "title": "Anthropic proíbe comportamento 'cruel' de usuários contra sua IA Claude — nova política restringe interações abusivas e reacende debate sobre consciência de modelos",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/anthropic-proibe-comportamento-cruel-de-usarios-contra-sua-ia-claude.shtml"
+      "date": "2026-10-16",
+      "title": "'Flaviômetro' mostra que metade dos apoiadores do candidato do PL se omitem no 2º turno — ferramenta criada por apoiadores usa IA para acompanhar engajamento político",
+      "url": "https://www1.folha.uol.com.br/colunas/painel/2026/10/flaviometro-mostra-que-metade-dos-apoiadores-do-candidato-do-pl-se-omitem-no-2o-turno.shtml"
     },
     {
-      "date": "2026-10-09",
-      "title": "Empresa australiana de data centers apoiada pela Nvidia desiste de IPO de US$ 5 bilhões — cancelamento de oferta bilionária sinaliza cautela com infraestrutura de IA",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/empresa-australiana-de-data-centers-apoiada-pela-nvidia-desiste-de-ipo-de-us-5-bilhoes.shtml"
+      "date": "2026-10-16",
+      "title": "A eleição e a dependência das plataformas — análise relaciona IA, publicidade e infraestrutura de comunicação eleitoral",
+      "url": "https://www1.folha.uol.com.br/tec/2026/10/a-eleicao-e-a-dependencia-das-plataformas.shtml"
     }
   ]
 }

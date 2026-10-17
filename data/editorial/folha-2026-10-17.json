@@ -1,0 +1,163 @@
+{
+  "collection": "folha",
+  "start": "2026-10-11",
+  "end": "2026-10-17",
+  "reviewedAt": "2026-10-17",
+  "expectedCount": 84,
+  "title": {
+    "pt": "Eleições, segurança de agentes e a conta da expansão",
+    "en": "Elections, agent safety and the cost of expansion"
+  },
+  "summary": {
+    "pt": "As 84 matérias selecionadas de 11 a 17 de outubro, até 07:16 de sábado, aproximam três disputas: quem governa as plataformas nas eleições, como conter agentes mais autônomos e quem paga pela expansão da IA. A cobertura sobre respostas assimétricas da Meta AI e decisões do TSE transforma a neutralidade das ferramentas em questão institucional. Alertas de pesquisadores e empresas convivem com preparação regulatória e bancária; não devem ser confundidos com comprovação de todos os cenários anunciados. Nos mercados, dúvidas sobre dívida e receitas contrastam com novos modelos e capacidade de chips. Ciência, cultura, saúde e trabalho mostram aplicações e conflitos concretos, sem eliminar a necessidade de validação independente.",
+    "en": "The 84 selected articles published from 11 to 17 October, up to 07:16 São Paulo time on Saturday, connect three debates: who governs platforms during elections, how to contain more autonomous agents and who pays for AI expansion. Coverage of asymmetric Meta AI responses and electoral-court decisions turns tool neutrality into an institutional issue. Researcher and company warnings coexist with regulatory and banking preparations; they should not be mistaken for proof of every projected scenario. In markets, concerns about debt and revenue contrast with new models and chip capacity. Science, culture, health and work reveal applications and concrete disputes without removing the need for independent validation."
+  },
+  "method": {
+    "pt": "Corpus: 84 matérias de 11–17/10/2026, com corte efetivo em 17/10 às 07:16:07 (America/Sao_Paulo, UTC−3). Busca autenticada de 10–17/10: 150 resultados em seis páginas completas. A sobreposição recuperou sete matérias do dia 10 ainda ausentes; elas integram o arquivo cumulativo, mas não as 84 desta síntese. Ao todo foram acrescentados 91 registros, com 55 exclusões editoriais e quatro deduplicações. Síntese baseada em títulos e notas do levantamento e leitura adicional de originais para destaques e dúvidas, não em releitura integral de todas as reportagens. Os oito assuntos são agrupamentos editoriais, não medição de tendências de toda a sociedade. Propostas, alertas, anúncios, opinião e resultados são diferenciados. Links podem exigir assinatura; o restante do sábado não está coberto.",
+    "en": "Corpus: 84 articles published on 11–17 October 2026, with an effective cutoff of 07:16:07 on 17 October (America/Sao_Paulo, UTC−3). Authenticated search covering 10–17 October returned 150 results across six complete pages. The overlap recovered seven missing articles from 10 October; they enter the cumulative archive but not this briefing's 84-article corpus. Overall, 91 records were added, with 55 editorial exclusions and four deduplications. The briefing uses headlines and descriptive notes, with additional original-article reading for highlights and ambiguities, not a full-text re-reading of every report. The eight themes are editorial groupings, not a measure of trends across society. Proposals, warnings, announcements, opinion and results are distinguished. Links may require a subscription; the remainder of Saturday is not covered."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Regulação, direitos e governança",
+        "en": "Regulation, rights and governance"
+      },
+      "summary": {
+        "pt": "A sequência sobre a Meta vai de testes de geração desigual de propaganda à resposta da empresa e à confirmação de ordem pelo TSE. O conjunto permite acompanhar atos e versões distintos: denúncia de campanha não é decisão judicial, e a explicação técnica da empresa não encerra a controvérsia. A agenda inclui também propostas de alteração da regulação e a preservação do atendimento humano no SAC.",
+        "en": "Meta coverage moves from tests showing unequal campaign-image generation to the company's response and the electoral court's confirmation of an order. These are distinct acts and accounts: a campaign allegation is not a court ruling, and a company's technical explanation does not settle the dispute. Other coverage addresses proposed regulatory changes and preserved access to human customer service."
+      },
+      "sourceIds": [
+        "97083b6e8cfbdb",
+        "aa3e4cc68c2f1c",
+        "070542c1d4cc08",
+        "30a091e46afd47",
+        "f9609b23560483",
+        "d4aff75ba586dd",
+        "db6725469975e8"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Segurança, fraudes e plataformas",
+        "en": "Security, fraud and platforms"
+      },
+      "summary": {
+        "pt": "Autoridades bancárias e o G7 discutem supervisão e simulações de ataques. Uma carta de especialistas e declarações de Hassabis e da Anthropic ampliam a pressão por contenção e avaliação externa. O foco é distinguir incidentes relatados de cenários futuros: alertas sobre autorreplicação ou invasões domésticas não demonstram sua ocorrência generalizada.",
+        "en": "Banking authorities and the G7 discuss oversight and attack simulations. An expert letter and statements by Hassabis and Anthropic increase pressure for containment and external evaluation. Reported incidents must be distinguished from future scenarios: warnings about self-replication or attacks on household devices do not establish their widespread occurrence."
+      },
+      "sourceIds": [
+        "2a71b2b7a74dac",
+        "6c3c975be677dd",
+        "ed72c95a6fa267",
+        "8a0800e935d917",
+        "a62c1d07d177b6",
+        "6cc5fbd5ca3a61"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Trabalho, economia e profissões",
+        "en": "Work, economy and professions"
+      },
+      "summary": {
+        "pt": "O alerta do FMI sobre empregos e arrecadação se soma à discussão sobre currículos gerados e avaliados por IA. A cobertura financeira registra desconfiança quanto às receitas e dívidas do setor, enquanto opiniões econômicas discutem o peso desses investimentos no crescimento. Exposição de tarefas à automação, projeções e perdas já realizadas são medidas diferentes.",
+        "en": "The IMF's warning about jobs and tax revenue accompanies discussion of AI-generated résumés and algorithmic screening. Financial coverage records doubts about sector revenue and debt, while economic commentary examines the contribution of investment to growth. Task exposure to automation, forecasts and realized losses are different measures."
+      },
+      "sourceIds": [
+        "bfce6ce19bdef8",
+        "00d3104cf71c4c",
+        "a78db3690dd76f",
+        "016069eea8d460",
+        "46976dea36c87c",
+        "8df4e95c17ac16"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Infraestrutura, dados e geopolítica",
+        "en": "Infrastructure, data and geopolitics"
+      },
+      "summary": {
+        "pt": "Chips, energia e território tornam visível a base material da IA. Projeções da ASML, planos de chips próprios da Microsoft e a expansão de data centers na Índia apontam para dependências industriais e disputas locais. Demanda projetada e investimento anunciado não equivalem a capacidade já entregue ou benefício ambiental demonstrado.",
+        "en": "Chips, energy and land reveal AI's material foundations. ASML forecasts, Microsoft's in-house chip plans and Indian data-center expansion highlight industrial dependencies and local disputes. Projected demand and announced investment are not equivalent to delivered capacity or demonstrated environmental benefits."
+      },
+      "sourceIds": [
+        "d1b4ff2c4d4369",
+        "f5a4746adede96",
+        "994728b767076a",
+        "fa431b05697231"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Ciência, saúde e ambiente",
+        "en": "Science, health and environment"
+      },
+      "summary": {
+        "pt": "Aplicações vão da leitura de manuscritos históricos à investigação de anticorpos e linguagem na infância. A reportagem ambiental registra financiamento para incorporar IA ao monitoramento do Inpe, e outra usa aprendizado de máquina com dados de satélite para estudar ozônio. Ferramentas, anúncios empresariais e associações em estudos não dispensam validação científica nem autorizam diagnóstico individual.",
+        "en": "Applications range from reading historical manuscripts to studying antibodies and childhood language. Environmental reporting describes funding to incorporate AI into Inpe monitoring, while another article discusses machine learning with satellite data to study ozone. Tools, company announcements and study associations do not remove the need for scientific validation or justify individual diagnosis."
+      },
+      "sourceIds": [
+        "0df5d5fd3326b8",
+        "cebe47499e8a6b",
+        "073f63ebdbd502",
+        "f3f23a90ba7e95",
+        "390a57d0f506e0",
+        "ae9d1b3c89af3d",
+        "e143a99bf01f28"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Educação, cultura e comunicação",
+        "en": "Education, culture and communication"
+      },
+      "summary": {
+        "pt": "A desclassificação de ilustrador no Jabuti e a geração de retratos históricos colocam autoria, transparência e interpretação em pauta. O acesso a notícias no Modo IA do Google e um festival de filmes sintéticos ampliam o debate sobre circulação cultural. Opiniões sobre prioridades da pesquisa mostram que valor do conhecimento não pode ser reduzido à utilidade tecnológica imediata.",
+        "en": "An illustrator's Jabuti disqualification and generated portraits of historical women raise questions of authorship, transparency and interpretation. News visibility in Google's AI Mode and a synthetic-film festival extend debate about cultural circulation. Commentary on research priorities argues that knowledge cannot be valued solely by immediate technological usefulness."
+      },
+      "sourceIds": [
+        "1d925dedd79cab",
+        "0a9e78fe738c3f",
+        "57417e8bc4e487",
+        "53794bbe870af1",
+        "c86ca4bf417c4e",
+        "4c778c7b2cd883"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos, produtos e empresas",
+        "en": "Models, products and companies"
+      },
+      "summary": {
+        "pt": "A Meta anuncia modelo aberto e reafirma intenção de avançar; a Apple apresenta recursos e relata aprovação na China. Receita divulgada pela Anthropic e negociação atribuída à Amazon mostram competição e concentração. Alegações de desempenho, expectativas comerciais e negócios ainda em negociação não são resultados independentemente comprovados.",
+        "en": "Meta announces an open model and reiterates its expansion plans; Apple presents features and reports approval in China. Anthropic's disclosed revenue and Amazon's reported negotiations illustrate competition and concentration. Performance claims, commercial expectations and deals still under negotiation are not independently verified outcomes."
+      },
+      "sourceIds": [
+        "e982873ae361be",
+        "7cc9c19eea74e9",
+        "a979629442d317",
+        "b4d5a518939d79",
+        "06b0c0131ea065",
+        "a3a66f45a2a583"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Sociedade e vida cotidiana",
+        "en": "Society and everyday life"
+      },
+      "summary": {
+        "pt": "O episódio de um homem que viajou para encontrar uma personagem sintética e as controvérsias com imagens de artistas mostram efeitos que vão além da eficiência de ferramentas. Óculos com câmeras e IA acrescentam questões de privacidade. São casos e debates específicos, não estimativas da frequência desses danos na população.",
+        "en": "A man traveling to meet a synthetic persona and controversies over artists' generated images show effects beyond tool efficiency. Camera-equipped AI glasses add privacy questions. These are specific cases and debates, not estimates of how frequently such harms occur across the population."
+      },
+      "sourceIds": [
+        "399f303194641a",
+        "95bc1b37aa7bcd",
+        "7dd2eea19960ad",
+        "dab90a0f7c655c"
+      ]
+    }
+  ]
+}

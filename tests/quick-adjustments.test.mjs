@@ -37,10 +37,12 @@ test("monthly bars use the exact September 11–October 10 selection from the ar
   const records = JSON.parse(fs.readFileSync("public/folha-ia/2026.json", "utf8"));
   const selected = records.filter(({ date }) => date >= "2026-09-11" && date <= "2026-10-10");
   const months = aggregateNewsMonths(selected);
-  assert.equal(selected.length, 340);
-  assert.equal(months.reduce((sum, { count }) => sum + count, 0), 340);
+  // The 17 October overlap recovered seven articles published after the
+  // previous Saturday's morning cutoff, all dated 10 October.
+  assert.equal(selected.length, 347);
+  assert.equal(months.reduce((sum, { count }) => sum + count, 0), 347);
   assert.deepEqual(months.map(({ month }) => month), ["2026-09", "2026-10"]);
-  assert.equal(months.find(({ month }) => month === "2026-10").count, 111);
+  assert.equal(months.find(({ month }) => month === "2026-10").count, 118);
   assert.equal(months.find(({ month }) => month === "2026-09").count, 229);
   const filtered = selected.filter(article => article.stars === 5);
   assert.equal(aggregateNewsMonths(filtered).reduce((sum, { count }) => sum + count, 0), filtered.length);

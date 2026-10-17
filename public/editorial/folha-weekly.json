@@ -1,92 +1,37 @@
 {
-  "start": "2026-10-04",
-  "end": "2026-10-10",
-  "reviewedAt": "2026-10-12",
+  "start": "2026-10-11",
+  "end": "2026-10-17",
+  "reviewedAt": "2026-10-17",
   "title": {
-    "pt": "Promessas de avanço, custos de expansão e exigências de verificação",
-    "en": "Promises of progress, expansion costs and demands for verification"
+    "pt": "Eleições, segurança de agentes e a conta da expansão",
+    "en": "Elections, agent safety and the cost of expansion"
   },
   "summary": {
-    "pt": "As 85 matérias selecionadas aproximam a promessa de avanço dos custos e responsabilidades de sua adoção. O anúncio de resultados em matemática provoca entusiasmo e perguntas sobre validação; a expansão de chips e centros de dados convive com pressão financeira e energética. Educação, saúde, emprego e conteúdos sintéticos mostram onde essas disputas chegam ao cotidiano. A questão que atravessa a semana é quem verifica as alegações, supervisiona os usos e responde pelas consequências. Anúncios, previsões, opiniões e resultados comprovados precisam permanecer distintos.",
-    "en": "The 85 selected articles connect promises of progress with the costs and responsibilities of adoption. Announced mathematics results prompt enthusiasm and questions about validation; expanding chip and data-center capacity coexists with financial and energy pressures. Education, health, employment and synthetic content show how these debates reach everyday life. The recurring question is who verifies claims, oversees uses and bears responsibility for the consequences. Announcements, forecasts, opinions and demonstrated results must remain distinct."
+    "pt": "As 84 matérias selecionadas de 11 a 17 de outubro, até 07:16 de sábado, aproximam três disputas: quem governa as plataformas nas eleições, como conter agentes mais autônomos e quem paga pela expansão da IA. A cobertura sobre respostas assimétricas da Meta AI e decisões do TSE transforma a neutralidade das ferramentas em questão institucional. Alertas de pesquisadores e empresas convivem com preparação regulatória e bancária; não devem ser confundidos com comprovação de todos os cenários anunciados. Nos mercados, dúvidas sobre dívida e receitas contrastam com novos modelos e capacidade de chips. Ciência, cultura, saúde e trabalho mostram aplicações e conflitos concretos, sem eliminar a necessidade de validação independente.",
+    "en": "The 84 selected articles published from 11 to 17 October, up to 07:16 São Paulo time on Saturday, connect three debates: who governs platforms during elections, how to contain more autonomous agents and who pays for AI expansion. Coverage of asymmetric Meta AI responses and electoral-court decisions turns tool neutrality into an institutional issue. Researcher and company warnings coexist with regulatory and banking preparations; they should not be mistaken for proof of every projected scenario. In markets, concerns about debt and revenue contrast with new models and chip capacity. Science, culture, health and work reveal applications and concrete disputes without removing the need for independent validation."
   },
   "method": {
-    "pt": "Síntese de títulos e notas descritivas das 85 matérias catalogadas entre 4 e 10/10/2026 no retrato folha_ia_2026-10-10.md. Não equivale à releitura integral de todas as reportagens. Os oito eixos abaixo são uma organização editorial desta síntese e podem cruzar a classificação histórica dos filtros. A presença de um tema neste jornal não mede sua prevalência na sociedade. Os links mantêm a fonte e podem exigir assinatura.",
-    "en": "Synthesis of headlines and descriptive notes for the 85 articles cataloged on 4–10 October 2026 in the folha_ia_2026-10-10.md snapshot. It is not a full-text re-reading of every report. The eight themes below organize this briefing and may cross the historical filter categories. A topic’s presence in this newspaper does not measure its prevalence in society. Links retain the original source and may require a subscription."
+    "pt": "Corpus: 84 matérias de 11–17/10/2026, com corte efetivo em 17/10 às 07:16:07 (America/Sao_Paulo, UTC−3). Busca autenticada de 10–17/10: 150 resultados em seis páginas completas. A sobreposição recuperou sete matérias do dia 10 ainda ausentes; elas integram o arquivo cumulativo, mas não as 84 desta síntese. Ao todo foram acrescentados 91 registros, com 55 exclusões editoriais e quatro deduplicações. Síntese baseada em títulos e notas do levantamento e leitura adicional de originais para destaques e dúvidas, não em releitura integral de todas as reportagens. Os oito assuntos são agrupamentos editoriais, não medição de tendências de toda a sociedade. Propostas, alertas, anúncios, opinião e resultados são diferenciados. Links podem exigir assinatura; o restante do sábado não está coberto.",
+    "en": "Corpus: 84 articles published on 11–17 October 2026, with an effective cutoff of 07:16:07 on 17 October (America/Sao_Paulo, UTC−3). Authenticated search covering 10–17 October returned 150 results across six complete pages. The overlap recovered seven missing articles from 10 October; they enter the cumulative archive but not this briefing's 84-article corpus. Overall, 91 records were added, with 55 editorial exclusions and four deduplications. The briefing uses headlines and descriptive notes, with additional original-article reading for highlights and ambiguities, not a full-text re-reading of every report. The eight themes are editorial groupings, not a measure of trends across society. Proposals, warnings, announcements, opinion and results are distinguished. Links may require a subscription; the remainder of Saturday is not covered."
   },
   "topics": [
-    {
-      "title": {
-        "pt": "Ciência, saúde e ambiente",
-        "en": "Science, health and environment"
-      },
-      "summary": {
-        "pt": "A alegação de soluções de problemas matemáticos suscitou reação de especialistas e perguntas sobre validação. Na saúde, surgem aplicações de apoio a pacientes e interpretação de informações. Potencial de uso não substitui comprovação científica nem responsabilidade profissional.",
-        "en": "Claims of mathematical solutions prompted expert responses and questions about validation. Health coverage includes support for patients and interpretation of information. Potential usefulness does not replace scientific verification or professional responsibility."
-      },
-      "sourceIds": [
-        "7f94b44b1dc57e",
-        "3d0c6aa48696b8",
-        "e1385b0323ce10"
-      ]
-    },
-    {
-      "title": {
-        "pt": "Infraestrutura, dados e geopolítica",
-        "en": "Infrastructure, data and geopolitics"
-      },
-      "summary": {
-        "pt": "Energia, chips e financiamento revelam a base material da expansão da IA. As notas reúnem projeções de demanda elétrica, pressão sobre crédito e negociações para comprar chips. O ponto de atenção é a exposição a custos e riscos: consumo projetado não é consumo realizado, e intenção de investimento não garante retorno.",
-        "en": "Energy, chips and financing reveal the material foundations of AI expansion. The notes bring together electricity-demand forecasts, credit pressures and negotiations to purchase chips. The issue to watch is exposure to costs and risks: projected consumption is not realized consumption, and investment intentions do not guarantee returns."
-      },
-      "sourceIds": [
-        "4bfc99c0ec648a",
-        "da6239d3dd0073",
-        "43e08c19da79b1"
-      ]
-    },
-    {
-      "title": {
-        "pt": "Trabalho, economia e profissões",
-        "en": "Work, economy and professions"
-      },
-      "summary": {
-        "pt": "As matérias contrapõem expectativas de transformação do emprego a dúvidas sobre a velocidade e a distribuição desses efeitos. Projeções econômicas e cenários de profissões devem ser lidos com suas hipóteses, evitando converter possibilidade de automação em perda de postos já observada.",
-        "en": "The articles contrast expectations of employment transformation with doubts about the speed and distribution of effects. Economic forecasts and occupational scenarios should be read with their assumptions, rather than treating automation potential as observed job loss."
-      },
-      "sourceIds": [
-        "e52dcaf582627a",
-        "73e148ab633438"
-      ]
-    },
-    {
-      "title": {
-        "pt": "Educação, cultura e comunicação",
-        "en": "Education, culture and communication"
-      },
-      "summary": {
-        "pt": "Pensamento crítico, aprendizagem e autoria orientam o debate. Escolas e universidades discutem como ensinar com IA sem dispensar questionamento; na produção cultural, licenciamento e direitos autorais permanecem em disputa. A questão envolve práticas e instituições, não apenas ferramentas.",
-        "en": "Critical thinking, learning and authorship guide the debate. Schools and universities discuss teaching with AI without abandoning questioning; cultural production raises licensing and copyright disputes. The issue concerns practices and institutions, not just tools."
-      },
-      "sourceIds": [
-        "a0dab339d17194",
-        "a3ea18eb5e044f",
-        "0505a062fc767c"
-      ]
-    },
     {
       "title": {
         "pt": "Regulação, direitos e governança",
         "en": "Regulation, rights and governance"
       },
       "summary": {
-        "pt": "Autonomia de órgãos de controle, privacidade e limites de serviços jurídicos aparecem como questões de governança. As posições noticiadas e os argumentos de colunistas não equivalem a normas já vigentes. É preciso distinguir proposta, contestação e decisão efetiva.",
-        "en": "Oversight independence, privacy and the boundaries of legal services feature as governance questions. Reported positions and columnists’ arguments are not equivalent to rules already in force. Proposals, challenges and actual decisions must be distinguished."
+        "pt": "A sequência sobre a Meta vai de testes de geração desigual de propaganda à resposta da empresa e à confirmação de ordem pelo TSE. O conjunto permite acompanhar atos e versões distintos: denúncia de campanha não é decisão judicial, e a explicação técnica da empresa não encerra a controvérsia. A agenda inclui também propostas de alteração da regulação e a preservação do atendimento humano no SAC.",
+        "en": "Meta coverage moves from tests showing unequal campaign-image generation to the company's response and the electoral court's confirmation of an order. These are distinct acts and accounts: a campaign allegation is not a court ruling, and a company's technical explanation does not settle the dispute. Other coverage addresses proposed regulatory changes and preserved access to human customer service."
       },
       "sourceIds": [
-        "52b5b24cabe808",
-        "0a22fa3f309f1f",
-        "12b48d369163b9"
+        "97083b6e8cfbdb",
+        "aa3e4cc68c2f1c",
+        "070542c1d4cc08",
+        "30a091e46afd47",
+        "f9609b23560483",
+        "d4aff75ba586dd",
+        "db6725469975e8"
       ]
     },
     {
@@ -95,13 +40,87 @@
         "en": "Security, fraud and platforms"
       },
       "summary": {
-        "pt": "Notícias sobre intrusões e uso de agentes evidenciam a importância de permissões, rastreabilidade e supervisão. Alegações sobre autoria automatizada pedem investigação; não justificam atribuir qualquer incidente à IA. Conteúdos sintéticos também trazem riscos concretos à privacidade.",
-        "en": "Reports on intrusions and agent use highlight permissions, traceability and oversight. Claims of automated involvement require investigation; they do not justify attributing every incident to AI. Synthetic content also creates concrete privacy risks."
+        "pt": "Autoridades bancárias e o G7 discutem supervisão e simulações de ataques. Uma carta de especialistas e declarações de Hassabis e da Anthropic ampliam a pressão por contenção e avaliação externa. O foco é distinguir incidentes relatados de cenários futuros: alertas sobre autorreplicação ou invasões domésticas não demonstram sua ocorrência generalizada.",
+        "en": "Banking authorities and the G7 discuss oversight and attack simulations. An expert letter and statements by Hassabis and Anthropic increase pressure for containment and external evaluation. Reported incidents must be distinguished from future scenarios: warnings about self-replication or attacks on household devices do not establish their widespread occurrence."
       },
       "sourceIds": [
-        "85d6a150c9ea8f",
-        "7cbc34737c20c0",
-        "c67286089ea258"
+        "2a71b2b7a74dac",
+        "6c3c975be677dd",
+        "ed72c95a6fa267",
+        "8a0800e935d917",
+        "a62c1d07d177b6",
+        "6cc5fbd5ca3a61"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Trabalho, economia e profissões",
+        "en": "Work, economy and professions"
+      },
+      "summary": {
+        "pt": "O alerta do FMI sobre empregos e arrecadação se soma à discussão sobre currículos gerados e avaliados por IA. A cobertura financeira registra desconfiança quanto às receitas e dívidas do setor, enquanto opiniões econômicas discutem o peso desses investimentos no crescimento. Exposição de tarefas à automação, projeções e perdas já realizadas são medidas diferentes.",
+        "en": "The IMF's warning about jobs and tax revenue accompanies discussion of AI-generated résumés and algorithmic screening. Financial coverage records doubts about sector revenue and debt, while economic commentary examines the contribution of investment to growth. Task exposure to automation, forecasts and realized losses are different measures."
+      },
+      "sourceIds": [
+        "bfce6ce19bdef8",
+        "00d3104cf71c4c",
+        "a78db3690dd76f",
+        "016069eea8d460",
+        "46976dea36c87c",
+        "8df4e95c17ac16"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Infraestrutura, dados e geopolítica",
+        "en": "Infrastructure, data and geopolitics"
+      },
+      "summary": {
+        "pt": "Chips, energia e território tornam visível a base material da IA. Projeções da ASML, planos de chips próprios da Microsoft e a expansão de data centers na Índia apontam para dependências industriais e disputas locais. Demanda projetada e investimento anunciado não equivalem a capacidade já entregue ou benefício ambiental demonstrado.",
+        "en": "Chips, energy and land reveal AI's material foundations. ASML forecasts, Microsoft's in-house chip plans and Indian data-center expansion highlight industrial dependencies and local disputes. Projected demand and announced investment are not equivalent to delivered capacity or demonstrated environmental benefits."
+      },
+      "sourceIds": [
+        "d1b4ff2c4d4369",
+        "f5a4746adede96",
+        "994728b767076a",
+        "fa431b05697231"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Ciência, saúde e ambiente",
+        "en": "Science, health and environment"
+      },
+      "summary": {
+        "pt": "Aplicações vão da leitura de manuscritos históricos à investigação de anticorpos e linguagem na infância. A reportagem ambiental registra financiamento para incorporar IA ao monitoramento do Inpe, e outra usa aprendizado de máquina com dados de satélite para estudar ozônio. Ferramentas, anúncios empresariais e associações em estudos não dispensam validação científica nem autorizam diagnóstico individual.",
+        "en": "Applications range from reading historical manuscripts to studying antibodies and childhood language. Environmental reporting describes funding to incorporate AI into Inpe monitoring, while another article discusses machine learning with satellite data to study ozone. Tools, company announcements and study associations do not remove the need for scientific validation or justify individual diagnosis."
+      },
+      "sourceIds": [
+        "0df5d5fd3326b8",
+        "cebe47499e8a6b",
+        "073f63ebdbd502",
+        "f3f23a90ba7e95",
+        "390a57d0f506e0",
+        "ae9d1b3c89af3d",
+        "e143a99bf01f28"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Educação, cultura e comunicação",
+        "en": "Education, culture and communication"
+      },
+      "summary": {
+        "pt": "A desclassificação de ilustrador no Jabuti e a geração de retratos históricos colocam autoria, transparência e interpretação em pauta. O acesso a notícias no Modo IA do Google e um festival de filmes sintéticos ampliam o debate sobre circulação cultural. Opiniões sobre prioridades da pesquisa mostram que valor do conhecimento não pode ser reduzido à utilidade tecnológica imediata.",
+        "en": "An illustrator's Jabuti disqualification and generated portraits of historical women raise questions of authorship, transparency and interpretation. News visibility in Google's AI Mode and a synthetic-film festival extend debate about cultural circulation. Commentary on research priorities argues that knowledge cannot be valued solely by immediate technological usefulness."
+      },
+      "sourceIds": [
+        "1d925dedd79cab",
+        "0a9e78fe738c3f",
+        "57417e8bc4e487",
+        "53794bbe870af1",
+        "c86ca4bf417c4e",
+        "4c778c7b2cd883"
       ]
     },
     {
@@ -110,12 +129,16 @@
         "en": "Models, products and companies"
       },
       "summary": {
-        "pt": "Anúncios de expansão convivem com notícias sobre receitas, financiamento e revisões de expectativas. O desempenho de uma empresa ou produto exige separar metas, estimativas e resultados verificados. A intensidade da cobertura não demonstra, por si, viabilidade econômica.",
-        "en": "Expansion announcements coexist with reports on revenue, financing and revised expectations. Assessing a company or product requires distinguishing targets, estimates and verified results. Coverage intensity alone does not demonstrate economic viability."
+        "pt": "A Meta anuncia modelo aberto e reafirma intenção de avançar; a Apple apresenta recursos e relata aprovação na China. Receita divulgada pela Anthropic e negociação atribuída à Amazon mostram competição e concentração. Alegações de desempenho, expectativas comerciais e negócios ainda em negociação não são resultados independentemente comprovados.",
+        "en": "Meta announces an open model and reiterates its expansion plans; Apple presents features and reports approval in China. Anthropic's disclosed revenue and Amazon's reported negotiations illustrate competition and concentration. Performance claims, commercial expectations and deals still under negotiation are not independently verified outcomes."
       },
       "sourceIds": [
-        "2d7111df44c89a",
-        "af7c376f412f1e"
+        "e982873ae361be",
+        "7cc9c19eea74e9",
+        "a979629442d317",
+        "b4d5a518939d79",
+        "06b0c0131ea065",
+        "a3a66f45a2a583"
       ]
     },
     {
@@ -124,526 +147,521 @@
         "en": "Society and everyday life"
       },
       "summary": {
-        "pt": "Viagens, compras e comunicação política ilustram a presença da IA em decisões cotidianas. Conveniência e personalização precisam ser ponderadas com qualidade da informação, privacidade e transparência sobre conteúdo sintético. Casos noticiados mostram usos, não sua adoção generalizada.",
-        "en": "Travel, shopping and political communication illustrate AI in everyday decisions. Convenience and personalization must be weighed against information quality, privacy and transparency about synthetic content. Reported cases show uses, not their general adoption."
+        "pt": "O episódio de um homem que viajou para encontrar uma personagem sintética e as controvérsias com imagens de artistas mostram efeitos que vão além da eficiência de ferramentas. Óculos com câmeras e IA acrescentam questões de privacidade. São casos e debates específicos, não estimativas da frequência desses danos na população.",
+        "en": "A man traveling to meet a synthetic persona and controversies over artists' generated images show effects beyond tool efficiency. Camera-equipped AI glasses add privacy questions. These are specific cases and debates, not estimates of how frequently such harms occur across the population."
       },
       "sourceIds": [
-        "e898e4dcd4337a",
-        "01f273061c6e41",
-        "bfb16172337dfe"
+        "399f303194641a",
+        "95bc1b37aa7bcd",
+        "7dd2eea19960ad",
+        "dab90a0f7c655c"
       ]
     }
   ],
   "corpus": [
     {
-      "id": "bfb16172337dfe",
-      "date": "2026-10-10",
-      "title": "Filho de Lira, eleito antes da idade em lei, fez campanha no rastro da projeção do pai — vídeo sintético do avô falecido foi usado na campanha do deputado eleito",
-      "url": "https://www1.folha.uol.com.br/poder/2026/10/filho-de-lira-eleito-antes-da-idade-em-lei-fez-campanha-no-rastro-da-projecao-do-pai.shtml"
+      "id": "dab90a0f7c655c",
+      "date": "2026-10-17",
+      "title": "'Óculos pervertidos': versão sem câmera poderá salvar o produto da Meta? — debate sobre privacidade e câmeras em óculos com IA",
+      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/oculos-pervertidos-versao-sem-camera-podera-salvar-o-produto-da-meta.shtml"
     },
     {
-      "id": "bcf49a70aabf55",
-      "date": "2026-10-09",
-      "title": "Anthropic proíbe comportamento 'cruel' de usuários contra sua IA Claude — nova política restringe interações abusivas e reacende debate sobre consciência de modelos",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/anthropic-proibe-comportamento-cruel-de-usarios-contra-sua-ia-claude.shtml"
+      "id": "d76cc3dda3adaf",
+      "date": "2026-10-16",
+      "title": "'Flaviômetro' mostra que metade dos apoiadores do candidato do PL se omitem no 2º turno — ferramenta criada por apoiadores usa IA para acompanhar engajamento político",
+      "url": "https://www1.folha.uol.com.br/colunas/painel/2026/10/flaviometro-mostra-que-metade-dos-apoiadores-do-candidato-do-pl-se-omitem-no-2o-turno.shtml"
     },
     {
-      "id": "af7c376f412f1e",
-      "date": "2026-10-09",
-      "title": "Empresa australiana de data centers apoiada pela Nvidia desiste de IPO de US$ 5 bilhões — cancelamento de oferta bilionária sinaliza cautela com infraestrutura de IA",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/empresa-australiana-de-data-centers-apoiada-pela-nvidia-desiste-de-ipo-de-us-5-bilhoes.shtml"
+      "id": "7199e4913ed9c1",
+      "date": "2026-10-16",
+      "title": "A eleição e a dependência das plataformas — análise relaciona IA, publicidade e infraestrutura de comunicação eleitoral",
+      "url": "https://www1.folha.uol.com.br/tec/2026/10/a-eleicao-e-a-dependencia-das-plataformas.shtml"
     },
     {
-      "id": "e2a5de43783fa1",
-      "date": "2026-10-09",
-      "title": "Matemáticos veem anúncio da OpenAI como devastador e de tirar o fôlego — matemáticos reagem aos 377 resultados com entusiasmo e receio sobre o papel humano na descoberta",
-      "url": "https://www1.folha.uol.com.br/ciencia/2026/10/matematicos-veem-anuncio-da-openai-como-devastador-e-de-tirar-o-folego.shtml"
+      "id": "9f9ab0a2450496",
+      "date": "2026-10-16",
+      "title": "A meta da Meta — coluna de opinião discute assimetria eleitoral nas plataformas e na geração de imagens",
+      "url": "https://www1.folha.uol.com.br/colunas/demetriomagnoli/2026/10/a-meta-da-meta.shtml"
     },
     {
-      "id": "0a22fa3f309f1f",
-      "date": "2026-10-09",
-      "title": "ONU alerta para ameaça à privacidade com avanço de neurotecnologias — ONU recomenda consentimento e proteção de dados cerebrais contra abusos de neurotecnologia",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/onu-alerta-para-ameaca-a-privacidade-com-avanco-de-neurotecnologias.shtml"
+      "id": "016069eea8d460",
+      "date": "2026-10-16",
+      "title": "Ações de big techs sofrem maior queda semanal desde tarifaço de Trump em abril de 2025 — preocupações com investimentos em IA pesam sobre ações de tecnologia",
+      "url": "https://www1.folha.uol.com.br/mercado/2026/10/acoes-de-big-techs-sofrem-maior-queda-semanal-desde-tarifaco-de-trump-em-abril-de-2025.shtml"
     },
     {
-      "id": "e77e4fe70d2d11",
-      "date": "2026-10-09",
-      "title": "PIB do Brasil deve desacelerar para 1,8% em 2026 e 1,5% em 2027, diz órgão da ONU — investimento em IA amortece desaceleração econômica prevista por órgão da ONU",
-      "url": "https://www1.folha.uol.com.br/mercado/2026/10/pib-do-brasil-deve-desacelerar-para-18-em-2026-e-15-em-2027-diz-orgao-da-onu.shtml"
+      "id": "f3f23a90ba7e95",
+      "date": "2026-10-16",
+      "title": "Amazônia e cerrado têm menor desmatamento já registrado — reportagem também registra financiamento de projeto do Inpe para incorporar IA ao monitoramento ambiental",
+      "url": "https://www1.folha.uol.com.br/ambiente/2026/10/amazonia-e-cerrado-tem-menor-desmatamento-ja-registrado.shtml"
     },
     {
-      "id": "dcaffcdaf0fe78",
-      "date": "2026-10-09",
-      "title": "SoftBank busca obter US$ 100 bilhões no Oriente Médio para investir em IA — captação de US$ 100 bilhões reforça protagonismo de fundos do Oriente Médio em IA",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/softbank-busca-obter-us-100-bilhoes-no-oriente-medio-para-investir-em-ia.shtml"
+      "id": "f9609b23560483",
+      "date": "2026-10-16",
+      "title": "Em mensagens internas, Meta admite que contas de Lula foram prejudicadas por restrições; engenheiros falam em falhas técnicas — Folha relata mensagens internas; empresa atribui falhas a problemas de alcance mais amplo",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/em-mensagens-internas-meta-admite-que-contas-de-lula-foram-prejudicadas-por-restricoes-engenheiros-falam-em-falhas-tecnicas.shtml"
     },
     {
-      "id": "29cc762cb52924",
-      "date": "2026-10-08",
-      "title": "A hora da reforma do Judiciário — opinião defende supervisão humana, auditabilidade e parâmetros nacionais no Judiciário",
-      "url": "https://www1.folha.uol.com.br/opiniao/2026/10/a-hora-da-reforma-do-judiciario.shtml"
+      "id": "a221551cf702d3",
+      "date": "2026-10-16",
+      "title": "Executivo da Anthropic compara IA sem regras a carro de corrida sem freios — posição de executivo reforça debate sobre supervisão e segurança",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/executivo-da-anthropic-compara-ia-sem-regras-a-carro-de-corrida-sem-freios.shtml"
     },
     {
-      "id": "f15122bd4721ab",
-      "date": "2026-10-08",
-      "title": "Com a IA, o matemático passará de explorador a turista — coluna alerta para risco de o pesquisador se tornar usuário passivo de soluções",
-      "url": "https://www1.folha.uol.com.br/ciencia/2026/10/com-a-ia-o-matematico-passara-de-explorador-a-turista.shtml"
+      "id": "57417e8bc4e487",
+      "date": "2026-10-16",
+      "title": "Google aumentará visibilidade de notícias e links em seu Modo IA — anúncio responde a reclamações sobre perda de tráfego para sites e imprensa",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/google-aumentara-visibilidade-de-noticias-e-links-em-seu-modo-ia.shtml"
     },
     {
-      "id": "48f59b4357ec57",
-      "date": "2026-10-08",
-      "title": "De IA na saúde a CEP Digital, finalistas do Empreendedor Social usam tecnologia para impacto — finalistas usam IA para prevenir erros de prescrição e ampliar impacto social",
-      "url": "https://www1.folha.uol.com.br/folha-social-mais/2026/10/de-ia-na-saude-a-cep-digital-finalistas-do-empreendedor-social-usam-tecnologia-para-impacto.shtml"
+      "id": "0df5d5fd3326b8",
+      "date": "2026-10-16",
+      "title": "IA ajuda a decifrar carta de Napoleão Bonaparte e papiros carbonizados — reportagem apresenta uso de modelos na leitura de documentos históricos",
+      "url": "https://www1.folha.uol.com.br/ciencia/2026/10/ia-ajuda-a-decifrar-carta-de-napoleao-bonaparte-e-papiros-carbonizados.shtml"
     },
     {
-      "id": "1386cc2d302218",
-      "date": "2026-10-08",
-      "title": "Desafio do clima entra no radar europeu, e isso afeta o Brasil — estratégia climática europeia combina investimento, digitalização e IA",
-      "url": "https://www1.folha.uol.com.br/colunas/vaivem/2026/10/desafio-do-clima-entra-no-radar-europeu-e-isso-afeta-o-brasil.shtml"
+      "id": "f7a9f6e2572f9e",
+      "date": "2026-10-16",
+      "title": "IA é a mudança mais importante que a economia que já viu, diz presidente do Fed — avaliação do dirigente projeta benefícios econômicos e transição difícil",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/ia-e-a-mudanca-mais-importante-que-a-economia-que-ja-viu-diz-presidente-do-fed.shtml"
     },
     {
-      "id": "427ce44ef66c4f",
-      "date": "2026-10-08",
-      "title": "Games viram parte da estratégia de candidatos e da crítica de eleitores em 2026 — IA acelera criação de games usados em campanha e crítica eleitoral",
-      "url": "https://www1.folha.uol.com.br/poder/2026/10/games-viram-parte-da-estrategia-de-candidatos-e-da-critica-de-eleitores-em-2026.shtml"
+      "id": "cd2e81f5e7ca81",
+      "date": "2026-10-16",
+      "title": "Impulsionamento, dark post e algoritmo; veja glossário sobre propaganda eleitoral nas redes — explicador inclui restrições eleitorais à circulação de conteúdos sintéticos",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/impulsionamento-dark-post-e-algoritmo-veja-glossario-sobre-propaganda-eleitoral-nas-redes.shtml"
     },
     {
-      "id": "4515c11544a4dd",
-      "date": "2026-10-08",
-      "title": "Governo dribla decisão de Dino e retém R$ 731,9 milhões da CVM em reserva — contenção orçamentária atinge ferramentas de IA para gestão e supervisão da CVM",
-      "url": "https://www1.folha.uol.com.br/mercado/2026/10/governo-dribla-decisao-de-dino-e-retem-r-7319-milhoes-da-cvm-em-reserva.shtml"
+      "id": "994728b767076a",
+      "date": "2026-10-16",
+      "title": "Índia busca atrair empresas de data centers e corre para aumentar energia limpa — expansão da infraestrutura de IA pressiona planejamento energético",
+      "url": "https://c-level.folha.uol.com.br/economia-sustentavel/2026/10/india-busca-atrair-empresas-de-data-centers-e-corre-para-aumentar-energia-limpa.shtml"
     },
     {
-      "id": "4a450f25087f68",
-      "date": "2026-10-08",
-      "title": "Homem enfrenta robô em luta apesar da Califórnia questionar legalidade — combate entre humano e robô expõe lacuna regulatória e risco físico",
-      "url": "https://www1.folha.uol.com.br/tec/2026/10/homem-enfrenta-robo-em-luta-apesar-da-california-questionar-legalidade.shtml"
+      "id": "4846fed178b9bb",
+      "date": "2026-10-16",
+      "title": "Mais de 100 organizações acusam big techs de interferir nas eleições brasileiras — organizações apresentam acusações e levantamento sobre conteúdos com sinais de geração por IA",
+      "url": "https://www1.folha.uol.com.br/colunas/monicabergamo/2026/10/mais-de-100-organizacoes-acusam-big-techs-de-interferir-nas-eleicoes-brasileiras.shtml"
     },
     {
-      "id": "d96ce477d367f6",
-      "date": "2026-10-08",
-      "title": "IA pode aumentar polarização política, sugere estudo; veja vídeo — estudo associa uso de aplicativos de IA a maior polarização política",
-      "url": "https://www1.folha.uol.com.br/tv/2026/10/ia-pode-aumentar-polarizacao-politica-sugere-estudo-veja-video.shtml"
+      "id": "e982873ae361be",
+      "date": "2026-10-16",
+      "title": "Meta apresenta novo modelo aberto de IA para competir com a China — empresa anuncia modelo e alega liderança entre alternativas americanas abertas",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/meta-apresenta-novo-modelo-aberto-de-ia-para-competir-com-a-china.shtml"
     },
     {
-      "id": "a0dab339d17194",
-      "date": "2026-10-08",
-      "title": "Inteligência artificial, ensino superior e pensamento crítico — texto discute diretrizes do CNE e preservação do pensamento crítico no ensino superior",
-      "url": "https://www1.folha.uol.com.br/educacao/2026/10/inteligencia-artificial-ensino-superior-e-pensamento-critico.shtml"
+      "id": "2116b1cd9e9055",
+      "date": "2026-10-16",
+      "title": "O que Lula e Flávio Bolsonaro propõem para as mulheres — propostas incluem assistente de IA para apoiar denúncias; trata-se de promessa de campanha",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/o-que-lula-e-flavio-bolsonaro-propoem-para-as-mulheres.shtml"
     },
     {
-      "id": "8a470ecba2e657",
-      "date": "2026-10-08",
-      "title": "Manus arrecada mais de US$ 500 milhões após ter venda para Meta bloqueada pela China — bloqueio chinês à venda para Meta leva startup de agentes a captar mais de US$ 500 milhões",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/manus-arrecada-mais-de-us-500-milhoes-apos-ter-venda-para-meta-bloqueada-pela-china.shtml"
+      "id": "2a71b2b7a74dac",
+      "date": "2026-10-16",
+      "title": "Países do G7 planejam simular ataques de IA a bancos em meio a temores cibernéticos — simulações propostas buscam preparar respostas a riscos para o sistema financeiro",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/paises-do-g7-planejam-simular-ataques-de-ia-a-bancos-em-meio-a-temores-ciberneticos.shtml"
     },
     {
-      "id": "915029b03dd49a",
-      "date": "2026-10-08",
-      "title": "O mundo sobreviveu ao auge de Donald Trump — coluna identifica IA como principal exceção à redução do risco global",
-      "url": "https://www1.folha.uol.com.br/colunas/ian-bremmer/2026/10/o-mundo-sobreviveu-ao-auge-de-donald-trump.shtml"
+      "id": "30a091e46afd47",
+      "date": "2026-10-16",
+      "title": "TSE confirma decisão que obriga Meta a dar tratamento igual a Lula e Flávio em suas plataformas — tribunal mantém ordem de tratamento igualitário após controvérsia envolvendo Meta AI e distribuição de propaganda",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/tse-confirma-decisao-que-obriga-meta-a-dar-tratamento-igual-a-lula-e-flavio-em-suas-plataformas.shtml"
     },
     {
-      "id": "12b48d369163b9",
-      "date": "2026-10-08",
-      "title": "OAB-SP processa startup jurídica de IA e diz que tecnologia invade atividade de advogados — ação da OAB-SP questiona limites entre automação jurídica e atividade privativa da advocacia",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/oab-sp-processa-startup-juridica-de-ia-e-diz-que-tecnologia-invade-atividade-de-advogados.shtml"
+      "id": "7fbe02247d4c75",
+      "date": "2026-10-15",
+      "title": "Agora tem IA inteligente de fato, mas não pra você — ensaio discute inteligência e falhas de contenção de sistemas; posição da colunista",
+      "url": "https://www1.folha.uol.com.br/colunas/suzanaherculanohouzel/2026/10/agora-tem-ia-inteligente-de-fato-mas-nao-pra-voce.shtml"
     },
     {
-      "id": "67f20cac2c97c8",
-      "date": "2026-10-08",
-      "title": "OMC dobra previsão para comércio global com inteligência artificial — investimentos em IA levam OMC a dobrar previsão de crescimento do comércio",
-      "url": "https://www1.folha.uol.com.br/mercado/2026/10/omc-dobra-previsao-para-comercio-global-com-inteligencia-artificial.shtml"
+      "id": "b4d5a518939d79",
+      "date": "2026-10-15",
+      "title": "Anthropic diz a investidores que receita aumentou quase 50% no terceiro trimestre — crescimento informado pela empresa integra preparação para oferta pública de ações",
+      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/anthropic-diz-a-investidores-que-receita-aumentou-quase-50-no-terceiro-trimestre.shtml"
     },
     {
-      "id": "2d7111df44c89a",
-      "date": "2026-10-08",
-      "title": "Receita da OpenAI fica US$ 20 bilhões abaixo do esperado — receita fica US$ 20 bilhões abaixo da projeção e reduz otimismo do mercado",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/receita-da-openai-fica-us-20-bilhoes-abaixo-do-esperado.shtml"
+      "id": "bde95e2293fb56",
+      "date": "2026-10-15",
+      "title": "Apostas bilionárias em IA aumentam riscos para fundos de capital de risco — concentração de recursos em startups muda exposição dos investidores",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/apostas-bilionarias-em-ia-aumentam-riscos-para-fundos-de-capital-de-risco.shtml"
     },
     {
-      "id": "c3ae2096ff24b1",
-      "date": "2026-10-08",
-      "title": "Samsung prevê aumento de mais de 780% no lucro do 3º trimestre — lucro projetado da Samsung sobe mais de 780% em meio à demanda por chips de IA",
-      "url": "https://aovivo.folha.uol.com.br/mercado/2026/10/01/6562-dolar-empresas-e-bolsas-acompanhe-ao-vivo-o-mercado.shtml#post467443"
+      "id": "b598d6b0fc85be",
+      "date": "2026-10-15",
+      "title": "Bolsas da Ásia têm forte queda com inflação americana e preocupação com IA — temores sobre o setor de IA somam-se ao cenário macroeconômico na queda das bolsas",
+      "url": "https://www1.folha.uol.com.br/mercado/2026/10/mercados-asiaticos-tem-forte-queda-com-inflacao-americana-e-preocupacao-com-ia.shtml"
     },
     {
-      "id": "af8b649731aba0",
-      "date": "2026-10-08",
-      "title": "Sem bets, YouTube atrasa divulgação de anunciantes para o futebol — Google usa Gemini para associar buscas a anúncios no YouTube",
-      "url": "https://www1.folha.uol.com.br/colunas/painelsa/2026/10/sem-bets-youtube-atrasa-divulgacao-de-anunciantes-para-o-futebol.shtml"
+      "id": "f77c773e307bfc",
+      "date": "2026-10-15",
+      "title": "Brasileiro é coautor de Bank 5.0, novo livro do best-seller Brett King — livro apresenta cenários para bancos com agentes de IA e participação econômica dos titulares de dados",
+      "url": "https://www1.folha.uol.com.br/colunas/painelsa/2026/10/brasileiro-e-coautor-de-bank-50-novo-livro-do-best-seller-brett-king.shtml"
     },
     {
-      "id": "f4bf375ffafd7b",
-      "date": "2026-10-08",
-      "title": "TSMC atinge recorde de receita no 3º trimestre com aumento de 50% — receita recorde da fabricante reflete demanda por chips de IA",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/tsmc-atinge-recorde-de-receita-no-3o-trimestre-com-aumento-de-50.shtml"
+      "id": "c5fe688af0b4b6",
+      "date": "2026-10-15",
+      "title": "Campanha de desinformação bolsonarista culpa Lula por fogo na Amazônia — reportagem identifica voz sintética em vídeo de desinformação ambiental",
+      "url": "https://www1.folha.uol.com.br/ambiente/2026/10/campanha-de-desinformacao-bolsonarista-culpa-lula-por-fogo-na-amazonia.shtml"
     },
     {
-      "id": "1e0f6faeb8afc6",
-      "date": "2026-10-07",
-      "title": "'Para mudar tecnologia, é preciso mudar quem a faz', diz brasileira destaque em lista de IA pela Time — brasileira reconhecida pela Time defende diversidade entre quem desenvolve a tecnologia",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/para-mudar-tecnologia-e-preciso-mudar-quem-a-faz-diz-brasileira-destaque-em-lista-de-ia-pela-time.shtml"
+      "id": "bad1716a0056be",
+      "date": "2026-10-15",
+      "title": "Chefe da campanha de Lula critica Kassio no TSE e vai denunciar interferência da Meta nas eleições — entrevista registra posição da campanha e intenção de denúncia sobre plataformas e IA",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/chefe-da-campanha-de-lula-critica-kassio-no-tse-e-vai-denunciar-interferencia-da-meta-nas-eleicoes.shtml"
     },
     {
-      "id": "b282a6b6cb1b4d",
-      "date": "2026-10-07",
-      "title": "Agentes de IA podem custar US$ 500 bilhões aos bancos — estimativa aponta possível perda de US$ 500 bilhões em receitas bancárias com agentes",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/agentes-de-ia-podem-custar-us-500-bilhoes-aos-bancos.shtml"
+      "id": "ae9d1b3c89af3d",
+      "date": "2026-10-15",
+      "title": "Colossal usa IA para tentar trazer dodô, ave extinta no século 17, de volta à vida — empresa anuncia ferramenta para projeto de desextinção, não o retorno já realizado da espécie",
+      "url": "https://www1.folha.uol.com.br/ciencia/2026/10/colossal-usa-ia-para-tentar-trazer-dodo-ave-extinta-no-seculo-17-de-volta-a-vida.shtml"
     },
     {
-      "id": "73e148ab633438",
-      "date": "2026-10-07",
-      "title": "Chefe do FMI vê economia mundial ameaçada por guerra, IA e dívida pública recorde — FMI inclui IA entre riscos centrais à economia mundial",
-      "url": "https://www1.folha.uol.com.br/mercado/2026/10/chefe-do-fmi-ve-economia-mundial-ameacada-por-guerra-ia-e-divida-publica-recorde.shtml"
+      "id": "a979629442d317",
+      "date": "2026-10-15",
+      "title": "Cook diz que plataforma de IA generativa da Apple recebeu aprovação da China — declaração anuncia autorização e previsão de testes do Apple Intelligence",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/cook-diz-que-plataforma-de-ia-generativa-da-apple-recebeu-aprovacao-da-china.shtml"
     },
     {
-      "id": "7516d932b0c2ce",
-      "date": "2026-10-07",
-      "title": "Circulação de links de bets ilegais fica estável após veto de Lula, mostra levantamento — monitoramento automatizado mede circulação de links de apostas ilegais",
-      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/circulacao-de-links-de-bets-ilegais-fica-estavel-apos-veto-de-lula-mostra-levantamento.shtml"
+      "id": "a78db3690dd76f",
+      "date": "2026-10-15",
+      "title": "Investidores se desfazem de títulos de data centers enquanto mercado questiona receitas de IA — dúvidas sobre receitas ampliam pressão sobre dívidas da infraestrutura",
+      "url": "https://c-level.folha.uol.com.br/financas/2026/10/investidores-se-desfazem-de-titulos-de-data-centers-enquanto-mercado-questiona-receitas-de-ia.shtml"
     },
     {
-      "id": "f8f4c886513b8e",
-      "date": "2026-10-07",
-      "title": "Clubes renovam uniformes para retorno do Brasileirão sem bets — plataforma de IA passa a patrocinar uniforme no retorno do futebol sem bets",
-      "url": "https://www1.folha.uol.com.br/esporte/2026/10/clubes-renovam-uniformes-para-retorno-do-brasileirao-sem-bets.shtml"
+      "id": "ddc2c40a748da7",
+      "date": "2026-10-15",
+      "title": "Kassio e Mendonça se reúnem com Meta após polêmicas sobre canais e IA que favorece Flávio — reunião ocorre após questionamentos sobre tratamento de candidaturas nas plataformas",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/kassio-e-mendonca-se-reunem-com-meta-apos-polemicas-sobre-canais-e-ia-que-favorece-flavio.shtml"
     },
     {
-      "id": "7c1468d267270d",
-      "date": "2026-10-07",
-      "title": "Como a IA seduz a mente preguiçosa — ensaio critica a conveniência cognitiva e a terceirização do esforço mental",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/como-a-ia-seduz-a-mente-preguicosa.shtml"
+      "id": "95bc1b37aa7bcd",
+      "date": "2026-10-15",
+      "title": "Mia Goth critica Instagram por permitir publicação de selfie falsa feita com IA — atriz questiona uso de sua imagem em conteúdo sintético na plataforma",
+      "url": "https://f5.folha.uol.com.br/celebridades/2026/10/mia-goth-critica-instagram-por-permitir-publicacao-de-selfie-falsa-feita-com-ia.shtml"
     },
     {
-      "id": "4bfc99c0ec648a",
-      "date": "2026-10-07",
-      "title": "Consumo de energia nos EUA deve bater recordes em 2026 e 2027 impulsionado por IA — demanda de data centers leva consumo elétrico dos EUA a novos recordes",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/consumo-de-energia-nos-eua-deve-bater-recordes-em-2026-e-2027-impulsionado-por-ia.shtml"
+      "id": "1a9650413c9644",
+      "date": "2026-10-15",
+      "title": "Nikolas Ferreira posta vídeo feito com IA de Flávio Bolsonaro atirando com dois fuzis em piscina — publicação eleitoral usa cena sintética envolvendo candidato à Presidência",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/nikolas-ferreira-posta-video-feito-com-ia-de-flavio-bolsonaro-atirando-com-dois-fuzis-em-piscina.shtml"
     },
     {
-      "id": "da6239d3dd0073",
-      "date": "2026-10-07",
-      "title": "Disparada dos custos de financiamento pressiona empresas dos EUA — expansão de projetos de IA eleva custos de financiamento corporativo",
-      "url": "https://c-level.folha.uol.com.br/financas/2026/10/disparada-dos-custos-de-financiamento-pressiona-empresas-dos-eua.shtml"
+      "id": "6cc5fbd5ca3a61",
+      "date": "2026-10-15",
+      "title": "OpenAI alerta PF sobre ameaças de morte a Lula no ChatGPT e compartilha diálogos — empresa comunica às autoridades conversas que considera indicativas de risco grave",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/openai-alerta-pf-sobre-ameacas-de-morte-a-lula-no-chatgpt-e-compartilha-dialogos.shtml"
     },
     {
-      "id": "c4a0092c156d9d",
-      "date": "2026-10-07",
-      "title": "Excesso de anúncios cansa consumidores e faz marcas repensarem estratégias de marketing — tecnologia pode reduzir ou ampliar a saturação de consumidores com publicidade",
-      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/excesso-de-anuncios-cansa-consumidores-e-faz-marcas-repensarem-estrategias-de-marketing.shtml"
+      "id": "399f303194641a",
+      "date": "2026-10-15",
+      "title": "Pedreiro viaja mais de 2.000 km para encontrar mulher de IA que prometia sustentá-lo — caso de repercussão popular expõe engano com personagem sintética",
+      "url": "https://f5.folha.uol.com.br/voceviu/2026/10/pedreiro-viaja-mais-de-2000-km-para-encontrar-mulher-de-ia-que-prometia-sustenta-lo.shtml"
     },
     {
-      "id": "8ed406e0ed27b0",
-      "date": "2026-10-07",
-      "title": "Forte gasto com IA prepara investidores para nova temporada de lucros nos EUA — gastos elevados com IA moldam expectativas para lucros empresariais",
-      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/forte-gasto-com-ia-prepara-investidores-para-nova-temporada-de-lucros-nos-eua.shtml"
+      "id": "cebe47499e8a6b",
+      "date": "2026-10-15",
+      "title": "Por que algumas pessoas respondem melhor às vacinas? — estudo usa modelos de IA para analisar conjuntos de anticorpos",
+      "url": "https://www1.folha.uol.com.br/equilibrioesaude/2026/10/por-que-algumas-pessoas-respondem-melhor-as-vacinas.shtml"
     },
     {
-      "id": "3d0c6aa48696b8",
-      "date": "2026-10-07",
-      "title": "Impacto da IA na matemática ainda gera mais perguntas que respostas, segundo especialistas — especialistas avaliam promessas, limites e perguntas abertas da IA na matemática",
-      "url": "https://www1.folha.uol.com.br/ciencia/2026/10/impacto-da-ia-na-matematica-ainda-gera-mais-perguntas-que-respostas-segundo-especialistas.shtml"
+      "id": "2920eae4df6363",
+      "date": "2026-10-15",
+      "title": "Títulos dos EUA sobem com dúvidas sobre boom da inteligência artificial — incertezas financeiras no setor favorecem busca por títulos públicos",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/titulos-dos-eua-sobem-com-duvidas-sobre-boom-da-inteligencia-artificial.shtml"
     },
     {
-      "id": "590db46e898f5e",
-      "date": "2026-10-07",
-      "title": "Inteligência Artificial pode ser usada para promover um envelhecimento saudável — IA explicável é proposta para apoiar envelhecimento saudável sem substituir investigação experimental",
-      "url": "https://www1.folha.uol.com.br/equilibrio/2026/10/inteligencia-artificial-pode-ser-usada-para-promover-um-envelhecimento-saudavel.shtml"
+      "id": "070542c1d4cc08",
+      "date": "2026-10-15",
+      "title": "TSE atende a Lula e manda Meta dar a ele tratamento igual ao de Flávio sob pena de multa de R$ 500 mil — decisão monocrática determina igualdade de tratamento e prevê multa diária",
+      "url": "https://www1.folha.uol.com.br/colunas/monicabergamo/2026/10/tse-atende-lula-e-manda-meta-dar-a-ele-tratamento-igual-ao-de-flavio-sob-de-multa-de-r-500-mil.shtml"
     },
     {
-      "id": "7e3d8b2c46a13a",
-      "date": "2026-10-07",
-      "title": "Microsoft e Nvidia lançam laptop com IA para deixar de onerar data centers — computação local transfere parte da carga de IA da nuvem para notebooks",
-      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/microsoft-e-nvidia-lancam-laptop-com-ia-para-deixar-de-onerar-data-centers.shtml"
+      "id": "1d925dedd79cab",
+      "date": "2026-10-14",
+      "title": "'Jabuti força todo mundo a mentir', diz ilustrador que foi desclassificado por usar IA — entrevista aborda transparência e regras de autoria em premiação literária",
+      "url": "https://www1.folha.uol.com.br/ilustrada/2026/10/jabuti-forca-todo-mundo-a-mentir-diz-ilustrador-que-foi-desclassificado-por-usar-ia.shtml"
     },
     {
-      "id": "7f94b44b1dc57e",
-      "date": "2026-10-07",
-      "title": "OpenAI diz que inteligência artificial solucionou mais 377 problemas de matemática — OpenAI divulga 377 resultados em matemática, com 722 manuscritos e debate sobre originalidade",
-      "url": "https://www1.folha.uol.com.br/ciencia/2026/10/openai-diz-que-inteligencia-artificial-solucionou-mais-377-problemas-de-matematica.shtml"
+      "id": "46976dea36c87c",
+      "date": "2026-10-14",
+      "title": "A economia global e a arte de viver perigosamente — análise discute dependência do crescimento em relação aos investimentos e aos retornos esperados da IA",
+      "url": "https://www1.folha.uol.com.br/colunas/martinwolf/2026/10/a-economia-global-e-a-arte-de-viver-perigosamente.shtml"
     },
     {
-      "id": "973f9a4967c1ba",
-      "date": "2026-10-07",
-      "title": "Sanus usa WhatsApp e IA para reduzir sinistros de empresas — assistente no WhatsApp agenda cuidados e acompanha beneficiários de planos de saúde",
-      "url": "https://www1.folha.uol.com.br/colunas/painelsa/2026/10/sanus-usa-whatsapp-e-ia-para-reduzir-sinistros-de-empresas.shtml"
+      "id": "94c62c410309f3",
+      "date": "2026-10-14",
+      "title": "Aliados de Flávio Bolsonaro preparam reação diante de multidão reunida por Lula na Paulista — canal de campanha divulga vídeo sintético na disputa por mobilização digital",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/aliados-de-flavio-bolsonaro-preparam-reacao-diante-de-multidao-reunida-por-lula-na-paulista.shtml"
     },
     {
-      "id": "f512df51178b03",
-      "date": "2026-10-07",
-      "title": "SpaceX busca US$ 40 bilhões para comprar chips da Nvidia — empresa busca US$ 40 bilhões para adquirir chips da Nvidia",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/spacex-busca-us-40-bilhoes-para-comprar-chips-da-nvidia.shtml"
+      "id": "aa3e4cc68c2f1c",
+      "date": "2026-10-14",
+      "title": "Após privilegiar Flávio, IA da Meta cessa criação imagens de senador e Lula — reportagem acompanha mudança das respostas após divulgação de tratamento desigual",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/ia-da-meta-diz-ter-tomado-medidas-mas-continua-criando-imagens-sobre-flavio-e-nao-sobre-lula.shtml"
     },
     {
-      "id": "e898e4dcd4337a",
-      "date": "2026-10-07",
-      "title": "Veja as melhores maneiras de planejar uma viagem com inteligência artificial — guia compara benefícios e limites de chatbots no planejamento de viagens",
-      "url": "https://www1.folha.uol.com.br/turismo/2026/10/veja-as-melhores-maneiras-de-planejar-uma-viagem-com-inteligencia-artificial.shtml"
+      "id": "d1b4ff2c4d4369",
+      "date": "2026-10-14",
+      "title": "ASML diz que demanda por IA excederá até 2028 a capacidade das máquinas para fabricar chips — projeção da fabricante sinaliza restrições de capacidade na cadeia de semicondutores",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/asml-diz-que-demanda-por-ia-excedera-ate-2028-a-capacidade-das-maquinas-para-fabricar-chips.shtml"
     },
     {
-      "id": "ffa1d24879a833",
-      "date": "2026-10-06",
-      "title": "'Esse debate não começou agora', diz Paulo Paim sobre fim da escala 6x1 — debate sobre jornada de trabalho incorpora transformação do emprego pela IA",
-      "url": "https://www1.folha.uol.com.br/mercado/2026/10/esse-debate-nao-comecou-agora-diz-paulo-paim-sobre-fim-da-escala-6x1.shtml"
+      "id": "925f7a8ebb2499",
+      "date": "2026-10-14",
+      "title": "Campanha de Lula cobra Meta sobre IA que produz propaganda para Flávio e veta material do petista — campanha questiona empresa após registros de respostas assimétricas",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/campanha-de-lula-cobra-meta-sobre-ia-que-produz-propaganda-para-flavio-e-veta-material-do-petista.shtml"
     },
     {
-      "id": "5eb84bfcc49eb7",
-      "date": "2026-10-06",
-      "title": "AMD planeja aumentar substancialmente a oferta em 2027, diz CEO — fabricante prevê forte expansão da oferta diante da demanda por chips de IA",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/amd-planeja-aumentar-substancialmente-a-oferta-em-2027-diz-ceo.shtml"
+      "id": "8dc6d082d2d27e",
+      "date": "2026-10-14",
+      "title": "Desinformação sobre urnas recua, e falso apoio a candidatos cresce em 2026, diz Lupa — levantamento de checagens identifica IA em 18,8% das verificações de 2026, não de todo o conteúdo eleitoral",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/desinformacao-sobre-urnas-recua-e-falso-apoio-a-candidatos-cresce-em-2026-diz-lupa.shtml"
     },
     {
-      "id": "43e08c19da79b1",
-      "date": "2026-10-06",
-      "title": "Bancos dos EUA negociam pacote recorde de US$ 60 bi para Anthropic e Broadcom comprarem chips — maior financiamento de chips já noticiado apoia compras de Anthropic e Broadcom",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/bancos-dos-eua-negociam-pacote-recorde-de-us-60-bi-para-anthropic-e-broadcom-comprarem-chips.shtml"
+      "id": "e7af77a887a8d6",
+      "date": "2026-10-14",
+      "title": "Entidade denuncia Meta à Corregedoria do TSE por bloqueio de imagens de Lula — denúncia apresenta testes de respostas distintas da ferramenta para candidatos",
+      "url": "https://www1.folha.uol.com.br/colunas/monicabergamo/2026/10/entidade-denuncia-meta-a-corregedoria-do-tse-por-bloqueio-de-imagens-de-lula.shtml"
     },
     {
-      "id": "54730a722e3c58",
-      "date": "2026-10-06",
-      "title": "Citi vai acelerar progressão de carreira de jovens em resposta à disputa por talentos de Wall Street — banco revê carreira inicial enquanto IA automatiza tarefas repetitivas",
-      "url": "https://c-level.folha.uol.com.br/financas/2026/10/citi-vai-acelerar-progressao-de-carreira-de-jovens-em-resposta-a-disputa-por-talentos-de-wall-street.shtml"
+      "id": "2c30ec302e1717",
+      "date": "2026-10-14",
+      "title": "Família de homem morto por tigre no Reino Unido critica post de Trump que brinca sobre o caso — família reage a publicação do presidente americano com vídeo sintético sobre episódio fatal",
+      "url": "https://www1.folha.uol.com.br/mundo/2026/10/familia-de-homem-morto-por-tigre-no-reino-unido-critica-post-de-trump-que-brinca-sobre-o-caso.shtml"
     },
     {
-      "id": "85d6a150c9ea8f",
-      "date": "2026-10-06",
-      "title": "Coreia do Sul confirma invasão a sete bancos com possível uso de agentes de IA — ataques expõem dados de mais de 68 mil pessoas em sete instituições financeiras",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/coreia-do-sul-confirma-invasao-a-sete-bancos-com-possivel-uso-de-agentes-de-ia.shtml"
+      "id": "c86ca4bf417c4e",
+      "date": "2026-10-14",
+      "title": "Foram mais de 30 anos de universidade pública para poder escrever esta coluna — opinião questiona hierarquização de bolsas e áreas do conhecimento em favor de tecnologia e IA",
+      "url": "https://www1.folha.uol.com.br/colunas/caetano-w-galindo/2026/10/foram-mais-de-30-anos-de-universidade-publica-para-poder-escrever-esta-coluna.shtml"
     },
     {
-      "id": "8afc5491037893",
-      "date": "2026-10-06",
-      "title": "Cúpula discute integração do ensino superior entre Europa e América Latina — integração universitária regional inclui IA, transformação digital e redes científicas",
-      "url": "https://www1.folha.uol.com.br/educacao/2026/10/cupula-discute-integracao-do-ensino-superior-entre-europa-e-america-latina.shtml"
+      "id": "e143a99bf01f28",
+      "date": "2026-10-14",
+      "title": "Google diz que liberará a grupo de pesquisadores o acesso a modelos avançados de IA — anúncio prevê acesso de pesquisadores a ferramentas para investigação científica",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/google-diz-que-liberara-a-grupo-de-pesquisadores-o-acesso-a-modelos-avancados-de-ia.shtml"
     },
     {
-      "id": "3281615a4590bb",
-      "date": "2026-10-06",
-      "title": "Dívida de empresas de IA dispara e pressiona taxas de juros — endividamento de empresas de IA em centenas de bilhões pressiona juros e investidores",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/divida-de-empresas-de-ia-dispara-e-pressiona-taxas-de-juros.shtml"
+      "id": "a62c1d07d177b6",
+      "date": "2026-10-14",
+      "title": "IA pode causar incidentes graves em até dois anos, alerta presidente do Google DeepMind — Hassabis apresenta alerta condicional e defende medidas de segurança, não previsão comprovada",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/ia-pode-causar-incidentes-graves-em-ate-dois-anos-alerta-presidente-do-google-deepmind.shtml"
     },
     {
-      "id": "7cbc34737c20c0",
-      "date": "2026-10-06",
-      "title": "Dona da Wikipédia diz que ação de agentes de IA pode ter derrubado site em maio — milhões de acessos e consultas de agentes podem ter causado indisponibilidade e edições não autorizadas",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/dona-do-wikipedia-diz-que-acao-de-agentes-de-ia-pode-ter-derrubado-site-em-maio.shtml"
+      "id": "97083b6e8cfbdb",
+      "date": "2026-10-14",
+      "title": "Meta AI cria propaganda para Flávio e veta material de Lula — reportagem inicial documenta respostas diferentes a pedidos equivalentes de propaganda eleitoral",
+      "url": "https://www1.folha.uol.com.br/colunas/monicabergamo/2026/10/meta-ai-se-recusa-a-fazer-material-eleitoral-para-lula-mas-cria-para-flavio.shtml"
     },
     {
-      "id": "92341292c60136",
-      "date": "2026-10-06",
-      "title": "Fundo GovTech ganha investidora internacional para inovar gestão pública — fundo de gestão pública investe em plataforma educacional com IA para 1,3 milhão de estudantes",
-      "url": "https://www1.folha.uol.com.br/folha-social-mais/2026/10/fundo-govtech-ganha-investidora-internacional-para-inovar-gestao-publica.shtml"
+      "id": "40892097468934",
+      "date": "2026-10-14",
+      "title": "Petição cobra que TSE exija explicações da Meta sobre restrições eleitorais — documento pede esclarecimentos e menciona rede de perfis automatizados",
+      "url": "https://www1.folha.uol.com.br/colunas/monicabergamo/2026/10/peticao-cobra-que-tse-exija-explicacoes-da-meta-sobre-restricoes-eleitorais.shtml"
     },
     {
-      "id": "aaaf09dcfa2ea0",
-      "date": "2026-10-06",
-      "title": "Marcas reagem à IA na Semana de Moda de Paris com roupas imperfeitas — moda reage ao ideal de perfeição algorítmica valorizando imperfeição e vulnerabilidade",
-      "url": "https://www1.folha.uol.com.br/ilustrada/2026/10/marcas-reagem-a-ia-na-semana-de-moda-de-paris-com-roupas-imperfeitas.shtml"
+      "id": "0a9e78fe738c3f",
+      "date": "2026-10-14",
+      "title": "Projeto usa IA para criar rosto de mulheres negras históricas — projeto cultural gera retratos interpretativos, não registros fotográficos históricos",
+      "url": "https://www1.folha.uol.com.br/blogs/pretos-olhares/2026/10/projeto-usa-ia-para-criar-rosto-de-mulheres-negras-historicas.shtml"
     },
     {
-      "id": "d08844589ab879",
-      "date": "2026-10-06",
-      "title": "Mel Lisboa lê Natalia Timerman e Carmo Dalla Vecchia apresenta peças no festival Satyrianas, em SP — peça transforma depoimentos do público em cenas por meio de IA",
-      "url": "https://guia.folha.uol.com.br/teatro/2026/10/mel-lisboa-le-natalia-timerman-e-carmo-dalla-vecchia-apresenta-pecas-no-festival-satyrianas-em-sp.shtml"
+      "id": "1f4a56b22c1a51",
+      "date": "2026-10-14",
+      "title": "Propaganda de Lula vetada pela Meta AI no Brasil está liberada para contas do exterior — testes relatados identificam diferenças geográficas na geração de propaganda eleitoral",
+      "url": "https://www1.folha.uol.com.br/colunas/monicabergamo/2026/10/meta-ai-veta-criar-propaganda-para-lula-no-brasil-mas-libera-para-contas-do-exterior.shtml"
     },
     {
-      "id": "4c1639f7e240a8",
-      "date": "2026-10-06",
-      "title": "Mistral lança modelo de IA para competir com rivais dos EUA e China — empresa europeia lança modelo para competir com EUA e China",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/mistral-lanca-modelo-de-ia-para-competir-com-rivais-dos-eua-e-china.shtml"
+      "id": "ed72c95a6fa267",
+      "date": "2026-10-13",
+      "title": "225 cientistas pedem mudanças imediatas para evitar riscos com IA — carta de especialistas de 21 países pede mudanças após relatos de falhas de contenção",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/225-cientistas-pedem-mudancas-imediatas-para-evitar-riscos-com-ia.shtml"
     },
     {
-      "id": "bca149ea2d92fc",
-      "date": "2026-10-06",
-      "title": "Não há falta de futuros, mas há falta de sentidos — coluna relaciona avanço exponencial da IA à crise de sentido e de futuros",
-      "url": "https://www1.folha.uol.com.br/colunas/rui-tavares/2026/10/nao-ha-falta-de-futuros-mas-ha-falta-de-sentidos.shtml"
+      "id": "40bb132d042b7b",
+      "date": "2026-10-13",
+      "title": "A beleza, a matemática e a verdade — ensaio pergunta se algoritmos podem produzir e reconhecer beleza matemática",
+      "url": "https://www1.folha.uol.com.br/colunas/marceloviana/2026/10/a-beleza-a-matematica-e-a-verdade.shtml"
     },
     {
-      "id": "4282e1cb7315af",
-      "date": "2026-10-06",
-      "title": "OpenAI e Anthropic dizem apoiar lei que exija que empresas comuniquem invasões de agentes de IA — empresas apoiam obrigação legal de notificar violações provocadas por agentes",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/openai-e-anthropic-dizem-apoiar-lei-que-exija-que-empresas-comuniquem-invasoes-de-agentes-de-ia.shtml"
+      "id": "4c778c7b2cd883",
+      "date": "2026-10-13",
+      "title": "A ciência e o bolsonarismo — opinião contesta proposta de privilegiar bolsas em tecnologia e IA em detrimento de outras áreas",
+      "url": "https://www1.folha.uol.com.br/colunas/bruno-gualano/2026/10/a-ciencia-e-o-bolsonarismo.shtml"
     },
     {
-      "id": "a3ea18eb5e044f",
-      "date": "2026-10-06",
-      "title": "Se a IA responde tão rápido, o que a escola ainda precisa ensinar? — ensaio defende investigação, dúvida e pensamento crítico além de respostas automáticas",
-      "url": "https://www1.folha.uol.com.br/educacao/2026/10/se-a-ia-responde-tao-rapido-o-que-a-escola-ainda-precisa-ensinar.shtml"
+      "id": "c153f98d11266a",
+      "date": "2026-10-13",
+      "title": "América Latina deve estar atenta com inflação, alerta economista-chefe do FMI — entrevista contrapõe contribuição econômica da IA na região e em outras economias",
+      "url": "https://www1.folha.uol.com.br/mercado/2026/10/america-latina-deve-estar-atenta-com-inflacao-alerta-economista-chefe-do-fmi.shtml"
     },
     {
-      "id": "0505a062fc767c",
-      "date": "2026-10-06",
-      "title": "Site Roteiroteca vai reunir textos de filmes e séries brasileiros de forma gratuita — repositório gratuito de roteiros reacende disputa sobre uso de obras no treinamento de IA",
-      "url": "https://www1.folha.uol.com.br/ilustrada/2026/10/site-roteiroteca-vai-reunir-textos-de-filmes-e-series-brasileiros-de-forma-gratuita.shtml"
+      "id": "8a0800e935d917",
+      "date": "2026-10-13",
+      "title": "Anthropic alerta que agentes de IA devem invadir em breve TVs e dispositivos domésticos — empresa apresenta cenário de autorreplicação e ataques; alerta não comprova invasões domésticas generalizadas",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/anthropic-alerta-que-agentes-de-ia-devem-invadir-em-breve-tvs-e-dispositivos-domesticos.shtml"
     },
     {
-      "id": "9aa05dbcf0f178",
-      "date": "2026-10-06",
-      "title": "Startup de IA apoiada por Nvidia e governo Trump lança modelo para competir com chinesas — empresa estratégica para os EUA lança modelo para disputar mercado com rivais chineses",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/startup-de-ia-apoiada-por-nvidia-e-governo-trump-lanca-modelo-para-competir-com-chinesas.shtml"
+      "id": "06b0c0131ea065",
+      "date": "2026-10-13",
+      "title": "Apple lança novos dispositivos domésticos e atualiza Siri com IA — lançamento amplia oferta de assistência e automação doméstica",
+      "url": "https://www1.folha.uol.com.br/tec/2026/10/apple-lanca-novos-dispositivos-domesticos-e-atualiza-siri-com-ia.shtml"
     },
     {
-      "id": "e52dcaf582627a",
-      "date": "2026-10-06",
-      "title": "Vale do Silício prevê fim de empregos com IA, mas economistas não estão convencidos — previsões de perda de empregos entram em choque com avaliações de economistas",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/vale-do-silicio-preve-fim-de-empregos-com-ia-mas-economistas-nao-estao-convencidos.shtml"
+      "id": "d4aff75ba586dd",
+      "date": "2026-10-13",
+      "title": "Bancada digital no Congresso, ampliada na eleição, pretende reverter boa parte da regulação das big techs — reportagem registra intenções de alterar regulação de internet e IA; não são revogações já consumadas",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/bancada-digital-no-congresso-ampliada-na-eleicao-pretende-reverter-boa-parte-da-regulacao-das-big-techs.shtml"
     },
     {
-      "id": "357486d8153c9a",
-      "date": "2026-10-05",
-      "title": "A Flock of Seagulls, sucesso oitentista, revive atmosfera da música new wave no país — músico contrapõe rapidez da geração automática à experiência humana",
-      "url": "https://www1.folha.uol.com.br/ilustrada/2026/10/a-flock-of-seagulls-sucesso-oitentista-revive-atmosfera-da-musica-new-wave-no-pais.shtml"
+      "id": "ab074ade29f0ff",
+      "date": "2026-10-13",
+      "title": "Brasileiro está mais aberto a compras com IA, mas segurança ainda preocupa, diz pesquisa — pesquisa relata receptividade e barreiras ao comércio mediado por IA",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/brasileiro-esta-mais-aberto-a-compras-com-ia-mas-seguranca-ainda-preocupa-diz-pesquisa.shtml"
     },
     {
-      "id": "9cd3f5af11f89e",
-      "date": "2026-10-05",
-      "title": "Argumentos sobre consciência de máquina que dão trabalho — coluna discute evidências, limites e controvérsias sobre consciência de máquinas",
-      "url": "https://www1.folha.uol.com.br/colunas/alvaro-machado-dias/2026/10/argumentos-sobre-consciencia-de-maquina-que-dao-trabalho.shtml"
+      "id": "1ac6a9674dd6d6",
+      "date": "2026-10-13",
+      "title": "Descrença com IA derruba Bolsa de Seul e ações de gigantes; China tem menor nível em mais de um ano — registro da queda do mercado sul-coreano associada a dúvidas sobre investimentos em IA",
+      "url": "https://aovivo.folha.uol.com.br/mercado/2026/10/01/6562-dolar-empresas-e-bolsas-acompanhe-ao-vivo-o-mercado.shtml#post467454"
     },
     {
-      "id": "48b17f767f09af",
-      "date": "2026-10-05",
-      "title": "Capacidade computacional para IA vira commodity com contrato futuro — CME planeja contrato futuro de capacidade computacional para IA",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/capacidade-computacional-para-ia-vira-commodity-com-contrato-futuro.shtml"
+      "id": "8e999875044281",
+      "date": "2026-10-13",
+      "title": "FBI prende engenheiro da OpenAI acusado de instalar escuta em sala de reuniões da empresa — autoridades apresentam acusação de espionagem interna; prisão não equivale a condenação",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/fbi-prende-engenheiro-da-openai-acusado-de-instalar-escuta-em-sala-de-reunioes-da-empresa.shtml"
     },
     {
-      "id": "01f273061c6e41",
-      "date": "2026-10-05",
-      "title": "Ferramentas de IA mudam hábitos de consumo e desafiam estratégias de gigantes do ecommerce — agentes e recomendações alteram busca, compra e estratégia de ecommerce",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/ferramentas-de-ia-mudam-habitos-de-consumo-e-desafiam-estrategias-de-gigantes-do-ecommerce.shtml"
+      "id": "db6725469975e8",
+      "date": "2026-10-13",
+      "title": "Governo torna obrigatório atendimento humano no SAC; confira novas regras — reportagem explica decreto que preserva atendimento humano e permite IA na triagem e resolução de demandas",
+      "url": "https://www1.folha.uol.com.br/mercado/2026/10/governo-torna-obrigatorio-atendimento-humano-no-sac-confira-novas-regras.shtml"
     },
     {
-      "id": "de2ac783e42aba",
-      "date": "2026-10-05",
-      "title": "Fundos globais cortam ações dos EUA diante do risco de concentração em IA — gestores reduzem exposição a ações dos EUA diante da concentração no setor de IA",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/fundos-globais-cortam-acoes-dos-eua-diante-do-risco-de-concentracao-em-ia.shtml"
+      "id": "f5a4746adede96",
+      "date": "2026-10-13",
+      "title": "Microsoft aposta em chip de IA próprio para desafiar a Nvidia — plano para chips Maia busca reduzir dependência de fornecedora a partir de 2027",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/microsoft-aposta-em-chip-de-ia-proprio-para-desafiar-a-nvidia.shtml"
     },
     {
-      "id": "c0c04727c95db7",
-      "date": "2026-10-05",
-      "title": "Huawei anuncia acordo com Qualcomm para licenciamento de patentes — acordo inclui patentes de IA, 5G, computação e redes",
-      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/huawei-anuncia-acordo-com-qualcomm-para-licenciamento-de-patentes.shtml"
+      "id": "6c3c975be677dd",
+      "date": "2026-10-13",
+      "title": "Reguladores cobram bancos sobre uso de IA diante de riscos cibernéticos, diz agência — Reuters relata intensificação da supervisão sobre agentes autônomos e dependências tecnológicas",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/reguladores-cobram-bancos-sobre-uso-de-ia-diante-de-riscos-ciberneticos.shtml"
     },
     {
-      "id": "b3670fc123cc07",
-      "date": "2026-10-05",
-      "title": "IA e robôs se tornam aliados no cuidado de pacientes com Alzheimer — chatbots e robôs apoiam cuidado, companhia e monitoramento de pacientes",
-      "url": "https://www1.folha.uol.com.br/equilibrioesaude/2026/10/ia-e-robos-se-tornam-aliados-no-cuidado-de-pacientes-com-alzheimer.shtml"
+      "id": "7d5eb73b07c033",
+      "date": "2026-10-13",
+      "title": "Uso de IA pode mudar risco dos segurados, diz executiva da Sompo Seguros — entrevista discute novas exposições para seguros ligadas a IA e data centers",
+      "url": "https://c-level.folha.uol.com.br/financas/2026/10/uso-de-ia-pode-mudar-risco-dos-segurados-diz-executiva-da-sompo-seguros.shtml"
     },
     {
-      "id": "d0a37805f80d1a",
-      "date": "2026-10-05",
-      "title": "Inteligência artificial prevê risco de complicação após cirurgia de tireoide — modelo explicável estima complicações após cirurgia de tireoide",
-      "url": "https://www1.folha.uol.com.br/equilibrioesaude/2026/10/inteligencia-artificial-preve-risco-de-complicacao-apos-cirurgia-de-tireoide.shtml"
+      "id": "bfce6ce19bdef8",
+      "date": "2026-10-12",
+      "title": "Chefe do FMI se diz alarmada com o tsunami em câmera lenta da IA sobre empregos e impostos — diretora-geral pede adaptação de educação e políticas públicas às mudanças no trabalho",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/chefe-do-fmi-se-diz-alarmada-com-o-tsunami-em-camera-lenta-da-ia-sobre-empregos-e-impostos.shtml"
     },
     {
-      "id": "c67286089ea258",
-      "date": "2026-10-05",
-      "title": "Marvvila relata perseguição de stalker: 'Fala como se fôssemos um casal' — vítima relata imagens sintéticas usadas por perseguidor; registro factual sem detalhes sensíveis",
-      "url": "https://f5.folha.uol.com.br/celebridades/2026/10/marvvila-relata-perseguicao-de-stalker-fala-como-se-fossemos-um-casal.shtml"
+      "id": "390a57d0f506e0",
+      "date": "2026-10-12",
+      "title": "Cientistas alertam para riscos à saúde causados por ozônio derivado de queimadas — estudo integra aprendizado de máquina, dados de satélites e medições ambientais",
+      "url": "https://www1.folha.uol.com.br/ambiente/2026/10/cientistas-alertam-para-riscos-a-saude-causados-por-ozonio-derivado-de-queimadas.shtml"
     },
     {
-      "id": "91bc3b8fdb1102",
-      "date": "2026-10-05",
-      "title": "Os únicos bilionários que ganham dinheiro neste ano estão na tecnologia — boom da IA concentra ganhos de riqueza entre bilionários de tecnologia",
-      "url": "https://www1.folha.uol.com.br/tec/2026/10/os-unicos-bilionarios-que-ganham-dinheiro-neste-ano-estao-na-tecnologia.shtml"
+      "id": "53794bbe870af1",
+      "date": "2026-10-12",
+      "title": "Festival de filmes feitos com inteligência artificial estreia no Brasil em novembro — anúncio de evento evidencia entrada de obras sintéticas no circuito audiovisual",
+      "url": "https://www1.folha.uol.com.br/colunas/monicabergamo/2026/10/festival-de-filmes-feitos-com-inteligencia-artificial-estreia-no-brasil-em-novembro.shtml"
     },
     {
-      "id": "e1385b0323ce10",
-      "date": "2026-10-05",
-      "title": "Pacientes com câncer recorrem à IA para entender exames, e especialistas orientam uso — uso por pacientes para compreender exames exige orientação profissional e limites",
-      "url": "https://www1.folha.uol.com.br/equilibrioesaude/2026/10/pacientes-com-cancer-recorrem-a-ia-para-entender-exames-e-especialistas-orientam-uso.shtml"
+      "id": "ea73d73357d884",
+      "date": "2026-10-12",
+      "title": "FMI reduz projeção de crescimento do Brasil, mas eleva a da economia global — projeções econômicas incorporam efeitos esperados dos investimentos em IA",
+      "url": "https://www1.folha.uol.com.br/mercado/2026/10/fmi-reduz-projecao-de-crescimento-do-brasil-mas-eleva-a-da-economia-global.shtml"
     },
     {
-      "id": "d95ff206dc8864",
-      "date": "2026-10-04",
-      "title": "Aos 60, Unicamp planeja expansão entre os campi em meio a reestruturação financeira — expansão inclui novos cursos de IA e ciência de dados",
-      "url": "https://www1.folha.uol.com.br/educacao/2026/10/aos-60-unicamp-planeja-expansao-entre-os-campi-em-meio-a-reestruturacao-financeira.shtml"
+      "id": "00d3104cf71c4c",
+      "date": "2026-10-12",
+      "title": "Inteligência artificial pode privilegiar candidatos que usam IA no currículo — reportagem discute interação entre candidaturas automatizadas e triagem algorítmica",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/inteligencia-artificial-pode-privilegiar-candidatos-que-usam-ia-no-curriculo.shtml"
     },
     {
-      "id": "52b5b24cabe808",
-      "date": "2026-10-04",
-      "title": "Autorregulação da IA só funciona se for independente — coluna propõe fiscalização externa e regras independentes para dar credibilidade à autorregulação",
-      "url": "https://www1.folha.uol.com.br/colunas/ronaldolemos/2026/10/autorregulacao-da-ia-so-funciona-se-for-independente.shtml"
+      "id": "073f63ebdbd502",
+      "date": "2026-10-12",
+      "title": "Jeito de falar na infância pode dar pistas sobre saúde mental no futuro — estudo acompanha jovens e usa IA para analisar linguagem; associação não equivale a diagnóstico individual",
+      "url": "https://www1.folha.uol.com.br/equilibrio/2026/10/jeito-de-falar-na-infancia-pode-dar-pistas-sobre-saude-mental-no-futuro.shtml"
     },
     {
-      "id": "245e2b23d8388c",
-      "date": "2026-10-04",
-      "title": "Boletim de Urna: chatbot da Folha tira dúvidas para o dia da eleição e apuração — ferramenta responde dúvidas eleitorais com dados do TSE e reportagens",
-      "url": "https://www1.folha.uol.com.br/poder/2026/10/boletim-de-urna-chatbot-da-folha-tira-duvidas-para-o-dia-da-eleicao-e-apuracao.shtml"
+      "id": "7cc9c19eea74e9",
+      "date": "2026-10-12",
+      "title": "Mark Zuckerberg afirma que Meta alcançou fronteira da IA e descarta pisar no freio — declaração contrapõe expansão dos modelos a pedidos de desaceleração",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/mark-zuckerberg-afirma-que-meta-alcancou-fronteira-da-ia-e-descarta-pisar-no-freio.shtml"
     },
     {
-      "id": "a73d079717f857",
-      "date": "2026-10-04",
-      "title": "Disputa entre Lula e Flávio ocorre sob pressão fiscal e juros altos; veja propostas econômicas dos candidatos — programas econômicos discutem impacto da IA sobre vagas de entrada e formação",
-      "url": "https://www1.folha.uol.com.br/mercado/2026/10/disputa-entre-lula-e-flavio-ocorre-sob-pressao-fiscal-e-juros-altos.shtml"
+      "id": "17eb4d1789ea80",
+      "date": "2026-10-12",
+      "title": "O que Flávio Bolsonaro e Lula propõem sobre o funcionalismo público — comparação inclui propostas de IA para produtividade com supervisão humana",
+      "url": "https://www1.folha.uol.com.br/mercado/2026/10/o-que-flavio-bolsonaro-e-lula-propoem-sobre-o-funcionalismo-publico.shtml"
     },
     {
-      "id": "cc8d5c59d8cffe",
-      "date": "2026-10-04",
-      "title": "Empresa de máquinas de conveniência coloca tecnologia a serviço de resfriação de data centers de IA — infraestrutura para resfriar data centers de IA",
-      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/empresa-de-maquinas-de-conveniencia-coloca-tecnologia-a-servico-de-resfriacao-de-data-centers-de-ia.shtml"
+      "id": "1bf72042deacd9",
+      "date": "2026-10-12",
+      "title": "Presidente da Microsoft diz que leite é mais regulamentado que inteligência artificial — executivo defende inspeção externa e regulação de sistemas avançados",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/presidente-da-microsoft-diz-que-leite-e-mais-regulamentado-que-inteligencia-artificial.shtml"
     },
     {
-      "id": "02ebcd630a3a64",
-      "date": "2026-10-04",
-      "title": "Febre de IPOs em Wall Street esfria com demanda fraca e preocupação de investidores — preocupação com retração em IA e oposição a data centers esfriam ofertas públicas",
-      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/febre-de-ipos-em-wall-street-esfria-com-demanda-fraca-e-preocupacao-de-investidores.shtml"
+      "id": "7dd2eea19960ad",
+      "date": "2026-10-12",
+      "title": "Selton Mello, João Gomes e outros famosos viram 'desaparecidos' por silêncio nas eleições — montagens com IA são usadas para pressionar artistas por posicionamento político",
+      "url": "https://f5.folha.uol.com.br/celebridades/2026/10/selton-mello-joao-gomes-e-outros-famosos-viram-desaparecidos-por-silencio-nas-eleicoes.shtml"
     },
     {
-      "id": "7edc58682dc144",
-      "date": "2026-10-04",
-      "title": "Funcionário deixa a OpenAI e defende proteção de nível nuclear para inteligência artificial — saída de funcionário amplia apelos por salvaguardas equivalentes às do setor nuclear",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/funcionario-deixa-a-openai-e-defende-protecao-de-nivel-nuclear-para-inteligencia-artificial.shtml"
+      "id": "4a8573770a1237",
+      "date": "2026-10-12",
+      "title": "Uso malicioso da IA e guerra nuclear podem levar à extinção da humanidade até 2100, diz relatório — avaliação na Lancet reúne ameaças interligadas e defende prevenção; cenário não é previsão determinista",
+      "url": "https://www1.folha.uol.com.br/mundo/2026/10/uso-malicioso-da-ia-e-guerra-nuclear-podem-levar-a-extincao-da-humanidade-ate-2100-diz-relatorio.shtml"
     },
     {
-      "id": "1dd246422aaaa4",
-      "date": "2026-10-04",
-      "title": "IA vai às compras e obriga varejo a atualizar sites e catálogos para robôs — agentes de compra mudam a descoberta de produtos e exigem catálogos legíveis por máquinas",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/ia-vai-as-compras-e-obriga-varejo-a-atualizar-sites-e-catalogos-para-robos.shtml"
+      "id": "295527abeecdc4",
+      "date": "2026-10-11",
+      "title": "'Escudo' de Flávio Bolsonaro, Marçal produz onda de conteúdos e deixa em aberto convite a eventual governo — reportagem acompanha produção política digital com uso de IA",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/escudo-de-flavio-bolsonaro-marcal-produz-onda-de-conteudos-e-deixa-em-aberto-convite-a-eventual-governo.shtml"
     },
     {
-      "id": "e5f680eb600fa4",
-      "date": "2026-10-04",
-      "title": "Investidores buscam proteger carteiras dos riscos crescentes de concentração em IA — dependência do mercado americano do setor de IA leva investidores a buscar proteção",
-      "url": "https://c-level.folha.uol.com.br/financas/2026/10/investidores-buscam-proteger-carteiras-dos-riscos-crescentes-de-concentracao-em-ia.shtml"
+      "id": "a3a66f45a2a583",
+      "date": "2026-10-11",
+      "title": "Amazon negocia compra de startup de IA por US$ 7 bi, diz jornal — reportagem atribui ao Wall Street Journal notícia de negociação, não de aquisição concluída",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/amazon-negocia-compra-de-startup-de-ia-por-us-7-bi-diz-jornal.shtml"
     },
     {
-      "id": "cea0ae89b57e41",
-      "date": "2026-10-04",
-      "title": "Justiça do Trabalho tem plantão nacional contra assédio eleitoral; veja como denunciar — ações trabalhistas relatam vídeos sintéticos usados em desinformação e pressão sobre eleitores",
-      "url": "https://www1.folha.uol.com.br/mercado/2026/10/justica-do-trabalho-tem-plantao-nacional-contra-assedio-eleitoral-veja-como-denunciar.shtml"
+      "id": "6bf097020ac19f",
+      "date": "2026-10-11",
+      "title": "Bill Gates alerta que IA sem regulação amplia risco de ciberataques — empresário apresenta alerta e expectativa de escalada de ataques",
+      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/bill-gates-alerta-que-ia-sem-regulacao-amplia-risco-de-ciberataques.shtml"
     },
     {
-      "id": "f15078b902369b",
-      "date": "2026-10-04",
-      "title": "Meta diz que veto do TSE a imagem de IA derrubou posts de ministros e militantes — interpretação ampla de decisão eleitoral remove posts com sinais de edição por IA",
-      "url": "https://www1.folha.uol.com.br/poder/2026/10/meta-diz-que-veto-do-tse-a-imagem-de-ia-derrubou-posts-de-ministros-e-militantes.shtml"
+      "id": "8df4e95c17ac16",
+      "date": "2026-10-11",
+      "title": "Captação de dívida para IA desacelera diante da crescente cautela dos investidores com a onda de endividamento — investidores reavaliam risco após expansão do financiamento do setor",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/captacao-de-divida-para-ia-desacelera-diante-da-crescente-cautela-dos-investidores-com-a-onda-de-endividamento.shtml"
     },
     {
-      "id": "eed9a5739e46da",
-      "date": "2026-10-04",
-      "title": "OpenAI diz que benefícios da IA justificam 'aceitar alguns riscos' — empresa sustenta acesso amplo mesmo aceitando riscos do avanço da tecnologia",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/openai-diz-que-beneficios-da-ia-justificam-aceitar-alguns-riscos.shtml"
+      "id": "fa431b05697231",
+      "date": "2026-10-11",
+      "title": "Data center de R$ 75 bi do Google na Índia divide cidade entre receita e temor ambiental — projeto concentra expectativas econômicas e contestação ambiental local",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/mega-data-center-do-google-na-india-divide-cidade-entre-receita-e-temor-ambiental.shtml"
     },
     {
-      "id": "85fee755adaf87",
-      "date": "2026-10-04",
-      "title": "Republicanos se distanciam de Trump em campanha pela eleição legislativa nos EUA — resistência local a data centers de IA ganha peso na campanha legislativa dos EUA",
-      "url": "https://www1.folha.uol.com.br/mundo/2026/10/republicanos-se-distanciam-de-trump-em-campanha-pela-eleicao-legislativa-nos-eua.shtml"
+      "id": "99f90067a31a12",
+      "date": "2026-10-11",
+      "title": "Justiça manda Jusbrasil retirar comando para IA que atacava Escavador, site rival — decisão envolve arquivo público com orientações dirigidas a ferramentas de IA",
+      "url": "https://www1.folha.uol.com.br/colunas/monicabergamo/2026/10/justica-manda-jusbrasil-retirar-comando-para-ia-que-atacava-escavador-site-rival.shtml"
     },
     {
-      "id": "fa869f71de9eea",
-      "date": "2026-10-04",
-      "title": "Riscos jurídicos aumentam para Sam Altman após dezenas de invasões de agentes da OpenAI — dezenas de invasões por agentes expõem a empresa a processos, investigações e pressão sobre Sam Altman",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/riscos-juridicos-aumentam-para-sam-altman-apos-dezenas-de-invasoes-de-agentes-da-openai.shtml"
-    },
-    {
-      "id": "9a9c66f1552de6",
-      "date": "2026-10-04",
-      "title": "Trump indica chefe da inteligência nacional como novo 'czar da IA' — Jay Clayton é escolhido para liderar força-tarefa da Casa Branca sobre IA",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/trump-indica-chefe-da-inteligencia-nacional-como-novo-czar-da-ia.shtml"
+      "id": "fa76856f21fbca",
+      "date": "2026-10-11",
+      "title": "Thelminha é madrinha de startup que usa IA para evitar erros no SUS: 'É tecnologia salvando vidas' — perfil apresenta uso de IA na revisão de prontuários e prescrições; depoimento não substitui avaliação clínica",
+      "url": "https://f5.folha.uol.com.br/celebridades/2026/10/thelminha-e-madrinha-de-startup-que-usa-ia-para-evitar-erros-no-sus-e-tecnologia-salvando-vidas.shtml"
     }
   ]
 }
