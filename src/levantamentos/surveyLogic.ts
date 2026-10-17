@@ -13,11 +13,11 @@ export const AREA_SHORT: Record<string, string> = {
 export const GEN_CATEGORIES = ["Permitida", "Restrita", "Vedada", "Sem regra"] as const;
 export const REV_CATEGORIES = ["Condicionado", "Vedado", "Não trata"] as const;
 export const CATEGORY_LABEL: Record<string, string> = {
-  Permitida: "Permite, com declaração", Restrita: "Restringe à edição", Vedada: "Veda", "Sem regra": "Sem regra",
+  Permitida: "Permite, com condições", Restrita: "Restringe à edição", Vedada: "Veda", "Sem regra": "Sem regra",
   Condicionado: "Condicionado", Vedado: "Veda", "Não trata": "Não trata", "N/A": "Não se aplica",
 };
 export const VERIFICATION_LABEL: Record<string, string> = {
-  P: "Fonte primária", S: "Fonte secundária", H: "Herdada da editora", A: "Ausência verificada", NL: "Não localizado",
+  P: "Fonte primária", S: "Fonte secundária", H: "Regra herdada", A: "Ausência verificada", NL: "Não localizado",
 };
 
 export const isBrazilian = (row: PolicyRow) => String(row.geo || "").startsWith("Brasil");
