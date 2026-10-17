@@ -265,6 +265,8 @@ body { min-width: 0; font-size: 16px; }
 .readings-card-grid .compact-card .category-cover .type-badge { color: #7f4c28; }
 .readings-card-grid .compact-card .card-theme { color: #9d5827; }
 .readings-load-more { margin: 26px auto 0; }
+/* A expansão de listas usa o mesmo botão do acervo e das leituras. */
+.pt-site-shell :is(.daily-news-more, .sv-more) { display: flex; width: fit-content; margin: 24px auto 0; border-radius: 10px; }
 .readings-empty { min-height: 300px; display: grid; justify-items: center; align-content: center; gap: 8px; padding: 42px 20px; border: 1px dashed #bacbc2; border-radius: 16px; background: #fff; color: #52675e; text-align: center; }
 .readings-empty strong { color: #173f34; font-size: 1.15rem; }
 .readings-empty p { margin: 0 0 8px; }
@@ -360,6 +362,11 @@ body { min-width: 0; font-size: 16px; }
 .daily-news-list a { min-height: 44px; }
 .daily-news-search input, .readings-search input { font-size: 16px; }
 .daily-news-search, .readings-search { min-height: 48px; }
+/* As buscas anunciam o foco pelo contêiner, como a busca principal do acervo.
+   Os inputs internos removem o contorno nativo para não duplicar essa marca. */
+.daily-news-search:focus-within, .readings-search:focus-within, .guide-search:focus-within { outline: 3px solid #e49a43; outline-offset: 2px; }
+.pt-site-shell :is(.daily-news-search, .readings-search, .guide-search, .sv-search-field) input:focus { outline: none; }
+.readings-search button { min-width: 44px; min-height: 44px; }
 .daily-news-search input { width: 100%; min-width: 0; }
 .daily-news-record-footer { gap: 12px; flex-wrap: wrap; }
 .daily-news-record-footer a { display: inline-flex; align-items: center; }
@@ -434,10 +441,4 @@ body { min-width: 0; font-size: 16px; }
 @media (max-width: 780px) {
   /* No eixo vertical, a base flex de 280px virava altura e deslocava a seta. */
   .select-filter { flex: 0 0 auto; }
-}
-/* Duas colunas expõem os quatro destinos sem exigir descobrir rolagem lateral.
-   Os rótulos completos continuam visíveis e acessíveis, inclusive em inglês. */
-@media (max-width: 600px) {
-  .panorama-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; overflow: visible; scroll-snap-type: none; padding-block: 6px; }
-  .panorama-tabs a { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 44px; padding: 8px; white-space: normal; text-align: center; line-height: 1.35; }
 }

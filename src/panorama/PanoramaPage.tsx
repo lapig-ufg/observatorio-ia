@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { SectionNav } from "../SectionNav";
+import { sectionNavigation, type SectionLink } from "../sectionNavigation";
 import { trackEvent } from "../analytics";
 import { PANORAMA_SITE, canonicalCompany } from "../panoramaData";
 import { Timeline } from "./Timeline";
@@ -26,18 +28,13 @@ const TABS: Array<{ key: TabKey; pt: string; en: string }> = [
   { key: "como-usar", pt: "Como usar fora do navegador", en: "Using AI beyond the browser" },
 ];
 
-function panoramaSubRoute(route: string): TabKey {
-  const hash = route.split("?")[0];
-  if (hash === "#panorama/guia") return "guia";
-  if (hash === "#panorama/gratuitos") return "gratuitos";
-  if (hash === "#panorama/como-usar") return "como-usar";
-  return "";
-}
-
 export function PanoramaPage({ english = false }: { english?: boolean }) {
   const [route, setRoute] = useState(() => window.location.hash);
-  const tab = panoramaSubRoute(route);
-  const activeTabRef = useRef<HTMLAnchorElement>(null);
+  const sections = TABS.map(entry => ({ key: entry.key, href: `#panorama${entry.key ? `/${entry.key}` : ""}`, label: english ? entry.en : entry.pt }));
+  const tab = sectionNavigation(sections, route).current!.key;
+  const navigate = (section: SectionLink, position: "section-bar" | "pager") => trackEvent(english ? "panorama_tab_en" : "panorama_tab", {
+    event_category: "navigation", event_label: section.key || "regua", position,
+  });
   const [context, setContext] = useState<{ releases: number; companies: number; date: string } | null>(null);
   const [contextFailed, setContextFailed] = useState(false);
   useEffect(() => {
@@ -108,26 +105,12 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
         </div>
       </div>
 
-      <nav className="panorama-tabs" aria-label={english ? "Panorama sections" : "Seções do Panorama"}>
-        {TABS.map((entry) => (
-          <a
-            key={entry.key || "regua"}
-            ref={tab === entry.key ? activeTabRef : undefined}
-            href={`#panorama${entry.key ? `/${entry.key}` : ""}`}
-            aria-current={tab === entry.key ? "page" : undefined}
-            onClick={() => trackEvent(english ? "panorama_tab_en" : "panorama_tab", {
-              event_category: "navigation",
-              event_label: entry.key || "regua",
-            })}
-          >
-            {english ? entry.en : entry.pt}
-          </a>
-        ))}
-      </nav>
+      <SectionNav sections={sections} route={route} label={english ? "Panorama sections" : "Seções do Panorama"} headingId="panorama-title" english={english} onNavigate={navigate} />
       <p className="panorama-tab-intro">{introductions[tab]}</p>
 
       {tab === "" ? <Timeline english={english} /> : tab === "guia" ? <ModelGuide english={english} /> : tab === "gratuitos" ? <FreeTools english={english} referenceDate={context?.date} /> : <UsageGuide english={english} />}
       {tab === "guia" && <footer className="panorama-provenance panorama-page-source"><span>{english ? "Source: Artificial Analysis · curation by LAPIG/UFG" : "Fonte: Artificial Analysis · curadoria LAPIG/UFG"}</span><a href={`${openOriginalUrl}guia.html`} target="_blank" rel="noreferrer">{english ? "Original Panorama" : "Panorama original"} ↗</a></footer>}
+      <SectionNav sections={sections} route={route} label={english ? "Panorama sections" : "Seções do Panorama"} headingId="panorama-title" english={english} position="pager" onNavigate={navigate} />
     </section>
   );
 }

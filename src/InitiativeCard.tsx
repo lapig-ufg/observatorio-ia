@@ -6,7 +6,7 @@ import { trackEvent } from "./analytics";
 export function InitiativeCard({ initiative, position = "ecosystem", english = false }: { initiative: Initiative; position?: string; english?: boolean }) {
   return (
     <article className={`initiative-card initiative-${initiative.color.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, "-")}`}>
-      <InitiativeLogo url={initiative.url} name={initiative.acronym} />
+      <InitiativeLogo url={initiative.url} name={initiative.acronym} useFavicon={initiative.useFavicon} english={english} />
       <p className="initiative-acronym">{initiative.acronym}</p>
       <h3>{initiative.name}</h3>
       <p>{initiative.summary}</p>

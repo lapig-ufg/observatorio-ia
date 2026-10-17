@@ -37,6 +37,7 @@ export type Initiative = {
   color: string;
   order: number;
   actionLabel?: string;
+  useFavicon?: boolean;
 };
 
 type GvizCell = { v?: unknown; f?: string } | null;

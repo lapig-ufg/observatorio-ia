@@ -67,6 +67,8 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
     color: "azul",
     order: -1,
     actionLabel: "Conhecer curso",
+    // O serviço de favicons retorna 404 para este curso; o ícone padrão já o representa.
+    useFavicon: false,
   },
 ];
 

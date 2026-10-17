@@ -1,7 +1,7 @@
 /* O Panorama usa a mesma superfície branca e os filetes do portal. Este
    acabamento fica reunido para não alterar os componentes de outras páginas. */
 .pt-site-shell .pt-panorama-intro { padding-block: 22px; background: #fff; }
-.pt-panorama-intro .panorama-heading h1 { margin-block: 6px 12px; }
+.pt-panorama-intro .panorama-heading h1 { margin-block: 6px 12px; font-family: Georgia, "Times New Roman", serif; font-weight: 600; }
 .pt-site-shell .panorama-tab-intro { margin: 0; padding: 16px var(--pt-page-gutter) 0; color: var(--muted); line-height: 1.5; }
 .pt-site-shell .panorama-page-source { margin-inline: var(--pt-page-gutter); }
 .panorama-page :is(button, .panorama-segmented, .panorama-search, .panorama-pop-panel, .panorama-scroll, .guide-method, .guide-bar, .panorama-year, .panorama-card, .panorama-reading-more, .panorama-execution-figure, .panorama-catalog-grid > article, .panorama-reading-pair > *) { border-radius: 2px; }
@@ -32,6 +32,8 @@
 .panorama-new-dot { display: inline-block; flex: 0 0 auto; width: 6px; height: 6px; margin-left: 4px; border-radius: 50%; background: #d98324; }
 
 .guide-highlights { margin: 18px 0; border-block: 1px solid var(--line); font-size: .9rem; }
+/* A busca do guia acompanha a altura das buscas de leituras e notícias. */
+.guide-search { min-height: 48px; }
 .guide-highlights > div { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 12px; padding: 8px 0; }
 .guide-highlights dt { color: var(--green-900); font-weight: 700; }
 .guide-highlights dd { margin: 0; }

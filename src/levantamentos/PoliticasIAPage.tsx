@@ -3,10 +3,12 @@ import { ArrowRight, ArrowUpRight, Download, Search } from "lucide-react";
 import { trackEvent } from "../analytics";
 import { siteAssetUrl } from "../locale";
 import { formatPublicDate } from "../dateLabels";
+import { SectionNav } from "../SectionNav";
+import { sectionNavigation, type SectionLink } from "../sectionNavigation";
 import {
   AREA_INDICATORS, AREA_ORDER, AREA_SHORT, CATEGORY_LABEL, GEN_CATEGORIES, REV_CATEGORIES, SURVEY_BASE, SURVEY_TABS,
   VERIFICATION_LABEL, boldSegments, brazilianJournals, categoryCounts, comparableRows, filterPolicies, isBrazilian, percent,
-  surveyTab, type PolicyFilters, type PolicyRow,
+  type PolicyFilters, type PolicyRow,
 } from "./surveyLogic";
 import "./levantamentos.css";
 
@@ -273,7 +275,7 @@ function Entities({ data }: { data: SurveyData }) {
     </div>
     <p className="sv-count" aria-live="polite">{rows.length} de {data.rows.length} entidades{active && <> · <button type="button" className="sv-link-button" onClick={() => setFilters({ query: "", area: "", type: "", gen: "", rev: "", scope: "" })}>Limpar filtros</button></>}</p>
     <div ref={listRef}><EntityTable rows={rows.slice(0, limit)} /></div>
-    {rows.length > limit && <button type="button" className="sv-more" onClick={() => { focusFrom.current = limit; setLimit(current => current + 30); }}>Mostrar mais {Math.min(30, rows.length - limit)} de {rows.length - limit} restantes</button>}
+    {rows.length > limit && <button type="button" className="load-more sv-more" onClick={() => { focusFrom.current = limit; setLimit(current => current + 30); }}>Mostrar mais {Math.min(30, rows.length - limit)} de {rows.length - limit} restantes</button>}
     <p className="sv-note">Clique no nome para ver a nota, o tratamento de imagens e a fonte.</p>
   </section>;
 }
@@ -378,8 +380,13 @@ function SurveySnapshot({ rows }: { rows: PolicyRow[] }) {
 export function PoliticasIAPage({ english = false }: { english?: boolean }) {
   const [data, setData] = useState<SurveyData | null>(null);
   const [failed, setFailed] = useState(false);
-  const [tab, setTab] = useState(() => surveyTab(window.location.hash));
-  const tabsRef = useRef<HTMLElement>(null);
+  const [route, setRoute] = useState(() => window.location.hash);
+  const englishLabels = ["Overview", "By area", "Compare areas", "Entities", "Brazil", "For authors and reviewers", "Method and sources"];
+  const sections = SURVEY_TABS.map((entry, index) => ({ key: entry.key, href: entry.key ? `${SURVEY_BASE}/${entry.key}` : SURVEY_BASE, label: english ? englishLabels[index] : entry.label }));
+  const tab = sectionNavigation(sections, route).current!.key;
+  const navigate = (section: SectionLink, position: "section-bar" | "pager") => trackEvent("survey_tab", {
+    event_category: "levantamento", event_label: section.key || "geral", position,
+  });
   useEffect(() => {
     const controller = new AbortController();
     fetch(siteAssetUrl(`${DATA_DIR}dados.json`), { signal: controller.signal })
@@ -389,13 +396,12 @@ export function PoliticasIAPage({ english = false }: { english?: boolean }) {
     return () => controller.abort();
   }, []);
   useEffect(() => {
-    const sync = () => setTab(surveyTab(window.location.hash));
+    const sync = () => setRoute(window.location.hash);
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
   }, []);
   const go = (key: string) => {
     window.location.hash = key ? `${SURVEY_BASE}/${key}` : SURVEY_BASE;
-    tabsRef.current?.scrollIntoView({ block: "start" });
   };
   return <section id="levantamento" className="sv-page panorama-page" aria-labelledby="sv-title" lang="pt-BR">
     <div className="panorama-intro pt-panorama-intro">
@@ -407,20 +413,13 @@ export function PoliticasIAPage({ english = false }: { english?: boolean }) {
       </div>
       {data && tab === "" && <SurveySnapshot rows={data.rows} />}
     </div>
-    {/* No celular, sete abas em grade ficam desorganizadas: um seletor nativo mostra a seção atual e lista as outras. */}
-    <label className="sv-tab-select"><span>Seção</span>
-      <select value={tab} onChange={event => { trackEvent("survey_tab", { event_category: "levantamento", event_label: event.target.value || "geral", position: "select" }); go(event.target.value); }}>
-        {SURVEY_TABS.map(entry => <option key={entry.key || "geral"} value={entry.key}>{entry.label}</option>)}
-      </select>
-    </label>
-    <nav ref={tabsRef} className="panorama-tabs sv-tabs" aria-label="Seções do levantamento">
-      {SURVEY_TABS.map(entry => <a key={entry.key || "geral"} href={entry.key ? `${SURVEY_BASE}/${entry.key}` : SURVEY_BASE} aria-current={tab === entry.key ? "page" : undefined} onClick={() => trackEvent("survey_tab", { event_category: "levantamento", event_label: entry.key || "geral" })}>{entry.label}</a>)}
-    </nav>
+    <SectionNav sections={sections} route={route} label={english ? "Survey sections" : "Seções do levantamento"} headingId="sv-title" english={english} tabsClassName="sv-tabs" onNavigate={navigate} />
     <div className="sv-content">
       {failed ? <p className="sv-empty" role="alert">Não foi possível carregar os dados do levantamento. Tente recarregar a página.</p>
         : !data ? <p className="sv-empty" aria-live="polite">Carregando o levantamento…</p>
         : tab === "areas" ? <ByArea data={data} /> : tab === "comparar" ? <Compare data={data} /> : tab === "entidades" ? <Entities data={data} />
         : tab === "brasil" ? <Brazil data={data} /> : tab === "autores" ? <Authors data={data} /> : tab === "metodo" ? <Method data={data} /> : <Overview data={data} go={go} />}
     </div>
+    <SectionNav sections={sections} route={route} label={english ? "Survey sections" : "Seções do levantamento"} headingId="sv-title" english={english} position="pager" onNavigate={navigate} />
   </section>;
 }

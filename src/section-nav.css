@@ -1,0 +1,26 @@
+/* A barra desktop conserva as abas existentes; o mesmo controle compacto serve
+   às duas páginas no celular, com nomes completos e alvos de toque confortáveis. */
+.pt-site-shell .panorama-page > .section-nav { max-width: none; margin-inline: 0; }
+.section-nav-mobile { display: none; }
+.section-nav--pager { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 24px var(--pt-page-gutter, 20px) 40px; border-top: 1px solid var(--line); }
+.section-nav--pager a { display: flex; align-items: center; gap: 10px; min-height: 48px; min-width: 0; padding: 12px 16px; border: 1px solid #b9c9c1; border-radius: 8px; color: #164e3d; background: #fff; font-weight: 700; line-height: 1.5; text-decoration: none; overflow-wrap: anywhere; }
+.section-nav--pager a:hover { background: #f1f6f3; }
+.section-pager-previous { grid-column: 1; justify-self: start; }
+.section-pager-next { grid-column: 2; justify-self: end; text-align: right; justify-content: flex-end; }
+.section-nav :is(a, button):focus-visible { outline: 3px solid #a8461f; outline-offset: -3px; }
+@media (max-width: 767px) {
+  .section-nav--bar .panorama-tabs { display: none; }
+  .section-nav-mobile { display: block; padding: 8px var(--pt-page-gutter, 16px); border-block: 1px solid var(--line); background: #f4f7f1; }
+  .section-nav-bar { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; gap: 4px; }
+  .section-nav-bar button { display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 44px; min-height: 44px; padding: 8px; border: 1px solid #b9c9c1; border-radius: 2px; background: #fff; color: #123d31; font: inherit; font-weight: 700; line-height: 1.4; cursor: pointer; }
+  .section-nav-bar > button:not(.section-nav-trigger) { font-size: 1.75rem; }
+  .section-nav-bar button:disabled { color: #6e7b74; background: #edf1ec; cursor: default; }
+  .section-nav-bar .section-nav-trigger { justify-content: space-between; text-align: left; font-size: .875rem; }
+  .section-nav-count { font-weight: 400; }
+  .section-nav-list { margin: 8px 0 0; padding: 0; list-style: none; border: 1px solid #b9c9c1; background: #fff; }
+  .section-nav-list a { display: flex; align-items: center; min-height: 48px; padding: 10px 12px; border-left: 3px solid transparent; color: #425c52; font-size: .9375rem; line-height: 1.4; text-decoration: none; }
+  .section-nav-list li + li { border-top: 1px solid var(--line); }
+  .section-nav-list a[aria-current] { border-left-color: #164e3d; color: #123d31; font-weight: 700; background: #eff5f0; }
+  .section-nav--pager { padding-block: 20px 32px; }
+  .section-nav--pager a { padding: 10px; gap: 6px; font-size: .875rem; }
+}
