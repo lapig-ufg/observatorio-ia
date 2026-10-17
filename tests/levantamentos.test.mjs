@@ -90,3 +90,8 @@ test("divergências de revisão, imagens e declaração não regressam", () => {
   assert.equal(data.rows.find(row => row.nome === "Scientia Agricola (USP/ESALQ)").loc, "Múltiplos");
   assert.equal(data.rows.find(row => row.nome === "Thieme").img, "Restritas");
 });
+
+test("a página revalida a base para não combinar interface nova com políticas antigas em cache", () => {
+  const source = fs.readFileSync("src/levantamentos/PoliticasIAPage.tsx", "utf8");
+  assert.match(source, /fetch\(siteAssetUrl\(`\$\{DATA_DIR\}dados\.json`\), \{ signal: controller\.signal, cache: "no-cache" \}\)/);
+});

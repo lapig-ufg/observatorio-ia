@@ -390,7 +390,8 @@ export function PoliticasIAPage({ english = false }: { english?: boolean }) {
   });
   useEffect(() => {
     const controller = new AbortController();
-    fetch(siteAssetUrl(`${DATA_DIR}dados.json`), { signal: controller.signal })
+    // Revalidate the independently published dataset: a fresh JS bundle must not show cached older policies.
+    fetch(siteAssetUrl(`${DATA_DIR}dados.json`), { signal: controller.signal, cache: "no-cache" })
       .then(response => { if (!response.ok) throw new Error(String(response.status)); return response.json(); })
       .then(setData)
       .catch(error => { if ((error as Error).name !== "AbortError") setFailed(true); });
