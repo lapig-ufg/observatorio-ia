@@ -407,3 +407,17 @@
   .panorama-detail-close, .guide-compare-close { min-width: 44px; min-height: 44px; justify-content: center; align-items: center; }
   .pt-sitemap a, .pt-sitemap h2 a { min-height: 44px; }
 }
+
+/* Padronização: todas as páginas internas abrem com a mesma faixa de cabeçalho (fundo menta suave,
+   mesmo respiro acima do título e um filete embaixo). IA na UFG mantém o tema escuro, que é a identidade
+   daquela página inteira. O seletor com `html body` vence as regras específicas de cada página. */
+html body .pt-site-shell :is(.pt-internal-heading, .readings-hero, .daily-news-hero, .pt-panorama-intro, .pt-about-heading) {
+  padding-top: 44px; padding-bottom: 36px;
+  border-bottom: 1px solid #dfe7e2;
+  background: radial-gradient(circle at 88% 10%, rgba(129, 192, 173, .26), transparent 42%), #eef5f0;
+}
+html body .pt-site-shell .pt-about-heading { margin: -36px calc(-1 * var(--pt-page-gutter)) 28px; padding-inline: var(--pt-page-gutter); }
+html body .pt-site-shell .pt-about-heading h1 { margin-bottom: 0; }
+@media (max-width: 600px) {
+  html body .pt-site-shell :is(.pt-internal-heading, .readings-hero, .daily-news-hero, .pt-panorama-intro, .pt-about-heading) { padding-top: 28px; padding-bottom: 24px; }
+}
