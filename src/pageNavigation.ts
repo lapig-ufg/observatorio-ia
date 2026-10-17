@@ -7,7 +7,7 @@ export function routePath(hash: string) {
 export function pageAnchor(hash: string, english = false) {
   const path = routePath(hash);
   const anchors: Record<string, string> = english
-    ? { "#catalog": "catalog", "#collections": "collections", "#topics": "topics", "#interactive-experiences": "interactive-experiences" }
+    ? { "#catalog": "catalog", "#highlight": "highlight", "#collections": "collections", "#topics": "topics", "#interactive-experiences": "interactive-experiences" }
     : { "#acervo": "acervo", "#acervo/colecoes": "categorias", "#acervo/radar": "palavras-chave", "#em-destaque": "em-destaque", "#experiencias-interativas": "experiencias-interativas" };
   return anchors[path] || "page-content";
 }

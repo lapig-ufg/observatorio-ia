@@ -176,13 +176,13 @@ test("separate official SVGs change only the viewBox and keep full names and col
 
 test("home DOM follows D3 and Acervo alone contains all seven collections and radar", () => {
   const app = fs.readFileSync("src/App.tsx", "utf8");
-  const home = app.slice(app.indexOf('<div className="pt-home-page">'), app.indexOf('<footer'));
-  const markers = ['className="pt-home-opening"', 'id="em-destaque"', 'id="home-panorama-title"', 'id="home-recent-title"', '<PressSummary', 'id="experiencias-interativas"', 'id="home-ufg-title"'];
+  const home = fs.readFileSync("src/PortalHome.tsx", "utf8");
+  const markers = ['className="pt-home-opening"', 'id={english ? "highlight" : "em-destaque"}', 'id="home-panorama-title"', 'id="home-recent-title"', '<PressSummary', 'id={english ? "interactive-experiences" : "experiencias-interativas"}', 'id="home-ufg-title"'];
   let last = -1;
   for (const marker of markers) { const index = home.indexOf(marker); assert.ok(index > last, marker); last = index; }
   assert.doesNotMatch(home, /<PortalCollections|<TopicRadar|search-panel|obia-callout/);
-  assert.match(app, /<RealizationBand \/>\s*<footer/);
-  assert.match(app, /trackEvent\("open_obia"[^\n]*position: "footer"/);
-  assert.match(fs.readFileSync("src/PortalDiscovery.tsx", "utf8"), /english \? homeCollections : \[\.\.\.homeCollections, "medium" as const\]/);
+  assert.match(fs.readFileSync("src/PortalFooter.tsx", "utf8"), /<RealizationBand english=\{english\} \/>[\s\S]*<footer/);
+  assert.match(fs.readFileSync("src/PortalFooter.tsx", "utf8"), /trackEvent\("open_obia"[^\n]*position: "footer"/);
+  assert.match(fs.readFileSync("src/PortalDiscovery.tsx", "utf8"), /\[\.\.\.homeCollections, "medium" as const\]/);
   assert.doesNotMatch(app, /if \(category === "medium"\)/);
 });

@@ -11,16 +11,21 @@ export function siteAssetUrl(path: string) {
 }
 
 export function languageUrl(locale: Locale) {
-  const currentHash = window.location.hash || "#top";
-  const hash = locale === "en" && currentHash === "#ecossistema-ufg"
-    ? "#ufg-ecosystem"
-    : locale === "pt" && currentHash === "#ufg-ecosystem" ? "#ecossistema-ufg"
-    : locale === "en" && currentHash === "#leituras-em-ia" ? "#ai-readings"
-    : locale === "pt" && currentHash === "#ai-readings" ? "#leituras-em-ia"
-    : locale === "en" && currentHash === "#ia-como-noticia-diaria" ? "#daily-news"
-    : locale === "pt" && currentHash === "#daily-news" ? "#ia-como-noticia-diaria" : currentHash;
-  const mappedHash = locale === "en"
-    ? ({ "#acervo": "#catalog", "#acervo/colecoes": "#collections", "#acervo/radar": "#topics", "#sobre": "#about", "#em-destaque": "#top", "#catalogo": "#catalog", "#categorias": "#collections", "#palavras-chave": "#topics", "#experiencias-interativas": "#interactive-experiences" }[hash] || hash)
-    : ({ "#about": "#sobre", "#catalog": "#catalogo", "#collections": "#categorias", "#topics": "#palavras-chave", "#interactive-experiences": "#experiencias-interativas" }[hash] || hash);
+  const mappedHash = localizedHash(window.location.hash || "#top", locale);
   return locale === "en" ? `./en/${window.location.search}${mappedHash}` : `../${window.location.search}${mappedHash}`;
+}
+
+const hashPairs = [
+  ["#acervo", "#catalog"], ["#acervo/colecoes", "#collections"], ["#acervo/radar", "#topics"],
+  ["#sobre", "#about"], ["#em-destaque", "#highlight"], ["#experiencias-interativas", "#interactive-experiences"],
+  ["#ecossistema-ufg", "#ufg-ecosystem"], ["#leituras-em-ia", "#ai-readings"], ["#ia-como-noticia-diaria", "#daily-news"],
+] as const;
+
+export function localizedHash(hash: string, locale: Locale) {
+  const index = hash.indexOf("?");
+  const path = index < 0 ? hash : hash.slice(0, index);
+  const selection = index < 0 ? "" : hash.slice(index);
+  const canonical = ({ "#catalogo": "#acervo", "#categorias": "#acervo/colecoes", "#palavras-chave": "#acervo/radar" } as Record<string, string>)[path] || path;
+  const pair = hashPairs.find(pair => pair[0] === canonical || pair[1] === canonical);
+  return (pair ? pair[locale === "en" ? 1 : 0] : canonical) + selection;
 }

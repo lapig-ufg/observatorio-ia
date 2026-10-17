@@ -37,7 +37,7 @@ export function usePageNavigation(route: string, ready: boolean, english = false
     };
     const frame = requestAnimationFrame(() => {
       if (searchRequested?.current) {
-        const search = document.getElementById("catalog-search-pt");
+        const search = document.getElementById(english ? "catalog-search-en" : "catalog-search-pt");
         if (search) { search.focus(); searchRequested.current = false; observer?.disconnect(); return; }
       }
       position();

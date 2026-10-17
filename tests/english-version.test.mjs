@@ -48,7 +48,7 @@ test("English catalog preserves source identity and access fields", () => {
 test("English route selects the translated catalog and provides a language switch", () => {
   const main = fs.readFileSync("src/main.tsx", "utf8");
   const catalog = fs.readFileSync("src/catalog.ts", "utf8");
-  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/EcosystemPage.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8") + fs.readFileSync("src/PortalFooter.tsx", "utf8");
   const workflow = fs.readFileSync(".github/workflows/deploy-pages.yml", "utf8");
   assert.match(main, /locale === "en" \? <AppEnglish \/> : <App \/>/);
   assert.match(catalog, /VITE_GOOGLE_SHEETS_EN_GID/);
@@ -56,7 +56,7 @@ test("English route selects the translated catalog and provides a language switc
   assert.match(english, /Portuguese/);
   assert.match(fs.readFileSync("src/TopicRadar.tsx", "utf8"), /Collection topic radar/);
   assert.match(fs.readFileSync("src/panorama/PanoramaPage.tsx", "utf8"), /`\$\{PANORAMA_SITE\}en\/`/);
-  assert.match(english, /href="#panorama"/);
+  assert.match(fs.readFileSync("src/portalStructure.ts", "utf8"), /href: "#panorama"/);
   assert.match(fs.readFileSync("src/panorama/PanoramaPage.tsx", "utf8"), /Global Generative AI Landscape/);
   assert.doesNotMatch(english, /generative AI · PT/);
   assert.match(workflow, /GOOGLE_SHEETS_EN_GID/);
@@ -69,7 +69,7 @@ test("English route selects the translated catalog and provides a language switc
    têm de ler os dados ao vivo do site do Panorama, que é quem atualiza. */
 test("both Panorama pages read the live Panorama site, never a local copy", () => {
   const pt = fs.readFileSync("src/App.tsx", "utf8");
-  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8") + fs.readFileSync("src/PortalFooter.tsx", "utf8");
   const page = fs.readFileSync("src/panorama/PanoramaPage.tsx", "utf8");
   const timeline = fs.readFileSync("src/panorama/Timeline.tsx", "utf8");
   const guide = fs.readFileSync("src/panorama/ModelGuide.tsx", "utf8");
@@ -96,12 +96,12 @@ test("both Panorama pages read the live Panorama site, never a local copy", () =
 });
 
 test("English homepage includes the interactive lesson, OBIA and the complete featured history", () => {
-  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8") + fs.readFileSync("src/PortalFooter.tsx", "utf8");
   assert.match(english, /Inside AI/);
   assert.match(english, /From a sentence to the next token/);
   assert.match(english, /href=\{assetUrl\("por-dentro-da-ia\/"\)\}/);
   assert.match(english, /Healthy vegetation has high reflectance in the near infrared\./);
-  assert.match(english, /Brazilian Artificial Intelligence Observatory/);
+  assert.match(english, /Other references: /);
   assert.match(english, /What has been featured before\?/);
   assert.match(english, /Previously featured topics/);
   const portuguese = fs.readFileSync("src/App.tsx", "utf8");
@@ -110,9 +110,9 @@ test("English homepage includes the interactive lesson, OBIA and the complete fe
 });
 
 test("English version includes the UFG ecosystem and linked curator emails", () => {
-  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8") + fs.readFileSync("src/PortalFooter.tsx", "utf8") + fs.readFileSync("src/EcosystemPage.tsx", "utf8");
   const locale = fs.readFileSync("src/locale.ts", "utf8");
-  assert.match(english, /href="#ufg-ecosystem"/);
+  assert.match(fs.readFileSync("src/portalStructure.ts", "utf8"), /href: "#ufg-ecosystem"/);
   assert.match(english, /UFG ecosystem in artificial intelligence/);
   assert.match(english, /Graduate Program in Intelligent Systems and Agents/);
   assert.match(english, /Mapping AI initiatives at UFG/);
@@ -126,15 +126,16 @@ test("English version includes the UFG ecosystem and linked curator emails", () 
     "ceia-ufg", "ciap-ufg", "bacharelado-ia-inf-ufg", "pasto-legal", "cempa-cerrado",
     "lamcad-ufg", "cerise-ufg", "akcit-ufg", "labmol-ufg",
   ]) assert.match(english, new RegExp(`"${initiativeId}"`), `missing English translation for ${initiativeId}`);
-  assert.match(english, /initiatives=\{catalog\?\.initiatives \|\| \[\]\}/);
+  assert.match(english, /initiatives=\{translatedInitiatives\(catalog\?\.initiatives \|\| \[\]\)\}/);
   assert.match(english, /visibleInitiatives\.map/);
 });
 
-test("English preserves the institutional lockup; Portuguese uses the approved separate logos", () => {
+test("both languages share the approved separate institutional logos", () => {
   const portuguese = fs.readFileSync("src/App.tsx", "utf8");
-  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
-  assert.match(english, /<InstitutionalBand english/);
-  assert.match(portuguese, /<RealizationBand \/>\s*<footer/);
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8") + fs.readFileSync("src/PortalFooter.tsx", "utf8");
+  assert.match(english, /<PortalFooter english/);
+  assert.doesNotMatch(english, /<InstitutionalBand/);
+  assert.match(fs.readFileSync("src/PortalFooter.tsx", "utf8"), /<RealizationBand english=\{english\} \/>[\s\S]*<footer/);
   for (const source of [fs.readFileSync("src/CatalogExperience.tsx", "utf8")]) {
     const lapig = source.indexOf('key: "lapig"');
     const iesa = source.indexOf('key: "iesa"');
@@ -167,9 +168,9 @@ test("translated catalog preserves the same public scientific-paper selection", 
 });
 
 test("English daily news uses the same archive and preserves source headlines", () => {
-  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+  const english = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8") + fs.readFileSync("src/PortalFooter.tsx", "utf8");
   const page = fs.readFileSync("src/DailyNewsPageEnglish.tsx", "utf8");
-  assert.match(english, /href="#daily-news"/);
+  assert.match(fs.readFileSync("src/portalStructure.ts", "utf8"), /href: "#daily-news"/);
   assert.match(english, /<DailyNewsPageEnglish \/>/);
   assert.match(page, /loadFolhaIndex/);
   assert.match(page, /loadFolhaYear/);

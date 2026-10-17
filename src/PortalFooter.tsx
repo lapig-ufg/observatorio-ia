@@ -1,0 +1,14 @@
+import { ArrowUpRight } from "lucide-react";
+import { trackEvent } from "./analytics";
+import { PortalSitemap } from "./PortalNavigation";
+import { RealizationBand } from "./RealizationBand";
+
+export function PortalFooter({ english = false }: { english?: boolean }) {
+  return <><RealizationBand english={english} />
+      <footer className="footer pt-footer"><div className="pt-footer-content">
+        <PortalSitemap english={english} />
+        <p className="pt-footer-references">{english ? "Other references: " : "Outras referências: "}<a href="https://obia.nic.br/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia", position: "footer" })}>OBIA</a></p>
+        <div><strong>{english ? "UFG-AI Observatory" : "Observatório UFG-IA"}</strong><p>{english ? "An educational collection under continuous development." : "Acervo educacional em desenvolvimento contínuo."}</p><div className="footer-links"><a className="github-footer-link" href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_github", { event_category: "outbound", event_label: "github" })}>{english ? "LAPIG/UFG on GitHub " : "GitHub do LAPIG/UFG "}<ArrowUpRight size={14} aria-hidden="true" /></a><a className="github-footer-link" href="https://victorgit10.github.io/audiencia-observatorio/" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_audiencia", { event_category: "outbound", event_label: "audiencia" })}>{english ? "Who visits the Observatory? " : "Quem visita o Observatório? "}<ArrowUpRight size={14} aria-hidden="true" /></a></div></div>
+        <div><span>{english ? "LAPIG • Federal University of Goiás" : "LAPIG • Universidade Federal de Goiás"}</span><p>{english ? "Public content with access to original sources." : "Conteúdo público com acesso às fontes originais."}</p><p className="credits"><strong>{english ? "Development and curation:" : "Desenvolvimento e curadoria:"}</strong> <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a>{english ? " and " : " e "}<a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p><p className="contact-callout">{english ? "Questions or suggestions? " : "Dúvidas? Sugestões? "}<a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_contact_form", { event_category: "outbound", event_label: "contato" })}>{english ? "Contact us " : "Entre em contato "}<ArrowUpRight size={14} aria-hidden="true" /></a> · <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { position: "footer" })}>{english ? "Participate " : "Participe "}<ArrowUpRight size={14} aria-hidden="true" /></a></p></div>
+      </div></footer></>;
+}

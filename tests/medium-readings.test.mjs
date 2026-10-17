@@ -12,7 +12,7 @@ const styles = fs.readFileSync("src/portal.css", "utf8");
 test("Leituras em IA has equivalent Portuguese and English routes in the header and mobile menu", () => {
   assert.match(fs.readFileSync("src/portalStructure.ts", "utf8"), /href: "#leituras-em-ia"/);
   assert.match(portuguese, /page === "readings" \? <MediumReadingsPage/);
-  assert.match(english, /href="#ai-readings"/);
+  assert.match(fs.readFileSync("src/portalStructure.ts", "utf8"), /href: "#ai-readings"/);
   assert.match(english, /page === "readings" \? <MediumReadingsPage/);
   assert.match(locale, /#leituras-em-ia/);
   assert.match(locale, /#ai-readings/);
@@ -39,7 +39,7 @@ test("Medium cards point to the original publication and never advertise an inst
 
 test("larger navigation and the readings explorer preserve a one-column mobile layout", () => {
   assert.match(styles, /\.topbar nav a \{ font-size: 1rem;/);
-  assert.match(styles, /\.mobile-navigation-panel > a \{ font-size: 1rem;/);
+  assert.match(fs.readFileSync("src/prototype.css", "utf8"), /\.pt-topbar \.pt-navigation > a/);
   assert.match(styles, /@media \(min-width: 1201px\) and \(max-width: 1720px\)/);
   assert.match(styles, /@media \(max-width: 700px\)[\s\S]*\.readings-card-grid \{ grid-template-columns: 1fr;/);
   assert.match(styles, /\.readings-search input[\s\S]*font-size: 1rem;/);

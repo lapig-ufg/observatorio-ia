@@ -145,7 +145,7 @@ function texts(english: boolean) {
     benchmarks: english ? "Benchmark notes" : "Notas de benchmark",
     benchmarksLoading: english ? "Loading benchmark notes…" : "Carregando notas de benchmark…",
     rankOf: (rank: number, of: number) => english ? `${rank} of ${of}` : `${rank}º de ${of}`,
-    portugueseDescription: english ? "Portuguese description" : "",
+    portugueseDescription: english ? "(in Portuguese)" : "",
     releases: (count: number) => english ? (count === 1 ? "release" : "releases") : (count === 1 ? "lançamento" : "lançamentos"),
     summary: english ? "Timeline summary" : "Sumário da linha do tempo",
     catalogUnavailable: english
@@ -809,7 +809,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
                       {isNew && <em className="panorama-news-badge">{t.newBadge}</em>}
                     </span>
                     <span className="panorama-news-meta">{item.company} · {formatDay(item.date, english)}</span>
-                    {item.impact && <span className="panorama-news-impact">{item.impact}</span>}
+                    {item.impact && <span className="panorama-news-impact" lang={item.untranslated && english ? "pt-BR" : undefined}>{item.impact}{item.untranslated && english ? " (in Portuguese)" : ""}</span>}
                   </span>
                 </button>
                 {/^https?:\/\//.test(item.reference) && (

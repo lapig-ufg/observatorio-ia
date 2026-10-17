@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
-const app = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8");
-const section = app.match(/<section id="experiencias-interativas"[\s\S]*?<\/section>/)?.[0];
+const app = readFileSync(new URL("../src/PortalHome.tsx", import.meta.url), "utf8");
+const section = app.match(/<section id=\{english \? "interactive-experiences" : "experiencias-interativas"\}[\s\S]*?<\/section>/)?.[0];
 
 test("interactive inference has a labelled homepage section and canonical destination", () => {
   assert.ok(section);
@@ -19,5 +19,5 @@ test("experience preserves the inference scope and remote-sensing narrative", ()
   assert.match(section, /inferência, com o GPT-3 como referência/);
   assert.match(section, /Escores para o vocabulário tornam-se probabilidades/);
   assert.equal((section.match(/<li>/g) || []).length, 3);
-  assert.ok(app.indexOf('id="categorias" className=') < app.indexOf('id="experiencias-interativas"'));
+  assert.ok(app.indexOf("<PressSummary") < app.indexOf('className="pt-home-section interactive-experience"'));
 });

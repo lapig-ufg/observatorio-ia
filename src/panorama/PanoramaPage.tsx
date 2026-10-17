@@ -73,12 +73,9 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
 
   return (
     <section id="panorama" className="panorama-page" aria-labelledby="panorama-title">
-      <div className={`panorama-intro${english ? "" : " pt-panorama-intro"}`}>
-        {english && <a className="back-to-catalog" href="#top" onClick={() => trackEvent("back_to_catalog_en")}>
-          ← {english ? "Back to the collection" : "Voltar ao acervo"}
-        </a>}
+      <div className="panorama-intro pt-panorama-intro">
         <div className="panorama-heading">
-          {!english && <p className="eyebrow">Panorama da IA</p>}
+          <p className="eyebrow">{english ? "AI Panorama" : "Panorama da IA"}</p>
           <h1 id="panorama-title">{english ? "Global Generative AI Landscape" : "Panorama da IA generativa"}</h1>
           <p>{english
             ? "Model releases since ChatGPT (Nov 2022), which model to use for each task, free AI tools, and a practical guide to agents in the terminal."

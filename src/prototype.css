@@ -1,4 +1,4 @@
-/* A casca portuguesa fica isolada para preservar a versão inglesa. */
+/* A casca compartilhada mantém a mesma geometria nos dois idiomas. */
 .pt-topbar { position: sticky; z-index: 90; display: flex; gap: 12px; padding: 10px 24px; min-height: 78px; background: #fff; }
 .pt-topbar .brand { margin-right: auto; }
 .pt-topbar .brand-mark { width: 48px; height: 48px; }

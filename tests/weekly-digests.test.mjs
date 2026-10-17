@@ -81,26 +81,14 @@ test('real weekly generation is repeatable and a broken edition leaves BOTH publ
   for (const [i, file] of targets.entries()) assert.equal(fs.readFileSync(file, 'utf8'), before[i].content);
 });
 
-test('English Panorama remains a direct header link, without a Categories link or duplicate in More', () => {
-  for (const file of ['src/AppEnglish.tsx']) {
-    const app = fs.readFileSync(file, 'utf8');
-    const header = app.slice(app.indexOf('<header className="topbar">'), app.indexOf('</header>'));
-    assert.match(header, /className="panorama-nav-link" href="#panorama"/);
-    assert.doesNotMatch(header, /href="#(?:categorias|collections)"/);
-    assert.equal((header.match(/href="#panorama"/g) || []).length, 2);
-  }
-  assert.doesNotMatch(fs.readFileSync('src/NavigationMore.tsx', 'utf8'), /href="#panorama"/);
-});
-
-test('English desktop navigation preserves equal slots and permanent emphasis on Panorama', () => {
-  const styles = fs.readFileSync('src/portal.css', 'utf8');
-  assert.match(styles, /grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/);
-  assert.match(styles, /\.topbar nav \.panorama-nav-link\s*\{[^}]*background: #fff9ea;/s);
-  assert.doesNotMatch(styles, /\.topbar nav \.readings-nav-link\s*\{[^}]*background:/s);
-  for (const file of ['src/AppEnglish.tsx']) {
-    const app = fs.readFileSync(file, 'utf8');
-    assert.match(app, /className="panorama-mobile-link" href="#panorama"/);
-  }
+test('English Panorama uses the shared submenu with the same four destinations', async () => {
+  const ts = await import('typescript');
+  const compiled = ts.default.transpileModule(fs.readFileSync('src/portalStructure.ts', 'utf8'), { compilerOptions: { module: ts.default.ModuleKind.ESNext } }).outputText;
+  const { localizedPortalNavigation } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`);
+  const [pt, en] = [localizedPortalNavigation(), localizedPortalNavigation(true)];
+  assert.deepEqual(en[0].links.map(link => link.href), pt[0].links.map(link => link.href));
+  assert.equal(en[0].label, 'Panorama');
+  assert.match(fs.readFileSync('src/AppEnglish.tsx', 'utf8'), /<PortalNavigation english/);
 });
 
 test("Portuguese Panorama opens explicit submenu destinations", () => {

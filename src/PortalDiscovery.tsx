@@ -16,7 +16,7 @@ export function PortalCollections({ articles, type, onSelect, onExplore, english
       <div><p className="eyebrow">{english ? "Collections" : "Coleções"}</p><h2 id="category-title">{english ? "What would you like to explore?" : "O que você quer explorar?"}</h2></div>
       <button className="text-action" onClick={onExplore}>{english ? "Search all content" : "Pesquisar todo o acervo"} <ArrowRight size={18} aria-hidden="true" /></button>
     </div>
-    <div className="category-grid">{(english ? homeCollections : [...homeCollections, "medium" as const]).map(category => {
+    <div className="category-grid">{[...homeCollections, "medium" as const].map(category => {
       const key = category as keyof typeof icons;
       const Icon = icons[key];
       return <button type="button" key={key} className={`category-button category-${key}${type === key ? " active" : ""}`} onClick={() => onSelect(category)} aria-pressed={type === key}>

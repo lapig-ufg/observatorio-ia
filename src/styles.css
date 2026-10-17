@@ -204,8 +204,7 @@ select:focus-visible {
 }
 
 .topbar nav .form-nav-link small,
-.topbar nav .daily-news-nav-link small,
-.topbar nav .panorama-nav-link small {
+.topbar nav .daily-news-nav-link small{
   font-size: 0.9rem;
   font-weight: 700;
   line-height: 1.15;
@@ -214,32 +213,6 @@ select:focus-visible {
 
 .topbar nav .form-nav-link:hover,
 .topbar nav .daily-news-nav-link:hover {
-  border-color: var(--green-700);
-  background: var(--green-100);
-  color: var(--green-900);
-}
-
-.topbar nav .panorama-nav-link {
-  padding: 7px 10px;
-  border: 1px solid #9ec7b2;
-  border-radius: 5px;
-  background: #f4faf6;
-  color: var(--green-800);
-}
-
-.topbar nav .panorama-nav-link > span {
-  display: grid;
-  gap: 1px;
-}
-
-.topbar nav .panorama-nav-link strong {
-  color: #bb3a32;
-  font-size: 0.82rem;
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-
-.topbar nav .panorama-nav-link:hover {
   border-color: var(--green-700);
   background: var(--green-100);
   color: var(--green-900);
@@ -280,127 +253,6 @@ select:focus-visible {
 .institutional-marks a:last-child img {
   width: 116px;
   height: 66px;
-}
-
-.language-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  padding: 0.25rem;
-  border: 1px solid rgba(23, 76, 62, 0.2);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.84);
-  font-size: 0.72rem;
-  font-weight: 750;
-  white-space: nowrap;
-}
-
-.language-switch a,
-.language-switch span {
-  padding: 0.36rem 0.55rem;
-  border-radius: 999px;
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.language-switch [aria-current="page"] {
-  color: #fff;
-  background: var(--green-800);
-}
-
-.mobile-navigation {
-  display: none;
-  position: relative;
-}
-
-.mobile-navigation summary {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 12px;
-  border: 1px solid #b9c9c1;
-  border-radius: 6px;
-  background: #fff;
-  color: var(--green-900);
-  font-size: 0.88rem;
-  font-weight: 800;
-  cursor: pointer;
-  list-style: none;
-}
-
-.mobile-navigation summary::-webkit-details-marker {
-  display: none;
-}
-
-.mobile-navigation[open] summary {
-  background: var(--green-100);
-  border-color: var(--green-700);
-}
-
-.mobile-navigation-panel {
-  position: absolute;
-  z-index: 80;
-  top: calc(100% + 8px);
-  right: 0;
-  width: min(340px, calc(100vw - 32px));
-  display: grid;
-  gap: 3px;
-  padding: 10px;
-  border: 1px solid #b9c9c1;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 0 16px 40px rgba(18, 61, 49, 0.18);
-}
-
-.mobile-navigation-panel > a {
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 10px 11px;
-  border-radius: 5px;
-  color: #33433d;
-  font-size: 0.9rem;
-  font-weight: 750;
-  text-decoration: none;
-}
-
-.mobile-navigation-panel > a:hover,
-.mobile-navigation-panel > a:focus-visible {
-  background: var(--surface);
-  color: var(--green-900);
-}
-
-.mobile-navigation-panel > a[aria-current="page"] {
-  background: var(--green-100);
-  color: var(--green-900);
-}
-
-.mobile-language-switch {
-  display: flex;
-  gap: 6px;
-  margin-top: 4px;
-  padding-top: 9px;
-  border-top: 1px solid var(--line);
-}
-
-.mobile-language-switch a,
-.mobile-language-switch span {
-  flex: 1;
-  padding: 9px;
-  border-radius: 5px;
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 800;
-  text-align: center;
-  text-decoration: none;
-}
-
-.mobile-language-switch [aria-current="page"] {
-  background: var(--green-800);
-  color: #fff;
 }
 
 .obia-callout {
@@ -2632,16 +2484,6 @@ h1 {
     row-gap: 10px;
   }
 
-  .topbar > .primary-navigation {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    width: 100%;
-    justify-content: center;
-    margin-left: 0;
-    padding-top: 10px;
-    border-top: 1px solid var(--line);
-  }
-
   .institutional-marks {
     justify-self: center;
   }
@@ -2720,10 +2562,6 @@ h1 {
     gap: 10px 16px;
   }
 
-  .topbar > .primary-navigation {
-    display: none;
-  }
-
   .institutional-marks {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -2754,14 +2592,6 @@ h1 {
   .institutional-marks a:last-child img {
     width: 88px;
     height: 50px;
-  }
-
-  .language-switch {
-    justify-self: end;
-  }
-
-  .mobile-navigation {
-    display: block;
   }
 }
 
@@ -2937,16 +2767,6 @@ h1 {
     gap: 8px 12px;
     padding-top: 10px;
     padding-bottom: 10px;
-  }
-
-  .topbar > .language-switch {
-    display: none;
-  }
-
-  .mobile-navigation {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: end;
   }
 
   .institutional-marks {
@@ -5142,8 +4962,7 @@ body {
 .topbar nav a,
 .topbar nav .ecosystem-nav-link,
 .topbar nav .form-nav-link,
-.topbar nav .daily-news-nav-link,
-.topbar nav .panorama-nav-link {
+.topbar nav .daily-news-nav-link{
   min-height: 42px;
   padding: 8px 11px;
   border: 1px solid transparent;
@@ -5156,8 +4975,7 @@ body {
 .topbar nav a:hover,
 .topbar nav .ecosystem-nav-link:hover,
 .topbar nav .form-nav-link:hover,
-.topbar nav .daily-news-nav-link:hover,
-.topbar nav .panorama-nav-link:hover {
+.topbar nav .daily-news-nav-link:hover{
   border-color: #cadbd3;
   background: #edf5f1;
   color: var(--portal-green-deep);
@@ -5169,15 +4987,13 @@ body {
 }
 
 .topbar nav .form-nav-link strong,
-.topbar nav .daily-news-nav-link strong,
-.topbar nav .panorama-nav-link strong {
+.topbar nav .daily-news-nav-link strong{
   color: inherit;
   font-size: 0.76rem;
 }
 
 .topbar nav .form-nav-link small,
-.topbar nav .daily-news-nav-link small,
-.topbar nav .panorama-nav-link small {
+.topbar nav .daily-news-nav-link small{
   font-size: 0.78rem;
 }
 
@@ -5210,11 +5026,6 @@ body {
 .institutional-marks a:last-child img {
   width: 88px;
   height: 50px;
-}
-
-.language-switch {
-  border-color: #c7d8d0;
-  background: #f3f7f5;
 }
 
 .catalog-intro {
@@ -5738,11 +5549,6 @@ body {
   .topbar {
     row-gap: 8px;
   }
-
-  .topbar > .primary-navigation {
-    padding-top: 8px;
-    border-top-color: #e1e9e5;
-  }
 }
 
 @media (max-width: 1180px) {
@@ -5819,32 +5625,6 @@ body {
 
   .brand-name strong:last-child {
     font-size: 0.68rem;
-  }
-
-  .mobile-navigation summary {
-    min-height: 46px;
-    border-radius: 11px;
-    background: #f2f7f4;
-  }
-
-  .mobile-navigation-panel {
-    position: fixed;
-    top: 112px;
-    right: 16px;
-    left: 16px;
-    width: auto;
-    max-height: calc(100vh - 128px);
-    gap: 5px;
-    overflow-y: auto;
-    padding: 12px;
-    border-radius: 15px;
-    box-shadow: 0 24px 65px rgba(6, 42, 32, 0.25);
-  }
-
-  .mobile-navigation-panel > a {
-    min-height: 48px;
-    border-radius: 9px;
-    font-size: 0.94rem;
   }
 
   .institutional-marks {

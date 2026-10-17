@@ -4,6 +4,8 @@ import test from "node:test";
 
 const portuguese = fs.readFileSync("src/App.tsx", "utf8");
 const english = fs.readFileSync("src/AppEnglish.tsx", "utf8");
+const home = fs.readFileSync("src/PortalHome.tsx", "utf8");
+const navigation = fs.readFileSync("src/PortalNavigation.tsx", "utf8");
 const styles = fs.readFileSync("src/styles.css", "utf8");
 
 test("the catalog loads once instead of polling every minute", () => {
@@ -13,12 +15,11 @@ test("the catalog loads once instead of polling every minute", () => {
   }
 });
 
-test("both languages expose catalog search in the opening section", () => {
-  assert.match(portuguese, /className="hero-search pt-hero-search"/);
-  assert.match(portuguese, /id="hero-search-pt"/);
+test("both languages share the opening search and preserve their analytics", () => {
+  for (const source of [portuguese, english]) assert.match(source, /<PortalHome/);
+  assert.match(home, /className="hero-search pt-hero-search"/);
+  assert.match(home, /id=\{english \? "hero-search-en" : "hero-search-pt"\}/);
   assert.match(portuguese, /search_from_hero/);
-  assert.match(english, /className="hero-search"/);
-  assert.match(english, /id="hero-search-en"/);
   assert.match(english, /search_from_hero_en/);
 });
 
@@ -32,32 +33,25 @@ test("section changes update the browser title, scroll and keyboard focus", () =
   assert.match(navigation, /target\.focus\(\{ preventScroll: true \}\)/);
 });
 
-test("the English header preserves its compact navigation mode", () => {
-  for (const source of [english]) {
-    assert.match(source, /className="primary-navigation"/);
-    assert.match(source, /className="mobile-navigation"/);
-  }
-  assert.match(styles, /@media \(max-width: 1720px\)/);
-  assert.match(styles, /@media \(max-width: 960px\)[\s\S]*\.topbar > \.primary-navigation\s*\{\s*display: none;/);
-  assert.match(styles, /\.mobile-navigation-panel[\s\S]*width: min\(340px, calc\(100vw - 32px\)\)/);
+test("both headers share responsive submenus and language controls", () => {
+  assert.match(english, /<PortalNavigation english/);
+  assert.match(portuguese, /<PortalNavigation/);
+  for (const feature of ["aria-expanded", "aria-controls", "Ler em português", "Read in English", "Escape"]) assert.ok(navigation.includes(feature));
+  assert.match(fs.readFileSync("src/prototype.css", "utf8"), /@media \(max-width: 1023px\)/);
 });
 
-test("English preserves collections and editorial modules on its home page", () => {
-  for (const source of [english]) {
-    assert.match(source, /className="home-page"/);
-    assert.match(source, /<PortalCollections/);
-    assert.match(source, /className="search-panel"/);
-    assert.match(source, /className="weekly-highlight weekly-highlight--debate"/);
-    assert.match(source, /className="interactive-experience"/);
-    assert.match(source, /className="obia-callout"/);
-    assert.match(source, /<TopicRadar/);
-  }
-
+test("English uses the shared home, separate collection and compact OBIA footer reference", () => {
+  assert.match(english, /page === "home" \? <PortalHome english/);
+  assert.match(english, /className="pt-acervo-page"/);
+  assert.match(english, /<PortalCollections/);
+  assert.match(english, /<TopicRadar/);
+  assert.doesNotMatch(english, /obia-callout|<NavigationMore|<InstitutionalBand/);
+  assert.match(fs.readFileSync("src/PortalFooter.tsx", "utf8"), /Other references: /);
 });
 
 test("Portuguese portal uses D1–D9 navigation and DOM order", () => {
   assert.match(portuguese, /<PortalNavigation/);
-  assert.match(portuguese, /className="pt-home-page"/);
+  assert.match(home, /className="pt-home-page"/);
   assert.match(portuguese, /className="pt-acervo-page"/);
   assert.doesNotMatch(portuguese, /obia-callout|<NavigationMore/);
   assert.match(fs.readFileSync("src/prototype.css", "utf8"), /@media \(max-width: 1023px\)/);

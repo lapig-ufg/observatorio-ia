@@ -1,3 +1,4 @@
+import { formatPublicDate } from "./dateLabels";
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, Headphones, Presentation } from "lucide-react";
 import { trackEvent } from "./analytics";
@@ -53,7 +54,7 @@ const editions = {
   },
   en: {
     kicker: "Featured",
-    period: "11–17 Oct 2026 · one podcast, one presentation and one video",
+    period: formatPublicDate("2026-10-11", "en") + " – " + formatPublicDate("2026-10-17", "en") + " · one podcast, one presentation and one video",
     eyebrow: "Provenance, statistical detection and technical limits",
     title: "Invisible signatures: how well do AI watermarks survive?",
     lead: "The time when appearance or style alone could reveal synthetic content is over. As text, images, audio and video become more convincing, digital watermarks seek to record their origin — but their presence is not necessarily permanent.",
@@ -68,7 +69,7 @@ const editions = {
         title: "Why do AI watermarks fail?",
         description: "An analysis of the limits of invisible signatures, especially in text: rewriting, paraphrasing and other transformations can degrade the signal and make detection inconclusive.",
         links: [
-          { kind: "audio", label: "Listen to the podcast (PT)", href: sources.podcast },
+          { kind: "audio", label: "Listen to the podcast (in Portuguese)", href: sources.podcast },
         ],
       },
       {
@@ -76,7 +77,7 @@ const editions = {
         title: "How the signature enters the tokens",
         description: "The presentation explains greenlists, sampling bias, z-scores, p-values and the role of entropy, along with false positives, robustness and rewriting attacks.",
         links: [
-          { kind: "presentation", label: "View LLM Watermark (PT)", href: sources.presentation },
+          { kind: "presentation", label: "View LLM Watermark (in Portuguese)", href: sources.presentation },
         ],
       },
       {
@@ -92,7 +93,7 @@ const editions = {
 } as const;
 
 // O Sobre reaproveita a data editorial da edição, sem manter uma segunda cópia.
-export const featuredPeriod = { label: editions.pt.period.split(" · ")[0] };
+export const featuredPeriod = { label: editions.pt.period.split(" · ")[0], englishLabel: editions.en.period.split(" · ")[0] };
 
 function MaterialIcon({ kind }: { kind: MaterialKind }) {
   if (kind === "audio") return <Headphones size={15} aria-hidden="true" />;
@@ -102,7 +103,7 @@ function MaterialIcon({ kind }: { kind: MaterialKind }) {
 
 export function FeaturedDebate({ language, weeklyBadge = false }: { language: Language; weeklyBadge?: boolean }) {
   const edition = editions[language];
-  const Title = language === "pt" ? "h3" : "h2";
+  const Title = weeklyBadge || language === "pt" ? "h3" : "h2";
   const introRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -121,15 +122,15 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
     trackEvent("open_featured_material", { event_category: "outbound", event_label: label, material, featured_edition: edition.title, language });
 
   return <>
-    <div className="weekly-highlight-kicker">{!weeklyBadge && <span>{edition.kicker}</span>}{weeklyBadge && <p className="pt-weekly-badge">Nova edição todo domingo</p>}<span>{edition.period}</span></div>
+    <div className="weekly-highlight-kicker">{!weeklyBadge && <span>{edition.kicker}</span>}{weeklyBadge && <p className="pt-weekly-badge">{language === "en" ? "New edition every Sunday" : "Nova edição todo domingo"}</p>}<span>{edition.period}</span></div>
     <div className="featured-debate-intro" ref={introRef}>
       <div className="featured-debate-copy">
         {!weeklyBadge && <p className="eyebrow">{edition.eyebrow}</p>}
         <Title id="weekly-highlight-title">{edition.title}</Title>
         <p>{edition.lead}</p>
         <div className="featured-quick-links">
-          <a href={sources.podcast} target="_blank" rel="noreferrer"><Headphones size={15} /> {language === "pt" ? "Ouvir podcast" : "Listen to podcast (PT)"}</a>
-          <a href={sources.presentation} target="_blank" rel="noreferrer"><Presentation size={15} /> {language === "pt" ? "Ver apresentação" : "View presentation (PT)"}</a>
+          <a href={sources.podcast} target="_blank" rel="noreferrer"><Headphones size={15} /> {language === "pt" ? "Ouvir podcast" : "Listen to podcast (in Portuguese)"}</a>
+          <a href={sources.presentation} target="_blank" rel="noreferrer"><Presentation size={15} /> {language === "pt" ? "Ver apresentação" : "View presentation (in Portuguese)"}</a>
           <a href={sources.video} target="_blank" rel="noreferrer">{language === "pt" ? "Assistir ao vídeo" : "Watch the video"} <ArrowUpRight size={15} /></a>
         </div>
       </div>

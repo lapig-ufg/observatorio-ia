@@ -1,23 +1,50 @@
 // Uma fonte de destinos mantém menu, cartões e mapa do site em acordo.
 export const portalNavigation = [
-  { id: "panorama", label: "Panorama", featured: { title: "Panorama da IA", description: "Linha do tempo, qual modelo usar e IAs gratuitas.", icon: "panorama", href: "#panorama", event: "nav_panorama" }, links: [
+  { english: { label: "Panorama", featured: { title: "AI Panorama", description: "Timeline, which model to use and free AI tools." }, links: [
+    { label: "Timeline", href: "#panorama", description: "Follow the timeline of AI models." },
+    { label: "Which model to use", href: "#panorama/guia", description: "Compare options for each task." },
+    { label: "Free AI tools", href: "#panorama/gratuitos", description: "Explore tools with free access." },
+    { label: "Using AI outside the browser", href: "#panorama/como-usar", description: "Discover the terminal and AI agents." },
+  ] }, id: "panorama", label: "Panorama", featured: { title: "Panorama da IA", description: "Linha do tempo, qual modelo usar e IAs gratuitas.", icon: "panorama", href: "#panorama", event: "nav_panorama" }, links: [
     { label: "Linha do tempo", href: "#panorama", description: "Acompanhe a linha do tempo dos modelos.", event: "nav_panorama" },
     { label: "Qual modelo usar", href: "#panorama/guia", description: "Compare opções para cada tarefa.", event: "nav_panorama" },
     { label: "IAs gratuitas", href: "#panorama/gratuitos", description: "Explore ferramentas com acesso gratuito.", event: "nav_panorama" },
     { label: "Como usar fora do navegador", href: "#panorama/como-usar", description: "Conheça o terminal e os agentes de IA.", event: "nav_panorama" },
   ] },
-  { id: "acervo", label: "Acervo", featured: { title: "Acervo", description: "Leituras, documentos, vídeos, áudios e apresentações.", icon: "acervo", href: "#acervo", event: "nav_catalog", metric: "materials" }, links: [
+  { english: { label: "Collection", featured: { title: "Collection", description: "Readings, documents, videos, audio and presentations.", href: "#catalog" }, links: [
+    { label: "Full collection", href: "#catalog", description: "Search and filter the selected materials." },
+    { label: "AI Readings", href: "#ai-readings", description: "Read essays and articles organized by topic." },
+    { label: "Inside AI (interactive lesson, in Portuguese)", href: "por-dentro-da-ia/", description: "Explore the interactive lesson on language models (in Portuguese)." },
+  ] }, id: "acervo", label: "Acervo", featured: { title: "Acervo", description: "Leituras, documentos, vídeos, áudios e apresentações.", icon: "acervo", href: "#acervo", event: "nav_catalog", metric: "materials" }, links: [
     { label: "Todo o acervo", href: "#acervo", description: "Busque e filtre os materiais selecionados.", event: "nav_catalog" },
     { label: "Leituras em IA", href: "#leituras-em-ia", description: "Leia ensaios e artigos organizados por tema.", event: "nav_ai_readings" },
     { label: "Por dentro da IA", href: "por-dentro-da-ia/", description: "Experimente a aula interativa sobre modelos de linguagem.", event: "open_interactive_inference" },
   ] },
-  { id: "atualidade", label: "Atualidade", featured: { title: "IA na imprensa", description: "Cobertura diária da Folha de S.Paulo sobre IA.", icon: "imprensa", href: "#ia-como-noticia-diaria", event: "nav_daily_news", metric: "news" }, links: [
+  { english: { label: "News", featured: { title: "AI in the press", description: "Daily coverage of AI by Folha de S.Paulo (in Portuguese).", href: "#daily-news" }, links: [
+    { label: "Weekly highlight", href: "#highlight", description: "Explore the current edition and previous highlights." },
+    { label: "AI in the daily news", href: "#daily-news", description: "Explore press coverage by year and topic (in Portuguese)." },
+  ] }, id: "atualidade", label: "Atualidade", featured: { title: "IA na imprensa", description: "Cobertura diária da Folha de S.Paulo sobre IA.", icon: "imprensa", href: "#ia-como-noticia-diaria", event: "nav_daily_news", metric: "news" }, links: [
     { label: "Em destaque da semana", href: "#em-destaque", description: "Conheça a edição e os destaques anteriores.", event: "nav_featured" },
     { label: "IA como notícia diária", href: "#ia-como-noticia-diaria", description: "Explore a cobertura da imprensa por ano e assunto.", event: "nav_daily_news" },
   ] },
-  { id: "ufg", label: "IA na UFG", href: "#ecossistema-ufg", event: "nav_ecosystem", featured: { title: "IA na UFG", description: "Cursos, projetos e iniciativas da universidade.", icon: "ufg", href: "#ecossistema-ufg", event: "nav_ecosystem", metric: "initiatives" } },
-  { id: "sobre", label: "Sobre", href: "#sobre", event: "nav_about" },
+  { english: { label: "AI at UFG", href: "#ufg-ecosystem", featured: { title: "AI at UFG", description: "Courses, projects and university initiatives.", href: "#ufg-ecosystem" } }, id: "ufg", label: "IA na UFG", href: "#ecossistema-ufg", event: "nav_ecosystem", featured: { title: "IA na UFG", description: "Cursos, projetos e iniciativas da universidade.", icon: "ufg", href: "#ecossistema-ufg", event: "nav_ecosystem", metric: "initiatives" } },
+  { english: { label: "About", href: "#about" }, id: "sobre", label: "Sobre", href: "#sobre", event: "nav_about" },
 ] as const;
+
+export type PortalLink = { label: string; href: string; description: string; event: string };
+export type PortalSection = { id: string; label: string; href?: string; event?: string; featured?: FeaturedPortalSection; links?: readonly PortalLink[] };
+
+export function localizedPortalNavigation(english = false): readonly PortalSection[] {
+  if (!english) return portalNavigation;
+  return portalNavigation.map(section => {
+    const translation = section.english;
+    const localized: PortalSection = { ...section, label: translation.label };
+    if ("href" in translation) localized.href = translation.href;
+    if ("featured" in section && "featured" in translation) localized.featured = { ...section.featured, ...translation.featured };
+    if ("links" in section && "links" in translation) localized.links = section.links.map((link, i) => ({ ...link, ...translation.links[i] }));
+    return localized;
+  });
+}
 
 export type PortalMetric = "materials" | "news" | "initiatives";
 export type FeaturedPortalSection = { title: string; description: string; icon: string; href: string; event: string; metric?: PortalMetric };
@@ -27,11 +54,11 @@ export function featuredPortalSections(sections: readonly { id: string; featured
 }
 
 // Ausência de dados não vira zero; uma única iniciativa não representa o mapeamento completo.
-export function portalMetricLabel(metric: PortalMetric | undefined, counts: Partial<Record<PortalMetric, number>>) {
+export function portalMetricLabel(metric: PortalMetric | undefined, counts: Partial<Record<PortalMetric, number>>, english = false) {
   const count = metric ? counts[metric] : undefined;
   if (!metric || count === undefined || !Number.isFinite(count) || count < 0 || (metric === "initiatives" && count <= 1)) return "";
-  const labels = { materials: ["material", "materiais"], news: ["matéria", "matérias"], initiatives: ["iniciativa", "iniciativas"] };
-  return `${count.toLocaleString("pt-BR")} ${labels[metric][count === 1 ? 0 : 1]}`;
+  const labels = english ? { materials: ["item", "items"], news: ["article", "articles"], initiatives: ["initiative", "initiatives"] } : { materials: ["material", "materiais"], news: ["matéria", "matérias"], initiatives: ["iniciativa", "iniciativas"] };
+  return `${count.toLocaleString(english ? "en-US" : "pt-BR")} ${labels[metric][count === 1 ? 0 : 1]}`;
 }
 
 // A página, a prévia e a contagem usam a mesma combinação, preservando a prioridade editorial.
@@ -43,11 +70,12 @@ export function canonicalPortalHash(hash: string) {
   return ({ "#catalogo": "#acervo", "#categorias": "#acervo/colecoes", "#palavras-chave": "#acervo/radar" } as Record<string, string>)[hash] || hash;
 }
 
-export function portalPage(hash: string) {
+export function portalPage(hash: string, english = false) {
   const route = canonicalPortalHash(hash);
   if (route.startsWith("#panorama")) return "panorama";
+  if (english && ["#catalog", "#collections", "#topics", "#item"].includes(route)) return "catalog";
   if (route.startsWith("#acervo") || route === "#item") return "catalog";
-  return ({ "#ecossistema-ufg": "ecosystem", "#ia-como-noticia-diaria": "daily-news", "#leituras-em-ia": "readings", "#ai-readings": "readings", "#sobre": "about" } as Record<string, string>)[route] || "home";
+  return ({ "#ecossistema-ufg": "ecosystem", "#ia-como-noticia-diaria": "daily-news", "#leituras-em-ia": "readings", "#ai-readings": "readings", "#sobre": "about", ...(english ? { "#ufg-ecosystem": "ecosystem", "#daily-news": "daily-news", "#about": "about" } : {}) } as Record<string, string>)[route] || "home";
 }
 
 // O comparador do catálogo resolve empates, sem duplicar a regra de datas.

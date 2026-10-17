@@ -31,12 +31,6 @@ body { min-width: 0; font-size: 16px; }
 @media (hover: hover) { .institutional-band a:hover .institutional-tooltip { display: block; } }
 .institutional-band[data-tooltip-dismissed="true"] a .institutional-tooltip { display: none; }
 .topbar { display: flex; flex-wrap: nowrap; min-height: 68px; gap: 16px; padding: 8px clamp(16px, 4vw, 60px); box-shadow: 0 2px 8px #123d3108; }
-.topbar .primary-navigation { flex: 1; justify-content: center; }
-.topbar .language-switch { margin-left: auto; }
-.navigation-more { position: relative; }
-.navigation-more > summary { min-height: 44px; padding: 10px 12px; cursor: pointer; font-size: 1rem; font-weight: 750; color: #285140; }
-.navigation-more > div { position: absolute; right: 0; top: calc(100% + 10px); width: 300px; max-width: calc(100vw - 32px); padding: 10px; border: 1px solid #c9d9ce; border-radius: 12px; background: white; box-shadow: 0 14px 32px #123d3120; }
-.topbar .navigation-more a { display: flex; min-height: 48px; padding: 12px; font-size: 1rem; line-height: 1.4; }
 .radar-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .radar-period { display: flex; flex-wrap: wrap; gap: 8px; margin-block: 18px 8px; }
 .radar-period button { min-height: 44px; padding: 10px 16px; border: 1px solid #a8c5b6; border-radius: 8px; background: white; color: #21533f; font-size: 1rem; font-weight: 650; cursor: pointer; }
@@ -49,36 +43,8 @@ body { min-width: 0; font-size: 16px; }
 .radar-method p { max-width: 90ch; margin-top: 4px; }
 @media (min-width: 1201px) {
   .topbar { flex-wrap: nowrap; }
-  .topbar > .primary-navigation {
-    order: 0;
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    flex: 1 1 auto;
-    width: 100%;
-    max-width: 900px;
-    min-width: 0;
-    padding: 0;
-    border: 0;
-    gap: 8px;
-  }
-  .topbar > .primary-navigation > a,
-  .topbar > .primary-navigation > .navigation-more { width: 100%; min-width: 0; }
-  .topbar > .primary-navigation > a,
-  .topbar > .primary-navigation > .navigation-more > summary {
-    box-sizing: border-box;
-    min-height: 48px;
-    justify-content: center;
-    padding: 8px 10px;
-    font-size: 1rem;
-    line-height: 1.25;
-    text-align: center;
-    text-wrap: balance;
-  }
 }
-.header-search { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; border-radius: 10px; background: #edf5f1; }
 .brand { min-width: 0; flex-shrink: 0; }
-.mobile-navigation { flex-shrink: 0; }
-.mobile-navigation-panel { top: calc(100% + 8px); }
 .catalog-intro { padding: 28px clamp(20px, 6vw, 92px); grid-template-columns: 1fr; }
 .catalog-intro h1 { max-width: 900px; font-size: clamp(1.75rem, 3.6vw, 2.7rem); line-height: 1.15; }
 .intro-copy { font-size: 1rem; max-width: 800px; }
@@ -176,7 +142,6 @@ body { min-width: 0; font-size: 16px; }
 .portal-news h2 { margin: 0 0 8px; font-size: 1.5rem; }.portal-news p { font-size: 16px; line-height: 1.6; }.portal-news a { min-height: 44px; display: inline-flex; align-items: center; color: #254b73; font-weight: 700; }
 .obia-callout { padding: 22px; box-shadow: none; }.obia-callout h2 { font-size: 1.25rem; }
 @media (max-width: 1200px) {
-  .topbar > .primary-navigation { display: none; }.mobile-navigation { display: block; }
   .article-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 700px) {
@@ -185,11 +150,8 @@ body { min-width: 0; font-size: 16px; }
   .institutional-band a:first-child .institutional-tooltip { left: 0; transform: none; }
   .institutional-band a:last-child .institutional-tooltip { left: auto; right: 0; transform: none; }
   .topbar { gap: 8px; padding: 7px 12px; min-height: 60px; }
-  .topbar > .language-switch { display: none; }.header-search { margin-left: auto; }
-  .mobile-navigation summary { padding: 8px; min-height: 44px; gap: 5px; }
   .brand-mark { width: 34px; height: 38px; }.brand { gap: 7px; }
   .brand strong { font-size: 14px; }.brand-name strong:last-child { font-size: 11px; }
-  .mobile-navigation-panel { position: absolute; top: calc(100% + 8px); right: 0; left: auto; width: min(340px, calc(100vw - 24px)); max-height: calc(100dvh - 85px); }
   .catalog-intro { padding: 24px 16px; }.catalog-intro h1 { font-size: 1.75rem; }
   .hero-search { flex-wrap: wrap; }.hero-search input { flex: 1; min-width: 0; }.hero-search button { min-height: 44px; }
   .weekly-highlight { margin: 0 16px 20px; padding: 20px 16px; }
@@ -229,22 +191,9 @@ body { min-width: 0; font-size: 16px; }
 .topbar nav a { font-size: 1rem; line-height: 1.2; }
 .topbar nav .catalog-nav-links { gap: 7px; }
 .topbar nav .form-nav-link strong,
-.topbar nav .daily-news-nav-link strong,
-.topbar nav .panorama-nav-link strong { font-size: 0.92rem; }
+.topbar nav .daily-news-nav-link strong{ font-size: 0.92rem; }
 .topbar nav .form-nav-link small,
-.topbar nav .daily-news-nav-link small,
-.topbar nav .panorama-nav-link small { font-size: 0.96rem; }
-.mobile-navigation-panel > a { font-size: 1rem; }
-
-.topbar nav .panorama-nav-link {
-  padding: 7px 10px;
-  border: 1px solid #c4b48d;
-  border-radius: 8px;
-  background: #fff9ea;
-  color: #254f43;
-}
-.topbar nav .panorama-nav-link:hover { border-color: #ad7b43; background: #fff2cf; color: #173e32; }
-.mobile-navigation-panel > .panorama-mobile-link { border: 1px solid #d7c79f; background: #fff9ea; }
+.topbar nav .daily-news-nav-link small{ font-size: 0.96rem; }
 
 /* Keep the larger labels without horizontal overflow on laptop-size desktops. */
 @media (min-width: 1201px) and (max-width: 1720px) {
@@ -253,13 +202,6 @@ body { min-width: 0; font-size: 16px; }
     column-gap: 14px;
     row-gap: 8px;
     padding: 8px clamp(16px, 3vw, 42px);
-  }
-  .topbar > .language-switch { margin-left: 0; }
-  .topbar > .primary-navigation {
-    width: 100%;
-    margin: 0;
-    padding-top: 0;
-    border-top: 0;
   }
 }
 

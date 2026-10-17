@@ -1,35 +1,27 @@
+import { PortalHome } from "./PortalHome";
+import { PortalFooter } from "./PortalFooter";
+import { EcosystemPage } from "./EcosystemPage";
 import {
-  ArrowUpRight,
   CheckCircle2,
   ChevronDown,
   Clock3,
   FileText,
   LoaderCircle,
-  History,
-  Scale,
-  Gift,
-  Terminal,
   RefreshCw,
   Search,
   X,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
+import { loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPage } from "./DailyNewsPage";
-import { FeaturedDebate } from "./FeaturedDebate";
 import { PortalCollections } from "./PortalDiscovery";
 import { TopicRadar } from "./TopicRadar";
 import { addedInWindow, radarDateWindow } from "./radarPeriod";
-import { PortalNavigation, PortalSitemap } from "./PortalNavigation";
-import { canonicalPortalHash, portalPage, selectRecentAdditions, portalNavigation, combineInitiatives } from "./portalStructure";
-import { videoThumbnail } from "./catalogExperienceState";
-import { HomeAdditions } from "./HomeAdditions";
-import { HomeSectionHeading } from "./HomeSectionHeading";
-import { RealizationBand } from "./RealizationBand";
+import { PortalNavigation } from "./PortalNavigation";
+import { canonicalPortalHash, portalPage, combineInitiatives } from "./portalStructure";
 import { AboutPage } from "./AboutPage";
-import { PressSummary, useNewsSummary } from "./PressSummary";
-import { PortalSectionCards } from "./PortalSectionCards";
+import { useNewsSummary } from "./PressSummary";
 import { defaultCatalogView } from "./discoverySelection";
 import { catalogDate, newestFirst } from "./catalogOrdering";
 import { matchesCloudTerm } from "./keywordCloud";
@@ -39,7 +31,6 @@ import { MediumReadingsPage } from "./MediumReadingsPage";
 import { PanoramaPage } from "./panorama/PanoramaPage";
 import { skipToContent, usePageNavigation } from "./usePageNavigation";
 import { readingTopic } from "./readingTopics";
-import { InitiativeLogo } from "./InitiativeLogo";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -314,7 +305,6 @@ export function App() {
     }).sort(orderArticles);
   }, [articles, query, selectedKeyword, theme, type, orderArticles, added, radarWindow.start, radarWindow.end]);
 
-  const recentArticles = useMemo(() => selectRecentAdditions(articles, (left, right) => catalogDate(right.includedAt) - catalogDate(left.includedAt) || newestFirst(left, right), article => article.type === "link-video" && !!videoThumbnail(article.originalUrl)), [articles]);
   const displayedArticles = filtered;
 
   const revealCatalog = () => {
@@ -370,7 +360,7 @@ export function App() {
       }} />
 
       <div id="page-content" tabIndex={-1}>
-      {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} onClose={closeDetail} /> : page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} detailHref={detailHref} onOpen={openDetail} /> : page === "panorama" ? <PanoramaPage /> : page === "about" ? <AboutPage articles={articles} loaded={!!catalog} /> : page === "catalog" ? <div id="acervo" className="pt-acervo-page">
+      {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} onClose={closeDetail} /> : page === "ecosystem" ? <EcosystemPage initiatives={combineInitiatives(initiatives, ecosystemFeaturedInitiatives)} /> : page === "daily-news" ? <DailyNewsPage /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} detailHref={detailHref} onOpen={openDetail} /> : page === "panorama" ? <PanoramaPage /> : page === "about" ? <AboutPage articles={articles} loaded={!!catalog} /> : page === "catalog" ? <div id="acervo" className="pt-acervo-page">
       <div className="pt-internal-heading"><p className="eyebrow">Materiais selecionados</p><h1 id="acervo-title">Acervo</h1><p>Busque por título, autor, tema ou palavra-chave e explore as sete coleções.</p></div>
       <PortalCollections articles={articles} type={type} onSelect={selectCategory} onExplore={revealCatalog} loading={!catalog} />
 
@@ -477,144 +467,10 @@ export function App() {
       )}
       {articles.length > 0 && <TopicRadar articles={articles} selected={selectedKeyword} onSelect={selectKeyword} />}
 
-      </div> : <div className="pt-home-page">
-      <section className="pt-home-opening" aria-labelledby="page-title">
-        <p className="eyebrow">Inteligência artificial em perspectiva</p>
-        <h1 id="page-title">IA generativa explicada, comparada e acompanhada pela UFG</h1>
-        <p>Acervo curado, comparação de modelos, notícias e uma aula interativa para quem estuda, pesquisa e ensina.</p>
-        <PortalSectionCards counts={{ materials: catalog ? articles.length : undefined, news: newsSummary?.total, initiatives: catalog ? combineInitiatives(initiatives, ecosystemFeaturedInitiatives).length : undefined }} />
-        <form className="hero-search pt-hero-search" role="search" onSubmit={event => { event.preventDefault(); revealCatalog(); }}>
-          <Search size={20} aria-hidden="true" /><label className="sr-only" htmlFor="hero-search-pt">Buscar no acervo</label>
-          <input id="hero-search-pt" value={query} onChange={event => { setQuery(event.target.value); setSelectedKeyword(""); setAdded(""); }} placeholder={catalog ? "Buscar entre " + articles.length.toLocaleString("pt-BR") + " materiais" : "Buscar no acervo"} />
-          <button type="submit">Buscar</button>
-        </form>
-      </section>
-      <section id="em-destaque" className="pt-home-section weekly-highlight weekly-highlight--debate" aria-labelledby="home-featured-title">
-        <HomeSectionHeading id="home-featured-title" eyebrow="Destaque semanal" title="Em destaque" action={<button
-          type="button"
-          className="text-action pt-featured-history-action"
-          aria-expanded={showFeaturedHistory}
-          aria-controls="weekly-highlight-history"
-          onClick={() => {
-            setShowFeaturedHistory((isOpen) => !isOpen);
-            trackEvent("toggle_featured_history", { event_category: "navigation", event_label: showFeaturedHistory ? "close" : "open", position: "home" });
-          }}
-        >
-          <Clock3 size={16} aria-hidden="true" />
-          <span>O que já foi destaque?</span>
-          <ChevronDown size={16} className={showFeaturedHistory ? "is-open" : ""} aria-hidden="true" />
-        </button>} />
-        <FeaturedDebate language="pt" weeklyBadge />
-        {showFeaturedHistory && (
-          <div id="weekly-highlight-history" className="weekly-highlight-history" aria-label="Temas anteriores em destaque">
-            <p className="eyebrow">Destaques anteriores</p>
-            <div className="weekly-highlight-history-grid">
-              {featuredHistory.map((featured) => {
-                const links = featured.links ?? [{ label: "Acessar tema", href: featured.href || "#" }];
-                return <article key={featured.eventLabel} className="weekly-highlight-history-item">
-                  <p>{featured.date} · {featured.source}</p>
-                  <h3>{featured.title}</h3>
-                  <span>{featured.summary}</span>
-                  <div className="weekly-highlight-history-links">
-                    {links.map((link) => <a key={link.href} href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noreferrer" : undefined} onClick={() => trackEvent("open_featured_history", { event_category: link.href.startsWith("http") ? "outbound" : "navigation", event_label: `${featured.eventLabel}:${link.label}`, position: "home" })}>
-                      {link.label} <ArrowUpRight size={15} aria-hidden="true" />
-                    </a>)}
-                  </div>
-                </article>;
-              })}
-            </div>
-          </div>
-        )}
-      </section>
-
-
-      <section className="pt-home-section pt-home-panorama" aria-labelledby="home-panorama-title">
-        <HomeSectionHeading id="home-panorama-title" eyebrow="Panorama da IA" title="Panorama da IA" action={<a className="text-action" href="#panorama" onClick={() => trackEvent("nav_panorama", { position: "home" })}>Abrir o Panorama →</a>} />
-        <div className="pt-panorama-grid">{portalNavigation[0].links.map((link, i) => { const Icon = [History, Scale, Gift, Terminal][i]; return <a key={link.href} href={link.href} onClick={() => trackEvent(link.event, { position: "home", event_label: link.href })}><Icon className="pt-panorama-icon" size={20} aria-hidden="true" /><strong>{link.label}</strong><span>{link.description}</span><span className="pt-panorama-arrow" aria-hidden="true">→</span></a>; })}</div>
-      </section>
-      <section className="pt-home-section pt-home-recent" aria-labelledby="home-recent-title">
-        <HomeSectionHeading id="home-recent-title" eyebrow="Novidades do acervo" title="Adicionados recentemente" action={<a className="text-action" href="#acervo">Ver todo o acervo →</a>} />
-        {error ? <p role="alert">{error}</p> : !catalog ? <p role="status">Carregando acervo…</p> : <HomeAdditions {...recentArticles} detailHref={detailHref} onOpen={openDetail} />}
-      </section>
-      <PressSummary summary={newsSummary} />
-      <section id="experiencias-interativas" className="pt-home-section interactive-experience" aria-labelledby="interactive-experience-title">
-        <div className="interactive-experience-copy">
-          <HomeSectionHeading id="interactive-experience-title" eyebrow="Aula interativa" title="Por dentro da IA" description="Da frase ao próximo token: veja como um modelo gera respostas, com diagramas e operações passo a passo. Sem pré-requisitos." />
-          <a className="interactive-experience-action" href={assetUrl("por-dentro-da-ia/")} onClick={() => trackEvent("open_interactive_inference", { event_category: "navigation", event_label: "por-dentro-da-ia", position: "home" })}>Abrir a aula interativa <span aria-hidden="true">→</span></a>
-        <details className="interactive-experience-journey"><summary>Ver o percurso de aprendizagem</summary>
-          <p>Uma introdução visual à inferência, com o GPT-3 como referência. Acompanhe uma frase sobre sensoriamento remoto e experimente operações matemáticas passo a passo. Não é preciso dominar matemática ou programação. Depois, volte ao Observatório pelo cabeçalho.</p>
-          <p className="eyebrow">A frase que guia a jornada</p>
-          <blockquote>A vegetação saudável apresenta alta reflectância no infravermelho próximo.</blockquote>
-          <ol aria-label="Etapas da geração do próximo token">
-            <li><strong>01 · Tokens e embeddings</strong><span>O texto ganha representações numéricas.</span></li>
-            <li><strong>02 · Blocos Transformer</strong><span>Atenção e redes neurais transformam as representações usando o contexto.</span></li>
-            <li><strong>03 · Próximo token</strong><span>Escores para o vocabulário tornam-se probabilidades para escolher a continuação.</span></li>
-          </ol>
-        </details>
-        </div>
-        <div className="pt-token-illustration" aria-hidden="true"><span className="pt-token-label">A frase vira tokens</span><div className="pt-tokens">{["A", "UFG", "fica", "em"].map(token => <span key={token}>{token}</span>)}</div><span className="pt-token-arrow">↓</span><span className="pt-token-label">Possíveis próximos tokens</span><div className="pt-token-candidates">{[{ token: "Goiânia", probability: 87 }, { token: "Goiás", probability: 9 }, { token: "Brasil", probability: 3 }].map(candidate => <div key={candidate.token}><span>{candidate.token}</span><span className="pt-token-bar"><i style={{ width: `${candidate.probability}%` }} /></span><strong>{candidate.probability}%</strong></div>)}</div></div>
-      </section>
-
-      <section className="pt-home-section pt-home-ufg" aria-labelledby="home-ufg-title">
-        <HomeSectionHeading id="home-ufg-title" eyebrow="Universidade" title="IA na UFG" action={<a className="text-action" href="#ecossistema-ufg" onClick={() => trackEvent("nav_ecosystem", { position: "home" })}>Ver todas →</a>} />
-        <div className="ecosystem-initiative-grid">{combineInitiatives(initiatives, ecosystemFeaturedInitiatives).slice(0, 3).map(initiative => <InitiativeCard key={initiative.id} initiative={initiative} position="home" />)}</div>
-        <div className="pt-participate"><h3>Participe: como você usa a IA?</h3><p>Compartilhe sua experiência com o Observatório.</p><a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { event_category: "outbound", event_label: "forms.gle", position: "home" })}>Participar →</a></div>
-      </section>
-      </div>}
+      </div> : <PortalHome articles={articles} initiatives={combineInitiatives(initiatives, ecosystemFeaturedInitiatives)} catalog={!!catalog} error={error} query={query} setQuery={setQuery} setSelectedKeyword={setSelectedKeyword} setAdded={setAdded} revealCatalog={revealCatalog} detailHref={detailHref} openDetail={openDetail} featuredHistory={featuredHistory} showFeaturedHistory={showFeaturedHistory} setShowFeaturedHistory={setShowFeaturedHistory} newsSummary={newsSummary} />}
 
       </div>
-      <RealizationBand />
-      <footer className="footer pt-footer"><div className="pt-footer-content">
-        <PortalSitemap />
-        <p className="pt-footer-references">Outras referências: <a href="https://obia.nic.br/" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_obia", { event_category: "outbound", event_label: "obia", position: "footer" })}>OBIA</a></p>
-        <div><strong>Observatório UFG-IA</strong><p>Acervo educacional em desenvolvimento contínuo.</p><div className="footer-links"><a className="github-footer-link" href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_github", { event_category: "outbound", event_label: "github" })}>GitHub do LAPIG/UFG <ArrowUpRight size={14} aria-hidden="true" /></a><a className="github-footer-link" href="https://victorgit10.github.io/audiencia-observatorio/" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_audiencia", { event_category: "outbound", event_label: "audiencia" })}>Quem visita o Observatório? <ArrowUpRight size={14} aria-hidden="true" /></a></div></div>
-        <div><span>LAPIG • Universidade Federal de Goiás</span><p>Conteúdo público com acesso às fontes originais.</p><p className="credits"><strong>Desenvolvimento e curadoria:</strong> <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a> e <a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p><p className="contact-callout">Dúvidas? Sugestões? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_contact_form", { event_category: "outbound", event_label: "contato" })}>Entre em contato <ArrowUpRight size={14} aria-hidden="true" /></a> · <a href="https://forms.gle/X2GC9MbrgaPWKHnJ9" target="_blank" rel="noreferrer" onClick={() => trackEvent("nav_participate", { position: "footer" })}>Participe <ArrowUpRight size={14} aria-hidden="true" /></a></p></div>
-      </div></footer>
+      <PortalFooter />
     </main>
-  );
-}
-
-function InitiativeCard({ initiative, position = "ecosystem" }: { initiative: Initiative; position?: string }) {
-  return (
-    <article className={`initiative-card initiative-${normalize(initiative.color).replace(/\s+/g, "-")}`}>
-      <InitiativeLogo url={initiative.url} name={initiative.acronym} />
-      <p className="initiative-acronym">{initiative.acronym}</p>
-      <h3>{initiative.name}</h3>
-      <p>{initiative.summary}</p>
-      <ul aria-label="Frentes de atuação">
-        {initiative.areas.map((area) => <li key={area}>{area}</li>)}
-      </ul>
-      <a href={initiative.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_initiative", { event_category: "ecosystem", event_label: initiative.acronym, position })}>
-        {initiative.actionLabel || "Conhecer iniciativa"} <ArrowUpRight size={17} aria-hidden="true" />
-      </a>
-    </article>
-  );
-}
-
-function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
-  const visibleInitiatives = combineInitiatives(initiatives, ecosystemFeaturedInitiatives);
-
-  return (
-    <section id="ecossistema-ufg" className="ecosystem-page" aria-labelledby="ecosystem-title">
-      <div className="ecosystem-hero">
-        <p className="eyebrow">Universidade Federal de Goiás</p>
-        <h1 id="ecosystem-title">Ecossistema UFG em inteligência artificial</h1>
-        <p>Conheça centros, redes e formações que conectam conhecimento, tecnologia e políticas públicas.</p>
-      </div>
-      <aside className="ecosystem-mapping-callout" aria-label="Mapeamento da IA na UFG">
-        <div>
-          <p className="ecosystem-mapping-kicker">Sua iniciativa de IA não está aqui?</p>
-          <p>Então responda ao nosso <strong>mapeamento da IA na UFG</strong>. É bem simples e rápido!</p>
-        </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe3qfZ5hjL0NifRXvI-SM6NKDN7g8DoFQJyoTTRTvhlptWk-w/viewform" target="_blank" rel="noreferrer" onClick={() => trackEvent("open_mapping_form", { event_category: "outbound", event_label: "mapeamento" })}>Participar do mapeamento <ArrowUpRight size={17} aria-hidden="true" /></a>
-      </aside>
-      {visibleInitiatives.length ? (
-        <div className="ecosystem-initiative-grid">
-          {visibleInitiatives.map((initiative) => <InitiativeCard key={initiative.id} initiative={initiative} />)}
-        </div>
-      ) : (
-        <div className="ecosystem-empty">As iniciativas estão sendo carregadas.</div>
-      )}
-    </section>
   );
 }
