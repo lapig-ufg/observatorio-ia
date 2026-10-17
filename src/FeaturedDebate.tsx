@@ -153,7 +153,7 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
           <a href={sources.podcast} target="_blank" rel="noreferrer"><Headphones size={15} /> {language === "pt" ? "Ouvir podcast" : "Listen to podcast (in Portuguese)"}</a>
           <a href={sources.presentation} target="_blank" rel="noreferrer"><Presentation size={15} /> {language === "pt" ? "Ver apresentação" : "View presentation (in Portuguese)"}</a>
         </div>
-        <small className="featured-material-note">{language === "pt" ? "A apresentação conserva números anteriores à revisão de 17/10. Para os indicadores atualizados, consulte o levantamento e o dossiê final." : "The presentation retains figures from before the 17 October review. Consult the survey and final dossier for updated indicators."}</small>
+        <small className="featured-material-note">{language === "pt" ? "Nota: a apresentação utiliza uma versão anterior dos indicadores." : "Note: the presentation uses an earlier version of the indicators."}</small>
       </div>
       <figure className="featured-debate-art">
         <picture>
