@@ -74,6 +74,18 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    date: "11 a 17 de outubro de 2026",
+    source: "Curadoria do Observatório UFG-IA",
+    title: "Assinaturas invisíveis: até onde resistem as marcas d’água da IA?",
+    summary: "Podcast, apresentação e vídeo sobre proveniência e limites das marcas d’água: detecção estatística não equivale a prova absoluta de autoria; reescrita e outras transformações podem degradar o sinal.",
+    links: [
+      { label: "Ouvir o podcast", href: "https://drive.google.com/file/d/1L1ChcDaz6ves1ddobAzVgPyBmYIgwi7x/view" },
+      { label: "Ver LLM Watermark", href: "https://drive.google.com/file/d/1BwCAoazLO6euEso_W63046oPTuTFsIc9/view" },
+      { label: "Vídeo Google DeepMind", href: "https://www.youtube.com/watch?v=HIUzrxQxTtw" },
+    ],
+    eventLabel: "watermarking-proveniencia-limites",
+  },
+  {
     date: "4 a 10 de outubro de 2026",
     source: "Curadoria do Observatório UFG-IA",
     title: "Da intuição ao J-Space: padrões, linguagem e reflexão",

@@ -129,6 +129,18 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 
 const featuredHistoryEnglish = [
   {
+    date: formatPublicDate("2026-10-11", "en") + " – " + formatPublicDate("2026-10-17", "en"),
+    source: "UFG-AI Observatory · Curated feature",
+    title: "Invisible signatures: how well do AI watermarks survive?",
+    summary: "A podcast, presentation and video on provenance and watermark limitations: statistical detection is not absolute proof of authorship; rewriting and other transformations can degrade the signal.",
+    links: [
+      { label: "Listen to the podcast (in Portuguese)", href: "https://drive.google.com/file/d/1L1ChcDaz6ves1ddobAzVgPyBmYIgwi7x/view" },
+      { label: "View LLM Watermark (in Portuguese)", href: "https://drive.google.com/file/d/1BwCAoazLO6euEso_W63046oPTuTFsIc9/view" },
+      { label: "Google DeepMind video", href: "https://www.youtube.com/watch?v=HIUzrxQxTtw" },
+    ],
+    eventLabel: "watermarking-provenance-limitations",
+  },
+  {
     date: formatPublicDate("2026-10-04", "en") + " – " + formatPublicDate("2026-10-10", "en"),
     source: "UFG-AI Observatory · Curated dossier",
     title: "From intuition to J-Space: patterns, language and reflection",

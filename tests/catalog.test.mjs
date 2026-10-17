@@ -77,6 +77,7 @@ test("curated audio and presentations have distinct destinations in both languag
     "apresentacao-living-manuscript-paper2agent-2026",
     "apresentacao-ai-relativity-2026",
     "apresentacao-death-understanding-math-ai-2026",
+    "apresentacao-governanca-ia-ciencia-2026",
   ]);
   const added = pt.filter((article) => article.id.startsWith("audio-") || featuredPresentationIds.has(article.id));
   assert.ok(added.length >= 6);
@@ -89,7 +90,8 @@ test("curated audio and presentations have distinct destinations in both languag
     assert.equal(english.url_original, article.url_original);
     assert.equal(english.url_pdf_institucional, article.url_pdf_institucional);
     assert.equal(article.ativo, "TRUE");
-    assert.match(article.data_inclusao, /^2026-09-\d{2}$/);
+    if (["audio-caos-ia-publicacao-cientifica-2026", "apresentacao-governanca-ia-ciencia-2026"].includes(article.id)) assert.equal(article.data_inclusao, "2026-10-17");
+    else assert.match(article.data_inclusao, /^2026-09-\d{2}$/);
     assert.ok(article.tipo === "audio" ? article.url_original.includes("drive.google.com/file/d/") && !article.url_pdf_institucional : article.url_pdf_institucional.includes("drive.google.com/file/d/"));
   }
   assert.match(fs.readFileSync("src/CatalogExperience.tsx", "utf8"), /article.type === "audio" \? \(english \? "Listen" : "Ouvir áudio"\)/);

@@ -1040,6 +1040,7 @@ h1 {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 13px;
 }
+.featured-debate-grid-four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 .featured-debate-card {
   display: flex;
