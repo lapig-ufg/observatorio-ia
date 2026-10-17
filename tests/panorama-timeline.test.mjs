@@ -59,7 +59,7 @@ test("pílulas na mesma trilha não se sobrepõem: cada lane guarda onde termino
 
   // Em uma lane, cada pílula começa depois da anterior + folga (120px entre
   // datas a 1,5px/dia dá folga para pílulas de ~92px).
-  const spread = [0, 80, 160, 240].map((days, index) => item({ id: `s${index}`, days, model: "Modelo" }));
+  const spread = [0, 120, 240, 360].map((days, index) => item({ id: `s${index}`, days, model: "Modelo" }));
   const lane0 = timeline.stackPills(spread, 1.5, 170, 24).filter((pill) => pill.lane === 0);
   assert.equal(lane0.length, 4);
   for (let index = 1; index < lane0.length; index += 1) {
@@ -67,20 +67,24 @@ test("pílulas na mesma trilha não se sobrepõem: cada lane guarda onde termino
       "pílula da mesma lane encostou na anterior");
   }
 
-  // Zoom fechado demais: sem lane livre, usa a que termina mais à esquerda
-  // (sobreposição mínima e previsível, nunca silenciosa em cima do eixo).
+  // O antigo teto é apenas compatibilidade de chamada: dados densos abrem
+  // novas faixas em vez de esconder rótulos por sobreposição.
   const dense = Array.from({ length: 40 }, (_, index) => item({ id: `d${index}`, days: index, model: `M${index}` }));
   const crammed = timeline.stackPills(dense, 0.2, 170, 4);
   assert.equal(crammed.length, 40);
-  assert.ok(crammed.every((pill) => pill.lane >= 0 && pill.lane < 4));
+  assert.ok(Math.max(...crammed.map(pill => pill.lane)) >= 4);
+  for (let i = 0; i < crammed.length; i++) for (let j = i + 1; j < crammed.length; j++) {
+    const a = crammed[i], b = crammed[j];
+    assert.ok(a.lane !== b.lane || a.x + a.width + 10 <= b.x || b.x + b.width + 10 <= a.x);
+  }
 });
 
 test("a altura da trilha cresce com a lane mais alta usada", () => {
   assert.equal(timeline.trackHeight([], 72), 72);
   const one = timeline.stackPills([item({ days: 0 }), item({ days: 0 })], 1.5, 170, 24);
   const three = timeline.stackPills([item({ days: 0 }), item({ days: 0 }), item({ days: 0 })], 1.5, 170, 24);
-  // Uma lane acima do eixo (96px); a terceira pílula abre a primeira para baixo.
-  assert.equal(timeline.trackHeight(one, 72), 96);
+  // O eixo é central: reserva simétrica mesmo com apenas uma faixa acima.
+  assert.equal(timeline.trackHeight(one, 72), 136);
   assert.equal(timeline.trackHeight(three, 72), 136);
 });
 
@@ -222,7 +226,7 @@ test("agrupamento por mês: mais recente primeiro, lançamentos do mês também"
   assert.deepEqual(timeline.groupedByMonth([], label), []);
 });
 
-test("últimas adições ordenam por updatedAt, não pela data do lançamento", () => {
+test("últimas adições preservam seleção por updatedAt e exibem por lançamento decrescente", () => {
   const day = 86_400_000;
   const now = Date.parse("2026-10-15T00:00:00Z");
   const items = [
@@ -231,13 +235,12 @@ test("últimas adições ordenam por updatedAt, não pela data do lançamento", 
     item({ id: "sem-updated", date: "2026-08-01", updatedAt: 0 }),
     item({ id: "catalogo", date: "2026-07-01" }),
   ];
-  // A adição mais recente da PLANILHA vem primeiro, mesmo com data antiga; sem
-  // updatedAt vale a data do lançamento (catálogo da AA não tem timestamp).
+  // Primeiro escolhe as adições recentes; só então ordena por lançamento.
   const additions = timeline.latestAdditions(items, 4, now);
-  assert.deepEqual(additions.map((addition) => addition.item.id), ["recente", "sem-updated", "velho", "catalogo"]);
-  assert.deepEqual(additions.map((addition) => addition.isNew), [true, false, false, false]);
+  assert.deepEqual(additions.map((addition) => addition.item.id), ["velho", "sem-updated", "catalogo", "recente"]);
+  assert.deepEqual(additions.map((addition) => addition.isNew), [false, false, false, true]);
   // Contagem e empate por id (mesmo updatedAt não muda a ordem visível).
-  assert.deepEqual(timeline.latestAdditions(items, 2, now).map((addition) => addition.item.id), ["recente", "sem-updated"]);
+  assert.deepEqual(timeline.latestAdditions(items, 2, now).map((addition) => addition.item.id), ["sem-updated", "recente"]);
   const tied = [
     item({ id: "b", updatedAt: now - day }),
     item({ id: "a", updatedAt: now - day }),

@@ -51,8 +51,8 @@ export const ECOSYSTEM_ORDER: TimelineEcosystem[] = [
    caractere, com folga, para o colchete de lanes não encostar no vizinho. */
 export type PillSpec = { h: number; r: number; iconR: number; textPad: number; charW: number; endPad: number; min: number; font: number };
 
-export const PILL_MARCO: PillSpec = { h: 32, r: 16, iconR: 11, textPad: 32, charW: 7.4, endPad: 16, min: 90, font: 11.5 };
-export const PILL_COMPACTA: PillSpec = { h: 20, r: 10, iconR: 4, textPad: 18, charW: 5.9, endPad: 12, min: 56, font: 10 };
+export const PILL_MARCO: PillSpec = { h: 32, r: 2, iconR: 11, textPad: 32, charW: 8, endPad: 18, min: 128, font: 11.5 };
+export const PILL_COMPACTA: PillSpec = { h: 20, r: 2, iconR: 4, textPad: 18, charW: 6.5, endPad: 12, min: 56, font: 10 };
 
 export function pillSpec(level: TimelineLevel): PillSpec {
   return level === 1 ? PILL_MARCO : PILL_COMPACTA;
@@ -96,10 +96,9 @@ export type PlacedPill = {
 
 /* Distribui as pílulas da trilha em lanes sem sobreposição: cada lane guarda
    onde a última pílula terminou e a próxima só reaproveita a lane se começa
-   depois da folga. Sem lane livre no teto (zoom bem fechado), usa a que termina
-   mais à esquerda — sobreposição mínima e previsível, nunca silenciosa em cima
-   do eixo. */
-export function stackPills(items: TimelineItem[], pxPerDay: number, padLeft: number, maxLanes: number): PlacedPill[] {
+   depois da folga. O antigo teto causava colisões nas empresas densas: uma
+   faixa adicional custa altura, mas preserva todos os nomes legíveis. */
+export function stackPills(items: TimelineItem[], pxPerDay: number, padLeft: number, _maxLanes?: number): PlacedPill[] {
   const sorted = [...items].sort((left, right) => left.days - right.days || left.model.localeCompare(right.model));
   const laneEnds: number[] = [];
   const placed: PlacedPill[] = [];
@@ -107,11 +106,7 @@ export function stackPills(items: TimelineItem[], pxPerDay: number, padLeft: num
     const x = padLeft + Math.round(item.days * pxPerDay);
     const width = estimatePillWidth(item);
     let lane = laneEnds.findIndex((end) => end + PILL_GAP <= x);
-    if (lane === -1 && laneEnds.length < maxLanes) lane = laneEnds.length;
-    if (lane === -1) {
-      lane = 0;
-      for (let index = 1; index < laneEnds.length; index += 1) if (laneEnds[index] < laneEnds[lane]) lane = index;
-    }
+    if (lane === -1) lane = laneEnds.length;
     laneEnds[lane] = x + width;
     const laneOffset = lane === 0 ? 0
       : lane % 2 === 1 ? -Math.ceil(lane / 2) * LANE_STEP
@@ -124,8 +119,9 @@ export function stackPills(items: TimelineItem[], pxPerDay: number, padLeft: num
 export function trackHeight(placed: PlacedPill[], minTrackHeight: number): number {
   const maxLane = placed.reduce((top, pill) => Math.max(top, pill.lane), 0);
   const lanesUp = Math.ceil(maxLane / 2);
-  const lanesDown = Math.floor(maxLane / 2);
-  return Math.max(minTrackHeight, PILL_H + 24 + lanesUp * LANE_STEP + lanesDown * LANE_STEP);
+  // O eixo fica no centro; reservar ambos os lados evita que uma faixa ímpar
+  // invada a empresa anterior (antes faltavam 20px no lado mais ocupado).
+  return Math.max(minTrackHeight, PILL_H + 24 + 2 * lanesUp * LANE_STEP);
 }
 
 // ─── Montagem das trilhas por ecossistema / empresa / país ───
@@ -331,7 +327,9 @@ export function latestAdditions(items: TimelineItem[], count: number, nowMs: num
     .filter((addition) => addition.addedMs > 0)
     .sort((left, right) => right.addedMs - left.addedMs || left.item.id.localeCompare(right.item.id))
     .slice(0, count)
-    .map((addition) => ({ ...addition, isNew: nowMs - addition.addedMs <= NOVIDADES_DOT_DAYS * 86_400_000 }));
+    .map((addition) => ({ ...addition, isNew: nowMs - addition.addedMs <= NOVIDADES_DOT_DAYS * 86_400_000 }))
+    // Seleciona por adição primeiro; só a apresentação usa o lançamento.
+    .sort((left, right) => right.item.date.localeCompare(left.item.date) || left.item.id.localeCompare(right.item.id));
 }
 
 // ─── Zoom ───

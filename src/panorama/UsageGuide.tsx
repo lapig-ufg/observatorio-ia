@@ -6,6 +6,7 @@ import { type EditorialLink, type SceneSide, type UsageData, type UsageScenes } 
 import { loadPanoramaUsage } from "../panoramaSource";
 import { EditorialExternal, EditorialFooter, EditorialState, More, Prose, useEditorialData } from "./EditorialShared";
 import { TerminalSimulator, TutorialText } from "./TerminalSimulator";
+import { readingMinutes } from "../panoramaRefinement";
 
 const SECTIONS = ["abertura", "comparacao", "permanencia", "tutorial", "catalogo", "medicao", "resumo"] as const;
 type SectionId = typeof SECTIONS[number];
@@ -20,15 +21,38 @@ function referenceUrl(href: string) {
 function UsageLink({ link, english }: { link: EditorialLink; english: boolean }) {
   return link.href.startsWith("#") ? <a href={usageHref(link.href.slice(1))}>{link.texto}</a> : <EditorialExternal href={referenceUrl(link.href)} english={english}>{link.texto}</EditorialExternal>;
 }
-function ReadingSection({ id, title, n, children }: { id: SectionId; title: string; n: number; children: ReactNode }) {
+function ReadingSection({ id, title, n, children, minutes, english }: { id: SectionId; title: string; n: number; children: ReactNode; minutes?: number; english: boolean }) {
   return <section className="panorama-reading-section" id={`panorama-usage-${id}`} aria-labelledby={`panorama-usage-heading-${id}`}>
-    <header><span aria-hidden="true">{String(n).padStart(2, "0")}</span><h2 id={`panorama-usage-heading-${id}`} tabIndex={-1}>{title}</h2></header>{children}
+    <header><span aria-hidden="true">{String(n).padStart(2, "0")}</span><h2 id={`panorama-usage-heading-${id}`} tabIndex={-1}>{title}</h2>{minutes && <small className="panorama-reading-time">{minutes} {english ? "min read" : "min de leitura"}</small>}</header><div className="panorama-section-content">{children}</div>
   </section>;
 }
 
 export function UsageGuide({ english = false }: { english?: boolean }) {
   const result = useEditorialData(loadPanoramaUsage, english);
   const [hash, setHash] = useState(() => window.location.hash);
+  const [active, setActive] = useState<SectionId>("abertura");
+  const [minutes, setMinutes] = useState<Partial<Record<SectionId, number>>>({});
+  const [tocOpen, setTocOpen] = useState(false);
+  useEffect(() => {
+    if (!result.data) return;
+    const elements = SECTIONS.map(id => document.getElementById(`panorama-usage-${id}`));
+    // Conta o texto efetivamente renderizado, inclusive detalhes recolhidos,
+    // sem contar nomes de propriedades e URLs dos dados editoriais.
+    setMinutes(Object.fromEntries(SECTIONS.map((id, index) => [id, readingMinutes(elements[index]?.querySelector(".panorama-section-content")?.innerHTML || "")])));
+    let frame = 0;
+    const update = () => {
+      const header = document.querySelector(".topbar")?.getBoundingClientRect().height || 0;
+      document.querySelector<HTMLElement>(".panorama-usage")?.style.setProperty("--usage-sticky-top", `${header + 16}px`);
+      let current: SectionId = "abertura";
+      elements.forEach((element, index) => { if (element && element.getBoundingClientRect().top <= header + 180) current = SECTIONS[index]; });
+      setActive(current);
+    };
+    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); };
+  }, [result.data]);
   useEffect(() => {
     const changed = () => setHash(window.location.hash);
     window.addEventListener("hashchange", changed);
@@ -48,9 +72,12 @@ export function UsageGuide({ english = false }: { english?: boolean }) {
   if (result.loading || result.error || !result.data) return <EditorialState loading={result.loading} error={result.error} retry={result.retry} english={english} />;
   const { data, scenes } = result.data;
   const titles = sectionTitles(english);
-  const section = (id: SectionId, children: ReactNode) => <ReadingSection id={id} title={titles[SECTIONS.indexOf(id)]} n={SECTIONS.indexOf(id) + 1}>{children}</ReadingSection>;
+  const section = (id: SectionId, children: ReactNode) => <ReadingSection id={id} title={titles[SECTIONS.indexOf(id)]} n={SECTIONS.indexOf(id) + 1} minutes={minutes[id]} english={english}>{children}</ReadingSection>;
+  const index = <nav className="panorama-usage-toc" aria-label={english ? "On this page" : "Nesta página"}>{SECTIONS.map((id, i) => <a key={id} href={usageHref(id)} aria-current={active === id ? "location" : undefined} onClick={() => { setTocOpen(false); trackEvent(english ? "panorama_usage_section_en" : "panorama_usage_section", { event_category: "navigation", event_label: id }); }}>{String(i + 1).padStart(2, "0")} · {titles[i]}</a>)}</nav>;
   return <div className="panorama-usage">
-    <nav className="panorama-usage-toc" aria-label={english ? "On this page" : "Nesta página"}>{SECTIONS.map((id, i) => <a key={id} href={usageHref(id)} onClick={() => trackEvent(english ? "panorama_usage_section_en" : "panorama_usage_section", { event_category: "navigation", event_label: id })}>{String(i + 1).padStart(2, "0")} · {titles[i]}</a>)}</nav>
+    <aside className="panorama-usage-index"><div className="panorama-usage-index-desktop">{index}</div><details className="panorama-usage-index-mobile" open={tocOpen} onToggle={event => setTocOpen(event.currentTarget.open)}><summary>{english ? "On this page" : "Nesta página"}</summary>{index}</details></aside>
+    <div className="panorama-usage-body">
+    <aside className="panorama-quick-summary" aria-labelledby="panorama-minute-title"><h2 id="panorama-minute-title">{english ? "In 1 minute" : "Em 1 minuto"}</h2><ol>{data.essencial.conclusoes.map(c => <li key={c.n}><Prose text={c.frase} /> <UsageLink link={c.link} english={english} /></li>)}</ol><a href={usageHref("resumo")}>{english ? "Evidence and provenance" : "Evidências e procedência"} ↓</a></aside>
     {section("abertura", <Opening data={data.abertura} english={english} />)}
     {section("comparacao", <>
       <ExecutionDiagram english={english} />
@@ -74,12 +101,13 @@ export function UsageGuide({ english = false }: { english?: boolean }) {
       <EditorialExternal href={referenceUrl("automation/capturas/")} english={english}>{english ? "Transcripts and reports" : "Transcrições e relatórios"}</EditorialExternal>
     </>)}
     {section("resumo", <>
-      <span className="panorama-editorial-meta">{data.essencial.rotulo}</span><p><Prose text={data.essencial.intro} raw /></p><h3>{data.essencial.conclusoesRotulo}</h3>
-      <ol className="panorama-reading-conclusions">{data.essencial.conclusoes.map(c => <li key={c.n}><h4><Prose text={c.frase} /></h4><p><Prose text={c.prova} /> <UsageLink link={c.link} english={english} /></p></li>)}</ol>
+      <span className="panorama-editorial-meta">{data.essencial.rotulo}</span><p><Prose text={data.essencial.intro} raw /></p><h3>{english ? "Evidence behind the opening summary" : "Evidências do resumo de abertura"}</h3>
+      <ol className="panorama-reading-conclusions">{data.essencial.conclusoes.map(c => <li key={c.n}><p><Prose text={c.prova} /> <UsageLink link={c.link} english={english} /></p></li>)}</ol>
       <h3>{data.essencial.procedencia.titulo}</h3><dl className="panorama-reading-numbers">{data.essencial.procedencia.numeros.map(n => <div key={n.rotulo}><dt>{n.rotulo}</dt><dd>{n.valor}</dd></div>)}</dl>
       <p><Prose text={data.essencial.procedencia.texto} raw /> <UsageLink link={data.essencial.procedencia.link} english={english} /></p>
     </>)}
     <EditorialFooter date={data.updatedAt} page="como-usar" english={english} />
+    </div>
   </div>;
 }
 

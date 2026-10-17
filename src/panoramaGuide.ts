@@ -579,9 +579,19 @@ export function formatGuideScore(isFraction: boolean, value: number | null | und
 
 /* Preço 0 na AA significa "sem preço publicado" (modelo aberto ou não
    ofertado por API), não "de graça" — tratado como ausente, nunca grátis. */
-export function formatGuidePrice(value: number | null | undefined) {
+export function formatGuidePrice(value: number | null | undefined, english = false) {
   if (value == null || !Number.isFinite(value) || value <= 0) return null;
-  return `$${value.toFixed(2)}/M`;
+  const number = value.toLocaleString(english ? "en-US" : "pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return english ? `$${number}` : `US$ ${number}`;
+}
+
+/* As três recomendações usam exatamente os critérios da lista, inclusive o
+   piso de qualidade; ausência de preço/velocidade nunca vira uma vitória. */
+export function categoryHighlights(bench: GuideBenchmark) {
+  return (["best", "value", "fast"] as const).map(mode => ({
+    mode,
+    row: rankedList(bench, mode).find(row => !row.belowFloor && row.metric > 0) || null,
+  }));
 }
 
 export function formatGuideSpeed(value: number | null | undefined) {

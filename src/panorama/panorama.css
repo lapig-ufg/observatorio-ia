@@ -1,0 +1,107 @@
+/* O Panorama usa a mesma superfície branca e os filetes do portal. Este
+   acabamento fica reunido para não alterar os componentes de outras páginas. */
+.pt-site-shell .pt-panorama-intro { padding-block: 22px; background: #fff; }
+.pt-panorama-intro .panorama-heading h1 { margin-block: 6px 12px; }
+.pt-site-shell .panorama-tab-intro { margin: 0; padding: 16px var(--pt-page-gutter) 0; color: var(--muted); line-height: 1.5; }
+.pt-site-shell .panorama-page-source { margin-inline: var(--pt-page-gutter); }
+.panorama-page :is(button, .panorama-segmented, .panorama-search, .panorama-pop-panel, .panorama-scroll, .guide-method, .guide-bar, .panorama-year, .panorama-card, .panorama-reading-more, .panorama-execution-figure, .panorama-catalog-grid > article, .panorama-reading-pair > *) { border-radius: 2px; }
+.panorama-page :is(.guide-method, .panorama-reading-more, .panorama-reading-rule, .panorama-catalog-grid > article, .panorama-flow li, .panorama-card) { background: #fff; }
+.panorama-toolbar { display: flex; flex-wrap: nowrap; align-items: end; gap: 14px; }
+.panorama-toolbar > .panorama-search { flex: 1 1 180px; max-width: 260px; }
+.panorama-toolbar .panorama-tool-label { display: none; }
+.panorama-toolbar :is(.panorama-search, .panorama-segment, .panorama-pop-trigger) { min-height: 44px; }
+.panorama-more-options { margin-left: auto; }
+.panorama-more-options .panorama-pop-panel { right: 0; left: auto; }
+.panorama-more-options .panorama-toolbar-side { display: flex; flex-direction: column; align-items: stretch; gap: 8px; padding: 6px; }
+.panorama-more-options .panorama-toolbar-side > button { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px; border: 0; background: #fff; color: var(--green-900); cursor: pointer; font: inherit; text-align: left; }
+.panorama-more-options .panorama-zoom { flex-wrap: wrap; }
+.panorama-more-options .panorama-zoom button { min-height: 44px; min-width: 44px; }
+.panorama-reading-key { margin: 8px 0 12px; font-size: .78rem; color: var(--muted); line-height: 1.5; }
+
+/* A faixa cabe em 48px; descrições ficam na dica e no detalhe. Os nomes
+   longos mantêm o título completo e a faixa rola só dentro dela. */
+.panorama-news { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; border-block: 1px solid var(--line); height: 48px; padding: 0; }
+.panorama-news-title { flex: 0 0 auto; margin: 0; font-size: .7rem; letter-spacing: 0; text-transform: none; font-weight: 700; }
+.panorama-news-title > .panorama-news-dot { display: none; }
+.panorama-news-items { display: flex; flex: 1; min-width: 0; gap: 0; overflow-x: auto; scrollbar-width: thin; }
+.panorama-news-card { display: flex; flex: 1 0 auto; padding: 0 10px; border: 0; border-left: 1px solid var(--line); border-radius: 0; gap: 0; }
+.panorama-news-item { display: flex; align-items: center; min-height: 44px; gap: 6px; }
+.panorama-news-body { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.panorama-news-model { max-width: 135px; overflow: hidden; text-overflow: ellipsis; overflow-wrap: normal; font-size: .76rem; }
+.panorama-news-meta { display: flex; align-items: center; gap: 5px; margin: 0; font-size: .7rem; }
+.panorama-new-dot { display: inline-block; flex: 0 0 auto; width: 6px; height: 6px; margin-left: 4px; border-radius: 50%; background: #d98324; }
+
+.guide-highlights { margin: 18px 0; border-block: 1px solid var(--line); font-size: .9rem; }
+.guide-highlights > div { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 12px; padding: 8px 0; }
+.guide-highlights dt { color: var(--green-900); font-weight: 700; }
+.guide-highlights dd { margin: 0; }
+.guide-score-scale { font-size: .82rem; color: var(--muted); }
+.guide-identity .guide-variant { font-size: .72rem; font-weight: 400; color: #66756e; }
+.guide-ranking-head { align-items: center; }
+.guide-ranking-head > span { white-space: normal; }
+.guide-price { white-space: nowrap; }
+
+/* A tabela mantém todos os valores comparáveis visíveis; explicações longas
+   ficam no detalhe e não precisam ser repetidas em cada coluna. */
+.panorama-free-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: .82rem; line-height: 1.5; }
+.panorama-free-table :is(th, td) { padding: 14px 12px; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; overflow-wrap: anywhere; }
+.panorama-free-table thead th { color: var(--green-900); font-size: .78rem; border-bottom: 2px solid var(--green-700); }
+.panorama-free-table th:first-child { width: 17%; }
+.panorama-free-table th:nth-child(2) { width: 15%; }
+.panorama-free-table th:nth-child(3) { width: 23%; }
+.panorama-free-table th:nth-child(4) { width: 19%; }
+.panorama-free-table th:nth-child(5) { width: 18%; }
+.panorama-free-table th:nth-child(6) { width: 8%; }
+.panorama-free-table tbody th { font-weight: 400; }
+.panorama-free-table tbody th > :is(strong, small) { display: block; }
+.panorama-free-table tbody th > strong { color: var(--green-900); font-size: .95rem; }
+.panorama-free-table tbody th > small { color: var(--muted); margin-top: 4px; }
+.panorama-free-table tbody button { display: block; min-height: 44px; margin-top: 8px; padding: 8px 0; border: 0; background: #fff; font-size: .8rem; color: var(--green-800); text-align: left; }
+.panorama-free-table a { color: var(--green-800); }
+.panorama-free-detail[hidden] { display: none; }
+.panorama-free-detail > td { padding: 16px 24px 24px; border-left: 2px solid var(--green-700); }
+.panorama-free-detail dl { margin: 0; }
+.panorama-free-detail dl > div { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 16px; margin: 12px 0; }
+.panorama-free-detail dt { font-weight: 700; }
+.panorama-free-detail dd { margin: 0; }
+.panorama-freshness { font-size: .82rem; color: var(--muted); }
+
+.panorama-usage-index-mobile { margin-block: 12px; border-block: 1px solid var(--line); }
+.panorama-usage-index-mobile > summary { display: list-item; padding-block: 12px; min-height: 44px; cursor: pointer; font-weight: 700; color: var(--green-900); }
+.panorama-usage-index-desktop { display: none; }
+.panorama-usage-toc { display: flex; flex-direction: column; padding: 0; gap: 0; border: 0; }
+.panorama-usage-toc a { display: flex; align-items: center; min-height: 44px; padding: 8px 10px; color: var(--muted); border-left: 2px solid transparent; text-decoration: none; line-height: 1.4; }
+.panorama-usage-toc a[aria-current="location"] { color: var(--green-900); font-weight: 750; border-left-color: var(--green-700); }
+.panorama-quick-summary { padding: 24px 0; border-block: 1px solid var(--line); }
+.panorama-quick-summary h2 { margin: 0 0 12px; font-size: 1.5rem; }
+.panorama-quick-summary ol { padding-left: 24px; }
+.panorama-quick-summary li { margin-block: 10px; }
+.panorama-reading-time { margin-left: auto; color: var(--muted); font-size: .75rem; white-space: nowrap; font-weight: 400; }
+.panorama-reading-section > header { flex-wrap: wrap; gap: 10px; }
+@media (min-width: 1100px) {
+  .panorama-usage { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 36px; align-items: start; }
+  .panorama-usage-index { position: sticky; top: var(--usage-sticky-top, 110px); max-height: calc(100vh - var(--usage-sticky-top, 110px) - 16px); overflow-y: auto; }
+  .panorama-usage-index-desktop { display: block; }
+  .panorama-usage-index-mobile { display: none; }
+  .panorama-usage-body { max-width: 1150px; }
+}
+@media (min-width: 900px) and (max-width: 1099px) {
+  .panorama-toolbar { gap: 8px; }
+  .panorama-segment { padding-inline: 8px; font-size: .74rem; }
+  .panorama-news-title { max-width: 72px; }
+}
+@media (max-width: 899px) {
+  .panorama-free-table, .panorama-free-table tbody, .panorama-free-table tr { display: block; width: 100%; }
+  .panorama-free-table thead { display: none; }
+  .panorama-free-table tr:not(.panorama-free-detail) { padding-block: 12px; border-top: 1px solid var(--line); }
+  .panorama-free-table tbody :is(th, td), .panorama-free-table tbody th:first-child { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 6px 12px; width: 100%; padding: 7px 0; border: 0; }
+  .panorama-free-table tbody :is(th, td)::before { content: attr(data-label); grid-column: 1; grid-row: 1 / span 4; color: var(--muted); font-size: .76rem; font-weight: 600; }
+  .panorama-free-table tbody th > * { grid-column: 2; margin: 0; }
+  .panorama-free-table tbody th button { min-height: 44px; }
+  .panorama-free-table .panorama-free-detail > td { display: block; padding: 12px; border-left: 2px solid var(--green-700); }
+  .panorama-free-table .panorama-free-detail > td::before { content: none; }
+  .panorama-free-detail dl > div { display: block; }
+  .panorama-free-detail dd { margin-top: 4px; }
+  .guide-highlights > div { display: block; }
+  .guide-highlights dd { margin-top: 4px; }
+}

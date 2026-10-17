@@ -71,28 +71,20 @@ import { guideModelHref, parseRulerDeepLink } from "../panoramaGuide";
 const PAD_L = 170;
 const PAD_R = 200;
 const HEADER_H = 48;
-const GROUP_TITLE_H = 64;
+const GROUP_TITLE_H = 44;
 const GROUP_GAP = 10;
 const MIN_TRACK_H = 72;
-/* Teto de lanes por trilha: 24 na régua padrão, 48 na ampliada — lá o
-   problema é outro (dezenas de modelos por empresa nos meses recentes) e um
-   teto baixo empilhava pílulas em silêncio. */
-const MAX_LANES = 24;
-const MAX_LANES_EXPANDED = 48;
 const EXPANDED_KEY = "observatorio-panorama-expanded";
 
-const MONTHS_SHORT_PT = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-const MONTHS_SHORT_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const MONTHS_FULL_PT = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 const MONTHS_FULL_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-/* Cores por ecossistema: faixa de fundo discreta + acento do título. Os
-   acentos codificam região (azul-EUA, vermelho-China, violeta-mundo); o resto
-   do desenho segue as variáveis visuais do Observatório. */
+/* Ecossistemas são seções editoriais: o mesmo verde do portal e fundo branco
+   preservam a leitura sem transformar a região em uma faixa colorida. */
 const GROUP_STYLE: Record<TimelineEcosystem, { bg: string; accent: string }> = {
-  "ECOSSISTEMA NORTE-AMERICANO": { bg: "#f0f4fa", accent: "#3c3b6e" },
-  "ECOSSISTEMA CHINÊS": { bg: "#fdf2f2", accent: "#de2910" },
-  "OUTROS PAÍSES": { bg: "#f4f2fb", accent: "#5b53a8" },
+  "ECOSSISTEMA NORTE-AMERICANO": { bg: "#fff", accent: "#1d6650" },
+  "ECOSSISTEMA CHINÊS": { bg: "#fff", accent: "#1d6650" },
+  "OUTROS PAÍSES": { bg: "#fff", accent: "#1d6650" },
 };
 
 type Texts = ReturnType<typeof texts>;
@@ -132,7 +124,7 @@ function texts(english: boolean) {
     locateHint: english ? "Locate on the timeline" : "Localizar na régua",
     sourceLink: english ? "source ↗" : "fonte ↗",
     today: english ? "today" : "hoje",
-    marcoZero: english ? "Starting point · 30 Nov 2022" : "Marco zero · 30 nov 2022",
+    marcoZero: english ? "Start · Nov 30, 2022" : "Início · 30 nov. 2022",
     level: english ? "Curation level" : "Nível de curadoria",
     level1: english ? "Curated milestone" : "Marco curado",
     level2: english ? "Curated secondary release" : "Lançamento secundário curado",
@@ -177,11 +169,7 @@ function ecosystemShortLabel(ecosystem: TimelineEcosystem, english: boolean) {
 }
 
 function formatDay(iso: string, english: boolean) {
-  if (!english) return formatPublicDate(iso);
-  const match = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!match) return iso;
-  const months = english ? MONTHS_SHORT_EN : MONTHS_SHORT_PT;
-  return `${Number(match[3])} ${months[Number(match[2]) - 1]} ${match[1]}`;
+  return formatPublicDate(iso, english ? "en" : "pt");
 }
 
 function monthLabel(year: number, monthIndex: number, english: boolean) {
@@ -312,6 +300,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
   const isDesktop = useMediaQuery("(min-width: 900px)");
   const headerOffset = useStickyHeaderOffset();
   const rootRef = useRef<HTMLDivElement>(null);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [hash, setHash] = useState(() => window.location.hash);
   useEffect(() => {
     const changed = () => setHash(window.location.hash);
@@ -466,12 +455,11 @@ export function Timeline({ english = false }: { english?: boolean }) {
        >= 3 modelos, inclusive sem identidade visual cadastrada. */
   }, { minCompanyTrack: expanded ? MIN_COMPANY_TRACK : 1, population: items }), [filtered, items, english, expanded]);
 
-  /* Últimas adições: as linhas que a planilha tocou mais recentemente
-     (`updatedAt`), não os lançamentos de data mais recente. Vêm da população
-     visível — clicar localiza a pílula, então o alvo tem de estar desenhado.
-     O ponto âmbar marca adições com menos de 14 dias (regra do Panorama). */
+  /* Seleciona as linhas tocadas mais recentemente pela planilha e apresenta
+     o mesmo conjunto por data de lançamento. O ponto usa a idade da adição.
+     Os alvos precisam existir na população visível para poder localizá-los. */
   const additions = useMemo(() => latestAdditions(filtered, isDesktop ? 5 : 3, Date.now()), [filtered, isDesktop]);
-  const newIds = useMemo(() => new Set(additions.filter((addition) => addition.isNew).map((addition) => addition.item.id)), [additions]);
+  const newIds = useMemo(() => new Set(latestAdditions(filtered, filtered.length, Date.now()).filter((addition) => addition.isNew).map((addition) => addition.item.id)), [filtered]);
   const months = useMemo(() => groupedByMonth(filtered, (year, monthIndex) => monthLabel(year, monthIndex, english)), [filtered, english]);
 
   // ─── "Hoje" e o alcance do eixo ───
@@ -530,15 +518,14 @@ export function Timeline({ english = false }: { english?: boolean }) {
 
   // ─── Layout das trilhas (computador) ───
   const layout = useMemo(() => {
-    const maxLanes = expanded ? MAX_LANES_EXPANDED : MAX_LANES;
     return groups.map((group) => {
       const tracks: TrackLayout[] = group.tracks.map((track) => {
-        const placed = stackPills(track.items, pxPerDay, PAD_L, maxLanes);
+        const placed = stackPills(track.items, pxPerDay, PAD_L);
         return { track, placed, height: trackHeight(placed, MIN_TRACK_H) };
       });
       return { group, tracks, height: GROUP_TITLE_H + tracks.reduce((sum, entry) => sum + entry.height, 0) + 16 };
     });
-  }, [groups, pxPerDay, expanded]);
+  }, [groups, pxPerDay]);
 
   const svgWidth = PAD_L + Math.ceil(maxDays * pxPerDay) + PAD_R;
   const svgHeight = HEADER_H + layout.reduce((sum, entry) => sum + entry.height + GROUP_GAP, 0) + 32;
@@ -744,6 +731,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
             <EcosystemSegmented options={options.ecosystems} selected={filters.ecosystem} english={english} onSelect={(value) => setFilter({ ecosystem: value }, `ecosystem:${value || "all"}`)} labelledBy="panorama-ecosystem-label" />
           </div>
           <CompanyMenu options={options.companies} selected={filters.companies} english={english} onToggle={toggleCompany} />
+          <ToolbarPopover label={english ? "More options" : "Mais opções"} panelLabel={english ? "Timeline options" : "Opções da régua"} open={moreOpen} onOpenChange={setMoreOpen} className="panorama-more-options" controls>
           <div className="panorama-toolbar-side">
             <ExpandedSwitch expanded={expanded} hint={t.expandedHint} label={t.expanded} onToggle={toggleExpanded} />
             <div className="panorama-zoom" role="group" aria-label={t.zoom}>
@@ -752,8 +740,10 @@ export function Timeline({ english = false }: { english?: boolean }) {
               <button type="button" onClick={() => zoomBy(1)} aria-label={t.zoomIn}><Plus size={15} aria-hidden="true" /></button>
               <button type="button" className="panorama-zoom-fit" onClick={zoomFit}><Maximize2 size={14} aria-hidden="true" /> {t.zoomFit}</button>
             </div>
-            <ExportMenu english={english} onCsv={exportCsv} onSvg={exportSvg} showSvg={isDesktop} />
+            <button type="button" data-pop-item onClick={exportCsv}><Download size={14} aria-hidden="true" /> {t.exportCsv}</button>
+            <button type="button" data-pop-item onClick={exportSvg}><FileDown size={14} aria-hidden="true" /> {t.exportSvg}</button>
           </div>
+          </ToolbarPopover>
         </div>
       ) : (
         <div className="panorama-filters panorama-filters--mobile" aria-label={english ? "Timeline filters" : "Filtros da linha do tempo"}>
@@ -772,6 +762,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
           </button>
         </div>
       )}
+      <p className="panorama-reading-key">{isDesktop ? (english ? "Each point marks a release; lines connect labels to their date on the company track. The vertical ‘today’ marker shows the current date." : "Cada ponto marca um lançamento; as linhas ligam os rótulos à data na trilha da empresa. O marcador vertical “hoje” indica a data atual.") : (english ? "Dates refer to model releases. An orange dot indicates a recent addition to the spreadsheet." : "As datas são as dos lançamentos. Um ponto laranja indica adição recente à planilha.")}</p>
 
       {hasActiveFilters && (
         <ActiveFilters
@@ -787,7 +778,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
       {/* Últimas adições: as linhas que a planilha recebeu/aprovou mais
           recentemente. Clicar localiza na régua (rola até a pílula, dá o flash
           e abre o detalhe); "fonte" abre a referência sem disparar a busca. */}
-      {additions.length > 0 && (
+      {isDesktop && additions.length > 0 && (
         <section className="panorama-news" aria-labelledby="panorama-news-title">
           <h2 className="panorama-news-title" id="panorama-news-title">
             <CalendarDays size={15} aria-hidden="true" /> {t.news}
@@ -801,22 +792,15 @@ export function Timeline({ english = false }: { english?: boolean }) {
           <ul className="panorama-news-items">
             {additions.map(({ item, isNew }) => (
               <li key={item.id} className="panorama-news-card">
-                <button type="button" className="panorama-news-item" title={t.locateHint} onClick={() => locateAddition(item)}>
+                <button type="button" className="panorama-news-item" title={`${item.model} · ${item.company} · ${formatDay(item.date, english)}${item.impact ? ` — ${item.impact}` : ""}`} onClick={() => locateAddition(item)}>
                   <CompanyMark company={item.company} color={item.color} logoPath={item.logoPath} size={22} />
                   <span className="panorama-news-body">
                     <span className="panorama-news-model">
                       {item.model}
-                      {isNew && <em className="panorama-news-badge">{t.newBadge}</em>}
                     </span>
-                    <span className="panorama-news-meta">{item.company} · {formatDay(item.date, english)}</span>
-                    {item.impact && <span className="panorama-news-impact" lang={item.untranslated && english ? "pt-BR" : undefined}>{item.impact}{item.untranslated && english ? " (in Portuguese)" : ""}</span>}
+                    <span className="panorama-news-meta"><time dateTime={item.date}>{formatDay(item.date, english)}</time>{isNew && <span className="panorama-new-dot" role="img" aria-label={t.newBadge} />}</span>
                   </span>
                 </button>
-                {/^https?:\/\//.test(item.reference) && (
-                  <a className="panorama-news-fonte" href={item.reference} target="_blank" rel="noreferrer">
-                    {t.sourceLink}
-                  </a>
-                )}
               </li>
             ))}
           </ul>
@@ -856,6 +840,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
       ) : (
         <MobileList
           months={months}
+          newIds={newIds}
           currentYear={today.iso.slice(0, 4)}
           hasActiveFilters={hasActiveFilters}
           english={english}
@@ -975,13 +960,14 @@ function ExpandedSwitch({ expanded, hint, label, onToggle }: {
 /* Painel popover de botão da barra de ferramentas: abre e fecha com Esc
    (devolvendo o foco ao gatilho) e com clique fora; as setas navegam entre
    os itens marcados com `data-pop-item`. */
-function ToolbarPopover({ label, panelLabel, open, onOpenChange, children, className = "" }: {
+function ToolbarPopover({ label, panelLabel, open, onOpenChange, children, className = "", controls = false }: {
   label: ReactNode;
   panelLabel: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   children: ReactNode;
   className?: string;
+  controls?: boolean;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -1011,7 +997,7 @@ function ToolbarPopover({ label, panelLabel, open, onOpenChange, children, class
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
     event.preventDefault();
-    const items = [...(panelRef.current?.querySelectorAll<HTMLButtonElement>("[data-pop-item]") || [])];
+    const items = [...(panelRef.current?.querySelectorAll<HTMLButtonElement>("button:not(:disabled)") || [])];
     if (!items.length) return;
     const index = items.indexOf(document.activeElement as HTMLButtonElement);
     const next = event.key === "ArrowDown" ? (index + 1) % items.length : (index - 1 + items.length) % items.length;
@@ -1025,13 +1011,13 @@ function ToolbarPopover({ label, panelLabel, open, onOpenChange, children, class
         type="button"
         className={`panorama-pop-trigger${open ? " is-open" : ""}`}
         aria-expanded={open}
-        aria-haspopup="true"
+        aria-haspopup={controls ? "dialog" : "menu"}
         onClick={() => onOpenChange(!open)}
       >
         {label} <ChevronDown size={15} aria-hidden="true" />
       </button>
       {open && (
-        <div className="panorama-pop-panel" role="menu" aria-label={panelLabel} ref={panelRef} onKeyDown={onKeyDown}>
+        <div className="panorama-pop-panel" role={controls ? "dialog" : "menu"} aria-label={panelLabel} ref={panelRef} onKeyDown={onKeyDown}>
           {children}
         </div>
       )}
@@ -1098,34 +1084,6 @@ function CompanyMenu({ options, selected, english, onToggle }: {
         </ul>
       </ToolbarPopover>
     </div>
-  );
-}
-
-/* Menu de exportação: CSV sempre; SVG só na régua de computador. */
-function ExportMenu({ english, onCsv, onSvg, showSvg }: {
-  english: boolean;
-  onCsv: () => void;
-  onSvg: () => void;
-  showSvg: boolean;
-}) {
-  const t = texts(english);
-  const [open, setOpen] = useState(false);
-  return (
-    <ToolbarPopover
-      open={open}
-      onOpenChange={setOpen}
-      label={<><Download size={14} aria-hidden="true" /> {t.export}</>}
-      panelLabel={t.export}
-    >
-      <button type="button" role="menuitem" data-pop-item className="panorama-pop-action" onClick={() => { setOpen(false); onCsv(); }}>
-        <FileDown size={15} aria-hidden="true" /> {t.exportCsv}
-      </button>
-      {showSvg && (
-        <button type="button" role="menuitem" data-pop-item className="panorama-pop-action" onClick={() => { setOpen(false); onSvg(); }}>
-          <Download size={15} aria-hidden="true" /> {t.exportSvg}
-        </button>
-      )}
-    </ToolbarPopover>
   );
 }
 
@@ -1253,6 +1211,7 @@ function FilterSheet({ options, filters, english, onSelect, onToggleCompany, exp
 
 type MobileListProps = {
   months: TimelineMonthGroup[];
+  newIds: Set<string>;
   currentYear: string;
   hasActiveFilters: boolean;
   english: boolean;
@@ -1265,7 +1224,7 @@ type MobileListProps = {
    no resumo. Busca ou filtro ativo abre os anos que têm resultado — quem
    procura acha sem clicar em cada ano. A escolha manual do leitor é
    respeitada: onToggle só registra quando o estado difere do esperado. */
-function MobileList({ months, currentYear, hasActiveFilters, english, t, onOpen }: MobileListProps) {
+function MobileList({ months, newIds, currentYear, hasActiveFilters, english, t, onOpen }: MobileListProps) {
   const years = useMemo(() => {
     const list: Array<{ year: string; months: TimelineMonthGroup[]; count: number }> = [];
     for (const month of months) {
@@ -1311,7 +1270,7 @@ function MobileList({ months, currentYear, hasActiveFilters, english, t, onOpen 
                             {item.model}
                             {item.level !== 1 && <em> · {item.level === 2 ? (english ? "secondary" : "secundário") : (english ? "catalog" : "catálogo")}</em>}
                           </span>
-                          <span className="panorama-card-meta">{item.company} · {formatDay(item.date, english)} · {ecosystemLabel(item.ecosystem, english)}</span>
+                          <span className="panorama-card-meta">{item.company} · <time dateTime={item.date}>{formatDay(item.date, english)}</time>{newIds.has(item.id) && <span className="panorama-new-dot" role="img" aria-label={t.newBadge} />} · {ecosystemLabel(item.ecosystem, english)}</span>
                         </span>
                       </button>
                     </li>
@@ -1364,9 +1323,9 @@ function YearPills({ width, yearTicks, todayDays, pxPerDay, texts }: {
   const todayX = PAD_L + Math.round(todayDays * pxPerDay);
   return (
     <>
+      <text x={PAD_L - 12} y="33" textAnchor="end" fontSize="9.5" fontWeight="600" fill="#61706a">{texts.marcoZero}</text>
       {yearTicks.map((tick) => (
         <g key={tick.year} transform={`translate(${PAD_L + Math.round(tick.days * pxPerDay)}, 30)`}>
-          <rect x="-24" y="-14" width="48" height="22" rx="11" fill="#eef2ef" />
           <text textAnchor="middle" fontSize="13" fontWeight="700" fill="#17231f" letterSpacing="-0.3">{tick.year}</text>
         </g>
       ))}
@@ -1428,27 +1387,26 @@ function DesktopRuler({
 
       content.push(
         <g key={`title:${entry.group.ecosystem}`}>
-          <rect x={PAD_L + 20} y={groupTop + 14} width="44" height="3" rx="1.5" fill={style.accent} />
-          <text x={PAD_L + 20} y={groupTop + 38} fontSize="16" fontWeight="800" fill="#17231f" letterSpacing="0.4">{ecosystemLabel(entry.group.ecosystem, english)}</text>
+          <text x={PAD_L + 20} y={groupTop + 25} fontSize="12" fontWeight="700" fill={style.accent}>{ecosystemLabel(entry.group.ecosystem, english)}</text>
           <line x1="0" y1={groupTop + GROUP_TITLE_H - 8} x2={svgWidth} y2={groupTop + GROUP_TITLE_H - 8} stroke={style.accent} strokeWidth="0.75" opacity="0.3" />
         </g>,
       );
 
       let trackTop = groupTop + GROUP_TITLE_H;
-      entry.tracks.forEach((trackLayout, trackIndex) => {
+      entry.tracks.forEach((trackLayout) => {
         const axisY = trackTop + trackLayout.height / 2;
         const trackColor = trackLayout.placed[0]?.item.color || "#a5a297";
         labels.push(
-          <div key={`label:${entry.group.ecosystem}:${trackLayout.track.key}`} className="panorama-label" style={{ top: axisY }}>
+          <div key={`label:${entry.group.ecosystem}:${trackLayout.track.key}`} className="panorama-label" style={{ top: trackTop + 22 }}>
             <strong>{trackLayout.track.label}</strong>
             <span> ({trackLayout.track.items.length})</span>
           </div>,
         );
         content.push(
           <g key={`track:${entry.group.ecosystem}:${trackLayout.track.key}`}>
-            {trackIndex % 2 === 1 && <rect x="0" y={trackTop - 4} width={svgWidth} height={trackLayout.height + 8} fill={style.accent} opacity="0.05" />}
+            <line x1="0" y1={trackTop + trackLayout.height} x2={svgWidth} y2={trackTop + trackLayout.height} stroke="#d7dfdb" strokeWidth="0.75" />
             <line x1={PAD_L - 20} y1={axisY} x2={svgWidth - 20} y2={axisY} stroke={trackColor} opacity="0.25" strokeWidth="1.25" />
-            <text x={PAD_L - 28} y={axisY + 4} textAnchor="end" fontSize="12" fontWeight="700" fill="#17231f">
+            <text x={PAD_L - 28} y={trackTop + 26} textAnchor="end" fontSize="12" fontWeight="700" fill="#17231f">
               {trackLayout.track.label}
               <tspan fontWeight="500" fill="#8a958f" fontSize="10"> ({trackLayout.track.items.length})</tspan>
             </text>
@@ -1487,7 +1445,6 @@ function DesktopRuler({
         ))}
         <line x1={todayX} y1="6" x2={todayX} y2={svgHeight - 30} stroke="#1d6650" strokeWidth="1.25" strokeDasharray="3,4" opacity="0.55" />
         <line x1={PAD_L} y1="6" x2={PAD_L} y2={svgHeight - 30} stroke="#10a37f" strokeWidth="1" strokeDasharray="2,5" opacity="0.5" />
-        <text x={PAD_L - 12} y="33" textAnchor="end" fontSize="10" fontWeight="800" fill="#61706a" letterSpacing="0.03em">{texts.marcoZero}</text>
       </g>,
     );
     grid.push(<YearPills key="pills" width={svgWidth} yearTicks={yearTicks} todayDays={todayDays} pxPerDay={pxPerDay} texts={texts} />);
@@ -1614,7 +1571,7 @@ function PillGraphic({ placed, axisY, english, isNew, onOpen }: {
       )}
       {/* Pontinho âmbar: a planilha adicionou esta linha há menos de 14 dias
           (`NOVIDADES_DOT_DAYS`) — o mesmo aviso das Últimas adições. */}
-      {isNew && <circle cx={x + width - 3} cy={y + 3} r="4.5" fill="#f59e0b" stroke="#fff" strokeWidth="1.5" />}
+      {isNew && <circle cx={x + width - 9} cy={isMarco ? y + 23 : cy} r="3" fill="#d98324"><title>{english ? "Recent addition" : "Adição recente"}</title></circle>}
     </g>
   );
 }

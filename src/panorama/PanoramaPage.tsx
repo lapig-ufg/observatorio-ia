@@ -1,11 +1,12 @@
-import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
-import { PANORAMA_SITE } from "../panoramaData";
+import { PANORAMA_SITE, canonicalCompany } from "../panoramaData";
 import { Timeline } from "./Timeline";
 import { ModelGuide } from "./ModelGuide";
 import { FreeTools } from "./FreeTools";
 import { UsageGuide } from "./UsageGuide";
+import { loadPanoramaBenchmarks, loadPanoramaLaunches } from "../panoramaSource";
+import { formatPublicDate } from "../dateLabels";
 
 /* Página do Panorama dentro do Observatório — a casca que as quatro abas
    compartilham. O iframe acabou: cada aba renderiza o próprio conteúdo, lendo
@@ -37,6 +38,19 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
   const [route, setRoute] = useState(() => window.location.hash);
   const tab = panoramaSubRoute(route);
   const activeTabRef = useRef<HTMLAnchorElement>(null);
+  const [context, setContext] = useState<{ releases: number; companies: number; date: string } | null>(null);
+  const [contextFailed, setContextFailed] = useState(false);
+  useEffect(() => {
+    const controller = new AbortController();
+    setContext(null);
+    setContextFailed(false);
+    // A data é a da coleta publicada, nunca a data de visita ao portal.
+    void Promise.all([loadPanoramaLaunches(english ? "en" : "pt", controller.signal), loadPanoramaBenchmarks(english ? "en" : "pt", controller.signal)])
+      .then(([result, benchmarks]) => {
+        if (!controller.signal.aborted) setContext({ releases: result.launches.length, companies: new Set(result.launches.map(item => canonicalCompany(item.company, result.config))).size, date: benchmarks.fetchedAt.slice(0, 10) });
+      }).catch(() => { if (!controller.signal.aborted) setContextFailed(true); });
+    return () => controller.abort();
+  }, [english]);
 
   useEffect(() => {
     const onHashChange = () => setRoute(window.location.hash);
@@ -69,6 +83,17 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
   }, [route, tab, english]);
 
 
+  const introductions: Record<TabKey, string> = english ? {
+    "": "Follow model releases since ChatGPT in November 2022, by company and ecosystem.",
+    guia: "Compare measured capability, API price and response speed for each task.",
+    gratuitos: "Compare free quotas, uses and paid plans before choosing a tool.",
+    "como-usar": "Understand what changes when AI can work with files and programs on your computer.",
+  } : {
+    "": "Acompanhe os lançamentos desde o ChatGPT, em novembro de 2022, por empresa e ecossistema.",
+    guia: "Compare a capacidade medida, o preço da API e a velocidade de resposta para cada tarefa.",
+    gratuitos: "Compare cotas gratuitas, usos e planos pagos antes de escolher uma ferramenta.",
+    "como-usar": "Entenda o que muda quando a IA pode trabalhar com arquivos e programas no seu computador.",
+  };
   const openOriginalUrl = english ? `${PANORAMA_SITE}en/` : PANORAMA_SITE;
 
   return (
@@ -77,22 +102,10 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
         <div className="panorama-heading">
           <p className="eyebrow">{english ? "AI Panorama" : "Panorama da IA"}</p>
           <h1 id="panorama-title">{english ? "Global Generative AI Landscape" : "Panorama da IA generativa"}</h1>
-          <p>{english
-            ? "Model releases since ChatGPT (Nov 2022), which model to use for each task, free AI tools, and a practical guide to agents in the terminal."
-            : "Os lançamentos de modelos desde o ChatGPT (nov/2022), qual modelo usar em cada tipo de tarefa e o que dá para usar de graça."}</p>
+          <p className="panorama-context" aria-live="polite">{context ? (english
+            ? `${context.releases} releases from ${context.companies} companies · data collected on ${formatPublicDate(context.date, "en")}`
+            : `${context.releases} lançamentos de ${context.companies} empresas · dados de ${formatPublicDate(context.date)}`) : contextFailed ? (english ? "Collection context unavailable." : "Contexto da coleta indisponível.") : (english ? "Loading collection context…" : "Carregando o contexto da coleta…")}</p>
         </div>
-        <a
-          className="panorama-open"
-          href={openOriginalUrl}
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => trackEvent(english ? "open_panorama_standalone_en" : "open_panorama_standalone", {
-            event_category: "outbound",
-            event_label: english ? "panorama-en" : "panorama",
-          })}
-        >
-          {english ? "Original Panorama" : "Panorama original"} <ArrowUpRight size={14} aria-hidden="true" />
-        </a>
       </div>
 
       <nav className="panorama-tabs" aria-label={english ? "Panorama sections" : "Seções do Panorama"}>
@@ -111,8 +124,10 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
           </a>
         ))}
       </nav>
+      <p className="panorama-tab-intro">{introductions[tab]}</p>
 
-      {tab === "" ? <Timeline english={english} /> : tab === "guia" ? <ModelGuide english={english} /> : tab === "gratuitos" ? <FreeTools english={english} /> : <UsageGuide english={english} />}
+      {tab === "" ? <Timeline english={english} /> : tab === "guia" ? <ModelGuide english={english} /> : tab === "gratuitos" ? <FreeTools english={english} referenceDate={context?.date} /> : <UsageGuide english={english} />}
+      {tab === "guia" && <footer className="panorama-provenance panorama-page-source"><span>{english ? "Source: Artificial Analysis · curation by LAPIG/UFG" : "Fonte: Artificial Analysis · curadoria LAPIG/UFG"}</span><a href={`${openOriginalUrl}guia.html`} target="_blank" rel="noreferrer">{english ? "Original Panorama" : "Panorama original"} ↗</a></footer>}
     </section>
   );
 }

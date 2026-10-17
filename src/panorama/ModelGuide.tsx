@@ -1,13 +1,12 @@
 import { ArrowUpRight, Check, LoaderCircle, Plus, Search, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
-import { formatPublicDate } from "../dateLabels";
 import { benchmarkModelKey, canonicalCompany, companyColor, emptyPanoramaConfig, launchForModel, type PanoramaBenchmarks, type PanoramaConfig } from "../panoramaData";
 import { loadPanoramaBenchmarks, loadPanoramaConfig, loadPanoramaLaunches } from "../panoramaSource";
 import { CompanyMark } from "./CompanyMark";
 import {
   AA_METHOD_URL, GUIDE_CATEGORIES, GUIDE_SORTS, MAX_COMPARE, barPercent, buildModelIndex,
-  categoryHasData, comparisonTable, firstCategoryWithData, formatGuidePrice, formatGuideScore,
+  categoryHasData, categoryHighlights, comparisonTable, firstCategoryWithData, formatGuidePrice, formatGuideScore,
   formatGuideSpeed, overlapBits, primaryBench, rankedList, rulerCompanyHref, rulerModelHref,
   parseGuideDeepLink, searchSuggestions, supportMaps, toggleCompareKey,
   type GuideCategory, type GuideProfile, type GuideSortId,
@@ -123,8 +122,6 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
     return launch ? rulerModelHref(launch.model, launch.company, launch.date) : null;
   };
   const coverage = bench && launchData ? bench.top.filter((entry) => launchHref(entry.model, entry.company)).length : null;
-  const fetched = data?.fetchedAt ? new Date(data.fetchedAt) : null;
-  const collected = fetched && Number.isFinite(fetched.getTime()) ? formatPublicDate(fetched.toISOString().slice(0, 10), english ? "en" : "pt") : "—";
 
   if (loading) return <div className="panorama-state" role="status"><LoaderCircle className="spinning" aria-hidden="true" size={24} />{english ? "Loading model benchmarks…" : "Carregando os testes dos modelos…"}</div>;
   if (error) return <div className="panorama-state panorama-state--error" role="alert"><p>{english ? "The benchmarks could not be loaded." : "Não foi possível carregar os benchmarks."}</p><button type="button" onClick={() => setAttempt((n) => n + 1)}>{english ? "Try again" : "Tentar de novo"}</button></div>;
@@ -133,9 +130,7 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
   return (
     <div className="panorama-guide">
       <header className="guide-heading">
-        <h2>{english ? "Which model to use today?" : "Qual modelo usar hoje?"}</h2>
-        <p>{english ? "Compare measured capability, API price and response speed for each task." : "Compare a capacidade medida, o preço da API e a velocidade de resposta para cada tarefa."}</p>
-        <small>{data.modelsTotal} {english ? "models tracked" : "modelos rastreados"} · {english ? "Collected on" : "Coleta de"} {collected}</small>
+        <small>{data.modelsTotal} {english ? "models tracked" : "modelos rastreados"} · {english ? `showing the top ${rows.length}` : `mostrando os ${rows.length} primeiros`}</small>
       </header>
 
       <div className="guide-categories" role="group" aria-label={english ? "Choose a task" : "Selecione um uso"}>
@@ -147,6 +142,10 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
       <section className="guide-panel" aria-labelledby="guide-category-title">
         <h3 id="guide-category-title">{cat.label}</h3>
         <p className="guide-question">{cat.question}</p>
+        {bench && <dl className="guide-highlights">{categoryHighlights(bench).map(({ mode, row }) => <div key={mode}>
+          <dt>{mode === "best" ? (english ? "Best overall" : "Melhor no geral") : mode === "value" ? (english ? "Best value" : "Melhor custo-benefício") : (english ? "Fastest" : "Mais rápido")}</dt>
+          <dd>{row ? <><strong>{row.entry.model}</strong> · {mode === "best" ? `${score(bench.isFraction, row.entry.score)} ${bench.isFraction ? "" : "/100"}` : mode === "value" ? `${formatGuidePrice(row.entry.pricePerMillion, english)} · ${score(bench.isFraction, row.entry.score)} ${english ? "points" : "pontos"} · ${row.metric.toLocaleString(english ? "en-US" : "pt-BR", { maximumFractionDigits: 1 })} ${english ? "points/$" : "pontos/US$"}` : formatGuideSpeed(row.entry.tokensPerSecond)}</> : (english ? "No published data" : "Sem dados publicados")}</dd>
+        </div>)}</dl>}
         <div className="guide-controls">
           <div className="guide-sorts" role="group" aria-label={english ? "Sort by" : "Ordenar por"}>
             {GUIDE_SORTS.map((item) => <button type="button" key={item.id} aria-pressed={sort === item.id} onClick={() => { setSort(item.id); event("sort", `${categoryId}:${item.id}`); }}>{item[locale].label}</button>)}
@@ -178,7 +177,8 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
             </div>
           </details>
           {supports.length > 0 && <button type="button" className="guide-extras-toggle" aria-pressed={extras} onClick={() => { setExtras(!extras); event("extras", `${categoryId}:${!extras}`); }}>{extras ? (english ? "Hide other tests" : "Ocultar outros testes") : (english ? "Other tests in this category" : "Ver outros testes desta categoria")}</button>}
-          <div className="guide-ranking-head" aria-hidden="true"><span>#</span><span>{english ? "Model" : "Modelo"}</span><span>{english ? "Score" : "Nota"}</span><span>{english ? "Price · USD/M tokens" : "Preço · USD/M tokens"}</span><span>{english ? "Speed" : "Velocidade"}</span><span>+</span></div>
+          <p className="guide-score-scale"><a href={AA_METHOD_URL} target="_blank" rel="noreferrer">Artificial Analysis {bench.label}</a> · {bench.isFraction ? (english ? "accuracy, 0–100%" : "acerto, 0–100%") : (english ? "Artificial Analysis index, 0–100" : "índice de 0 a 100 da Artificial Analysis")}.</p>
+          <div className="guide-ranking-head" aria-hidden="true"><span>#</span><span>{english ? "Model" : "Modelo"}</span><span>{english ? "Score · 0–100" : "Nota · 0–100"}</span><span>{english ? "Price · per million tokens" : "Preço · por milhão de tokens"}</span><span>{english ? "Speed" : "Velocidade"}</span><span>+</span></div>
           <ol className="guide-ranking">
             {rows.map((row, position) => {
               const entry = row.entry;
@@ -194,7 +194,7 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
                 </div></div>
                 <div className="guide-score"><span><span className="sr-only">{english ? "Score: " : "Nota: "}</span>{score(bench.isFraction, entry.score)}</span><span className="guide-bar" title={`${sortText.bar}: ${row.metric.toFixed(1)}`}><span style={{ width: `${barPercent(row, maxMetric)}%`, background: companyColor(entry.company, config) }} /></span><small className="guide-metric">{sortText.bar}</small></div>
                 <div className="guide-costs">
-                  <span className="guide-price"><span className="guide-mobile-label">{english ? "API price: " : "Preço API: "}</span>{formatGuidePrice(entry.pricePerMillion) || "—"}</span>
+                  <span className="guide-price"><span className="guide-mobile-label">{english ? "API price: " : "Preço API: "}</span>{formatGuidePrice(entry.pricePerMillion, english) || "—"}</span>
                   <span className="guide-speed"><span className="guide-mobile-label">{english ? "Speed: " : "Velocidade: "}</span>{formatGuideSpeed(entry.tokensPerSecond) || "—"}</span>
                 </div>
                 <button type="button" className="guide-add" aria-pressed={selected} aria-label={`${selected ? (english ? "Remove" : "Remover") : (english ? "Compare" : "Comparar")} ${entry.model}`} disabled={!selected && compare.length >= MAX_COMPARE} onClick={() => toggleModel(key)}>{selected ? <Check size={17} aria-hidden="true" /> : <Plus size={17} aria-hidden="true" />}</button>
@@ -217,7 +217,6 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
         <button type="button" onClick={() => { setCompare([]); searchInput.current?.focus(); event("clear_compare", "all"); }}>{english ? "Clear" : "Limpar"}</button>
       </aside>}
       {compareOpen && <ComparisonDialog profiles={profiles} english={english} config={config} onClose={() => { setCompareOpen(false); requestAnimationFrame(() => compareButton.current?.focus()); }} />}
-      <footer className="panorama-provenance"><span>{english ? "Data: Artificial Analysis" : "Dados: Artificial Analysis"} · {english ? "Collected on" : "Coleta de"} {collected}</span><a href={data.sourceUrl || "https://artificialanalysis.ai/"} target="_blank" rel="noreferrer">Artificial Analysis ↗</a>{data.attribution && <small>{data.attribution}</small>}</footer>
     </div>
   );
 }
@@ -237,7 +236,7 @@ function ComparisonDialog({ profiles, english, config, onClose }: { profiles: Gu
   const value = (row: typeof comparison.rows[number], i: number) => {
     const cell = row.cells[i];
     if (!cell) return "—";
-    return row.kind === "price" ? formatGuidePrice(cell.value) : row.kind === "speed" ? formatGuideSpeed(cell.value) : `${formatGuideScore(cell.isFraction, cell.value, english)} · #${cell.rank}`;
+    return row.kind === "price" ? formatGuidePrice(cell.value, english) : row.kind === "speed" ? formatGuideSpeed(cell.value) : `${formatGuideScore(cell.isFraction, cell.value, english)} · #${cell.rank}`;
   };
   return <dialog ref={ref} className="guide-comparison" aria-labelledby="guide-comparison-title" onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
     <div className="guide-comparison-content">
