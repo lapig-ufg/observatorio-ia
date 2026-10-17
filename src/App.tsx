@@ -29,6 +29,7 @@ import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./
 import { ArticleDetail, CatalogCard, useCatalogExperience } from "./CatalogExperience";
 import { MediumReadingsPage } from "./MediumReadingsPage";
 import { PanoramaPage } from "./panorama/PanoramaPage";
+import { PoliticasIAPage } from "./levantamentos/PoliticasIAPage";
 import { skipToContent, usePageNavigation } from "./usePageNavigation";
 import { readingTopic } from "./readingTopics";
 
@@ -51,7 +52,7 @@ const catalogFilterTypes: Array<"todos" | ArticleType> = ["todos", ...categoryTy
 
 const pageTitles: Record<string, string> = {
   ecosystem: "Ecossistema UFG", "daily-news": "IA como notícia diária", readings: "Leituras em IA",
-  panorama: "Panorama da IA generativa", catalog: "Acervo", about: "Sobre",
+  panorama: "Panorama da IA generativa", catalog: "Acervo", about: "Sobre", survey: "Políticas de IA na publicação científica",
 };
 const pageFromHash = () => portalPage(window.location.hash);
 const ecosystemFeaturedInitiatives: Initiative[] = [
@@ -360,7 +361,7 @@ export function App() {
       }} />
 
       <div id="page-content" tabIndex={-1}>
-      {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} onClose={closeDetail} /> : page === "ecosystem" ? <EcosystemPage initiatives={combineInitiatives(initiatives, ecosystemFeaturedInitiatives)} /> : page === "daily-news" ? <DailyNewsPage /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} detailHref={detailHref} onOpen={openDetail} /> : page === "panorama" ? <PanoramaPage /> : page === "about" ? <AboutPage articles={articles} loaded={!!catalog} /> : page === "catalog" ? <div id="acervo" className="pt-acervo-page">
+      {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} onClose={closeDetail} /> : page === "ecosystem" ? <EcosystemPage initiatives={combineInitiatives(initiatives, ecosystemFeaturedInitiatives)} /> : page === "daily-news" ? <DailyNewsPage /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} detailHref={detailHref} onOpen={openDetail} /> : page === "panorama" ? <PanoramaPage /> : page === "survey" ? <PoliticasIAPage /> : page === "about" ? <AboutPage articles={articles} loaded={!!catalog} /> : page === "catalog" ? <div id="acervo" className="pt-acervo-page">
       <div className="pt-internal-heading"><p className="eyebrow">Materiais selecionados</p><h1 id="acervo-title">Acervo</h1><p>Busque por título, autor, tema ou palavra-chave e explore as sete coleções.</p></div>
       <PortalCollections articles={articles} type={type} onSelect={selectCategory} onExplore={revealCatalog} loading={!catalog} />
 

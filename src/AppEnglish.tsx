@@ -32,6 +32,7 @@ import { isPublicResearchPaper, paperResearchArea, paperResearchAreas, type Pape
 import { ArticleDetail, CatalogCard, useCatalogExperience } from "./CatalogExperience";
 import { MediumReadingsPage } from "./MediumReadingsPage";
 import { PanoramaPage } from "./panorama/PanoramaPage";
+import { PoliticasIAPage } from "./levantamentos/PoliticasIAPage";
 
 const typeLabels: Record<"all" | ArticleType, string> = {
   all: "All",
@@ -298,7 +299,7 @@ export function AppEnglish() {
       setPage(next);
 
       const route = next === "panorama" ? "/en/#panorama" : next === "ecosystem" ? "/en/#ufg-ecosystem" : next === "daily-news" ? "/en/#daily-news" : next === "readings" ? "/en/#ai-readings" : "/en/";
-      const pageTitle = next === "catalog" ? "Collection" : next === "about" ? "About" : next === "panorama" ? "Global Generative AI Landscape" : next === "ecosystem" ? "UFG AI Ecosystem" : next === "daily-news" ? "AI in the daily news" : next === "readings" ? "AI Readings" : "UFG-AI Observatory";
+      const pageTitle = next === "catalog" ? "Collection" : next === "about" ? "About" : next === "panorama" ? "Global Generative AI Landscape" : next === "survey" ? "AI policies in scholarly publishing" : next === "ecosystem" ? "UFG AI Ecosystem" : next === "daily-news" ? "AI in the daily news" : next === "readings" ? "AI Readings" : "UFG-AI Observatory";
       const title = `${pageTitle} | LAPIG/UFG`;
       if (window.location.hash !== "#item") document.title = title;
       const current = window.location.hash || "#top";
@@ -356,7 +357,7 @@ export function AppEnglish() {
     }} />
 
     <div id="page-content" tabIndex={-1}>
-    {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} english onClose={closeDetail} /> : page === "about" ? <AboutPageEnglish articles={articles} loaded={!!catalog} /> : page === "panorama" ? <PanoramaPage english /> : page === "ecosystem" ? <EcosystemPage initiatives={translatedInitiatives(catalog?.initiatives || [])} english /> : page === "daily-news" ? <DailyNewsPageEnglish /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} english detailHref={detailHref} onOpen={openDetail} /> : page === "home" ? <PortalHome english articles={articles} initiatives={translatedInitiatives(catalog?.initiatives || [])} catalog={!!catalog} error={error} query={query} setQuery={setQuery} setSelectedKeyword={setSelectedKeyword} setAdded={setAdded} revealCatalog={revealCatalog} detailHref={detailHref} openDetail={openDetail} featuredHistory={featuredHistoryEnglish} showFeaturedHistory={showFeaturedHistory} setShowFeaturedHistory={setShowFeaturedHistory} newsSummary={newsSummary} /> : <div id="catalog" className="pt-acervo-page">
+    {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} english onClose={closeDetail} /> : page === "about" ? <AboutPageEnglish articles={articles} loaded={!!catalog} /> : page === "panorama" ? <PanoramaPage english /> : page === "survey" ? <PoliticasIAPage english /> : page === "ecosystem" ? <EcosystemPage initiatives={translatedInitiatives(catalog?.initiatives || [])} english /> : page === "daily-news" ? <DailyNewsPageEnglish /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} english detailHref={detailHref} onOpen={openDetail} /> : page === "home" ? <PortalHome english articles={articles} initiatives={translatedInitiatives(catalog?.initiatives || [])} catalog={!!catalog} error={error} query={query} setQuery={setQuery} setSelectedKeyword={setSelectedKeyword} setAdded={setAdded} revealCatalog={revealCatalog} detailHref={detailHref} openDetail={openDetail} featuredHistory={featuredHistoryEnglish} showFeaturedHistory={showFeaturedHistory} setShowFeaturedHistory={setShowFeaturedHistory} newsSummary={newsSummary} /> : <div id="catalog" className="pt-acervo-page">
     <div className="pt-internal-heading"><p className="eyebrow">Selected materials</p><h1 id="acervo-title">Collection</h1><p>Search by title, author, topic or keyword and explore the seven collections.</p></div>
     <PortalCollections articles={articles} type={type} onSelect={selectCategory} onExplore={revealCatalog} english loading={!catalog} />
 

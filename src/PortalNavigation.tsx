@@ -22,7 +22,7 @@ export function PortalNavigation({ route, onSearch, english = false }: { route: 
   }, []);
   useEffect(() => { setOpen(""); setMobile(false); }, [route]);
   const path = routePath(route);
-  const isCurrent = (href: string) => path === href || (href === (english ? "#catalog" : "#acervo") && (path.startsWith("#acervo/") || ["#collections", "#topics", "#item"].includes(path)));
+  const isCurrent = (href: string) => path === href || (href.startsWith("#levantamentos/") && path.startsWith(`${href}/`)) || (href === (english ? "#catalog" : "#acervo") && (path.startsWith("#acervo/") || ["#collections", "#topics", "#item"].includes(path)));
   return <header ref={header} className="topbar pt-topbar" onKeyDown={event => {
     if (event.key === "Escape") {
       if (open) { triggers.current[open]?.focus(); setOpen(""); }

@@ -11,6 +11,11 @@ export const portalNavigation = [
     { label: "IAs gratuitas", href: "#panorama/gratuitos", description: "Explore ferramentas com acesso gratuito.", event: "nav_panorama" },
     { label: "Como usar fora do navegador", href: "#panorama/como-usar", description: "Conheça o terminal e os agentes de IA.", event: "nav_panorama" },
   ] },
+  { english: { label: "Research", featured: { title: "Research", description: "Original surveys by the Observatory (in Portuguese).", href: "#levantamentos/politicas-ia" }, links: [
+    { label: "AI policies in scholarly publishing (in Portuguese)", href: "#levantamentos/politicas-ia", description: "What journals, publishers, societies and funders allow, require and forbid." },
+  ] }, id: "levantamentos", label: "Levantamentos", featured: { title: "Levantamentos", description: "Pesquisas originais do Observatório, com dados abertos.", icon: "levantamentos", href: "#levantamentos/politicas-ia", event: "nav_surveys" }, links: [
+    { label: "Políticas de IA na publicação científica", href: "#levantamentos/politicas-ia", description: "O que periódicos, editoras, sociedades e agências permitem, exigem e vedam.", event: "nav_surveys" },
+  ] },
   { english: { label: "Collection", featured: { title: "Collection", description: "Readings, documents, videos, audio and presentations.", href: "#catalog" }, links: [
     { label: "Full collection", href: "#catalog", description: "Search and filter the selected materials." },
     { label: "AI Readings", href: "#ai-readings", description: "Read essays and articles organized by topic." },
@@ -73,6 +78,7 @@ export function canonicalPortalHash(hash: string) {
 export function portalPage(hash: string, english = false) {
   const route = canonicalPortalHash(hash);
   if (route.startsWith("#panorama")) return "panorama";
+  if (route.startsWith("#levantamentos")) return "survey";
   if (english && ["#catalog", "#collections", "#topics", "#item"].includes(route)) return "catalog";
   if (route.startsWith("#acervo") || route === "#item") return "catalog";
   return ({ "#ecossistema-ufg": "ecosystem", "#ia-como-noticia-diaria": "daily-news", "#leituras-em-ia": "readings", "#ai-readings": "readings", "#sobre": "about", ...(english ? { "#ufg-ecosystem": "ecosystem", "#daily-news": "daily-news", "#about": "about" } : {}) } as Record<string, string>)[route] || "home";

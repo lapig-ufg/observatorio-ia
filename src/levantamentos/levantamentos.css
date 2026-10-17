@@ -1,0 +1,202 @@
+/* Levantamento de políticas de IA: tipografia e linhas do próprio portal, sem caixas soltas.
+   Os blocos se separam por filetes e espaço, como as seções editoriais das páginas internas. */
+.sv-page { background: #fff; }
+.sv-page .sv-meta { margin: 14px 0 0; color: #52675c; font-size: .875rem; line-height: 1.6; }
+.sv-page .sv-meta a { color: #164e3d; font-weight: 700; }
+.sv-language-note { margin: 10px 0 0; color: #a8461f; font-size: .875rem; font-weight: 700; }
+
+.sv-content { padding: 8px var(--pt-page-gutter, clamp(20px, 6vw, 92px)) 56px; }
+.sv-block { padding: 36px 0; border-top: 1px solid #dfe7e2; }
+.sv-content > .sv-block:first-child, .sv-content > .sv-two:first-child > .sv-block { border-top: 0; }
+.sv-block h2 { margin: 0 0 12px; color: #123d31; font-size: clamp(1.35rem, 2.2vw, 1.75rem); font-weight: 750; line-height: 1.2; letter-spacing: -.03em; }
+.sv-block h3 { margin: 22px 0 8px; color: #123d31; font-size: 1rem; line-height: 1.35; }
+.sv-intro { max-width: 78ch; margin: 0 0 18px; color: #425c52; line-height: 1.65; }
+.sv-note { max-width: 78ch; margin: 10px 0 0; color: #5f7268; font-size: .875rem; line-height: 1.55; }
+.sv-note a, .sv-block p a, .sv-list a { color: #164e3d; }
+.sv-empty { margin: 40px 0; color: #425c52; }
+.sv-subhead { margin-top: 32px !important; }
+.sv-row-meta { display: block; margin-top: 2px; color: #5f7268; font-size: .8125rem; font-weight: 400; line-height: 1.45; }
+h3 .sv-row-meta { display: inline; margin-left: 6px; }
+
+/* Abertura editorial: os números ficam dentro do texto, com o denominador explícito. */
+.sv-findings .sv-lede { max-width: 70ch; margin: 0; color: #1d2b25; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.125rem, 1.6vw, 1.3rem); line-height: 1.6; }
+.sv-messages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; margin: 28px 0 0; padding: 0; list-style: none; counter-reset: message; }
+.sv-messages li { padding: 18px 0; border-top: 1px solid #dfe7e2; counter-increment: message; }
+.sv-messages h3 { margin: 0 0 6px; font-size: 1rem; }
+.sv-messages h3::before { content: counter(message, decimal-leading-zero); margin-right: 10px; color: #a8461f; font-variant-numeric: tabular-nums; }
+.sv-messages p { margin: 0; color: #425c52; line-height: 1.6; }
+
+/* Camadas de governança: uma escada com a regra operante marcada pela cor de destaque do portal. */
+.sv-layers { display: grid; gap: 0; max-width: 900px; margin: 0; padding: 0; list-style: none; }
+.sv-layers > li { position: relative; padding: 14px 0 14px 28px; border-left: 2px solid #c8d9d1; }
+.sv-layers > li::before { content: ""; position: absolute; top: 20px; left: -6px; width: 10px; height: 10px; border-radius: 50%; background: #fff; border: 2px solid #8fb3a2; }
+.sv-layers strong { display: block; color: #123d31; }
+.sv-layers span { display: block; margin-top: 2px; color: #425c52; line-height: 1.55; }
+.sv-layers-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.sv-layers-key { border-left-color: var(--portal-orange, #d56b47) !important; }
+.sv-layers-key::before { border-color: var(--portal-orange, #d56b47) !important; background: var(--portal-orange, #d56b47) !important; }
+.sv-layers-key strong { color: #a8461f; }
+
+/* Definições e listas de texto corrido. */
+.sv-defs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; margin: 0; }
+.sv-defs > div { padding: 14px 0; border-top: 1px solid #dfe7e2; }
+.sv-defs dt { color: #123d31; font-weight: 700; }
+.sv-defs dd { margin: 4px 0 0; color: #425c52; line-height: 1.6; }
+.sv-list { max-width: 80ch; margin: 0; padding-left: 1.2em; color: #33463d; line-height: 1.65; }
+.sv-list li + li { margin-top: 10px; }
+.sv-checks { padding-left: 1.6em; }
+
+/* Gráficos: rótulos na cor do texto; a cor fica só nas marcas. */
+.sv-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 12px; padding: 0; list-style: none; color: #33463d; font-size: .875rem; }
+.sv-legend li { display: inline-flex; align-items: center; gap: 7px; }
+.sv-swatch { display: inline-block; flex: none; width: 11px; height: 11px; border-radius: 3px; }
+.sv-chart { display: block; width: 100%; max-width: 860px; height: auto; overflow: visible; font-family: inherit; }
+.sv-chart-narrow { max-width: 560px; }
+.sv-chart rect { cursor: default; }
+.sv-chart rect:hover { opacity: .85; }
+.sv-grid { stroke: #e6ece8; stroke-width: 1; }
+.sv-baseline { stroke: #c8d9d1; stroke-width: 1; }
+.sv-label { fill: #1d2b25; font-size: 13px; }
+.sv-axis { fill: #5f7268; font-size: 11.5px; }
+.sv-value { fill: #1d2b25; font-size: 13px; font-weight: 700; }
+.sv-in-bar { fill: #fff; font-size: 12px; font-weight: 700; pointer-events: none; }
+.sv-in-bar-dark { fill: #1d2b25; }
+.sv-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; border-top: 1px solid #dfe7e2; }
+.sv-two > .sv-block { border-top: 0; }
+
+/* Mapa por área: o verde cresce com a proporção; denominadores pequenos ficam apagados. */
+.sv-heat td { text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sv-heat td small { display: block; opacity: .8; font-size: .75rem; }
+.sv-heat thead th { vertical-align: bottom; text-align: center; font-size: .8125rem; }
+.sv-heat thead th:first-child { text-align: left; }
+.sv-heat-off { color: #8a988f; background: #f4f6f4; font-style: italic; }
+
+/* Tabelas tipográficas: a situação aparece em texto com uma marca discreta de cor. */
+.sv-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.sv-table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+.sv-table th, .sv-table td { padding: 12px 14px 12px 0; border-bottom: 1px solid #e6ece8; text-align: left; vertical-align: top; line-height: 1.5; }
+.sv-table thead th { padding-top: 0; color: #52675c; font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border-bottom-color: #c8d9d1; }
+.sv-table tbody th { color: #123d31; font-weight: 700; min-width: 180px; }
+.sv-status { display: inline-flex; align-items: baseline; gap: 7px; white-space: nowrap; }
+.sv-status .sv-swatch { transform: translateY(1px); }
+.sv-status-na { color: #5f7268; }
+.sv-row-toggle { padding: 0; border: 0; background: none; color: #123d31; font: inherit; font-weight: 700; text-align: left; cursor: pointer; text-decoration: underline; text-decoration-color: #c8d9d1; text-underline-offset: 3px; }
+.sv-row-toggle:hover, .sv-row-toggle[aria-expanded="true"] { text-decoration-color: currentColor; }
+.sv-table tr.is-open > * { border-bottom-color: transparent; }
+.sv-detail td { padding-top: 0; color: #33463d; }
+.sv-detail p { max-width: 90ch; margin: 0 0 6px; }
+.sv-detail a { color: #164e3d; font-weight: 700; }
+
+/* Filtros numa linha, com os mesmos campos do acervo. */
+.sv-filters { display: grid; grid-template-columns: minmax(220px, 2fr) repeat(5, minmax(130px, 1fr)); gap: 12px; align-items: end; }
+.sv-filters label { display: grid; gap: 6px; color: #52675c; font-size: .75rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.sv-filters select, .sv-search-field { min-height: 44px; border: 1px solid #c8d9d1; border-radius: 8px; background: #fff; color: #1d2b25; font: inherit; font-size: .9375rem; letter-spacing: 0; text-transform: none; }
+.sv-filters select { padding: 0 10px; }
+.sv-search-field { display: flex; align-items: center; gap: 8px; padding: 0 12px; color: #52675c; }
+.sv-search-field input { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font: inherit; color: #1d2b25; }
+.sv-search-field:focus-within, .sv-filters select:focus-visible { outline: 2px solid var(--portal-orange, #d56b47); outline-offset: 1px; }
+.sv-count { margin: 16px 0 8px; color: #425c52; font-size: .875rem; }
+.sv-link-button { padding: 0; border: 0; background: none; color: #164e3d; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+
+/* Por área: escolha da área como navegação secundária em texto. */
+.sv-area-picker { display: flex; flex-wrap: wrap; gap: 4px 2px; margin: 0 0 28px; padding-bottom: 12px; border-bottom: 1px solid #dfe7e2; }
+.sv-area-picker button { min-height: 40px; padding: 8px 12px; border: 0; border-radius: 8px; background: none; color: #33463d; font: inherit; font-size: .9375rem; cursor: pointer; }
+.sv-area-picker button:hover { background: #f1f6f3; }
+.sv-area-picker button[aria-pressed="true"] { background: #e7f1eb; color: #123d31; font-weight: 700; }
+.sv-area-headline { max-width: 40ch; font-family: Georgia, "Times New Roman", serif; font-weight: 400 !important; letter-spacing: -.01em !important; }
+.sv-area-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr); gap: 48px; margin-top: 16px; }
+.sv-area-side { padding-left: 32px; border-left: 1px solid #dfe7e2; }
+.sv-area-side h3:first-child { margin-top: 0; }
+.sv-area-side p { margin: 0; color: #33463d; line-height: 1.6; }
+.sv-area-side .sv-legend { margin-top: 8px; font-size: .8125rem; }
+.sv-minibar { display: flex; gap: 2px; height: 24px; overflow: hidden; border-radius: 4px; }
+.sv-minibar span { display: flex; align-items: center; justify-content: center; min-width: 14px; font-size: 12px; font-weight: 700; }
+
+/* Roteiro para autores: perguntas numeradas, ligadas por um fio. */
+.sv-decision { max-width: 900px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.sv-decision li { position: relative; padding: 0 0 22px 46px; counter-increment: step; }
+.sv-decision li::before { content: counter(step); position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 30px; height: 30px; border: 2px solid #8fb3a2; border-radius: 50%; color: #123d31; font-weight: 700; font-size: .875rem; background: #fff; }
+.sv-decision li:not(:last-child)::after { content: ""; position: absolute; left: 15px; top: 32px; bottom: 2px; width: 2px; background: #dfe7e2; }
+.sv-decision h3 { margin: 4px 0 6px; }
+.sv-decision p { margin: 0 0 4px; color: #33463d; line-height: 1.6; }
+
+.sv-downloads { display: flex; flex-wrap: wrap; gap: 12px 28px; }
+.sv-downloads a { display: inline-flex; align-items: center; gap: 8px; color: #164e3d; font-weight: 700; }
+.sv-sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 48px; }
+.sv-sources p { margin: 0 0 14px; color: #33463d; font-size: .875rem; line-height: 1.7; }
+.sv-sources strong { display: block; color: #123d31; font-size: .9375rem; }
+
+@media (max-width: 1100px) {
+  .sv-filters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sv-filters .sv-search { grid-column: 1 / -1; }
+}
+@media (max-width: 860px) {
+  .sv-messages, .sv-defs, .sv-two, .sv-sources, .sv-area-grid, .sv-layers-pair { grid-template-columns: minmax(0, 1fr); }
+  .sv-layers-pair { gap: 14px; }
+  .sv-area-side { padding-left: 0; border-left: 0; padding-top: 8px; border-top: 1px solid #dfe7e2; }
+  .sv-two > .sv-block + .sv-block { border-top: 1px solid #dfe7e2; }
+}
+@media (max-width: 600px) {
+  .sv-content { padding-inline: 16px; }
+  .sv-block { padding: 28px 0; }
+  .sv-filters { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .sv-table { font-size: .875rem; }
+  .sv-table tbody th { min-width: 150px; }
+  .sv-label { font-size: 15px; }
+  .sv-axis { font-size: 13px; }
+}
+
+/* Barras horizontais em HTML: rótulo, trilho e contagem numa grade que se reorganiza no celular. */
+.sv-bars { display: grid; gap: 8px; max-width: 900px; margin: 0; }
+.sv-bar-row { display: grid; grid-template-columns: 190px minmax(0, 1fr) 48px; gap: 12px; align-items: center; }
+.sv-bars-single .sv-bar-row { grid-template-columns: minmax(180px, 300px) minmax(0, 1fr); }
+.sv-bar-label { color: #1d2b25; font-size: .875rem; line-height: 1.35; text-align: right; }
+.sv-bar-label small { display: block; color: #5f7268; font-size: .75rem; }
+.sv-bar-track { display: flex; gap: 2px; height: 26px; overflow: hidden; border-radius: 4px; }
+.sv-bar-track-open { align-items: center; gap: 8px; overflow: visible; }
+.sv-bar-track-open .sv-seg { flex: none; height: 18px; border-radius: 4px; }
+.sv-seg { display: flex; align-items: center; justify-content: center; min-width: 3px; color: #fff; font-size: 12px; font-weight: 700; }
+.sv-seg-dark { color: #1d2b25; }
+.sv-bar-value { color: #1d2b25; font-size: .875rem; font-weight: 700; white-space: nowrap; }
+.sv-bar-n { color: #5f7268; font-size: .8125rem; }
+.sv-bars figcaption { grid-column: 1 / -1; }
+
+/* Colunas por ano: a altura é proporcional ao total; a pilha mostra a posição sobre gerar texto. */
+.sv-columns { display: grid; grid-template-columns: repeat(4, minmax(0, 72px)); gap: 28px; align-items: end; height: 220px; margin: 8px 0 0; padding-left: 8px; border-bottom: 1px solid #c8d9d1; }
+.sv-column { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-end; height: 100%; position: relative; }
+.sv-column-total { margin-bottom: 4px; color: #1d2b25; font-weight: 700; font-size: .875rem; text-align: center; }
+.sv-column-stack { display: flex; flex-direction: column; gap: 2px; min-height: 4px; max-height: calc(100% - 24px); border-radius: 3px 3px 0 0; overflow: hidden; }
+.sv-column-stack > span { min-height: 2px; }
+.sv-column-year { position: absolute; bottom: -24px; left: 0; right: 0; color: #5f7268; font-size: .8125rem; text-align: center; }
+.sv-columns + .sv-note { margin-top: 34px; }
+
+@media (max-width: 600px) {
+  .sv-bar-row, .sv-bars-single .sv-bar-row { grid-template-columns: minmax(0, 1fr) 44px; gap: 4px 8px; }
+  .sv-bar-label { grid-column: 1 / -1; text-align: left; }
+  .sv-bars-single .sv-bar-row { grid-template-columns: minmax(0, 1fr); }
+  .sv-columns { gap: 16px; }
+}
+
+/* Sem o botão lateral do Panorama, o título ocupa a linha inteira e o texto fica na largura de leitura. */
+.sv-page .pt-panorama-intro .panorama-heading { flex: 1 1 100%; max-width: none; }
+.sv-page .pt-panorama-intro .panorama-heading > p:not(.eyebrow) { max-width: 78ch; }
+/* O valor fica fora do trilho: a barra mais longa não empurra o número para fora da tela. */
+.sv-bar-fill { display: flex; flex: 1 1 auto; min-width: 0; }
+.sv-filters > label { min-width: 0; }
+.sv-filters select { width: 100%; min-width: 0; }
+
+/* No celular, cada entidade vira um bloco empilhado com os rótulos das colunas, sem rolagem lateral. */
+@media (max-width: 600px) {
+  .sv-table-stack, .sv-table-stack tbody { display: block; }
+  .sv-table-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .sv-table-stack tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px 14px; padding: 14px 0; border-bottom: 1px solid #e6ece8; }
+  .sv-table-stack tr.is-open { border-bottom-color: transparent; padding-bottom: 4px; }
+  .sv-table-stack tr > * { padding: 0; border: 0; }
+  .sv-table-stack tbody th { grid-column: 1 / -1; min-width: 0; margin-bottom: 6px; }
+  .sv-table-stack td[data-label]::before { content: attr(data-label); display: block; color: #5f7268; font-size: .6875rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+  .sv-table-stack .sv-detail { display: block; padding-top: 0; }
+  .sv-table-stack .sv-detail td { display: block; }
+  .sv-table-stack .sv-status { white-space: normal; }
+}
+.sv-more { min-height: 44px; margin-top: 16px; padding: 10px 18px; border: 1px solid #b9c9c1; border-radius: 8px; background: #fff; color: #164e3d; font: inherit; font-weight: 700; cursor: pointer; }
+.sv-more:hover { background: #f1f6f3; }

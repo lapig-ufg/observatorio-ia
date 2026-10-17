@@ -1,8 +1,8 @@
-import { ArrowRight, BookOpen, Building2, ChartNoAxesCombined, Newspaper } from "lucide-react";
+import { ArrowRight, BookOpen, Building2, ChartNoAxesCombined, ClipboardList, Newspaper } from "lucide-react";
 import { trackEvent } from "./analytics";
 import { featuredPortalSections, localizedPortalNavigation, portalMetricLabel, type PortalMetric } from "./portalStructure";
 
-const icons = { panorama: ChartNoAxesCombined, acervo: BookOpen, imprensa: Newspaper, ufg: Building2 };
+const icons = { panorama: ChartNoAxesCombined, levantamentos: ClipboardList, acervo: BookOpen, imprensa: Newspaper, ufg: Building2 };
 
 export function PortalSectionCards({ counts, english = false }: { counts: Partial<Record<PortalMetric, number>>; english?: boolean }) {
   return <div className="pt-task-grid">{featuredPortalSections(localizedPortalNavigation(english)).map(section => {

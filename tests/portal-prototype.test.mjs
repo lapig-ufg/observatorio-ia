@@ -13,8 +13,8 @@ const { videoThumbnail } = await moduleFrom("catalogExperienceState");
 
 test("featured sections follow the navigation, target pages and accept a fifth section", () => {
   const sections = featuredPortalSections();
-  assert.deepEqual(sections.map(section => section.title), ["Panorama da IA", "Acervo", "IA na imprensa", "IA na UFG"]);
-  assert.deepEqual(sections.map(section => section.href), ["#panorama", "#acervo", "#ia-como-noticia-diaria", "#ecossistema-ufg"]);
+  assert.deepEqual(sections.map(section => section.title), ["Panorama da IA", "Levantamentos", "Acervo", "IA na imprensa", "IA na UFG"]);
+  assert.deepEqual(sections.map(section => section.href), ["#panorama", "#levantamentos/politicas-ia", "#acervo", "#ia-como-noticia-diaria", "#ecossistema-ufg"]);
   for (const section of sections) {
     assert.notEqual(portalPage(section.href), "home");
     assert.ok(section.description && section.icon && section.event);
@@ -23,9 +23,9 @@ test("featured sections follow the navigation, target pages and accept a fifth s
   assert.equal(sections[0].metric, undefined);
   const next = { id: "nova", label: "Nova seção", href: "#nova", event: "nav_new", featured: { title: "Nova seção", description: "Uma nova porta do portal.", icon: "acervo", href: "#nova", event: "nav_new" } };
   const extended = [...portalNavigation, next];
-  assert.equal(featuredPortalSections(extended).length, 5);
-  assert.equal(featuredPortalSections(extended)[4], next.featured);
-  assert.equal(portalNavigation.length, 5);
+  assert.equal(featuredPortalSections(extended).length, 6);
+  assert.equal(featuredPortalSections(extended)[5], next.featured);
+  assert.equal(portalNavigation.length, 6);
 });
 
 test("hero metrics omit pending values and a lone initiative, with real localized counts", () => {
@@ -54,10 +54,11 @@ test("initiative count uses the same editorial combination as the page and previ
 });
 
 test("PT menu and sitemap share five sections with explicit product routes", () => {
-  assert.deepEqual(portalNavigation.map(section => section.label), ["Panorama", "Acervo", "Atualidade", "IA na UFG", "Sobre"]);
+  assert.deepEqual(portalNavigation.map(section => section.label), ["Panorama", "Levantamentos", "Acervo", "Atualidade", "IA na UFG", "Sobre"]);
   assert.deepEqual(portalNavigation[0].links.map(link => link.href), ["#panorama", "#panorama/guia", "#panorama/gratuitos", "#panorama/como-usar"]);
-  assert.deepEqual(portalNavigation[1].links.map(link => link.href), ["#acervo", "#leituras-em-ia", "por-dentro-da-ia/"]);
-  assert.deepEqual(portalNavigation[2].links.map(link => link.href), ["#em-destaque", "#ia-como-noticia-diaria"]);
+  assert.deepEqual(portalNavigation[2].links.map(link => link.href), ["#acervo", "#leituras-em-ia", "por-dentro-da-ia/"]);
+  assert.deepEqual(portalNavigation[1].links.map(link => link.href), ["#levantamentos/politicas-ia"]);
+  assert.deepEqual(portalNavigation[3].links.map(link => link.href), ["#em-destaque", "#ia-como-noticia-diaria"]);
   for (const section of portalNavigation) for (const link of section.links || []) assert.ok(link.description && link.event);
   const source = fs.readFileSync("src/PortalNavigation.tsx", "utf8");
   assert.equal((source.match(/portalNavigation.map/g) || []).length, 2);
