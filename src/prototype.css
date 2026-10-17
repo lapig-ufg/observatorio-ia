@@ -218,14 +218,15 @@
 .pt-token-bar i { display: block; height: 100%; background: #b7d9c5; }
 .pt-site-shell .pt-realization { border-top: 1px solid #c8d9d1; background: #fff; }
 /* As alturas da arte (sem o respiro do viewBox) ficam próximas de 122px nas três marcas. */
-.pt-realization-logos { display: grid; grid-template-columns: 246fr 275fr 324fr; align-items: center; max-width: 900px; margin-inline: auto; }
+.pt-realization-logos { display: grid; grid-template-columns: 246fr 275fr 324fr; align-items: center; max-width: 700px; margin-inline: auto; }
 .pt-realization a { display: flex; justify-content: center; align-items: center; border-radius: 3px; }
 .pt-realization a:focus-visible { outline: 3px solid #28765b; outline-offset: 5px; }
 .pt-realization-logos a { min-width: 0; padding-inline: 8px; }
 .pt-realization-logos a + a { border-left: 1px solid #d0d9d4; border-radius: 0; }
-.pt-realization img { display: block; max-width: 100%; width: 324px; height: auto; }
-.pt-realization-ufg img { width: 246px; }
-.pt-realization-logos a:nth-child(2) img { width: 275px; }
+/* Tamanho equilibrado: ~90 px de altura no desktop, o bastante para ler o subtítulo do LAPIG sem dominar a página. */
+.pt-realization img { display: block; max-width: 100%; width: 240px; height: auto; }
+.pt-realization-ufg img { width: 182px; }
+.pt-realization-logos a:nth-child(2) img { width: 204px; }
 @media (max-width: 700px) {
   .pt-additions-layout, .pt-press-layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .pt-site-shell .pt-home-section { padding-block: 32px; }
@@ -252,9 +253,9 @@
   .pt-realization-logos { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 12px; }
   .pt-realization-logos a { width: 100%; padding: 0; }
   .pt-realization-logos a + a { border: 0; }
-  .pt-realization img { width: 300px; }
-  .pt-realization-ufg img { width: 220px; }
-  .pt-realization-logos a:nth-child(2) img { width: 220px; }
+  .pt-realization img { width: 250px; }
+  .pt-realization-ufg img { width: 172px; }
+  .pt-realization-logos a:nth-child(2) img { width: 180px; }
 }
 @media (max-width: 600px) {
   .pt-home-page .weekly-highlight-kicker { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 8px; }
