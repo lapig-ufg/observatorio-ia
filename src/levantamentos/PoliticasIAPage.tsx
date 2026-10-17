@@ -288,7 +288,7 @@ function Brazil({ data }: { data: SurveyData }) {
         <h2 id="sv-br-chart-title">Periódicos brasileiros: há regra de IA?</h2>
         <Legend categories={GEN_CATEGORIES} />
         <StackedByArea rows={journals} field="gen" categories={GEN_CATEGORIES} label="Periódicos brasileiros por área e posição sobre gerar texto com IA" />
-        <p className="sv-note">Base histórica de {formatPublicDate(data.meta.referencia, "pt")}, com correções posteriores identificadas no histórico. {data.meta.revisao?.unresolved ? "Não se afirma releitura integral PT/EN de todos os periódicos nesta revisão parcial." : "Consulte no histórico a cobertura e as fontes por registro."}</p>
+        <p className="sv-note">Referência da revisão: {formatPublicDate(data.meta.referencia, "pt")}; correções identificadas no histórico. {data.meta.revisao?.unresolved ? "Não se afirma releitura integral PT/EN de todos os periódicos nesta revisão parcial." : "Consulte no histórico a cobertura e as fontes por registro. A/NL não demonstram ausência de regra em toda a instituição."}</p>
       </section>
       <section className="sv-block" aria-labelledby="sv-br-list-title">
         <h2 id="sv-br-list-title">O que vale no Brasil</h2>

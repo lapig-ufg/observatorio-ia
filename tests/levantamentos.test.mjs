@@ -13,16 +13,31 @@ const data = JSON.parse(fs.readFileSync("public/levantamentos/politicas-ia/dados
 
 test("os dados publicados batem com a base do levantamento", () => {
   assert.equal(data.rows.length, 149);
-  const csv = fs.readFileSync("public/levantamentos/politicas-ia/base-politicas-ia-2026-10.csv", "utf8").trim().split(/\r?\n/);
-  assert.equal(csv.length - 1, data.rows.length);
+  const csv = fs.readFileSync("public/levantamentos/politicas-ia/base-politicas-ia-2026-10.csv", "utf8").replace(/^\uFEFF/, "");
+  const table = []; let line = [], cell = "", quoted = false;
+  for (let i = 0; i < csv.length; i++) {
+    const c = csv[i];
+    if (c === '"') { if (quoted && csv[i + 1] === '"') { cell += '"'; i++; } else quoted = !quoted; }
+    else if (c === "," && !quoted) { line.push(cell); cell = ""; }
+    else if (c === "\n" && !quoted) { line.push(cell); table.push(line); line = []; cell = ""; }
+    else if (c !== "\r" || quoted) cell += c;
+  }
+  assert.equal(quoted, false);
+  assert.equal(table.length - 1, data.rows.length);
+  const fields = ["nome", "tipo", "area", "sub", "geo", "ano", "gen", "loc", "rev", "img", "verif", "url", "nota"];
+  data.rows.forEach((row, i) => fields.forEach((field, j) => assert.equal(table[i + 1][j], String(row[field] ?? ""))));
   const gen = survey.countBy(data.rows, row => row.gen);
-  assert.deepEqual([gen.get("Permitida"), gen.get("Restrita"), gen.get("Vedada"), gen.get("Sem regra"), gen.get("N/A")], [98, 19, 9, 19, 4]);
+  const csvGen = survey.countBy(table.slice(1), row => row[6]);
+  assert.deepEqual([...gen].sort(), [...csvGen].sort());
+  assert.equal([...gen.values()].reduce((a, b) => a + b, 0), data.rows.length);
 });
 
-test("periódicos brasileiros com regra seguem o texto do levantamento (28 de 36)", () => {
+test("periódicos brasileiros com regra seguem os denominadores e as narrativas recalculadas", () => {
   const journals = survey.brazilianJournals(data.rows);
-  assert.equal(journals.length, 36);
-  assert.equal(journals.filter(row => row.gen !== "Sem regra").length, 28);
+  const withRule = journals.filter(row => row.gen !== "Sem regra").length;
+  assert.equal(journals.length, data.rows.filter(row => row.geo.startsWith("Brasil") && row.tipo === "Periódico").length);
+  assert.ok(data.brasil[0].includes(`${withRule} de ${journals.length}`));
+  assert.ok(data.cross.find(([title]) => title === "Brasil")[1].includes(`${withRule}/${journals.length}`));
 });
 
 test("o não se aplica fica fora do denominador, mas é contado à parte", () => {
@@ -56,7 +71,7 @@ test("negrito em markdown vira trechos marcados sem interpretar HTML", () => {
 const history = JSON.parse(fs.readFileSync("data/politicas-ia/revisoes/2026-10-17.json", "utf8"));
 const key = row => JSON.stringify([row.tipo,row.nome,row.area,row.geo].map(value => String(value).normalize("NFC").trim()));
 
-test("revisão parcial inventaria todas as identidades sem duplicar nem certificar pendências", () => {
+test("revisão inventaria todas as identidades e só avança a referência com cobertura integral", () => {
   assert.equal(new Set(data.rows.map(key)).size, data.rows.length);
   assert.equal(new Set(history.entries.map(entry => entry.key)).size, data.rows.length);
   assert.deepEqual(new Set(history.entries.map(entry => entry.key)), new Set(data.rows.map(key)));
@@ -78,8 +93,9 @@ test("revisão parcial inventaria todas as identidades sem duplicar nem certific
   assert.equal(data.meta.revisao.changed, counts("changed"));
   assert.equal(data.meta.revisao.unresolved, counts("unresolved"));
   assert.equal(data.meta.revisao.inventory, data.rows.length);
-  assert.equal(data.meta.referencia, "2026-10-16");
-  assert.equal(history.summary.canClose, false);
+  assert.equal(data.meta.referencia, counts("unresolved") ? "2026-10-16" : history.cycle);
+  assert.equal(history.summary.canClose, counts("unresolved") === 0);
+  assert.equal(data.meta.revisao.status, counts("unresolved") ? "parcial" : "integral");
   assert.deepEqual(history, JSON.parse(fs.readFileSync("public/levantamentos/politicas-ia/revisao-2026-10-17.json", "utf8")));
 });
 
@@ -106,4 +122,16 @@ test("divergências de revisão, imagens e declaração não regressam", () => {
 test("a página revalida a base para não combinar interface nova com políticas antigas em cache", () => {
   const source = fs.readFileSync("src/levantamentos/PoliticasIAPage.tsx", "utf8");
   assert.match(source, /fetch\(siteAssetUrl\(`\$\{DATA_DIR\}dados\.json`\), \{ signal: controller\.signal, cache: "no-cache" \}\)/);
+});
+
+test("a retomada das fontes alternativas preserva as exceções normativas e os códigos canônicos", () => {
+  const row = name => data.rows.find(row => row.nome === name);
+  assert.equal(row("The Lancet").rev, "Vedado");
+  assert.equal(row("The Lancet").loc, "Múltiplos");
+  assert.equal(row("ACP (Annals of Internal Medicine)").verif, "P");
+  assert.equal(row("Society for Neuroscience (J. Neurosci.)").rev, "Condicionado");
+  assert.match(row("AAR / SBL").nota, /não há política conjunta/i);
+  assert.equal(row("FAPESP / CAPES / FAPEG").verif, "NL");
+  assert.match(row("FAPESP / CAPES / FAPEG").nota, /NL não prova inexistência/);
+  assert.ok(data.rows.every(row => row.loc !== "Múltiplos locais"));
 });
