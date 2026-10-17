@@ -389,7 +389,7 @@ export function PoliticasIAPage({ english = false }: { english?: boolean }) {
         <h1 id="sv-title">Políticas de IA na publicação científica</h1>
         <p>O que periódicos, editoras, sociedades científicas e agências de fomento permitem, exigem e vedam no uso de IA generativa, por grande área do CNPq.</p>
         {english && <p className="sv-language-note" lang="en">This survey is available in Portuguese only.</p>}
-        {data && <p className="sv-meta">Edição {data.meta.versao}, de {formatPublicDate(data.meta.referencia, "pt")}, corrigida após auditoria externa · amostra intencional, não probabilística · <a href={`${SURVEY_BASE}/metodo`}>ver método e correções</a></p>}
+        {data && <p className="sv-meta"><strong>Dados de {formatPublicDate(data.meta.referencia, "pt")}</strong> · edição {data.meta.versao}, corrigida após auditoria externa · amostra intencional, não probabilística · <a href={`${SURVEY_BASE}/metodo`}>ver método e correções</a></p>}
       </div>
     </div>
     <nav ref={tabsRef} className="panorama-tabs sv-tabs" aria-label="Seções do levantamento">
