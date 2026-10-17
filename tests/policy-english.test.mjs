@@ -131,7 +131,7 @@ test('exports ingleses preservam todos os códigos, fontes, 15 colunas, históri
   assert.equal(manifest.rows,pt.rows.length);assert.equal(manifest.columns,15);
   assert.deepEqual(manifest.sheets,['Dataset','Codebook']);
   assert.equal(manifest.sourceCsvSha256,digest('base-politicas-ia-2026-10.csv'));
-  assert.equal(toCsv([['quote " and newline\n',null,0]]),'\uFEFF"quote "" and newline\n","","0"\r\n');
+  assert.equal(toCsv([['quote " and newline\n',null,0]]),'\uFEFF"quote "" and newline\n","","0"\n');
 });
 
 test('busca inglesa usa texto traduzido, mas os filtros e denominadores conservam códigos canônicos',async()=>{

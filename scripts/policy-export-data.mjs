@@ -23,7 +23,7 @@ export function englishExportRows(pt,en,original,vocabulary){
     return [...EXPORT_FIELDS.map(k=>row[k]=== ''?null:row[k]??null),vocabulary[prior[13]],translateHistoricalChange(prior[14])];
   });
 }
-export const toCsv=matrix=>'\uFEFF'+matrix.map(row=>row.map(value=>'"'+String(value??'').replaceAll('"','""')+'"').join(',')).join('\r\n')+'\r\n';
+export const toCsv=matrix=>'\uFEFF'+matrix.map(row=>row.map(value=>'"'+String(value??'').replaceAll('"','""')+'"').join(',')).join('\n')+'\n';
 export function englishCodebook(pt,vocabulary){
   const meanings=field=>[...new Set(pt.rows.map(r=>r[field]))].sort().map(code=>`${code} = ${vocabulary[code]}`).join('; ')+'.';
   const revision=pt.meta.revisao;
