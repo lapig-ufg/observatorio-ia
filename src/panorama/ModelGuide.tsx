@@ -124,7 +124,7 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
   };
   const coverage = bench && launchData ? bench.top.filter((entry) => launchHref(entry.model, entry.company)).length : null;
   const fetched = data?.fetchedAt ? new Date(data.fetchedAt) : null;
-  const collected = fetched && Number.isFinite(fetched.getTime()) ? english ? fetched.toLocaleDateString("en-US", { timeZone: "UTC" }) : formatPublicDate(fetched.toISOString().slice(0, 10)) : "—";
+  const collected = fetched && Number.isFinite(fetched.getTime()) ? formatPublicDate(fetched.toISOString().slice(0, 10), english ? "en" : "pt") : "—";
 
   if (loading) return <div className="panorama-state" role="status"><LoaderCircle className="spinning" aria-hidden="true" size={24} />{english ? "Loading model benchmarks…" : "Carregando os testes dos modelos…"}</div>;
   if (error) return <div className="panorama-state panorama-state--error" role="alert"><p>{english ? "The benchmarks could not be loaded." : "Não foi possível carregar os benchmarks."}</p><button type="button" onClick={() => setAttempt((n) => n + 1)}>{english ? "Try again" : "Tentar de novo"}</button></div>;

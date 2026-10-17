@@ -159,7 +159,7 @@ function Overview({ data, go }: { data: SurveyData; go: (tab: string) => void })
             const ratio = indicator.compute(sub), value = percent(ratio);
             if (!ratio.total) return <td key={indicator.label} className="sv-heat-off">—</td>;
             if (ratio.total < 4) return <td key={indicator.label} className="sv-heat-off">{value}% <small>({ratio.count}/{ratio.total})</small></td>;
-            return <td key={indicator.label} style={{ background: `color-mix(in srgb, #23885a ${Math.round(6 + value * 0.6)}%, #ffffff)`, color: value >= 70 ? "#fff" : undefined }}>{value}% <small>({ratio.count}/{ratio.total})</small></td>;
+            return <td key={indicator.label} style={{ background: `color-mix(in srgb, #23885a ${Math.round(4 + value * 0.42)}%, #ffffff)` }}>{value}% <small>({ratio.count}/{ratio.total})</small></td>;
           })}</tr>;
         })}</tbody>
       </table></div>
@@ -248,7 +248,16 @@ function Entities({ data }: { data: SurveyData }) {
   const rows = useMemo(() => filterPolicies(data.rows, filters), [data.rows, filters]);
   // Lotes de 30 evitam uma página de dezenas de milhares de pixels no celular.
   const [limit, setLimit] = useState(30);
+  const focusFrom = useRef<number | null>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   useEffect(() => setLimit(30), [filters]);
+  // Depois de "Mostrar mais", o foco vai ao primeiro item novo, para o teclado seguir a leitura.
+  useEffect(() => {
+    if (focusFrom.current === null) return;
+    const toggles = listRef.current?.querySelectorAll<HTMLButtonElement>(".sv-row-toggle");
+    toggles?.[focusFrom.current]?.focus();
+    focusFrom.current = null;
+  }, [limit]);
   const types = useMemo(() => [...new Set(data.rows.map(row => row.tipo))], [data.rows]);
   const set = (key: keyof PolicyFilters) => (event: { target: { value: string } }) => setFilters(current => ({ ...current, [key]: event.target.value }));
   const active = Object.values(filters).some(Boolean);
@@ -263,8 +272,8 @@ function Entities({ data }: { data: SurveyData }) {
       <label><span>Abrangência</span><select value={filters.scope} onChange={set("scope")}><option value="">Todas</option><option value="br">Só Brasil</option><option value="int">Fora do Brasil</option></select></label>
     </div>
     <p className="sv-count" aria-live="polite">{rows.length} de {data.rows.length} entidades{active && <> · <button type="button" className="sv-link-button" onClick={() => setFilters({ query: "", area: "", type: "", gen: "", rev: "", scope: "" })}>Limpar filtros</button></>}</p>
-    <EntityTable rows={rows.slice(0, limit)} />
-    {rows.length > limit && <button type="button" className="sv-more" onClick={() => setLimit(current => current + 30)}>Mostrar mais {Math.min(30, rows.length - limit)} de {rows.length - limit} restantes</button>}
+    <div ref={listRef}><EntityTable rows={rows.slice(0, limit)} /></div>
+    {rows.length > limit && <button type="button" className="sv-more" onClick={() => { focusFrom.current = limit; setLimit(current => current + 30); }}>Mostrar mais {Math.min(30, rows.length - limit)} de {rows.length - limit} restantes</button>}
     <p className="sv-note">Clique no nome para ver a nota, o tratamento de imagens e a fonte.</p>
   </section>;
 }
@@ -373,7 +382,7 @@ export function PoliticasIAPage({ english = false }: { english?: boolean }) {
     window.location.hash = key ? `${SURVEY_BASE}/${key}` : SURVEY_BASE;
     tabsRef.current?.scrollIntoView({ block: "start" });
   };
-  return <section id="levantamento" className="sv-page panorama-page" aria-labelledby="sv-title">
+  return <section id="levantamento" className="sv-page panorama-page" aria-labelledby="sv-title" lang="pt-BR">
     <div className="panorama-intro pt-panorama-intro">
       <div className="panorama-heading">
         <p className="eyebrow">Levantamento do Observatório</p>

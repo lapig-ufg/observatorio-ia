@@ -393,3 +393,17 @@
   .pt-task-grid .pt-section-description { grid-row: 3; }
   .pt-task-grid .pt-section-metric { grid-row: 4; }
 }
+
+/* Vistoria 2 (Codex): órfãos em grades de duas colunas com conteúdo editorial fixo ocupam a linha toda. */
+.weekly-highlight-history-grid > :last-child:nth-child(odd),
+.panorama-reading-columns > :last-child:nth-child(odd),
+.panorama-catalog-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* Alvos de toque de 44 × 44 px no celular: lupa, busca da abertura, comparação do Panorama e rodapé. */
+@media (max-width: 767px) {
+  .pt-header-search { min-width: 44px; min-height: 44px; }
+  .pt-home-opening .pt-hero-search button { min-height: 44px; }
+  .guide-add { min-width: 44px; min-height: 44px; }
+  .panorama-detail-close, .guide-compare-close { min-width: 44px; min-height: 44px; justify-content: center; align-items: center; }
+  .pt-sitemap a, .pt-sitemap h2 a { min-height: 44px; }
+}

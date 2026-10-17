@@ -1776,18 +1776,52 @@ function DetailPopover({ detail, benchmarks, benchmarksPending, config, english,
 
 /* Folha inferior genérica do celular: fundo escurecido, fecha com Esc, X ou
    toque fora. O foco inicial e o retorno ficam a cargo de quem abre. */
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]:not([tabindex="-1"])';
+
 function Sheet({ label, onClose, children }: { label: string; onClose: () => void; children: ReactNode }) {
+  const sheet = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
+      // O foco circula dentro da folha: Tab no último volta ao primeiro, e vice-versa.
+      if (event.key === "Tab" && sheet.current) {
+        const items = [...sheet.current.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(item => item.offsetParent !== null);
+        if (!items.length) return;
+        const first = items[0], last = items[items.length - 1];
+        if (event.shiftKey && (document.activeElement === first || !sheet.current.contains(document.activeElement))) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && (document.activeElement === last || !sheet.current.contains(document.activeElement))) { event.preventDefault(); first.focus(); }
+      }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [onClose]);
+  // Enquanto a folha está aberta, o resto da página fica inerte e sem rolagem; ao fechar, o foco volta ao disparador.
+  useEffect(() => {
+    const trigger = document.activeElement as HTMLElement | null;
+    const inerted: Element[] = [];
+    for (let node: Element | null = sheet.current?.parentElement ?? null; node && node !== document.body; node = node.parentElement) {
+      for (const sibling of node.parentElement?.children ?? []) {
+        if (sibling !== node && !sibling.hasAttribute("inert")) { sibling.setAttribute("inert", ""); inerted.push(sibling); }
+      }
+    }
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    sheet.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+    return () => {
+      inerted.forEach(element => element.removeAttribute("inert"));
+      document.body.style.overflow = overflow;
+      // No toque o botão nem sempre recebe foco; sem disparador válido, volta-se ao botão de filtros.
+      requestAnimationFrame(() => {
+        if (trigger && trigger !== document.body && trigger.isConnected) trigger.focus();
+        else if (!document.activeElement || document.activeElement === document.body) document.querySelector<HTMLElement>(".panorama-filter-toggle")?.focus();
+      });
+    };
+  }, []);
 
   return (
     <div className="panorama-sheet-backdrop" onClick={onClose}>
       <div
+        ref={sheet}
         className="panorama-sheet"
         role="dialog"
         aria-modal="true"

@@ -15,3 +15,13 @@ export function pageAnchor(hash: string, english = false) {
 export function usableInitiativeLogo(width: number, height: number) {
   return width > 16 && height > 16;
 }
+
+// Depois de "Carregar mais", leva o foco ao primeiro item novo assim que ele aparecer na página.
+export function focusWhenReady(find: () => HTMLElement | null, tries = 20) {
+  const attempt = (left: number) => {
+    const target = find();
+    if (target) { target.focus(); target.scrollIntoView({ block: "center" }); return; }
+    if (left > 0) requestAnimationFrame(() => attempt(left - 1));
+  };
+  requestAnimationFrame(() => attempt(tries));
+}

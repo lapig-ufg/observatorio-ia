@@ -1,4 +1,5 @@
 import { BookOpen, CalendarDays, ChevronDown, LoaderCircle, Search, X, type LucideIcon } from "lucide-react";
+import { focusWhenReady } from "./pageNavigation";
 import { useMemo, type MouseEvent } from "react";
 import { useArchiveFilters, ShareSearch, ArchiveFilterDetails } from "./ArchiveControls";
 import { matchesSearch } from "./archiveSearch";
@@ -157,7 +158,7 @@ export function MediumReadingsPage({ articles, loading, error, english = false, 
       <div className="readings-results">
         <div className="readings-results-heading"><div><p className="eyebrow">{english ? "Matching readings" : "Leituras encontradas"}</p><h2 id="readings-results-title">{filtered.length.toLocaleString(english ? "en-US" : "pt-BR")} {english ? (filtered.length === 1 ? "text" : "texts") : (filtered.length === 1 ? "texto" : "textos")}</h2></div><span><CalendarDays size={16} aria-hidden="true" /> {year === all ? (english ? "all dates" : "todas as datas") : year}</span></div>
         <ShareSearch english={english} />{filtered.length ? <div className="article-grid readings-card-grid view-list">{filtered.slice(0, visible).map((article) => <div className="reading-card-wrap" key={article.id}><p className="reading-card-date">{formatReadingDate(article, english)}</p><CatalogCard article={article} english={english} layout="list" href={detailHref(article.id)} onOpen={onOpen} /></div>)}</div> : <div className="readings-empty"><Search size={28} aria-hidden="true" /><strong>{english ? "No reading found" : "Nenhuma leitura encontrada"}</strong><p>{english ? "Try another term or remove the filters." : "Tente outro termo ou remova os filtros."}</p><button type="button" onClick={reset}>{english ? "View the full collection" : "Ver toda a coleção"}</button></div>}
-        {visible < filtered.length && <button type="button" className="load-more readings-load-more" onClick={() => setVisible((value) => value + 6)}>{english ? "Load more readings" : "Carregar mais leituras"}</button>}
+        {visible < filtered.length && <button type="button" className="load-more readings-load-more" onClick={() => { const first = filtered[visible]; setVisible((value) => value + 6); focusWhenReady(() => document.getElementById(`summary-${first?.id}`)); }}>{english ? "Load more readings" : "Carregar mais leituras"}</button>}
       </div>
     </section>
   </section>;

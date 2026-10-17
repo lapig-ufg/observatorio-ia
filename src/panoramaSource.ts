@@ -46,7 +46,10 @@ export function fetchPanoramaSheet(tab: string, signal?: AbortSignal) {
     const cleanup = () => {
       window.clearTimeout(timeout);
       script.remove();
-      delete target[callbackName];
+      // Uma resposta já em trânsito ainda chama o nome do callback: deixamos um no-op por um minuto
+      // em vez de apagar o nome na hora, o que gerava ReferenceError ao trocar de aba depressa.
+      target[callbackName] = () => undefined;
+      window.setTimeout(() => { delete target[callbackName]; }, 60_000);
       signal?.removeEventListener("abort", onAbort);
     };
     const onAbort = () => {
