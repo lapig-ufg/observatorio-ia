@@ -7,6 +7,7 @@ import ts from 'typescript';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {buildPolicyEnglish,currentPolicyEnglish} from '../scripts/build-policy-english.mjs';
+import {EXPORT_FIELDS,ENGLISH_HEADERS,translateHistoricalChange,toCsv} from '../scripts/policy-export-data.mjs';
 const read=file=>JSON.parse(fs.readFileSync(file,'utf8'));
 const pt=read('public/levantamentos/politicas-ia/dados.json');
 const en=read('public/levantamentos/politicas-ia/dados-en.json');
@@ -95,9 +96,42 @@ test('as sete abas reais renderizam em inglês e português, sem lacunas de voca
       assert(html.length>1000,`${english}/${tab}`);
       assert(!html.includes('Missing policy UI translation'));
       if(english){assert(!html.includes('Onde declarar'));assert(!html.includes('Gerar texto'));assert(!html.includes('Fonte primária'));}
-      if(english&&tab==='metodo'){assert(html.includes('AI policies in scholarly publishing'));assert(html.includes('XLSX, Portuguese'));assert(html.includes('October'));}
+      if(tab==='metodo'){
+        assert(html.includes(`base-politicas-ia-2026-10${english?'-en':''}.csv`));
+        assert(html.includes(`base-politicas-ia-2026-10${english?'-en':''}.xlsx`));
+        if(english){assert(html.includes('AI policies in scholarly publishing'));assert(html.includes('English dataset and codebook (XLSX)'));assert(!html.includes('XLSX, Portuguese'));assert(html.includes('October'));}
+        else{assert(!html.includes('base-politicas-ia-2026-10-en.xlsx'));assert(!html.includes('base-politicas-ia-2026-10-en.csv'));}
+      }
     }
   }finally{globalThis.window=previous;}
+});
+
+test('exports ingleses preservam todos os códigos, fontes, 15 colunas, histórico e originais portugueses',async()=>{
+  // Use the production CSV parser, independently of the export serializer.
+  const {parseCsv}=await import(urlFor('src/catalog.ts'));
+  const dir='public/levantamentos/politicas-ia/';
+  const original=parseCsv(fs.readFileSync(dir+'base-politicas-ia-2026-10.csv','utf8').replace(/^\uFEFF/,''));
+  const translated=parseCsv(fs.readFileSync(dir+'base-politicas-ia-2026-10-en.csv','utf8').replace(/^\uFEFF/,''));
+  assert.equal(translated.length,pt.rows.length+1);assert.deepEqual(translated[0],ENGLISH_HEADERS);
+  for(let i=0;i<pt.rows.length;i++){
+    const row=translated[i+1],prior=original[i+1];assert.equal(row.length,15);
+    EXPORT_FIELDS.forEach((key,j)=>assert.equal(row[j],String(en.rows[i][key]??''),`${i}/${key}`));
+    EXPORT_FIELDS.forEach((key,j)=>assert.equal(prior[j],String(pt.rows[i][key]??''),`Original CSV diverges: ${i}/${key}`));
+    assert.equal(row[13],vocabulary[prior[13]]);
+    assert.equal(row[14],translateHistoricalChange(prior[14])??'');
+    const values=s=>s.split('; ').map(x=>x.slice(x.indexOf(': ')+2));
+    assert.deepEqual(values(row[14]),values(prior[14]),`Historical values changed: ${i}`);
+  }
+  const manifest=read(dir+'exports-en.json');
+  const digest=file=>createHash('sha256').update(fs.readFileSync(dir+file)).digest('hex');
+  assert.equal(manifest.sourceSha256,en.translation.sourceSha256);
+  assert.equal(manifest.sourceWorkbookSha256,digest('base-politicas-ia-2026-10.xlsx'));
+  assert.equal(manifest.csvSha256,digest('base-politicas-ia-2026-10-en.csv'));
+  assert.equal(manifest.xlsxSha256,digest('base-politicas-ia-2026-10-en.xlsx'));
+  assert.equal(manifest.rows,pt.rows.length);assert.equal(manifest.columns,15);
+  assert.deepEqual(manifest.sheets,['Dataset','Codebook']);
+  assert.equal(manifest.sourceCsvSha256,digest('base-politicas-ia-2026-10.csv'));
+  assert.equal(toCsv([['quote " and newline\n',null,0]]),'\uFEFF"quote "" and newline\n","","0"\r\n');
 });
 
 test('busca inglesa usa texto traduzido, mas os filtros e denominadores conservam códigos canônicos',async()=>{

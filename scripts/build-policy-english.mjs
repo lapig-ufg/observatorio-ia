@@ -52,7 +52,7 @@ export function buildPolicyEnglish(source, content, notes, vocabulary) {
     messages:content.messages,cross:content.cross,trends,brasil:content.brasil,checks:content.checks,guide,
     evidence:source.evidence.map((item,i)=>({...item,l:content.evidenceLabels[i],s:item.s.replace('set/2024','Sep 2024')})),
     metodo:content.metodo,
-    translation:{language:'en',sourceLanguage:'pt-BR',sourceSha256:content.sourceSha256,sourceReference:source.meta.referencia,kind:'editorial-not-official',preserved:['identities','codes','years','official-source-urls','evidence-values','review-dates'],sourceDownloadsLanguage:'pt-BR'}
+    translation:{language:'en',sourceLanguage:'pt-BR',sourceSha256:content.sourceSha256,sourceReference:source.meta.referencia,kind:'editorial-not-official',preserved:['identities','codes','years','official-source-urls','evidence-values','review-dates'],downloadsLanguage:'en',originalDownloadsLanguage:'pt-BR',auditHistoryLanguage:'pt-BR'}
   };
 }
 

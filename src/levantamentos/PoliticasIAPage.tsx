@@ -352,8 +352,8 @@ function Method({ data }: { data: SurveyData }) {
     <section className="sv-block" aria-labelledby="sv-data-title">
       <h2 id="sv-data-title">{t("Dados e citação")}</h2>
       <p className="sv-downloads">
-        <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-2026-10.csv`)} download onClick={() => download("csv")}><Download size={16} aria-hidden="true" />{t("Base codificada (CSV)")}</a>
-        <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-2026-10.xlsx`)} download onClick={() => download("xlsx")}><Download size={16} aria-hidden="true" />{t("Base codificada com livro de códigos (XLSX)")}</a>
+        <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-2026-10${english ? "-en" : ""}.csv`)} download onClick={() => download(english ? "csv-en" : "csv")}><Download size={16} aria-hidden="true" />{t("Base codificada (CSV)")}</a>
+        <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-2026-10${english ? "-en" : ""}.xlsx`)} download onClick={() => download(english ? "xlsx-en" : "xlsx")}><Download size={16} aria-hidden="true" />{t("Base codificada com livro de códigos (XLSX)")}</a>
         {english && <a href={siteAssetUrl(`${DATA_DIR}dados-en.json`)} download onClick={() => download("json-en")}><Download size={16} aria-hidden="true" />English reading dataset (JSON; original codes preserved)</a>}
       </p>
       <p><strong>{t("Como citar:")}</strong>{t(" Observatório UFG-IA (LAPIG/UFG). ")}<em>{t("Políticas de IA na publicação científica")}</em>{t(". Base de ")}{formatPublicDate(data.meta.referencia, english ? "en" : "pt")}{data.meta.revisao ? (english ? `; ${data.meta.revisao.status === "integral" ? "full" : "partial"} review dated ${formatPublicDate(data.meta.revisao.data, "en")}` : `; revisão ${data.meta.revisao.status} de ${formatPublicDate(data.meta.revisao.data, "pt")}`) : ""}.</p>

@@ -1,0 +1,47 @@
+{
+  "language": "en",
+  "kind": "editorial-not-official",
+  "rows": 149,
+  "columns": 15,
+  "sheets": [
+    "Dataset",
+    "Codebook"
+  ],
+  "sourceSha256": "e779174e569a70760ce865dcbae84968c8995d25eaf529ff785e189f167f0cc9",
+  "sourceCsvSha256": "250e895f469a41aa389ecc3c6161979eb17b93452989e578ddb4eed9afc43cf6",
+  "sourceWorkbookSha256": "e5c14a8a75315a1f9dbb1ec83c04f82cf2606fa2178c85d5c2b6a2cfbe338254",
+  "fields": [
+    "nome",
+    "tipo",
+    "area",
+    "sub",
+    "geo",
+    "ano",
+    "gen",
+    "loc",
+    "rev",
+    "img",
+    "verif",
+    "url",
+    "nota"
+  ],
+  "headers": [
+    "Entity",
+    "Type (source code)",
+    "Broad field (code)",
+    "Subfield",
+    "Geographical scope (source code)",
+    "Document year",
+    "Author text generation (source code)",
+    "Disclosure location (source code)",
+    "AI in peer review (source code)",
+    "Images (source code)",
+    "Verification (code)",
+    "Source (URL)",
+    "Note",
+    "Broad field",
+    "Historical change v4 → v5"
+  ],
+  "csvSha256": "15a2c914f89dadd849e4a78dd3ad19bd2add9b515827615aac5a730c4971b521",
+  "xlsxSha256": "0c0ede80d71b58edc425b570b8ee6666f6a145a2ba9e77adf99d27745e4c6faa"
+}

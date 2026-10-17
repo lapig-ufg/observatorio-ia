@@ -2642,7 +2642,7 @@
     ],
     [
       "Dataset and traceability",
-      "JSON, CSV and XLSX derive from the same dataset. The XLSX preserves its codebook and historical v4 → v5 column; the public 17 October history documents current corrections and unresolved records without reproducing full pages. The audited source workbook, CSV and detailed audit history remain in Portuguese, explicitly labelled; the English website translates all narrative sections and entity notes. Official source names and URLs are preserved."
+      "JSON, CSV and XLSX derive from the same dataset. English CSV/XLSX downloads translate headers, notes, field descriptions and the codebook, preserving entity identities, numerical values, years, official URLs and original categorical codes. The English codebook explains those stable source codes. The XLSX also preserves the historical v4 → v5 column, with translated field labels and unchanged before/after codes. Portuguese originals remain available on the Portuguese website. The detailed 17 October audit history remains in Portuguese and documents the current corrections and scope limits without reproducing full pages. These are editorial translations, not official translations of institutional policies."
     ]
   ],
   "meta": {
@@ -2672,6 +2672,8 @@
       "evidence-values",
       "review-dates"
     ],
-    "sourceDownloadsLanguage": "pt-BR"
+    "downloadsLanguage": "en",
+    "originalDownloadsLanguage": "pt-BR",
+    "auditHistoryLanguage": "pt-BR"
   }
 }
