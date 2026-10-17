@@ -21,14 +21,14 @@
       "area": "SAU",
       "sub": "Publicação médica",
       "geo": "Internacional",
-      "ano": 2023,
+      "ano": null,
       "gen": "Permitida",
       "loc": "Múltiplos",
       "rev": "Condicionado",
       "img": "Não trata",
       "verif": "P",
       "url": "https://www.icmje.org/recommendations/browse/artificial-intelligence/ai-use-by-authors.html",
-      "nota": "Declarar na carta e no trabalho; IA não é fonte primária."
+      "nota": "As recomendações distinguem autoria, parecer e edição. Autores devem declarar o uso na carta de apresentação e na seção pertinente do manuscrito, verificar exatidão, plágio e referências; IA não é autora nem fonte primária. Pareceristas seguem a política do periódico ou pedem autorização prévia e declaram o uso. Manuscritos não podem ser enviados a sistemas sem confidencialidade assegurada salvo a permissão expressa aplicável. O texto inclui imagens na responsabilidade autoral, mas não estabelece aqui uma política específica de permissão de imagens. Ano da versão consultada não explicitado."
     },
     {
       "nome": "WAME",
@@ -53,12 +53,12 @@
       "geo": "Internacional",
       "ano": 2025,
       "gen": "Permitida",
-      "loc": "Submissão/carta",
+      "loc": "Múltiplos",
       "rev": "Condicionado",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://www.cse-scienceeditor.org/article/cse-guidance-on-machine-learning-and-artificial-intelligence-tools/",
-      "nota": "Guia 2023: declarar em pergunta da submissão ou na carta. Recomendações §2.1.15 (atualiz. 26/12/2025): declarar na submissão inicial; nenhuma parte de manuscrito ou parecer em chatbot público."
+      "url": "https://www.councilscienceeditors.org/2-1-editor-roles-and-responsibilities",
+      "nota": "Seção 2.1.15 atualizada em 26 de dezembro de 2025. Recomenda políticas explícitas e revisão anual; autores, revisores e editores devem divulgar ferramenta e finalidade, exceto usos básicos de gramática/ortografia. Autores declaram na submissão ao periódico e aos leitores, com responsabilidade integral. Nenhuma parte do manuscrito ou parecer pode ser inserida em chatbot/LLM público; decisões editoriais não podem depender apenas de sínteses/recomendações geradas. Recomenda que cada periódico especifique regras para texto, imagens e demais usos; não estabelece permissão universal de imagens."
     },
     {
       "nome": "EASE",
@@ -103,7 +103,7 @@
       "img": "Não trata",
       "verif": "P",
       "url": "https://research-and-innovation.ec.europa.eu/document/download/2b6cf7e5-36ac-41cb-aab5-0d32050143dc_en?filename=ec_rtd_ai-guidelines.pdf",
-      "nota": "3ª versão (maio/2026); evitar uso substancial em revisão; alerta para prompts ocultos."
+      "nota": "Quarta edição, outubro de 2026. Diretrizes de responsabilidade e transparência, sem criar novos requisitos legais. Pesquisadores permanecem responsáveis e devem declarar usos substanciais conforme as regras disciplinares, editoriais, institucionais e de fomento; correção técnica menor geralmente dispensa declaração. Na avaliação, apoio limitado somente quando autorizado: pode esclarecer conceitos ou linguagem, mas não redigir pareceres nem avaliar mérito científico. Não fixa seção universal de declaração nem regra específica de imagens."
     },
     {
       "nome": "STM — classificação de usos de IA",
@@ -117,8 +117,8 @@
       "rev": "Não trata",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://niso.org/niso-io/2025/09/stm-releases-recommendations-classification-ai-use-manuscript-preparation",
-      "nota": "9 categorias; não fixa regras."
+      "url": "https://s3.eu-west-2.amazonaws.com/stm.offloadmedia/wp-content/uploads/2025/04/23020709/STM_AI_Classification_Recs_19_Sept2025-1.pdf",
+      "nota": "Quadro final de setembro de 2025 com nove classes de uso na preparação de manuscritos. Distingue redação, tradução, formatação de dados/código, ilustração, visualização e referências. Não harmoniza nem determina permissões ou locais de declaração: essas decisões cabem às editoras e comunidades. Não regula uso de IA como método de pesquisa nem fornece norma própria de pareceristas. Identificar um uso na classificação não significa autorizá-lo."
     },
     {
       "nome": "ISTIC + editoras globais (China)",
@@ -133,7 +133,7 @@
       "img": "Restritas",
       "verif": "P",
       "url": "https://www.lib.szu.edu.cn/sites/szulib/files/2025-06/%E5%AD%A6%E6%9C%AF%E5%87%BA%E7%89%88%E4%B8%ADAIGC%E4%BD%BF%E7%94%A8%E8%BE%B9%E7%95%8C%E6%8C%87%E5%8D%972.0.pdf",
-      "nota": "Veda gerar hipóteses, artigo inteiro e conclusões; exige prompts na declaração."
+      "nota": "Guia AIGC 2.0 elaborado pelo ISTIC com editoras parceiras; não substitui a política individual de cada editora/periódico. Admite apoio à redação e apresentação de dados reais, sob responsabilidade humana, e pede descrição de ferramenta, versão, usos e partes afetadas em Métodos ou Agradecimentos. Pareceristas só podem usar apoio permitido pela revista, sem enviar manuscritos confidenciais à ferramenta. Proíbe fabricar imagens experimentais e usar IA em resumos gráficos; arte de capa exige autorização prévia e direitos. Ano normativo não explicitado no documento consultado."
     },
     {
       "nome": "American Chemical Society (ACS)",
@@ -223,7 +223,7 @@
       "img": "Não trata",
       "verif": "A",
       "url": "https://www.amstat.org/docs/default-source/amstat-documents/asa-statement-on-ethical-ai-principles-for-statistical-practitioners.pdf",
-      "nota": "Princípios éticos; sem regra de autoria."
+      "nota": "Declaração de 8 de outubro de 2024 sobre responsabilidade, transparência e equidade no desenvolvimento e uso de IA por profissionais de estatística. Não estabelece neste documento uma regra editorial de autoria, local de declaração, pareceres ou imagens; remete a orientações mais específicas para publicações. A codificação de ausência se limita à fonte examinada, não a todos os periódicos associados."
     },
     {
       "nome": "Optica (ex-OSA)",
@@ -261,14 +261,14 @@
       "area": "EXA",
       "sub": "Computação/linguagem",
       "geo": "Internacional",
-      "ano": 2023,
+      "ano": null,
       "gen": "Permitida",
-      "loc": "Não especifica",
+      "loc": "Múltiplos",
       "rev": "Condicionado",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://2023.aclweb.org/blog/ACL-2023-policy/",
-      "nota": "Espectro de usos; revisores não geram 1º rascunho."
+      "url": "https://www.aclweb.org/adminwiki/index.php/ACL_Policy_on_Publication_Ethics",
+      "nota": "Política central vigente: IA não é autora; usos de geração de conteúdo, inclusive réplicas, devem ser apropriados e declarados em Agradecimentos, com verificação e atribuição. Correção simples de linguagem e sugestões curtas dispensam. No ARR, também informar no Responsible NLP Checklist; código pode ser documentado no README. Pareceristas leem integralmente e escrevem o próprio primeiro rascunho e argumentos; podem obter apoio responsável de linguagem ou provas, mas não enviar manuscritos ou pareceres a ferramentas sem privacidade. Sem norma específica de imagens nesta seção; consultar exigências da trilha."
     },
     {
       "nome": "NeurIPS",
@@ -276,14 +276,14 @@
       "area": "EXA",
       "sub": "Computação/IA",
       "geo": "Internacional",
-      "ano": 2025,
+      "ano": 2026,
       "gen": "Permitida",
       "loc": "Sem exigência p/ redação",
       "rev": "Condicionado",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://neurips.cc/Conferences/2025/LLM",
-      "nota": "LLM como método no setup experimental."
+      "url": "https://neurips.cc/Conferences/2026/MainTrackHandbook",
+      "nota": "Main Track 2026: autores podem usar ferramentas sob responsabilidade integral; agentes/LLMs como componente metodológico importante, original ou não padrão devem ser descritos no desenho experimental/equivalente. Correções linguísticas e apoio básico de código dispensam relato. Pareceristas só podem usar o LLM autorizado via OpenReview nos artigos especificamente elegíveis ao experimento; nos demais, não. A confidencialidade permanece obrigatória. Outras trilhas e workshops têm regras distintas, inclusive restrições de redação; a regra não é universal para todo o evento."
     },
     {
       "nome": "ICML 2026",
@@ -297,8 +297,8 @@
       "rev": "Condicionado",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://blog.icml.cc/?p=1167",
-      "nota": "Políticas A/B; 497 artigos rejeitados por revisores infratores."
+      "url": "https://icml.cc/Conferences/2026/LLM-Policy",
+      "nota": "ICML 2026 admite IA na escrita/pesquisa sob responsabilidade dos autores e incentiva explicar usos metodológicos relevantes; não fixa declaração universal para redação. Não admite IA como autora e proíbe prompt injection. Revisão: A proíbe LLMs, com exceção de uso inadvertido em ferramentas tradicionais; B permite compreensão, busca de trabalhos e polimento em sistemas com privacidade, mas não delegar crítica, resumir o artigo ou redigir o parecer. Autor e revisor são vinculados ao regime atribuído. Não há nesta norma regra específica de imagens."
     },
     {
       "nome": "SBC — Sociedade Brasileira de Computação",
@@ -533,12 +533,12 @@
       "geo": "Brasil",
       "ano": null,
       "gen": "Permitida",
-      "loc": "Seção própria",
+      "loc": "Múltiplos",
       "rev": "Condicionado",
       "img": "Restritas",
-      "verif": "P",
+      "verif": "H",
       "url": "https://seer.ufu.br/index.php/revistabrasileiracartografia/about/submissions",
-      "nota": "Adota política Elsevier; item obrigatório na submissão."
+      "nota": "A RBC declara adotar a política Elsevier e exige confirmar a declaração de IA na submissão. Pela norma adotada, preparação do manuscrito pede seção dedicada e uso metodológico pede Métodos; correções básicas têm dispensas. Imagens explicativas e visualizações de dados têm condições distintas de imagens primárias; não fabricar dados. Revisão: somente apoio humano sob sigilo, ferramentas privadas e declaração conforme a norma geral. Adoção documentada, não inferência pela editora."
     },
     {
       "nome": "Rev. Brasileira de Geomorfologia (UGB)",
@@ -653,12 +653,12 @@
       "geo": "EUA",
       "ano": null,
       "gen": "Restrita",
-      "loc": "Seção própria",
-      "rev": "Vedado",
+      "loc": "Múltiplos",
+      "rev": "Não trata",
       "img": "Restritas",
       "verif": "P",
       "url": "https://www.asbmb.org/journals/editorial-policies",
-      "nota": "Só melhorar texto existente; figuras com IA em regra vedadas."
+      "nota": "Nos periódicos ASBMB, IA só pode melhorar texto já existente; código para análise deve ser relatado nos procedimentos experimentais. Redação assistida pede seção dedicada antes das referências; checagens básicas são dispensadas. Figuras são em regra vedadas, salvo método reprodutível ou capa com autorização prévia. A política editorial e a página de revisão consultadas não estabelecem regra específica de GenAI para pareceristas; isso não é permissão."
     },
     {
       "nome": "ASPB (The Plant Cell)",
@@ -861,14 +861,14 @@
       "area": "ENG",
       "sub": "Pesquisa operacional",
       "geo": "EUA",
-      "ano": 2023,
+      "ano": null,
       "gen": "Permitida",
       "loc": "Agradecimentos",
-      "rev": "Vedado",
+      "rev": "Condicionado",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://connect.informs.org/discussion/generative-artificial-intelligence-ai-policy-for-reviewers-associate-editors-department-editors-editors-for-informs-journals",
-      "nota": "'Authors are permitted to use generative AI'; declarar em Agradecimentos; revisores e editores vedados."
+      "url": "https://pubsonline.informs.org/authorportal/publication-ethics",
+      "nota": "O portal institucional permite IA sob responsabilidade humana e exige declaração em Agradecimentos com ferramenta e natureza do auxílio. A norma geral de revisão permite apoio somente se o sistema não retiver, compartilhar ou treinar com o conteúdo e cumprir integralmente o sigilo. A proibição citada no fórum de 2023 tratava do IJOC e não deve ser generalizada a todos os títulos; consultar também a regra específica da revista. Fabricação de dados é proibida. A fonte geral não fixa uma regra específica de imagens; ano da versão não explicitado."
     },
     {
       "nome": "Engenharia Sanitária e Ambiental (ABES)",
@@ -1108,7 +1108,7 @@
       "img": "Restritas",
       "verif": "P",
       "url": "https://www.scielo.br/journal/csp/about/#instructions",
-      "nota": "Só legibilidade/linguagem; sem IA em figuras/tabelas."
+      "nota": "Instruções operacionais PT/EN: escrita assistida para legibilidade/linguagem, com controle humano e declaração em Métodos. Figuras, quadros e tabelas não podem ser criados/alterados por IA, salvo quando a IA integra o desenho ou método, descrito de modo reprodutível. A seção operacional de revisão não dá regra específica de GenAI para pareceristas. O editorial 40(11) discute usos mais amplos; não se interpreta essa discussão como dispensa das instruções vigentes."
     },
     {
       "nome": "Rev. Brasileira de Enfermagem (ABEn)",
@@ -1118,12 +1118,12 @@
       "geo": "Brasil",
       "ano": null,
       "gen": "Permitida",
-      "loc": "Seção própria",
+      "loc": "Múltiplos",
       "rev": "Não trata",
-      "img": "Não trata",
+      "img": "Permitidas c/ declaração",
       "verif": "P",
       "url": "https://www.scielo.br/journal/reben/about/#instructions",
-      "nota": "Seção sob Métodos."
+      "nota": "Adota recomendações COPE e remete a WAME/JAMA. Deve descrever em Métodos o uso e todos os prompts para texto, adaptações, ilustrações ou tabelas. Para análises, resultados ou código, informar também no Resumo, incluindo prompt completo, ferramenta, versão, data e horário. Referências: IA limitada à normalização. As instruções contemplam ilustrações com declaração, mas isso não autoriza fabricar dados. Não foi localizada nesta página regra própria específica sobre uso de IA por pareceristas."
     },
     {
       "nome": "Revista de Saúde Pública (USP)",
@@ -1178,12 +1178,12 @@
       "geo": "EUA",
       "ano": 2026,
       "gen": "Restrita",
-      "loc": "Seção própria",
+      "loc": "Múltiplos",
       "rev": "Vedado",
       "img": "Restritas",
       "verif": "P",
       "url": "https://www.sciencesocieties.org/publications/journals/author-resources/editorial-policies",
-      "nota": "Só linguagem; nenhum uso por revisores e editores."
+      "nota": "Atualizada em 30 de junho de 2026. Na escrita, IA apenas como apoio à legibilidade/linguagem, com controle humano; proíbe criar/alterar dados e resultados originais. Declarar na submissão e em seção própria antes das referências, com ferramenta, versão e validação; ferramentas básicas de gramática, ortografia e referências dispensam. A regra de escrita não regula uso como método de análise. Revisores e editores não podem usar IA generativa na avaliação nem enviar manuscritos a essas ferramentas."
     },
     {
       "nome": "ADSA (J. Dairy Science)",
@@ -1221,14 +1221,14 @@
       "area": "AGR",
       "sub": "Zootecnia",
       "geo": "Brasil",
-      "ano": null,
+      "ano": 2024,
       "gen": "Restrita",
-      "loc": "Seção própria",
+      "loc": "Múltiplos",
       "rev": "Não trata",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://www.scielo.br/journal/rbz/about/?ilang=en",
-      "nota": "Não endossa IA para criar conteúdo."
+      "url": "https://rbz.org.br/wp-content/uploads/2024/06/Instructions-to-authors-RBZ-2024.pdf",
+      "nota": "Diretrizes revisadas em maio de 2024: não endossa criação de conteúdo; admite apoio à linguagem, fluência e organização sob supervisão humana. Declarar na carta e na seção dedicada após Apoio financeiro, indicando natureza/extensão do uso. Nas seções de avaliação e figuras examinadas, não há regra específica de GenAI para pareceristas ou imagens; não inferir autorização."
     },
     {
       "nome": "Scientia Agricola (USP/ESALQ)",
@@ -1283,12 +1283,12 @@
       "geo": "Brasil",
       "ano": null,
       "gen": "Permitida",
-      "loc": "Não especifica",
-      "rev": "Não trata",
+      "loc": "Múltiplos",
+      "rev": "Condicionado",
       "img": "Não trata",
-      "verif": "P",
+      "verif": "H",
       "url": "https://www.scielo.br/journal/rarv/about/?ilang=en",
-      "nota": "Adere ao Guia SciELO (que pede Resumo + Métodos), sem regra própria detalhada."
+      "nota": "A página do periódico, em PT e EN, adota expressamente o Guia SciELO como boas práticas; não detalha regra própria de IA. O guia preliminar de 14/9/2023 pede relato no Resumo e em Métodos/equivalente e documentação no parecer, com proteção de confidencialidade. Exigências operacionais do título devem ser confirmadas; a herança aqui deriva dessa adoção expressa, não apenas da indexação SciELO. O guia não fixa norma específica para imagens."
     },
     {
       "nome": "Ciência Rural (UFSM)",
@@ -1298,12 +1298,12 @@
       "geo": "Brasil",
       "ano": null,
       "gen": "Restrita",
-      "loc": "Seção própria",
+      "loc": "Múltiplos",
       "rev": "Não trata",
       "img": "Restritas",
       "verif": "P",
       "url": "https://www.scielo.br/journal/cr/about/",
-      "nota": "Sem IA para escrever, resumo, palavras-chave, hipóteses ou conclusão; revisão de redação e melhoria de imagens com declaração; IA como método em M&M."
+      "nota": "Não admite IA para redigir o manuscrito, resumo, palavras-chave, hipóteses ou conclusão. Permite revisão linguística e melhoria de imagens sem inserir/remover elementos que alterem a interpretação, sob supervisão e declaração em seção adequada. IA integrada à metodologia deve ser descrita reprodutivelmente em Materiais e Métodos. A página não fixa título único da declaração nem regra própria de pareceristas."
     },
     {
       "nome": "Rev. Bras. Eng. Agrícola e Ambiental",
@@ -1378,7 +1378,7 @@
       "img": "Não trata",
       "verif": "P",
       "url": "https://www.aom.org/publications/journals/publishing-with-aom/aom-artificial-intelligence-policy",
-      "nota": "Declarar uso em cada etapa."
+      "nota": "Autores podem usar IA sob responsabilidade humana e devem informar seu uso em cada etapa, confirmar verificação dos resultados e fornecer detalhes se solicitados. Para periódicos, informar modelo e finalidade na carta de apresentação e nos agradecimentos; para o encontro anual, na folha de rosto. Pareceristas podem melhorar a clareza do próprio texto, mas não gerar pareceres nem enviar manuscritos, figuras ou dados à IA; editores também preservam sigilo dos pareceres. A etapa de apresentação inclui figuras, mas não há aqui política específica separada de imagens."
     },
     {
       "nome": "National Communication Association",
@@ -1389,11 +1389,11 @@
       "ano": 2026,
       "gen": "Permitida",
       "loc": "Não especifica",
-      "rev": "Condicionado",
+      "rev": "Não trata",
       "img": "Não trata",
       "verif": "P",
       "url": "https://www.natcom.org/wp-content/uploads/2026/02/Guidance-on-AI-Use-for-Submitters.pdf",
-      "nota": "Política associativa em votação (nov/2026)."
+      "nota": "Orientação para submissões à convenção NCA, vigente no ciclo 2026; não é uma política universal de todos os periódicos da associação. Recomenda transparência sobre usos substanciais e consulta às exigências da unidade/divisão; correções menores geralmente dispensam declaração. Autores respondem por originalidade, fatos e referências, e não devem inserir dados confidenciais ou pessoais em plataformas públicas. Não especifica seção única nem regra própria de pareceristas ou imagens; menciona visualizações entre usos a declarar."
     },
     {
       "nome": "AALS (Direito)",
@@ -1446,14 +1446,14 @@
       "area": "SOC",
       "sub": "Economia/direito",
       "geo": "Reino Unido",
-      "ano": 2024,
-      "gen": "Restrita",
-      "loc": "Não especifica",
+      "ano": null,
+      "gen": "Vedada",
+      "loc": "Múltiplos",
       "rev": "Não trata",
-      "img": "Não trata",
+      "img": "Restritas",
       "verif": "P",
-      "url": "https://elgar.blog/2024/11/19/academic-writing-in-the-age-of-ai-benefits-risks-and-ethics",
-      "nota": "Conteúdo substantivo gerado por IA não permitido."
+      "url": "https://www.e-elgar.com/author-hub/as-you-write-your-book-or-chapter/",
+      "nota": "Norma para livros/capítulos: não permite redigir, reescrever ou parafrasear texto com GenAI; admite verificadores linguísticos limitados. Uso além de apoio menor deve ser declarado na proposta, checklist e manuscrito quando exigido. Não incluir imagens geradas sem discutir previamente com o editor; vedado fabricar/manipular dados ou imagens originais. A página não estabelece regra específica de IA para pareceristas. Sem data normativa explícita."
     },
     {
       "nome": "RAC (ANPAD)",
@@ -1506,14 +1506,14 @@
       "area": "HUM",
       "sub": "Psicologia",
       "geo": "EUA",
-      "ano": null,
+      "ano": 2025,
       "gen": "Permitida",
-      "loc": "Métodos",
-      "rev": "Não trata",
-      "img": "Não trata",
+      "loc": "Múltiplos",
+      "rev": "Condicionado",
+      "img": "Permitidas c/ declaração",
       "verif": "P",
       "url": "https://www.apa.org/pubs/journals/resources/publishing-tips/policy-generative-ai",
-      "nota": "Declarar em Métodos e citar."
+      "nota": "Página criada em novembro de 2023 e atualizada em agosto de 2025. A regra geral pede declaração e citação em Métodos; a orientação detalhada distingue Introdução, Métodos, nota do autor ou seção da figura conforme o uso, sujeita às exigências do editor. Autores verificam informação e referências e preservam registros e prompts. Editores e pareceristas não podem inserir materiais submetidos em IA generativa por confidencialidade. A orientação contempla criação/edição de figuras com declaração, sem dispensar validação ou autorizar fabricação de dados."
     },
     {
       "nome": "AERA",
@@ -1543,7 +1543,7 @@
       "img": "Não trata",
       "verif": "P",
       "url": "https://www.aag.org/statement-of-professional-ethics/",
-      "nota": "Código de ética profissional."
+      "nota": "Código de ética profissional: geógrafos devem reconhecer, documentar cuidadosamente e justificar como e por que utilizaram IA em pesquisa, ensino, propostas e correspondência. A regra não determina seção única para manuscritos, nem instruções específicas de IA por pareceristas ou para imagens sintéticas. Responsabilidade, privacidade e confidencialidade da pesquisa continuam obrigatórias; consultar a revista para exigências editoriais adicionais."
     },
     {
       "nome": "American Historical Association",
@@ -1603,7 +1603,7 @@
       "img": "Não trata",
       "verif": "P",
       "url": "https://ajps.org/ajps-ai-policy/",
-      "nota": "Não declarar = motivo de recusa."
+      "nota": "Política do American Journal of Political Science, periódico da Midwest Political Science Association publicado pela Wiley; não é regra geral da APSA. Atualização de 11 de agosto de 2026. Declaração consolidada em nota de rodapé deve refletir o questionário de submissão, identificar ferramenta, tarefa e supervisão; usos mínimos não generativos são dispensados. Falha em declarar pode motivar recusa. Pareceristas não enviam manuscritos à IA, mas podem organizar ideias e melhorar o próprio texto sem conteúdo confidencial e devem declarar apoio à redação. Imagens figuram nos usos a declarar, sem regra específica de permissão nesta página."
     },
     {
       "nome": "American Philosophical Association",
@@ -1662,8 +1662,8 @@
       "rev": "Não trata",
       "img": "Restritas",
       "verif": "P",
-      "url": "https://utpress.utexas.edu/generative-ai-policy-for-authors",
-      "nota": "Limite de 5% de texto gerado."
+      "url": "https://utpress.utexas.edu/generative-ai-policy-for-authors/",
+      "nota": "Política de maio de 2025: não aceita obra com 5% ou mais da contagem total de palavras escritos/gerados por IA. Autores devem informar o editor ao concordar com a submissão para revisão e incluir declaração no início da obra, descrevendo usos em texto, imagens, gráficos e tabelas; cada uso deve ser citado. Imagens geradas exigem aprovação prévia da Press. Revistas individuais podem ter diretrizes próprias. A página não estabelece regra de uso de IA por pareceristas."
     },
     {
       "nome": "Rev. Brasileira de Ciências Sociais (ANPOCS)",
@@ -1737,8 +1737,8 @@
       "rev": "Condicionado",
       "img": "Restritas",
       "verif": "H",
-      "url": "https://prc.springeropen.com/",
-      "nota": "Descontinuada da coleção SciELO (out/2026); publicada pela SpringerOpen — política Springer Nature herdada; cláusula própria não localizada."
+      "url": "https://link.springer.com/journal/41155/submission-guidelines",
+      "nota": "O link de políticas editoriais do próprio periódico encaminha às políticas Springer, cuja seção de IA estabelece avaliação por risco para autores, revisores e editores. Apoio assistivo é permitido; uso interpretativo exige supervisão, verificação e transparência. Não se pode delegar julgamento, fabricar dados ou criar deepfakes fotorealistas. Revisores não enviam conteúdo a IA pública/insegura. Não há seção universal de declaração nem data normativa explícita. A herança foi conferida no encaminhamento do título; consultar suas instruções próprias."
     },
     {
       "nome": "Modern Language Association (MLA)",
@@ -1764,11 +1764,11 @@
       "ano": null,
       "gen": "Permitida",
       "loc": "Múltiplos",
-      "rev": "Não trata",
+      "rev": "Vedado",
       "img": "Permitidas c/ declaração",
       "verif": "P",
       "url": "https://www.cambridge.org/core/journals/proceedings-of-the-linguistic-society-of-america/information/author-instructions/preparing-your-materials",
-      "nota": ""
+      "nota": "Norma do Proceedings of the Linguistic Society of America, não de todas as publicações da LSA. Declarar texto/tradução em Agradecimentos ou nota, dados em Métodos e imagens nas legendas, com ferramenta, versão, datas e descrição; usos mínimos não generativos dispensam. Pareceres devem resultar da escrita e do julgamento do revisor; apoio limitado a correção mínima não generativa. Manuscrito e parecer não podem ser compartilhados com IA; a própria página pede consulta prévia ao editor sobre compartilhamento."
     },
     {
       "nome": "College Art Association (CAA)",
@@ -1797,8 +1797,8 @@
       "rev": "Condicionado",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://www.scielo.br/journal/delta/about/#instructions",
-      "nota": "IA pode apoiar revisores em checagens técnicas."
+      "url": "https://revistas.pucsp.br/delta/about/submissions",
+      "nota": "Política própria nas normas de submissão: autores devem garantir originalidade e contribuição e explicitar a extensão do envolvimento de IA. Geração, análise ou qualquer outro uso devem ser informados em Materiais e Métodos. Na revisão, IA pode apoiar identificação de plágio, inconsistências e aspectos técnicos, sem substituir a decisão humana. Dados pessoais devem obedecer diretrizes de privacidade e anonimização. Não estabelece regra específica de imagens nem data normativa explícita."
     },
     {
       "nome": "Rev. Brasileira de Linguística Aplicada",
@@ -1866,14 +1866,14 @@
       "area": "MUL",
       "sub": "Multidisciplinar",
       "geo": "Internacional",
-      "ano": 2025,
+      "ano": null,
       "gen": "Permitida",
       "loc": "Múltiplos",
       "rev": "Condicionado",
       "img": "Restritas",
       "verif": "P",
-      "url": "https://www.wiley.com/en-us/publishing/article/ai-guidelines",
-      "nota": ""
+      "url": "https://authors.wiley.com/ethics-guidelines/index.html",
+      "nota": "Uso responsável como apoio, não substituto do julgamento humano. Uso substancial, desenvolvimento ou tradução devem ser declarados na submissão e integrados ao manuscrito; correção ortográfica, gramatical e edição geral são dispensadas. Ilustrações e visualizações são possíveis, com restrições para fotografias; confirmar detalhes e regra do título. Pareceristas podem apenas melhorar clareza/linguagem do próprio parecer, declarando ao editor, sem enviar manuscrito, figuras ou tabelas nem delegar a avaliação."
     },
     {
       "nome": "Taylor & Francis",
@@ -1918,7 +1918,7 @@
       "img": "Restritas",
       "verif": "P",
       "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals",
-      "nota": ""
+      "nota": "Política para autores atualizada em 13 de julho de 2026; requisitos próprios do periódico prevalecem. Usos substanciais, tradução, código e visualização geralmente exigem declaração na carta e nos Agradecimentos, também em Métodos quando integrarem o método, com ferramenta, versão, finalidade e supervisão. Correção linguística simples e formatação de referências dispensam. Ilustrações e resumos gráficos podem ser admitidos com declaração; é proibido fabricar resultados ou criar/alterar imagens científicas factuais. Os princípios gerais exigem responsabilidade e confidencialidade de autores, revisores e editores; verificar instruções específicas de revisão do título."
     },
     {
       "nome": "Cambridge University Press",
@@ -1933,7 +1933,7 @@
       "img": "Não trata",
       "verif": "P",
       "url": "https://www.cambridge.org/core/services/publishing-ethics/authorship-and-contributorship-journals",
-      "nota": ""
+      "nota": "Autores devem declarar e explicar o uso de IA, não a listar como autora, assegurar integridade, atribuição e originalidade e observar exigências adicionais do periódico. A página geral não fixa seção universal de declaração nem regra específica para imagens. Na revisão, compartilhar manuscritos ou propostas com LLMs constitui quebra de confidencialidade e má conduta; políticas próprias dos títulos podem ser mais restritivas."
     },
     {
       "nome": "De Gruyter Brill",
@@ -1973,12 +1973,12 @@
       "geo": "Suíça",
       "ano": null,
       "gen": "Permitida",
-      "loc": "Não especifica",
+      "loc": "Múltiplos",
       "rev": "Condicionado",
-      "img": "Não trata",
+      "img": "Permitidas c/ declaração",
       "verif": "P",
-      "url": "https://www.frontiersin.org/about/policies-and-publication-ethics",
-      "nota": ""
+      "url": "https://www.frontiersin.org/guidelines/policies-and-publication-ethics",
+      "nota": "Texto gerado deve ser declarado em Agradecimentos; conteúdo textual ou visual produzido/editado com IA também em Métodos quando pertinente, com ferramenta, versão, modelo e fonte. Figuras são admitidas sob verificação de fidelidade aos dados e ausência de plágio; recomenda preservar prompts e saídas em suplementos. Manuscritos não podem ser enviados a ferramentas externas. Pareceristas dispõem de apoio interno seguro, sem delegar decisão editorial; eventual uso externo exige discussão e aprovação prévia e divulgação aos autores."
     },
     {
       "nome": "PLOS",
@@ -1993,7 +1993,7 @@
       "img": "Permitidas c/ declaração",
       "verif": "P",
       "url": "https://journals.plos.org/plosone/s/ethical-publishing-practice",
-      "nota": ""
+      "nota": "Permite apoio à pesquisa e à redação, com responsabilidade humana e sem fabricação de dados. Declarar ferramenta, finalidade, partes afetadas e validação em Métodos, Agradecimentos ou legenda pertinente. Correção/reformulação linguística e carta de apresentação dispensam declaração; tradução é recomendada, não obrigatória. Pareceristas e editores não enviam submissões nem resumos confidenciais à IA e não a usam para resumir ou avaliar o manuscrito; apoio geral ou linguístico sem conteúdo confidencial é possível e deve ser declarado no parecer/decisão. Imagens ilustrativas são admitidas com legenda e validação, sem deturpar resultados primários."
     },
     {
       "nome": "F1000Research",
@@ -2068,7 +2068,7 @@
       "img": "Não trata",
       "verif": "A",
       "url": "https://www.scielo.br/journal/aabc/about/#instructions",
-      "nota": "Seção de IA declara a política 'em estudo' (16/10/2026)."
+      "nota": "Na seção específica de IA, consultada em PT e EN em 17 de outubro de 2026, o periódico informa que está estudando quais usos/contextos serão permitidos para atualizar sua política editorial. Esta informação não autoriza irrestritamente a geração de conteúdo e não especifica local de declaração, uso por pareceristas ou imagens. A codificação de ausência limita-se à política publicada examinada."
     },
     {
       "nome": "SBPC",
@@ -2127,8 +2127,8 @@
       "rev": "Vedado",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-25-132.html",
-      "nota": "Proposta substancialmente gerada por IA não é original; 6 propostas/ano."
+      "url": "https://www.grants.nih.gov/grants/guide/notice-files/NOT-OD-25-132.html",
+      "nota": "NOT-OD-25-132, de 17/7/2025, vigente para submissões a partir de 25/9/2025: propostas ou seções substancialmente desenvolvidas por IA não são consideradas ideias originais dos proponentes; apoio limitado pode ser apropriado, sem limiar percentual definido. Não é norma de redação de artigos. NOT-OD-23-149, de 23/6/2023, proíbe IA generativa para analisar/formular pareceres de propostas; exceções de acessibilidade exigem consulta prévia ao responsável federal. Não fixa local de declaração autoral nem política específica de imagens nessas fontes."
     },
     {
       "nome": "NSF",
@@ -2181,14 +2181,14 @@
       "area": "MUL",
       "sub": "Fomento",
       "geo": "Alemanha",
-      "ano": 2025,
+      "ano": 2026,
       "gen": "N/A",
       "loc": "—",
       "rev": "Condicionado",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://www.ufz.de/export/data/2/308041_de_K%C3%BCnstliche%20Intelligenz%20in%20der%20wissenschaftlichen%20Begutachtung.%20Position%20und%20Perspektiven%20der%20DFG.pdf",
-      "nota": "Pareceristas: só sistemas seguros."
+      "url": "https://www.dfg.de/resource/blob/393362/forschung-2026-01.pdf",
+      "nota": "Diretriz aprovada em dezembro de 2025, publicada/liberada em 2026. Na avaliação de propostas, IA só apoia o trabalho: julgamento e recomendação permanecem humanos. Exige anuência dos envolvidos, confidencialidade e sistemas locais, institucionais ou nuvem com garantias contratuais e configurações que impeçam retenção/treinamento indevidos. Declarar finalidade e extensão do apoio à DFG; correção técnica sem efeito científico dispensa. Responsabilidade e validação do parecer são pessoais. O registro não classifica redação autoral de artigos nem política específica de imagens."
     },
     {
       "nome": "MOST (China)",
@@ -2213,12 +2213,12 @@
       "geo": "EUA",
       "ano": 2025,
       "gen": "Permitida",
-      "loc": "Não especifica",
-      "rev": "Não trata",
+      "loc": "Submissão/carta",
+      "rev": "Condicionado",
       "img": "Não trata",
       "verif": "P",
       "url": "https://wennergren.org/ai-policy/",
-      "nota": ""
+      "nota": "Política de 19/03/2025. Proponentes são fortemente encorajados a declarar uso em seção confidencial da proposta, invisível aos revisores, com ferramentas, prompts e verificação; não é obrigação geral. Revisores não podem enviar propostas, rascunhos de parecer, notas ou avaliações a GenAI, mesmo com promessa de não treinamento, nem tentar detectar uso pelo proponente. Sem regra específica para imagens nesta página."
     },
     {
       "nome": "FAPESP / CAPES / FAPEG",
@@ -2270,7 +2270,7 @@
     ],
     [
       "Cobertura explicitamente parcial",
-      "No teste de 17/10/2026, 58 de 149 registros tiveram os quatro eixos reconciliados; 40 receberam correções de codificação ou descrição e 91 continuam pendentes. Não se atribui data de mudança normativa sem versão oficial."
+      "No teste de 17/10/2026, 97 de 149 registros tiveram os quatro eixos reconciliados; 77 receberam correções de codificação ou descrição e 52 continuam pendentes. Não se atribui data de mudança normativa sem versão oficial."
     ]
   ],
   "cross": [
@@ -2280,11 +2280,11 @@
     ],
     [
       "Geração de texto",
-      "98 Permitida; 20 Restrita; 8 Vedada; 19 Sem regra; 4 N/A. Os códigos sintetizam a política de escrita; não substituem suas exceções nem a regra sobre IA como método."
+      "98 Permitida; 19 Restrita; 9 Vedada; 19 Sem regra; 4 N/A. Os códigos sintetizam a política de escrita; não substituem suas exceções nem a regra sobre IA como método."
     ],
     [
       "Revisão por pares",
-      "66 registros condicionam o uso, 15 o vedam e 68 não têm disposição codificada. Apoio linguístico e julgamento científico são tarefas diferentes."
+      "69 registros condicionam o uso, 14 o vedam e 66 não têm disposição codificada. Apoio linguístico e julgamento científico são tarefas diferentes."
     ],
     [
       "Imagens",
@@ -2296,7 +2296,7 @@
     ],
     [
       "Brasil",
-      "28/36 periódicos com cláusula (78% da amostra); 10/36 com disposição codificada para revisores. Os denominadores são a amostra identificada, não uma estimativa nacional."
+      "28/36 periódicos com cláusula (78% da amostra); 11/36 com disposição codificada para revisores. Os denominadores são a amostra identificada, não uma estimativa nacional."
     ]
   ],
   "trends": {
@@ -2307,37 +2307,37 @@
         "**Base codificada na área:** 24 Permitida; 0 Restrita; 2 Vedada; 3 Sem regra; 1 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
         "**Revisão:** 18 registros com uso condicionado, 3 com vedação e 9 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
         "**Imagens:** 18 de 30 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 16 de 31 registros da área. Fontes reconciliadas incluem American Chemical Society (ACS); American Physical Society (APS); London Mathematical Society; SIAM; Optica (ex-OSA)."
+        "**Reconfirmação em 17/10/2026:** 21 de 31 registros da área. Fontes reconciliadas incluem American Chemical Society (ACS); American Physical Society (APS); London Mathematical Society; SIAM; American Statistical Association."
       ],
       "brasil": "3 de 4 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 16/31 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 21/31 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     },
     "BIO": {
       "sub": "Biologia geral, Genética, Botânica, Zoologia, Ecologia, Morfologia, Fisiologia, Bioquímica, Biofísica, Farmacologia, Imunologia, Microbiologia, Parasitologia",
       "headline": "Edição linguística, integridade das imagens e revisão precisam de leitura separada",
       "trends": [
         "**Base codificada na área:** 6 Permitida; 6 Restrita; 0 Vedada; 1 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
-        "**Revisão:** 4 registros com uso condicionado, 1 com vedação e 8 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
+        "**Revisão:** 4 registros com uso condicionado, 0 com vedação e 9 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
         "**Imagens:** 9 de 13 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 5 de 13 registros da área. Fontes reconciliadas incluem Ecological Society of America (ESA); American Society for Microbiology (ASM); Genetics and Molecular Biology (SBG); Brazilian Journal of Biology; Biota Neotropica."
+        "**Reconfirmação em 17/10/2026:** 6 de 13 registros da área. Fontes reconciliadas incluem Ecological Society of America (ESA); American Society for Microbiology (ASM); ASBMB (JBC, MCP, JLR); Genetics and Molecular Biology (SBG); Brazilian Journal of Biology."
       ],
       "brasil": "3 de 4 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 5/13 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 6/13 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     },
     "ENG": {
       "sub": "Engenharias civil, de minas, de materiais, química, nuclear, sanitária, de produção, mecânica, elétrica, biomédica, naval, aeroespacial e de transportes",
       "headline": "IEEE e ASME exemplificam regras distintas dentro da mesma área",
       "trends": [
         "**Base codificada na área:** 6 Permitida; 0 Restrita; 1 Vedada; 1 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
-        "**Revisão:** 2 registros com uso condicionado, 1 com vedação e 5 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
+        "**Revisão:** 3 registros com uso condicionado, 0 com vedação e 5 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
         "**Imagens:** 2 de 8 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 5 de 8 registros da área. Fontes reconciliadas incluem IEEE; ASME; IET (livros); Rev. Brasileira de Recursos Hídricos (ABRHidro); Gestão & Produção."
+        "**Reconfirmação em 17/10/2026:** 6 de 8 registros da área. Fontes reconciliadas incluem IEEE; ASME; IET (livros); INFORMS; Rev. Brasileira de Recursos Hídricos (ABRHidro)."
       ],
       "brasil": "2 de 3 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 5/8 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 6/8 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     },
     "SAU": {
       "sub": "Medicina, Odontologia, Farmácia, Enfermagem, Nutrição, Saúde Coletiva, Fonoaudiologia, Fisioterapia e Terapia Ocupacional, Educação Física",
@@ -2345,64 +2345,64 @@
       "trends": [
         "**Base codificada na área:** 15 Permitida; 2 Restrita; 0 Vedada; 0 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
         "**Revisão:** 6 registros com uso condicionado, 3 com vedação e 8 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
-        "**Imagens:** 10 de 17 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 5 de 20 registros da área. Fontes reconciliadas incluem JAMA Network (AMA); BMJ; Thieme; Karger; Wolters Kluwer / Lippincott."
+        "**Imagens:** 11 de 17 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
+        "**Reconfirmação em 17/10/2026:** 11 de 20 registros da área. Fontes reconciliadas incluem ICMJE; JAMA Network (AMA); BMJ; Thieme; Karger."
       ],
       "brasil": "5 de 5 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 5/20 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 11/20 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     },
     "AGR": {
       "sub": "Agronomia, Recursos Florestais e Engenharia Florestal, Engenharia Agrícola, Zootecnia, Medicina Veterinária, Recursos Pesqueiros, Ciência e Tecnologia de Alimentos",
       "headline": "Uso como método de pesquisa não se confunde com gerar o manuscrito",
       "trends": [
         "**Base codificada na área:** 3 Permitida; 5 Restrita; 0 Vedada; 3 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
-        "**Revisão:** 1 registros com uso condicionado, 1 com vedação e 9 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
+        "**Revisão:** 2 registros com uso condicionado, 1 com vedação e 8 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
         "**Imagens:** 5 de 11 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 3 de 11 registros da área. Fontes reconciliadas incluem ADSA (J. Dairy Science); Scientia Agricola (USP/ESALQ); Pesquisa Veterinária Brasileira."
+        "**Reconfirmação em 17/10/2026:** 7 de 11 registros da área. Fontes reconciliadas incluem ASA–CSSA–SSSA; ADSA (J. Dairy Science); Rev. Brasileira de Zootecnia (SBZ); Scientia Agricola (USP/ESALQ); Revista Árvore."
       ],
       "brasil": "5 de 8 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 3/11 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 7/11 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     },
     "SOC": {
       "sub": "Direito, Administração, Turismo, Economia, Arquitetura e Urbanismo, Planejamento Urbano e Regional, Demografia, Ciência da Informação, Museologia, Comunicação, Serviço Social, Desenho Industrial",
       "headline": "Sociedade, periódico e editora não têm necessariamente a mesma regra",
       "trends": [
-        "**Base codificada na área:** 7 Permitida; 1 Restrita; 2 Vedada; 1 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
-        "**Revisão:** 4 registros com uso condicionado, 3 com vedação e 4 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
-        "**Imagens:** 4 de 11 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 5 de 11 registros da área. Fontes reconciliadas incluem AEA / American Economic Review; CSWE (Serviço Social); RAC (ANPAD); RAE (FGV EAESP); Revista de Economia Política."
+        "**Base codificada na área:** 7 Permitida; 0 Restrita; 3 Vedada; 1 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
+        "**Revisão:** 3 registros com uso condicionado, 3 com vedação e 5 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
+        "**Imagens:** 5 de 11 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
+        "**Reconfirmação em 17/10/2026:** 8 de 11 registros da área. Fontes reconciliadas incluem AEA / American Economic Review; Academy of Management (AOM); National Communication Association; CSWE (Serviço Social); Edward Elgar."
       ],
       "brasil": "3 de 3 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 5/11 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 8/11 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     },
     "HUM": {
       "sub": "Filosofia, Sociologia, Antropologia, Arqueologia, História, Geografia, Psicologia, Educação, Ciência Política, Teologia",
       "headline": "Texto, imagens e elaboração intelectual exigem distinções explícitas",
       "trends": [
         "**Base codificada na área:** 6 Permitida; 1 Restrita; 3 Vedada; 6 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
-        "**Revisão:** 4 registros com uso condicionado, 1 com vedação e 11 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
-        "**Imagens:** 5 de 16 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 4 de 17 registros da área. Fontes reconciliadas incluem Current Anthropology / AAA; Rev. Brasileira de Ciências Sociais (ANPOCS); Educação & Sociedade (CEDES); Revista Brasileira de História (ANPUH)."
+        "**Revisão:** 5 registros com uso condicionado, 1 com vedação e 10 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
+        "**Imagens:** 6 de 16 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
+        "**Reconfirmação em 17/10/2026:** 10 de 17 registros da área. Fontes reconciliadas incluem American Psychological Association; American Association of Geographers; Current Anthropology / AAA; APSA / AJPS; University of Texas Press."
       ],
       "brasil": "4 de 5 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 4/17 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 10/17 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     },
     "LLA": {
       "sub": "Linguística, Letras, Artes",
       "headline": "Apoio à escrita não elimina declaração nem responsabilidade pela análise",
       "trends": [
         "**Base codificada na área:** 4 Permitida; 1 Restrita; 0 Vedada; 1 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
-        "**Revisão:** 2 registros com uso condicionado, 0 com vedação e 4 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
+        "**Revisão:** 2 registros com uso condicionado, 1 com vedação e 3 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
         "**Imagens:** 3 de 6 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 2 de 6 registros da área. Fontes reconciliadas incluem Rev. Brasileira de Linguística Aplicada; Alfa: Revista de Linguística (UNESP)."
+        "**Reconfirmação em 17/10/2026:** 4 de 6 registros da área. Fontes reconciliadas incluem Linguistic Society of America (PLSA); DELTA (Linguística); Rev. Brasileira de Linguística Aplicada; Alfa: Revista de Linguística (UNESP)."
       ],
       "brasil": "3 de 3 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 2/6 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 4/6 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     },
     "MUL": {
       "sub": "Editoras e periódicos multidisciplinares, academias, redes de indexação e entidades gerais",
@@ -2410,12 +2410,12 @@
       "trends": [
         "**Base codificada na área:** 15 Permitida; 1 Restrita; 0 Vedada; 2 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
         "**Revisão:** 13 registros com uso condicionado, 0 com vedação e 5 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
-        "**Imagens:** 12 de 18 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 13 de 32 registros da área. Fontes reconciliadas incluem COPE; EASE; ALLEA — Código Europeu de Integridade; Elsevier; Springer Nature."
+        "**Imagens:** 13 de 18 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
+        "**Reconfirmação em 17/10/2026:** 24 de 32 registros da área. Fontes reconciliadas incluem COPE; CSE; EASE; ALLEA — Código Europeu de Integridade; Comissão Europeia — ERA Living Guidelines."
       ],
       "brasil": "0 de 1 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 13/32 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 24/32 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     }
   },
   "brasil": [
@@ -2425,7 +2425,7 @@
     "**Declaração:** a Scientia Agricola pede Métodos e declaração antes das referências; não foi confirmada a exigência de declaração negativa antes atribuída. Na Educação & Sociedade, o uso auxiliar é mencionado ao final, sem título obrigatório de seção.",
     "**SciELO:** o guia preliminar de 14/09/2023 orienta transparência no Resumo e em Métodos ou equivalente. Adoção e exceções devem ser confirmadas nas instruções do periódico; o guia não prova regra idêntica em toda a rede.",
     "**CNPq e demais agências:** referências de periódicos a uma Portaria não substituem a leitura da norma oficial. O acesso direto à fonte CNPq não foi concluído neste teste; o registro anterior permanece sem recertificação. O agregado FAPESP/CAPES/FAPEG também exige verificação separada.",
-    "**Cobertura:** 17/36 periódicos brasileiros reconciliados nesta revisão. Não tratar códigos históricos A ou NL como ausência reconfirmada em 17/10."
+    "**Cobertura:** 28/36 periódicos brasileiros reconciliados nesta revisão. Não tratar códigos históricos A ou NL como ausência reconfirmada em 17/10."
   ],
   "checks": [
     "**Destino e papel:** ler as regras do periódico/evento para o tipo de artigo e para seu papel. A política geral da editora não prova, sozinha, a regra operacional de todo título.",
@@ -2610,7 +2610,7 @@
     ],
     [
       "Revisão manual de 17/10/2026",
-      "58 de 149 registros foram reconciliados nos quatro eixos; 40 receberam correções de codificação ou descrição e 91 permanecem pendentes. Todos os registros foram inventariados. Fonte localizada, HTTP 200 ou resultado de busca não equivalem a norma conferida. A data integral de 16/10 foi preservada."
+      "97 de 149 registros foram reconciliados nos quatro eixos; 77 receberam correções de codificação ou descrição e 52 permanecem pendentes. Todos os registros foram inventariados. Fonte localizada, HTTP 200 ou resultado de busca não equivalem a norma conferida. A data integral de 16/10 foi preservada."
     ],
     [
       "Amostra",
@@ -2651,11 +2651,11 @@
       "data": "2026-10-17",
       "status": "parcial",
       "inventory": 149,
-      "verified": 58,
-      "changed": 40,
-      "unresolved": 91,
+      "verified": 97,
+      "changed": 77,
+      "unresolved": 52,
       "history": "levantamentos/politicas-ia/revisao-2026-10-17.json",
-      "finishedAt": "2026-10-17T19:17:14.436Z"
+      "finishedAt": "2026-10-17T20:05:18.384Z"
     }
   }
 }

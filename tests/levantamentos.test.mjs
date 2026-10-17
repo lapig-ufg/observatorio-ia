@@ -16,7 +16,7 @@ test("os dados publicados batem com a base do levantamento", () => {
   const csv = fs.readFileSync("public/levantamentos/politicas-ia/base-politicas-ia-2026-10.csv", "utf8").trim().split(/\r?\n/);
   assert.equal(csv.length - 1, data.rows.length);
   const gen = survey.countBy(data.rows, row => row.gen);
-  assert.deepEqual([gen.get("Permitida"), gen.get("Restrita"), gen.get("Vedada"), gen.get("Sem regra"), gen.get("N/A")], [98, 20, 8, 19, 4]);
+  assert.deepEqual([gen.get("Permitida"), gen.get("Restrita"), gen.get("Vedada"), gen.get("Sem regra"), gen.get("N/A")], [98, 19, 9, 19, 4]);
 });
 
 test("periódicos brasileiros com regra seguem o texto do levantamento (28 de 36)", () => {
@@ -89,6 +89,10 @@ test("divergências de revisão, imagens e declaração não regressam", () => {
   assert.equal(data.rows.find(row => row.nome === "Current Anthropology / AAA").loc, "Múltiplos");
   assert.equal(data.rows.find(row => row.nome === "Scientia Agricola (USP/ESALQ)").loc, "Múltiplos");
   assert.equal(data.rows.find(row => row.nome === "Thieme").img, "Restritas");
+  assert.equal(data.rows.find(row => row.nome === "INFORMS").rev, "Condicionado");
+  assert.equal(data.rows.find(row => row.nome === "Edward Elgar").gen, "Vedada");
+  assert.equal(data.rows.find(row => row.nome === "Rev. Brasileira de Cartografia (SBC-Cartografia)").verif, "H");
+  assert.equal(data.rows.find(row => row.nome === "Rev. Brasileira de Zootecnia (SBZ)").loc, "Múltiplos");
 });
 
 test("a página revalida a base para não combinar interface nova com políticas antigas em cache", () => {
