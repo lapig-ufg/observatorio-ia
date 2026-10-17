@@ -642,8 +642,8 @@
       "rev": "Não trata",
       "img": "Permitidas c/ declaração",
       "verif": "P",
-      "url": "https://www.embopress.org/page/journal/14602075/authorguide",
-      "nota": "Uso 'primarily restricted' a estilo e qualidade; declaração no artigo publicado."
+      "url": "https://link.springer.com/partners/embo-press/editorial-policies",
+      "nota": "Uso principalmente restrito a melhorar estilo, acessibilidade e qualidade do texto e das imagens humanos, com verificação e responsabilidade dos autores. Declarar no artigo as partes assistidas e as ferramentas, sem seção geral fixa. Uso em coleta/análise deve constar em Métodos; dados sintéticos exigem identificação no texto, figura e Métodos, sem falsificar evidência experimental. Ilustração e visualização podem ser admitidas com declaração e atribuição. As seções de revisão consultadas exigem sigilo, mas não estabelecem disposição específica sobre IA; Não trata não significa autorização."
     },
     {
       "nome": "ASBMB (JBC, MCP, JLR)",
@@ -1209,11 +1209,11 @@
       "ano": null,
       "gen": "Permitida",
       "loc": "Múltiplos",
-      "rev": "Não trata",
-      "img": "Não trata",
+      "rev": "Condicionado",
+      "img": "Permitidas c/ declaração",
       "verif": "P",
-      "url": "https://academic.oup.com/jas/pages/General_Instructions",
-      "nota": "Carta + Métodos/Agradecimentos."
+      "url": "https://academic.oup.com/jas/pages/author-guidelines",
+      "nota": "Regra própria do Journal of Animal Science: declarar uso de IA para conteúdo, imagens, código, dados ou tradução tanto na carta quanto em Métodos ou Agradecimentos; IA não é autora. Imagens assistidas exigem declaração e não podem falsificar dados. Os princípios gerais OUP aplicam responsabilidade e proteção do sigilo a revisores e editores; uso condicionado não autoriza delegar julgamento científico nem expor manuscritos a serviços externos. As exigências específicas do periódico prevalecem sobre a orientação geral para autores."
     },
     {
       "nome": "Rev. Brasileira de Zootecnia (SBZ)",
@@ -2270,7 +2270,7 @@
     ],
     [
       "Cobertura explicitamente parcial",
-      "No teste de 17/10/2026, 103 de 149 registros tiveram os quatro eixos reconciliados; 83 receberam correções de codificação ou descrição e 46 continuam pendentes. Não se atribui data de mudança normativa sem versão oficial."
+      "No teste de 17/10/2026, 105 de 149 registros tiveram os quatro eixos reconciliados; 85 receberam correções de codificação ou descrição e 44 continuam pendentes. Não se atribui data de mudança normativa sem versão oficial."
     ]
   ],
   "cross": [
@@ -2284,7 +2284,7 @@
     ],
     [
       "Revisão por pares",
-      "70 registros condicionam o uso, 14 o vedam e 65 não têm disposição codificada. Apoio linguístico e julgamento científico são tarefas diferentes."
+      "71 registros condicionam o uso, 14 o vedam e 64 não têm disposição codificada. Apoio linguístico e julgamento científico são tarefas diferentes."
     ],
     [
       "Imagens",
@@ -2320,11 +2320,11 @@
         "**Base codificada na área:** 6 Permitida; 6 Restrita; 0 Vedada; 1 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
         "**Revisão:** 4 registros com uso condicionado, 0 com vedação e 9 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
         "**Imagens:** 9 de 13 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 6 de 13 registros da área. Fontes reconciliadas incluem Ecological Society of America (ESA); American Society for Microbiology (ASM); ASBMB (JBC, MCP, JLR); Genetics and Molecular Biology (SBG); Brazilian Journal of Biology."
+        "**Reconfirmação em 17/10/2026:** 7 de 13 registros da área. Fontes reconciliadas incluem Ecological Society of America (ESA); American Society for Microbiology (ASM); EMBO Press; ASBMB (JBC, MCP, JLR); Genetics and Molecular Biology (SBG)."
       ],
       "brasil": "3 de 4 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 6/13 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 7/13 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     },
     "ENG": {
       "sub": "Engenharias civil, de minas, de materiais, química, nuclear, sanitária, de produção, mecânica, elétrica, biomédica, naval, aeroespacial e de transportes",
@@ -2357,13 +2357,13 @@
       "headline": "Uso como método de pesquisa não se confunde com gerar o manuscrito",
       "trends": [
         "**Base codificada na área:** 3 Permitida; 5 Restrita; 0 Vedada; 3 Sem regra; 0 N/A. Organismos transversais e agências de fomento ficam fora dessas comparações.",
-        "**Revisão:** 2 registros com uso condicionado, 1 com vedação e 8 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
-        "**Imagens:** 5 de 11 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
-        "**Reconfirmação em 17/10/2026:** 7 de 11 registros da área. Fontes reconciliadas incluem ASA–CSSA–SSSA; ADSA (J. Dairy Science); Rev. Brasileira de Zootecnia (SBZ); Scientia Agricola (USP/ESALQ); Revista Árvore."
+        "**Revisão:** 3 registros com uso condicionado, 1 com vedação e 7 sem disposição codificada. Condições devem ser lidas na nota e na fonte.",
+        "**Imagens:** 6 de 11 registros comparáveis têm regra codificada; ilustrações conceituais não equivalem a dados experimentais.",
+        "**Reconfirmação em 17/10/2026:** 8 de 11 registros da área. Fontes reconciliadas incluem ASA–CSSA–SSSA; ADSA (J. Dairy Science); ASAS (J. Animal Science); Rev. Brasileira de Zootecnia (SBZ); Scientia Agricola (USP/ESALQ)."
       ],
       "brasil": "5 de 8 periódicos brasileiros da área têm regra na base combinada. A situação de cada registro consta no histórico da revisão; não se presume reconfirmação integral das ausências.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Revisão parcial: 7/11 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
+      "confianca": "Revisão parcial: 8/11 registros reconciliados nos quatro eixos em 17/10; demais preservados sem nova certificação. Amostra intencional e codificação assistida por IA, sem extração independente em duplicata."
     },
     "SOC": {
       "sub": "Direito, Administração, Turismo, Economia, Arquitetura e Urbanismo, Planejamento Urbano e Regional, Demografia, Ciência da Informação, Museologia, Comunicação, Serviço Social, Desenho Industrial",
@@ -2610,7 +2610,7 @@
     ],
     [
       "Revisão manual de 17/10/2026",
-      "103 de 149 registros foram reconciliados nos quatro eixos; 83 receberam correções de codificação ou descrição e 46 permanecem pendentes. Todos os registros foram inventariados. Fonte localizada, HTTP 200 ou resultado de busca não equivalem a norma conferida. A data integral de 16/10 foi preservada."
+      "105 de 149 registros foram reconciliados nos quatro eixos; 85 receberam correções de codificação ou descrição e 44 permanecem pendentes. Todos os registros foram inventariados. Fonte localizada, HTTP 200 ou resultado de busca não equivalem a norma conferida. A data integral de 16/10 foi preservada."
     ],
     [
       "Amostra",
@@ -2651,11 +2651,11 @@
       "data": "2026-10-17",
       "status": "parcial",
       "inventory": 149,
-      "verified": 103,
-      "changed": 83,
-      "unresolved": 46,
+      "verified": 105,
+      "changed": 85,
+      "unresolved": 44,
       "history": "levantamentos/politicas-ia/revisao-2026-10-17.json",
-      "finishedAt": "2026-10-17T20:17:33.281Z"
+      "finishedAt": "2026-10-17T20:35:31.679Z"
     }
   }
 }
