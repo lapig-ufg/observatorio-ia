@@ -1,0 +1,138 @@
+{
+  "collection": "medium",
+  "dateBasis": "included",
+  "start": "2026-10-11",
+  "end": "2026-10-17",
+  "reviewedAt": "2026-10-17",
+  "expectedCount": 44,
+  "title": {
+    "pt": "A nova escassez: verificar o que os agentes produzem",
+    "en": "The new scarcity: verifying what agents produce"
+  },
+  "summary": {
+    "pt": "As 44 leituras incorporadas nesta curadoria apontam para uma tensão comum: gerar código, relatórios e decisões fica mais rápido, mas verificar, integrar e assumir responsabilidade continua custoso. Segurança de agentes, escolhas de arquitetura e custo real por tarefa dominam a seleção; pesquisa, aprendizagem e design acrescentam a pergunta sobre o que não convém delegar. Há propostas promissoras de ferramentas e modelos especializados, ao lado de previsões de mercado e relatos individuais que não são evidência causal. O sinal a acompanhar neste recorte é a mudança de uma corrida por volume produzido para sistemas com critérios explícitos de qualidade, controle e utilidade. Esta é uma tendência da seleção editorial, não uma medição representativa do mundo da IA.",
+    "en": "The 44 readings added through this curation point to a common tension: generating code, reports and decisions becomes faster, while verification, integration and accountability remain costly. Agent security, architecture choices and actual task costs dominate the selection; research, learning and design add the question of what should not be delegated. Promising specialized tools and models coexist with market forecasts and personal accounts that are not causal evidence. The development to watch within this corpus is a move from output volume toward systems with explicit quality, control and usefulness criteria. This is a pattern in the editorial selection, not a representative measurement of the AI world."
+  },
+  "method": {
+    "pt": "Síntese baseada na leitura integral autenticada de 44 originais e na curadoria concluída em 17/10/2026. Universo fixado às 07:33:32 de Brasília: candidatos observados na Fila, capturados de 11 a 16/10; a coleta não registra hora por linha, portanto não se alega cobertura do restante do sábado. O período acima é o da incorporação/curadoria, não o da publicação original: há textos de julho a outubro, com datas individuais preservadas e diferenças entre publicação e edição conferidas. Todos foram deduplicados contra fila, descartados e catálogo PT/EN. Os seis eixos usam a taxonomia canônica; cada texto está ligado abaixo. São artigos não científicos, com opinião, relatos, tutoriais e divulgação comercial identificados nas fichas, não revisão sistemática nem censo de tendências.",
+    "en": "Briefing based on authenticated full reading of 44 originals and curation completed on 17 October 2026. The candidate universe was frozen at 07:33:32 Brasília time: observed queue items captured on 11–16 October; capture rows lack times, so no coverage of the remainder of Saturday is claimed. The period above refers to addition and curation, not original publication: texts range from July to October, with individual dates preserved and publication distinguished from modification. All were deduplicated against the queue, discarded items and PT/EN catalogs. The six themes follow the canonical taxonomy, with every text linked below. These are non-scientific articles containing opinion, accounts, tutorials and commercial promotion identified in their summaries, not a systematic review or census of trends."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Agentes, RAG e aplicações",
+        "en": "Agents, RAG and applications"
+      },
+      "summary": {
+        "pt": "A autonomia é tratada como propriedade de um sistema, não apenas do modelo. As leituras convergem em verificadores, isolamento, limites de ferramentas, registros independentes e revisão proporcional ao risco. Experimentos com jogos e empresas fictícias mostram que latência, estrutura dos dados e critérios de sucesso podem importar mais que contexto adicional. Guias de MCP e mods ampliam possibilidades, mas também superfície de acesso; são exemplos a avaliar, não autorização para instalar ou autoaprovar ações. A tendência desta seleção é deslocar o foco da demonstração para fronteiras testáveis e responsabilidade operacional.",
+        "en": "Autonomy is treated as a system property rather than a model feature alone. The readings converge on verifiers, isolation, bounded tools, independent records and risk-proportionate review. Experiments with games and fictional businesses show how latency, data structure and success criteria can matter more than additional context. MCP and mod guides expand possibilities but also access surfaces; they are examples to assess, not authorization to install or automatically approve actions. The direction within this selection is a shift from demonstrations toward testable boundaries and operational accountability."
+      },
+      "sourceIds": [
+        "medium-6c67441297b5",
+        "medium-68c751ac54ca",
+        "medium-7897a4ca78d6",
+        "medium-23e33270911b",
+        "medium-78f6fbe2f28a",
+        "medium-c9673655b5aa",
+        "medium-79f2039441c6",
+        "medium-d86747d33840",
+        "medium-6552ec3dbb81",
+        "medium-e8c6c2f81275",
+        "medium-5a04846aa813",
+        "medium-c778df176349",
+        "medium-1f87281cf92e",
+        "medium-563e5ee17976",
+        "medium-b48a34c9887d",
+        "medium-29ee6064200c",
+        "medium-733559d6d019"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Estratégia, mercado e impactos",
+        "en": "Strategy, market and impacts"
+      },
+      "summary": {
+        "pt": "Comparativos de modelos passam do preço por token ao custo por tarefa, incluindo raciocínio, consumo de saída, contexto e sucesso completo. Holo4 exemplifica a importância do pós-treinamento, do harness e das licenças, sem equivaler a uma pilha soberana. Ensaios sobre software, financiamento e gestão contrapõem aceleração técnica a concentração, filas de decisão e capacidade humana de aprovação. Essas leituras misturam medições externas, relatos, publicidade e previsões pessoais; sua convergência editorial não prova colapso de setores ou retorno financeiro. O ponto a acompanhar é quem captura valor e quem assume o custo da verificação.",
+        "en": "Model comparisons move from token prices toward task costs, including reasoning, output consumption, context and complete success. Holo4 illustrates post-training, harness and licensing importance without constituting a sovereign stack. Essays on software, financing and management contrast technical acceleration with concentration, decision queues and human approval capacity. These readings mix external measurements, accounts, promotion and personal forecasts; their editorial convergence does not prove industry collapse or financial returns. The issue to watch is who captures value and who bears verification costs."
+      },
+      "sourceIds": [
+        "medium-9a94cc8359fc",
+        "medium-ba0175b34165",
+        "medium-21e0e51ece2c",
+        "medium-de7543c82694",
+        "medium-738cf585ac4b",
+        "medium-f5aeb16f6d40",
+        "medium-19b55dff28cb",
+        "medium-914de0050d5c",
+        "medium-0b7f104f09d0",
+        "medium-47e264f00658"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aprendizado, pesquisa e produtividade",
+        "en": "Learning, research and productivity"
+      },
+      "summary": {
+        "pt": "As propostas de pesquisa e estudo combinam fontes verificáveis, crítica adversarial, relatórios citados, quizzes e organização de rotinas. O contraponto é preservar esforço cognitivo e compreensão: produzir uma resposta ou prova não equivale a aprender ou validar a pergunta certa. Relatos de busca de emprego e tutoriais mostram possibilidades práticas, mas não efeitos causais universais; promoções comerciais são identificadas nas fichas. A tensão central é usar IA para apoiar investigação e aprendizagem, sem substituir justamente a etapa em que o usuário precisa desenvolver julgamento e conferir evidências.",
+        "en": "Research and study proposals combine checkable sources, adversarial critique, cited reports, quizzes and routine organization. The counterpoint is preserving cognitive effort and understanding: producing an answer or proof does not mean learning or validating the right question. Job-search accounts and tutorials show practical possibilities rather than universal causal effects; commercial promotion is identified in catalog summaries. The central tension is using AI to support investigation and learning without replacing the very stage where users must develop judgment and check evidence."
+      },
+      "sourceIds": [
+        "medium-44a28d8cc042",
+        "medium-cbd2ba8a4881",
+        "medium-7fd25e39e7a8",
+        "medium-3b3d5480c127",
+        "medium-b7b753f52f32",
+        "medium-b127da54037d",
+        "medium-d7a7d9e148d1",
+        "medium-1d128881df35",
+        "medium-9b812f49e029"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos de linguagem e IA generativa",
+        "en": "Language models and generative AI"
+      },
+      "summary": {
+        "pt": "Os textos aproximam fundamentos técnicos de questões de confiança. Explicações plausíveis sobre intenções humanas não revelam o pensamento de uma pessoa; respostas afetuosas ou desconfortáveis não demonstram consciência. A discussão de marcas d’água distingue um sinal estatístico associado a uma chave de um detector universal, enquanto o glossário esclarece limites de tokens, quantização e adaptação. A síntese não endossa os títulos mais fortes: crítica comum não implica banimento automático, ausência de marca não comprova origem humana e linguagem convincente não é evidência suficiente.",
+        "en": "The texts connect technical foundations with trust questions. Plausible interpretations of human intentions do not reveal another person's thoughts, and affectionate or uncomfortable responses do not demonstrate consciousness. Watermarking discussion distinguishes a key-associated statistical signal from a universal detector, while the glossary clarifies token, quantization and adaptation limits. This briefing does not endorse the strongest headlines: ordinary criticism does not imply automatic bans, absent watermarks do not establish human origin, and convincing language is insufficient evidence."
+      },
+      "sourceIds": [
+        "medium-f391129108e2",
+        "medium-de1943044d7d",
+        "medium-a28ba72f0b42",
+        "medium-bc2c5615da0d"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Dados, vetores e gestão do conhecimento",
+        "en": "Data, vectors and knowledge management"
+      },
+      "summary": {
+        "pt": "A infraestrutura menos visível ganha destaque: embeddings locais e multimodais selecionam o que chega ao modelo, enquanto arquitetura semântica e governança conectam conceitos entre sistemas. Os dois textos mostram por que mais dados ou mais contexto não resolvem, sozinhos, significado, pertinência e responsabilidade. Redução dimensional envolve escolhas de qualidade e armazenamento; processamento local reduz algumas transmissões, mas não garante privacidade de todo o fluxo. A direção editorial é organizar o conhecimento e seus controles antes de ampliar a geração de conteúdo.",
+        "en": "Less visible infrastructure receives attention: local multimodal embeddings select what reaches a model, while semantic architecture and governance connect concepts across systems. Both texts show why more data or context alone cannot resolve meaning, relevance and accountability. Dimensionality reduction entails quality and storage trade-offs; local processing reduces some transmissions without guaranteeing whole-workflow privacy. The editorial direction is to organize knowledge and its controls before expanding content generation."
+      },
+      "sourceIds": [
+        "medium-d488308ca246",
+        "medium-5ed595c7b373"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Fundamentos técnicos de IA",
+        "en": "Technical foundations of AI"
+      },
+      "summary": {
+        "pt": "Duas leituras didáticas retomam treinamento, avaliação e adaptação de modelos. Uma organiza conceitos de aprendizado de máquina e diagnóstico em produção; outra apresenta destilação, ajuste supervisionado e reforço a partir de um relato de modelo local. As fichas sinalizam simplificações: validação cruzada não reduz sobreajuste automaticamente, remoção de uma direção de ativação não garante ausência de recusas e reforço não demonstra raciocínio genuíno. O valor é oferecer pontos de partida para estudo, não substituir tratamento matemático ou protocolos validados.",
+        "en": "Two educational readings revisit model training, evaluation and adaptation. One organizes machine-learning concepts and production diagnosis; the other presents distillation, supervised fine-tuning and reinforcement through a local-model account. Summaries flag simplifications: cross-validation does not automatically reduce overfitting, removing an activation direction does not guarantee no refusals, and reinforcement does not establish genuine reasoning. Their value is as starting points for study, not replacements for mathematical treatment or validated protocols."
+      },
+      "sourceIds": [
+        "medium-3424353dbfbb",
+        "medium-0f66b6d9a959"
+      ]
+    }
+  ]
+}

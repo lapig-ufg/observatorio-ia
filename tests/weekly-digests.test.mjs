@@ -17,6 +17,19 @@ test('digest resolution preserves the original editorial draft and resolves sour
   assert.deepEqual(result.corpus, source);
 });
 
+test('an inclusion-based Medium edition retains older original publication dates', () => {
+  const input = { ...draft(), dateBasis: 'included' };
+  const records = [{ ...source[0], date: '2026-08-26', includedAt: '2026-10-09' },
+    { id: 'not-this-week', date: '2026-10-06', includedAt: '2026-09-30', title: 'Old curation', url: 'https://example.org/old' }];
+  const result = resolveDigest(input, records, 'medium');
+  assert.equal(result.corpus.length, 1);
+  assert.equal(result.corpus[0].date, '2026-08-26');
+  assert.equal(result.dateBasis, 'included');
+  assert.throws(() => resolveDigest({ ...input, dateBasis: 'unknown' }, records, 'medium'), /dateBasis/);
+  assert.throws(() => resolveDigest({ ...input, collection: 'folha' }, records, 'folha'), /dateBasis/);
+  assert.throws(() => resolveDigest(input, source, 'medium'), /expected 1, found 0/);
+});
+
 test('missing Portuguese or English content blocks publication, including method and every topic', () => {
   for (const lang of ['pt', 'en']) for (const field of ['title', 'summary', 'method']) {
     const input = draft(); input[field][lang] = ' ';

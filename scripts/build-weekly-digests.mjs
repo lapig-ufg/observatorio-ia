@@ -15,12 +15,19 @@ export function resolveDigest(input, source, collection) {
   if (![draft.start, draft.end, draft.reviewedAt].every(validDate)
       || draft.start > draft.end || draft.reviewedAt < draft.end) fail('invalid editorial dates');
   if (!Number.isInteger(expectedCount) || expectedCount < 0) fail('invalid expectedCount');
+  // Curated editions may include older originals. Keep their publication dates,
+  // but select the weekly corpus by the explicitly declared inclusion date.
+  const dateBasis = draft.dateBasis || 'published';
+  if (!['published', 'included'].includes(dateBasis) || (dateBasis === 'included' && collection !== 'medium')) fail('invalid dateBasis');
   const bilingual = (object, field) => {
     for (const lang of ['pt', 'en']) if (!filled(object?.[field]?.[lang])) fail(`missing ${field}.${lang}`);
   };
   for (const field of ['title', 'summary', 'method']) bilingual(draft, field);
   if (!Array.isArray(draft.topics) || (expectedCount > 0 && !draft.topics.length)) fail('missing topic summaries');
-  const corpus = source.filter(item => item.date >= draft.start && item.date <= draft.end)
+  const corpus = source.filter(item => {
+    const selectedAt = dateBasis === 'included' ? item.includedAt : item.date;
+    return validDate(selectedAt) && selectedAt >= draft.start && selectedAt <= draft.end;
+  })
     .map(({ id, date, title, url }) => ({ id, date, title, url }));
   if (corpus.length !== expectedCount) fail(`expected ${expectedCount}, found ${corpus.length}; re-review the editorial scope before building`);
   const ids = new Set(), urls = new Set();
@@ -59,7 +66,7 @@ export async function buildDigests(root = process.cwd()) {
     if (file !== `${collection}-${draft.end}.json`) throw new Error(`${collection}: filename and editorial end date disagree`);
     const source = collection === 'medium'
       ? articlesFromCsv(read('public/catalogo.csv')).filter(item => item.type === 'medium' && validDate(item.includedAt) && item.includedAt <= draft.end)
-        .map(item => ({ id: item.id, date: item.publishedAt, title: item.title, url: item.originalUrl }))
+        .map(item => ({ id: item.id, date: item.publishedAt, includedAt: item.includedAt, title: item.title, url: item.originalUrl }))
       : fs.readdirSync(path.join(root, 'public/folha-ia')).filter(name => /^\d{4}\.json$/.test(name)).flatMap(name => JSON.parse(read(`public/folha-ia/${name}`)));
     const digest = resolveDigest(draft, source, collection);
     return { collection, digest, content: `${JSON.stringify(digest, null, 2)}\n` };

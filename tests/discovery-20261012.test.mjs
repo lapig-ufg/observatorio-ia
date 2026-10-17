@@ -78,7 +78,13 @@ test('weekly briefs preserve verified references, bilingual summaries and explic
       const original=source.get(ref.id); assert.ok(original, ref.id);
       assert.equal(ref.url, original.originalUrl || original.url);
       assert.equal(ref.title,original.title);
-      assert.ok(ref.date >= digest.start && ref.date <= digest.end);
+      assert.equal(ref.date, original.publishedAt || original.date);
+      const scopeDate = digest.dateBasis === 'included' ? original.includedAt : ref.date;
+      assert.ok(scopeDate >= digest.start && scopeDate <= digest.end, ref.id);
+      if (collection === 'medium' && digest.dateBasis === 'included') {
+        assert.ok(original.tags.length >= 4 && original.tags.length <= 8, ref.id);
+        assert.equal(original.tags.some(tag => tag.includes(';')), false, ref.id);
+      }
     }
     for(const obj of [digest, ...digest.topics]) for(const lang of ['pt','en']) {
       assert.ok(obj.title[lang] && obj.summary[lang]);
