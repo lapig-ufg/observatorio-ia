@@ -17,7 +17,8 @@
     "catalog:sync-fallback": "node scripts/sync-catalog-fallback.mjs",
     "noticias:build": "node scripts/build-folha-news.mjs",
     "editorial:build": "node scripts/build-weekly-digests.mjs",
-    "panorama:check": "node scripts/check-panorama-contract.mjs"
+    "panorama:check": "node scripts/check-panorama-contract.mjs",
+    "politicas:english": "node scripts/build-policy-english.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.24.0",

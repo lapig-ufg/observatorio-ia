@@ -11,8 +11,8 @@ export const portalNavigation = [
     { label: "IAs gratuitas", href: "#panorama/gratuitos", description: "Explore ferramentas com acesso gratuito.", event: "nav_panorama" },
     { label: "Como usar fora do navegador", href: "#panorama/como-usar", description: "Conheça o terminal e os agentes de IA.", event: "nav_panorama" },
   ] },
-  { english: { label: "Research", featured: { title: "Research", description: "Original surveys by the Observatory (in Portuguese).", href: "#levantamentos/politicas-ia" }, links: [
-    { label: "AI policies in scholarly publishing (in Portuguese)", href: "#levantamentos/politicas-ia", description: "What journals, publishers, societies and funders allow, require and forbid." },
+  { english: { label: "Research", featured: { title: "Research", description: "Original surveys by the Observatory.", href: "#levantamentos/politicas-ia" }, links: [
+    { label: "AI policies in scholarly publishing", href: "#levantamentos/politicas-ia", description: "What journals, publishers, societies and funders allow, require and forbid." },
   ] }, id: "levantamentos", label: "Levantamentos", featured: { title: "Levantamentos", description: "Pesquisas originais do Observatório, com dados abertos.", icon: "levantamentos", href: "#levantamentos/politicas-ia", event: "nav_surveys" }, links: [
     { label: "Políticas de IA na publicação científica", href: "#levantamentos/politicas-ia", description: "O que periódicos, editoras, sociedades e agências permitem, exigem e vedam.", event: "nav_surveys" },
   ] },

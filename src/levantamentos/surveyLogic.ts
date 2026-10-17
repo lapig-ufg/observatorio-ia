@@ -62,7 +62,7 @@ export type PolicyFilters = { query: string; area: string; type: string; gen: st
 
 const fold = (value: string) => value.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
-export function filterPolicies(rows: PolicyRow[], filters: PolicyFilters) {
+export function filterPolicies(rows: PolicyRow[], filters: PolicyFilters, additionalSearchText: (row: PolicyRow) => string = () => "") {
   const query = fold(filters.query.trim());
   return rows.filter(row =>
     (!filters.area || row.area === filters.area)
@@ -70,7 +70,7 @@ export function filterPolicies(rows: PolicyRow[], filters: PolicyFilters) {
     && (!filters.gen || row.gen === filters.gen)
     && (!filters.rev || row.rev === filters.rev)
     && (!filters.scope || (filters.scope === "br" ? isBrazilian(row) : !isBrazilian(row)))
-    && (!query || fold(`${row.nome} ${row.sub} ${row.nota || ""} ${row.geo}`).includes(query)));
+    && (!query || fold(`${row.nome} ${row.sub} ${row.nota || ""} ${row.geo} ${additionalSearchText(row)}`).includes(query)));
 }
 
 // Sub-rotas do levantamento: a aba vem do hash, para os links e o botão voltar funcionarem.
