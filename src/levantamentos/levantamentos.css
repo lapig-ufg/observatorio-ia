@@ -205,3 +205,28 @@ h3 .sv-row-meta { display: inline; margin-left: 6px; }
 .sv-heat td small { opacity: 1; color: #33463d; }
 .sv-row-toggle { display: inline-flex; align-items: center; min-height: 44px; width: 100%; }
 @media (max-width: 600px) { .sv-table-stack tbody th .sv-row-toggle { min-height: 44px; } }
+
+/* Retrato inicial do levantamento: uma barra que responde à pergunta mais comum e dois caminhos de entrada. */
+.sv-page .pt-panorama-intro { flex-wrap: wrap; }
+.sv-snapshot { flex: 1 1 100%; max-width: 900px; margin-top: 8px; }
+.sv-snapshot-title { margin: 0 0 10px; color: #123d31; font-size: 1.0625rem; font-weight: 700; line-height: 1.4; }
+.sv-snapshot-bar { display: flex; gap: 2px; height: 34px; overflow: hidden; border-radius: 6px; }
+.sv-snapshot-bar .sv-seg { font-size: 14px; }
+.sv-snapshot-legend { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 12px 0 0; padding: 0; list-style: none; color: #33463d; font-size: .9375rem; }
+.sv-snapshot-legend li { display: inline-flex; align-items: center; gap: 7px; }
+.sv-snapshot-legend strong { color: #123d31; font-variant-numeric: tabular-nums; }
+.sv-snapshot-actions { display: flex; flex-wrap: wrap; gap: 10px 14px; margin: 22px 0 0; }
+.sv-button { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 10px 18px; border: 1px solid #b9c9c1; border-radius: 8px; background: #fff; color: #164e3d; font-weight: 700; text-decoration: none; }
+.sv-button:hover { background: #f1f6f3; }
+.sv-button-primary { border-color: #164e3d; background: #164e3d; color: #fff; }
+.sv-button-primary:hover { background: #123d31; }
+
+/* Abas: no computador, a barra de abas; no celular, um seletor nativo com a seção atual. */
+.sv-tab-select { display: none; }
+@media (max-width: 600px) {
+  .sv-page .sv-tabs { display: none; }
+  .sv-tab-select { display: grid; gap: 6px; padding: 14px 16px; border-block: 1px solid #dfe7e2; background: #f4f7f1; color: #52675c; font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .sv-tab-select select { min-height: 48px; padding: 0 12px; border: 1px solid #b9c9c1; border-radius: 8px; background: #fff; color: #123d31; font: inherit; font-size: 1rem; font-weight: 700; letter-spacing: 0; text-transform: none; }
+  .sv-snapshot-actions .sv-button { width: 100%; justify-content: space-between; }
+  .sv-snapshot-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; font-size: .875rem; }
+}

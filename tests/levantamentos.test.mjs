@@ -13,7 +13,7 @@ const data = JSON.parse(fs.readFileSync("public/levantamentos/politicas-ia/dados
 
 test("os dados publicados batem com a base do levantamento", () => {
   assert.equal(data.rows.length, 149);
-  const csv = fs.readFileSync("public/levantamentos/politicas-ia/base-politicas-ia-v5.csv", "utf8").trim().split(/\r?\n/);
+  const csv = fs.readFileSync("public/levantamentos/politicas-ia/base-politicas-ia-2026-10.csv", "utf8").trim().split(/\r?\n/);
   assert.equal(csv.length - 1, data.rows.length);
   const gen = survey.countBy(data.rows, row => row.gen);
   assert.deepEqual([gen.get("Permitida"), gen.get("Restrita"), gen.get("Vedada"), gen.get("Sem regra"), gen.get("N/A")], [101, 18, 7, 19, 4]);

@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpRight, Download, Search } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Download, Search } from "lucide-react";
 import { trackEvent } from "../analytics";
 import { siteAssetUrl } from "../locale";
 import { formatPublicDate } from "../dateLabels";
@@ -15,8 +15,8 @@ type SurveyData = {
   rows: PolicyRow[]; areas: Record<string, string>; messages: [string, string][]; cross: [string, string][];
   trends: Record<string, Trend>; brasil: string[]; checks: string[]; guide: string[][];
   evidence: { l: string; s: string; v: number; u?: string; declara?: boolean }[];
-  metodo: [string, string][]; errata: string[]; changes: { nome: string; area: string; mud: string }[];
-  meta: { referencia: string; versao: string };
+  metodo: [string, string][];
+  meta: { referencia: string };
 };
 
 // Paleta validada para daltonismo: verde permite, âmbar restringe, laranja veda, cinza neutro para ausência de regra.
@@ -337,19 +337,10 @@ function Method({ data }: { data: SurveyData }) {
     <section className="sv-block" aria-labelledby="sv-data-title">
       <h2 id="sv-data-title">Dados e citação</h2>
       <p className="sv-downloads">
-        <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-v5.csv`)} download onClick={() => download("csv")}><Download size={16} aria-hidden="true" />Base codificada (CSV)</a>
-        <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-v5.xlsx`)} download onClick={() => download("xlsx")}><Download size={16} aria-hidden="true" />Base codificada com livro de códigos (XLSX)</a>
+        <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-2026-10.csv`)} download onClick={() => download("csv")}><Download size={16} aria-hidden="true" />Base codificada (CSV)</a>
+        <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-2026-10.xlsx`)} download onClick={() => download("xlsx")}><Download size={16} aria-hidden="true" />Base codificada com livro de códigos (XLSX)</a>
       </p>
-      <p><strong>Como citar:</strong> Observatório UFG-IA (LAPIG/UFG). <em>Políticas de IA na publicação científica</em>. Edição {data.meta.versao}, {formatPublicDate(data.meta.referencia, "pt")}.</p>
-    </section>
-    <section className="sv-block" aria-labelledby="sv-errata-title">
-      <h2 id="sv-errata-title">Correções da edição {data.meta.versao}</h2>
-      <ul className="sv-list">{data.errata.map(item => <li key={item}><Rich text={item} /></li>)}</ul>
-      <h3 className="sv-subhead">Registros recodificados em relação à edição anterior</h3>
-      <div className="sv-table-wrap"><table className="sv-table">
-        <thead><tr><th scope="col">Entidade</th><th scope="col">Área</th><th scope="col">Mudanças</th></tr></thead>
-        <tbody>{data.changes.map(change => <tr key={change.nome}><th scope="row">{change.nome}</th><td>{AREA_SHORT[change.area]}</td><td>{change.mud}</td></tr>)}</tbody>
-      </table></div>
+      <p><strong>Como citar:</strong> Observatório UFG-IA (LAPIG/UFG). <em>Políticas de IA na publicação científica</em>. Dados de {formatPublicDate(data.meta.referencia, "pt")}.</p>
     </section>
     <section className="sv-block" aria-labelledby="sv-sources-title">
       <h2 id="sv-sources-title">Fontes por área</h2>
@@ -358,6 +349,30 @@ function Method({ data }: { data: SurveyData }) {
       </div>
     </section>
   </>;
+}
+
+// "2026-10-16" → "outubro de 2026": o mês basta para situar o leitor, sem jargão de versão.
+function monthYear(iso: string) {
+  const months = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+  const [year, month] = iso.split("-").map(Number);
+  return month ? `${months[month - 1]} de ${year}` : String(year);
+}
+
+// Retrato inicial: uma barra com a posição de todas as entidades sobre gerar texto com IA e dois caminhos de entrada.
+function SurveySnapshot({ rows }: { rows: PolicyRow[] }) {
+  const counts = categoryCounts(rows, "gen", GEN_CATEGORIES);
+  const phrase: Record<string, string> = { Permitida: "permitem, com declaração", Restrita: "restringem à edição", Vedada: "vedam", "Sem regra": "sem regra localizada" };
+  return <div className="sv-snapshot">
+    <p className="sv-snapshot-title">Posso gerar texto com IA? O que dizem {counts.total} periódicos, editoras e entidades</p>
+    <div className="sv-snapshot-bar" role="img" aria-label={counts.parts.map(part => `${part.rows.length} ${phrase[part.category]}`).join(", ")}>
+      {counts.parts.map(({ category, rows: part }) => part.length ? <span key={category} className={DARK_TEXT.has(category) ? "sv-seg sv-seg-dark" : "sv-seg"} style={{ flexGrow: part.length, background: COLORS[category] }}>{part.length / counts.total >= 0.08 ? part.length : ""}</span> : null)}
+    </div>
+    <ul className="sv-snapshot-legend">{counts.parts.map(({ category, rows: part }) => <li key={category}><span className="sv-swatch" style={{ background: COLORS[category] }} aria-hidden="true" /><strong>{part.length}</strong> {phrase[category]}</li>)}</ul>
+    <p className="sv-snapshot-actions">
+      <a className="sv-button sv-button-primary" href={`${SURVEY_BASE}/entidades`}>Encontre sua revista ou editora <ArrowRight size={16} aria-hidden="true" /></a>
+      <a className="sv-button" href={`${SURVEY_BASE}/autores`}>Guia para autores e pareceristas <ArrowRight size={16} aria-hidden="true" /></a>
+    </p>
+  </div>;
 }
 
 export function PoliticasIAPage({ english = false }: { english?: boolean }) {
@@ -385,13 +400,19 @@ export function PoliticasIAPage({ english = false }: { english?: boolean }) {
   return <section id="levantamento" className="sv-page panorama-page" aria-labelledby="sv-title" lang="pt-BR">
     <div className="panorama-intro pt-panorama-intro">
       <div className="panorama-heading">
-        <p className="eyebrow">Levantamento do Observatório</p>
+        <p className="eyebrow">Levantamento do Observatório{data ? ` · ${monthYear(data.meta.referencia)}` : ""}</p>
         <h1 id="sv-title">Políticas de IA na publicação científica</h1>
         <p>O que periódicos, editoras, sociedades científicas e agências de fomento permitem, exigem e vedam no uso de IA generativa, por grande área do CNPq.</p>
         {english && <p className="sv-language-note" lang="en">This survey is available in Portuguese only.</p>}
-        {data && <p className="sv-meta"><strong>Dados de {formatPublicDate(data.meta.referencia, "pt")}</strong> · edição {data.meta.versao}, corrigida após auditoria externa · amostra intencional, não probabilística · <a href={`${SURVEY_BASE}/metodo`}>ver método e correções</a></p>}
       </div>
+      {data && tab === "" && <SurveySnapshot rows={data.rows} />}
     </div>
+    {/* No celular, sete abas em grade ficam desorganizadas: um seletor nativo mostra a seção atual e lista as outras. */}
+    <label className="sv-tab-select"><span>Seção</span>
+      <select value={tab} onChange={event => { trackEvent("survey_tab", { event_category: "levantamento", event_label: event.target.value || "geral", position: "select" }); go(event.target.value); }}>
+        {SURVEY_TABS.map(entry => <option key={entry.key || "geral"} value={entry.key}>{entry.label}</option>)}
+      </select>
+    </label>
     <nav ref={tabsRef} className="panorama-tabs sv-tabs" aria-label="Seções do levantamento">
       {SURVEY_TABS.map(entry => <a key={entry.key || "geral"} href={entry.key ? `${SURVEY_BASE}/${entry.key}` : SURVEY_BASE} aria-current={tab === entry.key ? "page" : undefined} onClick={() => trackEvent("survey_tab", { event_category: "levantamento", event_label: entry.key || "geral" })}>{entry.label}</a>)}
     </nav>
