@@ -364,7 +364,7 @@ function monthYear(iso: string) {
 // Retrato inicial: uma barra com a posição de todas as entidades sobre gerar texto com IA e dois caminhos de entrada.
 function SurveySnapshot({ rows }: { rows: PolicyRow[] }) {
   const counts = categoryCounts(rows, "gen", GEN_CATEGORIES);
-  const phrase: Record<string, string> = { Permitida: "permitem, com declaração", Restrita: "restringem à edição", Vedada: "vedam", "Sem regra": "sem regra localizada" };
+  const phrase: Record<string, string> = { Permitida: "permitem, com condições", Restrita: "restringem à edição", Vedada: "vedam", "Sem regra": "sem regra localizada" };
   return <div className="sv-snapshot">
     <p className="sv-snapshot-title">Posso gerar texto com IA? O que dizem {counts.total} periódicos, editoras e entidades</p>
     <div className="sv-snapshot-bar" role="img" aria-label={counts.parts.map(part => `${part.rows.length} ${phrase[part.category]}`).join(", ")}>

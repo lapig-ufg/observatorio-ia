@@ -96,6 +96,9 @@ test("divergências de revisão, imagens e declaração não regressam", () => {
   assert.equal(data.rows.find(row => row.nome === "American Mathematical Society").rev, "Condicionado");
   assert.equal(data.rows.find(row => row.nome === "WAME").url, "https://wame.org/page3.php?id=106");
   assert.equal(survey.CATEGORY_LABEL.Permitida, "Permite, com condições");
+  const source = fs.readFileSync("src/levantamentos/PoliticasIAPage.tsx", "utf8");
+  assert.match(source, /Permitida: "permitem, com condições"/);
+  assert.doesNotMatch(source, /permitem, com declaração/);
   assert.equal(survey.VERIFICATION_LABEL.H, "Regra herdada");
   assert.equal(data.rows.find(row => row.nome === "ACM").loc, "Sem exigência p/ redação");
 });
