@@ -347,3 +347,49 @@
   .pt-topbar-content { gap: 6px; }
   .pt-topbar .brand-name strong:first-child { font-size: 25px; }
 }
+
+/* IA na UFG na inicial: três cartões numa linha no computador; no tablet, dois (sem um órfão
+   com espaço vazio ao lado); no celular, os três empilhados. */
+.pt-home-ufg .ecosystem-initiative-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+@media (min-width: 640px) and (max-width: 1023px) {
+  .pt-home-ufg .ecosystem-initiative-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pt-home-ufg .ecosystem-initiative-grid > :nth-child(3) { display: none; }
+}
+@media (max-width: 639px) {
+  .pt-home-ufg .ecosystem-initiative-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Vistoria 2 — celular e grades. */
+/* O subtítulo da marca nunca abaixo de 10 px (estava em 8 px no celular). */
+@media (max-width: 1023px) { .pt-topbar .brand-name strong:last-child { font-size: 10px; letter-spacing: 0; } }
+
+/* Cinco portas na abertura: no celular a quinta ocupa a linha inteira; no tablet, 3 + 2 sem buraco. */
+@media (max-width: 639px) {
+  .pt-task-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .pt-task-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .pt-task-grid > * { grid-column: span 2; }
+  .pt-task-grid > :nth-last-child(2):nth-child(3n + 1), .pt-task-grid > :last-child:nth-child(3n + 2) { grid-column: span 3; }
+  .pt-task-grid > :last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+}
+
+/* Sete coleções em três colunas: a última ocupa a linha inteira em vez de ficar sozinha num canto. */
+@media (min-width: 701px) { .pt-acervo-page .category-grid > :last-child:nth-child(3n + 1) { grid-column: 1 / -1; } }
+@media (max-width: 700px) { .pt-acervo-page .category-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
+
+/* Alvos de toque de pelo menos 44 px no celular. */
+@media (max-width: 767px) {
+  .featured-debate-links a, .initiative-card > a, .pt-participate a, .ecosystem-mapping-callout a,
+  .pt-sitemap h2 a, .footer .footer-links .github-footer-link { display: inline-flex; align-items: center; min-height: 44px; }
+  .pt-sitemap a { min-height: 44px; display: flex; align-items: center; padding-block: 0; }
+}
+/* No celular, o título mais longo das portas ("Levantamentos") cabe sem passar por baixo da seta. */
+@media (max-width: 639px) {
+  .pt-task-grid > a { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto auto; row-gap: 6px; padding: 12px 14px; }
+  .pt-task-grid .pt-section-icon { grid-column: 1; grid-row: 1; }
+  .pt-task-grid .pt-section-arrow { grid-column: 2; grid-row: 1; }
+  .pt-task-grid strong { grid-column: 1 / -1; grid-row: 2; font-size: 15px; }
+  .pt-task-grid .pt-section-description { grid-row: 3; }
+  .pt-task-grid .pt-section-metric { grid-row: 4; }
+}
