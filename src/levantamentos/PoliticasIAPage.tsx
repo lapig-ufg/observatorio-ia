@@ -18,7 +18,7 @@ type SurveyData = {
   trends: Record<string, Trend>; brasil: string[]; checks: string[]; guide: string[][];
   evidence: { l: string; s: string; v: number; u?: string; declara?: boolean }[];
   metodo: [string, string][];
-  meta: { referencia: string };
+  meta: { referencia: string; revisao?: { data: string; status: string; inventory: number; verified: number; changed: number; unresolved: number; history: string } };
 };
 
 // Paleta validada para daltonismo: verde permite, âmbar restringe, laranja veda, cinza neutro para ausência de regra.
@@ -28,7 +28,7 @@ const COLORS: Record<string, string> = {
 };
 const DARK_TEXT = new Set(["Restrita", "Sem regra", "Não trata"]);
 const DATA_DIR = "levantamentos/politicas-ia/";
-const LOC_LABEL: Record<string, string> = { "Múltiplos": "Múltiplos locais", "Submissão/carta": "Só submissão ou carta", "Sem exigência p/ redação": "Não exige para a redação" };
+const LOC_LABEL: Record<string, string> = { "Múltiplos": "Múltiplos / conforme o uso", "Submissão/carta": "Submissão ou carta", "Sem exigência p/ redação": "Não exige para a redação" };
 
 function Rich({ text }: { text: string }) {
   return <>{boldSegments(text).map((part, i) => part.bold ? <strong key={i}>{part.text}</strong> : <Fragment key={i}>{part.text}</Fragment>)}</>;
@@ -133,17 +133,17 @@ function Overview({ data, go }: { data: SurveyData; go: (tab: string) => void })
   return <>
     <section className="sv-block sv-findings" aria-labelledby="sv-findings-title">
       <h2 id="sv-findings-title">O que o levantamento encontrou</h2>
-      <p className="sv-lede">O levantamento reúne {rows.length} registros, entre políticas e ausências de política, de sociedades científicas, editoras, periódicos, eventos e agências de fomento. Em {count("gen", "Permitida")} deles, gerar texto com IA é permitido desde que o uso seja declarado; {count("gen", "Restrita")} restringem a IA à edição de linguagem, {count("gen", "Vedada")} vedam e {count("gen", "Sem regra")} não têm regra localizada{count("gen", "N/A") ? ` (em ${count("gen", "N/A")}, a pergunta não se aplica)` : ""}. Entre os periódicos brasileiros consultados, {journalsWithRule} de {journals.length} já têm cláusula sobre IA.</p>
+      <p className="sv-lede">A base reúne {rows.length} registros de sociedades, editoras, periódicos, eventos e agências. Na codificação vigente, {count("gen", "Permitida")} permitem usos generativos sob condições de transparência, com dispensas específicas; {count("gen", "Restrita")} restringem à edição ou apoio auxiliar, {count("gen", "Vedada")} vedam gerar conteúdo e {count("gen", "Sem regra")} não têm regra localizada{count("gen", "N/A") ? ` (em ${count("gen", "N/A")}, a pergunta não se aplica)` : ""}. Entre os periódicos brasileiros da amostra, {journalsWithRule} de {journals.length} têm cláusula codificada. Registros ainda pendentes de reconfirmação mantêm a informação anterior.</p>
       <p className="sv-note">A amostra é intencional: as proporções descrevem as entidades mapeadas, não o universo de periódicos. Veja os critérios em <a href={`${SURVEY_BASE}/metodo`} onClick={event => { event.preventDefault(); go("metodo"); }}>Método e fontes</a>.</p>
       <ol className="sv-messages">{data.messages.map(([title, text]) => <li key={title}><h3>{title}</h3><p>{text}</p></li>)}</ol>
     </section>
 
     <section className="sv-block" aria-labelledby="sv-layers-title">
       <h2 id="sv-layers-title">Quem define a regra que vale</h2>
-      <p className="sv-intro">A regra que se aplica a um artigo é a do periódico ou evento de destino. A política da editora funciona como piso, e a sociedade científica pode endurecê-la.</p>
+      <p className="sv-intro">Confira as instruções do periódico ou evento de destino e a política geral que ele efetivamente adota. O vínculo com uma editora ou sociedade, sozinho, não comprova todas as exigências operacionais do título.</p>
       <ol className="sv-layers">
         <li><strong>Marcos de integridade e ética</strong><span>COPE, ICMJE, WAME, CSE, STM, EASE, ALLEA e ERA Living Guidelines orientam editoras e sociedades.</span></li>
-        <li className="sv-layers-pair"><div><strong>Editoras</strong><span>Definem a política-piso do catálogo: Elsevier, Springer Nature, Wiley, Taylor &amp; Francis, MDPI…</span></div><div><strong>Sociedades científicas</strong><span>Têm política própria ou adotam a do COPE, e podem endurecer o piso: AGU, ACS, APS, ASA–CSSA–SSSA…</span></div></li>
+        <li className="sv-layers-pair"><div><strong>Editoras</strong><span>Publicam regras gerais, cuja aplicação e exceções precisam ser conferidas por título.</span></div><div><strong>Sociedades científicas</strong><span>Podem definir normas próprias ou adotar diretrizes de outra entidade, com alcance documentado.</span></div></li>
         <li className="sv-layers-key"><strong>Periódico ou evento de destino</strong><span>É a regra que vale: o que pode, onde declarar, em que formato e o que vale para os revisores.</span></li>
         <li><strong>Autor, parecerista e editor</strong><span>A responsabilidade é humana e não pode ser delegada à IA.</span></li>
       </ol>
@@ -227,18 +227,18 @@ function Compare({ data }: { data: SurveyData }) {
       <section className="sv-block" aria-labelledby="sv-loc-title">
         <h2 id="sv-loc-title">Onde declarar</h2>
         <HorizontalBars label="Local exigido para declarar o uso de IA" max={Math.max(...placeCounts.map(place => place.rows.length))} items={placeCounts.map(place => ({ label: place.label, value: place.rows.length, display: `${place.rows.length} (${Math.round((place.rows.length / withRule.length) * 100)}%)`, color: "#23885a", title: names(place.rows, 8) }))} />
-        <p className="sv-note">Entidades com regra (n={withRule.length}). “Múltiplos locais” significa mais de um local exigido, por exemplo carta, Métodos e Agradecimentos.</p>
+        <p className="sv-note">Entidades com regra (n={withRule.length}). “Múltiplos” inclui locais cumulativos ou alternativas condicionais, conforme o uso da IA ou a estrutura do artigo; não significa exigir sempre todas as seções.</p>
       </section>
       <section className="sv-block" aria-labelledby="sv-year-title">
         <h2 id="sv-year-title">Ano do documento vigente</h2>
         <Legend categories={GEN_CATEGORIES} />
         <YearColumns rows={data.rows} />
-        <p className="sv-note">Só documentos com data identificável. 2026 concentra revisões de políticas.</p>
+        <p className="sv-note">Somente documentos com ano normativo identificado na base; ano de consulta não equivale ao ano da regra. Há registros ainda pendentes de reconfirmação.</p>
       </section>
     </div>
     <section className="sv-block" aria-labelledby="sv-ev-title">
       <h2 id="sv-ev-title">Política e prática</h2>
-      <p className="sv-intro">Estudos estimam marcas de texto gerado por IA numa parcela relevante dos resumos recentes, mas quase nenhum artigo declara o uso. As estimativas vêm de estudos diferentes e não são comparáveis ponto a ponto; detectores não servem para julgar casos individuais.</p>
+      <p className="sv-intro">Estimativas históricas de traços linguísticos e taxas de declaração vêm de corpora, datas e métodos diferentes; não são diretamente comparáveis nem demonstram a eficácia causal das políticas. Esses estudos não foram reanalisados nesta manutenção. Detectores não comprovam uso de IA em um caso individual.</p>
       <HorizontalBars label="Estimativas de uso de IA em textos científicos e de declaração de uso" max={25} items={data.evidence.map(item => ({ label: item.l, sub: item.s, value: item.v, display: `${String(item.v).replace(".", ",")}%`, color: item.declara ? "#c4512c" : "#23885a", title: `${String(item.v).replace(".", ",")}% · ${item.s}` }))} />
       <p className="sv-note">Em laranja, a parcela de artigos que declara o uso de IA.</p>
     </section>
@@ -288,7 +288,7 @@ function Brazil({ data }: { data: SurveyData }) {
         <h2 id="sv-br-chart-title">Periódicos brasileiros: há regra de IA?</h2>
         <Legend categories={GEN_CATEGORIES} />
         <StackedByArea rows={journals} field="gen" categories={GEN_CATEGORIES} label="Periódicos brasileiros por área e posição sobre gerar texto com IA" />
-        <p className="sv-note">Política Editorial e Instruções aos autores relidas em página integral, em português e em inglês, na SciELO e nos sites das revistas, em {formatPublicDate(data.meta.referencia, "pt")}.</p>
+        <p className="sv-note">Base histórica de {formatPublicDate(data.meta.referencia, "pt")}, com correções posteriores identificadas no histórico. {data.meta.revisao?.unresolved ? "Não se afirma releitura integral PT/EN de todos os periódicos nesta revisão parcial." : "Consulte no histórico a cobertura e as fontes por registro."}</p>
       </section>
       <section className="sv-block" aria-labelledby="sv-br-list-title">
         <h2 id="sv-br-list-title">O que vale no Brasil</h2>
@@ -307,11 +307,11 @@ function Authors({ data }: { data: SurveyData }) {
     <section className="sv-block" aria-labelledby="sv-decision-title">
       <h2 id="sv-decision-title">Antes de submeter: um roteiro de decisão</h2>
       <ol className="sv-decision">
-        <li><h3>Usei IA generativa neste trabalho só para correção gramatical ou ortográfica?</h3><p><strong>Sim:</strong> em geral, esse uso é isento de declaração. Atenção: LMS, Scientia Agricola e RBLA exigem declaração mesmo sem uso de IA.</p><p><strong>Não:</strong> siga para a próxima pergunta.</p></li>
-        <li><h3>O periódico veda gerar texto ou só admite edição de linguagem?</h3><p><strong>Sim:</strong> reescreva o trecho ou escolha outro periódico. Vedam gerar texto: Copernicus/EGU, Optica, Emerald, ASME, RBCS-ANPOCS e Educação &amp; Sociedade. Só admitem edição: ASA–CSSA–SSSA, ADSA, AACR, RBZ e Ciência Rural.</p><p><strong>Não:</strong> siga para a próxima pergunta.</p></li>
-        <li><h3>A IA fez parte do método (dados, código, análise)?</h3><p><strong>Sim:</strong> descreva em Métodos de forma reprodutível, com ferramenta, versão, data, parâmetros e prompts.</p></li>
+        <li><h3>Usei IA só para correção gramatical ou ortográfica?</h3><p>Confira a política do destino: Elsevier e Sage têm dispensas para apoio básico; LMS e Thieme exigem declaração inclusive de não uso. Não extrapole uma dispensa ou obrigação para outro título.</p></li>
+        <li><h3>O destino veda gerar texto ou limita a IA à linguagem?</h3><p>Exemplos reconfirmados: ASME, Optica, RAE, RBCS-ANPOCS e Educação &amp; Sociedade vedam gerar o texto; ADSA limita a escrita à linguagem. Se seu uso contrariar a política, não o oculte: consulte a editoria sobre a admissibilidade e as medidas necessárias.</p></li>
+        <li><h3>A IA fez parte do método (dados, código, análise)?</h3><p>Descreva de forma reproduzível no local exigido, com ferramenta, versão e parâmetros pertinentes. Nem toda limitação de escrita proíbe IA como método científico.</p></li>
         <li><h3>Declare no local e no formato exigidos</h3><p>Seção própria, Agradecimentos, nota de rodapé, carta ou sistema de submissão, conforme o periódico.</p></li>
-        <li><h3>Verifique e guarde o registro</h3><p>Confira todas as citações e números sugeridos pela IA, guarde o registro de uso e declare também na carta-resposta aos revisores.</p></li>
+        <li><h3>Verifique e guarde o registro</h3><p>Confira citações, números e resultados nas fontes originais. Guarde o registro de uso; verifique também as regras para responder aos revisores, sem presumir que sejam iguais às da preparação do manuscrito.</p></li>
       </ol>
     </section>
     <section className="sv-block" aria-labelledby="sv-checks-title">
@@ -320,7 +320,7 @@ function Authors({ data }: { data: SurveyData }) {
     </section>
     <section className="sv-block" aria-labelledby="sv-guide-title">
       <h2 id="sv-guide-title">Guia rápido por periódico de destino</h2>
-      <p className="sv-intro">Sensoriamento remoto, geociências e agrárias. “Fonte primária” indica política lida na fonte; “herdada da editora” pede conferir a instrução do periódico.</p>
+      <p className="sv-intro">Seleção de entidades com os quatro eixos reconciliados nesta revisão, com ênfase em geociências, engenharia e agrárias. As regras não são automaticamente extensíveis a todo periódico da editora ou sociedade.</p>
       <div className="sv-table-wrap"><table className="sv-table">
         <thead><tr><th scope="col">Periódicos</th><th scope="col">Editora ou sociedade</th><th scope="col">Gerar texto com IA</th><th scope="col">Onde e como declarar</th><th scope="col">Revisores</th><th scope="col">Verificação</th></tr></thead>
         <tbody>{data.guide.map(row => <tr key={row[0]}><th scope="row">{row[0]}</th><td>{row[1]}</td><td><Rich text={row[2]} /></td><td>{row[3]}</td><td>{row[4]}</td><td>{VERIFICATION_LABEL[row[5]] || row[5]}</td></tr>)}</tbody>
@@ -342,7 +342,8 @@ function Method({ data }: { data: SurveyData }) {
         <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-2026-10.csv`)} download onClick={() => download("csv")}><Download size={16} aria-hidden="true" />Base codificada (CSV)</a>
         <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-2026-10.xlsx`)} download onClick={() => download("xlsx")}><Download size={16} aria-hidden="true" />Base codificada com livro de códigos (XLSX)</a>
       </p>
-      <p><strong>Como citar:</strong> Observatório UFG-IA (LAPIG/UFG). <em>Políticas de IA na publicação científica</em>. Dados de {formatPublicDate(data.meta.referencia, "pt")}.</p>
+      <p><strong>Como citar:</strong> Observatório UFG-IA (LAPIG/UFG). <em>Políticas de IA na publicação científica</em>. Base de {formatPublicDate(data.meta.referencia, "pt")}{data.meta.revisao ? `; revisão ${data.meta.revisao.status} de ${formatPublicDate(data.meta.revisao.data, "pt")}` : ""}.</p>
+      {data.meta.revisao && <p><a href={siteAssetUrl(data.meta.revisao.history)} download>Histórico da revisão: fontes, decisões e pendências (JSON)</a></p>}
     </section>
     <section className="sv-block" aria-labelledby="sv-sources-title">
       <h2 id="sv-sources-title">Fontes por área</h2>
@@ -414,6 +415,13 @@ export function PoliticasIAPage({ english = false }: { english?: boolean }) {
       {data && tab === "" && <SurveySnapshot rows={data.rows} />}
     </div>
     <SectionNav sections={sections} route={route} label={english ? "Survey sections" : "Seções do levantamento"} headingId="sv-title" english={english} tabsClassName="sv-tabs" onNavigate={navigate} />
+    {data?.meta.revisao && <aside className="sv-block sv-review-notice" aria-label={english ? "Review coverage" : "Cobertura da revisão"} lang={english ? "en" : "pt-BR"}>
+      <p><strong>{english ? (data.meta.revisao.unresolved ? "Partial review" : "Review coverage") : (data.meta.revisao.unresolved ? "Revisão parcial" : "Cobertura da revisão")} · {formatPublicDate(data.meta.revisao.data, english ? "en" : "pt")}</strong></p>
+      <p>{english
+        ? `${data.meta.revisao.verified}/${data.meta.revisao.inventory} records reconciled across all four policy fields; ${data.meta.revisao.changed} corrected and ${data.meta.revisao.unresolved} unresolved. ${data.meta.revisao.unresolved ? "Unresolved records retain their previous coding. This is not a completed full audit. " : ""}The survey content remains in Portuguese.`
+        : `${data.meta.revisao.verified}/${data.meta.revisao.inventory} registros reconciliados nos quatro eixos; ${data.meta.revisao.changed} corrigidos e ${data.meta.revisao.unresolved} pendentes. ${data.meta.revisao.unresolved ? "Os pendentes mantêm a codificação anterior. Não é uma auditoria integral concluída." : "Consulte as fontes e decisões no histórico."}`}</p>
+      <a href={siteAssetUrl(data.meta.revisao.history)}>{english ? "Review evidence and unresolved records (JSON)" : "Fontes, decisões e registros pendentes (JSON)"}</a>
+    </aside>}
     <div className="sv-content">
       {failed ? <p className="sv-empty" role="alert">Não foi possível carregar os dados do levantamento. Tente recarregar a página.</p>
         : !data ? <p className="sv-empty" aria-live="polite">Carregando o levantamento…</p>
