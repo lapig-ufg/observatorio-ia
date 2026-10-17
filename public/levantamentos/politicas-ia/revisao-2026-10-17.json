@@ -4,7 +4,7 @@
   "mode": "manual-test",
   "scheduledFirstCycle": "2026-10-24",
   "startedAt": "2026-10-17T18:35:27.752Z",
-  "finishedAt": "2026-10-17T20:05:18.384Z",
+  "finishedAt": "2026-10-17T20:17:33.281Z",
   "baseCommit": "987d303ccabcf1ce1b4b12eff7728f63910be20c",
   "entries": [
     {
@@ -179,20 +179,85 @@
     },
     {
       "key": "[\"Organismo transversal\",\"WAME\",\"SAU\",\"Internacional\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
+      "outcome": "changed",
+      "checkedAt": "2026-10-17T20:11:25.655Z",
+      "reason": "A URL anterior indica explicitamente versão substituída; lida a versão 2 de 31/05/2023, incluindo declaração, confidencialidade e figuras.",
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "sources": [
         {
-          "url": "https://wame.org/page3.php?id=110",
+          "url": "https://wame.org/page3.php?id=106",
           "owner": "WAME",
           "official": true,
-          "access": "unavailable",
-          "section": "Leitura normativa indisponível",
-          "attempted": true
+          "access": "read",
+          "section": "Política de IA: autoria, declaração, revisão e imagens",
+          "sha256": "9d1499c75689a82e3688e5d9c7607aa4f7bcdbbb8056ae65a82cac5dd35d7c68",
+          "queriedAt": "2026-10-17T20:11:25.579Z"
         }
       ],
-      "changedFields": []
+      "changedFields": [
+        "img",
+        "nota",
+        "url"
+      ],
+      "before": {
+        "nome": "WAME",
+        "tipo": "Organismo transversal",
+        "area": "SAU",
+        "sub": "Editores médicos",
+        "geo": "Internacional",
+        "ano": 2023,
+        "gen": "Permitida",
+        "loc": "Múltiplos",
+        "rev": "Condicionado",
+        "img": "Não trata",
+        "verif": "P",
+        "url": "https://wame.org/page3.php?id=110",
+        "nota": "Ferramenta, versão, data e prompts quando IA afeta análise/código."
+      },
+      "after": {
+        "nome": "WAME",
+        "tipo": "Organismo transversal",
+        "area": "SAU",
+        "sub": "Editores médicos",
+        "geo": "Internacional",
+        "ano": 2023,
+        "gen": "Permitida",
+        "loc": "Múltiplos",
+        "rev": "Condicionado",
+        "img": "Permitidas c/ declaração",
+        "verif": "P",
+        "url": "https://wame.org/page3.php?id=106",
+        "nota": "Versão 2, 31/05/2023. Texto novo: Agradecimentos e prompts, inclusive conversão para tabelas/ilustrações. Análise, resultados, figuras ou código: Resumo e Métodos, ferramenta/versão, prompt e data/hora. Autores respondem pela integridade e não podem fabricar dados. Editores e pareceristas devem explicar o uso; enviar manuscrito a chatbot viola sigilo. Isso não é autorização geral para qualquer imagem sintética."
+      },
+      "decisions": [
+        {
+          "field": "img",
+          "reason": "A URL anterior indica explicitamente versão substituída; lida a versão 2 de 31/05/2023, incluindo declaração, confidencialidade e figuras.",
+          "sourceUrls": [
+            "https://wame.org/page3.php?id=106"
+          ]
+        },
+        {
+          "field": "nota",
+          "reason": "A URL anterior indica explicitamente versão substituída; lida a versão 2 de 31/05/2023, incluindo declaração, confidencialidade e figuras.",
+          "sourceUrls": [
+            "https://wame.org/page3.php?id=106"
+          ]
+        },
+        {
+          "field": "url",
+          "reason": "A URL anterior indica explicitamente versão substituída; lida a versão 2 de 31/05/2023, incluindo declaração, confidencialidade e figuras.",
+          "sourceUrls": [
+            "https://wame.org/page3.php?id=106"
+          ]
+        }
+      ],
+      "changeKind": "Correção de codificação/descrição em relação à base; não comprova data de mudança normativa"
     },
     {
       "key": "[\"Organismo transversal\",\"CSE\",\"MUL\",\"Internacional\"]",
@@ -778,20 +843,115 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"American Mathematical Society\",\"EXA\",\"EUA\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
+      "outcome": "changed",
+      "checkedAt": "2026-10-17T20:13:19.619Z",
+      "reason": "Norma AMS adaptada de COPE e responsabilidades dos revisores lidas no navegador; a vedação de upload antes não codificada é explícita.",
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "sources": [
         {
-          "url": "https://ams.org/publications/journals/policies/UseofArtificialIntelligence",
+          "url": "https://www.ams.org/publications/journals/policies/UseofArtificialIntelligence",
           "owner": "American Mathematical Society",
           "official": true,
-          "access": "unavailable",
-          "section": "Leitura normativa indisponível",
-          "attempted": true
+          "access": "read",
+          "section": "Política de IA: autoria, declaração, revisão e imagens",
+          "sha256": "71837619f6114365d20d5296d8dad36edacc6e9486bd4785e5924c36c5ee91a9",
+          "queriedAt": "2026-10-17T20:13:19.532Z"
+        },
+        {
+          "url": "https://www.ams.org/publications/journals/policies/reviewerrights",
+          "owner": "AMS",
+          "official": true,
+          "access": "read",
+          "section": "Responsabilidades e confidencialidade dos revisores",
+          "sha256": "21ed2b1fcf5bef8741dd1eae7cebf96d56d5d9905d43429f33e4e8ab63d765e1",
+          "queriedAt": "2026-10-17T20:13:19.708Z"
         }
       ],
-      "changedFields": []
+      "changedFields": [
+        "ano",
+        "img",
+        "nota",
+        "rev",
+        "url"
+      ],
+      "before": {
+        "nome": "American Mathematical Society",
+        "tipo": "Sociedade/associação",
+        "area": "EXA",
+        "sub": "Matemática",
+        "geo": "EUA",
+        "ano": 2023,
+        "gen": "Permitida",
+        "loc": "Métodos",
+        "rev": "Não trata",
+        "img": "Não trata",
+        "verif": "P",
+        "url": "https://ams.org/publications/journals/policies/UseofArtificialIntelligence",
+        "nota": "Reproduz o COPE."
+      },
+      "after": {
+        "nome": "American Mathematical Society",
+        "tipo": "Sociedade/associação",
+        "area": "EXA",
+        "sub": "Matemática",
+        "geo": "EUA",
+        "ano": null,
+        "gen": "Permitida",
+        "loc": "Métodos",
+        "rev": "Condicionado",
+        "img": "Permitidas c/ declaração",
+        "verif": "P",
+        "url": "https://www.ams.org/publications/journals/policies/UseofArtificialIntelligence",
+        "nota": "Adapta posição COPE de fevereiro de 2023, sem data explícita da adoção AMS. Uso na escrita, imagens/elementos gráficos e dados deve ser relatado em Métodos ou equivalente, com ferramenta e finalidade. Responsabilidade humana. Editores e revisores não podem enviar o artigo a LLM em formato algum e por motivo algum; não se infere vedação de todo apoio não confidencial."
+      },
+      "decisions": [
+        {
+          "field": "ano",
+          "reason": "Norma AMS adaptada de COPE e responsabilidades dos revisores lidas no navegador; a vedação de upload antes não codificada é explícita.",
+          "sourceUrls": [
+            "https://www.ams.org/publications/journals/policies/UseofArtificialIntelligence",
+            "https://www.ams.org/publications/journals/policies/reviewerrights"
+          ]
+        },
+        {
+          "field": "img",
+          "reason": "Norma AMS adaptada de COPE e responsabilidades dos revisores lidas no navegador; a vedação de upload antes não codificada é explícita.",
+          "sourceUrls": [
+            "https://www.ams.org/publications/journals/policies/UseofArtificialIntelligence",
+            "https://www.ams.org/publications/journals/policies/reviewerrights"
+          ]
+        },
+        {
+          "field": "nota",
+          "reason": "Norma AMS adaptada de COPE e responsabilidades dos revisores lidas no navegador; a vedação de upload antes não codificada é explícita.",
+          "sourceUrls": [
+            "https://www.ams.org/publications/journals/policies/UseofArtificialIntelligence",
+            "https://www.ams.org/publications/journals/policies/reviewerrights"
+          ]
+        },
+        {
+          "field": "rev",
+          "reason": "Norma AMS adaptada de COPE e responsabilidades dos revisores lidas no navegador; a vedação de upload antes não codificada é explícita.",
+          "sourceUrls": [
+            "https://www.ams.org/publications/journals/policies/UseofArtificialIntelligence",
+            "https://www.ams.org/publications/journals/policies/reviewerrights"
+          ]
+        },
+        {
+          "field": "url",
+          "reason": "Norma AMS adaptada de COPE e responsabilidades dos revisores lidas no navegador; a vedação de upload antes não codificada é explícita.",
+          "sourceUrls": [
+            "https://www.ams.org/publications/journals/policies/UseofArtificialIntelligence",
+            "https://www.ams.org/publications/journals/policies/reviewerrights"
+          ]
+        }
+      ],
+      "changeKind": "Correção de codificação/descrição em relação à base; não comprova data de mudança normativa"
     },
     {
       "key": "[\"Sociedade/associação\",\"London Mathematical Society\",\"EXA\",\"Reino Unido\"]",
@@ -1033,20 +1193,79 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"ACM\",\"EXA\",\"Internacional\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
+      "outcome": "changed",
+      "checkedAt": "2026-10-17T20:13:19.626Z",
+      "reason": "Autoria de 14/05/2026 e política de revisão de 30/11/2023 reconciliadas, preservando a dispensa para escrita e os limites de apoio ao parecer.",
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "sources": [
         {
           "url": "https://www.acm.org/publications/policies/new-acm-policy-on-authorship",
           "owner": "ACM",
           "official": true,
-          "access": "unavailable",
-          "section": "Leitura normativa indisponível",
-          "attempted": true
+          "access": "read",
+          "section": "Política de IA: autoria, declaração, revisão e imagens",
+          "sha256": "12b8a54c3eb6d9d95922455c697ad27b93ec5f5a3577ae5a3d11e923bac97d0d",
+          "queriedAt": "2026-10-17T20:13:19.611Z"
+        },
+        {
+          "url": "https://www.acm.org/publications/policies/peer-review",
+          "owner": "ACM",
+          "official": true,
+          "access": "read",
+          "section": "Responsabilidades e confidencialidade dos revisores",
+          "sha256": "4ac1ee61770e65ce27418c4ebfd14820cee0db8f5342dd1d7111820dba58288e",
+          "queriedAt": "2026-10-17T20:13:19.785Z"
         }
       ],
-      "changedFields": []
+      "changedFields": [
+        "nota"
+      ],
+      "before": {
+        "nome": "ACM",
+        "tipo": "Sociedade/associação",
+        "area": "EXA",
+        "sub": "Computação",
+        "geo": "Internacional",
+        "ano": 2026,
+        "gen": "Permitida",
+        "loc": "Sem exigência p/ redação",
+        "rev": "Condicionado",
+        "img": "Não trata",
+        "verif": "P",
+        "url": "https://www.acm.org/publications/policies/new-acm-policy-on-authorship",
+        "nota": "Uso na pesquisa em Métodos; redação sem declaração geral."
+      },
+      "after": {
+        "nome": "ACM",
+        "tipo": "Sociedade/associação",
+        "area": "EXA",
+        "sub": "Computação",
+        "geo": "Internacional",
+        "ano": 2026,
+        "gen": "Permitida",
+        "loc": "Sem exigência p/ redação",
+        "rev": "Condicionado",
+        "img": "Não trata",
+        "verif": "P",
+        "url": "https://www.acm.org/publications/policies/new-acm-policy-on-authorship",
+        "nota": "Autoria atualizada em 14/05/2026: não exige declaração de IA para escrita; usos que afetam desenho, método, dados, código e figuras relevantes às conclusões devem ser detalhados em Métodos. Autores humanos respondem pela integridade. Revisão (30/11/2023): só aprimorar qualidade/legibilidade do próprio parecer, removendo toda informação confidencial ou identificadora; não delegar autoria/julgamento. A norma não dá autorização genérica para qualquer imagem sintética."
+      },
+      "decisions": [
+        {
+          "field": "nota",
+          "reason": "Autoria de 14/05/2026 e política de revisão de 30/11/2023 reconciliadas, preservando a dispensa para escrita e os limites de apoio ao parecer.",
+          "sourceUrls": [
+            "https://www.acm.org/publications/policies/new-acm-policy-on-authorship",
+            "https://www.acm.org/publications/policies/peer-review"
+          ]
+        }
+      ],
+      "changeKind": "Correção de codificação/descrição em relação à base; não comprova data de mudança normativa"
     },
     {
       "key": "[\"Sociedade/associação\",\"ACL (Ling. Computacional)\",\"EXA\",\"Internacional\"]",
@@ -1346,7 +1565,7 @@
     {
       "key": "[\"Sociedade/associação\",\"SBC — Sociedade Brasileira de Computação\",\"EXA\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -1601,8 +1820,8 @@
     {
       "key": "[\"Sociedade/associação\",\"Geological Society of London\",\"EXA\",\"Reino Unido\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A notícia institucional não substitui a leitura da norma do publishing hub, cujo acesso falhou.",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
+      "reason": "Publishing hub oficial exige verificação de segurança contra bots no navegador. Notícia institucional não substitui a norma completa; registro anterior preservado.",
       "sources": [
         {
           "url": "https://geoscientist.online/sections/news/ai-in-publishing-geological-society/",
@@ -1618,7 +1837,7 @@
     {
       "key": "[\"Sociedade/associação\",\"American Meteorological Society\",\"EXA\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte secundária não foi substituída por instrução normativa oficial aplicável.",
       "sources": [
         {
@@ -1892,7 +2111,7 @@
     {
       "key": "[\"Periódico\",\"Remote Sensing of Environment / ISPRS J. / JAG\",\"EXA\",\"Internacional\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A política geral da editora não confirma a instrução específica de cada um dos três títulos agrupados.",
       "sources": [
         {
@@ -1982,25 +2201,93 @@
     },
     {
       "key": "[\"Periódico\",\"Remote Sensing (MDPI)\",\"EXA\",\"Internacional\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "Os títulos agrupados e a norma MDPI não puderam ser confirmados integralmente; acesso à política retornou 429.",
+      "outcome": "changed",
+      "checkedAt": "2026-10-17T20:11:25.660Z",
+      "reason": "Instruções próprias lidas e adoção expressa da Research and Publication Ethics MDPI documentada; confrontadas com a norma geral completa.",
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "sources": [
         {
-          "url": "https://www.mdpi.com/ethics",
+          "url": "https://www.mdpi.com/journal/remotesensing/instructions",
           "owner": "Remote Sensing (MDPI)",
           "official": true,
-          "access": "unavailable",
-          "section": "Leitura normativa indisponível",
-          "attempted": true
+          "access": "read",
+          "section": "Política de IA: autoria, declaração, revisão e imagens",
+          "sha256": "68e3732425c69d7a88d4cdeae91bbbce75018fe4024cf01cbbce5cc8b87d393e",
+          "queriedAt": "2026-10-17T20:11:25.652Z"
+        },
+        {
+          "url": "https://www.mdpi.com/ethics",
+          "owner": "MDPI",
+          "official": true,
+          "access": "read",
+          "section": "Política de IA: autoria, declaração, revisão e imagens",
+          "sha256": "83e80e33b25aece14c6dd1796c6479c02eb0569af052d67d84e09fd6b9ba86c9",
+          "queriedAt": "2026-10-17T20:10:01.285Z"
         }
       ],
-      "changedFields": []
+      "changedFields": [
+        "nota",
+        "url"
+      ],
+      "before": {
+        "nome": "Remote Sensing (MDPI)",
+        "tipo": "Periódico",
+        "area": "EXA",
+        "sub": "Sensoriamento remoto",
+        "geo": "Internacional",
+        "ano": null,
+        "gen": "Permitida",
+        "loc": "Múltiplos",
+        "rev": "Condicionado",
+        "img": "Restritas",
+        "verif": "P",
+        "url": "https://www.mdpi.com/ethics",
+        "nota": "Submissão + Métodos + Agradecimentos."
+      },
+      "after": {
+        "nome": "Remote Sensing (MDPI)",
+        "tipo": "Periódico",
+        "area": "EXA",
+        "sub": "Sensoriamento remoto",
+        "geo": "Internacional",
+        "ano": null,
+        "gen": "Permitida",
+        "loc": "Múltiplos",
+        "rev": "Condicionado",
+        "img": "Restritas",
+        "verif": "P",
+        "url": "https://www.mdpi.com/journal/remotesensing/instructions",
+        "nota": "Instruções do Remote Sensing exigem detalhar uso substantivo em Métodos e identificar ferramenta/finalidade nos Agradecimentos; edição superficial é dispensada. O título adota expressamente a ética MDPI: declaração também na submissão, integridade de dados/imagens, apoio linguístico limitado ao próprio parecer com declaração e sem upload do material, e vedação de GenAI na decisão por editores acadêmicos."
+      },
+      "decisions": [
+        {
+          "field": "nota",
+          "reason": "Instruções próprias lidas e adoção expressa da Research and Publication Ethics MDPI documentada; confrontadas com a norma geral completa.",
+          "sourceUrls": [
+            "https://www.mdpi.com/journal/remotesensing/instructions",
+            "https://www.mdpi.com/ethics"
+          ]
+        },
+        {
+          "field": "url",
+          "reason": "Instruções próprias lidas e adoção expressa da Research and Publication Ethics MDPI documentada; confrontadas com a norma geral completa.",
+          "sourceUrls": [
+            "https://www.mdpi.com/journal/remotesensing/instructions",
+            "https://www.mdpi.com/ethics"
+          ]
+        }
+      ],
+      "changeKind": "Correção de codificação/descrição em relação à base; não comprova data de mudança normativa"
     },
     {
       "key": "[\"Periódico\",\"IJRS / GIScience & RS / Remote Sensing Letters\",\"EXA\",\"Internacional\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "Falta confirmar a adoção e as exceções nas instruções de cada título agrupado, além da regra geral da editora.",
       "sources": [
         {
@@ -2193,7 +2480,7 @@
     {
       "key": "[\"Periódico\",\"Boletim de Ciências Geodésicas\",\"EXA\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -2284,7 +2571,7 @@
     {
       "key": "[\"Evento/conferência\",\"SBSR / INPE\",\"EXA\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "As instruções da edição histórica do evento não confirmam uma edição posterior.",
       "sources": [
         {
@@ -2477,7 +2764,7 @@
     {
       "key": "[\"Sociedade/associação\",\"EMBO Press\",\"BIO\",\"Europa\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -2588,7 +2875,7 @@
     {
       "key": "[\"Sociedade/associação\",\"ASPB (The Plant Cell)\",\"BIO\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -2605,7 +2892,7 @@
     {
       "key": "[\"Sociedade/associação\",\"Society for Neuroscience (J. Neurosci.)\",\"BIO\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -2622,8 +2909,8 @@
     {
       "key": "[\"Periódico\",\"Cell (Cell Press)\",\"BIO\",\"Internacional\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
+      "reason": "Página oficial exige verificação de segurança contra bots no navegador. Não contornado o controle; registro anterior preservado.",
       "sources": [
         {
           "url": "https://www.cell.com/cell/information-for-authors/journal-policies",
@@ -2639,7 +2926,7 @@
     {
       "key": "[\"Periódico\",\"Global Change Biology (Wiley)\",\"BIO\",\"Internacional\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -2656,7 +2943,7 @@
     {
       "key": "[\"Editora\",\"PeerJ\",\"BIO\",\"Internacional\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -2771,7 +3058,7 @@
     {
       "key": "[\"Periódico\",\"Acta Botanica Brasilica (SBB)\",\"BIO\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -2910,7 +3197,7 @@
     {
       "key": "[\"Sociedade/associação\",\"ASCE\",\"ENG\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -3054,7 +3341,7 @@
     {
       "key": "[\"Periódico\",\"Engenharia Sanitária e Ambiental (ABES)\",\"ENG\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -3161,8 +3448,8 @@
     {
       "key": "[\"Periódico\",\"NEJM\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
+      "reason": "Página oficial exige verificação de segurança no navegador e a leitura não se estabilizou. Não contornado o controle; registro anterior preservado.",
       "sources": [
         {
           "url": "https://www.nejm.org/about-nejm/editorial-policies",
@@ -3342,8 +3629,8 @@
     {
       "key": "[\"Periódico\",\"The Lancet\",\"SAU\",\"Reino Unido\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
+      "reason": "Página oficial exige verificação de segurança contra bots no navegador. Não contornado o controle; registro anterior preservado.",
       "sources": [
         {
           "url": "https://www.thelancet.com/editorial-policies",
@@ -3359,7 +3646,7 @@
     {
       "key": "[\"Sociedade/associação\",\"American Heart Association\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -3376,7 +3663,7 @@
     {
       "key": "[\"Sociedade/associação\",\"ASCO (JCO)\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -3393,7 +3680,7 @@
     {
       "key": "[\"Sociedade/associação\",\"ACP (Annals of Internal Medicine)\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -3410,7 +3697,7 @@
     {
       "key": "[\"Sociedade/associação\",\"AACR\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -3677,7 +3964,7 @@
     {
       "key": "[\"Editora\",\"Mary Ann Liebert\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -3887,7 +4174,7 @@
     {
       "key": "[\"Periódico\",\"Arq. Brasileiros de Cardiologia (SBC-Cardiologia)\",\"SAU\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -4077,7 +4364,7 @@
     {
       "key": "[\"Sociedade/associação\",\"ASAS (J. Animal Science)\",\"AGR\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -4266,7 +4553,7 @@
     {
       "key": "[\"Periódico\",\"Pesquisa Agropecuária Brasileira (Embrapa)\",\"AGR\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -4283,7 +4570,7 @@
     {
       "key": "[\"Periódico\",\"Rev. Brasileira de Ciência do Solo (SBCS)\",\"AGR\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -4501,7 +4788,7 @@
     {
       "key": "[\"Periódico\",\"Rev. Bras. Eng. Agrícola e Ambiental\",\"AGR\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -4566,7 +4853,7 @@
     {
       "key": "[\"Sociedade/associação\",\"Econometric Society\",\"SOC\",\"Internacional\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -4723,7 +5010,7 @@
     {
       "key": "[\"Sociedade/associação\",\"AALS (Direito)\",\"SOC\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "Página institucional geral não é prova suficiente de ausência de política editorial.",
       "sources": [
         {
@@ -4843,8 +5130,8 @@
     {
       "key": "[\"Editora\",\"Emerald\",\"SOC\",\"Reino Unido\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
+      "reason": "A página oficial não entregou conteúdo normativo legível no navegador, após falha do leitor web. A adoção Emerald por um título não prova toda a regra da editora.",
       "sources": [
         {
           "url": "https://www.emeraldgrouppublishing.com/publish-with-us/ethics-integrity/research-publishing-ethics",
@@ -5210,7 +5497,7 @@
     {
       "key": "[\"Sociedade/associação\",\"AERA\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "Página institucional geral não é prova suficiente de ausência de política editorial.",
       "sources": [
         {
@@ -5293,7 +5580,7 @@
     {
       "key": "[\"Sociedade/associação\",\"American Historical Association\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A política educacional não resolve a norma de publicação científica; não inferir ausência.",
       "sources": [
         {
@@ -5400,7 +5687,7 @@
     {
       "key": "[\"Sociedade/associação\",\"American Sociological Association\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "Página institucional geral não é prova suficiente de ausência de política editorial.",
       "sources": [
         {
@@ -5483,7 +5770,7 @@
     {
       "key": "[\"Sociedade/associação\",\"American Philosophical Association\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "Página institucional geral não é prova suficiente de ausência de política editorial.",
       "sources": [
         {
@@ -5500,7 +5787,7 @@
     {
       "key": "[\"Sociedade/associação\",\"AAR / SBL\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "Página institucional geral não é prova suficiente de ausência de política editorial.",
       "sources": [
         {
@@ -5517,7 +5804,7 @@
     {
       "key": "[\"Editora\",\"University of Chicago Press (livros)\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -5632,7 +5919,7 @@
     {
       "key": "[\"Periódico\",\"Rev. Brasileira de Educação (ANPEd)\",\"HUM\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte foi localizada, mas a reconciliação das seções normativas complementares e dos quatro campos ainda não está concluída; mantida integralmente a codificação anterior, sem declarar reconfirmação.",
       "sources": [
         {
@@ -5747,7 +6034,7 @@
     {
       "key": "[\"Periódico\",\"Psicologia: Reflexão e Crítica\",\"HUM\",\"Brasil\"]",
       "outcome": "changed",
-      "checkedAt": "2026-10-17T19:59:29.556Z",
+      "checkedAt": "2026-10-17T20:15:53.322Z",
       "reason": "Link de políticas do próprio periódico encaminha às políticas Springer; herança documental conferida, em vez de inferida apenas da editora. Suprimida informação lateral não revalidada sobre SciELO.",
       "scopesChecked": [
         "author",
@@ -5766,13 +6053,13 @@
           "queriedAt": "2026-10-17T19:59:29.552Z"
         },
         {
-          "url": "https://link.springer.com/journal/41155",
-          "owner": "Psicologia: Reflexão e Crítica",
+          "url": "https://link.springer.com/journal/41155/submission-guidelines",
+          "owner": "Psicologia: Reflexão e Crítica / Springer Nature",
           "official": true,
           "access": "read",
-          "section": "Navegação editorial do próprio título, link Editorial policies",
-          "sha256": "08ce989d819a333ec6430f062c0ffd5c0ceba4faa9eda961b31a2e958db18ee7",
-          "queriedAt": "2026-10-17T19:59:29.563Z"
+          "section": "Editorial policies — remissão explícita da instrução do título",
+          "sha256": "3443a0cce05f68fe64d5cddbc62a740d15e6c7e853bcbc6304e016ea92613b46",
+          "queriedAt": "2026-10-17T20:15:53.322Z"
         }
       ],
       "changedFields": [
@@ -5815,7 +6102,7 @@
           "reason": "Link de políticas do próprio periódico encaminha às políticas Springer; herança documental conferida, em vez de inferida apenas da editora. Suprimida informação lateral não revalidada sobre SciELO.",
           "sourceUrls": [
             "https://link.springer.com/brands/springer/journal-policies",
-            "https://link.springer.com/journal/41155"
+            "https://link.springer.com/journal/41155/submission-guidelines"
           ]
         },
         {
@@ -5823,7 +6110,7 @@
           "reason": "Link de políticas do próprio periódico encaminha às políticas Springer; herança documental conferida, em vez de inferida apenas da editora. Suprimida informação lateral não revalidada sobre SciELO.",
           "sourceUrls": [
             "https://link.springer.com/brands/springer/journal-policies",
-            "https://link.springer.com/journal/41155"
+            "https://link.springer.com/journal/41155/submission-guidelines"
           ]
         }
       ],
@@ -5832,7 +6119,7 @@
     {
       "key": "[\"Sociedade/associação\",\"Modern Language Association (MLA)\",\"LLA\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -5934,7 +6221,7 @@
     {
       "key": "[\"Sociedade/associação\",\"College Art Association (CAA)\",\"LLA\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "Página institucional geral não é prova suficiente de ausência de política editorial.",
       "sources": [
         {
@@ -6593,37 +6880,154 @@
     },
     {
       "key": "[\"Editora\",\"De Gruyter Brill\",\"MUL\",\"Alemanha\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
+      "outcome": "changed",
+      "checkedAt": "2026-10-17T20:13:47.247Z",
+      "reason": "Norma primária de setembro de 2026 e diretriz de revisores de março de 2025 lidas, sem extrapolar ilustração para dado experimental.",
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "sources": [
         {
           "url": "https://www.degruyterbrill.com/publishing/for-authors/author-policies/artificial-intelligence",
           "owner": "De Gruyter Brill",
           "official": true,
-          "access": "unavailable",
-          "section": "Leitura normativa indisponível",
-          "attempted": true
+          "access": "read",
+          "section": "Política de IA: autoria, declaração, revisão e imagens",
+          "sha256": "4dd200ecaa8e8dfc326492bb115c239591409392090db4d188ba841587232f42",
+          "queriedAt": "2026-10-17T20:13:47.242Z"
+        },
+        {
+          "url": "https://degruyter-live-craftcms-assets.s3.amazonaws.com/DGB_25/Documents/reviewer_guidelines.pdf",
+          "owner": "De Gruyter Brill",
+          "official": true,
+          "access": "read",
+          "section": "Reviewer Guidelines, 21 March 2025, Confidentiality and Generative Artificial Intelligence",
+          "sha256": "5445667e64897a6b82594ec06f0e2f8e038609c588e65a251e8b7ba9ac515049",
+          "queriedAt": "2026-10-17T20:13:47.257Z"
         }
       ],
-      "changedFields": []
+      "changedFields": [
+        "loc",
+        "nota"
+      ],
+      "before": {
+        "nome": "De Gruyter Brill",
+        "tipo": "Editora",
+        "area": "MUL",
+        "sub": "Multidisciplinar",
+        "geo": "Alemanha",
+        "ano": 2026,
+        "gen": "Permitida",
+        "loc": "Não especifica",
+        "rev": "Condicionado",
+        "img": "Permitidas c/ declaração",
+        "verif": "P",
+        "url": "https://www.degruyterbrill.com/publishing/for-authors/author-policies/artificial-intelligence",
+        "nota": ""
+      },
+      "after": {
+        "nome": "De Gruyter Brill",
+        "tipo": "Editora",
+        "area": "MUL",
+        "sub": "Multidisciplinar",
+        "geo": "Alemanha",
+        "ano": 2026,
+        "gen": "Permitida",
+        "loc": "Múltiplos",
+        "rev": "Condicionado",
+        "img": "Permitidas c/ declaração",
+        "verif": "P",
+        "url": "https://www.degruyterbrill.com/publishing/for-authors/author-policies/artificial-intelligence",
+        "nota": "Setembro de 2026: não aceita trabalhos gerados por IA; autores humanos respondem pelo conteúdo. Contribuição substantiva de IA deve ser declarada; método/desenho: Agradecimentos; proofreading/copy-editing simples são dispensados. Admite ilustrações e capas legais, declaradas na submissão; proíbe fabricar/alterar dados, figuras e imagens experimentais. Revisores não podem enviar manuscrito ou partes a IA; avaliação é responsabilidade exclusivamente humana."
+      },
+      "decisions": [
+        {
+          "field": "loc",
+          "reason": "Norma primária de setembro de 2026 e diretriz de revisores de março de 2025 lidas, sem extrapolar ilustração para dado experimental.",
+          "sourceUrls": [
+            "https://www.degruyterbrill.com/publishing/for-authors/author-policies/artificial-intelligence",
+            "https://degruyter-live-craftcms-assets.s3.amazonaws.com/DGB_25/Documents/reviewer_guidelines.pdf"
+          ]
+        },
+        {
+          "field": "nota",
+          "reason": "Norma primária de setembro de 2026 e diretriz de revisores de março de 2025 lidas, sem extrapolar ilustração para dado experimental.",
+          "sourceUrls": [
+            "https://www.degruyterbrill.com/publishing/for-authors/author-policies/artificial-intelligence",
+            "https://degruyter-live-craftcms-assets.s3.amazonaws.com/DGB_25/Documents/reviewer_guidelines.pdf"
+          ]
+        }
+      ],
+      "changeKind": "Correção de codificação/descrição em relação à base; não comprova data de mudança normativa"
     },
     {
       "key": "[\"Editora\",\"MDPI\",\"MUL\",\"Suíça\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
+      "outcome": "changed",
+      "checkedAt": "2026-10-17T20:10:01.290Z",
+      "reason": "Fonte normativa primária lida integralmente nos quatro eixos via navegador; erros 429 do leitor não foram tratados como ausência.",
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "sources": [
         {
           "url": "https://www.mdpi.com/ethics",
           "owner": "MDPI",
           "official": true,
-          "access": "unavailable",
-          "section": "Leitura normativa indisponível",
-          "attempted": true
+          "access": "read",
+          "section": "Política de IA: autoria, declaração, revisão e imagens",
+          "sha256": "83e80e33b25aece14c6dd1796c6479c02eb0569af052d67d84e09fd6b9ba86c9",
+          "queriedAt": "2026-10-17T20:10:01.285Z"
         }
       ],
-      "changedFields": []
+      "changedFields": [
+        "nota"
+      ],
+      "before": {
+        "nome": "MDPI",
+        "tipo": "Editora",
+        "area": "MUL",
+        "sub": "Multidisciplinar",
+        "geo": "Suíça",
+        "ano": null,
+        "gen": "Permitida",
+        "loc": "Múltiplos",
+        "rev": "Condicionado",
+        "img": "Restritas",
+        "verif": "P",
+        "url": "https://www.mdpi.com/ethics",
+        "nota": "Editores acadêmicos proibidos de usar IA."
+      },
+      "after": {
+        "nome": "MDPI",
+        "tipo": "Editora",
+        "area": "MUL",
+        "sub": "Multidisciplinar",
+        "geo": "Suíça",
+        "ano": null,
+        "gen": "Permitida",
+        "loc": "Múltiplos",
+        "rev": "Condicionado",
+        "img": "Restritas",
+        "verif": "P",
+        "url": "https://www.mdpi.com/ethics",
+        "nota": "GenAI substantiva deve ser declarada na submissão, detalhada em Materiais e Métodos e identificada nos Agradecimentos. Edição gramatical, estrutural, ortográfica e formatação são dispensadas. Admite gráficos/conteúdo gerado sob integridade e responsabilidade humana, sem fabricar ou manipular dados/imagens originais. Pareceristas: apoio limitado à qualidade da escrita, declarado; nunca upload de manuscrito, figuras, tabelas ou comunicações. Editores acadêmicos não podem usar GenAI na revisão ou decisão editorial."
+      },
+      "decisions": [
+        {
+          "field": "nota",
+          "reason": "Fonte normativa primária lida integralmente nos quatro eixos via navegador; erros 429 do leitor não foram tratados como ausência.",
+          "sourceUrls": [
+            "https://www.mdpi.com/ethics"
+          ]
+        }
+      ],
+      "changeKind": "Correção de codificação/descrição em relação à base; não comprova data de mudança normativa"
     },
     {
       "key": "[\"Editora\",\"Frontiers\",\"MUL\",\"Suíça\"]",
@@ -6784,7 +7188,7 @@
     {
       "key": "[\"Editora\",\"F1000Research\",\"MUL\",\"Reino Unido\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -6801,8 +7205,8 @@
     {
       "key": "[\"Periódico\",\"Science (AAAS)\",\"MUL\",\"EUA\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
-      "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
+      "reason": "Página editorial liberada automaticamente no navegador, mas a diretriz detalhada de setembro de 2026 (PDF oficial) retornou 403 e não permitiu reconciliar imagens e exceções. Mantido o registro anterior, sem declarar verificação integral.",
       "sources": [
         {
           "url": "https://www.science.org/content/page/science-journals-editorial-policies",
@@ -7050,7 +7454,7 @@
     {
       "key": "[\"Sociedade/associação\",\"SBPC\",\"MUL\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -7133,7 +7537,7 @@
     {
       "key": "[\"Agência de fomento\",\"CNPq (Portaria 2.664/2026)\",\"MUL\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "O endereço oficial da Portaria CNPq indicado pelo periódico retornou 403; citações por terceiros não encerram a verificação.",
       "sources": [
         {
@@ -7473,7 +7877,7 @@
     {
       "key": "[\"Agência de fomento\",\"MOST (China)\",\"MUL\",\"China\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "A fonte canônica não pôde ser lida com segurança nesta consulta; a falha de acesso não prova revogação nem ausência de política.",
       "sources": [
         {
@@ -7572,7 +7976,7 @@
     {
       "key": "[\"Agência de fomento\",\"FAPESP / CAPES / FAPEG\",\"MUL\",\"Brasil\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-10-17T20:05:18.384Z",
+      "checkedAt": "2026-10-17T20:17:33.281Z",
       "reason": "O registro agrega três agências sem URL própria; é necessário confrontar cada agência separadamente antes de afirmar ausência comum.",
       "sources": [
         {
@@ -7590,8 +7994,8 @@
   "summary": {
     "total": 149,
     "unchanged": 20,
-    "changed": 77,
-    "unresolved": 52,
+    "changed": 83,
+    "unresolved": 46,
     "canClose": false
   }
 }

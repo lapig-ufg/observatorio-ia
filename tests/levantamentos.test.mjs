@@ -93,6 +93,8 @@ test("divergências de revisão, imagens e declaração não regressam", () => {
   assert.equal(data.rows.find(row => row.nome === "Edward Elgar").gen, "Vedada");
   assert.equal(data.rows.find(row => row.nome === "Rev. Brasileira de Cartografia (SBC-Cartografia)").verif, "H");
   assert.equal(data.rows.find(row => row.nome === "Rev. Brasileira de Zootecnia (SBZ)").loc, "Múltiplos");
+  assert.equal(data.rows.find(row => row.nome === "American Mathematical Society").rev, "Condicionado");
+  assert.equal(data.rows.find(row => row.nome === "WAME").url, "https://wame.org/page3.php?id=106");
 });
 
 test("a página revalida a base para não combinar interface nova com políticas antigas em cache", () => {
