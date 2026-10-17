@@ -331,7 +331,7 @@ function Method({ data }: { data: SurveyData }) {
         <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-v5.csv`)} download onClick={() => download("csv")}><Download size={16} aria-hidden="true" />Base codificada (CSV)</a>
         <a href={siteAssetUrl(`${DATA_DIR}base-politicas-ia-v5.xlsx`)} download onClick={() => download("xlsx")}><Download size={16} aria-hidden="true" />Base codificada com livro de códigos (XLSX)</a>
       </p>
-      <p><strong>Como citar:</strong> [Autoria e forma de citação a confirmar]. <em>Políticas de IA na publicação científica</em>. Observatório UFG-IA, LAPIG/UFG, edição {data.meta.versao}, {formatPublicDate(data.meta.referencia, "pt")}.</p>
+      <p><strong>Como citar:</strong> Observatório UFG-IA (LAPIG/UFG). <em>Políticas de IA na publicação científica</em>. Edição {data.meta.versao}, {formatPublicDate(data.meta.referencia, "pt")}.</p>
     </section>
     <section className="sv-block" aria-labelledby="sv-errata-title">
       <h2 id="sv-errata-title">Correções da edição {data.meta.versao}</h2>
