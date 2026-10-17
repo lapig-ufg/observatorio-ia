@@ -133,7 +133,7 @@ function Overview({ data, go }: { data: SurveyData; go: (tab: string) => void })
   return <>
     <section className="sv-block sv-findings" aria-labelledby="sv-findings-title">
       <h2 id="sv-findings-title">O que o levantamento encontrou</h2>
-      <p className="sv-lede">A base reúne {rows.length} registros de sociedades, editoras, periódicos, eventos e agências. Na codificação vigente, {count("gen", "Permitida")} permitem usos generativos sob condições de transparência, com dispensas específicas; {count("gen", "Restrita")} restringem à edição ou apoio auxiliar, {count("gen", "Vedada")} vedam gerar conteúdo e {count("gen", "Sem regra")} não têm regra localizada{count("gen", "N/A") ? ` (em ${count("gen", "N/A")}, a pergunta não se aplica)` : ""}. Entre os periódicos brasileiros da amostra, {journalsWithRule} de {journals.length} têm cláusula codificada. Registros ainda pendentes de reconfirmação mantêm a informação anterior.</p>
+      <p className="sv-lede">A base reúne {rows.length} registros de sociedades, editoras, periódicos, eventos e agências. Na codificação vigente, {count("gen", "Permitida")} permitem usos generativos sob condições de transparência, com dispensas específicas; {count("gen", "Restrita")} restringem à edição ou apoio auxiliar, {count("gen", "Vedada")} vedam gerar conteúdo e {count("gen", "Sem regra")} não têm regra localizada{count("gen", "N/A") ? ` (em ${count("gen", "N/A")}, a pergunta não se aplica)` : ""}. Entre os periódicos brasileiros da amostra, {journalsWithRule} de {journals.length} têm cláusula codificada. {data.meta.revisao?.unresolved ? "Registros ainda pendentes de reconfirmação mantêm a informação anterior." : "As notas delimitam o corpus consultado e as exceções de cada entidade; ausência de cláusula não é autorização implícita."}</p>
       <p className="sv-note">A amostra é intencional: as proporções descrevem as entidades mapeadas, não o universo de periódicos. Veja os critérios em <a href={`${SURVEY_BASE}/metodo`} onClick={event => { event.preventDefault(); go("metodo"); }}>Método e fontes</a>.</p>
       <ol className="sv-messages">{data.messages.map(([title, text]) => <li key={title}><h3>{title}</h3><p>{text}</p></li>)}</ol>
     </section>
@@ -233,7 +233,7 @@ function Compare({ data }: { data: SurveyData }) {
         <h2 id="sv-year-title">Ano do documento vigente</h2>
         <Legend categories={GEN_CATEGORIES} />
         <YearColumns rows={data.rows} />
-        <p className="sv-note">Somente documentos com ano normativo identificado na base; ano de consulta não equivale ao ano da regra. Há registros ainda pendentes de reconfirmação.</p>
+        <p className="sv-note">Somente documentos com ano normativo identificado na base; ano de consulta não equivale ao ano da regra. {data.meta.revisao?.unresolved ? "Há registros ainda pendentes de reconfirmação." : "Normas sem data explícita permanecem com ano desconhecido."}</p>
       </section>
     </div>
     <section className="sv-block" aria-labelledby="sv-ev-title">
