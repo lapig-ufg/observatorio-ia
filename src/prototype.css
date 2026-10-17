@@ -303,3 +303,38 @@
 .pt-task-grid .pt-section-arrow { grid-column: 3; grid-row: 1; align-self: center; margin: 0; }
 .pt-task-grid .pt-section-description { grid-column: 1 / -1; grid-row: 2; }
 .pt-task-grid .pt-section-metric { grid-column: 1 / -1; grid-row: 3; }
+
+/* O recuo único vale também nas páginas internas e no celular. */
+.pt-site-shell { --pt-page-gutter: calc(var(--pt-wide-gutter) + var(--pt-home-gutter)); }
+.pt-site-shell :is(.pt-internal-heading, .pt-about-page, .ecosystem-page, .daily-news-hero, .daily-news-metrics, .daily-news-explorer, .daily-news-loading, .daily-news-unavailable, .readings-hero, .readings-metrics, .readings-explorer, .keyword-cloud-section, .article-detail, .panorama-intro, .panorama-tabs),
+.pt-acervo-page > :is(.category-band, .search-panel, .results-heading, .article-grid) { padding-inline: var(--pt-page-gutter); }
+.pt-site-shell :is(.daily-news-timeline, .daily-news-reading) { margin-inline: var(--pt-page-gutter); }
+.pt-site-shell .daily-news-timeline { padding-inline: 0; }
+.pt-site-shell .panorama-page > :is(.panorama-timeline, .panorama-guide, .panorama-free, .panorama-usage) { max-width: none; margin-inline: 0; padding-inline: var(--pt-page-gutter); }
+.pt-acervo-page > :is(.sync-line, .archive-rating-note, .archive-error),
+.pt-site-shell .readings-page > :is(.weekly-digest, .archive-rating-note, .archive-error) { margin-inline: var(--pt-page-gutter); }
+
+/* A ordem visual acompanha o DOM: a nova leva entra antes do radar. */
+.pt-acervo-page > .load-more { order: 0; margin: 24px auto 36px; }
+
+/* Links diretos e grupos usam o mesmo destaque; o laranja sinaliza só Tab. */
+.pt-topbar .pt-navigation :is(a[aria-current="page"], .is-active) { background: #e7f1eb; color: #114d3b; box-shadow: none; }
+.pt-topbar .pt-navigation :is(a, button):focus:not(:focus-visible) { outline: none; }
+.pt-topbar .pt-navigation :is(a, button):focus-visible { outline: 3px solid #e49a43; outline-offset: 2px; }
+
+.pt-site-shell .pt-panorama-intro { align-items: start; gap: 24px; padding-block: 36px; color: #123d31; background: #f4f7f1; }
+.pt-panorama-intro .panorama-heading { display: block; order: 0; flex-basis: auto; }
+.pt-panorama-intro .panorama-heading p { display: block; }
+.pt-panorama-intro .panorama-heading > .eyebrow { margin: 0; color: #52675c; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.pt-panorama-intro .panorama-heading h1 { height: auto; margin: 8px 0 16px; color: #123d31; font-family: inherit; font-size: var(--internal-page-title-size); line-height: 1.08; }
+.pt-panorama-intro .panorama-heading > p:not(.eyebrow) { max-width: 73ch; margin: 0; color: #425c52; font-size: 1rem; line-height: 1.7; }
+.pt-panorama-intro .panorama-open { margin-top: 8px; color: #164e3d; border-color: #b9c9c1; }
+@media (max-width: 700px) {
+  .pt-site-shell .pt-panorama-intro { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+
+/* O destino fica visível abaixo do cabeçalho fixo, inclusive após Tab. */
+#page-content, #page-content :is(h1, h2, article, section[id], div[id="acervo"]) { scroll-margin-top: 8px; }
+#page-content:focus:not(:focus-visible) { outline: none; }
+/* Títulos recebem foco para anunciar a navegação, sem parecer campos editáveis. */
+#page-content :is(h1, h2):focus { outline: none; }

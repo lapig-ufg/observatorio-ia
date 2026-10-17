@@ -4,6 +4,12 @@ export type CatalogOrder = "added" | "published";
 export type CatalogView = "cards" | "list";
 export const publicTypes: ArticleType[] = ["medium", "documento", "link-video", "audio", "entrevista", "paper", "apresentacao"];
 
+export function catalogLocationValues(state: { added: string; query: string; selectedKeyword: string; type: string; theme: string; sort: string; view: string; visible: number; item?: string }, all: string) {
+  const defaultView = state.type === "link-video" || state.type === "paper" ? "cards" : "list";
+  // Valores padrão não carregam significado na URL; o leitor continua aceitando os links antigos.
+  return { added: state.added, q: state.query, keyword: state.selectedKeyword, type: state.type === all ? "" : state.type, theme: state.theme === all ? "" : state.theme, sort: state.sort === "added" ? "" : state.sort, view: state.view === defaultView ? "" : state.view, all: "", limit: state.visible > 6 ? String(state.visible) : "", item: state.item || "" };
+}
+
 export function readCatalogLocation<A extends "all" | "todos">(search: string, all: A) {
   const params = new URLSearchParams(search);
   const candidate = params.get("type") || "";

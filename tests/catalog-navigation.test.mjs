@@ -34,6 +34,6 @@ test("Links e vídeos apresentam temas, não subcategorias repetidas", () => {
   const pt = fs.readFileSync("src/App.tsx", "utf8");
   const en = fs.readFileSync("src/AppEnglish.tsx", "utf8");
   assert.match(pt, /themes\).map\(\(item\) => <option key=\{item\}/);
-  assert.match(en, /availableThemes.map\(\(item\) => <option key=\{item\} value=\{item\}/);
+  assert.match(en, /availableThemes.map\(\(item\) => <option key=\{item\} value=\{readingTopic\(item\).id\}/);
   assert.doesNotMatch(pt, /Selecione uma subcategoria para ver os links e vídeos relacionados/);
 });

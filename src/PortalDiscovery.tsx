@@ -10,7 +10,7 @@ const names = {
 };
 const icons = { medium: BookOpen, documento: FileText, "link-video": Video, audio: Headphones, entrevista: Video, paper: BookOpen, apresentacao: Presentation };
 
-export function PortalCollections({ articles, type, onSelect, onExplore, english = false }: { articles: Article[]; type: string; onSelect: (type: ArticleType) => void; onExplore: () => void; english?: boolean }) {
+export function PortalCollections({ articles, type, onSelect, onExplore, english = false, loading = false }: { articles: Article[]; type: string; onSelect: (type: ArticleType) => void; onExplore: () => void; english?: boolean; loading?: boolean }) {
   return <section id={english ? "collections" : "categorias"} className="category-band" aria-labelledby="category-title">
     <div className="discovery-heading">
       <div><p className="eyebrow">{english ? "Collections" : "Coleções"}</p><h2 id="category-title">{english ? "What would you like to explore?" : "O que você quer explorar?"}</h2></div>
@@ -20,7 +20,7 @@ export function PortalCollections({ articles, type, onSelect, onExplore, english
       const key = category as keyof typeof icons;
       const Icon = icons[key];
       return <button type="button" key={key} className={`category-button category-${key}${type === key ? " active" : ""}`} onClick={() => onSelect(category)} aria-pressed={type === key}>
-        <Icon size={23} aria-hidden="true" /><span>{names[english ? "en" : "pt"][key]}</span><strong>{articles.filter(article => article.type === key).length}</strong>
+        <Icon size={23} aria-hidden="true" /><span>{names[english ? "en" : "pt"][key]}</span>{!loading && <strong>{articles.filter(article => article.type === key).length}</strong>}
       </button>;
     })}</div>
     <a className="topics-shortcut" href={english ? "#topics" : "#palavras-chave"}>{english ? "Prefer to browse by topic? Explore the collection radar" : "Prefere explorar por assunto? Acesse o Radar do acervo"} <ArrowRight size={16} aria-hidden="true" /></a>

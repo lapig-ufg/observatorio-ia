@@ -1,6 +1,5 @@
 import {
   ArrowUpRight,
-  Building2,
   CheckCircle2,
   ChevronDown,
   Clock3,
@@ -38,6 +37,9 @@ import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./
 import { ArticleDetail, CatalogCard, useCatalogExperience } from "./CatalogExperience";
 import { MediumReadingsPage } from "./MediumReadingsPage";
 import { PanoramaPage } from "./panorama/PanoramaPage";
+import { skipToContent, usePageNavigation } from "./usePageNavigation";
+import { readingTopic } from "./readingTopics";
+import { InitiativeLogo } from "./InitiativeLogo";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -219,7 +221,7 @@ export function App() {
   const [route, setRoute] = useState(window.location.hash);
   const newsSummary = useNewsSummary(page === "home");
   const focusSearch = useRef(false);
-  const previousPage = useRef(page);
+  usePageNavigation(route, (!item || route === "#item") && ((page !== "catalog" && page !== "home") || !!catalog || !!error), false, focusSearch);
 
   useEffect(() => {
     let active = true;
@@ -256,27 +258,15 @@ export function App() {
         window.history.replaceState(window.history.state, "", url);
       }
       const nextPage = pageFromHash();
-      const pageChanged = nextPage !== previousPage.current;
-      setPage(nextPage); setRoute(canonical); previousPage.current = nextPage;
+      setPage(nextPage); setRoute(canonical);
       const title = nextPage === "home" ? "Observatório UFG-IA | LAPIG/UFG" : pageTitles[nextPage] + " | Observatório UFG-IA";
-      document.title = title;
+      if (canonical !== "#item") document.title = title;
       const path = canonical || "#top";
       if (trackedRoute !== path) { trackPageView(path, title); trackedRoute = path; }
-      window.requestAnimationFrame(() => {
-        const anchorId = canonical === "#acervo/colecoes" ? "categorias" : canonical === "#acervo/radar" ? "palavras-chave" : canonical.slice(1);
-        const anchor = document.getElementById(anchorId);
-        if (focusSearch.current && nextPage === "catalog") {
-          document.getElementById("catalog-search-pt")?.focus(); focusSearch.current = false;
-        } else if (anchor && ["em-destaque", "experiencias-interativas", "categorias", "palavras-chave"].includes(anchorId)) anchor.scrollIntoView();
-        else if (pageChanged) window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-        if (pageChanged && document.activeElement?.id !== "catalog-search-pt") {
-          const heading = document.querySelector<HTMLElement>(".site-shell h1");
-          if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
-        }
-      });
     };
-    syncPage(); window.addEventListener("hashchange", syncPage);
-    return () => window.removeEventListener("hashchange", syncPage);
+    syncPage();
+    for (const event of ["hashchange", "popstate", "observatorio:location"]) window.addEventListener(event, syncPage);
+    return () => { for (const event of ["hashchange", "popstate", "observatorio:location"]) window.removeEventListener(event, syncPage); };
   }, []);
 
   const nonNewsArticles = useMemo(
@@ -288,12 +278,6 @@ export function App() {
     [nonNewsArticles],
   );
   const initiatives = catalog?.initiatives || [];
-  useEffect(() => {
-    // O radar só entra no DOM depois da carga: o alias direto precisa aguardar os dados.
-    if (!catalog || page !== "catalog" || route !== "#acervo/radar") return;
-    const frame = window.requestAnimationFrame(() => document.getElementById("palavras-chave")?.scrollIntoView());
-    return () => window.cancelAnimationFrame(frame);
-  }, [catalog, page, route]);
   const themes = useMemo(() => Array.from(new Set(articles.filter((article) => type === "todos" || article.type === type).map((article) => article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme))).sort(), [articles, type]);
   const counts = useMemo(() => ({
     todos: articles.length,
@@ -315,7 +299,7 @@ export function App() {
     const needle = normalize(query.trim());
     return articles.filter((article) => {
       const matchesType = type === "todos" || article.type === type;
-      const matchesTheme = theme === "todos" || (article.type === "paper" ? paperResearchArea(article) === theme : article.theme === theme);
+      const matchesTheme = theme === "todos" || readingTopic(article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme).id === readingTopic(theme).id;
       const matchesKeyword = !selectedKeyword || matchesCloudTerm(article, selectedKeyword);
       const haystack = normalize([
         article.title,
@@ -379,15 +363,16 @@ export function App() {
 
   return (
     <main id="top" className="site-shell pt-site-shell">
-      <a className="skip-link" href={item ? "#article-detail-title" : page === "catalog" ? "#acervo-title" : page === "readings" ? "#readings-results-title" : page === "home" ? "#page-title" : page === "about" ? "#about-title" : page === "ecosystem" ? "#ecosystem-title" : page === "panorama" ? "#panorama-title" : "#daily-news-title"}>Ir para o conteúdo</a>
+      <a className="skip-link" href="#page-content" onClick={skipToContent}>Ir para o conteúdo</a>
       <PortalNavigation route={route} onSearch={() => {
         focusSearch.current = true; setShowAll(true);
         if (page === "catalog" && !item) { document.getElementById("catalog-search-pt")?.focus(); focusSearch.current = false; }
       }} />
 
-      {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} onClose={closeDetail} /> : page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} detailHref={detailHref} onOpen={openDetail} /> : page === "panorama" ? <PanoramaPage /> : page === "about" ? <AboutPage articles={articles} loaded={!!catalog} /> : page === "catalog" ? <div className="pt-acervo-page">
+      <div id="page-content" tabIndex={-1}>
+      {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} onClose={closeDetail} /> : page === "ecosystem" ? <EcosystemPage initiatives={initiatives} /> : page === "daily-news" ? <DailyNewsPage /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} detailHref={detailHref} onOpen={openDetail} /> : page === "panorama" ? <PanoramaPage /> : page === "about" ? <AboutPage articles={articles} loaded={!!catalog} /> : page === "catalog" ? <div id="acervo" className="pt-acervo-page">
       <div className="pt-internal-heading"><p className="eyebrow">Materiais selecionados</p><h1 id="acervo-title">Acervo</h1><p>Busque por título, autor, tema ou palavra-chave e explore as sete coleções.</p></div>
-      <PortalCollections articles={articles} type={type} onSelect={selectCategory} onExplore={revealCatalog} />
+      <PortalCollections articles={articles} type={type} onSelect={selectCategory} onExplore={revealCatalog} loading={!catalog} />
 
       <section id="catalogo" className="search-panel" aria-label="Busca no acervo">
         <label className="search-field">
@@ -412,15 +397,15 @@ export function App() {
                 onClick={() => { setType(key); setView(defaultCatalogView(key)); setTheme("todos"); setVisible(6); setShowAll(true); trackEvent("select_type_tab", { event_category: "filter", event_label: key }); }}
                 aria-pressed={type === key}
               >
-                {typeLabels[key]} <span>{counts[key]}</span>
+                {typeLabels[key]} {catalog && <span>{counts[key]}</span>}
               </button>
             ))}
           </div>
           <label className="select-filter">
             <span className="sr-only">Filtrar por tema</span>
-            <select id="temas" value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(6); setShowAll(true); trackEvent("select_theme", { event_category: "filter", event_label: event.target.value }); }}>
+            <select id="temas" value={readingTopic(theme).id} onChange={(event) => { setTheme(event.target.value); setVisible(6); setShowAll(true); trackEvent("select_theme", { event_category: "filter", event_label: event.target.value }); }}>
               <option value="todos">Todos os temas</option>
-              {(type === "paper" ? paperResearchAreas : themes).map((item) => <option key={item} value={item}>{item}</option>)}
+              {(type === "paper" ? paperResearchAreas : themes).map((item) => <option key={item} value={readingTopic(item).id}>{readingTopic(item).label}</option>)}
             </select>
             <ChevronDown size={17} aria-hidden="true" />
           </label>
@@ -434,7 +419,7 @@ export function App() {
       {(added || query || selectedKeyword || type !== "todos" || theme !== "todos") && <div className="active-filters" aria-label="Filtros ativos">{added && <button onClick={() => setAdded("")}>Adicionados nos últimos 7 dias ×</button>}
         {query && <button onClick={() => { setQuery(""); setSelectedKeyword(""); setAdded(""); }}>Busca: {query} ×</button>}{selectedKeyword && <button onClick={() => setSelectedKeyword("")}>Assunto: {selectedKeyword} ×</button>}
         {type !== "todos" && <button onClick={() => { setType("todos"); setTheme("todos"); }}>{typeLabels[type]} ×</button>}
-        {theme !== "todos" && <button onClick={() => setTheme("todos")}>{theme} ×</button>}
+        {theme !== "todos" && <button onClick={() => setTheme("todos")}>{readingTopic(theme).label} ×</button>}
         <button onClick={resetFilters}>Limpar tudo</button>
       </div>}
       <div className={`sync-line ${catalog?.warning ? "has-warning" : ""}`} aria-live="polite">
@@ -486,7 +471,7 @@ export function App() {
           )}
 
           {visible < displayedArticles.length && (
-            <button type="button" className="load-more" onClick={() => { setVisible((value) => value + 6); trackEvent("load_more", { event_category: "pagination" }); }}>Carregar mais itens</button>
+            <button type="button" className="load-more" onClick={() => { const first = displayedArticles[visible]; setVisible((value) => value + 6); requestAnimationFrame(() => { const link = document.getElementById(`summary-${first?.id}`); link?.focus({ preventScroll: true }); link?.closest("article")?.scrollIntoView({ block: "start", behavior: "instant" }); }); trackEvent("load_more", { event_category: "pagination" }); }}>Carregar mais itens</button>
           )}
         </>
       )}
@@ -577,6 +562,7 @@ export function App() {
       </section>
       </div>}
 
+      </div>
       <RealizationBand />
       <footer className="footer pt-footer"><div className="pt-footer-content">
         <PortalSitemap />
@@ -589,13 +575,9 @@ export function App() {
 }
 
 function InitiativeCard({ initiative, position = "ecosystem" }: { initiative: Initiative; position?: string }) {
-  const logoUrl = `https://www.google.com/s2/favicons?sz=128&domain_url=${encodeURIComponent(initiative.url)}`;
   return (
     <article className={`initiative-card initiative-${normalize(initiative.color).replace(/\s+/g, "-")}`}>
-      <div className="initiative-mark">
-        <img src={logoUrl} alt={`Marca de ${initiative.acronym}`} loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; }} />
-        <Building2 className="initiative-mark-fallback" size={25} aria-hidden="true" />
-      </div>
+      <InitiativeLogo url={initiative.url} name={initiative.acronym} />
       <p className="initiative-acronym">{initiative.acronym}</p>
       <h3>{initiative.name}</h3>
       <p>{initiative.summary}</p>
@@ -618,7 +600,6 @@ function EcosystemPage({ initiatives }: { initiatives: Initiative[] }) {
         <p className="eyebrow">Universidade Federal de Goiás</p>
         <h1 id="ecosystem-title">Ecossistema UFG em inteligência artificial</h1>
         <p>Conheça centros, redes e formações que conectam conhecimento, tecnologia e políticas públicas.</p>
-        <a className="back-to-catalog" href="#acervo" onClick={() => trackEvent("back_to_catalog")}>← Voltar ao acervo</a>
       </div>
       <aside className="ecosystem-mapping-callout" aria-label="Mapeamento da IA na UFG">
         <div>

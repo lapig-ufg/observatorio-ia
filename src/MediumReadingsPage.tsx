@@ -1,5 +1,5 @@
 import { BookOpen, CalendarDays, ChevronDown, LoaderCircle, Search, X, type LucideIcon } from "lucide-react";
-import { useMemo, useState, type MouseEvent } from "react";
+import { useMemo, type MouseEvent } from "react";
 import { useArchiveFilters, ShareSearch, ArchiveFilterDetails } from "./ArchiveControls";
 import { matchesSearch } from "./archiveSearch";
 import { readingTopic, readingSubtopic } from "./readingTopics";
@@ -56,14 +56,16 @@ function Metric({ icon: Icon, value, label }: { icon: LucideIcon; value: string;
 
 export function MediumReadingsPage({ articles, loading, error, english = false, detailHref, onOpen }: MediumReadingsPageProps) {
   const all = "all";
-  const [filters, setFilter] = useArchiveFilters("readings", { q: "", theme: all, subtheme: all, year: all, sort: "published-newest" });
+  const [filters, setFilter] = useArchiveFilters("readings", { q: "", theme: all, subtheme: all, year: all, sort: "published-newest", limit: "6" });
   const { q: query, theme, subtheme, year, sort } = filters;
   const setQuery = (value: string) => setFilter("q", value);
   const setTheme = (value: string) => setFilter("theme", value);
   const setSubtheme = (value: string) => setFilter("subtheme", value);
   const setYear = (value: string) => setFilter("year", value);
   const setSort = (value: string) => setFilter("sort", value);
-  const [visible, setVisible] = useState(6);
+  // A ficha desmonta esta página; o limite próprio na URL preserva a lista de origem.
+  const visible = Math.min(10000, Math.max(6, Number(filters.limit) || 6));
+  const setVisible = (value: number | ((previous: number) => number)) => setFilter("limit", String(typeof value === "function" ? value(visible) : value));
 
   const readings = useMemo(() => articles.filter((article) => article.type === "medium"), [articles]);
   const themes = useMemo(() => countedOptions(readings.map((article) => readingTheme(article, english))), [readings, english]);

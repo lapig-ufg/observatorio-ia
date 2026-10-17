@@ -1,7 +1,7 @@
 // Uma fonte de destinos mantém menu, cartões e mapa do site em acordo.
 export const portalNavigation = [
-  { id: "panorama", label: "Panorama", featured: { title: "Panorama da IA", description: "Lançamentos, qual modelo usar e IAs gratuitas.", icon: "panorama", href: "#panorama", event: "nav_panorama" }, links: [
-    { label: "Lançamentos", href: "#panorama", description: "Acompanhe a linha do tempo dos modelos.", event: "nav_panorama" },
+  { id: "panorama", label: "Panorama", featured: { title: "Panorama da IA", description: "Linha do tempo, qual modelo usar e IAs gratuitas.", icon: "panorama", href: "#panorama", event: "nav_panorama" }, links: [
+    { label: "Linha do tempo", href: "#panorama", description: "Acompanhe a linha do tempo dos modelos.", event: "nav_panorama" },
     { label: "Qual modelo usar", href: "#panorama/guia", description: "Compare opções para cada tarefa.", event: "nav_panorama" },
     { label: "IAs gratuitas", href: "#panorama/gratuitos", description: "Explore ferramentas com acesso gratuito.", event: "nav_panorama" },
     { label: "Como usar fora do navegador", href: "#panorama/como-usar", description: "Conheça o terminal e os agentes de IA.", event: "nav_panorama" },

@@ -52,6 +52,7 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
       if (heading) {
         heading.tabIndex = -1;
         heading.focus({ preventScroll: true });
+        document.getElementById("page-content")?.scrollIntoView({ block: "start", behavior: "instant" });
       }
     });
     return () => window.cancelAnimationFrame(frame);
@@ -67,22 +68,18 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
     return () => window.cancelAnimationFrame(frame);
   }, [route, tab, english]);
 
-  /* Em telas maiores a aba ativa entra na vista ao trocar. No celular a
-     grade de duas colunas já mantém todos os destinos visíveis. */
-  useEffect(() => {
-    activeTabRef.current?.scrollIntoView({ block: "nearest", inline: "center" });
-  }, [tab]);
 
   const openOriginalUrl = english ? `${PANORAMA_SITE}en/` : PANORAMA_SITE;
 
   return (
     <section id="panorama" className="panorama-page" aria-labelledby="panorama-title">
-      <div className="panorama-intro">
-        <a className="back-to-catalog" href={english ? "#top" : "#acervo"} onClick={() => trackEvent(english ? "back_to_catalog_en" : "back_to_catalog")}>
+      <div className={`panorama-intro${english ? "" : " pt-panorama-intro"}`}>
+        {english && <a className="back-to-catalog" href="#top" onClick={() => trackEvent("back_to_catalog_en")}>
           ← {english ? "Back to the collection" : "Voltar ao acervo"}
-        </a>
+        </a>}
         <div className="panorama-heading">
-          <h1 id="panorama-title">{english ? "Global Generative AI Landscape" : "Panorama Global da IA Generativa"}</h1>
+          {!english && <p className="eyebrow">Panorama da IA</p>}
+          <h1 id="panorama-title">{english ? "Global Generative AI Landscape" : "Panorama da IA generativa"}</h1>
           <p>{english
             ? "Model releases since ChatGPT (Nov 2022), which model to use for each task, free AI tools, and a practical guide to agents in the terminal."
             : "Os lançamentos de modelos desde o ChatGPT (nov/2022), qual modelo usar em cada tipo de tarefa e o que dá para usar de graça."}</p>

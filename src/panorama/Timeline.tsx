@@ -1,3 +1,4 @@
+import { formatPublicDate } from "../dateLabels";
 import { ArrowUpRight, CalendarDays, Check, ChevronDown, Download, FileDown, Filter, LoaderCircle, Maximize2, Minus, Plus, RefreshCw, Search, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { trackEvent } from "../analytics";
@@ -176,6 +177,7 @@ function ecosystemShortLabel(ecosystem: TimelineEcosystem, english: boolean) {
 }
 
 function formatDay(iso: string, english: boolean) {
+  if (!english) return formatPublicDate(iso);
   const match = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (!match) return iso;
   const months = english ? MONTHS_SHORT_EN : MONTHS_SHORT_PT;

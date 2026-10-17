@@ -1,6 +1,7 @@
 import { ArrowUpRight, Check, LoaderCircle, Plus, Search, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
+import { formatPublicDate } from "../dateLabels";
 import { benchmarkModelKey, canonicalCompany, companyColor, emptyPanoramaConfig, launchForModel, type PanoramaBenchmarks, type PanoramaConfig } from "../panoramaData";
 import { loadPanoramaBenchmarks, loadPanoramaConfig, loadPanoramaLaunches } from "../panoramaSource";
 import { CompanyMark } from "./CompanyMark";
@@ -123,7 +124,7 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
   };
   const coverage = bench && launchData ? bench.top.filter((entry) => launchHref(entry.model, entry.company)).length : null;
   const fetched = data?.fetchedAt ? new Date(data.fetchedAt) : null;
-  const collected = fetched && Number.isFinite(fetched.getTime()) ? fetched.toLocaleDateString(english ? "en-US" : "pt-BR", { timeZone: "UTC" }) : "—";
+  const collected = fetched && Number.isFinite(fetched.getTime()) ? english ? fetched.toLocaleDateString("en-US", { timeZone: "UTC" }) : formatPublicDate(fetched.toISOString().slice(0, 10)) : "—";
 
   if (loading) return <div className="panorama-state" role="status"><LoaderCircle className="spinning" aria-hidden="true" size={24} />{english ? "Loading model benchmarks…" : "Carregando os testes dos modelos…"}</div>;
   if (error) return <div className="panorama-state panorama-state--error" role="alert"><p>{english ? "The benchmarks could not be loaded." : "Não foi possível carregar os benchmarks."}</p><button type="button" onClick={() => setAttempt((n) => n + 1)}>{english ? "Try again" : "Tentar de novo"}</button></div>;
@@ -215,7 +216,7 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
         <button type="button" ref={compareButton} className="guide-compare-open" onClick={() => { setCompareOpen(true); event("open_compare", String(compare.length)); }}>{english ? "Compare" : "Comparar"} ({compare.length}/{MAX_COMPARE})</button>
         <button type="button" onClick={() => { setCompare([]); searchInput.current?.focus(); event("clear_compare", "all"); }}>{english ? "Clear" : "Limpar"}</button>
       </aside>}
-      {compareOpen && <ComparisonDialog profiles={profiles} english={english} config={config} onClose={() => { setCompareOpen(false); compareButton.current?.focus(); }} />}
+      {compareOpen && <ComparisonDialog profiles={profiles} english={english} config={config} onClose={() => { setCompareOpen(false); requestAnimationFrame(() => compareButton.current?.focus()); }} />}
       <footer className="panorama-provenance"><span>{english ? "Data: Artificial Analysis" : "Dados: Artificial Analysis"} · {english ? "Collected on" : "Coleta de"} {collected}</span><a href={data.sourceUrl || "https://artificialanalysis.ai/"} target="_blank" rel="noreferrer">Artificial Analysis ↗</a>{data.attribution && <small>{data.attribution}</small>}</footer>
     </div>
   );

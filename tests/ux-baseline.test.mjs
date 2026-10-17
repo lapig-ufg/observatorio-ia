@@ -25,9 +25,11 @@ test("both languages expose catalog search in the opening section", () => {
 test("section changes update the browser title, scroll and keyboard focus", () => {
   for (const source of [portuguese, english]) {
     assert.match(source, /document\.title =/);
-    assert.match(source, /window\.scrollTo\(\{ top: 0, left: 0, behavior: "auto" \}\)/);
-    assert.match(source, /heading\.focus\(\{ preventScroll: true \}\)/);
+    assert.match(source, /usePageNavigation\(route,/);
   }
+  const navigation = fs.readFileSync("src/usePageNavigation.tsx", "utf8");
+  assert.match(navigation, /scrollIntoView/);
+  assert.match(navigation, /target\.focus\(\{ preventScroll: true \}\)/);
 });
 
 test("the English header preserves its compact navigation mode", () => {

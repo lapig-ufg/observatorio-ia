@@ -2,7 +2,8 @@ import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { ArrowUpRight, BookOpen, FileText, Headphones, Link2, Presentation, Sparkles, Video } from "lucide-react";
 import { assetUrl, type Article, type ArticleType } from "./catalog";
 import { trackEvent } from "./analytics";
-import { articlePreview, readCatalogLocation, videoThumbnail } from "./catalogExperienceState";
+import { articlePreview, catalogLocationValues, readCatalogLocation, videoThumbnail } from "./catalogExperienceState";
+import { readingTopic } from "./readingTopics";
 import { formatPublicDate } from "./dateLabels";
 
 const labels = {
@@ -28,7 +29,7 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
   const [added, setAdded] = useState(initial.added);
   const [selectedKeyword, setSelectedKeyword] = useState(initial.keyword);
   const [type, setType] = useState<A | ArticleType>(initial.type);
-  const [theme, setTheme] = useState(initial.theme);
+  const [theme, setTheme] = useState(initial.theme === all ? all : readingTopic(initial.theme).id);
   const [visible, setVisible] = useState(initial.visible);
   const [showAll, setShowAll] = useState(initial.showAll || ["#acervo", "#acervo/colecoes", "#acervo/radar", "#catalogo", "#catalog"].includes(window.location.hash));
   const [sort, setSort] = useState(initial.sort);
@@ -40,7 +41,7 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
 
   useEffect(() => {
     const url = new URL(window.location.href);
-    const values = { added, q: query, keyword: selectedKeyword, type: type === all ? "" : type, theme: theme === all ? "" : theme, sort: sort === "added" ? "" : sort, view: view === "cards" ? "" : view, all: showAll ? "1" : "", limit: visible > 6 ? String(visible) : "", item };
+    const values = catalogLocationValues({ added, query, selectedKeyword, type, theme, sort, view, visible, item }, all);
     Object.entries(values).forEach(([key, value]) => value ? url.searchParams.set(key, value) : url.searchParams.delete(key));
     window.history.replaceState(window.history.state, "", url);
     window.dispatchEvent(new Event("observatorio:location"));
@@ -49,7 +50,7 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
   useEffect(() => {
     const restore = () => {
       const state = readCatalogLocation(window.location.search, all);
-      setAdded(state.added); setQuery(state.query); setSelectedKeyword(state.keyword); setType(state.type); setTheme(state.theme);
+      setAdded(state.added); setQuery(state.query); setSelectedKeyword(state.keyword); setType(state.type); setTheme(state.theme === all ? all : readingTopic(state.theme).id);
       setSort(state.sort); setView(state.view); setVisible(state.visible); setShowAll(state.showAll); setItem(state.item);
       if (!state.item && returnPosition.current) {
         const position = returnPosition.current;
@@ -75,8 +76,8 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
 
   const detailHref = (id: string) => {
     const url = new URL(window.location.href);
-    // Include this render's state even before the history-sync effect has run.
-    const values = { added, q: query, keyword: selectedKeyword, type: type === all ? "" : type, theme: theme === all ? "" : theme, sort: sort === "added" ? "" : sort, view: view === "cards" ? "" : view, all: showAll ? "1" : "", limit: visible > 6 ? String(visible) : "" };
+    // Inclui o estado deste render antes do efeito de sincronização com o histórico.
+    const values = catalogLocationValues({ added, query, selectedKeyword, type, theme, sort, view, visible }, all);
     Object.entries(values).forEach(([key, value]) => value ? url.searchParams.set(key, value) : url.searchParams.delete(key));
     url.searchParams.set("item", id); url.hash = "item";
     return `${url.pathname}${url.search}${url.hash}`;
@@ -85,8 +86,11 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
     if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
     event.preventDefault();
     returnPosition.current = { y: window.scrollY, element: event.currentTarget };
+    // Distingue o retorno à lista de uma nova navegação por link a partir da ficha.
+    window.history.replaceState({ ...window.history.state, catalogOrigin: true }, "");
     window.history.pushState({ catalogDetail: true }, "", detailHref(id));
     setItem(id);
+    window.dispatchEvent(new Event("observatorio:location"));
     window.scrollTo({ top: 0, behavior: "instant" });
   };
   const closeDetail = () => {

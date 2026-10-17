@@ -76,6 +76,51 @@ const cloudTermLabels: Record<string, string> = {
 
 const cloudExcludedTerms = new Set(["ia", "inteligencia artificial", "artificial intelligence"]);
 
+// Equivalências bilíngues da taxonomia publicada; termos ambíguos continuam distintos.
+const bilingualTerms = [
+  ["agentes", "agents", "ai agents"], ["ferramentas", "tools", "ai tools"],
+  ["modelos", "models", "ai models"], ["redes neurais", "neural networks"],
+  ["sistemas", "systems"], ["vetores", "vectors"], ["ia generativa", "generative ai"],
+  ["conhecimento", "knowledge"], ["pesquisa", "research"],
+  ["bases vetoriais", "vector databases", "vector bases"], ["produtividade", "productivity"],
+  ["aprendizado", "learning"], ["aprendizado de maquina", "machine learning"],
+  ["educacao", "education"], ["ciencia", "science"], ["saude", "health"],
+  ["governanca", "governance"], ["regulacao", "regulation"], ["etica", "ethics"],
+  ["trabalho", "work"], ["cultura", "culture"], ["sociedade", "society"],
+  ["atencao", "attention"], ["raciocinio", "reasoning"], ["dados", "data"],
+  ["automacao", "automation"], ["avaliacao", "evaluation"],
+  ["engenharia de software", "software engineering"], ["trabalho e ia", "work and ai"],
+  ["industria de ia", "ai industry"], ["estrategia", "strategy"],
+  ["seguranca de ia", "ai security", "ai safety"], ["seguranca", "security"],
+  ["economia da ia", "ai economics", "economics of ai"], ["mercado de ia", "ai market"],
+  ["orquestracao", "orchestration"], ["governanca de ia", "ai governance"],
+  ["avaliacao de modelos", "model evaluation"], ["programacao", "programming"],
+  ["seguranca e governanca de ia", "ai security and governance"],
+  ["interpretabilidade", "interpretability"], ["inferencia", "inference"],
+  ["educacao e pesquisa", "education and research"], ["matematica", "mathematics"],
+  ["modelos abertos", "open models"], ["infraestrutura de ia", "ai infrastructure"],
+  ["sistemas multiagente", "multi-agent systems"], ["impactos economicos", "economic impacts"],
+  ["produtividade com ia", "productivity with ai"], ["etica em ia", "ethics in ai"],
+  ["industria", "industry"], ["sensoriamento remoto", "remote sensing"], ["contexto", "context"],
+  ["arquitetura de agentes", "agent architecture"], ["autonomia", "autonomy"],
+  ["modelos de difusao", "diffusion models"], ["aplicacoes de ia", "ai applications"],
+  ["mercado", "market"], ["impactos sociais", "social impacts"], ["confiabilidade", "reliability"],
+  ["contexto longo", "long context"], ["gestao do conhecimento", "knowledge management"],
+  ["privacidade", "privacy"], ["fundamentos", "fundamentals"], ["limites da ia", "limits of ai"],
+  ["aprendizado com ia", "learning with ai"], ["memoria de agentes", "agent memory"],
+  ["reprodutibilidade", "reproducibility"], ["robotica", "robotics"],
+  ["ciberseguranca", "cybersecurity"], ["engenharia de ia", "ai engineering"],
+  ["raciocinio agentico", "agentic reasoning"], ["autoria", "authorship"],
+  ["pesquisa em ia", "ai research"], ["alinhamento", "alignment"],
+  ["agents, rag and applications", "agentes, rag e aplicacoes", "agents, rag, and applications"],
+  ["modelos, mercado e industria", "models, market and industry"],
+  ["industria, estrategia e impactos", "industry, strategy and impacts"],
+  ["llms e ia generativa", "llms and generative ai"],
+  ["modelos, limites e impactos", "models, limits, and impacts"],
+  ["produtividade com ia e notebooklm", "productivity with ai and notebooklm"],
+  ["aprendizado, pesquisa e produtividade", "learning, research, and productivity"],
+];
+
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
@@ -94,7 +139,8 @@ export function isEditorialCloudTerm(value: string) {
 
 export function cloudTermKey(value: string) {
   const key = normalize(value.trim());
-  return cloudTermAliases[key] || key;
+  const alias = cloudTermAliases[key] || key;
+  return bilingualTerms.find(terms => terms.includes(alias))?.[0] || alias;
 }
 
 export function cloudTerms(article: KeywordCloudArticle) {
@@ -102,7 +148,8 @@ export function cloudTerms(article: KeywordCloudArticle) {
   article.tags.forEach((tag) => {
     if (!isEditorialCloudTerm(tag)) return;
     const key = cloudTermKey(tag);
-    if (key && !cloudExcludedTerms.has(key)) terms.set(key, cloudTermLabels[key] || tag.trim());
+    const translated = bilingualTerms.some(terms => terms.slice(1).includes(normalize(tag.trim())));
+    if (key && !cloudExcludedTerms.has(key)) terms.set(key, translated ? tag.trim() : cloudTermLabels[key] || tag.trim());
   });
   return terms;
 }

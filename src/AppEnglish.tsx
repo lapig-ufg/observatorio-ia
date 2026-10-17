@@ -1,3 +1,6 @@
+import { AboutPageEnglish } from "./AboutPageEnglish";
+import { skipToContent, usePageNavigation } from "./usePageNavigation";
+import { readingTopic } from "./readingTopics";
 import {
   ArrowUpRight,
   Building2,
@@ -11,7 +14,7 @@ import {
   Search,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { assetUrl, loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPageEnglish } from "./DailyNewsPageEnglish";
@@ -298,11 +301,12 @@ function EcosystemPageEnglish({ initiatives, loading, warning }: { initiatives: 
   </section>;
 }
 
-type EnglishPage = "catalog" | "panorama" | "ecosystem" | "daily-news" | "readings";
+type EnglishPage = "about" | "catalog" | "panorama" | "ecosystem" | "daily-news" | "readings";
 
 /* O Panorama tem sub-rotas próprias (#panorama/guia etc.): qualquer hash que
    comece com #panorama resolve para a página, que decide a aba internamente. */
 function englishPageFromHash(): EnglishPage {
+  if (window.location.hash === "#about") return "about";
   if (window.location.hash.startsWith("#panorama")) return "panorama";
   if (["#daily-news", "#ia-como-noticia-diaria"].includes(window.location.hash)) return "daily-news";
   if (["#ai-readings", "#leituras-em-ia"].includes(window.location.hash)) return "readings";
@@ -311,6 +315,7 @@ function englishPageFromHash(): EnglishPage {
 }
 
 export function AppEnglish() {
+  const [route, setRoute] = useState(window.location.hash);
   const [page, setPage] = useState<EnglishPage>(englishPageFromHash);
   const [catalog, setCatalog] = useState<CatalogLoadResult | null>(null);
   const [error, setError] = useState("");
@@ -318,7 +323,7 @@ export function AppEnglish() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const { added, setAdded, query, setQuery, selectedKeyword, setSelectedKeyword, type, setType, theme, setTheme, visible, setVisible, showAll, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, allTopics, setAllTopics, detailHref, openDetail, closeDetail } = useCatalogExperience("all");
   const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
-  const previousPage = useRef(page);
+  usePageNavigation(route, (!item || route === "#item") && (page !== "catalog" || !!catalog || !!error), true);
 
   useEffect(() => {
     let active = true;
@@ -337,38 +342,22 @@ export function AppEnglish() {
   }, []);
 
   useEffect(() => {
+    let trackedRoute = "";
     const syncPage = () => {
       const next = englishPageFromHash();
-      const pageChanged = next !== previousPage.current;
+      setRoute(window.location.hash);
       setPage(next);
-      previousPage.current = next;
+
       const route = next === "panorama" ? "/en/#panorama" : next === "ecosystem" ? "/en/#ufg-ecosystem" : next === "daily-news" ? "/en/#daily-news" : next === "readings" ? "/en/#ai-readings" : "/en/";
-      const pageTitle = next === "panorama" ? "Global Generative AI Landscape" : next === "ecosystem" ? "UFG AI Ecosystem" : next === "daily-news" ? "AI in the daily news" : next === "readings" ? "AI Readings" : "UFG-AI Observatory";
+      const pageTitle = next === "about" ? "About" : next === "panorama" ? "Global Generative AI Landscape" : next === "ecosystem" ? "UFG AI Ecosystem" : next === "daily-news" ? "AI in the daily news" : next === "readings" ? "AI Readings" : "UFG-AI Observatory";
       const title = `${pageTitle} | LAPIG/UFG`;
-      document.title = title;
-      trackPageView(route, title);
-      if (pageChanged) {
-        window.requestAnimationFrame(() => {
-          const anchorId = next === "catalog" ? window.location.hash.slice(1) : "";
-          const anchor = ["collections", "topics", "catalog"].includes(anchorId)
-            ? document.getElementById(anchorId)
-            : null;
-          if (anchor) anchor.scrollIntoView();
-          else window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-          const heading = anchor?.querySelector<HTMLElement>("h1, h2, h3")
-            || document.querySelector<HTMLElement>(".site-shell h1");
-          if (heading) {
-            heading.tabIndex = -1;
-            heading.focus({ preventScroll: true });
-          }
-        });
-      }
+      if (window.location.hash !== "#item") document.title = title;
+      const current = window.location.hash || "#top";
+      if (trackedRoute !== current) { trackPageView(route, title); trackedRoute = current; }
     };
-    window.addEventListener("hashchange", syncPage);
-    const initialPage = englishPageFromHash();
-    const initialPageTitle = initialPage === "panorama" ? "Global Generative AI Landscape" : initialPage === "ecosystem" ? "UFG AI Ecosystem" : initialPage === "daily-news" ? "AI in the daily news" : initialPage === "readings" ? "AI Readings" : "UFG-AI Observatory";
-    document.title = `${initialPageTitle} | LAPIG/UFG`;
-    return () => window.removeEventListener("hashchange", syncPage);
+    syncPage();
+    for (const event of ["hashchange", "popstate", "observatorio:location"]) window.addEventListener(event, syncPage);
+    return () => { for (const event of ["hashchange", "popstate", "observatorio:location"]) window.removeEventListener(event, syncPage); };
   }, []);
 
   const articles = useMemo(() => (catalog?.articles || [])
@@ -386,7 +375,7 @@ export function AppEnglish() {
     const needle = normalize(query.trim());
     return articles.filter((article) => {
       const matchesType = type === "all" || article.type === type;
-      const matchesTheme = theme === "all" || (article.type === "paper" ? paperResearchArea(article) === theme : article.theme === theme);
+      const matchesTheme = theme === "all" || (article.type === "paper" ? readingTopic(paperResearchArea(article) || article.theme).id === readingTopic(theme).id : readingTopic(article.theme).id === readingTopic(theme).id);
       const matchesKeyword = !selectedKeyword || matchesCloudTerm(article, selectedKeyword);
       const haystack = normalize([article.title, article.author, article.source, article.theme, article.subtheme, article.summary, ...article.tags].join(" "));
       return (!added || addedInWindow(article, radarWindow)) && matchesType && matchesTheme && matchesKeyword && (!needle || haystack.includes(needle));
@@ -416,7 +405,7 @@ export function AppEnglish() {
   const reset = () => { setQuery(""); setSelectedKeyword(""); setAdded(""); setType("all"); setTheme("all"); setVisible(6); setShowAll(true); };
 
   return <main id="top" className="site-shell">
-    <a className="skip-link" href={page === "readings" ? "#readings-results-title" : "#catalog"}>{page === "readings" ? "Skip to readings" : "Skip to catalog"}</a>
+    <a className="skip-link" href="#page-content" onClick={skipToContent}>Skip to content</a>
     <InstitutionalBand english />
     <header className="topbar">
       <a className="brand" href="#top" onClick={() => { if (item) closeDetail(); }} aria-label="UFG-AI Observatory — home"><span className="brand-mark"><img src={assetUrl("brand/observatorio-coruja.svg")} width="946" height="826" alt="" /></span><span className="brand-name"><strong>Observatory</strong><strong>UFG · Artificial Intelligence</strong></span></a>
@@ -437,11 +426,12 @@ export function AppEnglish() {
       </details>
     </header>
 
-    {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} english onClose={closeDetail} /> : page === "panorama" ? <PanoramaPage english /> : page === "ecosystem" ? <EcosystemPageEnglish initiatives={catalog?.initiatives || []} loading={!catalog && !error} warning={catalog?.warning || error} /> : page === "daily-news" ? <DailyNewsPageEnglish /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} english detailHref={detailHref} onOpen={openDetail} /> : <div className="home-page"><section className="catalog-intro" aria-labelledby="page-title">
+    <div id="page-content" tabIndex={-1}>
+    {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} english onClose={closeDetail} /> : page === "about" ? <AboutPageEnglish /> : page === "panorama" ? <PanoramaPage english /> : page === "ecosystem" ? <EcosystemPageEnglish initiatives={catalog?.initiatives || []} loading={!catalog && !error} warning={catalog?.warning || error} /> : page === "daily-news" ? <DailyNewsPageEnglish /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} english detailHref={detailHref} onOpen={openDetail} /> : <div className="home-page"><section className="catalog-intro" aria-labelledby="page-title">
       <div className="intro-copy-block"><p className="eyebrow">Artificial intelligence in perspective</p><h1 id="page-title">AI knowledge for study, research and public debate</h1><p className="intro-copy">Curated readings, documents, videos, audio, interviews, scientific papers and presentations in a thematic collection.</p><form className="hero-search" role="search" onSubmit={(event) => { event.preventDefault(); revealCatalog(); }}><Search size={22} aria-hidden="true" /><label className="sr-only" htmlFor="hero-search-en">Search the collection</label><input id="hero-search-en" value={query} onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setAdded(""); }} placeholder="Search by topic, title, author or keyword" /><button type="submit">Search</button></form><p className="hero-search-hint">Search {articles.length || "more than 1,000"} items selected and summarized by UFG.</p></div>
     </section>
 
-    <PortalCollections articles={articles} type={type} onSelect={selectCategory} onExplore={revealCatalog} english />
+    <PortalCollections articles={articles} type={type} onSelect={selectCategory} onExplore={revealCatalog} english loading={!catalog} />
 
     <section className="weekly-highlight weekly-highlight--debate" aria-labelledby="weekly-highlight-title">
       <FeaturedDebate language="en" />
@@ -455,9 +445,9 @@ export function AppEnglish() {
     <section id="catalog" hidden={initial} className="search-panel" aria-label="Search the collection">
       <label className="search-field"><Search size={23} /><span className="sr-only">Search the collection</span><input value={query} onChange={(event) => { setQuery(event.target.value); setSelectedKeyword(""); setAdded(""); setVisible(6); setShowAll(true); }} placeholder="Search by title, author, summary, topic or keyword" />{query && <button type="button" className="icon-button" onClick={() => { setQuery(""); setSelectedKeyword(""); setAdded(""); }} aria-label="Clear search"><X size={18} /></button>}</label>
       <button className="mobile-filter-toggle" aria-expanded={filtersOpen} aria-controls="catalog-filter-options" onClick={() => setFiltersOpen(!filtersOpen)}>Filter and sort <ChevronDown size={18} aria-hidden="true" /></button>
-      <div id="catalog-filter-options" className={filtersOpen ? "filter-row is-open" : "filter-row"}><div className="type-tabs" role="group" aria-label="Publication type">{filterTypes.map((key) => <button type="button" key={key} className={type === key ? "active" : ""} onClick={() => { setType(key); setView(defaultCatalogView(key)); setTheme("all"); setVisible(6); setShowAll(true); }}>{typeLabels[key]} <span>{counts[key]}</span></button>)}</div><label className="select-filter"><span className="sr-only">Filter by topic</span><select value={theme} onChange={(event) => { setTheme(event.target.value); setVisible(6); setShowAll(true); }}><option value="all">All topics</option>{availableThemes.map((item) => <option key={item} value={item}>{paperAreaLabels[item as PaperResearchArea] || item}</option>)}</select><ChevronDown size={17} /></label></div>
+      <div id="catalog-filter-options" className={filtersOpen ? "filter-row is-open" : "filter-row"}><div className="type-tabs" role="group" aria-label="Publication type">{filterTypes.map((key) => <button type="button" key={key} className={type === key ? "active" : ""} onClick={() => { setType(key); setView(defaultCatalogView(key)); setTheme("all"); setVisible(6); setShowAll(true); }}>{typeLabels[key]} {catalog && <span>{counts[key]}</span>}</button>)}</div><label className="select-filter"><span className="sr-only">Filter by topic</span><select value={readingTopic(theme).id} onChange={(event) => { setTheme(event.target.value); setVisible(6); setShowAll(true); }}><option value="all">All topics</option>{availableThemes.map((item) => <option key={item} value={readingTopic(item).id}>{paperAreaLabels[item as PaperResearchArea] || readingTopic(item, true).label}</option>)}</select><ChevronDown size={17} /></label></div>
       <div className="catalog-toolbar"><label className="sort-control">Order by <select value={sort} onChange={(event) => { setSort(event.target.value as "added" | "published"); setVisible(6); }}><option value="added">Most recently added</option><option value="published">Most recently published</option></select></label><div hidden={defaultCatalogView(type) !== "cards"} className="view-switch" role="group" aria-label="Display"><button aria-pressed={view === "cards"} onClick={() => setView("cards")}>Cards</button><button aria-pressed={view === "list"} onClick={() => setView("list")}>List</button></div></div>
-      {(added || query || selectedKeyword || type !== "all" || theme !== "all") && <div className="active-filters" aria-label="Active filters">{added && <button onClick={() => setAdded("")}>Added in the last 7 days ×</button>}{query && <button onClick={() => { setQuery(""); setSelectedKeyword(""); setAdded(""); }}>Search: {query} ×</button>}{selectedKeyword && <button onClick={() => setSelectedKeyword("")}>Topic: {selectedKeyword} ×</button>}{type !== "all" && <button onClick={() => { setType("all"); setTheme("all"); }}>{typeLabels[type]} ×</button>}{theme !== "all" && <button onClick={() => setTheme("all")}>{type === "paper" ? paperAreaLabels[theme as PaperResearchArea] || theme : theme} ×</button>}<button onClick={reset}>Clear all</button></div>}
+      {(added || query || selectedKeyword || type !== "all" || theme !== "all") && <div className="active-filters" aria-label="Active filters">{added && <button onClick={() => setAdded("")}>Added in the last 7 days ×</button>}{query && <button onClick={() => { setQuery(""); setSelectedKeyword(""); setAdded(""); }}>Search: {query} ×</button>}{selectedKeyword && <button onClick={() => setSelectedKeyword("")}>Topic: {selectedKeyword} ×</button>}{type !== "all" && <button onClick={() => { setType("all"); setTheme("all"); }}>{typeLabels[type]} ×</button>}{theme !== "all" && <button onClick={() => setTheme("all")}>{type === "paper" ? paperAreaLabels[theme as PaperResearchArea] || readingTopic(theme, true).label : readingTopic(theme, true).label} ×</button>}<button onClick={reset}>Clear all</button></div>}
       <div className={`sync-line ${catalog?.warning ? "has-warning" : ""}`} aria-live="polite"><span>{catalog?.source === "google-sheets" ? <CheckCircle2 size={15} /> : <Clock3 size={15} />}{catalog?.warning || (lastUpdated ? `Catalog synchronized at ${lastUpdated.toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit" })}` : "Loading catalog")}</span><button type="button" onClick={() => window.location.reload()} title="Refresh catalog" aria-label="Refresh catalog"><RefreshCw size={15} className={refreshing ? "spinning" : ""} /></button></div>
     </section>
 
@@ -492,6 +482,7 @@ export function AppEnglish() {
     </section>
 
 </div>}
+    </div>
 
     <footer className="footer"><div><strong>UFG-AI Observatory</strong><p>An educational collection under continuous development.</p><a className="github-footer-link" href="https://github.com/lapig-ufg" target="_blank" rel="noreferrer">LAPIG/UFG on GitHub <ArrowUpRight size={14} /></a></div><div><span>LAPIG • Federal University of Goiás</span><p>Public content with access to original sources.</p><p className="credits"><strong>Development and curation:</strong> <a href="mailto:laerte@ufg.br">Laerte Ferreira</a>, <a href="mailto:victor.amaral@ufg.br">Victor Amaral</a> and <a href="mailto:tiagogoncalves@discente.ufg.br">Tiago Geraldine</a>.</p><p className="contact-callout">Questions or suggestions? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEFaHskdhwcWmqaRgSDHDe6jw-0B2GEnP70dCxovqbv_GaRA/viewform?usp=header" target="_blank" rel="noreferrer">Contact us <ArrowUpRight size={14} /></a></p></div></footer>
   </main>;

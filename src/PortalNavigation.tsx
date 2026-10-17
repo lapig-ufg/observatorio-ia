@@ -4,6 +4,7 @@ import { assetUrl } from "./catalog";
 import { trackEvent } from "./analytics";
 import { languageUrl } from "./locale";
 import { portalNavigation } from "./portalStructure";
+import { routePath } from "./pageNavigation";
 
 export function PortalNavigation({ route, onSearch }: { route: string; onSearch: () => void }) {
   const [open, setOpen] = useState("");
@@ -19,7 +20,8 @@ export function PortalNavigation({ route, onSearch }: { route: string; onSearch:
     return () => document.removeEventListener("pointerdown", outside);
   }, []);
   useEffect(() => { setOpen(""); setMobile(false); }, [route]);
-  const isCurrent = (href: string) => route === href || (href === "#acervo" && (route.startsWith("#acervo/") || route === "#item"));
+  const path = routePath(route);
+  const isCurrent = (href: string) => path === href || (href === "#acervo" && (path.startsWith("#acervo/") || path === "#item"));
   return <header ref={header} className="topbar pt-topbar" onKeyDown={event => {
     if (event.key === "Escape") {
       if (open) { triggers.current[open]?.focus(); setOpen(""); }
