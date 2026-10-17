@@ -50,6 +50,7 @@ test('a tradução preserva ressalvas críticas e não transforma ausência ou u
   assert.match(note('MOST (China)'),/does not remove the specific proposal prohibition/);
   assert.match(en.metodo.map(x=>x.join(' ')).join(' '),/editorial translation, not an official translation/);
   assert.equal(en.rows.filter(r=>r.geo.startsWith('Brasil')&&r.tipo==='Periódico').length,36);
+  assert.equal(vocabulary['Brasil/AL'],'Brazil/Latin America');
 });
 
 test('todas as chaves estáticas da interface têm tradução explícita',()=>{
