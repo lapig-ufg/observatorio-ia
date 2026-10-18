@@ -26,7 +26,7 @@ test("coleções incluem automaticamente todos os temas existentes no tipo", () 
 test("coleções da entrada são independentes da taxonomia completa dos filtros", () => {
   const app = fs.readFileSync("src/App.tsx", "utf8");
   assert.match(app, /<PortalCollections articles=\{articles\}/);
-  assert.ok(app.includes("new Set(articles.filter"));
+  assert.ok(app.includes("catalogThemeOptions(articles.filter"));
   assert.doesNotMatch(app, /Explore pelas sete coleções/);
 });
 

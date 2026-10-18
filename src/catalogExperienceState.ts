@@ -4,10 +4,10 @@ export type CatalogOrder = "added" | "published";
 export type CatalogView = "cards" | "list";
 export const publicTypes: ArticleType[] = ["medium", "documento", "link-video", "audio", "entrevista", "paper", "apresentacao"];
 
-export function catalogLocationValues(state: { added: string; query: string; selectedKeyword: string; type: string; theme: string; sort: string; view: string; visible: number; item?: string }, all: string) {
+export function catalogLocationValues(state: { added: string; query: string; selectedKeyword: string; keywordLocale?: "pt" | "en"; type: string; theme: string; sort: string; view: string; visible: number; item?: string }, all: string) {
   const defaultView = state.type === "link-video" || state.type === "paper" ? "cards" : "list";
   // Valores padrão não carregam significado na URL; o leitor continua aceitando os links antigos.
-  return { added: state.added, q: state.query, keyword: state.selectedKeyword, type: state.type === all ? "" : state.type, theme: state.theme === all ? "" : state.theme, sort: state.sort === "added" ? "" : state.sort, view: state.view === defaultView ? "" : state.view, all: "", limit: state.visible > 6 ? String(state.visible) : "", item: state.item || "" };
+  return { added: state.added, q: state.query, keyword: state.selectedKeyword, keywordLang: state.selectedKeyword ? state.keywordLocale || "" : "", type: state.type === all ? "" : state.type, theme: state.theme === all ? "" : state.theme, sort: state.sort === "added" ? "" : state.sort, view: state.view === defaultView ? "" : state.view, all: "", limit: state.visible > 6 ? String(state.visible) : "", item: state.item || "" };
 }
 
 export function readCatalogLocation<A extends "all" | "todos">(search: string, all: A) {
@@ -16,6 +16,7 @@ export function readCatalogLocation<A extends "all" | "todos">(search: string, a
   return {
     query: params.get("q") || "",
     keyword: params.get("keyword") || "",
+    keywordLocale: (params.get("keywordLang") === "pt" || params.get("keywordLang") === "en" ? params.get("keywordLang") : "") as "pt" | "en" | "",
     added: params.get("added") === "7d" ? "7d" : "",
     type: publicTypes.includes(candidate as ArticleType) ? candidate as ArticleType : all,
     theme: params.get("theme") || all,

@@ -36,10 +36,10 @@ test("language URLs retain the collection search, filters and detail ID on every
   const search = "?q=AI&type=paper&theme=fundamentos&keyword=Agents&sort=published&view=list&limit=12&item=paper-1";
   try {
     for (const [pt, en] of pairs) {
-      globalThis.window = { location: { hash: pt, search } };
-      assert.equal(languageUrl("en"), `./en/${search}${en}`);
-      window.location.hash = en;
-      assert.equal(languageUrl("pt"), `../${search}${pt}`);
+      globalThis.window = { location: { hash: pt, search, pathname: "/observatorio-ia/" } };
+      assert.equal(languageUrl("en"), `./en/${search}&keywordLang=pt${en}`);
+      window.location = { hash: en, search, pathname: "/observatorio-ia/en/" };
+      assert.equal(languageUrl("pt"), `../${search}&keywordLang=en${pt}`);
     }
   } finally {
     if (previous === undefined) delete globalThis.window;

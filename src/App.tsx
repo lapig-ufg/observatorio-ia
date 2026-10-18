@@ -24,14 +24,14 @@ import { AboutPage } from "./AboutPage";
 import { useNewsSummary } from "./PressSummary";
 import { defaultCatalogView } from "./discoverySelection";
 import { catalogDate, newestFirst } from "./catalogOrdering";
-import { matchesCloudTerm } from "./keywordCloud";
+import { useKeywordSelection } from "./useKeywordSelection";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./paperResearch";
 import { ArticleDetail, CatalogCard, useCatalogExperience } from "./CatalogExperience";
 import { MediumReadingsPage } from "./MediumReadingsPage";
 import { PanoramaPage } from "./panorama/PanoramaPage";
 import { PoliticasIAPage } from "./levantamentos/PoliticasIAPage";
 import { skipToContent, usePageNavigation } from "./usePageNavigation";
-import { readingTopic } from "./readingTopics";
+import { catalogThemeOptions, readingTopic } from "./readingTopics";
 
 const typeLabels: Record<"todos" | ArticleType, string> = {
   todos: "Todos",
@@ -221,7 +221,7 @@ export function App() {
   const [error, setError] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const { added, setAdded, query, setQuery, selectedKeyword, setSelectedKeyword, type, setType, theme, setTheme, visible, setVisible, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, detailHref, openDetail, closeDetail } = useCatalogExperience("todos");
+  const { added, setAdded, query, setQuery, selectedKeyword, setSelectedKeyword, keywordLocale, type, setType, theme, setTheme, visible, setVisible, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, detailHref, openDetail, closeDetail } = useCatalogExperience("todos");
   const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
   const [page, setPage] = useState(pageFromHash);
   const [route, setRoute] = useState(window.location.hash);
@@ -284,7 +284,8 @@ export function App() {
     [nonNewsArticles],
   );
   const initiatives = catalog?.initiatives || [];
-  const themes = useMemo(() => Array.from(new Set(articles.filter((article) => type === "todos" || article.type === type).map((article) => article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme))).sort(), [articles, type]);
+  const themes = useMemo(() => catalogThemeOptions(articles.filter((article) => type === "todos" || article.type === type).map((article) => article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme)).map(topic => topic.id), [articles, type]);
+  const keywordSelection = useKeywordSelection(articles, selectedKeyword, keywordLocale, "pt");
   const counts = useMemo(() => ({
     todos: articles.length,
     medium: articles.filter((article) => article.type === "medium").length,
@@ -306,7 +307,7 @@ export function App() {
     return articles.filter((article) => {
       const matchesType = type === "todos" || article.type === type;
       const matchesTheme = theme === "todos" || readingTopic(article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme).id === readingTopic(theme).id;
-      const matchesKeyword = !selectedKeyword || matchesCloudTerm(article, selectedKeyword);
+      const matchesKeyword = !selectedKeyword || keywordSelection.ids.has(article.id);
       const haystack = normalize([
         article.title,
         article.author,
@@ -318,7 +319,7 @@ export function App() {
       ].join(" "));
       return (!added || addedInWindow(article, radarWindow)) && matchesType && matchesTheme && matchesKeyword && (!needle || haystack.includes(needle));
     }).sort(orderArticles);
-  }, [articles, query, selectedKeyword, theme, type, orderArticles, added, radarWindow.start, radarWindow.end]);
+  }, [articles, query, selectedKeyword, keywordSelection.ids, theme, type, orderArticles, added, radarWindow.start, radarWindow.end]);
 
   const displayedArticles = filtered;
 
@@ -422,7 +423,7 @@ export function App() {
         <div hidden={defaultCatalogView(type) !== "cards"} className="view-switch" role="group" aria-label="Visualização"><button aria-pressed={view === "cards"} onClick={() => setView("cards")}>Cartões</button><button aria-pressed={view === "list"} onClick={() => setView("list")}>Lista</button></div>
       </div>
       {(added || query || selectedKeyword || type !== "todos" || theme !== "todos") && <div className="active-filters" aria-label="Filtros ativos">{added && <button onClick={() => setAdded("")}>Adicionados nos últimos 7 dias ×</button>}
-        {query && <button onClick={() => { setQuery(""); setSelectedKeyword(""); setAdded(""); }}>Busca: {query} ×</button>}{selectedKeyword && <button onClick={() => setSelectedKeyword("")}>Assunto: {selectedKeyword} ×</button>}
+        {query && <button onClick={() => { setQuery(""); setSelectedKeyword(""); setAdded(""); }}>Busca: {query} ×</button>}{selectedKeyword && <button onClick={() => setSelectedKeyword("")}>Assunto: {keywordSelection.label} ×</button>}
         {type !== "todos" && <button onClick={() => { setType("todos"); setTheme("todos"); }}>{typeLabels[type]} ×</button>}
         {theme !== "todos" && <button onClick={() => setTheme("todos")}>{readingTopic(theme).label} ×</button>}
         <button onClick={resetFilters}>Limpar tudo</button>
@@ -438,14 +439,14 @@ export function App() {
         </div>
       </section>
 
-      {error ? (
+      {error || keywordSelection.error ? (
         <section className="empty-state" role="alert">
           <FileText size={30} />
           <h2>Catálogo indisponível</h2>
-          <p>{error}</p>
+          <p>{error || keywordSelection.error}</p>
           <button type="button" onClick={() => { trackEvent("retry_load"); window.location.reload(); }}>Tentar novamente</button>
         </section>
-      ) : !catalog ? (
+      ) : !catalog || keywordSelection.loading ? (
         <section className="loading-state" aria-live="polite">
           <LoaderCircle className="spinning" size={28} />
           <span>Carregando acervo…</span>
@@ -480,7 +481,7 @@ export function App() {
           )}
         </>
       )}
-      {articles.length > 0 && <TopicRadar articles={articles} selected={selectedKeyword} onSelect={selectKeyword} />}
+      {articles.length > 0 && <TopicRadar articles={articles} selected={keywordSelection.label} onSelect={selectKeyword} />}
 
       </div> : <PortalHome articles={articles} initiatives={combineInitiatives(initiatives, ecosystemFeaturedInitiatives)} catalog={!!catalog} error={error} query={query} setQuery={setQuery} setSelectedKeyword={setSelectedKeyword} setAdded={setAdded} revealCatalog={revealCatalog} detailHref={detailHref} openDetail={openDetail} featuredHistory={featuredHistory} showFeaturedHistory={showFeaturedHistory} setShowFeaturedHistory={setShowFeaturedHistory} newsSummary={newsSummary} />}
 

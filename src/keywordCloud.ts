@@ -78,6 +78,7 @@ const cloudExcludedTerms = new Set(["ia", "inteligencia artificial", "artificial
 
 // Equivalências bilíngues da taxonomia publicada; termos ambíguos continuam distintos.
 const bilingualTerms = [
+  ["modelos de decisao", "decision models"],
   ["agentes", "agents", "ai agents"], ["ferramentas", "tools", "ai tools"],
   ["modelos", "models", "ai models"], ["redes neurais", "neural networks"],
   ["sistemas", "systems"], ["vetores", "vectors"], ["ia generativa", "generative ai"],

@@ -27,7 +27,10 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
   const [initial] = useState(() => readCatalogLocation(window.location.search, all));
   const [query, setQuery] = useState(initial.query);
   const [added, setAdded] = useState(initial.added);
-  const [selectedKeyword, setSelectedKeyword] = useState(initial.keyword);
+  const locale = all === "all" ? "en" : "pt";
+  const [selectedKeyword, setKeyword] = useState(initial.keyword);
+  const [keywordLocale, setKeywordLocale] = useState<"pt" | "en">(initial.keywordLocale || locale);
+  const setSelectedKeyword = (value: string) => { setKeyword(value); setKeywordLocale(locale); };
   const [type, setType] = useState<A | ArticleType>(initial.type);
   const [theme, setTheme] = useState(initial.theme === all ? all : readingTopic(initial.theme).id);
   const [visible, setVisible] = useState(initial.visible);
@@ -41,16 +44,16 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
 
   useEffect(() => {
     const url = new URL(window.location.href);
-    const values = catalogLocationValues({ added, query, selectedKeyword, type, theme, sort, view, visible, item }, all);
+    const values = catalogLocationValues({ added, query, selectedKeyword, keywordLocale, type, theme, sort, view, visible, item }, all);
     Object.entries(values).forEach(([key, value]) => value ? url.searchParams.set(key, value) : url.searchParams.delete(key));
     window.history.replaceState(window.history.state, "", url);
     window.dispatchEvent(new Event("observatorio:location"));
-  }, [added, query, selectedKeyword, type, theme, sort, view, showAll, visible, item, all]);
+  }, [added, query, selectedKeyword, keywordLocale, type, theme, sort, view, showAll, visible, item, all]);
 
   useEffect(() => {
     const restore = () => {
       const state = readCatalogLocation(window.location.search, all);
-      setAdded(state.added); setQuery(state.query); setSelectedKeyword(state.keyword); setType(state.type); setTheme(state.theme === all ? all : readingTopic(state.theme).id);
+      setAdded(state.added); setQuery(state.query); setKeyword(state.keyword); setKeywordLocale(state.keywordLocale || locale); setType(state.type); setTheme(state.theme === all ? all : readingTopic(state.theme).id);
       setSort(state.sort); setView(state.view); setVisible(state.visible); setShowAll(state.showAll); setItem(state.item);
       if (!state.item && returnPosition.current) {
         const position = returnPosition.current;
@@ -77,7 +80,7 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
   const detailHref = (id: string) => {
     const url = new URL(window.location.href);
     // Inclui o estado deste render antes do efeito de sincronização com o histórico.
-    const values = catalogLocationValues({ added, query, selectedKeyword, type, theme, sort, view, visible }, all);
+    const values = catalogLocationValues({ added, query, selectedKeyword, keywordLocale, type, theme, sort, view, visible }, all);
     Object.entries(values).forEach(([key, value]) => value ? url.searchParams.set(key, value) : url.searchParams.delete(key));
     url.searchParams.set("item", id); url.hash = "item";
     return `${url.pathname}${url.search}${url.hash}`;
@@ -101,7 +104,7 @@ export function useCatalogExperience<A extends "all" | "todos">(all: A) {
       window.dispatchEvent(new HashChangeEvent("hashchange"));
     }
   };
-  return { added, setAdded, query, setQuery, selectedKeyword, setSelectedKeyword, type, setType, theme, setTheme, visible, setVisible, showAll, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, allTopics, setAllTopics, detailHref, openDetail, closeDetail };
+  return { added, setAdded, query, setQuery, selectedKeyword, setSelectedKeyword, keywordLocale, type, setType, theme, setTheme, visible, setVisible, showAll, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, allTopics, setAllTopics, detailHref, openDetail, closeDetail };
 }
 
 export function CatalogCard({ article, position = "catalog", english = false, expanded = false, layout = "cards", href, onOpen }: { article: Article; position?: string; english?: boolean; expanded?: boolean; layout?: "cards" | "list"; href?: string; onOpen?: (event: MouseEvent<HTMLAnchorElement>, id: string) => void }) {

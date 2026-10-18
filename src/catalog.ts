@@ -264,10 +264,8 @@ export async function loadCatalog(signal?: AbortSignal, locale: "pt" | "en" = "p
     ? import.meta.env.VITE_GOOGLE_SHEETS_EN_GID?.trim()
     : import.meta.env.VITE_GOOGLE_SHEETS_GID?.trim();
   const initiativesGid = import.meta.env.VITE_GOOGLE_SHEETS_INITIATIVES_GID?.trim();
-  const localPath = import.meta.env.DEV
-    ? `/${locale === "en" ? "catalogo-en.csv" : "catalogo.csv"}`
-    : locale === "en" ? "../catalogo-en.csv" : "./catalogo.csv";
-  const localUrl = new URL(localPath, window.location.href).toString();
+  // May also load the source-language corpus to preserve a translated filter.
+  const localUrl = assetUrl(locale === "en" ? "catalogo-en.csv" : "catalogo.csv");
 
   if (sheetId && sheetGid) {
     try {

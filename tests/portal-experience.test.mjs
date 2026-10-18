@@ -11,7 +11,7 @@ const styles = fs.readFileSync("src/portal.css", "utf8");
 
 test("shareable location preserves query, filters, ordering, view, page length and detail ID", () => {
   const state = readCatalogLocation("?q=Navier&type=documento&theme=Ci%C3%AAncia&keyword=IA&sort=published&view=list&all=1&limit=45&item=documento-123", "todos");
-  assert.deepEqual(state, { query: "Navier", type: "documento", theme: "Ciência", keyword: "IA", added: "", sort: "published", view: "list", showAll: true, visible: 45, item: "documento-123" });
+  assert.deepEqual(state, { query: "Navier", type: "documento", theme: "Ciência", keyword: "IA", keywordLocale: "", added: "", sort: "published", view: "list", showAll: true, visible: 45, item: "documento-123" });
   assert.equal(readCatalogLocation("?type=noticia&view=invalid&sort=invalid&limit=-1", "all").type, "all");
   assert.equal(readCatalogLocation("?limit=Infinity", "all").visible, 10000);
   assert.equal(readCatalogLocation("?limit=nan", "todos").visible, 6);

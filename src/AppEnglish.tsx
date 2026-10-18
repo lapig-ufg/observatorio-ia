@@ -7,7 +7,7 @@ import { portalPage, combineInitiatives } from "./portalStructure";
 import { EcosystemPage } from "./EcosystemPage";
 import { AboutPageEnglish } from "./AboutPageEnglish";
 import { skipToContent, usePageNavigation } from "./usePageNavigation";
-import { readingTopic } from "./readingTopics";
+import { catalogThemeOptions, readingTopic } from "./readingTopics";
 import {
   CheckCircle2,
   ChevronDown,
@@ -27,7 +27,7 @@ import { TopicRadar } from "./TopicRadar";
 import { addedInWindow, radarDateWindow } from "./radarPeriod";
 import { defaultCatalogView } from "./discoverySelection";
 import { catalogDate, newestFirst } from "./catalogOrdering";
-import { matchesCloudTerm } from "./keywordCloud";
+import { useKeywordSelection } from "./useKeywordSelection";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas, type PaperResearchArea } from "./paperResearch";
 import { ArticleDetail, CatalogCard, useCatalogExperience } from "./CatalogExperience";
 import { MediumReadingsPage } from "./MediumReadingsPage";
@@ -283,7 +283,7 @@ export function AppEnglish() {
   const [error, setError] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const { added, setAdded, query, setQuery, selectedKeyword, setSelectedKeyword, type, setType, theme, setTheme, visible, setVisible, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, detailHref, openDetail, closeDetail } = useCatalogExperience("all");
+  const { added, setAdded, query, setQuery, selectedKeyword, setSelectedKeyword, keywordLocale, type, setType, theme, setTheme, visible, setVisible, setShowAll, sort, setSort, view, setView, item, filtersOpen, setFiltersOpen, detailHref, openDetail, closeDetail } = useCatalogExperience("all");
   const [showFeaturedHistory, setShowFeaturedHistory] = useState(false);
   const newsSummary = useNewsSummary(page === "home");
   const focusSearch = useRef(false);
@@ -328,8 +328,9 @@ export function AppEnglish() {
     .filter((article) => article.type !== "noticia")
     .filter((article) => article.type !== "paper" || isPublicResearchPaper(article)), [catalog]);
   const counts = useMemo(() => Object.fromEntries(["all", ...categoryTypes].map((key) => [key, key === "all" ? articles.length : articles.filter((article) => article.type === key).length])) as Record<"all" | ArticleType, number>, [articles]);
-  const nonPaperThemes = useMemo(() => Array.from(new Set(articles.filter((article) => type === "all" || article.type === type).map((article) => article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme))).sort(), [articles, type]);
+  const nonPaperThemes = useMemo(() => catalogThemeOptions(articles.filter((article) => type === "all" || article.type === type).map((article) => article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme), true).map(topic => topic.id), [articles, type]);
   const availableThemes = type === "paper" ? [...paperResearchAreas] : nonPaperThemes;
+  const keywordSelection = useKeywordSelection(articles, selectedKeyword, keywordLocale, "en");
   const radarWindow = radarDateWindow();
 
   const orderArticles = useMemo(() => (left: Article, right: Article) =>
@@ -340,11 +341,11 @@ export function AppEnglish() {
     return articles.filter((article) => {
       const matchesType = type === "all" || article.type === type;
       const matchesTheme = theme === "all" || (article.type === "paper" ? readingTopic(paperResearchArea(article) || article.theme).id === readingTopic(theme).id : readingTopic(article.theme).id === readingTopic(theme).id);
-      const matchesKeyword = !selectedKeyword || matchesCloudTerm(article, selectedKeyword);
+      const matchesKeyword = !selectedKeyword || keywordSelection.ids.has(article.id);
       const haystack = normalize([article.title, article.author, article.source, article.theme, article.subtheme, article.summary, ...article.tags].join(" "));
       return (!added || addedInWindow(article, radarWindow)) && matchesType && matchesTheme && matchesKeyword && (!needle || haystack.includes(needle));
     }).sort(orderArticles);
-  }, [articles, query, selectedKeyword, theme, type, orderArticles, added, radarWindow.start, radarWindow.end]);
+  }, [articles, query, selectedKeyword, keywordSelection.ids, theme, type, orderArticles, added, radarWindow.start, radarWindow.end]);
 
   const displayed = filtered;
 
@@ -380,12 +381,12 @@ export function AppEnglish() {
       <button className="mobile-filter-toggle" aria-expanded={filtersOpen} aria-controls="catalog-filter-options" onClick={() => setFiltersOpen(!filtersOpen)}>Filter and sort <ChevronDown size={18} aria-hidden="true" /></button>
       <div id="catalog-filter-options" className={filtersOpen ? "filter-row is-open" : "filter-row"}><div className="type-tabs" role="group" aria-label="Publication type">{filterTypes.map((key) => <button type="button" key={key} className={type === key ? "active" : ""} onClick={() => { setType(key); setView(defaultCatalogView(key)); setTheme("all"); setVisible(6); setShowAll(true); }}>{typeLabels[key]} {catalog && <span>{counts[key]}</span>}</button>)}</div><label className="select-filter"><span className="sr-only">Filter by topic</span><select value={readingTopic(theme).id} onChange={(event) => { setTheme(event.target.value); setVisible(6); setShowAll(true); }}><option value="all">All topics</option>{availableThemes.map((item) => <option key={item} value={readingTopic(item).id}>{paperAreaLabels[item as PaperResearchArea] || readingTopic(item, true).label}</option>)}</select><ChevronDown size={17} /></label></div>
       <div className="catalog-toolbar"><label className="sort-control">Order by <select value={sort} onChange={(event) => { setSort(event.target.value as "added" | "published"); setVisible(6); }}><option value="added">Most recently added</option><option value="published">Most recently published</option></select></label><div hidden={defaultCatalogView(type) !== "cards"} className="view-switch" role="group" aria-label="Display"><button aria-pressed={view === "cards"} onClick={() => setView("cards")}>Cards</button><button aria-pressed={view === "list"} onClick={() => setView("list")}>List</button></div></div>
-      {(added || query || selectedKeyword || type !== "all" || theme !== "all") && <div className="active-filters" aria-label="Active filters">{added && <button onClick={() => setAdded("")}>Added in the last 7 days ×</button>}{query && <button onClick={() => { setQuery(""); setSelectedKeyword(""); setAdded(""); }}>Search: {query} ×</button>}{selectedKeyword && <button onClick={() => setSelectedKeyword("")}>Topic: {selectedKeyword} ×</button>}{type !== "all" && <button onClick={() => { setType("all"); setTheme("all"); }}>{typeLabels[type]} ×</button>}{theme !== "all" && <button onClick={() => setTheme("all")}>{type === "paper" ? paperAreaLabels[theme as PaperResearchArea] || readingTopic(theme, true).label : readingTopic(theme, true).label} ×</button>}<button onClick={reset}>Clear all</button></div>}
+      {(added || query || selectedKeyword || type !== "all" || theme !== "all") && <div className="active-filters" aria-label="Active filters">{added && <button onClick={() => setAdded("")}>Added in the last 7 days ×</button>}{query && <button onClick={() => { setQuery(""); setSelectedKeyword(""); setAdded(""); }}>Search: {query} ×</button>}{selectedKeyword && <button onClick={() => setSelectedKeyword("")}>Topic: {keywordSelection.label} ×</button>}{type !== "all" && <button onClick={() => { setType("all"); setTheme("all"); }}>{typeLabels[type]} ×</button>}{theme !== "all" && <button onClick={() => setTheme("all")}>{type === "paper" ? paperAreaLabels[theme as PaperResearchArea] || readingTopic(theme, true).label : readingTopic(theme, true).label} ×</button>}<button onClick={reset}>Clear all</button></div>}
       <div className={`sync-line ${catalog?.warning ? "has-warning" : ""}`} aria-live="polite"><span>{catalog?.source === "google-sheets" ? <CheckCircle2 size={15} /> : <Clock3 size={15} />}{catalog?.warning || (lastUpdated ? `Catalog synchronized at ${lastUpdated.toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit" })}` : "Loading catalog")}</span><button type="button" onClick={() => window.location.reload()} title="Refresh catalog" aria-label="Refresh catalog"><RefreshCw size={15} className={refreshing ? "spinning" : ""} /></button></div>
     </section>
 
-    {error ? <section className="empty-state" role="alert"><FileText size={30} /><h2>Catalog unavailable</h2><p>{error}</p><button type="button" onClick={() => window.location.reload()}>Try again</button></section> : !catalog ? <section className="loading-state" aria-live="polite"><LoaderCircle className="spinning" size={28} /><span>Loading collection…</span></section> : <><section className="results-heading" aria-live="polite"><div><p className="eyebrow">Collection</p><h2>{`${displayed.length} ${displayed.length === 1 ? "item found" : "items found"}`}</h2></div>{(query || type !== "all" || theme !== "all") && <button type="button" className="clear-filters" onClick={reset}><X size={16} /> Clear filters</button>}</section>{displayed.length ? <div className={`article-grid view-${defaultCatalogView(type) === "cards" ? view : "list"}`}>{displayed.slice(0, visible).map((article) => <CatalogCard key={article.id} article={article} english layout={defaultCatalogView(type) === "cards" ? view : "list"} href={detailHref(article.id)} onOpen={openDetail} />)}</div> : <section className="empty-state"><Search size={30} /><h2>No items found</h2><p>Try another term or remove the filters.</p><button type="button" onClick={reset}>View full collection</button></section>}{visible < displayed.length && <button type="button" className="load-more" onClick={() => { const first = displayed[visible]; setVisible(value => value + 6); requestAnimationFrame(() => { const link = document.getElementById(`summary-${first?.id}`); link?.focus({ preventScroll: true }); link?.closest("article")?.scrollIntoView({ block: "start", behavior: "instant" }); }); }}>Load more items</button>}</>}
-    {articles.length > 0 && <TopicRadar articles={articles} selected={selectedKeyword} english onSelect={(label, period) => { setAdded(period === "7d" ? "7d" : ""); setQuery(""); setSelectedKeyword(label); setType("all"); setTheme("all"); setVisible(6); setShowAll(true); requestAnimationFrame(() => document.getElementById("catalog-search")?.scrollIntoView({ behavior: "smooth" })); }} />}
+    {error || keywordSelection.error ? <section className="empty-state" role="alert"><FileText size={30} /><h2>Catalog unavailable</h2><p>{error || keywordSelection.error}</p><button type="button" onClick={() => window.location.reload()}>Try again</button></section> : !catalog || keywordSelection.loading ? <section className="loading-state" aria-live="polite"><LoaderCircle className="spinning" size={28} /><span>Loading collection…</span></section> : <><section className="results-heading" aria-live="polite"><div><p className="eyebrow">Collection</p><h2>{`${displayed.length} ${displayed.length === 1 ? "item found" : "items found"}`}</h2></div>{(query || type !== "all" || theme !== "all") && <button type="button" className="clear-filters" onClick={reset}><X size={16} /> Clear filters</button>}</section>{displayed.length ? <div className={`article-grid view-${defaultCatalogView(type) === "cards" ? view : "list"}`}>{displayed.slice(0, visible).map((article) => <CatalogCard key={article.id} article={article} english layout={defaultCatalogView(type) === "cards" ? view : "list"} href={detailHref(article.id)} onOpen={openDetail} />)}</div> : <section className="empty-state"><Search size={30} /><h2>No items found</h2><p>Try another term or remove the filters.</p><button type="button" onClick={reset}>View full collection</button></section>}{visible < displayed.length && <button type="button" className="load-more" onClick={() => { const first = displayed[visible]; setVisible(value => value + 6); requestAnimationFrame(() => { const link = document.getElementById(`summary-${first?.id}`); link?.focus({ preventScroll: true }); link?.closest("article")?.scrollIntoView({ block: "start", behavior: "instant" }); }); }}>Load more items</button>}</>}
+    {articles.length > 0 && <TopicRadar articles={articles} selected={keywordSelection.label} english onSelect={(label, period) => { setAdded(period === "7d" ? "7d" : ""); setQuery(""); setSelectedKeyword(label); setType("all"); setTheme("all"); setVisible(6); setShowAll(true); requestAnimationFrame(() => document.getElementById("catalog-search")?.scrollIntoView({ behavior: "smooth" })); }} />}
 
 </div>}
     </div>

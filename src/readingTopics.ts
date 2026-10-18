@@ -40,6 +40,16 @@ export function readingTopic(value: string, english = false) {
   return group ? { id: group[0], label: group[english ? 2 : 1] } : { id: value, label: value.trim() };
 }
 
+// Deduplicate after resolving bilingual aliases, not before rendering their labels.
+export function catalogThemeOptions(values: readonly string[], english = false) {
+  const topics = new Map<string, { id: string; label: string }>();
+  values.forEach(value => {
+    const topic = readingTopic(value, english);
+    if (topic.id.trim()) topics.set(topic.id, topic);
+  });
+  return [...topics.values()].sort((a, b) => a.label.localeCompare(b.label, english ? "en" : "pt-BR"));
+}
+
 // Stable bilingual filter IDs; this does not change the source taxonomy.
 const subgroups = [
   ["future-work", "Aceleração tecnológica e futuro do trabalho", "Technological acceleration and the future of work"],

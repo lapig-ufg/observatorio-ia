@@ -12,7 +12,12 @@ export function siteAssetUrl(path: string) {
 
 export function languageUrl(locale: Locale) {
   const mappedHash = localizedHash(window.location.hash || "#top", locale);
-  return locale === "en" ? `./en/${window.location.search}${mappedHash}` : `../${window.location.search}${mappedHash}`;
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("keyword") && !["pt", "en"].includes(params.get("keywordLang") || "")) {
+    params.set("keywordLang", currentLocale());
+  }
+  const search = params.toString() ? `?${params}` : "";
+  return locale === "en" ? `./en/${search}${mappedHash}` : `../${search}${mappedHash}`;
 }
 
 const hashPairs = [
