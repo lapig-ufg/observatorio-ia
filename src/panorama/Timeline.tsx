@@ -1272,7 +1272,7 @@ function MobileList({ months, newIds, currentYear, hasActiveFilters, english, t,
                             {item.model}
                             {item.level !== 1 && <em> · {item.level === 2 ? (english ? "secondary" : "secundário") : (english ? "catalog" : "catálogo")}</em>}
                           </span>
-                          <span className="panorama-card-meta">{item.company} · <time dateTime={item.date}>{formatDay(item.date, english)}</time>{newIds.has(item.id) && <span className="panorama-new-dot" role="img" aria-label={t.newBadge} />} · {ecosystemLabel(item.ecosystem, english)}</span>
+                          <span className="panorama-card-meta">{item.company} · <time dateTime={item.date}>{formatDay(item.date, english)}</time>{newIds.has(item.id) && <span className="panorama-new-dot" role="img" aria-label={t.newBadge} />} · <Flag code={countryFlag(item.country) || ecosystemFlag(item.ecosystem)} width={14} /> {ecosystemLabel(item.ecosystem, english)}</span>
                         </span>
                       </button>
                     </li>

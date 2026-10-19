@@ -82,11 +82,16 @@ export function UsageGuide({ english = false }: { english?: boolean }) {
             <dl><div className="is-browser"><dt>{english ? "In the browser" : "No navegador"}</dt><dd>{tr(pillar.browser)}</dd></div><div className="is-installed"><dt>{english ? "Installed" : "Instalada"}</dt><dd>{tr(pillar.installed)}</dd></div></dl>
           </article>;
         })}</div>
-        <ExecutionDiagram english={english} />
-        <p className="panorama-reading-note">{tr(t.sameModel)} {tr(t.cost)} <a href={usageHref("tutorial")}>{english ? "Go to the tutorial" : "Ir para o tutorial"} ↓</a></p>
+        <p className="panorama-reading-note">{tr(t.sameModel)} {tr(t.cost)} </p>
+      </Section>
+
+      <Section id="tutorial" n={n("tutorial")} title={title("tutorial")}>
+        <p className="usage-tutorial-intro">{tr(t.tutorialIntro)}</p>
+        <XpDesktop english={english} />
       </Section>
 
       <Section id="pratica" n={n("pratica")} title={title("pratica")}>
+        <ExecutionDiagram english={english} />
         <p>{tr(t.practiceIntro)}</p>
         {scenes.data ? <SceneComparison scenes={scenes.data} english={english} /> : <EditorialState loading={scenes.loading} error={scenes.error} retry={scenes.retry} english={english} />}
       </Section>
@@ -103,11 +108,6 @@ export function UsageGuide({ english = false }: { english?: boolean }) {
           <div><h3>{tr(t.rulesTitle)}</h3><p>{tr(t.rulesText)}</p></div>
           <div className="panorama-artifact"><strong>AGENTS.md</strong><pre><code>{t.rulesFile.join("\n")}</code></pre></div>
         </div>
-      </Section>
-
-      <Section id="tutorial" n={n("tutorial")} title={title("tutorial")}>
-        <p>{tr(t.tutorialIntro)}</p>
-        <XpDesktop english={english} />
       </Section>
 
       <Section id="ferramentas" n={n("ferramentas")} title={title("ferramentas")}>

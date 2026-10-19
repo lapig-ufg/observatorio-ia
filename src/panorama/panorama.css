@@ -84,13 +84,23 @@
   .guide-tasks { grid-template-columns: 1fr; }
   .guide-tasks > button { border-left: 0; border-top: 1px solid var(--line); min-height: 0; }
   .guide-tasks > button:first-child { border-top: 0; }
+  .guide-ranking-summary { flex-basis: 100%; }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .guide-podium { gap: 10px; }
+  .guide-podium-card { gap: 10px; padding: 12px; }
+  .guide-podium-model { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .guide-podium-model strong { font-size: .95rem; white-space: normal; }
+  .guide-podium-metric b { font-size: 1.15rem; }
+  .guide-podium-cta { font-size: .7rem; }
+}
+@media (max-width: 599px) {
   .guide-podium { grid-template-columns: 1fr; gap: 10px; }
   .guide-podium-card { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
   .guide-podium-label { flex-basis: 100%; }
   .guide-podium-model { flex: 1 1 180px; }
   .guide-podium-metric b { font-size: 1.15rem; }
   .guide-podium-cta { flex-basis: 100%; padding-top: 6px; }
-  .guide-ranking-summary { flex-basis: 100%; }
 }
 .guide-highlights { margin: 18px 0; border-block: 1px solid var(--line); font-size: .9rem; }
 /* A busca do guia acompanha a altura das buscas de leituras e notícias. */
@@ -150,9 +160,14 @@
 .free-card footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); }
 .free-more { min-height: 40px; padding: 6px 0; border: 0; background: none; color: var(--green-800); cursor: pointer; font: inherit; font-size: .8rem; font-weight: 650; }
 .free-card footer a { color: var(--green-800); font-size: .82rem; font-weight: 700; text-decoration: none; }
-@media (max-width: 899px) {
-  .free-featured-grid { grid-template-columns: 1fr; }
-  .free-grid { grid-template-columns: 1fr; }
+@media (min-width: 600px) and (max-width: 899px) {
+  .free-featured-grid { gap: 10px; }
+  .free-featured-card { padding: 14px; }
+  .free-featured-card header { flex-direction: column; align-items: flex-start; gap: 8px; padding-right: 0; }
+  .free-featured-card .free-best { display: none; }
+}
+@media (max-width: 599px) {
+  .free-featured-grid, .free-grid { grid-template-columns: 1fr; }
 }
 .panorama-freshness { font-size: .82rem; color: var(--muted); }
 
@@ -228,6 +243,10 @@
 .usage-method { padding-left: 20px; line-height: 1.6; }
 .usage-method li { margin-bottom: 6px; }
 @media (max-width: 899px) {
-  .usage-pillars, .usage-plans, .usage-rules { grid-template-columns: 1fr; }
+  .usage-rules { grid-template-columns: 1fr; }
   .usage-lede { font-size: 1.12rem; }
+  .usage-tutorial-intro { display: none; }
+}
+@media (max-width: 699px) {
+  .usage-pillars, .usage-plans { grid-template-columns: 1fr; }
 }

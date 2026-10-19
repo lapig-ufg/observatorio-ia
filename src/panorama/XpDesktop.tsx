@@ -55,6 +55,23 @@ export function XpDesktop({ english }: { english: boolean }) {
   const [booting, setBooting] = useState(false);
   const [copied, setCopied] = useState("");
   const [narrow, setNarrow] = useState(false);
+  const [mobile, setMobile] = useState(() => typeof window !== "undefined" && !!window.matchMedia?.("(max-width: 899px)").matches);
+  const canShare = typeof navigator !== "undefined" && typeof navigator.share === "function";
+  useEffect(() => {
+    const query = window.matchMedia?.("(max-width: 899px)");
+    if (!query) return;
+    const changed = () => setMobile(query.matches);
+    query.addEventListener("change", changed);
+    return () => query.removeEventListener("change", changed);
+  }, []);
+  const shareLink = async () => {
+    const url = `${window.location.origin}${window.location.pathname}#panorama/como-usar?secao=tutorial`;
+    try {
+      if (canShare) await navigator.share({ title: english ? "AI beyond the browser: tutorial" : "IA fora do navegador: tutorial", url });
+      else { await navigator.clipboard.writeText(url); setCopied("link"); window.setTimeout(() => setCopied(""), 2000); }
+      event("mobile_link", canShare ? "share" : "copy");
+    } catch { /* o leitor cancelou o compartilhamento */ }
+  };
   const screenRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalBody = useRef<HTMLDivElement>(null);
@@ -83,7 +100,7 @@ export function XpDesktop({ english }: { english: boolean }) {
     }, { threshold: 0.35 });
     observer.observe(element);
     return () => observer.disconnect();
-  }, [booted]);
+  }, [booted, mobile]);
 
   useEffect(() => {
     const element = screenRef.current;
@@ -91,7 +108,7 @@ export function XpDesktop({ english }: { english: boolean }) {
     const observer = new ResizeObserver(([entry]) => setNarrow(entry.contentRect.width < 720));
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [mobile]);
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
@@ -245,7 +262,7 @@ export function XpDesktop({ english }: { english: boolean }) {
     try { await navigator.clipboard.writeText(value); setCopied(key); event("copy", key); window.setTimeout(() => setCopied(""), 1800); } catch { setCopied(""); }
   };
 
-  return <div className="xp-sim">
+  const profileBar = <>
     <div className="xp-profile" role="group" aria-label={english ? "Your computer" : "O seu computador"}>
       <div>
         <span className="xp-profile-label">{english ? "Your system" : "Seu sistema"}</span>
@@ -260,6 +277,49 @@ export function XpDesktop({ english }: { english: boolean }) {
       </div>
     </div>
 
+  </>;
+  const scriptBlock = <>
+    {tutorial ? <section className="xp-script" aria-labelledby="xp-script-title">
+      <header>
+        <h3 id="xp-script-title">{english ? "Now on your computer" : "Agora no seu computador"} · {tutorial.name} · {tr(OS_LABELS[profile.os])}</h3>
+        <p>{tr(tutorial.goal)}</p>
+      </header>
+      <ol>{allCommands.map(({ item, index, cmd }) => <li key={item.id} className={index === stepIndex && phase !== "end" ? "is-current" : index < stepIndex || phase === "end" ? "is-done" : ""}>
+        <div className="xp-script-title"><span>{index + 1}</span><strong>{tr(item.title)}</strong></div>
+        {cmd ? <div className="xp-script-cmd"><code>{cmd}</code><button type="button" onClick={() => copy(cmd, `${tutorial.id}:${item.id}`)}>{copied === `${tutorial.id}:${item.id}` ? (english ? "Copied" : "Copiado") : (english ? "Copy" : "Copiar")}</button></div>
+          : item.dialog ? <p>{pick(item.dialog.lines, profile.os).map((line) => tr(line)).join(" ")}</p>
+          : item.browser ? <p>{tr(pick(item.explain, profile.os))}</p> : null}
+        {item.prompt === "agent" && <small>{english ? "Typed inside the agent, not in the system terminal." : "Escrito dentro do agente, não no terminal do sistema."}</small>}
+      </li>)}</ol>
+      <footer>{english ? "Official sources:" : "Fontes oficiais:"} {tutorial.sources.map((source, i) => <span key={source.url}>{i > 0 && " · "}<a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a></span>)}</footer>
+    </section> : <p className="xp-script-empty">{english ? "Open a program on the simulated desktop: the commands for your system will appear here, ready to copy." : "Abra um programa na área de trabalho simulada: os comandos para o seu sistema aparecem aqui, prontos para copiar."}</p>}
+  </>;
+
+  /* Em tela estreita o computador simulado não cabe, e o tutorial só serve
+     para quem vai repetir os comandos num computador. Fica o convite para
+     abrir no computador e, para quem quiser, o roteiro em texto. */
+  if (mobile) return <div className="xp-sim is-mobile">
+    <div className="xp-mobile-card">
+      <div className="xp-mobile-art" aria-hidden="true"><div className="xp-mobile-screen"><span className="xp-mobile-win"><i />{tr(SHELL[profile.os].title)}</span><span className="xp-mobile-bar"><span className="xp-flag" /></span></div><div className="xp-mobile-stand" /></div>
+      <div>
+        <h3>{english ? "This tutorial is made for a computer" : "Este tutorial é para fazer no computador"}</h3>
+        <p>{english ? "It simulates a real installation, step by step, so you can repeat it right away on Windows, macOS or Linux. Open this page on the computer where you will install the tools." : "Ele simula uma instalação de verdade, passo a passo, para você repetir em seguida no Windows, no macOS ou no Linux. Abra esta página no computador onde vai instalar as ferramentas."}</p>
+        <div className="xp-mobile-actions">
+          <button type="button" className="is-primary" onClick={shareLink}>{canShare ? (english ? "Send the link to myself" : "Enviar o link para mim") : (english ? "Copy the link" : "Copiar o link")}</button>
+          {copied === "link" && <span role="status">{english ? "Link copied." : "Link copiado."}</span>}
+        </div>
+      </div>
+    </div>
+    <details className="xp-mobile-more" onToggle={(e) => { if (e.currentTarget.open) event("mobile_script", profile.os); }}>
+      <summary>{english ? "See the commands as text anyway" : "Ver os comandos em texto mesmo assim"}</summary>
+      {profileBar}
+      <div className="xp-seg xp-mobile-tutorials" role="group" aria-label={english ? "Tutorial" : "Tutorial"}>{CLI_TUTORIALS.map((item) => <button key={item.id} type="button" aria-pressed={tutorialId === item.id} onClick={() => resetTutorial(item.id)}>{item.name}</button>)}</div>
+      {tutorial ? scriptBlock : null}
+    </details>
+  </div>;
+
+  return <div className="xp-sim">
+    {profileBar}
     <div className={`xp-screen${narrow ? " is-narrow" : ""}`} ref={screenRef} aria-label={english ? "Simulated computer. No command runs on your machine." : "Computador simulado. Nenhum comando roda na sua máquina."} role="region">
       {booting && <div className="xp-boot" aria-hidden="true"><div className="xp-boot-logo"><span className="xp-flag" /><strong>Windows<sup>xp</sup></strong></div><div className="xp-boot-bar"><i /><i /><i /></div><small>{english ? "Starting the simulated computer…" : "Iniciando o computador simulado…"}</small></div>}
       <div className="xp-wallpaper" onClick={() => setStartOpen(false)}>
@@ -368,20 +428,7 @@ export function XpDesktop({ english }: { english: boolean }) {
     <p className="xp-caption">{english ? "Simulation: nothing runs on your computer. The commands are the real ones for" : "Simulação: nada roda no seu computador. Os comandos são os de verdade para"} {tr(OS_LABELS[profile.os])}{english ? ", checked on " : ", conferidos em "}{formatPublicDate(VERIFIED_AT, locale)}.</p>
     {age > STALE_AFTER_DAYS && <p className="xp-stale" role="note">{english ? `These commands were checked ${age} days ago. Tools like these change often: if your screen differs, follow the official page linked below.` : `Estes comandos foram conferidos há ${age} dias. Ferramentas assim mudam com frequência: se a sua tela for diferente, siga a página oficial indicada abaixo.`}</p>}
 
-    {tutorial ? <section className="xp-script" aria-labelledby="xp-script-title">
-      <header>
-        <h3 id="xp-script-title">{english ? "Now on your computer" : "Agora no seu computador"} · {tutorial.name} · {tr(OS_LABELS[profile.os])}</h3>
-        <p>{tr(tutorial.goal)}</p>
-      </header>
-      <ol>{allCommands.map(({ item, index, cmd }) => <li key={item.id} className={index === stepIndex && phase !== "end" ? "is-current" : index < stepIndex || phase === "end" ? "is-done" : ""}>
-        <div className="xp-script-title"><span>{index + 1}</span><strong>{tr(item.title)}</strong></div>
-        {cmd ? <div className="xp-script-cmd"><code>{cmd}</code><button type="button" onClick={() => copy(cmd, `${tutorial.id}:${item.id}`)}>{copied === `${tutorial.id}:${item.id}` ? (english ? "Copied" : "Copiado") : (english ? "Copy" : "Copiar")}</button></div>
-          : item.dialog ? <p>{pick(item.dialog.lines, profile.os).map((line) => tr(line)).join(" ")}</p>
-          : item.browser ? <p>{tr(pick(item.explain, profile.os))}</p> : null}
-        {item.prompt === "agent" && <small>{english ? "Typed inside the agent, not in the system terminal." : "Escrito dentro do agente, não no terminal do sistema."}</small>}
-      </li>)}</ol>
-      <footer>{english ? "Official sources:" : "Fontes oficiais:"} {tutorial.sources.map((source, i) => <span key={source.url}>{i > 0 && " · "}<a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a></span>)}</footer>
-    </section> : <p className="xp-script-empty">{english ? "Open a program on the simulated desktop: the commands for your system will appear here, ready to copy." : "Abra um programa na área de trabalho simulada: os comandos para o seu sistema aparecem aqui, prontos para copiar."}</p>}
+    {scriptBlock}
   </div>;
 }
 

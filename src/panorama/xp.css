@@ -217,3 +217,22 @@ html .xp-sim button { min-height: 0; min-width: 0; padding: 0; border: 0; border
   .xp-sim * { animation: none !important; transition: none !important; }
   .xp-sim .xp-bar > i { width: calc(100% - 2px); }
 }
+
+/* ── tela estreita: convite para abrir no computador ── */
+.xp-sim.is-mobile .xp-mobile-card { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px 16px; border: 1px solid var(--line); background: linear-gradient(180deg, #eef5ff, #fff 70%); text-align: center; }
+.xp-sim .xp-mobile-card h3 { margin: 0 0 6px; color: var(--green-900); font-size: 1.1rem; }
+.xp-sim .xp-mobile-card p { margin: 0 0 14px; color: var(--ink); font-size: .9rem; line-height: 1.55; }
+.xp-sim .xp-mobile-art { display: flex; flex-direction: column; align-items: center; }
+.xp-sim .xp-mobile-screen { position: relative; width: 190px; height: 120px; overflow: hidden; border: 6px solid #1f2328; border-radius: 8px; background: radial-gradient(ellipse 140% 60% at 30% 125%, #4f9a24 0 45%, transparent 46%), linear-gradient(180deg, #2a64c9, #8fc0f0 65%, #79b93a 66%); }
+.xp-sim .xp-mobile-win { position: absolute; left: 22px; top: 14px; display: flex; align-items: center; gap: 4px; width: 128px; height: 58px; padding: 3px 6px; border: 2px solid #0831d9; border-top-width: 12px; border-radius: 4px 4px 0 0; background: #012456; color: #eee; font: 8px/1.2 var(--xp-mono); text-align: left; align-items: flex-start; }
+.xp-sim .xp-mobile-win i { display: inline-block; width: 5px; height: 8px; background: #eee; animation: xp-blink 1s steps(1) infinite; }
+.xp-sim .xp-mobile-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 12px; background: linear-gradient(180deg, #3168d5, #2157d7); }
+.xp-sim .xp-mobile-bar .xp-flag { position: absolute; left: 0; top: 0; width: 26px; height: 12px; border-radius: 0 6px 6px 0; background: #3c9a33; transform: none; }
+.xp-sim .xp-mobile-stand { width: 50px; height: 14px; background: linear-gradient(#2b3036, #4a5058); clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%); }
+.xp-sim .xp-mobile-actions { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+html .xp-sim .xp-mobile-actions button.is-primary { min-height: 44px; padding: 10px 18px; background: var(--green-800); color: #fff; font-weight: 700; }
+.xp-sim .xp-mobile-actions span { color: var(--green-800); font-size: .8rem; }
+.xp-sim .xp-mobile-more { margin-top: 12px; border-block: 1px solid var(--line); }
+.xp-sim .xp-mobile-more > summary { min-height: 44px; padding: 12px 0; color: var(--green-900); cursor: pointer; font-weight: 700; }
+.xp-sim .xp-mobile-more .xp-profile { flex-direction: column; align-items: stretch; }
+.xp-sim .xp-mobile-tutorials { margin: 4px 0 12px; }

@@ -11,10 +11,10 @@ const T = (pt: string, en: string): Text => ({ pt, en });
 
 export const USAGE_SECTIONS = [
   { id: "diferenca", title: T("A diferença", "The difference") },
+  { id: "tutorial", title: T("Instale e experimente", "Install and try it") },
   { id: "pratica", title: T("Na prática", "In practice") },
   { id: "navegador", title: T("Quando o navegador basta", "When the browser is enough") },
   { id: "depois", title: T("O que fica depois", "What remains afterwards") },
-  { id: "tutorial", title: T("Instale e experimente", "Install and try it") },
   { id: "ferramentas", title: T("Qual ferramenta escolher", "Which tool to choose") },
   { id: "medicao", title: T("Como medimos", "How we measured") },
 ] as const;
