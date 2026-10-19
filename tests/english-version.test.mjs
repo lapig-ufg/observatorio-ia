@@ -23,22 +23,30 @@ function parseCsv(input) {
   return rows.slice(1).map((values) => Object.fromEntries(headers.map((header, index) => [header, values[index] || ""]))).filter((record) => record.id);
 }
 
+test("only the language segment of a source URL may change between catalogs", () => {
+  const withoutLanguage = (url) => url.replace(/\/(?:pt-br|pt|en-us|en)(?=\/)/i, "");
+  assert.equal(withoutLanguage("https://openai.com/pt-BR/index/an-alien-mind/"), withoutLanguage("https://openai.com/index/an-alien-mind/"));
+  assert.equal(withoutLanguage("https://www.vatican.va/content/leo-xiv/pt/encyclicals/x.html"), withoutLanguage("https://www.vatican.va/content/leo-xiv/en/encyclicals/x.html"));
+  assert.notEqual(withoutLanguage("https://example.org/pt/a.html"), withoutLanguage("https://example.org/en/b.html"));
+  assert.notEqual(withoutLanguage("https://example.org/report.pdf"), withoutLanguage("https://other.org/report.pdf"));
+});
+
 test("English catalog preserves source identity and access fields", () => {
   const pt = parseCsv(fs.readFileSync("public/catalogo.csv", "utf8"));
   const en = parseCsv(fs.readFileSync("public/catalogo-en.csv", "utf8"));
   assert.equal(en.length, pt.length);
   const enById = new Map(en.map((record) => [record.id, record]));
-  const localizedSourceUrls = new Map([
-    ["documento-openai-uma-mente-alienigena-2026", "https://openai.com/index/an-alien-mind/"],
-  ]);
+  /* A versão inglesa pode apontar para a mesma página oficial no idioma do
+     leitor (openai.com/pt-BR/… → openai.com/…, vatican.va/…/pt/… → …/en/…).
+     Só o segmento de idioma pode mudar; qualquer outra diferença é erro. */
+  const withoutLanguage = (url) => url.replace(/\/(?:pt-br|pt|en-us|en)(?=\/)/i, "");
   for (const record of pt) {
     const translated = enById.get(record.id);
     assert.ok(translated, `missing English record ${record.id}`);
     for (const field of ["ativo", "tipo", "url_pdf_institucional", "capa", "idioma", "data_inclusao"]) {
       assert.equal(translated[field], record[field], `${record.id}: ${field} changed`);
     }
-    if (localizedSourceUrls.has(record.id)) assert.equal(translated.url_original, localizedSourceUrls.get(record.id));
-    else assert.equal(translated.url_original, record.url_original, `${record.id}: url_original changed`);
+    assert.equal(withoutLanguage(translated.url_original), withoutLanguage(record.url_original), `${record.id}: url_original changed`);
   }
   const active = en.filter((record) => record.ativo === "TRUE");
   assert.ok(active.every((record) => record.tema && record.subtema && record.titulo && record.resumo && record.palavras_chave));
