@@ -1,0 +1,219 @@
+/* Simulador "Windows XP" do Como usar fora do navegador. Fica isolado neste
+   arquivo: é a única parte do portal que foge da identidade do Observatório,
+   e foge de propósito. Tudo aqui vive dentro de .xp-sim. */
+
+.xp-sim { --xp-blue: #0a246a; --xp-face: #ece9d8; --xp-font: Tahoma, "Segoe UI", Verdana, sans-serif; --xp-mono: "Cascadia Mono", Consolas, "SF Mono", Menlo, "Ubuntu Mono", monospace; margin: 18px 0 8px; }
+.xp-sim * { box-sizing: border-box; }
+/* Zera o botão do portal (.panorama-usage button, especificidade 0-1-1)
+   dentro do computador simulado. `html` dá 0-1-2: vence o do portal seja
+   qual for a ordem das folhas, e perde para as regras .xp-sim .xp-* (0-2-0). */
+html .xp-sim button { min-height: 0; min-width: 0; padding: 0; border: 0; border-radius: 0; background: none; color: inherit; font-style: normal; font-weight: inherit; box-shadow: none; }
+
+/* ── perfil (fora da tela) ── */
+.xp-sim .xp-profile { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: flex-end; margin-bottom: 12px; padding: 12px 14px; border: 1px solid var(--line); background: #fff; }
+.xp-sim .xp-profile > div { display: flex; flex-direction: column; gap: 6px; }
+.xp-sim .xp-profile-label { color: var(--green-900); font-size: .76rem; font-weight: 750; }
+.xp-sim .xp-profile-label small { color: var(--muted); font-weight: 500; }
+.xp-sim .xp-seg { display: inline-flex; border: 1px solid var(--line); }
+.xp-sim .xp-seg button { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 14px; border: 0; border-left: 1px solid var(--line); border-radius: 0 !important; background: #fff; color: var(--green-900); cursor: pointer; font: inherit; font-size: .82rem; font-weight: 650; }
+.xp-sim .xp-seg button:first-child { border-left: 0; }
+.xp-sim .xp-seg button[aria-pressed="true"] { background: var(--green-800); color: #fff; }
+.xp-sim .xp-seg small { padding: 1px 6px; border-radius: 999px; background: var(--green-100); color: var(--green-800); font-size: .64rem; font-weight: 700; }
+.xp-sim .xp-seg button[aria-pressed="true"] small { background: rgba(255,255,255,.2); color: #fff; }
+
+/* ── a tela ── */
+.xp-sim .xp-screen { position: relative; height: 650px; overflow: hidden; border: 10px solid #1f2328; border-radius: 12px; background: #000; box-shadow: 0 18px 40px rgba(10, 30, 25, .22), inset 0 0 0 1px #000; font-family: var(--xp-font); font-size: 12px; color: #000; user-select: none; }
+.xp-sim .xp-screen.is-narrow { height: 640px; border-width: 6px; }
+.xp-sim .xp-wallpaper { position: absolute; inset: 0 0 32px; overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 14% at 26% 18%, rgba(255,255,255,.75), transparent 70%),
+    radial-gradient(ellipse 40% 10% at 70% 28%, rgba(255,255,255,.6), transparent 70%),
+    radial-gradient(ellipse 120% 60% at 30% 118%, #3f8d1f 0 42%, transparent 43%),
+    radial-gradient(ellipse 110% 55% at 85% 128%, #5aa62b 0 45%, transparent 46%),
+    radial-gradient(ellipse 160% 70% at 50% 135%, #79b93a 0 50%, transparent 51%),
+    linear-gradient(180deg, #2a64c9 0%, #3c84e0 35%, #8fc0f0 62%, #cfe6f7 70%, #7cb544 71%, #4f9a24 100%); }
+
+/* ── ícones ── */
+.xp-sim .xp-icons { position: absolute; top: 12px; left: 10px; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; z-index: 0; }
+.xp-sim .xp-icon { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 84px; padding: 4px 2px; border: 1px dotted transparent; background: none; color: #fff; cursor: pointer; font: 11px/1.25 var(--xp-font); text-align: center; text-shadow: 1px 1px 2px #000, 0 0 1px #000; }
+.xp-sim .xp-icon:hover > span:last-child, .xp-sim .xp-icon:focus-visible > span:last-child { background: #316ac5; }
+.xp-sim .xp-icon:focus-visible { outline: none; border-color: #fff; }
+.xp-sim .xp-icon.is-decor { cursor: default; }
+.xp-sim .xp-icon-img { display: grid; place-items: center; width: 40px; height: 40px; filter: drop-shadow(1px 2px 2px rgba(0,0,0,.45)); }
+.xp-sim .xp-icon-img svg { width: 100%; height: 100%; }
+.xp-sim .xp-icon-img.is-small { width: 26px; height: 26px; flex: 0 0 auto; }
+.xp-sim .xp-hint { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); padding: 10px 16px; border-radius: 6px; background: rgba(10, 36, 106, .62); color: #fff; font-size: 13px; text-align: center; text-shadow: 0 1px 1px #000; }
+
+/* ── janelas Luna ── */
+.xp-sim .xp-window { position: absolute; display: flex; flex-direction: column; width: min(640px, calc(100% - 140px)); max-height: calc(100% - 20px); border: 3px solid #0831d9; border-top: 0; border-radius: 8px 8px 0 0; background: var(--xp-face); box-shadow: 2px 4px 14px rgba(0,0,0,.4); }
+.xp-sim .xp-window.is-small { width: min(400px, calc(100% - 40px)); }
+.xp-sim .xp-window.is-max { inset: 0; width: auto; max-height: none; border-radius: 0; }
+.xp-sim .xp-titlebar { display: flex; align-items: center; gap: 6px; height: 30px; margin: 0 -3px; padding: 0 5px 0 8px; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, #0997ff 0%, #0053ee 9%, #0050ee 18%, #06f 85%, #005bff 92%, #003dd7 100%); color: #fff; cursor: grab; touch-action: none; }
+.xp-sim .xp-window.is-max .xp-titlebar { border-radius: 0; cursor: default; }
+.xp-sim .xp-titlebar:active { cursor: grabbing; }
+.xp-sim .xp-title-icon { display: inline-flex; }
+.xp-sim .xp-title { flex: 1; min-width: 0; overflow: hidden; font-size: 13px; font-weight: 700; text-overflow: ellipsis; text-shadow: 1px 1px #0f1089; white-space: nowrap; }
+.xp-sim .xp-title-buttons { display: flex; gap: 2px; }
+.xp-sim .xp-tb { position: relative; width: 22px; height: 22px; padding: 0; border: 1px solid #fff; border-radius: 3px !important; background: linear-gradient(180deg, #3c8cf9, #2263d5 60%, #1952c7); cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+.xp-sim .xp-tb::after { content: ""; position: absolute; }
+.xp-sim .xp-tb.is-min::after { left: 5px; bottom: 5px; width: 8px; height: 3px; background: #fff; }
+.xp-sim .xp-tb.is-max::after { inset: 4px; border: 2px solid #fff; border-top-width: 3px; }
+.xp-sim .xp-tb.is-close { background: linear-gradient(180deg, #e8835e, #d84f2a 60%, #c03b18); }
+.xp-sim .xp-tb.is-close::after { content: "×"; inset: 0; color: #fff; font: 700 17px/19px Arial, sans-serif; text-align: center; }
+.xp-sim .xp-tb:hover { filter: brightness(1.15); }
+.xp-sim .xp-menubar { display: flex; gap: 14px; padding: 3px 8px; border-bottom: 1px solid #c5c2b2; font-size: 11.5px; }
+.xp-sim .xp-window-body { display: flex; flex: 1; flex-direction: column; min-height: 0; overflow: hidden; }
+
+/* ── terminal: a cara do sistema de quem lê ── */
+.xp-sim .xp-terminal-window { height: 350px; }
+.xp-sim .xp-term { flex: 1; min-height: 0; overflow-y: auto; padding: 8px 10px 14px; font: 12.5px/1.5 var(--xp-mono); white-space: pre-wrap; word-break: break-word; cursor: text; user-select: text; }
+.xp-sim .xp-term.is-windows { background: #012456; color: #eeedf0; }
+.xp-sim .xp-term.is-mac { background: #1e1e1e; color: #e6e6e6; }
+.xp-sim .xp-term.is-linux { background: #300a24; color: #f2f2f2; }
+.xp-sim .xp-term-line { min-height: 1.5em; }
+.xp-sim .xp-term-prompt { color: #9fd3ff; }
+.xp-sim .xp-term.is-windows .xp-term-prompt { color: #eeedf0; }
+.xp-sim .xp-term.is-mac .xp-term-prompt { color: #8be28b; }
+.xp-sim .xp-term.is-linux .xp-term-prompt { color: #8ae234; font-weight: 700; }
+.xp-sim .xp-term-line.is-dim { color: #9aa0a6; }
+.xp-sim .xp-term-line.is-ok { color: #6ee7a8; }
+.xp-sim .xp-term-line.is-err { color: #ff8a80; }
+.xp-sim .xp-term.is-windows .xp-term-line.is-err { color: #ff6b6b; background: rgba(0,0,0,.18); }
+.xp-sim .xp-term-line.is-warn { color: #ffd479; }
+.xp-sim .xp-term-line.is-agent { color: #fff; padding-left: 2ch; border-left: 2px solid #6aa6ff; }
+.xp-sim .xp-term-line.is-tool { color: #b4c7ff; }
+.xp-sim .xp-term-line.is-progress { display: flex; align-items: center; gap: 10px; }
+.xp-sim .xp-bar { position: relative; display: inline-block; width: min(260px, 50%); height: 10px; border: 1px solid currentColor; opacity: .85; }
+.xp-sim .xp-bar > i { position: absolute; inset: 1px auto 1px 1px; width: 0; background: currentColor; animation: xp-fill 1.3s ease-out forwards; }
+.xp-sim .xp-bar.is-full > i { width: calc(100% - 2px); animation: none; }
+@keyframes xp-fill { to { width: calc(100% - 2px); } }
+.xp-sim .xp-term-input { display: flex; align-items: flex-start; margin: 0; }
+.xp-sim .xp-term-field { position: relative; flex: 1; min-width: 0; }
+.xp-sim .xp-term-mirror { white-space: pre-wrap; word-break: break-all; }
+.xp-sim .xp-term-mirror .is-bad { background: rgba(255, 90, 90, .45); }
+.xp-sim .xp-term-mirror .is-ghost { color: rgba(255,255,255,.38); }
+.xp-sim .xp-term-field input { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; outline: 0; background: transparent; color: transparent; caret-color: transparent; font: inherit; }
+.xp-sim .xp-caret { display: inline-block; width: .6em; height: 1.1em; margin-bottom: -.2em; background: currentColor; opacity: .85; }
+.xp-sim .xp-term-field:focus-within .xp-caret, .xp-sim .xp-caret.is-blink { animation: xp-blink 1s steps(1) infinite; }
+@keyframes xp-blink { 50% { opacity: 0; } }
+
+/* ── navegador e diálogo ── */
+.xp-sim .xp-browser { height: 340px; }
+.xp-sim .xp-address { display: flex; align-items: center; gap: 6px; padding: 3px 6px; border-bottom: 1px solid #c5c2b2; font-size: 11px; }
+.xp-sim .xp-address code { flex: 1; min-width: 0; overflow: hidden; padding: 2px 5px; border: 1px solid #7f9db9; background: #fff; font: 11px var(--xp-font); text-overflow: ellipsis; white-space: nowrap; }
+.xp-sim .xp-address b { padding: 1px 8px; border: 1px solid #3c7b2a; border-radius: 2px; background: linear-gradient(#7ac257, #3f9a2a); color: #fff; font-weight: 700; }
+.xp-sim .xp-page { flex: 1; overflow-y: auto; padding: 22px 26px; background: #fff; font-family: Arial, Helvetica, sans-serif; user-select: text; }
+.xp-sim .xp-page h4 { margin: 0 0 8px; font-size: 18px; }
+.xp-sim .xp-page p { margin: 0 0 14px; color: #444; font-size: 13px; line-height: 1.5; }
+.xp-sim .xp-page ul { display: grid; gap: 6px; margin: 0 0 16px; padding: 0; list-style: none; }
+.xp-sim .xp-page li { padding: 8px 10px; border: 1px solid #dadce0; border-radius: 6px; font-size: 13px; }
+.xp-sim .xp-page li.is-selected { border-color: #1a73e8; background: #e8f0fe; font-weight: 700; }
+.xp-sim .xp-page-button { min-height: 36px; padding: 8px 20px; border: 0; border-radius: 4px !important; background: #1a73e8; color: #fff; cursor: pointer; font: 700 13px Arial, sans-serif; }
+.xp-sim .xp-dialog { left: 50% !important; top: 30% !important; transform: translate(-50%, -30%); }
+.xp-sim .xp-dialog-body { display: flex; gap: 14px; padding: 16px 16px 6px; }
+.xp-sim .xp-dialog-icon { display: grid; flex: 0 0 auto; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #8ec5ff, #1e5fd6); color: #fff; font: 700 20px Georgia, serif; box-shadow: 0 1px 2px rgba(0,0,0,.4); }
+.xp-sim .xp-dialog-icon.is-warn { border-radius: 4px; background: linear-gradient(#ffe35c, #f2b600); color: #000; clip-path: polygon(50% 0, 100% 100%, 0 100%); padding-top: 8px; }
+.xp-sim .xp-dialog-icon.is-question { background: radial-gradient(circle at 35% 30%, #a5d0ff, #2563c9); }
+.xp-sim .xp-dialog-body ul { margin: 0; padding: 0 0 0 16px; font-size: 12px; line-height: 1.7; }
+.xp-sim .xp-dialog-actions { display: flex; justify-content: center; gap: 8px; padding: 10px 14px 14px; }
+.xp-sim .xp-button { min-width: 80px; min-height: 26px; padding: 3px 12px; border: 1px solid #003c74; border-radius: 3px !important; background: linear-gradient(180deg, #fff, #ecebe6 86%, #d6d0c5); color: #000; cursor: pointer; font: 11.5px var(--xp-font); }
+.xp-sim .xp-button:hover:not(:disabled) { box-shadow: inset 0 0 0 2px #f8b636; }
+.xp-sim .xp-button.is-default { box-shadow: inset 0 0 0 1px #3d7bdf; font-weight: 700; }
+.xp-sim .xp-button:disabled { color: #a3a29a; border-color: #b8b6ad; cursor: default; }
+
+/* ── bloco de notas ── */
+.xp-sim .xp-notepad { width: min(470px, calc(100% - 140px)); }
+.xp-sim .xp-notepad-body { flex: 1; overflow-y: auto; padding: 8px 10px; background: #fff; font: 12.5px/1.55 "Lucida Console", Consolas, monospace; user-select: text; }
+.xp-sim .xp-notepad-body p { margin: 0 0 10px; }
+
+/* ── balão de dicas (o da bandeja do XP) ── */
+.xp-sim .xp-balloon { position: absolute; right: 10px; bottom: 12px; z-index: 50; width: min(360px, calc(100% - 20px)); padding: 10px 12px 12px; border: 1px solid #000; border-radius: 8px; background: #ffffe1; box-shadow: 2px 3px 8px rgba(0,0,0,.35); font-size: 12px; line-height: 1.45; user-select: text; }
+.xp-sim .xp-balloon::after { content: ""; position: absolute; right: 54px; bottom: -12px; border: 12px solid transparent; border-bottom: 0; border-top-color: #000; }
+.xp-sim .xp-balloon::before { content: ""; position: absolute; right: 55px; bottom: -10px; z-index: 1; border: 11px solid transparent; border-bottom: 0; border-top-color: #ffffe1; }
+.xp-sim .xp-balloon header { display: flex; align-items: center; gap: 6px; }
+.xp-sim .xp-balloon header strong { flex: 1; font-size: 12.5px; }
+.xp-sim .xp-balloon-icon { display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: #2a6ad8; color: #fff; font: 700 11px Georgia, serif; }
+.xp-sim .xp-balloon-close { width: 18px; height: 18px; padding: 0; border: 1px solid #b9b49a; border-radius: 3px !important; background: #fff; cursor: pointer; font: 700 13px/1 Arial, sans-serif; }
+.xp-sim .xp-balloon-meta { margin: 4px 0 6px; color: #6b6853; font-size: 11px; }
+.xp-sim .xp-progress { height: 5px; margin-bottom: 8px; border: 1px solid #b9b49a; background: #fff; }
+.xp-sim .xp-progress > i { display: block; height: 100%; background: linear-gradient(90deg, #36b03b, #7fd34b); transition: width .3s; }
+.xp-sim .xp-balloon p { margin: 0 0 8px; }
+.xp-sim .xp-balloon code { padding: 0 3px; background: rgba(0,0,0,.07); font-family: var(--xp-mono); font-size: 11.5px; }
+.xp-sim .xp-balloon-note { padding: 6px 8px; border-left: 3px solid #36b03b; background: #f4f9e8; }
+.xp-sim .xp-balloon-warn { color: #9a3b12; font-weight: 700; }
+.xp-sim .xp-balloon-actions { display: flex; justify-content: flex-end; gap: 6px; }
+
+/* ── menu Iniciar ── */
+.xp-sim .xp-start-menu { position: absolute; left: 0; bottom: 0; z-index: 60; width: 340px; max-width: calc(100% - 8px); overflow: hidden; border: 1px solid #0831d9; border-radius: 8px 8px 0 0; background: #fff; box-shadow: 3px -2px 12px rgba(0,0,0,.4); }
+.xp-sim .xp-start-menu header { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: linear-gradient(180deg, #1868ce, #0e4bb4 85%, #2873df); color: #fff; font-size: 14px; text-shadow: 1px 1px #0f1089; }
+.xp-sim .xp-avatar { width: 38px; height: 38px; border: 2px solid #fff; border-radius: 4px; background: radial-gradient(circle at 50% 38%, #f6c76a 0 22%, transparent 23%), radial-gradient(ellipse at 50% 100%, #e98b32 0 45%, transparent 46%), linear-gradient(#7ec1f5, #2f8be0); }
+.xp-sim .xp-start-cols { display: grid; grid-template-columns: 1.4fr 1fr; }
+.xp-sim .xp-start-cols ul { margin: 0; padding: 6px; list-style: none; }
+.xp-sim .xp-start-cols ul.is-side { border-left: 1px solid #95bdee; background: #d3e5fa; color: #0a246a; font-size: 11.5px; font-weight: 700; }
+.xp-sim .xp-start-cols ul.is-side li { padding: 7px 6px; }
+.xp-sim .xp-start-cols button { display: flex; align-items: center; gap: 8px; width: 100%; padding: 6px; border: 0; background: none; cursor: pointer; font: 11.5px var(--xp-font); text-align: left; }
+.xp-sim .xp-start-cols button:hover, .xp-sim .xp-start-cols button:focus-visible { background: #316ac5; color: #fff; outline: none; }
+.xp-sim .xp-start-cols button span:last-child { display: flex; flex-direction: column; min-width: 0; }
+.xp-sim .xp-start-cols em { overflow: hidden; color: inherit; font-size: 10.5px; font-style: normal; opacity: .75; text-overflow: ellipsis; white-space: nowrap; }
+.xp-sim .xp-start-menu footer { display: flex; justify-content: flex-end; padding: 6px 8px; background: linear-gradient(180deg, #1868ce, #0e4bb4); }
+.xp-sim .xp-start-menu footer button { display: flex; align-items: center; gap: 6px; border: 0; background: none; color: #fff; cursor: pointer; font: 11.5px var(--xp-font); }
+.xp-sim .xp-power { width: 20px; height: 20px; border-radius: 4px; background: radial-gradient(circle, transparent 4px, #fff 4.5px 6px, transparent 6.5px), linear-gradient(#f07f4f, #d34012); }
+
+/* ── barra de tarefas ── */
+.xp-sim .xp-taskbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 70; display: flex; align-items: center; gap: 6px; height: 32px; background: linear-gradient(180deg, #3168d5 0%, #4993e6 4%, #2157d7 12%, #2663e0 88%, #1941a5 100%); }
+.xp-sim .xp-start { display: flex; align-items: center; gap: 6px; height: 100%; padding: 0 20px 0 10px; border: 0; border-radius: 0 12px 12px 0 !important; background: radial-gradient(ellipse at 50% 0%, #6fd36a, #3c9a33 55%, #2b7d22); color: #fff; cursor: pointer; font: italic 700 15px var(--xp-font); text-shadow: 1px 1px 2px #1a4a12; box-shadow: inset -2px 0 3px rgba(0,0,0,.25); }
+.xp-sim .xp-start[aria-expanded="true"] { filter: brightness(.88); }
+.xp-sim .xp-flag { display: inline-block; width: 16px; height: 16px; background: conic-gradient(from 0deg at 50% 50%, #f35325 0 25%, #81bc06 0 50%, #ffba08 0 75%, #05a6f0 0); border-radius: 2px 6px 2px 6px; transform: skew(-6deg); }
+.xp-sim .xp-tasks { display: flex; flex: 1; gap: 4px; min-width: 0; overflow: hidden; }
+.xp-sim .xp-task { display: flex; align-items: center; gap: 6px; max-width: 180px; min-width: 0; height: 24px; padding: 0 8px; border: 1px solid #1a3e9a; border-radius: 3px !important; background: linear-gradient(180deg, #3c81f3, #2b6be6); color: #fff; cursor: pointer; font: 11px var(--xp-font); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.xp-sim .xp-task.is-active { background: linear-gradient(180deg, #1e52b7, #1a48a8); box-shadow: inset 1px 1px 2px rgba(0,0,0,.4); }
+.xp-sim .xp-tray { display: flex; align-items: center; gap: 8px; height: 100%; padding: 0 12px; border-left: 1px solid #10429e; background: linear-gradient(180deg, #0c59b9, #139ee9 8%, #18b5f2 50%, #139beb 90%, #1290e8); color: #fff; font-size: 11.5px; }
+.xp-sim .xp-tray-net { width: 14px; height: 12px; border: 2px solid #fff; border-top-width: 3px; border-radius: 1px; opacity: .9; }
+
+/* ── inicialização ── */
+.xp-sim .xp-boot { position: absolute; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; background: #000; color: #fff; }
+.xp-sim .xp-boot-logo { display: flex; align-items: center; gap: 12px; font: italic 700 34px Tahoma, Arial, sans-serif; }
+.xp-sim .xp-boot-logo .xp-flag { width: 42px; height: 42px; }
+.xp-sim .xp-boot-logo sup { color: #f60; font-size: 18px; }
+.xp-sim .xp-boot-bar { position: relative; display: flex; gap: 3px; width: 120px; height: 16px; padding: 2px; overflow: hidden; border: 2px solid #b2b2b2; border-radius: 4px; }
+.xp-sim .xp-boot-bar i { width: 8px; height: 100%; border-radius: 1px; background: linear-gradient(#2c5cd8, #7ca3ff, #2c5cd8); animation: xp-boot 1.6s linear infinite; }
+@keyframes xp-boot { from { transform: translateX(-40px); } to { transform: translateX(130px); } }
+.xp-sim .xp-boot small { position: absolute; bottom: 20px; color: #999; font-size: 11px; }
+
+.xp-sim .xp-caption { margin: 8px 0 0; color: var(--muted); font-size: .78rem; text-align: center; }
+.xp-sim .xp-stale { margin: 8px 0 0; padding: 8px 12px; border-left: 3px solid #d98324; background: #fdf3e6; color: #6b3d0c; font-size: .82rem; }
+
+/* ── roteiro para o computador de verdade ── */
+.xp-sim .xp-script { margin-top: 18px; border: 1px solid var(--line); background: #fff; }
+.xp-sim .xp-script > header { padding: 14px 16px; border-bottom: 1px solid var(--line); background: #f5f8f6; }
+.xp-sim .xp-script h3 { margin: 0 0 4px; color: var(--green-900); font-size: 1rem; }
+.xp-sim .xp-script > header p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+.xp-sim .xp-script ol { margin: 0; padding: 0; list-style: none; }
+.xp-sim .xp-script li { padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.xp-sim .xp-script li.is-current { background: #fffbea; box-shadow: inset 3px 0 0 #d98324; }
+.xp-sim .xp-script li.is-done .xp-script-title span { background: var(--green-700); color: #fff; }
+.xp-sim .xp-script-title { display: flex; align-items: center; gap: 10px; font-size: .86rem; }
+.xp-sim .xp-script-title span { display: grid; flex: 0 0 auto; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--surface); color: var(--muted); font-size: .7rem; font-weight: 700; }
+.xp-sim .xp-script-cmd { display: flex; align-items: center; gap: 8px; margin: 6px 0 0 32px; }
+.xp-sim .xp-script-cmd code { flex: 1; min-width: 0; overflow-x: auto; padding: 7px 10px; background: #17231f; color: #e8f2ee; font: .78rem/1.4 var(--xp-mono); white-space: pre; }
+.xp-sim .xp-script-cmd button { min-height: 36px; padding: 4px 12px; border: 1px solid var(--line); background: #fff; color: var(--green-800); cursor: pointer; font: inherit; font-size: .76rem; font-weight: 700; }
+.xp-sim .xp-script li > p, .xp-sim .xp-script li > small { display: block; margin: 4px 0 0 32px; color: var(--muted); font-size: .8rem; line-height: 1.45; }
+.xp-sim .xp-script > footer { padding: 10px 16px; color: var(--muted); font-size: .78rem; }
+.xp-sim .xp-script > footer a { color: var(--green-800); }
+.xp-sim .xp-script-empty { margin-top: 14px; color: var(--muted); font-size: .84rem; text-align: center; }
+
+/* ── telas estreitas: janelas maximizadas, balão embaixo ── */
+.xp-sim .xp-screen.is-narrow .xp-icons { flex-direction: row; flex-wrap: wrap; gap: 4px; }
+.xp-sim .xp-screen.is-narrow .xp-window:not(.is-small) { inset: 0 0 auto 0; height: calc(100% - 210px); }
+.xp-sim .xp-screen.is-narrow .xp-window.is-small { width: calc(100% - 20px); }
+.xp-sim .xp-screen.is-narrow .xp-balloon { left: 8px; right: 8px; width: auto; max-height: 200px; overflow-y: auto; bottom: 6px; }
+.xp-sim .xp-screen.is-narrow .xp-balloon::before, .xp-sim .xp-screen.is-narrow .xp-balloon::after { display: none; }
+@media (max-width: 600px) {
+  .xp-sim .xp-seg button { padding: 6px 10px; }
+  .xp-sim .xp-script-cmd { margin-left: 0; }
+  .xp-sim .xp-script li > p, .xp-sim .xp-script li > small { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .xp-sim * { animation: none !important; transition: none !important; }
+  .xp-sim .xp-bar > i { width: calc(100% - 2px); }
+}

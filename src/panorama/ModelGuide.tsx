@@ -1,4 +1,4 @@
-import { ArrowUpRight, Check, LoaderCircle, Plus, Search, X } from "lucide-react";
+import { ArrowUpRight, BadgeDollarSign, Bot, BrainCircuit, Check, Code2, LoaderCircle, Plus, Search, Sparkles, Trophy, X, Zap, type LucideIcon } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
 import { benchmarkModelKey, canonicalCompany, companyColor, emptyPanoramaConfig, launchForModel, type PanoramaBenchmarks, type PanoramaConfig } from "../panoramaData";
@@ -11,6 +11,8 @@ import {
   parseGuideDeepLink, searchSuggestions, supportMaps, toggleCompareKey,
   type GuideCategory, type GuideProfile, type GuideSortId,
 } from "../panoramaGuide";
+
+const TASK_ICONS: Record<string, LucideIcon> = { geral: BrainCircuit, codigo: Code2, agentes: Bot };
 
 type LaunchData = Awaited<ReturnType<typeof loadPanoramaLaunches>>;
 
@@ -121,6 +123,7 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
     const launch = launchForModel(model, company, launchData.launches, launchData.config);
     return launch ? rulerModelHref(launch.model, launch.company, launch.date) : null;
   };
+  const rankingCompanies = [...new Set(rows.map((row) => canonicalCompany(row.entry.company, config)))];
   const coverage = bench && launchData ? bench.top.filter((entry) => launchHref(entry.model, entry.company)).length : null;
 
   if (loading) return <div className="panorama-state" role="status"><LoaderCircle className="spinning" aria-hidden="true" size={24} />{english ? "Loading model benchmarks…" : "Carregando os testes dos modelos…"}</div>;
@@ -129,26 +132,41 @@ export function ModelGuide({ english = false }: { english?: boolean }) {
 
   return (
     <div className="panorama-guide">
-      <header className="guide-heading">
-        <small>{data.modelsTotal} {english ? "models tracked" : "modelos rastreados"} · {english ? `showing the top ${rows.length}` : `mostrando os ${rows.length} primeiros`}</small>
-      </header>
-
-      <div className="guide-categories" role="group" aria-label={english ? "Choose a task" : "Selecione um uso"}>
-        {GUIDE_CATEGORIES.map((item) => <button type="button" key={item.id} aria-pressed={categoryId === item.id} onClick={() => { setCategoryId(item.id); setExtras(false); event("category", item.id); }}>
-          {item[locale].label}{!categoryHasData(data, item) && <small> · {english ? "No data" : "Sem dados"}</small>}
-        </button>)}
+      {/* Primeiro a tarefa, depois as três respostas. Os três cartões são as
+          próprias ordenações do ranking: clicar em um deles reordena a lista. */}
+      <div className="guide-tasks" role="group" aria-label={english ? "Choose a task" : "Selecione um uso"}>
+        {GUIDE_CATEGORIES.map((item) => {
+          const Icon = TASK_ICONS[item.id] || Sparkles;
+          return <button type="button" key={item.id} aria-pressed={categoryId === item.id} onClick={() => { setCategoryId(item.id); setExtras(false); event("category", item.id); }}>
+            <span className="guide-task-icon" aria-hidden="true"><Icon size={20} /></span>
+            <span><strong>{item[locale].label}</strong><small>{categoryHasData(data, item) ? item[locale].question : (english ? "No data in this collection" : "Sem dados nesta coleta")}</small></span>
+          </button>;
+        })}
       </div>
 
       <section className="guide-panel" aria-labelledby="guide-category-title">
-        <h3 id="guide-category-title">{cat.label}</h3>
-        <p className="guide-question">{cat.question}</p>
-        {bench && <dl className="guide-highlights">{categoryHighlights(bench).map(({ mode, row }) => <div key={mode}>
-          <dt>{mode === "best" ? (english ? "Best overall" : "Melhor no geral") : mode === "value" ? (english ? "Best value" : "Melhor custo-benefício") : (english ? "Fastest" : "Mais rápido")}</dt>
-          <dd>{row ? <><strong>{row.entry.model}</strong> · {mode === "best" ? `${score(bench.isFraction, row.entry.score)} ${bench.isFraction ? "" : "/100"}` : mode === "value" ? `${formatGuidePrice(row.entry.pricePerMillion, english)} · ${score(bench.isFraction, row.entry.score)} ${english ? "points" : "pontos"} · ${row.metric.toLocaleString(english ? "en-US" : "pt-BR", { maximumFractionDigits: 1 })} ${english ? "points/$" : "pontos/US$"}` : formatGuideSpeed(row.entry.tokensPerSecond)}</> : (english ? "No published data" : "Sem dados publicados")}</dd>
-        </div>)}</dl>}
+        <h3 id="guide-category-title" className="sr-only">{cat.label}</h3>
+        {bench && <div className="guide-podium" role="group" aria-label={english ? "Sort the ranking" : "Ordenar o ranking"}>
+          {categoryHighlights(bench).map(({ mode, row }) => {
+            const sortItem = GUIDE_SORTS.find((item) => item.id === mode)!;
+            const Icon = mode === "best" ? Trophy : mode === "value" ? BadgeDollarSign : Zap;
+            const label = mode === "best" ? (english ? "Most capable" : "Mais capaz") : mode === "value" ? (english ? "Best value" : "Melhor custo-benefício") : (english ? "Fastest" : "Mais rápido");
+            const metric = !row ? "" : mode === "best" ? `${score(bench.isFraction, row.entry.score)}${bench.isFraction ? "" : " / 100"}` : mode === "value" ? formatGuidePrice(row.entry.pricePerMillion, english) || "—" : formatGuideSpeed(row.entry.tokensPerSecond) || "—";
+            const detail = !row ? "" : mode === "best" ? (english ? "highest score" : "maior nota") : mode === "value" ? `${english ? "per million tokens · score" : "por milhão de tokens · nota"} ${score(bench.isFraction, row.entry.score)}` : (english ? "tokens per second" : "tokens por segundo");
+            return <button type="button" key={mode} className={`guide-podium-card is-${mode}`} aria-pressed={sort === mode} onClick={() => { setSort(mode); event("sort", `${categoryId}:${mode}`); }} title={sortItem[locale].hint}>
+              <span className="guide-podium-label"><Icon size={15} aria-hidden="true" />{label}</span>
+              {row ? <>
+                <span className="guide-podium-model"><CompanyMark company={row.entry.company} color={companyColor(row.entry.company, config)} logoPath={config.logoPaths[config.logoMap[canonicalCompany(row.entry.company, config)]] || config.logoPaths[config.logoMap[row.entry.company]] || ""} size={40} /><span><strong>{row.entry.model}</strong><small>{row.entry.company}</small></span></span>
+                <span className="guide-podium-metric"><b>{metric}</b><small>{detail}</small></span>
+              </> : <span className="guide-podium-empty">{english ? "No published data" : "Sem dados publicados"}</span>}
+              <span className="guide-podium-cta">{sort === mode ? (english ? "Ranking sorted by this" : "Ranking nesta ordem") : (english ? "Sort ranking by this" : "Ordenar o ranking assim")}</span>
+            </button>;
+          })}
+        </div>}
         <div className="guide-controls">
-          <div className="guide-sorts" role="group" aria-label={english ? "Sort by" : "Ordenar por"}>
-            {GUIDE_SORTS.map((item) => <button type="button" key={item.id} aria-pressed={sort === item.id} onClick={() => { setSort(item.id); event("sort", `${categoryId}:${item.id}`); }}>{item[locale].label}</button>)}
+          <div className="guide-ranking-summary">
+            <span className="guide-logo-stack" aria-hidden="true">{rankingCompanies.slice(0, 8).map((company) => <CompanyMark key={company} company={company} color={companyColor(company, config)} logoPath={config.logoPaths[config.logoMap[company]] || ""} size={26} />)}</span>
+            <span><strong>{english ? `Top ${rows.length}` : `Os ${rows.length} primeiros`}</strong> {english ? `of ${data.modelsTotal} models · ${rankingCompanies.length} companies` : `de ${data.modelsTotal} modelos · ${rankingCompanies.length} empresas`}</span>
           </div>
           <label className="guide-search" htmlFor="guide-search">
             <Search size={17} aria-hidden="true" /><span className="sr-only">{english ? "Find a model to compare, including outside the top 20" : "Buscar modelo para comparar, inclusive fora do top 20"}</span>

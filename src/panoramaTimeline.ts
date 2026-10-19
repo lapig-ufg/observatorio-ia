@@ -332,6 +332,19 @@ export function latestAdditions(items: TimelineItem[], count: number, nowMs: num
     .sort((left, right) => right.item.date.localeCompare(left.item.date) || left.item.id.localeCompare(right.item.id));
 }
 
+/* "Últimos lançamentos": os mais recentes pela DATA DE LANÇAMENTO. Um
+   lançamento antigo cadastrado hoje não entra aqui só por ter chegado agora;
+   a bolinha "novo" continua dizendo o que entrou na planilha há pouco. */
+export function latestReleases(items: TimelineItem[], count: number, nowMs: number): TimelineAddition[] {
+  const addedMs = (item: TimelineItem) => item.updatedAt && item.updatedAt > 0 ? item.updatedAt : Date.parse(`${item.date}T00:00:00Z`) || 0;
+  const today = new Date(nowMs).toISOString().slice(0, 10);
+  return items
+    .filter((item) => /^\d{4}-\d{2}-\d{2}$/.test(item.date) && item.date <= today)
+    .sort((left, right) => right.date.localeCompare(left.date) || left.id.localeCompare(right.id))
+    .slice(0, count)
+    .map((item) => ({ item, addedMs: addedMs(item), isNew: nowMs - addedMs(item) <= NOVIDADES_DOT_DAYS * 86_400_000 }));
+}
+
 // ─── Zoom ───
 
 export const ZOOM = { min: 0.4, max: 4, step: 0.2 };

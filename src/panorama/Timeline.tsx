@@ -3,6 +3,7 @@ import { ArrowUpRight, CalendarDays, Check, ChevronDown, Download, FileDown, Fil
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { trackEvent } from "../analytics";
 import { CompanyMark } from "./CompanyMark";
+import { Flag, FlagInSvg, countryFlag, ecosystemFlag } from "./Flag";
 import {
   PANORAMA_EPOCH,
   PANORAMA_SITE,
@@ -30,6 +31,7 @@ import {
   groupedByMonth,
   initialsFontSize,
   latestAdditions,
+  latestReleases,
   MIN_COMPANY_TRACK,
   pillSpec,
   popoverPlacement,
@@ -118,8 +120,8 @@ function texts(english: boolean) {
     export: english ? "Export" : "Exportar",
     exportCsv: english ? "Export CSV" : "Exportar CSV",
     exportSvg: english ? "Export SVG" : "Exportar SVG",
-    news: english ? "Latest additions" : "Últimas adições",
-    newsNewSr: english ? " — with recent additions" : " — com adições recentes",
+    news: english ? "Latest releases" : "Últimos lançamentos",
+    newsNewSr: english ? " — some recently added" : " — alguns adicionados recentemente",
     newBadge: english ? "new" : "novo",
     locateHint: english ? "Locate on the timeline" : "Localizar na régua",
     sourceLink: english ? "source ↗" : "fonte ↗",
@@ -458,7 +460,7 @@ export function Timeline({ english = false }: { english?: boolean }) {
   /* Seleciona as linhas tocadas mais recentemente pela planilha e apresenta
      o mesmo conjunto por data de lançamento. O ponto usa a idade da adição.
      Os alvos precisam existir na população visível para poder localizá-los. */
-  const additions = useMemo(() => latestAdditions(filtered, isDesktop ? 5 : 3, Date.now()), [filtered, isDesktop]);
+  const additions = useMemo(() => latestReleases(filtered, 5, Date.now()), [filtered]);
   const newIds = useMemo(() => new Set(latestAdditions(filtered, filtered.length, Date.now()).filter((addition) => addition.isNew).map((addition) => addition.item.id)), [filtered]);
   const months = useMemo(() => groupedByMonth(filtered, (year, monthIndex) => monthLabel(year, monthIndex, english)), [filtered, english]);
 
@@ -793,12 +795,12 @@ export function Timeline({ english = false }: { english?: boolean }) {
             {additions.map(({ item, isNew }) => (
               <li key={item.id} className="panorama-news-card">
                 <button type="button" className="panorama-news-item" title={`${item.model} · ${item.company} · ${formatDay(item.date, english)}${item.impact ? ` — ${item.impact}` : ""}`} onClick={() => locateAddition(item)}>
-                  <CompanyMark company={item.company} color={item.color} logoPath={item.logoPath} size={22} />
+                  <CompanyMark company={item.company} color={item.color} logoPath={item.logoPath} size={28} />
                   <span className="panorama-news-body">
                     <span className="panorama-news-model">
                       {item.model}
                     </span>
-                    <span className="panorama-news-meta"><time dateTime={item.date}>{formatDay(item.date, english)}</time>{isNew && <span className="panorama-new-dot" role="img" aria-label={t.newBadge} />}</span>
+                    <span className="panorama-news-meta"><span className="panorama-news-company">{item.company}</span>·<time dateTime={item.date}>{formatDay(item.date, english)}</time>{isNew && <span className="panorama-new-dot" role="img" aria-label={t.newBadge} title={t.newBadge} />}</span>
                   </span>
                 </button>
               </li>
@@ -928,7 +930,7 @@ function EcosystemSegmented({ options, selected, english, onSelect, labelledBy }
           aria-pressed={selected === entry.value}
           onClick={() => onSelect(selected === entry.value ? "" : entry.value)}
         >
-          {entry.label}
+          {entry.value && <Flag code={ecosystemFlag(entry.value)} width={16} />}{entry.label}
         </button>
       ))}
     </div>
@@ -1387,7 +1389,8 @@ function DesktopRuler({
 
       content.push(
         <g key={`title:${entry.group.ecosystem}`}>
-          <text x={PAD_L + 20} y={groupTop + 25} fontSize="12" fontWeight="700" fill={style.accent}>{ecosystemLabel(entry.group.ecosystem, english)}</text>
+          <FlagInSvg code={ecosystemFlag(entry.group.ecosystem)} x={PAD_L + 20} y={groupTop + 13} w={21} />
+          <text x={PAD_L + 49} y={groupTop + 25} fontSize="12" fontWeight="700" fill={style.accent}>{ecosystemLabel(entry.group.ecosystem, english)}</text>
           <line x1="0" y1={groupTop + GROUP_TITLE_H - 8} x2={svgWidth} y2={groupTop + GROUP_TITLE_H - 8} stroke={style.accent} strokeWidth="0.75" opacity="0.3" />
         </g>,
       );
@@ -1396,9 +1399,10 @@ function DesktopRuler({
       entry.tracks.forEach((trackLayout) => {
         const axisY = trackTop + trackLayout.height / 2;
         const trackColor = trackLayout.placed[0]?.item.color || "#a5a297";
+        const trackFlag = trackLayout.track.kind === "country" ? countryFlag(trackLayout.track.key.replace(/^country:/, "")) : null;
         labels.push(
           <div key={`label:${entry.group.ecosystem}:${trackLayout.track.key}`} className="panorama-label" style={{ top: trackTop + 22 }}>
-            <strong>{trackLayout.track.label}</strong>
+            {trackFlag && <Flag code={trackFlag} width={15} />}<strong>{trackLayout.track.label}</strong>
             <span> ({trackLayout.track.items.length})</span>
           </div>,
         );
@@ -1406,6 +1410,7 @@ function DesktopRuler({
           <g key={`track:${entry.group.ecosystem}:${trackLayout.track.key}`}>
             <line x1="0" y1={trackTop + trackLayout.height} x2={svgWidth} y2={trackTop + trackLayout.height} stroke="#d7dfdb" strokeWidth="0.75" />
             <line x1={PAD_L - 20} y1={axisY} x2={svgWidth - 20} y2={axisY} stroke={trackColor} opacity="0.25" strokeWidth="1.25" />
+            {trackFlag && <FlagInSvg code={trackFlag} x={PAD_L - 150} y={trackTop + 17} w={15} />}
             <text x={PAD_L - 28} y={trackTop + 26} textAnchor="end" fontSize="12" fontWeight="700" fill="#17231f">
               {trackLayout.track.label}
               <tspan fontWeight="500" fill="#8a958f" fontSize="10"> ({trackLayout.track.items.length})</tspan>
@@ -1625,7 +1630,7 @@ function DetailContent({ item, benchmarks, benchmarksPending, config, english, o
         <CompanyMark company={item.company} color={item.color} logoPath={item.logoPath} size={22} />
         <strong>{item.company}</strong>
         <span> · {formatDay(item.date, english)}</span>
-        {item.country && <span> · {item.country}</span>}
+        {item.country && <span> · {countryFlag(item.country) && <Flag code={countryFlag(item.country)!} width={14} />} {item.country}</span>}
         <span> · {ecosystemLabel(item.ecosystem, english)}</span>
       </p>
       <dl>

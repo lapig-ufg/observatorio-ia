@@ -1,50 +1,45 @@
 import { formatPublicDate } from "../dateLabels";
 import { useEffect, useState, type ReactNode } from "react";
+import { Eye, FolderGit2, MousePointerClick, ShieldCheck } from "lucide-react";
 import { trackEvent } from "../analytics";
 import { PANORAMA_SITE } from "../panoramaData";
-import { type EditorialLink, type SceneSide, type UsageData, type UsageScenes } from "../panoramaEditorial";
-import { loadPanoramaUsage } from "../panoramaSource";
-import { EditorialExternal, EditorialFooter, EditorialState, More, Prose, useEditorialData } from "./EditorialShared";
-import { TerminalSimulator, TutorialText } from "./TerminalSimulator";
-import { readingMinutes } from "../panoramaRefinement";
+import { type SceneSide, type UsageScenes } from "../panoramaEditorial";
+import { loadPanoramaScenes } from "../panoramaSource";
+import { EditorialExternal, EditorialState, More, Prose, useEditorialData } from "./EditorialShared";
+import { XpDesktop } from "./XpDesktop";
+import { OLLAMA_PLANS, OLLAMA_PLANS_CHECKED, USAGE_SECTIONS, USAGE_TEXT, USAGE_TOOLS, type UsageSectionId } from "../panoramaUsageText";
+import { VERIFIED_AT } from "../panoramaCliTutorials";
 
-const SECTIONS = ["abertura", "comparacao", "permanencia", "tutorial", "catalogo", "medicao", "resumo"] as const;
-type SectionId = typeof SECTIONS[number];
-function sectionTitles(english: boolean) {
-  return english ? ["The difference, explained", "Four questions, in both places", "What stays afterwards", "Install, step by step", "The catalog", "How this was measured", "The summary"] : ["A diferença, explicada", "Quatro perguntas, nos dois lugares", "O que fica depois", "Instalar, passo a passo", "O catálogo", "Como isto foi medido", "O resumo"];
-}
+/* Como usar fora do navegador: sete seções curtas, cada uma com um argumento.
+   O texto é do Observatório (panoramaUsageText.ts); os exemplos medidos vêm
+   do Panorama vivo; os comandos, de panoramaCliTutorials.ts. */
+
+const SECTIONS = USAGE_SECTIONS.map((section) => section.id);
+const TRANSCRIPTS_URL = "https://github.com/lapig-ufg/app-panorama-global-da-ia-generativa/tree/HEAD/automation/capturas/";
 function usageHref(id: string) { return `#panorama/como-usar?secao=${encodeURIComponent(id)}`; }
-// As capturas estão no repositório, fora do que é publicado pelo Pages.
-function referenceUrl(href: string) {
-  return href.startsWith("automation/") ? `https://github.com/lapig-ufg/app-panorama-global-da-ia-generativa/tree/HEAD/${href}` : new URL(href, PANORAMA_SITE).href;
-}
-function UsageLink({ link, english }: { link: EditorialLink; english: boolean }) {
-  return link.href.startsWith("#") ? <a href={usageHref(link.href.slice(1))}>{link.texto}</a> : <EditorialExternal href={referenceUrl(link.href)} english={english}>{link.texto}</EditorialExternal>;
-}
-function ReadingSection({ id, title, n, children, minutes, english }: { id: SectionId; title: string; n: number; children: ReactNode; minutes?: number; english: boolean }) {
-  return <section className="panorama-reading-section" id={`panorama-usage-${id}`} aria-labelledby={`panorama-usage-heading-${id}`}>
-    <header><span aria-hidden="true">{String(n).padStart(2, "0")}</span><h2 id={`panorama-usage-heading-${id}`} tabIndex={-1}>{title}</h2>{minutes && <small className="panorama-reading-time">{minutes} {english ? "min read" : "min de leitura"}</small>}</header><div className="panorama-section-content">{children}</div>
+
+function Section({ id, n, title, children }: { id: UsageSectionId; n: number; title: string; children: ReactNode }) {
+  return <section className="panorama-reading-section usage-section" id={`panorama-usage-${id}`} aria-labelledby={`panorama-usage-heading-${id}`}>
+    <header><span aria-hidden="true">{String(n).padStart(2, "0")}</span><h2 id={`panorama-usage-heading-${id}`} tabIndex={-1}>{title}</h2></header>
+    <div className="panorama-section-content">{children}</div>
   </section>;
 }
 
 export function UsageGuide({ english = false }: { english?: boolean }) {
-  const result = useEditorialData(loadPanoramaUsage, english);
+  const locale = english ? "en" : "pt";
+  const tr = (value: { pt: string; en: string }) => value[locale];
+  const scenes = useEditorialData(loadPanoramaScenes, english);
   const [hash, setHash] = useState(() => window.location.hash);
-  const [active, setActive] = useState<SectionId>("abertura");
-  const [minutes, setMinutes] = useState<Partial<Record<SectionId, number>>>({});
+  const [active, setActive] = useState<UsageSectionId>("diferenca");
   const [tocOpen, setTocOpen] = useState(false);
+
   useEffect(() => {
-    if (!result.data) return;
-    const elements = SECTIONS.map(id => document.getElementById(`panorama-usage-${id}`));
-    // Conta o texto efetivamente renderizado, inclusive detalhes recolhidos,
-    // sem contar nomes de propriedades e URLs dos dados editoriais.
-    setMinutes(Object.fromEntries(SECTIONS.map((id, index) => [id, readingMinutes(elements[index]?.querySelector(".panorama-section-content")?.innerHTML || "")])));
     let frame = 0;
     const update = () => {
       const header = document.querySelector(".topbar")?.getBoundingClientRect().height || 0;
       document.querySelector<HTMLElement>(".panorama-usage")?.style.setProperty("--usage-sticky-top", `${header + 16}px`);
-      let current: SectionId = "abertura";
-      elements.forEach((element, index) => { if (element && element.getBoundingClientRect().top <= header + 180) current = SECTIONS[index]; });
+      let current: UsageSectionId = "diferenca";
+      SECTIONS.forEach((id) => { const element = document.getElementById(`panorama-usage-${id}`); if (element && element.getBoundingClientRect().top <= header + 180) current = id; });
       setActive(current);
     };
     const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
@@ -52,75 +47,98 @@ export function UsageGuide({ english = false }: { english?: boolean }) {
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); };
-  }, [result.data]);
+  }, []);
   useEffect(() => {
     const changed = () => setHash(window.location.hash);
     window.addEventListener("hashchange", changed);
     return () => window.removeEventListener("hashchange", changed);
   }, []);
   useEffect(() => {
-    if (!result.data) return;
     const id = new URLSearchParams(hash.split("?")[1] || "").get("secao");
-    if (!SECTIONS.some(section => section === id)) return;
+    if (!SECTIONS.some((section) => section === id)) return;
     const frame = window.requestAnimationFrame(() => {
       const heading = document.getElementById(`panorama-usage-heading-${id}`);
       heading?.scrollIntoView({ block: "start", behavior: "instant" });
       heading?.focus({ preventScroll: true });
     });
     return () => window.cancelAnimationFrame(frame);
-  }, [hash, result.data]);
-  if (result.loading || result.error || !result.data) return <EditorialState loading={result.loading} error={result.error} retry={result.retry} english={english} />;
-  const { data, scenes } = result.data;
-  const titles = sectionTitles(english);
-  const section = (id: SectionId, children: ReactNode) => <ReadingSection id={id} title={titles[SECTIONS.indexOf(id)]} n={SECTIONS.indexOf(id) + 1} minutes={minutes[id]} english={english}>{children}</ReadingSection>;
-  const index = <nav className="panorama-usage-toc" aria-label={english ? "On this page" : "Nesta página"}>{SECTIONS.map((id, i) => <a key={id} href={usageHref(id)} aria-current={active === id ? "location" : undefined} onClick={() => { setTocOpen(false); trackEvent(english ? "panorama_usage_section_en" : "panorama_usage_section", { event_category: "navigation", event_label: id }); }}>{String(i + 1).padStart(2, "0")} · {titles[i]}</a>)}</nav>;
+  }, [hash, scenes.data]);
+
+  const index = <nav className="panorama-usage-toc" aria-label={english ? "On this page" : "Nesta página"}>{USAGE_SECTIONS.map((section, i) => <a key={section.id} href={usageHref(section.id)} aria-current={active === section.id ? "location" : undefined} onClick={() => { setTocOpen(false); trackEvent(english ? "panorama_usage_section_en" : "panorama_usage_section", { event_category: "navigation", event_label: section.id }); }}>{String(i + 1).padStart(2, "0")} · {tr(section.title)}</a>)}</nav>;
+  const title = (id: UsageSectionId) => tr(USAGE_SECTIONS.find((section) => section.id === id)!.title);
+  const n = (id: UsageSectionId) => SECTIONS.indexOf(id) + 1;
+  const t = USAGE_TEXT;
+  const pillarIcons = [Eye, ShieldCheck, FolderGit2];
+
   return <div className="panorama-usage">
-    <aside className="panorama-usage-index"><div className="panorama-usage-index-desktop">{index}</div><details className="panorama-usage-index-mobile" open={tocOpen} onToggle={event => setTocOpen(event.currentTarget.open)}><summary>{english ? "On this page" : "Nesta página"}</summary>{index}</details></aside>
+    <aside className="panorama-usage-index"><div className="panorama-usage-index-desktop">{index}</div><details className="panorama-usage-index-mobile" open={tocOpen} onToggle={(event) => setTocOpen(event.currentTarget.open)}><summary>{english ? "On this page" : "Nesta página"}</summary>{index}</details></aside>
     <div className="panorama-usage-body">
-    <aside className="panorama-quick-summary" aria-labelledby="panorama-minute-title"><h2 id="panorama-minute-title">{english ? "In 1 minute" : "Em 1 minuto"}</h2><ol>{data.essencial.conclusoes.map(c => <li key={c.n}><Prose text={c.frase} /> <UsageLink link={c.link} english={english} /></li>)}</ol><a href={usageHref("resumo")}>{english ? "Evidence and provenance" : "Evidências e procedência"} ↓</a></aside>
-    {section("abertura", <Opening data={data.abertura} english={english} />)}
-    {section("comparacao", <>
-      <ExecutionDiagram english={english} />
-      <SceneComparison scenes={scenes} english={english} />
-      <h3>{data.contraponto.titulo}</h3><p><Prose text={data.contraponto.lede} raw /></p>
-      <div className="panorama-reading-columns">{data.contraponto.itens.map((item, i) => <article key={i}><h4>{item.titulo}</h4><p><Prose text={item.texto} /></p></article>)}</div>
-      <p className="panorama-reading-rule"><Prose text={data.contraponto.fecho} raw /></p>
-    </>)}
-    {section("permanencia", <Persistence data={data.permanencia} />)}
-    {section("tutorial", <>
-      <TerminalSimulator tutorials={data.tutoriais} english={english} />
-      <details className="panorama-reading-more panorama-tutorial-plain"><summary>{english ? "Read the tutorials as text" : "Ver os tutoriais como texto"}</summary>{data.tutoriais.map(t => <TutorialText key={t.id} tutorial={t} english={english} />)}</details>
-    </>)}
-    {section("catalogo", <Catalog data={data} english={english} />)}
-    {section("medicao", <>
-      <p><Prose text={data.medicao.lede} /></p>
-      <ol className="panorama-reading-method">{data.medicao.passos.map((item, i) => <li key={i}><h3><Prose text={item.titulo} /></h3><p><Prose text={item.texto} /></p></li>)}</ol>
-      <h3>{data.medicao.naoMedidoTitulo}</h3><p><Prose text={data.medicao.naoMedidoLede} /></p>
-      <dl className="panorama-reading-definitions">{data.medicao.naoMedido.map((item, i) => <div key={i}><dt><Prose text={item.item} /></dt><dd><Prose text={item.porque} /></dd></div>)}</dl>
-      <More items={data.medicao.saibaMais} english={english} />
-      <EditorialExternal href={referenceUrl("automation/capturas/")} english={english}>{english ? "Transcripts and reports" : "Transcrições e relatórios"}</EditorialExternal>
-    </>)}
-    {section("resumo", <>
-      <span className="panorama-editorial-meta">{data.essencial.rotulo}</span><p><Prose text={data.essencial.intro} raw /></p><h3>{english ? "Evidence behind the opening summary" : "Evidências do resumo de abertura"}</h3>
-      <ol className="panorama-reading-conclusions">{data.essencial.conclusoes.map(c => <li key={c.n}><p><Prose text={c.prova} /> <UsageLink link={c.link} english={english} /></p></li>)}</ol>
-      <h3>{data.essencial.procedencia.titulo}</h3><dl className="panorama-reading-numbers">{data.essencial.procedencia.numeros.map(n => <div key={n.rotulo}><dt>{n.rotulo}</dt><dd>{n.valor}</dd></div>)}</dl>
-      <p><Prose text={data.essencial.procedencia.texto} raw /> <UsageLink link={data.essencial.procedencia.link} english={english} /></p>
-    </>)}
-    <EditorialFooter date={data.updatedAt} page="como-usar" english={english} />
+      <Section id="diferenca" n={n("diferenca")} title={title("diferenca")}>
+        <p className="usage-lede">{tr(t.lede)}</p>
+        <div className="usage-pillars">{t.pillars.map((pillar, i) => {
+          const Icon = pillarIcons[i];
+          return <article key={i}>
+            <h3><span aria-hidden="true"><Icon size={18} /></span>{tr(pillar.title)}</h3>
+            <dl><div className="is-browser"><dt>{english ? "In the browser" : "No navegador"}</dt><dd>{tr(pillar.browser)}</dd></div><div className="is-installed"><dt>{english ? "Installed" : "Instalada"}</dt><dd>{tr(pillar.installed)}</dd></div></dl>
+          </article>;
+        })}</div>
+        <ExecutionDiagram english={english} />
+        <p className="panorama-reading-note">{tr(t.sameModel)} {tr(t.cost)} <a href={usageHref("tutorial")}>{english ? "Go to the tutorial" : "Ir para o tutorial"} ↓</a></p>
+      </Section>
+
+      <Section id="pratica" n={n("pratica")} title={title("pratica")}>
+        <p>{tr(t.practiceIntro)}</p>
+        {scenes.data ? <SceneComparison scenes={scenes.data} english={english} /> : <EditorialState loading={scenes.loading} error={scenes.error} retry={scenes.retry} english={english} />}
+      </Section>
+
+      <Section id="navegador" n={n("navegador")} title={title("navegador")}>
+        <ul className="usage-browser-wins">{t.browserWins.map((item, i) => <li key={i}><MousePointerClick size={16} aria-hidden="true" /><span><strong>{tr(item.title)}.</strong> {tr(item.text)}</span></li>)}</ul>
+        <p className="panorama-reading-rule usage-rule">{tr(t.rule)}</p>
+      </Section>
+
+      <Section id="depois" n={n("depois")} title={title("depois")}>
+        <p>{tr(t.afterLede)}</p>
+        <div className="panorama-reading-pair">{[{ side: t.afterChat, ok: false }, { side: t.afterAgent, ok: true }].map(({ side, ok }) => <div className={ok ? "is-installed" : "is-browser"} key={String(ok)}><h4>{tr(side.label)}</h4><ul className="usage-checklist">{side.items.map((item, i) => <li key={i} className={ok ? "is-ok" : "is-no"}><span aria-hidden="true">{ok ? "✓" : "×"}</span>{tr(item)}</li>)}</ul></div>)}</div>
+        <div className="usage-rules">
+          <div><h3>{tr(t.rulesTitle)}</h3><p>{tr(t.rulesText)}</p></div>
+          <div className="panorama-artifact"><strong>AGENTS.md</strong><pre><code>{t.rulesFile.join("\n")}</code></pre></div>
+        </div>
+      </Section>
+
+      <Section id="tutorial" n={n("tutorial")} title={title("tutorial")}>
+        <p>{tr(t.tutorialIntro)}</p>
+        <XpDesktop english={english} />
+      </Section>
+
+      <Section id="ferramentas" n={n("ferramentas")} title={title("ferramentas")}>
+        <p>{tr(t.toolsIntro)}</p>
+        <div className="usage-tools-wrap"><table className="usage-tools">
+          <caption className="sr-only">{english ? "Programs that run AI on your computer" : "Programas que levam a IA ao seu computador"}</caption>
+          <thead><tr><th scope="col">{english ? "Program" : "Programa"}</th><th scope="col">{english ? "Install (macOS / Linux)" : "Instalar (macOS / Linux)"}</th><th scope="col">{english ? "Install (Windows PowerShell)" : "Instalar (Windows PowerShell)"}</th><th scope="col">{english ? "Requires" : "Precisa de"}</th></tr></thead>
+          <tbody>{USAGE_TOOLS.map((tool) => <tr key={tool.name}>
+            <th scope="row"><a href={tool.link} target="_blank" rel="noreferrer">{tool.name} ↗</a><small>{tool.company} · {tr(tool.kind)}</small>{tool.node && <span className="usage-node">Node.js</span>}</th>
+            <td><code>{tool.install.unix}</code></td>
+            <td><code>{tool.install.windows}</code></td>
+            <td>{tr(tool.needs)}</td>
+          </tr>)}</tbody>
+        </table></div>
+        <p className="panorama-reading-note">{tr(t.toolsNote)} {english ? "Commands checked on" : "Comandos conferidos em"} {formatPublicDate(VERIFIED_AT, locale)}.</p>
+        <h3>{english ? "Ollama cloud plans" : "Planos de nuvem da Ollama"}</h3>
+        <div className="usage-plans">{OLLAMA_PLANS.map((plan) => <article key={plan.name}><h4>{plan.name}</h4><strong>{tr(plan.price)}</strong><p>{tr(plan.detail)}</p></article>)}</div>
+        <p className="panorama-reading-note">{english ? "Prices from the official plans page, checked on" : "Preços da página oficial de planos, conferidos em"} {formatPublicDate(OLLAMA_PLANS_CHECKED, locale)}. <EditorialExternal href="https://ollama.com/pricing" english={english}>ollama.com/pricing</EditorialExternal></p>
+      </Section>
+
+      <Section id="medicao" n={n("medicao")} title={title("medicao")}>
+        <p>{tr(t.methodLede)}</p>
+        <ul className="usage-method">{t.methodItems.map((item, i) => <li key={i}>{tr(item)}</li>)}</ul>
+        <EditorialExternal href={TRANSCRIPTS_URL} english={english}>{english ? "Transcripts and reports" : "Transcrições e relatórios"}</EditorialExternal>
+      </Section>
+
+      <footer className="panorama-provenance"><span>{english ? "Text by the UFG-AI Observatory · examples from the live Panorama" : "Texto do Observatório UFG-IA · exemplos do Panorama ao vivo"}</span>
+        <EditorialExternal href={`${PANORAMA_SITE}${english ? "en/" : ""}como-usar.html`} english={english}>{english ? "Open the original Panorama" : "Abrir o Panorama original"}</EditorialExternal>
+      </footer>
     </div>
   </div>;
-}
-
-function Opening({ data, english }: { data: UsageData["abertura"]; english: boolean }) {
-  return <><p className="panorama-reading-lede"><Prose text={data.lede} raw /></p>{data.paragrafos.map((text, i) => <p key={i}><Prose text={text} raw /></p>)}
-    {data.eixos.map(axis => <article className="panorama-reading-axis" key={axis.n}>
-      <h3>{axis.n}. {axis.nome}</h3><p>{axis.pergunta}</p>
-      <div className="panorama-reading-pair">{[axis.navegador, axis.instalada].map((side, i) => <div className={i === 0 ? "is-browser" : "is-installed"} key={i}><h4>{side.titulo}</h4><p><Prose text={side.texto} raw /></p>{side.glossario && <details><summary>{side.glossario.termo}</summary><p><Prose text={side.glossario.texto} raw /></p></details>}<p><Prose text={side.consequencia} raw /></p></div>)}</div>
-      <p className="panorama-reading-note"><Prose text={axis.lastro} raw /> <a href={usageHref("medicao")}>{english ? "How this was measured" : "Como isto foi medido"}</a></p>
-      <p className="panorama-reading-rule"><Prose text={axis.regra} raw /></p>
-    </article>)}
-    <h3>{data.ganho.titulo}</h3><p><Prose text={data.ganho.lede} raw /></p><div className="panorama-reading-columns">{data.ganho.itens.map((item, i) => <div key={i}><h4>{item.titulo}</h4><p><Prose text={item.texto} raw /></p></div>)}</div><p className="panorama-reading-note"><Prose text={data.ganho.custo} raw /></p><More items={data.saibaMais} english={english} />
-  </>;
 }
 
 function SceneComparison({ scenes, english }: { scenes: UsageScenes; english: boolean }) {
@@ -129,47 +147,19 @@ function SceneComparison({ scenes, english }: { scenes: UsageScenes; english: bo
   const choose = (i: number) => { setSelected(i); trackEvent(english ? "panorama_usage_example_en" : "panorama_usage_example", { event_category: "content", event_label: scenes.cenas[i].id }); };
   const side = (value: SceneSide, installed: boolean) => <article className={installed ? "is-installed" : "is-browser"}><header><h4>{value.rotulo}</h4><span>{value.sub}</span></header><p><Prose text={value.narrativa} /></p><dl><dt>{english ? "What you gain" : "O que ganha"}</dt><dd><Prose text={value.bom} /></dd><dt>{english ? "What stays with you" : "O que fica com você"}</dt><dd><Prose text={value.limite} /></dd></dl></article>;
   return <div className="panorama-scenes">
-    <p>{english ? "Choose a work example to compare:" : "Escolha um exemplo de trabalho para comparar:"}</p>
     <div className="panorama-editorial-chips" role="group" aria-label={english ? "Examples" : "Exemplos"}>{scenes.cenas.map((c, i) => <button key={c.id} type="button" aria-pressed={selected === i} onClick={() => choose(i)}>{i + 1}. {c.aba}</button>)}</div>
-    <article aria-live="polite"><h3>{scene.pergunta}</h3><div className="panorama-reading-pair">{side(scene.navegador, false)}{side(scene.instalado, true)}</div><h4>{english ? "What changes in practice" : "O que muda na prática"}</h4><p><Prose text={scene.diferenca} raw /></p>
-      <h4>{english ? "When to use each" : "Quando usar cada um"}</h4><dl className="panorama-reading-definitions"><div><dt>{english ? "Browser" : "Navegador"}</dt><dd><Prose text={scene.quandoUsar.navegador} /></dd></div><div><dt>{english ? "Installed program" : "Programa instalado"}</dt><dd><Prose text={scene.quandoUsar.instalado} /></dd></div></dl><More items={scene.saibaMais} english={english} />
+    <article aria-live="polite"><h3>“{scene.pergunta}”</h3><div className="panorama-reading-pair">{side(scene.navegador, false)}{side(scene.instalado, true)}</div>
+      <p className="usage-scene-diff"><strong>{english ? "What changes: " : "O que muda: "}</strong><Prose text={scene.diferenca} raw /></p>
+      <More items={scene.saibaMais} english={english} />
     </article>
-    <nav className="panorama-example-nav" aria-label={english ? "Browse examples" : "Navegar pelos exemplos"}><button type="button" onClick={() => choose((selected + scenes.cenas.length - 1) % scenes.cenas.length)}>← {english ? "Previous example" : "Exemplo anterior"}</button><span>{selected + 1}/{scenes.cenas.length}</span><button type="button" onClick={() => choose((selected + 1) % scenes.cenas.length)}>{english ? "Next example" : "Próximo exemplo"} →</button></nav>
-    <p className="panorama-editorial-meta">{scenes.fontes.navegador.rotulo} · {formatPublicDate(scenes.fontes.navegador.data, english ? "en" : "pt")}; {scenes.fontes.agente.rotulo} · {formatPublicDate(scenes.fontes.agente.data, english ? "en" : "pt")}. <a href={usageHref("medicao")}>{english ? "Method and provenance" : "Método e procedência"}</a></p>
+    <p className="panorama-editorial-meta">{scenes.fontes.navegador.rotulo} · {formatPublicDate(scenes.fontes.navegador.data, english ? "en" : "pt")}; {scenes.fontes.agente.rotulo} · {formatPublicDate(scenes.fontes.agente.data, english ? "en" : "pt")}. <a href={usageHref("medicao")}>{english ? "How we measured" : "Como medimos"}</a></p>
   </div>;
 }
 
 function ExecutionDiagram({ english }: { english: boolean }) {
   return <figure className="panorama-execution-figure">
     <figcaption>{english ? "Who does the work in each place" : "Quem faz o trabalho em cada lugar"}</figcaption>
-    <div className="panorama-flow is-browser"><strong>{english ? "In the browser" : "No navegador"}</strong><ol><li>{english ? "AI writes" : "A IA escreve"}</li><li>{english ? "You execute" : "Você executa"}</li><li>{english ? "Your files" : "Seus arquivos"}</li></ol><p>{english ? "The result returns to the AI when you describe it." : "O resultado volta para a IA quando você o descreve."}</p></div>
-    <div className="panorama-flow is-installed"><strong>{english ? "With an installed program" : "Com um programa instalado"}</strong><ol><li>{english ? "AI proposes" : "A IA propõe"}</li><li>{english ? "You authorize" : "Você autoriza"}</li><li>{english ? "AI executes" : "A IA executa"}</li></ol><p>↶ {english ? "The AI reads the result in your files." : "A IA lê o resultado nos seus arquivos."}</p></div>
+    <div className="panorama-flow is-browser"><strong>{english ? "In the browser" : "No navegador"}</strong><ol><li>{english ? "AI writes" : "A IA escreve"}</li><li>{english ? "You execute" : "Você executa"}</li><li>{english ? "You report back" : "Você conta o resultado"}</li></ol></div>
+    <div className="panorama-flow is-installed"><strong>{english ? "With an installed program" : "Com um programa instalado"}</strong><ol><li>{english ? "AI proposes" : "A IA propõe"}</li><li>{english ? "You authorize" : "Você autoriza"}</li><li>{english ? "AI executes and checks" : "A IA executa e confere"}</li></ol></div>
   </figure>;
-}
-
-function Persistence({ data }: { data: UsageData["permanencia"] }) {
-  return <><p><Prose text={data.lede} raw /></p><h3>{data.restaTitulo}</h3>
-    <div className="panorama-reading-pair">{[{ title: data.resta.conversaRotulo, items: data.resta.conversa }, { title: data.resta.agenteRotulo, items: data.resta.agente }].map((side, i) => <div className={i ? "is-installed" : "is-browser"} key={i}><h4>{side.title}</h4><ul>{side.items.map((item, j) => <li key={j}><span aria-hidden="true">{item.ok ? "✓ " : "× "}</span><Prose text={item.v} /></li>)}</ul></div>)}</div>
-    <p className="panorama-reading-note"><Prose text={data.resta.nota} /></p>
-    {data.mecanismos.map((item, i) => <article className="panorama-reading-mechanism" key={i}><div><h3>{i + 1}. {item.titulo}</h3><p><Prose text={item.texto} /></p>{item.nota && <p className="panorama-reading-note"><Prose text={item.nota} /></p>}</div><div className="panorama-artifact">{item.artefato.nome && <strong>{item.artefato.nome}</strong>}<pre><code>{item.artefato.linhas.join("\n")}</code></pre></div></article>)}
-    <p className="panorama-reading-rule"><Prose text={data.fecho} raw /></p>
-  </>;
-}
-
-function Catalog({ data, english }: { data: UsageData; english: boolean }) {
-  const bridge = data.ponte;
-  return <>{data.familias.map(family => <section key={family.id}><h3>{family.titulo}</h3><p>{family.subtitulo}</p><p><Prose text={family.explicacao} /></p>
-    <details className="panorama-reading-more"><summary>{family.itens.length} {english ? "tools" : "ferramentas"} · {family.itens.map(i => i.nome).join(" · ")}</summary>
-      <div className="panorama-catalog-grid">{family.itens.map((item, i) => <article key={i}><span className="panorama-editorial-meta">{item.empresa}</span><h4>{item.nome}</h4>{item.codigoAberto && <p>{item.licenca || (english ? "Open source" : "Código aberto")}</p>}
-        <h5>{english ? "How to install" : "Como instalar"}</h5>{item.comando ? <pre><code>{item.instala}</code></pre> : <p>{item.instala}</p>}<p>{item.instalaAlt}</p>
-        <dl><dt>{english ? "Requires" : "Precisa de"}</dt><dd><Prose text={item.precisa} /></dd><dt>{english ? "Scope" : "Alcance"}</dt><dd><Prose text={item.acesso} /></dd></dl>{item.destaque && <p>{item.destaque}</p>}
-        <EditorialExternal href={item.link} english={english} label={item.nome}>{english ? "Official page" : "Página oficial"}</EditorialExternal>
-      </article>)}</div>
-    </details></section>)}
-    <details className="panorama-reading-more"><summary>{english ? "What the AI can do on your computer: the toolkit" : "O que a IA pode fazer na sua máquina: o cinto de ferramentas"}</summary><div className="panorama-catalog-grid">{data.ferramentas.map((tool, i) => <article key={i}><h4>{tool.nome}</h4><p><Prose text={tool.oQueE} /></p><p><Prose text={tool.destrava} /></p><pre><code>{tool.exemplo}</code></pre></article>)}</div></details>
-    <h3>{bridge.titulo}</h3><p><Prose text={bridge.lede} /></p>
-    <dl className="panorama-reading-definitions">{bridge.comandos.map((item, i) => <div key={i}><dt><code>{item.cmd}</code></dt><dd><Prose text={item.oQueFaz} /></dd></div>)}</dl>
-    <details className="panorama-reading-more"><summary><Prose text={bridge.integracoesTitulo} /> · {bridge.integracoes.length}</summary><p><Prose text={bridge.integracoesNota} /></p><ul>{bridge.integracoes.map(item => <li key={item.id}><code>{item.id}</code> · <strong>{item.nome}</strong> · {item.nota}</li>)}</ul></details>
-    <h4><Prose text={bridge.planosTitulo} /></h4><div className="panorama-reading-columns">{bridge.planos.map((plan, i) => <article key={i}><h5>{plan.nome}</h5><strong>{plan.preco}</strong><p>{plan.credito}</p><p><Prose text={plan.detalhe} /></p></article>)}</div><p><Prose text={bridge.planosExtra} /></p><p className="panorama-reading-note"><Prose text={bridge.planosNota} /></p><p className="panorama-reading-rule"><Prose text={bridge.fecho} raw /></p>
-  </>;
 }

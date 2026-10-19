@@ -146,10 +146,8 @@ export async function loadPanoramaFreeTools(locale: PanoramaLocale = "pt", signa
   return editorialFromScript(await fetchEditorialScript("gratuitos-data", locale, signal), "GRATUITOS_DATA");
 }
 
-export async function loadPanoramaUsage(locale: PanoramaLocale = "pt", signal?: AbortSignal) {
-  const [text, scenes] = await Promise.all([
-    fetchEditorialScript("como-usar-data", locale, signal),
-    fetchEditorialScript("como-usar-cenas", locale, signal),
-  ]);
-  return { data: editorialFromScript(text, "COMO_USAR_DATA"), scenes: editorialFromScript(scenes, "COMO_USAR_CENAS") };
+/* A aba "Como usar" tem texto próprio no Observatório; do Panorama vivo ela
+   lê só os exemplos medidos, que mudam a cada rodada de medição. */
+export async function loadPanoramaScenes(locale: PanoramaLocale = "pt", signal?: AbortSignal) {
+  return editorialFromScript(await fetchEditorialScript("como-usar-cenas", locale, signal), "COMO_USAR_CENAS");
 }

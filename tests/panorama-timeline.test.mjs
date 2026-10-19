@@ -288,3 +288,17 @@ test("CSV sai ordenado, com acento escapado e o nível de curadoria", () => {
   assert.equal(lines[1], "2025-12-31,OpenAI,Alfa,,,catálogo", "ordenado por data, vazio sem aspas");
   assert.equal(lines[2], '2026-02-01,OpenAI,Beta,"Com ""vírgula"", acento e\nquebra",https://example.com,secundário');
 });
+
+test("últimos lançamentos seguem a data de lançamento; a bolinha marca o que entrou há pouco", () => {
+  const day = 86_400_000;
+  const now = Date.parse("2026-10-19T12:00:00Z");
+  const items = [
+    item({ id: "antigo-cadastrado-hoje", date: "2024-01-10", updatedAt: now - day }),
+    item({ id: "recente", date: "2026-10-17", updatedAt: now - 40 * day }),
+    item({ id: "mais-recente", date: "2026-10-18", updatedAt: now - 2 * day }),
+    item({ id: "futuro", date: "2026-12-01", updatedAt: now }),
+  ];
+  const latest = timeline.latestReleases(items, 2, now);
+  assert.deepEqual(latest.map((entry) => entry.item.id), ["mais-recente", "recente"], "data futura e cadastro tardio não entram");
+  assert.deepEqual(latest.map((entry) => entry.isNew), [true, false]);
+});

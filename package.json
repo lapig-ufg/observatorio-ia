@@ -18,7 +18,8 @@
     "noticias:build": "node scripts/build-folha-news.mjs",
     "editorial:build": "node scripts/build-weekly-digests.mjs",
     "panorama:check": "node scripts/check-panorama-contract.mjs",
-    "politicas:english": "node scripts/build-policy-english.mjs"
+    "politicas:english": "node scripts/build-policy-english.mjs",
+    "tutoriais:check": "node scripts/check-cli-tutorials.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.24.0",
