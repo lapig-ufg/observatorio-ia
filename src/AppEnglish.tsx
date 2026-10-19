@@ -301,7 +301,6 @@ export function AppEnglish() {
       } finally { if (active) setRefreshing(false); }
     };
     void refresh();
-    trackPageView("/en/", "UFG-AI Observatory — English");
     return () => { active = false; };
   }, []);
 

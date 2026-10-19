@@ -124,3 +124,11 @@ pnpm catalog:build
 O processo gera a cópia CSV e registra SHA-256 do arquivo, SHA-256 do texto
 normalizado e SimHash do conteúdo. Esses três identificadores ajudam a detectar
 PDFs idênticos e artigos com o mesmo texto em arquivos diferentes.
+
+## Medição de audiência
+
+A tag de produção fica em `public/analytics-bootstrap.js` e só é carregada em `lapig-ufg.github.io`. O portal envia suas visualizações ao abrir e ao trocar de seção. A aula independente recebe a mesma configuração durante o build e envia sua própria visualização ao abrir. Ambientes locais não carregam a tag nem enviam eventos.
+
+O build gera `dist/analytics-manifest.json` a partir dos dados literais de `src/FeaturedDebate.tsx`. Esse contrato permite ao painel de audiência reconhecer os títulos, destinos e tipos de cada material sem interpretar o HTML. Ao trocar a edição, atualize também `editions.pt.startsOn`, a primeira data em que ela ficou disponível, para separar a audiência das edições anteriores. Mudanças incompatíveis nos materiais interrompem o build em vez de produzir um relatório incorreto.
+
+Os links externos do destaque são medidos pelo evento automático de saída do GA. O levantamento interno usa `open_featured_survey`, a partir de 19/10/2026. Visualizações e cliques que não eram enviados antes dessa data não podem ser reconstruídos retroativamente. Os relatórios agregados excluem localhost e outros domínios por meio do filtro do coletor no repositório `VictorGit10/audiencia-observatorio`.

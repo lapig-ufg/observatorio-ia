@@ -8,7 +8,7 @@ declare global {
 const GA_MEASUREMENT_ID = "G-2R8KZB3YJ7";
 
 function isGtagAvailable() {
-  return typeof window !== "undefined" && typeof window.gtag === "function";
+  return typeof window !== "undefined" && window.location.hostname === "lapig-ufg.github.io" && typeof window.gtag === "function";
 }
 
 export function trackPageView(path: string, title?: string) {

@@ -16,6 +16,7 @@ const sources = {
 
 const editions = {
   pt: {
+    startsOn: "2026-10-17",
     kicker: "Em destaque...",
     period: "18 a 24 out 2026 · um levantamento e três materiais complementares",
     eyebrow: "Autoria, transparência, confidencialidade e responsabilidade",
@@ -137,8 +138,11 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
     return () => observer.disconnect();
   }, [edition.title, language]);
 
-  const trackMaterial = (material: MaterialKind, label: string) =>
-    trackEvent("open_featured_material", { event_category: "outbound", event_label: label, material, featured_edition: edition.title, language });
+  const trackMaterial = (material: MaterialKind, label: string, href: string) => {
+    trackEvent("open_featured_material", { event_category: "content", event_label: label, material, featured_edition: edition.title, language });
+    // External materials already emit GA's enhanced-measurement click event.
+    if (material === "survey") trackEvent("open_featured_survey", { event_category: "content", event_label: href, language });
+  };
 
   return <>
     <div className="weekly-highlight-kicker">{!weeklyBadge && <span>{edition.kicker}</span>}{weeklyBadge && <p className="pt-weekly-badge">{language === "en" ? "New edition every Sunday" : "Nova edição todo domingo"}</p>}<span>{edition.period}</span></div>
@@ -148,7 +152,7 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
         <Title id="weekly-highlight-title">{edition.title}</Title>
         <p>{edition.lead}</p>
         <div className="featured-quick-links">
-          <a href={sources.survey}><TableProperties size={15} /> {language === "pt" ? "Explorar o levantamento" : "Explore the survey"}</a>
+          <a href={sources.survey} onClick={() => trackMaterial("survey", edition.title, sources.survey)}><TableProperties size={15} /> {language === "pt" ? "Explorar o levantamento" : "Explore the survey"}</a>
           <a href={sources.dossier} target="_blank" rel="noreferrer"><FileText size={15} /> {language === "pt" ? "Ler dossiê (DOCX)" : "Read dossier (Portuguese, DOCX)"}</a>
           <a href={sources.podcast} target="_blank" rel="noreferrer"><Headphones size={15} /> {language === "pt" ? "Ouvir podcast" : "Listen to podcast (in Portuguese)"}</a>
           <a href={sources.presentation} target="_blank" rel="noreferrer"><Presentation size={15} /> {language === "pt" ? "Ver apresentação" : "View presentation (in Portuguese)"}</a>
@@ -174,7 +178,7 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
           <h3>{item.title}</h3>
           <p>{item.description}</p>
           <div className="featured-debate-links">
-            {item.links.map((link) => <a key={link.href} href={link.href} target={link.href.startsWith("#") ? undefined : "_blank"} rel={link.href.startsWith("#") ? undefined : "noreferrer"} onClick={() => trackMaterial(link.kind, `${item.title}: ${link.label}`)}><MaterialIcon kind={link.kind} /> {link.label}</a>)}
+            {item.links.map((link) => <a key={link.href} href={link.href} target={link.href.startsWith("#") ? undefined : "_blank"} rel={link.href.startsWith("#") ? undefined : "noreferrer"} onClick={() => trackMaterial(link.kind, `${item.title}: ${link.label}`, link.href)}><MaterialIcon kind={link.kind} /> {link.label}</a>)}
           </div>
         </article>)}
       </div>
