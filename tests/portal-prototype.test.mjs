@@ -171,7 +171,8 @@ test("separate official SVGs change only the viewBox and keep full names and col
     assert.equal(fs.readFileSync(`public/brand/${name}.svg`, "utf8"), source.replace('viewBox="0 0 1127.49 265.53"', `viewBox="${box}"`));
   }
   const band = fs.readFileSync("src/RealizationBand.tsx", "utf8");
-  for (const name of Object.keys(boxes)) assert.ok(band.includes(`brand/${name}.svg`));
+  assert.ok(band.includes("brand/lapig-iesa-ufg-approved.svg"));
+  assert.ok(band.indexOf("lapig.iesa.ufg.br") < band.indexOf("https://iesa.ufg.br/") && band.indexOf("https://iesa.ufg.br/") < band.indexOf("https://ufg.br/"));
   assert.doesNotMatch(band, /\.png|symbol\.svg/);
 });
 
