@@ -218,7 +218,7 @@
 .pt-token-bar i { display: block; height: 100%; background: #b7d9c5; }
 .pt-site-shell .pt-realization { border-top: 1px solid #c8d9d1; background: #fff; }
 /* Arte aprovada inteira (LAPIG, IESA, UFG): o espaçamento original é preservado; os links ficam em áreas transparentes por cima. */
-.pt-realization-lockup { position: relative; width: 520px; max-width: 100%; margin-inline: auto; }
+.pt-realization-lockup { position: relative; width: 624px; max-width: 100%; margin-inline: auto; }
 .pt-realization-links { position: absolute; inset: 0; display: grid; grid-template-columns: 333.5fr 267.5fr 526.5fr; }
 .pt-realization a { display: block; min-width: 0; min-height: 44px; border-radius: 3px; }
 .pt-realization a:focus-visible { outline: 3px solid #28765b; outline-offset: 5px; }
