@@ -2,24 +2,25 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 
-test("destaque bilíngue apresenta políticas e preserva integralmente as edições anteriores", () => {
+test("destaque bilíngue apresenta a encíclica e preserva integralmente as edições anteriores", () => {
   const feature = fs.readFileSync("src/FeaturedDebate.tsx", "utf8");
   const pt = fs.readFileSync("src/App.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8");
   const en = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8");
 
-  assert.ok(fs.existsSync("public/covers/watermarking-proveniencia-2026-10-11.png"));
-  assert.ok(fs.existsSync("public/covers/watermarking-proveniencia-2026-10-11-640.webp"));
-  assert.ok(fs.existsSync("public/covers/watermarking-proveniencia-2026-10-11-1280.webp"));
-  assert.match(feature, /IA na publicação científica: regras diversas, responsabilidade humana/);
-  assert.match(feature, /AI in scientific publishing: different rules, human responsibility/);
-  assert.match(feature, /amostra intencional, não um censo/);
-  assert.match(feature, /purposive sample, not a census/);
-  assert.match(feature, /antecedem a revisão integral de 17\/10/);
-  assert.match(feature, /indicators predate the full review/);
-  assert.match(feature, /18 a 24 out 2026/);
-  for (const file of ["politicas-publicacao-cientifica-2026-10-18.png", "politicas-publicacao-cientifica-2026-10-18-640.webp", "politicas-publicacao-cientifica-2026-10-18-1280.webp"]) assert.ok(fs.existsSync(`public/covers/${file}`));
-  for (const link of ["#levantamentos/politicas-ia", "180BdIVjxxTz5s9gLMt36JAg8AS98yikV", "1WIHOYWwecUKKJScm4CiileJJz18qVNe9", "1-db96LJfCQAyWV8c_frRAtkeulupacHg"]) assert.ok(feature.includes(link));
-  assert.match(feature, /featured-debate-grid-four/);
+  assert.match(feature, /Magnifica Humanitas: a dignidade humana na era da IA/);
+  assert.match(feature, /Magnifica Humanitas: human dignity in the age of AI/);
+  assert.match(feature, /25 a 31 out 2026/);
+  assert.match(feature, /contextual e condicionado/);
+  assert.match(feature, /contextual and conditional/);
+  assert.match(feature, /197–200/);
+  for (const file of ["magnifica-humanitas-desigualdade-2026-10-25.png", "magnifica-humanitas-desigualdade-2026-10-25-640.webp", "magnifica-humanitas-desigualdade-2026-10-25-1280.webp"]) assert.ok(fs.existsSync(`public/covers/${file}`));
+  for (const link of ["185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws", "1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK", "1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt", "/en/encyclicals/documents/20260515-magnifica-humanitas.html"]) assert.ok(feature.includes(link));
+  assert.match(pt, /IA na publicação científica: regras diversas, responsabilidade humana/);
+  assert.match(en, /AI in scientific publishing: different rules, human responsibility/);
+  for (const link of ["#levantamentos/politicas-ia", "180BdIVjxxTz5s9gLMt36JAg8AS98yikV", "1WIHOYWwecUKKJScm4CiileJJz18qVNe9", "1-db96LJfCQAyWV8c_frRAtkeulupacHg"]) {
+    assert.ok(pt.includes(link));
+    assert.ok(en.includes(link));
+  }
   assert.match(pt, /Assinaturas invisíveis: até onde resistem as marcas d’água da IA\?/);
   assert.match(en, /Invisible signatures: how well do AI watermarks survive\?/);
   for (const link of ["1L1ChcDaz6ves1ddobAzVgPyBmYIgwi7x", "1BwCAoazLO6euEso_W63046oPTuTFsIc9", "HIUzrxQxTtw"]) {

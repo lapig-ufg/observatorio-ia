@@ -1,4 +1,3 @@
-import { formatPublicDate } from "./dateLabels";
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, FileText, Headphones, Presentation, TableProperties } from "lucide-react";
 import { trackEvent } from "./analytics";
@@ -8,106 +7,163 @@ type Language = "pt" | "en";
 type MaterialKind = "audio" | "presentation" | "document" | "survey";
 
 const sources = {
-  survey: "#levantamentos/politicas-ia",
-  dossier: "https://drive.google.com/file/d/180BdIVjxxTz5s9gLMt36JAg8AS98yikV/view",
-  podcast: "https://drive.google.com/file/d/1WIHOYWwecUKKJScm4CiileJJz18qVNe9/view",
-  presentation: "https://drive.google.com/file/d/1-db96LJfCQAyWV8c_frRAtkeulupacHg/view",
+  "original": "https://drive.google.com/file/d/185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/view",
+  "officialPT": "https://www.vatican.va/content/leo-xiv/pt/encyclicals/documents/20260515-magnifica-humanitas.html",
+  "officialEN": "https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html",
+  "podcast": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view",
+  "presentation": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
 };
 
 const editions = {
-  pt: {
-    startsOn: "2026-10-17",
-    kicker: "Em destaque...",
-    period: "18 a 24 out 2026 · um levantamento e três materiais complementares",
-    eyebrow: "Autoria, transparência, confidencialidade e responsabilidade",
-    title: "IA na publicação científica: regras diversas, responsabilidade humana",
-    lead: "Pode usar IA para escrever um artigo? Onde declarar esse uso? E na revisão por pares? O Observatório UFG-IA reúne 149 registros de políticas e diretrizes para explorar um sistema de regras heterogêneas. Um painel, um dossiê, um podcast e uma apresentação ajudam a transformar essa complexidade em consulta crítica e prática científica rastreável.",
-    first: "Não há uma regra única para todas as etapas da pesquisa. Edição linguística, geração de texto ou código, produção de imagens e avaliação de manuscritos sob sigilo recebem tratamentos diferentes. O levantamento permite comparar essas regras sem confundir a orientação de uma editora com a política de cada periódico. No recorte editorial de 130 registros, 88 permitem geração de texto com declaração; 50 não tratam explicitamente do uso por revisores, segundo a revisão integral de 17 de outubro.",
-    second: "O dossiê articula essa base à literatura sobre integridade, diversidade epistêmica, detecção e reprodutibilidade. A responsabilidade pela verificação continua humana: conferir fontes e regras vigentes, proteger material confidencial, registrar a tarefa e declarar conforme as instruções aplicáveis. A base é uma amostra intencional, não um censo; ausência de regra localizada não é autorização. Os três materiais complementares estão em português. A apresentação conserva indicadores anteriores à revisão: para números atuais, consulte o painel e o dossiê final de 17/10.",
-    imageAlt: "Composição editorial de um periódico aberto, manuscritos anotados e uma matriz conceitual em verde, ocre, cinza e terracota sobre papel, simbolizando a comparação de regras de publicação científica.",
-    imageCredit: "Ilustração editorial: Observatório UFG-IA · gerada com IA; matriz conceitual, não quantitativa",
-    explore: "Quatro caminhos para explorar o tema",
-    cards: [
+  "pt": {
+    "startsOn": "2026-10-24",
+    "kicker": "Em destaque...",
+    "period": "25 a 31 out 2026 · encíclica, podcast e apresentação",
+    "eyebrow": "Dignidade humana, discernimento e bem comum",
+    "title": "Magnifica Humanitas: a dignidade humana na era da IA",
+    "lead": "Em Magnifica Humanitas, Leão XIV desloca o debate do simples apoio ou rejeição à tecnologia para o discernimento sobre quem ela serve. A encíclica reconhece a contribuição da IA ao cuidado, à educação e ao desenvolvimento humano, enquanto exige que seu uso preserve a dignidade da pessoa, a responsabilidade e o bem comum. O acesso desigual a esses recursos e o risco de ampliar desigualdades tornam essa responsabilidade ainda mais urgente.",
+    "first": "O ponto de partida é a Doutrina Social da Igreja e sua compreensão cristã da pessoa. As imagens de Babel e da reconstrução de Jerusalém contrapõem a concentração de poder à cooperação e à responsabilidade partilhada (§§7–10). A técnica pode beneficiar a humanidade, mas suas escolhas não são neutras: incorporam valores, interesses e parâmetros culturais de quem a desenvolve, financia, regula e utiliza (§§9 e 100–104). Por isso, a dignidade humana não pode ser reduzida a dados, produtividade ou capacidade de otimização. Transparência, prestação de contas, participação e regras adequadas devem orientar o desenvolvimento e o uso da IA (§§105–111). Isso inclui ampliar o acesso às tecnologias e à formação, evitando que dados e capacidade computacional reforcem privilégios já concentrados (§§108–109).",
+    "second": "Esse discernimento alcança a verdade pública, a educação, o trabalho e as formas de exploração (§§132–177). O alerta sobre perda de empregos é contextual e condicionado; não constitui uma previsão quantitativa inevitável (§§151–156). No campo militar, o texto rejeita confiar a sistemas artificiais decisões letais ou irreversíveis e exige responsabilidade identificável, rastreabilidade e controle humano efetivo, consciente e responsável (§§197–200). É uma orientação ética, teológica e social: a tecnologia deve servir à vida, à dignidade e à convivência humana. A encíclica é a fonte primária; podcast e apresentação são materiais complementares de leitura e discussão.",
+    "imageAlt": "Uma pequena mesa com livros, computadores e servidores atrás de um portão, separada por um abismo de um grupo diverso com livros e carteiras escolares; pontes incompletas e o livro Magnifica Humanitas simbolizam o desafio do acesso equitativo à IA.",
+    "imageCredit": "Ilustração editorial: Observatório UFG-IA · gerada com IA; metáfora do acesso desigual, sem representação quantitativa",
+    "explore": "Três caminhos para explorar o tema",
+    "note": "Encíclica original da Santa Sé · podcast e apresentação em português.",
+    "sourceLabel": "Conferir os parágrafos na fonte oficial da Santa Sé",
+    "quick": [
       {
-        meta: "Levantamento · consulta e comparação",
-        title: "Políticas de IA na publicação científica",
-        description: "Explore os 149 registros, compare regras por entidade e área e consulte fontes oficiais, método e downloads CSV/XLSX. Verifique sempre as instruções vigentes antes de submeter ou avaliar um trabalho.",
-        links: [
-          { kind: "survey", label: "Explorar o levantamento", href: sources.survey },
-        ],
+        "kind": "document",
+        "label": "Ler encíclica (PDF)",
+        "href": "https://drive.google.com/file/d/185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/view"
       },
       {
-        meta: "Dossiê · versão final de 17/10/2026",
-        title: "Da norma à responsabilidade científica",
-        description: "O ensaio integra a base revisada à literatura metacientífica: autoria, transparência, confidencialidade, limites dos detectores, diversidade do conhecimento e práticas de verificação. Documento Word em português.",
-        links: [
-          { kind: "document", label: "Ler o dossiê (DOCX)", href: sources.dossier },
-        ],
+        "kind": "audio",
+        "label": "Ouvir podcast",
+        "href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"
       },
       {
-        meta: "Podcast · material complementar",
-        title: "O caos da IA na publicação científica",
-        description: "Uma entrada em áudio para o debate, baseada no dossiê conforme indicação do editor. Para conferir regras, estatísticas e referências, consulte o documento final e as fontes do levantamento. Áudio em português, formato M4A.",
-        links: [
-          { kind: "audio", label: "Ouvir o podcast", href: sources.podcast },
-        ],
-      },
-      {
-        meta: "Apresentação · síntese visual",
-        title: "Governança de IA na Ciência",
-        description: "Quinze lâminas sobre regras em camadas, tarefas, declaração e responsabilidade. Atenção: seus indicadores antecedem a revisão integral de 17/10; para os valores atualizados, use o painel e o dossiê final. PDF em português.",
-        links: [
-          { kind: "presentation", label: "Ver a apresentação (PDF)", href: sources.presentation },
-        ],
-      },
+        "kind": "presentation",
+        "label": "Ver apresentação",
+        "href": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
+      }
     ],
+    "cards": [
+      {
+        "meta": "Fonte primária · Leão XIV · 15 de maio de 2026",
+        "title": "Carta Encíclica Magnifica Humanitas",
+        "description": "Texto integral sobre a salvaguarda da pessoa humana na era da inteligência artificial. Assinada em 15 de maio de 2026. PDF preservado em Documentos gerais e acesso ao texto oficial da Santa Sé.",
+        "links": [
+          {
+            "kind": "document",
+            "label": "Ler encíclica original (PDF)",
+            "href": "https://drive.google.com/file/d/185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/view"
+          },
+          {
+            "kind": "document",
+            "label": "Ler na Santa Sé",
+            "href": "https://www.vatican.va/content/leo-xiv/pt/encyclicals/documents/20260515-magnifica-humanitas.html"
+          }
+        ]
+      },
+      {
+        "meta": "Podcast · material complementar · português",
+        "title": "A crítica do Papa à inteligência artificial",
+        "description": "Áudio indicado pelo editor para acompanhar a leitura da encíclica. Uma entrada complementar para o debate; para conferir a formulação e o contexto das afirmações, consulte o texto original. Formato M4A.",
+        "links": [
+          {
+            "kind": "audio",
+            "label": "Ouvir o podcast",
+            "href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"
+          }
+        ]
+      },
+      {
+        "meta": "Apresentação · síntese visual · português",
+        "title": "Magnifica Humanitas",
+        "description": "Quinze lâminas sobre dignidade, humanismo cristão, governança, justiça social e responsabilidade. Síntese visual baseada na encíclica, com marca Gemini Notebook, para estudo e discussão. PDF em português.",
+        "links": [
+          {
+            "kind": "presentation",
+            "label": "Ver apresentação (PDF)",
+            "href": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
+          }
+        ]
+      }
+    ]
   },
-  en: {
-    kicker: "Featured",
-    period: formatPublicDate("2026-10-18", "en") + " – " + formatPublicDate("2026-10-24", "en") + " · one survey and three companion materials",
-    eyebrow: "Authorship, transparency, confidentiality and accountability",
-    title: "AI in scientific publishing: different rules, human responsibility",
-    lead: "Can AI be used to write a paper? Where should its use be disclosed? What about peer review? The UFG-AI Observatory brings together 149 policy and guidance records to explore a heterogeneous system of rules. A survey, a dossier, a podcast and a presentation connect critical consultation with traceable scientific practice.",
-    first: "There is no single rule for every research task. Language editing, text or code generation, images and the assessment of confidential manuscripts receive different treatment. The survey compares these rules without equating a publisher’s guidance with each journal’s policy. Among the 130 editorial records, 88 allow text generation with disclosure; 50 do not explicitly address use by reviewers, according to the full review of 17 October.",
-    second: "The dossier connects this dataset with research on integrity, epistemic diversity, detection and reproducibility. Verification remains a human responsibility: check primary sources and current rules, protect confidential material, record the task and disclose use as required. The dataset is a purposive sample, not a census; an unlocated rule is not permission. The three companion materials are in Portuguese. The presentation retains earlier indicators: consult the survey and the final 17 October dossier for updated figures.",
-    imageAlt: "Editorial composition of an open scholarly journal, annotated manuscripts and a conceptual green, ochre, grey and terracotta comparison matrix on paper, representing scientific publishing policies.",
-    imageCredit: "Editorial illustration: UFG-AI Observatory · AI-generated; conceptual, not quantitative matrix",
-    explore: "Four ways to explore the topic",
-    cards: [
+  "en": {
+    "kicker": "Featured",
+    "period": "Oct 25, 2026 – Oct 31, 2026 · encyclical, podcast and presentation",
+    "eyebrow": "Human dignity, discernment and the common good",
+    "title": "Magnifica Humanitas: human dignity in the age of AI",
+    "lead": "In Magnifica Humanitas, Leo XIV shifts the debate from simply accepting or rejecting technology to discerning whom it serves. The encyclical recognizes AI’s contribution to care, education and human development, while insisting that its use safeguard personal dignity, responsibility and the common good. Unequal access to these resources and the risk of widening inequality make that responsibility more urgent.",
+    "first": "The starting point is Catholic social teaching and its Christian understanding of the human person. The images of Babel and the rebuilding of Jerusalem contrast concentrated power with cooperation and shared responsibility (§§7–10). Technology can benefit humanity, but its choices are not neutral: they embody the values, interests and cultural assumptions of those who develop, finance, regulate and use it (§§9 and 100–104). Human dignity therefore cannot be reduced to data, productivity or optimization. Transparency, accountability, participation and appropriate rules should guide AI’s development and use (§§105–111). This includes widening access to technology and education, rather than allowing concentrated data and computing capacity to reinforce existing privilege (§§108–109).",
+    "second": "This discernment encompasses public truth, education, work and exploitation (§§132–177). The warning about job losses is contextual and conditional, rather than an inevitable quantitative forecast (§§151–156). In warfare, the text rejects entrusting lethal or irreversible decisions to artificial systems and requires identifiable responsibility, traceability and effective, conscious and responsible human control (§§197–200). Its guidance is ethical, theological and social: technology should serve life, dignity and human coexistence. The encyclical is the primary source; the podcast and presentation are companion materials for reading and discussion.",
+    "imageAlt": "A small table with books, computers and servers behind a gate, separated by a chasm from a diverse group with books and school desks; incomplete bridges and the book Magnifica Humanitas symbolize the challenge of equitable access to AI.",
+    "imageCredit": "Editorial illustration: UFG-AI Observatory · AI-generated metaphor of unequal access, not a quantitative representation",
+    "explore": "Three ways to explore the topic",
+    "note": "Official encyclical available in English · companion audio and slides in Portuguese.",
+    "sourceLabel": "Check the paragraphs in the Holy See’s official text",
+    "quick": [
       {
-        meta: "Survey · consultation and comparison",
-        title: "AI policies in scientific publishing",
-        description: "Explore 149 records, compare rules by entity and field, and consult official sources, methods and CSV/XLSX downloads. Always check current instructions before submitting or reviewing work.",
-        links: [
-          { kind: "survey", label: "Explore the survey", href: sources.survey },
-        ],
+        "kind": "document",
+        "label": "Read encyclical (English)",
+        "href": "https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html"
       },
       {
-        meta: "Dossier · final version of 17 October 2026",
-        title: "From policy to scientific responsibility",
-        description: "The essay connects the revised dataset with metascientific literature: authorship, disclosure, confidentiality, detector limitations, diversity of knowledge and verification practices. Word document in Portuguese.",
-        links: [
-          { kind: "document", label: "Read the dossier (DOCX, in Portuguese)", href: sources.dossier },
-        ],
+        "kind": "audio",
+        "label": "Listen to podcast (Portuguese)",
+        "href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"
       },
       {
-        meta: "Podcast · companion material",
-        title: "The chaos of AI in scientific publishing",
-        description: "An audio introduction to the debate, based on the dossier as identified by the editor. Consult the final document and the survey’s sources to check rules, statistics and references. Portuguese audio, M4A format.",
-        links: [
-          { kind: "audio", label: "Listen to the podcast (in Portuguese)", href: sources.podcast },
-        ],
-      },
-      {
-        meta: "Presentation · visual synthesis",
-        title: "AI governance in science",
-        description: "Fifteen slides on layered rules, tasks, disclosure and accountability. Caution: its indicators predate the full review of 17 October; use the survey and final dossier for updated figures. PDF in Portuguese.",
-        links: [
-          { kind: "presentation", label: "View the presentation (PDF, in Portuguese)", href: sources.presentation },
-        ],
-      },
+        "kind": "presentation",
+        "label": "View presentation (Portuguese)",
+        "href": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
+      }
     ],
-  },
+    "cards": [
+      {
+        "meta": "Primary source · Leo XIV · 15 May 2026",
+        "title": "Encyclical Letter Magnifica Humanitas",
+        "description": "The complete text on safeguarding the human person in the time of artificial intelligence, signed on 15 May 2026. Read the Holy See’s official English text or the preserved Portuguese PDF.",
+        "links": [
+          {
+            "kind": "document",
+            "label": "Read official English text",
+            "href": "https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html"
+          },
+          {
+            "kind": "document",
+            "label": "Open original PDF (Portuguese)",
+            "href": "https://drive.google.com/file/d/185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/view"
+          }
+        ]
+      },
+      {
+        "meta": "Podcast · companion material · Portuguese",
+        "title": "The Pope’s critique of artificial intelligence",
+        "description": "Audio selected by the editor to accompany the encyclical. A companion introduction to the discussion; consult the original document to check the wording and context of its claims. M4A format, in Portuguese.",
+        "links": [
+          {
+            "kind": "audio",
+            "label": "Listen to the podcast (Portuguese)",
+            "href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"
+          }
+        ]
+      },
+      {
+        "meta": "Presentation · visual synthesis · Portuguese",
+        "title": "Magnifica Humanitas",
+        "description": "Fifteen slides on dignity, Christian humanism, governance, social justice and responsibility. A visual synthesis based on the encyclical, bearing the Gemini Notebook mark, for study and discussion. Portuguese PDF.",
+        "links": [
+          {
+            "kind": "presentation",
+            "label": "View presentation (Portuguese PDF)",
+            "href": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
+          }
+        ]
+      }
+    ]
+  }
 } as const;
 
 // O Sobre reaproveita a data editorial da edição, sem manter uma segunda cópia.
@@ -152,27 +208,24 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
         <Title id="weekly-highlight-title">{edition.title}</Title>
         <p>{edition.lead}</p>
         <div className="featured-quick-links">
-          <a href={sources.survey} onClick={() => trackMaterial("survey", edition.title, sources.survey)}><TableProperties size={15} /> {language === "pt" ? "Explorar o levantamento" : "Explore the survey"}</a>
-          <a href={sources.dossier} target="_blank" rel="noreferrer"><FileText size={15} /> {language === "pt" ? "Ler dossiê (DOCX)" : "Read dossier (Portuguese, DOCX)"}</a>
-          <a href={sources.podcast} target="_blank" rel="noreferrer"><Headphones size={15} /> {language === "pt" ? "Ouvir podcast" : "Listen to podcast (in Portuguese)"}</a>
-          <a href={sources.presentation} target="_blank" rel="noreferrer"><Presentation size={15} /> {language === "pt" ? "Ver apresentação" : "View presentation (in Portuguese)"}</a>
+          {edition.quick.map((link) => <a key={link.href} href={link.href} target="_blank" rel="noreferrer" onClick={() => trackMaterial(link.kind, link.label, link.href)}><MaterialIcon kind={link.kind} /> {link.label}</a>)}
         </div>
-        <small className="featured-material-note">{language === "pt" ? "Nota: a apresentação utiliza uma versão anterior dos indicadores." : "Note: the presentation uses an earlier version of the indicators."}</small>
+        <small className="featured-material-note">{edition.note}</small>
       </div>
       <figure className="featured-debate-art">
         <picture>
-        <source type="image/webp" srcSet={`${assetUrl("covers/politicas-publicacao-cientifica-2026-10-18-640.webp")} 640w, ${assetUrl("covers/politicas-publicacao-cientifica-2026-10-18-1280.webp")} 1280w`} sizes="(max-width: 700px) calc(100vw - 64px), 550px" />
-        <img src={assetUrl("covers/politicas-publicacao-cientifica-2026-10-18.png")} alt={edition.imageAlt} width="1672" height="941" decoding="async" />
+        <source type="image/webp" srcSet={`${assetUrl("covers/magnifica-humanitas-desigualdade-2026-10-25-640.webp")} 640w, ${assetUrl("covers/magnifica-humanitas-desigualdade-2026-10-25-1280.webp")} 1280w`} sizes="(max-width: 700px) calc(100vw - 64px), 550px" />
+        <img src={assetUrl("covers/magnifica-humanitas-desigualdade-2026-10-25.png")} alt={edition.imageAlt} width="1672" height="941" decoding="async" />
         </picture>
         <figcaption>{edition.imageCredit}</figcaption>
       </figure>
     </div>
     <details className="featured-reading">
     <summary>{language === "pt" ? "Explorar a análise e as conexões" : "Explore the analysis and connections"}</summary>
-    <div className="featured-full-analysis"><p>{edition.first}</p><p>{edition.second}</p></div>
+    <div className="featured-full-analysis"><p>{edition.first}</p><p>{edition.second}</p><p><a href={language === "pt" ? sources.officialPT : sources.officialEN} target="_blank" rel="noreferrer">{edition.sourceLabel} <ArrowUpRight size={14} aria-hidden="true" /></a></p></div>
     <div className="featured-debate-list" aria-label={edition.explore}>
       <p className="eyebrow">{edition.explore}</p>
-      <div className="featured-debate-grid featured-debate-grid-four">
+      <div className="featured-debate-grid">
         {edition.cards.map((item) => <article className="featured-debate-card" key={item.title}>
           <p className="featured-debate-meta">{item.meta}</p>
           <h3>{item.title}</h3>

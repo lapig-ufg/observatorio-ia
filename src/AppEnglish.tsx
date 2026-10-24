@@ -129,6 +129,31 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 
 const featuredHistoryEnglish = [
   {
+    "date": "Oct 18, 2026 – Oct 24, 2026",
+    "source": "UFG-AI Observatory · Curated feature",
+    "title": "AI in scientific publishing: different rules, human responsibility",
+    "summary": "A survey of 149 policy and guidance records, final dossier, podcast and presentation on authorship, disclosure, confidentiality and accountability. The presentation retains earlier indicators: consult the current survey and dossier to check figures.",
+    "links": [
+      {
+        "label": "Explore the survey",
+        "href": "#levantamentos/politicas-ia"
+      },
+      {
+        "label": "Final dossier (Portuguese DOCX)",
+        "href": "https://drive.google.com/file/d/180BdIVjxxTz5s9gLMt36JAg8AS98yikV/view"
+      },
+      {
+        "label": "Listen to podcast (Portuguese)",
+        "href": "https://drive.google.com/file/d/1WIHOYWwecUKKJScm4CiileJJz18qVNe9/view"
+      },
+      {
+        "label": "View presentation (Portuguese PDF)",
+        "href": "https://drive.google.com/file/d/1-db96LJfCQAyWV8c_frRAtkeulupacHg/view"
+      }
+    ],
+    "eventLabel": "ai-policies-scientific-publishing-20261018"
+  },
+  {
     date: formatPublicDate("2026-10-11", "en") + " – " + formatPublicDate("2026-10-17", "en"),
     source: "UFG-AI Observatory · Curated feature",
     title: "Invisible signatures: how well do AI watermarks survive?",

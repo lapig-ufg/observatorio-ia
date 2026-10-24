@@ -11,11 +11,11 @@ test('published manifest includes every current material with its actual kind an
   assert.equal(m.schemaVersion, 1);
   assert.match(m.startsOn, /^\d{4}-\d{2}-\d{2}$/);
   assert.equal(m.materials.length, 4);
-  assert.deepEqual(m.materials.map(x => x.kind), ['survey', 'document', 'audio', 'presentation']);
-  assert.equal(m.materials[0].href, '#levantamentos/politicas-ia');
-  assert.match(m.materials[2].title, /caos/);
-  assert.throws(() => featuredManifest(source.replace('kind: "audio"', 'kind: "unknown"')), /Invalid featured/);
-  assert.throws(() => featuredManifest(source.replace('href: sources.podcast', 'href: sources.missing')), /Missing featured/);
+  assert.deepEqual(m.materials.map(x => x.kind), ['document', 'document', 'audio', 'presentation']);
+  assert.match(m.materials[0].href, /185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/);
+  assert.match(m.materials[2].title, /crítica/);
+  assert.throws(() => featuredManifest(source.replaceAll('"kind": "audio"', '"kind": "unknown"')), /Invalid featured/);
+  assert.throws(() => featuredManifest(source.replaceAll('"href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"', '"href": sources.missing')), /Missing featured/);
 });
 
 test('no GA script or events are created by development hosts', () => {

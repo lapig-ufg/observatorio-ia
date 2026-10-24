@@ -74,6 +74,31 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    "date": "18 a 24 de outubro de 2026",
+    "source": "Curadoria do Observatório UFG-IA",
+    "title": "IA na publicação científica: regras diversas, responsabilidade humana",
+    "summary": "Levantamento de 149 registros de políticas e diretrizes, dossiê final, podcast e apresentação sobre autoria, declaração, confidencialidade e responsabilidade. A apresentação conserva indicadores anteriores: consulte a base vigente e o dossiê para verificar os números.",
+    "links": [
+      {
+        "label": "Explorar o levantamento",
+        "href": "#levantamentos/politicas-ia"
+      },
+      {
+        "label": "Dossiê final (DOCX)",
+        "href": "https://drive.google.com/file/d/180BdIVjxxTz5s9gLMt36JAg8AS98yikV/view"
+      },
+      {
+        "label": "Ouvir o podcast",
+        "href": "https://drive.google.com/file/d/1WIHOYWwecUKKJScm4CiileJJz18qVNe9/view"
+      },
+      {
+        "label": "Ver apresentação (PDF)",
+        "href": "https://drive.google.com/file/d/1-db96LJfCQAyWV8c_frRAtkeulupacHg/view"
+      }
+    ],
+    "eventLabel": "politicas-ia-publicacao-cientifica-20261018"
+  },
+  {
     date: "11 a 17 de outubro de 2026",
     source: "Curadoria do Observatório UFG-IA",
     title: "Assinaturas invisíveis: até onde resistem as marcas d’água da IA?",
