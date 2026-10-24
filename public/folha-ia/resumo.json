@@ -1,6 +1,6 @@
 {
-  "total": 6818,
-  "lastDate": "2026-10-17",
+  "total": 6908,
+  "lastDate": "2026-10-24",
   "monthlyCounts": [
     {
       "month": "2025-11",
@@ -48,24 +48,24 @@
     },
     {
       "month": "2026-10",
-      "count": 202
+      "count": 292
     }
   ],
   "articles": [
     {
-      "date": "2026-10-17",
-      "title": "'Óculos pervertidos': versão sem câmera poderá salvar o produto da Meta? — debate sobre privacidade e câmeras em óculos com IA",
-      "url": "https://c-level.folha.uol.com.br/negocios/2026/10/oculos-pervertidos-versao-sem-camera-podera-salvar-o-produto-da-meta.shtml"
+      "date": "2026-10-24",
+      "title": "BNDES aprova R$ 298 milhões para Althaia desenvolver 31 medicamentos e pesquisar novas moléculas — financiamento prevê IA para pesquisar peptídeos; não equivale a tratamento validado",
+      "url": "https://www1.folha.uol.com.br/colunas/painelsa/2026/10/bndes-aprova-r-298-milhoes-para-althaia-desenvolver-31-medicamentos-e-pesquisar-novas-moleculas.shtml"
     },
     {
-      "date": "2026-10-16",
-      "title": "'Flaviômetro' mostra que metade dos apoiadores do candidato do PL se omitem no 2º turno — ferramenta criada por apoiadores usa IA para acompanhar engajamento político",
-      "url": "https://www1.folha.uol.com.br/colunas/painel/2026/10/flaviometro-mostra-que-metade-dos-apoiadores-do-candidato-do-pl-se-omitem-no-2o-turno.shtml"
+      "date": "2026-10-24",
+      "title": "Filme 'Zona Zero' transforma mortos-vivos em alegoria da inteligência artificial — crítica cultural interpreta a IA como eixo da alegoria cinematográfica",
+      "url": "https://www1.folha.uol.com.br/ilustrada/2026/10/filme-zona-zero-transforma-mortos-vivos-em-alegoria-da-inteligencia-artificial.shtml"
     },
     {
-      "date": "2026-10-16",
-      "title": "A eleição e a dependência das plataformas — análise relaciona IA, publicidade e infraestrutura de comunicação eleitoral",
-      "url": "https://www1.folha.uol.com.br/tec/2026/10/a-eleicao-e-a-dependencia-das-plataformas.shtml"
+      "date": "2026-10-24",
+      "title": "Solidão é o fator mais ligado à pior saúde mental no Brasil, mostra pesquisa — levantamento aborda procura por chatbots; associação não demonstra eficácia terapêutica",
+      "url": "https://www1.folha.uol.com.br/equilibrioesaude/2026/10/solidao-e-o-fator-mais-ligado-a-pior-saude-mental-no-brasil-mostra-pesquisa.shtml"
     }
   ]
 }

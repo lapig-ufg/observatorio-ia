@@ -1,0 +1,199 @@
+{
+  "collection": "folha",
+  "start": "2026-10-18",
+  "end": "2026-10-24",
+  "reviewedAt": "2026-10-24",
+  "expectedCount": 82,
+  "title": {
+    "pt": "Governança das plataformas, segurança e custos da expansão",
+    "en": "Platform governance, security and the costs of expansion"
+  },
+  "summary": {
+    "pt": "A seleção de 82 matérias de 18 a 24 de outubro, até 07:04 de sábado, reúne três tensões: a governança das plataformas na eleição brasileira, a segurança de sistemas cada vez mais capazes e a sustentabilidade econômica e material da expansão. Pedidos de apuração e ordens do TSE não são provas equivalentes de favorecimento algorítmico. Vulnerabilidades identificadas com IA e salvaguardas anunciadas pela OpenAI mostram que capacidade e proteção precisam ser examinadas juntas. No financiamento, prejuízo contábil, consumo de caixa, avaliação empresarial e investimento projetado são medidas distintas. Energia de Itaipu, chips e equipamentos tornam visíveis as dependências da infraestrutura. Saúde, educação e cultura trazem aplicações e controvérsias concretas, mas um relato empresarial ou uma associação observada não substitui validação clínica, causal ou independente.",
+    "en": "The 82 selected articles published from 18 to 24 October, up to 07:04 São Paulo time on Saturday, connect three tensions: platform governance in Brazil's election, the security of increasingly capable systems, and the economic and material sustainability of expansion. Requests for investigation and electoral-court orders are not equivalent evidence of algorithmic favoritism. AI-assisted vulnerability discoveries and safeguards announced by OpenAI show why capability and protection must be examined together. Accounting losses, cash expenditure, company valuations and projected investment measure different things. Itaipu electricity, chips and equipment expose infrastructure dependencies. Health, education and culture bring concrete applications and controversies, but a company report or observed association does not replace clinical, causal or independent validation."
+  },
+  "method": {
+    "pt": "Corpus: 82 matérias publicadas de 18–24/10/2026, até o corte efetivo de 24/10 às 07:04:13 (America/Sao_Paulo, UTC−3). Busca autenticada de 17–24/10: 163 resultados, sete páginas completas (6×25 + 13), total e início reconfirmados. Foram incorporados 90 registros ao cumulativo: as 82 matérias desta edição e oito complementos de 17/10 após o corte anterior, excluídos desta síntese. Houve 65 exclusões editoriais e oito deduplicações. Base lida: títulos e trechos dos 163 resultados, com exame adicional de 34 originais, integral ou focal, para destaques e dúvidas; não houve leitura integral de todas as reportagens. Os oito assuntos são agrupamentos editoriais do corpus selecionado, não tendências globais nem amostra representativa da sociedade. Opiniões, anúncios, alegações, decisões e resultados são diferenciados. Links mantêm as fontes originais e podem exigir assinatura. A versão inglesa é tradução editorial; títulos originais das matérias são preservados. O restante do sábado não está coberto.",
+    "en": "Corpus: 82 articles published on 18–24 October 2026, up to the effective cutoff of 07:04:13 on 24 October (America/Sao_Paulo, UTC−3). Authenticated search for 17–24 October returned 163 results across seven complete pages (6×25 + 13); the total and first result were rechecked. The cumulative archive gained 90 records: this edition's 82 articles and eight additions from 17 October published after the previous cutoff, excluded from this briefing. There were 65 editorial exclusions and eight deduplications. Material examined: headlines and excerpts for all 163 results, plus full or focused examination of 34 originals for highlights and ambiguities; not every article was read in full. The eight themes are editorial groupings of the selected corpus, not global trends or a representative sample of society. Opinion, announcements, allegations, decisions and results are distinguished. Links retain the original sources and may require a subscription. The English version is an editorial translation; original article titles are preserved. The remainder of Saturday is not covered."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Regulação, direitos e governança",
+        "en": "Regulation, rights and governance"
+      },
+      "summary": {
+        "pt": "A controvérsia eleitoral envolvendo a Meta passa por pedidos de apuração, cobranças de especialistas e parlamentares e ordens do TSE. A decisão noticiada em 24/10 restringe condutas ilícitas específicas, não toda manifestação política; a reportagem não conclui pela existência de favorecimento algorítmico ilícito. Moderação de jornais e artistas, termos de uso de notícias e serviços jurídicos ampliam o debate sobre transparência e responsabilização.",
+        "en": "The electoral controversy involving Meta spans requests for investigation, questions from experts and lawmakers, and electoral-court orders. The ruling reported on 24 October restricts specific unlawful conduct, not all political expression; the report does not establish unlawful algorithmic favoritism. Moderation of newspapers and artists, news-use terms and legal services extend the debate over transparency and accountability."
+      },
+      "sourceIds": [
+        "8a92ff3585c53d",
+        "fa331a4661bd90",
+        "24a921ee33a85e",
+        "fb1938065d378a",
+        "ad0026bb130a68",
+        "c56257a38d1cea",
+        "1302cea295d177",
+        "e4586572549925",
+        "36234e9719d28a",
+        "89bd152a3fc1c2",
+        "933cec58234011",
+        "dcea0b73a622b8",
+        "5452d827f0acc0",
+        "56c03590ca977b",
+        "e3d7707348d8c3",
+        "8d8fa8bef9985d",
+        "c103ff34fe4b29"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Segurança, fraudes e plataformas",
+        "en": "Security, fraud and platforms"
+      },
+      "summary": {
+        "pt": "A descoberta de vulnerabilidades com IA coloca governos diante de uma dupla função da tecnologia: encontrar falhas e ampliar a necessidade de proteção. O Japão anuncia simulações defensivas; a OpenAI informa retomada do treinamento com salvaguardas, sem demonstrar que todos os riscos desapareceram. No Smart Sampa, distinguem-se a notícia da falha, a resposta municipal e a abertura de procedimento pelo Ministério Público.",
+        "en": "AI-assisted vulnerability discovery confronts governments with a dual role for the technology: finding weaknesses while increasing the need for protection. Japan announces defensive simulations; OpenAI reports resumed training with safeguards, not proof that all risks have disappeared. Smart Sampa coverage distinguishes the reported flaw, the municipal response and the public prosecutor's inquiry."
+      },
+      "sourceIds": [
+        "d0603af52d3473",
+        "9dbca30b20a39f",
+        "cc80c9153e49b3",
+        "fbf646abec1edd",
+        "cbfd6f74940899",
+        "df9b08da6071ba",
+        "2d61cb79dfdef9"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Trabalho, economia e profissões",
+        "en": "Work, economy and professions"
+      },
+      "summary": {
+        "pt": "O debate combina proteção ao emprego, desigualdades entre países e financiamento da expansão. Cortes anunciados no Barclays não devem ser somados a estimativas de exposição de tarefas como se fossem a mesma medida. A reportagem sobre o prejuízo da Anthropic informa que grande parte deriva de um encargo contábil ligado a títulos conversíveis, e não de despesas operacionais em dinheiro. Captações, avaliações e ofertas de ações continuam sujeitas à execução anunciada.",
+        "en": "The debate combines job protection, inequalities between countries and financing for expansion. Announced Barclays cuts should not be added to estimates of task exposure as if they measured the same thing. Reporting on Anthropic's loss states that much of it reflects an accounting charge related to convertible securities, not cash operating expenditure. Funding rounds, valuations and share offerings remain subject to the reported transactions being completed."
+      },
+      "sourceIds": [
+        "d64ae4d7200add",
+        "18a7324a1f8675",
+        "ef7352e8070639",
+        "8f642d7c011aeb",
+        "f28e1d457f530a",
+        "ff38a04f6d9895",
+        "59f7c48abcfa83",
+        "852507a98faa1e",
+        "28b8f2ee9674ec",
+        "9a534ccb1d4a99",
+        "2c145bf0e72651",
+        "c78c8a263469bb"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Infraestrutura, dados e geopolítica",
+        "en": "Infrastructure, data and geopolitics"
+      },
+      "summary": {
+        "pt": "A parceria Crusoe–Araico aproxima a computação da energia de Itaipu e torna concreta a dimensão territorial da IA. Projeções para data centers convivem com atrasos, dúvidas de financiamento e demanda por equipamentos elétricos. Restrição americana ao DeepSeek, encomendas de chips e procura de alternativas de insumos mostram dependências geopolíticas. Capacidade projetada e investimento anunciado não significam infraestrutura entregue nem benefício ambiental comprovado.",
+        "en": "The Crusoe–Araico partnership brings computing close to Itaipu's electricity and highlights AI's territorial dimension. Data-center projections coexist with delays, financing concerns and demand for electrical equipment. The US restriction on DeepSeek, chip orders and searches for alternative inputs expose geopolitical dependencies. Planned capacity and announced investment do not establish delivered infrastructure or demonstrated environmental benefits."
+      },
+      "sourceIds": [
+        "8d915bcae83309",
+        "ad130e5c970dc2",
+        "37b6798a1a1cbd",
+        "838fb90f953f0c",
+        "e18709b7d93ee3",
+        "e2c60eb603f8cf",
+        "8596ae1427c97a",
+        "a7974f874cf1b8",
+        "598b429dcb701e",
+        "220fa2e0c8aba4"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Ciência, saúde e ambiente",
+        "en": "Science, health and environment"
+      },
+      "summary": {
+        "pt": "O relato de terapia com fago projetado por IA é promissor, mas a reportagem ressalta ausência de resultado clínico divulgado e de revisão por pares; não é demonstração de cura. Pesquisas sobre solidão e uso de chatbots descrevem associações, não eficácia terapêutica. Aplicações hospitalares, pesquisa de peptídeos, sensores para ciclistas e IA Parente nas comunidades amazônicas mostram usos específicos. Acordos de carbono ligados à expansão digital não comprovam neutralidade das emissões.",
+        "en": "The report of treatment using an AI-designed phage is promising, but the article notes that no clinical outcome has been disclosed and the technical report has not been peer-reviewed; it is not evidence of a cure. Research on loneliness and chatbot use describes associations, not therapeutic effectiveness. Hospital applications, peptide research, cycling sensors and IA Parente in Amazon communities illustrate specific uses. Carbon agreements associated with digital expansion do not establish emissions neutrality."
+      },
+      "sourceIds": [
+        "c2acb71dae5b3c",
+        "45882406f17ab5",
+        "e0656cd6067e95",
+        "1be7d1f9916bde",
+        "95df95ac598433",
+        "97b3baf6623946",
+        "e1fce6263e94b1",
+        "06f64381afd2b9"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Educação, cultura e comunicação",
+        "en": "Education, culture and communication"
+      },
+      "summary": {
+        "pt": "A adoção estudantil avança em um cenário de normas universitárias heterogêneas, incluindo medidas existentes e propostas ainda em discussão. Textos de opinião defendem mediação docente e formação capaz de trabalhar com, sem e sobre IA; não devem ser lidos como prova causal universal de prejuízo cognitivo. Produção de imagens no RUF, disputas de autoria literária, cinema e formação de jornalistas mostram a tecnologia como objeto e instrumento cultural.",
+        "en": "Student adoption advances amid heterogeneous university rules, including existing measures and proposals still under discussion. Opinion pieces defend teacher mediation and education that works with, without and about AI; they should not be read as universal causal proof of cognitive harm. RUF image production, literary-authorship disputes, cinema and journalist training show the technology as both a cultural subject and a production tool."
+      },
+      "sourceIds": [
+        "a36e51a7f3e2a1",
+        "648375c53fa70b",
+        "ed471c315d3125",
+        "7f175b0577efbd",
+        "e6bb004cc0369d",
+        "aa94862ee41ad3",
+        "dfe24b8c4bf268",
+        "f5bdca45682715",
+        "97a15a6d99aea0",
+        "0529551d087abb",
+        "9b0701d47cd616",
+        "c01183e8ca9681",
+        "d72625f106f478",
+        "970235f014e2cd",
+        "c8ea9d4bcba73b"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos, produtos e empresas",
+        "en": "Models, products and companies"
+      },
+      "summary": {
+        "pt": "Montadoras anunciam metas de desenvolvimento e autonomia, enquanto Tesla e SpaceX estudam uma possível união. Essas intenções não são operações concluídas nem evidência de desempenho. A estratégia da Meta, o financiamento noticiado da DeepSeek, os acordos musicais e a personalização do Spotify indicam concorrência por aplicações e receitas, sem dispensar avaliação dos resultados efetivamente entregues.",
+        "en": "Automakers announce development and autonomy targets while Tesla and SpaceX consider a possible merger. These intentions are not completed transactions or evidence of performance. Meta's strategy, reported DeepSeek funding, music agreements and Spotify personalization illustrate competition for applications and revenue without removing the need to assess delivered outcomes."
+      },
+      "sourceIds": [
+        "f600d82407523a",
+        "3f04851677efc0",
+        "4cfda7eefa407f",
+        "e4522808a5dc2a",
+        "ba9b7d798dca0c",
+        "17fde4e31e22b7",
+        "f26cc2dde35436",
+        "e4a0100a55b4fc"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Sociedade e vida cotidiana",
+        "en": "Society and everyday life"
+      },
+      "summary": {
+        "pt": "Robôs de entrega, ferramentas criadas para responder a desastres e críticas às redes colocam a adoção no cotidiano. Manifestações sobre a atuação da Meta registram reação pública a alegações ainda em disputa. O ensaio de Ezra Klein discute perda de controle como argumento e cenário, não como previsão empiricamente estabelecida. A frequência desses temas no corpus não mede sua prevalência na população.",
+        "en": "Delivery robots, disaster-response tools and criticism of social networks bring adoption into everyday life. Demonstrations about Meta record public reactions to contested allegations. Ezra Klein's essay discusses loss of control as an argument and scenario, not an empirically established forecast. The frequency of these themes in the corpus does not measure their prevalence in the population."
+      },
+      "sourceIds": [
+        "185a68a804e562",
+        "15d95d5f506e19",
+        "3b63680c7aff7a",
+        "b1d508fe3bd057",
+        "01939f514aa227"
+      ]
+    }
+  ]
+}
