@@ -90,8 +90,11 @@ test("curated audio and presentations have distinct destinations in both languag
     assert.equal(english.url_original, article.url_original);
     assert.equal(english.url_pdf_institucional, article.url_pdf_institucional);
     assert.equal(article.ativo, "TRUE");
+    assert.match(article.data_inclusao, /^\d{4}-\d{2}-\d{2}$/);
+    assert.equal(new Date(`${article.data_inclusao}T00:00:00Z`).toISOString().slice(0, 10), article.data_inclusao);
+    assert.equal(english.data_inclusao, article.data_inclusao);
     if (["audio-caos-ia-publicacao-cientifica-2026", "apresentacao-governanca-ia-ciencia-2026"].includes(article.id)) assert.equal(article.data_inclusao, "2026-10-17");
-    else assert.match(article.data_inclusao, /^2026-09-\d{2}$/);
+    if (article.id === "audio-critica-papa-inteligencia-artificial-2026") assert.equal(article.data_inclusao, "2026-10-24");
     assert.ok(article.tipo === "audio" ? article.url_original.includes("drive.google.com/file/d/") && !article.url_pdf_institucional : article.url_pdf_institucional.includes("drive.google.com/file/d/"));
   }
   assert.match(fs.readFileSync("src/CatalogExperience.tsx", "utf8"), /article.type === "audio" \? \(english \? "Listen" : "Ouvir áudio"\)/);
