@@ -68,7 +68,7 @@ test("negrito em markdown vira trechos marcados sem interpretar HTML", () => {
   assert.deepEqual(survey.boldSegments("**Portaria:** declarar <b>uso</b>"), [{ bold: true, text: "Portaria:" }, { bold: false, text: " declarar <b>uso</b>" }]);
 });
 
-const history = JSON.parse(fs.readFileSync("data/politicas-ia/revisoes/2026-10-17.json", "utf8"));
+const history = JSON.parse(fs.readFileSync(`data/politicas-ia/revisoes/${data.meta.revisao.data}.json`, "utf8"));
 const key = row => JSON.stringify([row.tipo,row.nome,row.area,row.geo].map(value => String(value).normalize("NFC").trim()));
 
 test("revisão inventaria todas as identidades e só avança a referência com cobertura integral", () => {
@@ -93,10 +93,11 @@ test("revisão inventaria todas as identidades e só avança a referência com c
   assert.equal(data.meta.revisao.changed, counts("changed"));
   assert.equal(data.meta.revisao.unresolved, counts("unresolved"));
   assert.equal(data.meta.revisao.inventory, data.rows.length);
-  assert.equal(data.meta.referencia, counts("unresolved") ? "2026-10-16" : history.cycle);
+  if (counts("unresolved")) assert.ok(data.meta.referencia < history.cycle);
+  else assert.equal(data.meta.referencia, history.cycle);
   assert.equal(history.summary.canClose, counts("unresolved") === 0);
   assert.equal(data.meta.revisao.status, counts("unresolved") ? "parcial" : "integral");
-  assert.deepEqual(history, JSON.parse(fs.readFileSync("public/levantamentos/politicas-ia/revisao-2026-10-17.json", "utf8")));
+  assert.deepEqual(history, JSON.parse(fs.readFileSync(`public/${data.meta.revisao.history}`, "utf8")));
 });
 
 test("divergências de revisão, imagens e declaração não regressam", () => {
