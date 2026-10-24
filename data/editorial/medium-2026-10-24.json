@@ -1,0 +1,151 @@
+{
+  "collection": "medium",
+  "dateBasis": "included",
+  "start": "2026-10-18",
+  "end": "2026-10-24",
+  "reviewedAt": "2026-10-24",
+  "expectedCount": 57,
+  "title": {
+    "pt": "Da produção veloz à evidência que sustenta a confiança",
+    "en": "From rapid production to evidence that earns trust"
+  },
+  "summary": {
+    "pt": "Nas 57 leituras incorporadas nesta semana, a disputa por modelos e ferramentas encontra um limite recorrente: produzir mais não assegura compreender, verificar ou entregar melhor. Estratégia e mercado reúnem 19 textos, e agentes e aplicações, 17; os demais conectam aprendizagem, fundamentos e organização das fontes. Anúncios e relatos convivem com experimentos exploratórios, propostas normativas e críticas que também precisam ser verificadas. O sinal a acompanhar neste acervo é a passagem de métricas isoladas e explicações convincentes para requisitos explícitos, proveniência e resultados reproduzíveis. É uma interpretação desta seleção editorial, não um censo das tendências globais de IA nem validação independente de todos os produtos e estudos citados.",
+    "en": "Across the 57 readings added this week, competition among models and tools encounters a recurring limit: producing more does not ensure better understanding, verification or delivery. Strategy and markets account for 19 texts and agents and applications for 17; the remainder connect learning, foundations and source organization. Announcements and personal accounts coexist with exploratory experiments, normative proposals and criticism that also requires checking. The development to watch within this collection is a move from isolated metrics and persuasive explanations toward explicit requirements, provenance and reproducible outcomes. This is an interpretation of an editorial selection, not a census of global AI trends or independent validation of every cited product and study."
+  },
+  "method": {
+    "pt": "Leitura integral do texto renderizado de 57 originais na sessão autenticada do Medium. Universo congelado em 24/10/2026 às 08:57:37 de Brasília: 58 candidatos capturados entre 17 e 23/10; um repetia o ID Medium de item já concluído e foi separado sem nova inclusão. A coleta registra dia, não hora; não se alega cobertura das capturas posteriores ao corte nem do restante do sábado. O período 18–24/10 é de incorporação/curadoria; publicações originais de 14/09 a 21/10 mantêm suas datas, distinguindo publicação e edição. Deduplicação contra Fila, Descartados e catálogo PT/EN, com comparação de textos próximos. São artigos não científicos, não uma revisão sistemática. Relatos, opinião, anúncios e promoções são identificados nas fichas; números e afirmações não reproduzidos permanecem atribuídos às fontes. Equações e demonstrações em imagens não foram todas transcritas ou recalculadas; código e simulações não foram executados. Os seis eixos seguem a taxonomia e ligam cada item.",
+    "en": "Full rendered text of 57 originals was read in the authenticated Medium session. The universe was frozen on 24 October 2026 at 08:57:37 Brasília time: 58 candidates captured on 17–23 October; one repeated the Medium ID of an already completed item and was separated without a new inclusion. Capture records contain dates rather than times; no coverage is claimed for later captures or the rest of Saturday. The 18–24 October period concerns addition and curation; originals dated 14 September–21 October retain their publication dates, distinguished from edits. Deduplication covered the queue, discarded items and PT/EN catalog, including comparison of similar texts. These are non-scientific articles, not a systematic review. Accounts, opinion, announcements and promotion are identified in entries; unreplicated figures and claims remain attributed to sources. Not every equation or demonstration embedded in images was transcribed or recalculated; code and simulations were not run. Six canonical themes link every item."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Estratégia, mercado e impactos",
+        "en": "Strategy, market and impacts"
+      },
+      "summary": {
+        "pt": "As 19 leituras aproximam competição entre modelos, custo por tarefa, financiamento, infraestrutura e responsabilidade social. Comparações locais/nuvem e anúncios de pesos disponíveis trazem escolhas de licença, hardware e esforço de raciocínio; não basta comparar o preço por token. Ensaios sobre bolha econômica, vigilância e dependência entre empresas acrescentam questões pertinentes, mas hipóteses sobre acordos e colapso permanecem especulação. Um relato de publicidade tem amostra pequena e nenhuma conversão, enquanto a proposta de governança é normativa. O que acompanhar neste recorte é a distância entre demonstrações, condições comerciais e utilidade sustentável, sem transformar coincidência temporal em causalidade ou previsão em fato.",
+        "en": "The 19 readings connect model competition, task cost, financing, infrastructure and social accountability. Local-versus-cloud comparisons and available-weight announcements introduce licensing, hardware and reasoning-effort choices beyond token prices. Essays on economic bubbles, surveillance and corporate dependence raise relevant questions, but agreement and collapse hypotheses remain speculative. An advertising account has a tiny sample and no conversions, while a governance proposal is normative. The development to watch in this corpus is the gap between demonstrations, commercial conditions and sustainable usefulness, without turning coincident timing into causality or forecasts into facts."
+      },
+      "sourceIds": [
+        "medium-15942463d8d5",
+        "medium-0ab49c1f7fe2",
+        "medium-7107bfe3e1d1",
+        "medium-f1cdcc94fe40",
+        "medium-a383dc4aff05",
+        "medium-a46ec78fd1c2",
+        "medium-ddc840ae0a50",
+        "medium-190b82f3dad7",
+        "medium-36e0eeee9013",
+        "medium-8cae1a28f2ff",
+        "medium-2ed72cfa64e3",
+        "medium-de106e6a33ac",
+        "medium-4828d549d3f7",
+        "medium-0d5a862456f7",
+        "medium-49433906e72c",
+        "medium-3b8acd10208e",
+        "medium-00a564ca4adc",
+        "medium-96bb2dedc04f",
+        "medium-5e158f417038"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Agentes, RAG e aplicações",
+        "en": "Agents, RAG and applications"
+      },
+      "summary": {
+        "pt": "As 17 leituras deslocam a atenção da geração rápida para requisitos, contexto, integração, recuperação e verificação. Reescritas e testes exploratórios mostram que velocidade, cobertura, entrega de mensagens e validade funcional podem divergir. Engenharia reversa distingue comportamento compatível, correspondência de bytes e recuperação da intenção original; propostas como XS ainda não demonstram escala. Orquestração com um crítico não garante revisão independente: um exemplo usa chamadas simuladas e aprovação aleatória. Relatos de processos lembram que filas e responsabilidades podem dominar o prazo de entrega. O sinal editorial é exigir critérios de conclusão e evidências vinculadas ao resultado, preservando limites de ferramentas e controle sobre ações relevantes.",
+        "en": "The 17 readings shift attention from rapid generation toward requirements, context, integration, recovery and verification. Rewrites and exploratory tests show that speed, coverage, message delivery and functional validity can diverge. Reverse engineering distinguishes compatible behavior, byte matching and original intent; proposals such as XS have not demonstrated scalability. A critic does not guarantee independent review: one example uses mocked calls and random approval. Process accounts show how queues and ownership can dominate delivery time. The editorial direction is to require completion criteria and result-bound evidence while preserving tool boundaries and control over consequential actions."
+      },
+      "sourceIds": [
+        "medium-b34578c0f8f2",
+        "medium-d31f974dcfc0",
+        "medium-7e9dbd4daf99",
+        "medium-7f06837d1862",
+        "medium-01a9ac80cf88",
+        "medium-5fa832cbb23b",
+        "medium-3d747c235188",
+        "medium-01b906b2b964",
+        "medium-02344f01ed0d",
+        "medium-6cdbe568a08b",
+        "medium-56ac5a5e1a51",
+        "medium-8da1b1b7a5e9",
+        "medium-d0ca8e4573af",
+        "medium-1e140dd38e4f",
+        "medium-ffd4c6ecdbc2",
+        "medium-0131a3a9156e",
+        "medium-4224d3bc87ec"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos de linguagem e IA generativa",
+        "en": "Language models and generative AI"
+      },
+      "summary": {
+        "pt": "Oito textos articulam fundamentos, confiança e limites de avaliação. Prompt, contexto, memória e skills ajudam a organizar tarefas, mas fluência não demonstra acerto, e um rastro legível não certifica uma derivação válida ou fiel. Trabalhos selecionados distinguem correção, interpretabilidade e confiança humana; seus denominadores e tarefas importam. O indicador de melhoria por dólar depende de extrapolações e não mede inteligência universal. O modelo de aprendizagem autônoma explora cenários hipotéticos, sem datar independência da contribuição humana. A convergência é perguntar o que foi efetivamente medido e verificado, sem supor que explicações longas, confiança declarada ou aprovação formal sejam prova de confiabilidade.",
+        "en": "Eight texts connect foundations, trust and evaluation limits. Prompts, context, memory and skills help organize tasks, but fluency does not establish correctness, and a readable trace certifies neither valid nor faithful derivation. Selected research distinguishes accuracy, interpretability and human trust; denominators and task settings matter. A capability-per-dollar indicator relies on extrapolation rather than measuring universal intelligence. An autonomous-learning model explores hypothetical scenarios without dating independence from human input. The shared question is what was actually measured and checked, rather than treating lengthy explanations, stated confidence or formal approval as proof of reliability."
+      },
+      "sourceIds": [
+        "medium-2c7bf191e754",
+        "medium-d20f743b77b7",
+        "medium-bbebee6c1353",
+        "medium-5c9c7123817e",
+        "medium-f96ffd33ce94",
+        "medium-d0fa07797ad1",
+        "medium-f5df5660b670",
+        "medium-4ddf3d8046a9"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aprendizado, pesquisa e produtividade",
+        "en": "Learning, research and productivity"
+      },
+      "summary": {
+        "pt": "As oito leituras combinam uso educacional, rotinas com fontes e debate sobre descoberta científica. O levantamento japonês é observacional e não prova efeito causal da IA na aprendizagem. Propostas de Notebook organizam leitura, perguntas, testes e retorno ao original, mas textos próximos do mesmo autor não constituem replicações independentes. Há publicidade identificada e nenhuma demonstração controlada de retenção. O resultado criptográfico comentado não é prova geral de segurança; a crítica a anúncios matemáticos também exige escrutínio e contém um erro numérico explicitado na ficha. A prioridade desta seleção é preservar compreensão e conferir a evidência, inclusive quando a crítica à IA parece convincente.",
+        "en": "The eight readings combine educational use, source-based routines and debate over scientific discovery. The Japanese survey is observational and does not establish AI's causal effect on learning. Notebook proposals organize reading, questions, testing and returns to originals, but related posts by one author are not independent replications. Promotion is disclosed and no controlled retention gain is demonstrated. The discussed cryptographic result is not a general security proof; criticism of mathematical announcements also requires scrutiny and contains a numerical error flagged in its entry. The priority is preserving understanding and checking evidence, including persuasive criticism of AI."
+      },
+      "sourceIds": [
+        "medium-7bbee1c80f3a",
+        "medium-8a8770539190",
+        "medium-0eee7606321b",
+        "medium-0a8babc2e29e",
+        "medium-dcea2a22b0a8",
+        "medium-454816d5143b",
+        "medium-c28428398689",
+        "medium-647d4736d47f"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Dados, vetores e gestão do conhecimento",
+        "en": "Data, vectors and knowledge management"
+      },
+      "summary": {
+        "pt": "Três leituras mostram que manter relações e proveniência importa tanto quanto acumular documentos. A wiki em Markdown com Git oferece rastreabilidade e revisão, sem comprovação de superioridade geral sobre RAG. A comparação de parsers em cinco documentos evidencia erros distintos em estrutura, anotações e continuidade; não produz ranking universal. O fluxo de normalizar, curar e sintetizar torna lacunas e conflitos inspecionáveis, mas uma citação encontrada no texto processado não garante extração correta nem interpretação fiel. O autor das duas demonstrações participa do projeto apresentado. O ponto comum é transformar fontes em evidências conferíveis, mantendo visível a diferença entre protótipo, avaliação qualitativa e validação sistemática.",
+        "en": "Three readings show that relationships and provenance matter as much as document accumulation. A Git-backed Markdown wiki offers traceability and review without established general superiority over RAG. Comparing parsers on five documents reveals different structural, annotation and continuity errors rather than a universal ranking. A normalize–curate–synthesize workflow makes gaps and conflicts inspectable, but a quotation in processed text guarantees neither accurate extraction nor faithful interpretation. The author of both demonstrations participates in the presented project. The shared focus is turning sources into checkable evidence while distinguishing prototypes, qualitative evaluation and systematic validation."
+      },
+      "sourceIds": [
+        "medium-ddd58bada9bf",
+        "medium-60d3d51cc21e",
+        "medium-0a3f1a4c8718"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Fundamentos técnicos de IA",
+        "en": "Technical foundations of AI"
+      },
+      "summary": {
+        "pt": "Duas leituras didáticas tratam de aprendizado de representações e execução em GPUs. A primeira ajuda a visualizar a combinação de atributos em camadas, mas reduzir deep learning a engenharia automática de atributos não elimina escolhas humanas nem garante superioridade. A segunda introduz kernels, dimensões de tensores, memória e ocupação para explicar por que uma GPU pode trabalhar abaixo do esperado; analogias não substituem perfilamento do sistema. Ambas oferecem vocabulário para formular perguntas melhores. A tendência pedagógica deste pequeno recorte é ligar conceitos a comportamento observável, preservando os limites entre intuição introdutória, descrição arquitetural e desempenho efetivamente medido.",
+        "en": "Two educational readings address representation learning and GPU execution. One visualizes combining features across layers, but describing deep learning as automatic feature engineering does not remove human choices or guarantee superiority. The other introduces kernels, tensor dimensions, memory and occupancy to explain underutilized GPUs; analogies do not replace system profiling. Both supply vocabulary for better questions. The pedagogical direction in this small selection is connecting concepts with observable behavior while preserving distinctions among introductory intuition, architectural description and measured performance."
+      },
+      "sourceIds": [
+        "medium-2d6c43d06376",
+        "medium-ab5a04e6006a"
+      ]
+    }
+  ]
+}

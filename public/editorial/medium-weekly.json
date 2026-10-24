@@ -1,91 +1,79 @@
 {
   "dateBasis": "included",
-  "start": "2026-10-11",
-  "end": "2026-10-17",
-  "reviewedAt": "2026-10-17",
+  "start": "2026-10-18",
+  "end": "2026-10-24",
+  "reviewedAt": "2026-10-24",
   "title": {
-    "pt": "A nova escassez: verificar o que os agentes produzem",
-    "en": "The new scarcity: verifying what agents produce"
+    "pt": "Da produção veloz à evidência que sustenta a confiança",
+    "en": "From rapid production to evidence that earns trust"
   },
   "summary": {
-    "pt": "As 44 leituras incorporadas nesta curadoria apontam para uma tensão comum: gerar código, relatórios e decisões fica mais rápido, mas verificar, integrar e assumir responsabilidade continua custoso. Segurança de agentes, escolhas de arquitetura e custo real por tarefa dominam a seleção; pesquisa, aprendizagem e design acrescentam a pergunta sobre o que não convém delegar. Há propostas promissoras de ferramentas e modelos especializados, ao lado de previsões de mercado e relatos individuais que não são evidência causal. O sinal a acompanhar neste recorte é a mudança de uma corrida por volume produzido para sistemas com critérios explícitos de qualidade, controle e utilidade. Esta é uma tendência da seleção editorial, não uma medição representativa do mundo da IA.",
-    "en": "The 44 readings added through this curation point to a common tension: generating code, reports and decisions becomes faster, while verification, integration and accountability remain costly. Agent security, architecture choices and actual task costs dominate the selection; research, learning and design add the question of what should not be delegated. Promising specialized tools and models coexist with market forecasts and personal accounts that are not causal evidence. The development to watch within this corpus is a move from output volume toward systems with explicit quality, control and usefulness criteria. This is a pattern in the editorial selection, not a representative measurement of the AI world."
+    "pt": "Nas 57 leituras incorporadas nesta semana, a disputa por modelos e ferramentas encontra um limite recorrente: produzir mais não assegura compreender, verificar ou entregar melhor. Estratégia e mercado reúnem 19 textos, e agentes e aplicações, 17; os demais conectam aprendizagem, fundamentos e organização das fontes. Anúncios e relatos convivem com experimentos exploratórios, propostas normativas e críticas que também precisam ser verificadas. O sinal a acompanhar neste acervo é a passagem de métricas isoladas e explicações convincentes para requisitos explícitos, proveniência e resultados reproduzíveis. É uma interpretação desta seleção editorial, não um censo das tendências globais de IA nem validação independente de todos os produtos e estudos citados.",
+    "en": "Across the 57 readings added this week, competition among models and tools encounters a recurring limit: producing more does not ensure better understanding, verification or delivery. Strategy and markets account for 19 texts and agents and applications for 17; the remainder connect learning, foundations and source organization. Announcements and personal accounts coexist with exploratory experiments, normative proposals and criticism that also requires checking. The development to watch within this collection is a move from isolated metrics and persuasive explanations toward explicit requirements, provenance and reproducible outcomes. This is an interpretation of an editorial selection, not a census of global AI trends or independent validation of every cited product and study."
   },
   "method": {
-    "pt": "Síntese baseada na leitura integral autenticada de 44 originais e na curadoria concluída em 17/10/2026. Universo fixado às 07:33:32 de Brasília: candidatos observados na Fila, capturados de 11 a 16/10; a coleta não registra hora por linha, portanto não se alega cobertura do restante do sábado. O período acima é o da incorporação/curadoria, não o da publicação original: há textos de julho a outubro, com datas individuais preservadas e diferenças entre publicação e edição conferidas. Todos foram deduplicados contra fila, descartados e catálogo PT/EN. Os seis eixos usam a taxonomia canônica; cada texto está ligado abaixo. São artigos não científicos, com opinião, relatos, tutoriais e divulgação comercial identificados nas fichas, não revisão sistemática nem censo de tendências.",
-    "en": "Briefing based on authenticated full reading of 44 originals and curation completed on 17 October 2026. The candidate universe was frozen at 07:33:32 Brasília time: observed queue items captured on 11–16 October; capture rows lack times, so no coverage of the remainder of Saturday is claimed. The period above refers to addition and curation, not original publication: texts range from July to October, with individual dates preserved and publication distinguished from modification. All were deduplicated against the queue, discarded items and PT/EN catalogs. The six themes follow the canonical taxonomy, with every text linked below. These are non-scientific articles containing opinion, accounts, tutorials and commercial promotion identified in their summaries, not a systematic review or census of trends."
+    "pt": "Leitura integral do texto renderizado de 57 originais na sessão autenticada do Medium. Universo congelado em 24/10/2026 às 08:57:37 de Brasília: 58 candidatos capturados entre 17 e 23/10; um repetia o ID Medium de item já concluído e foi separado sem nova inclusão. A coleta registra dia, não hora; não se alega cobertura das capturas posteriores ao corte nem do restante do sábado. O período 18–24/10 é de incorporação/curadoria; publicações originais de 14/09 a 21/10 mantêm suas datas, distinguindo publicação e edição. Deduplicação contra Fila, Descartados e catálogo PT/EN, com comparação de textos próximos. São artigos não científicos, não uma revisão sistemática. Relatos, opinião, anúncios e promoções são identificados nas fichas; números e afirmações não reproduzidos permanecem atribuídos às fontes. Equações e demonstrações em imagens não foram todas transcritas ou recalculadas; código e simulações não foram executados. Os seis eixos seguem a taxonomia e ligam cada item.",
+    "en": "Full rendered text of 57 originals was read in the authenticated Medium session. The universe was frozen on 24 October 2026 at 08:57:37 Brasília time: 58 candidates captured on 17–23 October; one repeated the Medium ID of an already completed item and was separated without a new inclusion. Capture records contain dates rather than times; no coverage is claimed for later captures or the rest of Saturday. The 18–24 October period concerns addition and curation; originals dated 14 September–21 October retain their publication dates, distinguished from edits. Deduplication covered the queue, discarded items and PT/EN catalog, including comparison of similar texts. These are non-scientific articles, not a systematic review. Accounts, opinion, announcements and promotion are identified in entries; unreplicated figures and claims remain attributed to sources. Not every equation or demonstration embedded in images was transcribed or recalculated; code and simulations were not run. Six canonical themes link every item."
   },
   "topics": [
-    {
-      "title": {
-        "pt": "Agentes, RAG e aplicações",
-        "en": "Agents, RAG and applications"
-      },
-      "summary": {
-        "pt": "A autonomia é tratada como propriedade de um sistema, não apenas do modelo. As leituras convergem em verificadores, isolamento, limites de ferramentas, registros independentes e revisão proporcional ao risco. Experimentos com jogos e empresas fictícias mostram que latência, estrutura dos dados e critérios de sucesso podem importar mais que contexto adicional. Guias de MCP e mods ampliam possibilidades, mas também superfície de acesso; são exemplos a avaliar, não autorização para instalar ou autoaprovar ações. A tendência desta seleção é deslocar o foco da demonstração para fronteiras testáveis e responsabilidade operacional.",
-        "en": "Autonomy is treated as a system property rather than a model feature alone. The readings converge on verifiers, isolation, bounded tools, independent records and risk-proportionate review. Experiments with games and fictional businesses show how latency, data structure and success criteria can matter more than additional context. MCP and mod guides expand possibilities but also access surfaces; they are examples to assess, not authorization to install or automatically approve actions. The direction within this selection is a shift from demonstrations toward testable boundaries and operational accountability."
-      },
-      "sourceIds": [
-        "medium-6c67441297b5",
-        "medium-68c751ac54ca",
-        "medium-7897a4ca78d6",
-        "medium-23e33270911b",
-        "medium-78f6fbe2f28a",
-        "medium-c9673655b5aa",
-        "medium-79f2039441c6",
-        "medium-d86747d33840",
-        "medium-6552ec3dbb81",
-        "medium-e8c6c2f81275",
-        "medium-5a04846aa813",
-        "medium-c778df176349",
-        "medium-1f87281cf92e",
-        "medium-563e5ee17976",
-        "medium-b48a34c9887d",
-        "medium-29ee6064200c",
-        "medium-733559d6d019"
-      ]
-    },
     {
       "title": {
         "pt": "Estratégia, mercado e impactos",
         "en": "Strategy, market and impacts"
       },
       "summary": {
-        "pt": "Comparativos de modelos passam do preço por token ao custo por tarefa, incluindo raciocínio, consumo de saída, contexto e sucesso completo. Holo4 exemplifica a importância do pós-treinamento, do harness e das licenças, sem equivaler a uma pilha soberana. Ensaios sobre software, financiamento e gestão contrapõem aceleração técnica a concentração, filas de decisão e capacidade humana de aprovação. Essas leituras misturam medições externas, relatos, publicidade e previsões pessoais; sua convergência editorial não prova colapso de setores ou retorno financeiro. O ponto a acompanhar é quem captura valor e quem assume o custo da verificação.",
-        "en": "Model comparisons move from token prices toward task costs, including reasoning, output consumption, context and complete success. Holo4 illustrates post-training, harness and licensing importance without constituting a sovereign stack. Essays on software, financing and management contrast technical acceleration with concentration, decision queues and human approval capacity. These readings mix external measurements, accounts, promotion and personal forecasts; their editorial convergence does not prove industry collapse or financial returns. The issue to watch is who captures value and who bears verification costs."
+        "pt": "As 19 leituras aproximam competição entre modelos, custo por tarefa, financiamento, infraestrutura e responsabilidade social. Comparações locais/nuvem e anúncios de pesos disponíveis trazem escolhas de licença, hardware e esforço de raciocínio; não basta comparar o preço por token. Ensaios sobre bolha econômica, vigilância e dependência entre empresas acrescentam questões pertinentes, mas hipóteses sobre acordos e colapso permanecem especulação. Um relato de publicidade tem amostra pequena e nenhuma conversão, enquanto a proposta de governança é normativa. O que acompanhar neste recorte é a distância entre demonstrações, condições comerciais e utilidade sustentável, sem transformar coincidência temporal em causalidade ou previsão em fato.",
+        "en": "The 19 readings connect model competition, task cost, financing, infrastructure and social accountability. Local-versus-cloud comparisons and available-weight announcements introduce licensing, hardware and reasoning-effort choices beyond token prices. Essays on economic bubbles, surveillance and corporate dependence raise relevant questions, but agreement and collapse hypotheses remain speculative. An advertising account has a tiny sample and no conversions, while a governance proposal is normative. The development to watch in this corpus is the gap between demonstrations, commercial conditions and sustainable usefulness, without turning coincident timing into causality or forecasts into facts."
       },
       "sourceIds": [
-        "medium-9a94cc8359fc",
-        "medium-ba0175b34165",
-        "medium-21e0e51ece2c",
-        "medium-de7543c82694",
-        "medium-738cf585ac4b",
-        "medium-f5aeb16f6d40",
-        "medium-19b55dff28cb",
-        "medium-914de0050d5c",
-        "medium-0b7f104f09d0",
-        "medium-47e264f00658"
+        "medium-15942463d8d5",
+        "medium-0ab49c1f7fe2",
+        "medium-7107bfe3e1d1",
+        "medium-f1cdcc94fe40",
+        "medium-a383dc4aff05",
+        "medium-a46ec78fd1c2",
+        "medium-ddc840ae0a50",
+        "medium-190b82f3dad7",
+        "medium-36e0eeee9013",
+        "medium-8cae1a28f2ff",
+        "medium-2ed72cfa64e3",
+        "medium-de106e6a33ac",
+        "medium-4828d549d3f7",
+        "medium-0d5a862456f7",
+        "medium-49433906e72c",
+        "medium-3b8acd10208e",
+        "medium-00a564ca4adc",
+        "medium-96bb2dedc04f",
+        "medium-5e158f417038"
       ]
     },
     {
       "title": {
-        "pt": "Aprendizado, pesquisa e produtividade",
-        "en": "Learning, research and productivity"
+        "pt": "Agentes, RAG e aplicações",
+        "en": "Agents, RAG and applications"
       },
       "summary": {
-        "pt": "As propostas de pesquisa e estudo combinam fontes verificáveis, crítica adversarial, relatórios citados, quizzes e organização de rotinas. O contraponto é preservar esforço cognitivo e compreensão: produzir uma resposta ou prova não equivale a aprender ou validar a pergunta certa. Relatos de busca de emprego e tutoriais mostram possibilidades práticas, mas não efeitos causais universais; promoções comerciais são identificadas nas fichas. A tensão central é usar IA para apoiar investigação e aprendizagem, sem substituir justamente a etapa em que o usuário precisa desenvolver julgamento e conferir evidências.",
-        "en": "Research and study proposals combine checkable sources, adversarial critique, cited reports, quizzes and routine organization. The counterpoint is preserving cognitive effort and understanding: producing an answer or proof does not mean learning or validating the right question. Job-search accounts and tutorials show practical possibilities rather than universal causal effects; commercial promotion is identified in catalog summaries. The central tension is using AI to support investigation and learning without replacing the very stage where users must develop judgment and check evidence."
+        "pt": "As 17 leituras deslocam a atenção da geração rápida para requisitos, contexto, integração, recuperação e verificação. Reescritas e testes exploratórios mostram que velocidade, cobertura, entrega de mensagens e validade funcional podem divergir. Engenharia reversa distingue comportamento compatível, correspondência de bytes e recuperação da intenção original; propostas como XS ainda não demonstram escala. Orquestração com um crítico não garante revisão independente: um exemplo usa chamadas simuladas e aprovação aleatória. Relatos de processos lembram que filas e responsabilidades podem dominar o prazo de entrega. O sinal editorial é exigir critérios de conclusão e evidências vinculadas ao resultado, preservando limites de ferramentas e controle sobre ações relevantes.",
+        "en": "The 17 readings shift attention from rapid generation toward requirements, context, integration, recovery and verification. Rewrites and exploratory tests show that speed, coverage, message delivery and functional validity can diverge. Reverse engineering distinguishes compatible behavior, byte matching and original intent; proposals such as XS have not demonstrated scalability. A critic does not guarantee independent review: one example uses mocked calls and random approval. Process accounts show how queues and ownership can dominate delivery time. The editorial direction is to require completion criteria and result-bound evidence while preserving tool boundaries and control over consequential actions."
       },
       "sourceIds": [
-        "medium-44a28d8cc042",
-        "medium-cbd2ba8a4881",
-        "medium-7fd25e39e7a8",
-        "medium-3b3d5480c127",
-        "medium-b7b753f52f32",
-        "medium-b127da54037d",
-        "medium-d7a7d9e148d1",
-        "medium-1d128881df35",
-        "medium-9b812f49e029"
+        "medium-b34578c0f8f2",
+        "medium-d31f974dcfc0",
+        "medium-7e9dbd4daf99",
+        "medium-7f06837d1862",
+        "medium-01a9ac80cf88",
+        "medium-5fa832cbb23b",
+        "medium-3d747c235188",
+        "medium-01b906b2b964",
+        "medium-02344f01ed0d",
+        "medium-6cdbe568a08b",
+        "medium-56ac5a5e1a51",
+        "medium-8da1b1b7a5e9",
+        "medium-d0ca8e4573af",
+        "medium-1e140dd38e4f",
+        "medium-ffd4c6ecdbc2",
+        "medium-0131a3a9156e",
+        "medium-4224d3bc87ec"
       ]
     },
     {
@@ -94,14 +82,38 @@
         "en": "Language models and generative AI"
       },
       "summary": {
-        "pt": "Os textos aproximam fundamentos técnicos de questões de confiança. Explicações plausíveis sobre intenções humanas não revelam o pensamento de uma pessoa; respostas afetuosas ou desconfortáveis não demonstram consciência. A discussão de marcas d’água distingue um sinal estatístico associado a uma chave de um detector universal, enquanto o glossário esclarece limites de tokens, quantização e adaptação. A síntese não endossa os títulos mais fortes: crítica comum não implica banimento automático, ausência de marca não comprova origem humana e linguagem convincente não é evidência suficiente.",
-        "en": "The texts connect technical foundations with trust questions. Plausible interpretations of human intentions do not reveal another person's thoughts, and affectionate or uncomfortable responses do not demonstrate consciousness. Watermarking discussion distinguishes a key-associated statistical signal from a universal detector, while the glossary clarifies token, quantization and adaptation limits. This briefing does not endorse the strongest headlines: ordinary criticism does not imply automatic bans, absent watermarks do not establish human origin, and convincing language is insufficient evidence."
+        "pt": "Oito textos articulam fundamentos, confiança e limites de avaliação. Prompt, contexto, memória e skills ajudam a organizar tarefas, mas fluência não demonstra acerto, e um rastro legível não certifica uma derivação válida ou fiel. Trabalhos selecionados distinguem correção, interpretabilidade e confiança humana; seus denominadores e tarefas importam. O indicador de melhoria por dólar depende de extrapolações e não mede inteligência universal. O modelo de aprendizagem autônoma explora cenários hipotéticos, sem datar independência da contribuição humana. A convergência é perguntar o que foi efetivamente medido e verificado, sem supor que explicações longas, confiança declarada ou aprovação formal sejam prova de confiabilidade.",
+        "en": "Eight texts connect foundations, trust and evaluation limits. Prompts, context, memory and skills help organize tasks, but fluency does not establish correctness, and a readable trace certifies neither valid nor faithful derivation. Selected research distinguishes accuracy, interpretability and human trust; denominators and task settings matter. A capability-per-dollar indicator relies on extrapolation rather than measuring universal intelligence. An autonomous-learning model explores hypothetical scenarios without dating independence from human input. The shared question is what was actually measured and checked, rather than treating lengthy explanations, stated confidence or formal approval as proof of reliability."
       },
       "sourceIds": [
-        "medium-f391129108e2",
-        "medium-de1943044d7d",
-        "medium-a28ba72f0b42",
-        "medium-bc2c5615da0d"
+        "medium-2c7bf191e754",
+        "medium-d20f743b77b7",
+        "medium-bbebee6c1353",
+        "medium-5c9c7123817e",
+        "medium-f96ffd33ce94",
+        "medium-d0fa07797ad1",
+        "medium-f5df5660b670",
+        "medium-4ddf3d8046a9"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aprendizado, pesquisa e produtividade",
+        "en": "Learning, research and productivity"
+      },
+      "summary": {
+        "pt": "As oito leituras combinam uso educacional, rotinas com fontes e debate sobre descoberta científica. O levantamento japonês é observacional e não prova efeito causal da IA na aprendizagem. Propostas de Notebook organizam leitura, perguntas, testes e retorno ao original, mas textos próximos do mesmo autor não constituem replicações independentes. Há publicidade identificada e nenhuma demonstração controlada de retenção. O resultado criptográfico comentado não é prova geral de segurança; a crítica a anúncios matemáticos também exige escrutínio e contém um erro numérico explicitado na ficha. A prioridade desta seleção é preservar compreensão e conferir a evidência, inclusive quando a crítica à IA parece convincente.",
+        "en": "The eight readings combine educational use, source-based routines and debate over scientific discovery. The Japanese survey is observational and does not establish AI's causal effect on learning. Notebook proposals organize reading, questions, testing and returns to originals, but related posts by one author are not independent replications. Promotion is disclosed and no controlled retention gain is demonstrated. The discussed cryptographic result is not a general security proof; criticism of mathematical announcements also requires scrutiny and contains a numerical error flagged in its entry. The priority is preserving understanding and checking evidence, including persuasive criticism of AI."
+      },
+      "sourceIds": [
+        "medium-7bbee1c80f3a",
+        "medium-8a8770539190",
+        "medium-0eee7606321b",
+        "medium-0a8babc2e29e",
+        "medium-dcea2a22b0a8",
+        "medium-454816d5143b",
+        "medium-c28428398689",
+        "medium-647d4736d47f"
       ]
     },
     {
@@ -110,12 +122,13 @@
         "en": "Data, vectors and knowledge management"
       },
       "summary": {
-        "pt": "A infraestrutura menos visível ganha destaque: embeddings locais e multimodais selecionam o que chega ao modelo, enquanto arquitetura semântica e governança conectam conceitos entre sistemas. Os dois textos mostram por que mais dados ou mais contexto não resolvem, sozinhos, significado, pertinência e responsabilidade. Redução dimensional envolve escolhas de qualidade e armazenamento; processamento local reduz algumas transmissões, mas não garante privacidade de todo o fluxo. A direção editorial é organizar o conhecimento e seus controles antes de ampliar a geração de conteúdo.",
-        "en": "Less visible infrastructure receives attention: local multimodal embeddings select what reaches a model, while semantic architecture and governance connect concepts across systems. Both texts show why more data or context alone cannot resolve meaning, relevance and accountability. Dimensionality reduction entails quality and storage trade-offs; local processing reduces some transmissions without guaranteeing whole-workflow privacy. The editorial direction is to organize knowledge and its controls before expanding content generation."
+        "pt": "Três leituras mostram que manter relações e proveniência importa tanto quanto acumular documentos. A wiki em Markdown com Git oferece rastreabilidade e revisão, sem comprovação de superioridade geral sobre RAG. A comparação de parsers em cinco documentos evidencia erros distintos em estrutura, anotações e continuidade; não produz ranking universal. O fluxo de normalizar, curar e sintetizar torna lacunas e conflitos inspecionáveis, mas uma citação encontrada no texto processado não garante extração correta nem interpretação fiel. O autor das duas demonstrações participa do projeto apresentado. O ponto comum é transformar fontes em evidências conferíveis, mantendo visível a diferença entre protótipo, avaliação qualitativa e validação sistemática.",
+        "en": "Three readings show that relationships and provenance matter as much as document accumulation. A Git-backed Markdown wiki offers traceability and review without established general superiority over RAG. Comparing parsers on five documents reveals different structural, annotation and continuity errors rather than a universal ranking. A normalize–curate–synthesize workflow makes gaps and conflicts inspectable, but a quotation in processed text guarantees neither accurate extraction nor faithful interpretation. The author of both demonstrations participates in the presented project. The shared focus is turning sources into checkable evidence while distinguishing prototypes, qualitative evaluation and systematic validation."
       },
       "sourceIds": [
-        "medium-d488308ca246",
-        "medium-5ed595c7b373"
+        "medium-ddd58bada9bf",
+        "medium-60d3d51cc21e",
+        "medium-0a3f1a4c8718"
       ]
     },
     {
@@ -124,279 +137,357 @@
         "en": "Technical foundations of AI"
       },
       "summary": {
-        "pt": "Duas leituras didáticas retomam treinamento, avaliação e adaptação de modelos. Uma organiza conceitos de aprendizado de máquina e diagnóstico em produção; outra apresenta destilação, ajuste supervisionado e reforço a partir de um relato de modelo local. As fichas sinalizam simplificações: validação cruzada não reduz sobreajuste automaticamente, remoção de uma direção de ativação não garante ausência de recusas e reforço não demonstra raciocínio genuíno. O valor é oferecer pontos de partida para estudo, não substituir tratamento matemático ou protocolos validados.",
-        "en": "Two educational readings revisit model training, evaluation and adaptation. One organizes machine-learning concepts and production diagnosis; the other presents distillation, supervised fine-tuning and reinforcement through a local-model account. Summaries flag simplifications: cross-validation does not automatically reduce overfitting, removing an activation direction does not guarantee no refusals, and reinforcement does not establish genuine reasoning. Their value is as starting points for study, not replacements for mathematical treatment or validated protocols."
+        "pt": "Duas leituras didáticas tratam de aprendizado de representações e execução em GPUs. A primeira ajuda a visualizar a combinação de atributos em camadas, mas reduzir deep learning a engenharia automática de atributos não elimina escolhas humanas nem garante superioridade. A segunda introduz kernels, dimensões de tensores, memória e ocupação para explicar por que uma GPU pode trabalhar abaixo do esperado; analogias não substituem perfilamento do sistema. Ambas oferecem vocabulário para formular perguntas melhores. A tendência pedagógica deste pequeno recorte é ligar conceitos a comportamento observável, preservando os limites entre intuição introdutória, descrição arquitetural e desempenho efetivamente medido.",
+        "en": "Two educational readings address representation learning and GPU execution. One visualizes combining features across layers, but describing deep learning as automatic feature engineering does not remove human choices or guarantee superiority. The other introduces kernels, tensor dimensions, memory and occupancy to explain underutilized GPUs; analogies do not replace system profiling. Both supply vocabulary for better questions. The pedagogical direction in this small selection is connecting concepts with observable behavior while preserving distinctions among introductory intuition, architectural description and measured performance."
       },
       "sourceIds": [
-        "medium-3424353dbfbb",
-        "medium-0f66b6d9a959"
+        "medium-2d6c43d06376",
+        "medium-ab5a04e6006a"
       ]
     }
   ],
   "corpus": [
     {
-      "id": "medium-6c67441297b5",
-      "date": "2026-08-26",
-      "title": "AI Is Crossing the Line Into the Physical World",
-      "url": "https://medium.com/no-time/ai-is-crossing-the-line-into-the-physical-world-6c67441297b5"
+      "id": "medium-2c7bf191e754",
+      "date": "2026-10-15",
+      "title": "Prompts, Context, Memory, Skills: The 4 Layers Behind Every Good AI Answer (Visually Explained)",
+      "url": "https://medium.com/ai-engineering-simplified/prompts-context-memory-skills-the-4-layers-behind-every-good-ai-answer-visually-explained-2c7bf191e754"
     },
     {
-      "id": "medium-9a94cc8359fc",
-      "date": "2026-10-10",
-      "title": "Everyone Is Asking If Jev Will Replace LLMs",
-      "url": "https://medium.com/technology-hits/everyone-is-asking-if-jev-will-replace-llms-9a94cc8359fc"
-    },
-    {
-      "id": "medium-44a28d8cc042",
-      "date": "2026-07-04",
-      "title": "macOS 27 Has a Hidden LLM Inside — 10 (Amazing) Things You Can Do With It",
-      "url": "https://medium.com/macoclock/macos-27-has-a-hidden-llm-inside-10-amazing-things-you-can-do-with-it-44a28d8cc042"
-    },
-    {
-      "id": "medium-3424353dbfbb",
-      "date": "2026-10-07",
-      "title": "How PewDiePie Built an Uncensored AI (And Why OpenAI Banned Him)",
-      "url": "https://medium.com/@tanmay.bansal20/how-pewdiepie-built-an-uncensored-ai-and-why-openai-banned-him-3424353dbfbb"
-    },
-    {
-      "id": "medium-f391129108e2",
-      "date": "2026-10-09",
-      "title": "Can ChatGPT Really Tell What Someone Means?",
-      "url": "https://aiadvances.org/can-chatgpt-really-tell-what-someone-means-f391129108e2"
-    },
-    {
-      "id": "medium-68c751ac54ca",
-      "date": "2026-10-10",
-      "title": "Everyone Uses AI Chatbots. Almost No One Trusts AI Agents. Here’s the Engineering Reason Why.",
-      "url": "https://aiadvances.org/everyone-uses-ai-chatbots-almost-no-one-trusts-ai-agents-heres-the-engineering-reason-why-68c751ac54ca"
-    },
-    {
-      "id": "medium-7897a4ca78d6",
-      "date": "2026-10-09",
-      "title": "6 MCP Servers Every AI Developer Should Install in 2026",
-      "url": "https://medium.com/ai-engineering-simplified/6-mcp-servers-every-ai-developer-should-install-in-2026-7897a4ca78d6"
-    },
-    {
-      "id": "medium-23e33270911b",
-      "date": "2026-10-07",
-      "title": "Things are getting interesting with Claude mods",
-      "url": "https://medium.com/ai-all-in/things-are-getting-interesting-with-claude-mods-23e33270911b"
-    },
-    {
-      "id": "medium-ba0175b34165",
-      "date": "2026-10-08",
-      "title": "Claude Haiku 5.5 Was Worth the Wait",
-      "url": "https://medium.com/the-ai-brief/claude-haiku-5-5-was-worth-the-wait-ba0175b34165"
-    },
-    {
-      "id": "medium-78f6fbe2f28a",
-      "date": "2026-10-10",
-      "title": "If AI Made Coding Faster, Why Are Developers Still Slow?",
-      "url": "https://medium.com/activated-thinker/if-ai-made-coding-faster-why-are-developers-still-slow-78f6fbe2f28a"
-    },
-    {
-      "id": "medium-21e0e51ece2c",
-      "date": "2026-10-08",
-      "title": "BMW Is Cutting 100 Senior Managers for AI Agents. Nobody Has Asked Who Signs.",
-      "url": "https://ai.plainenglish.io/bmw-is-cutting-100-senior-managers-for-ai-agents-nobody-has-asked-who-signs-21e0e51ece2c"
-    },
-    {
-      "id": "medium-cbd2ba8a4881",
-      "date": "2026-10-11",
-      "title": "Gemini Notebook Is Quietly Becoming Google’s AI Research Workspace",
-      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-is-quietly-becoming-googles-ai-research-workspace-cbd2ba8a4881"
-    },
-    {
-      "id": "medium-7fd25e39e7a8",
-      "date": "2026-10-03",
-      "title": "What is AstaBrief? Why Ai2 Turned an Entire Research Pipeline Into One 8B Model",
-      "url": "https://medium.com/@lvntblsn/what-is-astabrief-why-ai2-turned-an-entire-research-pipeline-into-one-8b-model-7fd25e39e7a8"
-    },
-    {
-      "id": "medium-de7543c82694",
-      "date": "2026-10-05",
-      "title": "I Re-Ranked 13 AI Models. Everything Changed.",
-      "url": "https://medium.com/the-ai-brief/i-re-ranked-13-ai-models-everything-changed-de7543c82694"
-    },
-    {
-      "id": "medium-738cf585ac4b",
-      "date": "2026-10-11",
-      "title": "Adobe, Claude and the end of Software",
-      "url": "https://michalmalewicz.medium.com/adobe-claude-and-the-end-of-software-738cf585ac4b"
-    },
-    {
-      "id": "medium-f5aeb16f6d40",
-      "date": "2026-10-10",
-      "title": "The Off Switch Is a Feature: In Praise of Products That Let AI Go Quiet",
-      "url": "https://ai.plainenglish.io/the-off-switch-is-a-feature-in-praise-of-products-that-let-ai-go-quiet-f5aeb16f6d40"
-    },
-    {
-      "id": "medium-de1943044d7d",
-      "date": "2026-10-09",
-      "title": "You’ll Soon Be Banned From Using Claude if You Hurt Its Feelings",
-      "url": "https://generativeai.pub/youll-soon-be-banned-from-using-claude-if-you-hurt-its-feelings-de1943044d7d"
-    },
-    {
-      "id": "medium-c9673655b5aa",
-      "date": "2026-10-10",
-      "title": "Agentic coding broke the iron triangle for tech leads in 5 different ways.",
-      "url": "https://medium.com/data-science-collective/agentic-coding-broke-the-iron-triangle-for-tech-leads-in-5-different-ways-c9673655b5aa"
-    },
-    {
-      "id": "medium-a28ba72f0b42",
-      "date": "2026-10-10",
-      "title": "If It’s AI, I Have a Right to Know.",
-      "url": "https://medium.com/@ignacio.de.gregorio.noblejas/if-its-ai-i-have-a-right-to-know-a28ba72f0b42"
-    },
-    {
-      "id": "medium-19b55dff28cb",
-      "date": "2026-10-08",
-      "title": "Claude Haiku 5.5 Just Launched, Complete Review + 10 Use Cases",
-      "url": "https://medium.com/the-ai-studio/claude-haiku-5-5-just-launched-complete-review-10-use-cases-19b55dff28cb"
-    },
-    {
-      "id": "medium-914de0050d5c",
-      "date": "2026-10-10",
-      "title": "Artificial Intelligence. Too Big to Fail?",
-      "url": "https://aiadvances.org/artificial-intelligence-too-big-to-fail-914de0050d5c"
-    },
-    {
-      "id": "medium-0f66b6d9a959",
-      "date": "2026-10-13",
-      "title": "If You Can Answer These 5 Questions, You’re Ready for Your Next AI/ML Interview",
-      "url": "https://medium.com/activated-thinker/if-you-can-answer-these-5-questions-youre-ready-for-your-next-ai-ml-interview-0f66b6d9a959"
-    },
-    {
-      "id": "medium-3b3d5480c127",
-      "date": "2026-10-09",
-      "title": "Gemini Notebook Can Now Turn Your Books Into an AI Learning System",
-      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-can-now-turn-your-books-into-an-ai-learning-system-3b3d5480c127"
-    },
-    {
-      "id": "medium-0b7f104f09d0",
-      "date": "2026-10-11",
-      "title": "Most People Think AI Is Overhyped. They Have No Idea What’s Coming.",
-      "url": "https://ai.plainenglish.io/most-people-think-ai-is-overhyped-they-have-no-idea-whats-coming-0b7f104f09d0"
-    },
-    {
-      "id": "medium-b7b753f52f32",
-      "date": "2026-10-03",
-      "title": "Andrej Karpathy’s New suggestion- Ask AI output in ASD-STE100 format and not in Text format",
-      "url": "https://medium.com/neuralnotions/andrej-karpathys-new-suggestion-ask-ai-output-in-asd-ste100-format-and-not-in-text-format-b7b753f52f32"
-    },
-    {
-      "id": "medium-79f2039441c6",
-      "date": "2026-10-12",
-      "title": "9 Claude Code Mods You NEED to Install Right Now",
-      "url": "https://medium.com/the-ai-studio/9-claude-code-mods-you-need-to-install-right-now-79f2039441c6"
-    },
-    {
-      "id": "medium-d86747d33840",
-      "date": "2026-10-12",
-      "title": "I Tested 100+ GitHub Repos for Claude Code. Only 6 Stayed.",
-      "url": "https://medium.com/ai-engineering-simplified/i-tested-100-github-repos-for-claude-code-only-6-stayed-d86747d33840"
-    },
-    {
-      "id": "medium-b127da54037d",
-      "date": "2026-10-12",
-      "title": "Gemini Notebook Gives You the Evidence. Claude Tries to Prove Your Conclusion Wrong",
-      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-gives-you-the-evidence-claude-tries-to-prove-your-conclusion-wrong-b127da54037d"
-    },
-    {
-      "id": "medium-6552ec3dbb81",
-      "date": "2026-10-12",
-      "title": "How to Use Slow LLMs to Play Fast Games",
-      "url": "https://aiadvances.org/a-reasoning-llm-played-donkey-kong-a-decision-llm-played-space-invaders-6552ec3dbb81"
-    },
-    {
-      "id": "medium-e8c6c2f81275",
-      "date": "2026-10-13",
-      "title": "Written Down or Worked Out? The Two Questions That Decide Your AI Architecture",
-      "url": "https://aiadvances.org/written-down-or-worked-out-the-two-questions-that-decide-your-ai-architecture-e8c6c2f81275"
-    },
-    {
-      "id": "medium-5a04846aa813",
-      "date": "2026-10-13",
-      "title": "Understanding Jev: The AI Model That Makes Decisions, Not Sentences",
-      "url": "https://aiadvances.org/understanding-jev-the-ai-model-that-makes-decisions-not-sentences-5a04846aa813"
-    },
-    {
-      "id": "medium-d7a7d9e148d1",
-      "date": "2026-10-13",
-      "title": "Terence Tao’s “Math 2.0” Controversy: When AI Passes the Test but Misses the Point",
-      "url": "https://vplevris.medium.com/terence-taos-math-2-0-controversy-when-ai-passes-the-test-but-misses-the-point-d7a7d9e148d1"
-    },
-    {
-      "id": "medium-d488308ca246",
-      "date": "2026-10-07",
-      "title": "The Most Important AI Model Released This Week Might Not Generate a Single Word",
-      "url": "https://medium.com/@Pop123/the-most-important-ai-model-released-this-week-might-not-generate-a-single-word-d488308ca246"
-    },
-    {
-      "id": "medium-47e264f00658",
-      "date": "2026-10-12",
-      "title": "Europe Has Another AI Alternative: Meet Holo4",
-      "url": "https://medium.com/the-ai-brief/europe-has-another-ai-alternative-meet-holo4-47e264f00658"
-    },
-    {
-      "id": "medium-c778df176349",
-      "date": "2026-10-06",
-      "title": "10 MCP Servers That Do Things I Didn’t Know MCP Could Do",
-      "url": "https://python.plainenglish.io/10-mcp-servers-that-do-things-i-didnt-know-mcp-could-do-c778df176349"
-    },
-    {
-      "id": "medium-1d128881df35",
-      "date": "2026-10-12",
-      "title": "These Claude Commands Helped Me Get Back on My Feet After the 2026 Tech Layoffs",
-      "url": "https://aiadvances.org/these-claude-commands-helped-me-get-back-on-my-feet-after-the-2026-tech-layoffs-1d128881df35"
-    },
-    {
-      "id": "medium-1f87281cf92e",
-      "date": "2026-09-30",
-      "title": "My 8 Claude Code Sessions Could Merge Safely. None of Them Could Share Production.",
-      "url": "https://medium.com/@rentierdigital/my-8-claude-code-sessions-could-merge-safely-none-of-them-could-share-production-1f87281cf92e"
-    },
-    {
-      "id": "medium-563e5ee17976",
+      "id": "medium-15942463d8d5",
       "date": "2026-10-14",
-      "title": "How much access should an AI agent have?",
-      "url": "https://medium.com/data-science-collective/how-much-access-should-an-ai-agent-have-563e5ee17976"
+      "title": "Qwen 4 Is Coming — and It Could Be the Biggest Leap for Local AI in 2026",
+      "url": "https://medium.com/@rosgluk/qwen-4-is-coming-and-it-could-be-the-biggest-leap-for-local-ai-in-2026-15942463d8d5"
     },
     {
-      "id": "medium-5ed595c7b373",
-      "date": "2026-10-14",
-      "title": "The AI experience doesn’t care about your org chart",
-      "url": "https://uxdesign.cc/the-ai-experience-doesnt-care-about-your-org-chart-5ed595c7b373"
+      "id": "medium-7bbee1c80f3a",
+      "date": "2026-09-14",
+      "title": "My Best Senior Engineer Refused to Use AI for One Week. By Friday, He Said Something Nobody on the Team Wanted to Hear.",
+      "url": "https://medium.com/javarevisited/my-best-senior-engineer-refused-to-use-ai-for-one-week-by-friday-he-said-something-nobody-7bbee1c80f3a"
     },
     {
-      "id": "medium-bc2c5615da0d",
+      "id": "medium-0ab49c1f7fe2",
+      "date": "2026-10-12",
+      "title": "Is Running a Local LLM Still Worth It After Haiku 5.5?",
+      "url": "https://medium.com/data-science-collective/is-running-a-local-llm-still-worth-it-after-haiku-5-5-0ab49c1f7fe2"
+    },
+    {
+      "id": "medium-7107bfe3e1d1",
       "date": "2026-10-13",
-      "title": "8 New AI Terms You Should Know to Be Ahead of 90% of People (Part 2)",
-      "url": "https://generativeai.pub/8-new-ai-terms-you-should-know-to-be-ahead-of-90-of-people-part-2-bc2c5615da0d"
+      "title": "The Only Rare Skills You Need Right Now as AI Destroys Careers",
+      "url": "https://medium.com/personal-growth/the-only-rare-skills-you-need-right-now-as-ai-destroys-careers-7107bfe3e1d1"
     },
     {
-      "id": "medium-b48a34c9887d",
-      "date": "2026-10-10",
-      "title": "The Biggest Claude Code Upgrade Is Here (Claude MODS)",
-      "url": "https://medium.com/the-ai-studio/the-biggest-claude-code-upgrade-is-here-claude-mods-b48a34c9887d"
+      "id": "medium-8a8770539190",
+      "date": "2026-10-11",
+      "title": "10 AI Tools Everyone Will Be Using in Six Months (Almost Nobody Has Found Them Yet)",
+      "url": "https://medium.com/write-your-world/10-ai-tools-everyone-will-be-using-in-six-months-almost-nobody-has-found-them-yet-8a8770539190"
     },
     {
-      "id": "medium-29ee6064200c",
-      "date": "2026-10-09",
-      "title": "The Last Moat Just Fell: AI Now Speaks Fluent Compiler",
-      "url": "https://levelup.gitconnected.com/the-last-moat-just-fell-ai-now-speaks-fluent-compiler-29ee6064200c"
+      "id": "medium-b34578c0f8f2",
+      "date": "2026-10-16",
+      "title": "Context Rot: Why Bigger Context Windows Make AI Agents Less Reliable",
+      "url": "https://pub.towardsai.net/context-rot-why-bigger-context-windows-make-ai-agents-less-reliable-b34578c0f8f2"
     },
     {
-      "id": "medium-733559d6d019",
+      "id": "medium-d31f974dcfc0",
       "date": "2026-10-14",
-      "title": "Sandboxes, Part 1; Do You Know What Your Agents Are Doing Right Now?",
-      "url": "https://aiadvances.org/sandboxes-part-1-do-you-know-what-your-agents-are-doing-right-now-733559d6d019"
+      "title": "12 API Concepts Every AI Developer Must Know Before Production",
+      "url": "https://medium.com/ai-engineering-simplified/12-api-concepts-every-ai-developer-must-know-before-production-d31f974dcfc0"
     },
     {
-      "id": "medium-9b812f49e029",
+      "id": "medium-0eee7606321b",
+      "date": "2026-10-14",
+      "title": "Gemini Notebook Just Got More Interesting. Here’s How I’d Use It to Build a Personal Research System",
+      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-just-got-more-interesting-0eee7606321b"
+    },
+    {
+      "id": "medium-2d6c43d06376",
+      "date": "2026-10-07",
+      "title": "GPU Kernels Explained: The Hidden Reason Your AI Model Runs Slowly",
+      "url": "https://medium.com/data-science-collective/gpu-kernels-explained-the-hidden-reason-your-ai-model-runs-slowly-2d6c43d06376"
+    },
+    {
+      "id": "medium-0a8babc2e29e",
+      "date": "2026-10-16",
+      "title": "Eight in Ten Students in Our Japan Survey Now Use AI. The Hard Part Comes Next.",
+      "url": "https://aiadvances.org/eight-in-ten-students-in-our-japan-survey-now-use-ai-the-hard-part-comes-next-0a8babc2e29e"
+    },
+    {
+      "id": "medium-7e9dbd4daf99",
+      "date": "2026-10-15",
+      "title": "I had a free Qwen3.8-27B agent copy 10 web pages. It spent 64% of its time measuring pixels",
+      "url": "https://aiadvances.org/i-had-a-free-qwen3-8-27b-agent-copy-10-web-pages-it-spent-64-of-its-time-measuring-pixels-7e9dbd4daf99"
+    },
+    {
+      "id": "medium-7f06837d1862",
+      "date": "2026-10-15",
+      "title": "181,711 Tests Passed. Nobody Read the Code. What Could the AI Be Hiding?",
+      "url": "https://medium.com/activated-thinker/181-711-tests-passed-nobody-read-the-code-what-could-the-ai-be-hiding-7f06837d1862"
+    },
+    {
+      "id": "medium-f1cdcc94fe40",
+      "date": "2026-10-15",
+      "title": "The Terrifying Reason the AI Bubble Cannot Stop Inflating Until It Bursts",
+      "url": "https://medium.com/predict/the-terrifying-reason-the-ai-bubble-cannot-stop-inflating-until-it-bursts-f1cdcc94fe40"
+    },
+    {
+      "id": "medium-a383dc4aff05",
+      "date": "2026-10-16",
+      "title": "AI is Getting Ugly(er)",
+      "url": "https://medium.com/@ignacio.de.gregorio.noblejas/ai-is-getting-ugly-er-a383dc4aff05"
+    },
+    {
+      "id": "medium-a46ec78fd1c2",
+      "date": "2026-10-17",
+      "title": "You Have No Idea How Close the AI Bubble Is to Popping",
+      "url": "https://medium.com/@albertoromgar/you-have-no-idea-how-close-the-ai-bubble-is-to-popping-a46ec78fd1c2"
+    },
+    {
+      "id": "medium-ddc840ae0a50",
+      "date": "2026-10-16",
+      "title": "What Software Engineers Do When AI Build Softwares",
+      "url": "https://xhinker.medium.com/i-stopped-buying-software-my-ai-agent-builds-it-for-me-now-ddc840ae0a50"
+    },
+    {
+      "id": "medium-190b82f3dad7",
+      "date": "2026-10-14",
+      "title": "[2026] Caught in the AI trap: is our privacy yet another price of ‘progress’?",
+      "url": "https://medium.com/babel/2026-digital-cage-peering-down-the-rabbit-hole-of-ai-and-data-centers-190b82f3dad7"
+    },
+    {
+      "id": "medium-36e0eeee9013",
+      "date": "2026-10-15",
+      "title": "Employees all over the world find themselves monitored by AI at work",
+      "url": "https://medium.com/the-guardian/employees-all-over-the-world-find-themselves-monitored-by-ai-at-work-36e0eeee9013"
+    },
+    {
+      "id": "medium-d20f743b77b7",
+      "date": "2026-10-17",
+      "title": "AI Gets 9x Better per Dollar Every Year. It Just Doesn’t Look Like It.",
+      "url": "https://drpicox.medium.com/ai-gets-9x-better-per-dollar-every-year-it-just-doesnt-look-like-it-d20f743b77b7"
+    },
+    {
+      "id": "medium-8cae1a28f2ff",
+      "date": "2026-10-16",
+      "title": "Qwen4-27B: The Local AI Upgrade We’ve Been Waiting For Is Coming",
+      "url": "https://medium.com/the-ai-brief/qwen4-27b-the-local-ai-upgrade-weve-been-waiting-for-is-coming-8cae1a28f2ff"
+    },
+    {
+      "id": "medium-01a9ac80cf88",
+      "date": "2026-10-18",
+      "title": "Why Google’s New Harness² Open Source Release Changes How I Think About AI Agents",
+      "url": "https://medium.com/neuralnotions/why-googles-new-harness%C2%B2-open-source-release-changes-how-i-think-about-ai-agents-01a9ac80cf88"
+    },
+    {
+      "id": "medium-2ed72cfa64e3",
+      "date": "2026-10-14",
+      "title": "10 Paid AI Subscriptions You Can Replace with Free, Open-Source Software Today",
+      "url": "https://nitingavhane.medium.com/10-paid-ai-subscriptions-you-can-replace-with-free-open-source-software-today-2ed72cfa64e3"
+    },
+    {
+      "id": "medium-bbebee6c1353",
+      "date": "2026-10-18",
+      "title": "LLMs Explained: 7 Ideas That Make AI Finally Click",
+      "url": "https://medium.com/ai-engineering-simplified/llms-explained-7-ideas-that-make-ai-finally-click-bbebee6c1353"
+    },
+    {
+      "id": "medium-5fa832cbb23b",
+      "date": "2026-10-17",
+      "title": "Gemini Notebook + GitHub: Can You Build a Research Assistant That Works With Your Existing Knowledge?",
+      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-github-can-you-build-a-research-assistant-that-works-with-your-existing-5fa832cbb23b"
+    },
+    {
+      "id": "medium-3d747c235188",
       "date": "2026-10-13",
-      "title": "AI is hindering education",
-      "url": "https://aiadvances.org/ai-is-hindering-education-9b812f49e029"
+      "title": "Claude Code + Anatomy: Turn Any Technical Idea Into an Interactive Machine You Can Poke",
+      "url": "https://medium.com/@vinayanand2/claude-code-anatomy-turn-any-technical-idea-into-an-interactive-machine-you-can-poke-3d747c235188"
+    },
+    {
+      "id": "medium-01b906b2b964",
+      "date": "2026-10-15",
+      "title": "Anthropic Just Entered the World of Animation with Claude Motion",
+      "url": "https://medium.com/the-ai-studio/anthropic-just-entered-the-world-of-animation-with-claude-motion-01b906b2b964"
+    },
+    {
+      "id": "medium-02344f01ed0d",
+      "date": "2026-10-12",
+      "title": "I Use Claude Code For (Almost) Everything Now — and I’m Not Alone",
+      "url": "https://medium.com/@jproco/i-use-claude-code-for-almost-everything-now-and-im-not-alone-02344f01ed0d"
+    },
+    {
+      "id": "medium-de106e6a33ac",
+      "date": "2026-10-18",
+      "title": "AI Safety Is All Hands on Deck",
+      "url": "https://medium.com/@norabble/ai-safety-is-all-hands-on-deck-de106e6a33ac"
+    },
+    {
+      "id": "medium-5c9c7123817e",
+      "date": "2026-10-18",
+      "title": "Would You Trust ChatGPT’s Advice More Than Your Own Judgment?",
+      "url": "https://aiadvances.org/would-you-trust-chatgpts-advice-more-than-your-own-judgment-5c9c7123817e"
+    },
+    {
+      "id": "medium-ddd58bada9bf",
+      "date": "2026-10-17",
+      "title": "Build a Second Brain in 15 Minutes: Just Markdown, Git, and an AI Agent",
+      "url": "https://ai.plainenglish.io/build-a-second-brain-in-15-minutes-just-markdown-git-and-an-ai-agent-ddd58bada9bf"
+    },
+    {
+      "id": "medium-4828d549d3f7",
+      "date": "2026-10-17",
+      "title": "The Reason Why Meta “Got Back” in the AI Race Changes Everything",
+      "url": "https://medium.com/@albertoromgar/the-reason-why-meta-got-back-in-the-ai-race-changes-everything-4828d549d3f7"
+    },
+    {
+      "id": "medium-6cdbe568a08b",
+      "date": "2026-10-14",
+      "title": "AI Made Writing Code Cheap. Why Is Shipping Software Still So Slow?",
+      "url": "https://medium.com/@yashbatra11111/ai-made-writing-code-cheap-why-is-shipping-software-still-so-slow-6cdbe568a08b"
+    },
+    {
+      "id": "medium-dcea2a22b0a8",
+      "date": "2026-10-15",
+      "title": "A Strong Opinion on OpenAI’s Mathematical Breakthroughs",
+      "url": "https://medium.com/@fairbaib/a-strong-opinion-on-openais-mathematical-breakthroughs-dcea2a22b0a8"
+    },
+    {
+      "id": "medium-0d5a862456f7",
+      "date": "2026-10-17",
+      "title": "AI of the Week: October 10–16, 2026",
+      "url": "https://pub.towardsai.net/ai-of-the-week-october-10-16-2026-0d5a862456f7"
+    },
+    {
+      "id": "medium-56ac5a5e1a51",
+      "date": "2026-10-17",
+      "title": "The Best Way to Prompt Claude in 2026",
+      "url": "https://medium.com/artificial-corner/the-best-way-to-prompt-claude-in-2026-56ac5a5e1a51"
+    },
+    {
+      "id": "medium-f96ffd33ce94",
+      "date": "2026-10-16",
+      "title": "Human Oversight of AI Has a 1.2 Second Problem",
+      "url": "https://medium.com/@inprogrammer651/human-oversight-of-ai-has-a-1-2-second-problem-f96ffd33ce94"
+    },
+    {
+      "id": "medium-8da1b1b7a5e9",
+      "date": "2026-10-19",
+      "title": "AI Decompilation Has the Software Industry Spooked. But What Comes Next Is Far Worse",
+      "url": "https://aiadvances.org/the-real-killer-of-software-isnt-ai-it-s-the-xs-decompiler-8da1b1b7a5e9"
+    },
+    {
+      "id": "medium-49433906e72c",
+      "date": "2026-10-02",
+      "title": "I Set Up My First ChatGPT Ad Campaign. Here’s What Actually Happened",
+      "url": "https://medium.com/@lenamintz/i-set-up-my-first-chatgpt-ad-campaign-heres-what-actually-happened-49433906e72c"
+    },
+    {
+      "id": "medium-3b8acd10208e",
+      "date": "2026-10-14",
+      "title": "Something Has Gone Terribly Wrong with LLMs",
+      "url": "https://medium.com/@mujtabaraza09321/something-has-gone-terribly-wrong-with-llms-3b8acd10208e"
+    },
+    {
+      "id": "medium-ab5a04e6006a",
+      "date": "2026-10-18",
+      "title": "Are You Sure You Know What Deep Learning Is?",
+      "url": "https://medium.com/technology-hits/are-you-sure-you-know-what-deep-learning-is-ab5a04e6006a"
+    },
+    {
+      "id": "medium-d0ca8e4573af",
+      "date": "2026-10-14",
+      "title": "I Barely Read My AI’s Code Anymore. Here’s What I Check Instead 🦕",
+      "url": "https://levelup.gitconnected.com/i-barely-read-my-ais-code-anymore-here-s-what-i-check-instead-d0ca8e4573af"
+    },
+    {
+      "id": "medium-d0fa07797ad1",
+      "date": "2026-10-19",
+      "title": "On the Mythos of LLM “Thinking Traces”",
+      "url": "https://medium.com/aiguys/on-the-mythos-of-llm-thinking-traces-d0fa07797ad1"
+    },
+    {
+      "id": "medium-00a564ca4adc",
+      "date": "2026-10-20",
+      "title": "Sam Altman’s Roadmap: OpenAI DevDay 2026 Wasn’t About Chatbots",
+      "url": "https://medium.com/@mujtabaraza09321/sam-altmans-roadmap-openai-devday-2026-wasn-t-about-chatbots-00a564ca4adc"
+    },
+    {
+      "id": "medium-454816d5143b",
+      "date": "2026-10-20",
+      "title": "Gemini Notebook Can Turn Books Into an AI Tutor. Here’s How I’d Use It",
+      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-can-turn-books-into-an-ai-tutor-heres-how-i-d-use-it-454816d5143b"
+    },
+    {
+      "id": "medium-f5df5660b670",
+      "date": "2026-10-20",
+      "title": "7 Prompting Techniques That Put You Ahead of 90% of AI Users (Most People Still Prompt the Old Way)",
+      "url": "https://medium.com/ai-engineering-simplified/7-prompting-techniques-that-put-you-ahead-of-90-of-ai-users-most-people-still-prompt-the-old-way-f5df5660b670"
+    },
+    {
+      "id": "medium-c28428398689",
+      "date": "2026-10-20",
+      "title": "AI Ends 25-Year Mystery in 30 Minutes",
+      "url": "https://medium.com/@ignacio.de.gregorio.noblejas/ai-ends-25-year-mystery-in-30-minutes-c28428398689"
+    },
+    {
+      "id": "medium-4ddf3d8046a9",
+      "date": "2026-10-20",
+      "title": "Can AI Keep Learning Without Us? — Autonomous Discovery, Direct Observation and Copyright",
+      "url": "https://thequantasticjournal.com/can-ai-keep-learning-without-us-autonomous-discovery-direct-observation-and-copyright-4ddf3d8046a9"
+    },
+    {
+      "id": "medium-1e140dd38e4f",
+      "date": "2026-10-21",
+      "title": "Stop Asking Where to Put AI Agents. Map the Real Process First",
+      "url": "https://medium.com/@jekaterina.jegoscenko/stop-asking-where-to-put-ai-agents-map-the-real-process-first-1e140dd38e4f"
+    },
+    {
+      "id": "medium-ffd4c6ecdbc2",
+      "date": "2026-10-19",
+      "title": "How Google Gemini 4 Argon Replaces the Monotonous Part of Engineering",
+      "url": "https://ai.plainenglish.io/how-google-gemini-4-argon-replaces-the-monotonous-part-of-engineering-ffd4c6ecdbc2"
+    },
+    {
+      "id": "medium-647d4736d47f",
+      "date": "2026-10-19",
+      "title": "Gemini Notebook Just Changed How I’d Build a Personal Research System",
+      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-just-changed-how-id-build-a-personal-research-system-647d4736d47f"
+    },
+    {
+      "id": "medium-60d3d51cc21e",
+      "date": "2026-10-21",
+      "title": "Layout-Aware Document Parsing for Reliable Structured Extraction with AI",
+      "url": "https://aiadvances.org/layout-aware-document-parsing-for-reliable-structured-extraction-with-ai-60d3d51cc21e"
+    },
+    {
+      "id": "medium-0a3f1a4c8718",
+      "date": "2026-10-20",
+      "title": "I Built a Claude Skill for Accurate Knowledge Extraction & Report Writing",
+      "url": "https://aiadvances.org/a-claude-skill-that-curates-knowledge-from-scattered-sources-and-writes-structured-reports-0a3f1a4c8718"
+    },
+    {
+      "id": "medium-96bb2dedc04f",
+      "date": "2026-10-20",
+      "title": "AI Threatens to Destroy Adobe. But Don’t Be Too Quick to Gloat: It’s Destroying Software Itself",
+      "url": "https://medium.com/predict/ai-threatens-to-destroy-adobe-but-dont-be-too-quick-to-gloat-it-s-destroying-software-itself-96bb2dedc04f"
+    },
+    {
+      "id": "medium-5e158f417038",
+      "date": "2026-10-21",
+      "title": "China Just Responded to America’s Beam AI With 2 Powerful Open-Source Models",
+      "url": "https://medium.com/the-ai-studio/china-just-responded-to-americas-beam-ai-with-2-powerful-open-source-models-5e158f417038"
+    },
+    {
+      "id": "medium-0131a3a9156e",
+      "date": "2026-09-22",
+      "title": "After waterfall, agile, and DevOps — Anthropic’s AI-Native SDLC playbook",
+      "url": "https://vateo.medium.com/after-waterfall-agile-and-devops-anthropics-ai-native-sdlc-playbook-0131a3a9156e"
+    },
+    {
+      "id": "medium-4224d3bc87ec",
+      "date": "2026-10-20",
+      "title": "336K GitHub Stars. An AI Tool That Reverse Engineers Apps Without Source Code.",
+      "url": "https://aiadvances.org/336k-github-stars-an-ai-tool-that-reverse-engineers-apps-without-source-code-4224d3bc87ec"
     }
   ]
 }
