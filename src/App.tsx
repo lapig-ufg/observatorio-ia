@@ -24,6 +24,7 @@ import { AboutPage } from "./AboutPage";
 import { useNewsSummary } from "./PressSummary";
 import { defaultCatalogView } from "./discoverySelection";
 import { catalogDate, newestFirst } from "./catalogOrdering";
+import { catalogSearchMatcher } from "./catalogSearch";
 import { useKeywordSelection } from "./useKeywordSelection";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas } from "./paperResearch";
 import { ArticleDetail, CatalogCard, useCatalogExperience } from "./CatalogExperience";
@@ -237,9 +238,6 @@ const featuredHistory = [
 ];
 
 
-function normalize(value: string) {
-  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-}
 
 export function App() {
   const [catalog, setCatalog] = useState<CatalogLoadResult | null>(null);
@@ -328,21 +326,12 @@ export function App() {
     (sort === "published" ? catalogDate(right.publishedAt) - catalogDate(left.publishedAt) : catalogDate(right.includedAt) - catalogDate(left.includedAt)) || newestFirst(left, right), [sort]);
 
   const filtered = useMemo(() => {
-    const needle = normalize(query.trim());
+    const matchesSearch = catalogSearchMatcher(query);
     return articles.filter((article) => {
       const matchesType = type === "todos" || article.type === type;
       const matchesTheme = theme === "todos" || readingTopic(article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme).id === readingTopic(theme).id;
       const matchesKeyword = !selectedKeyword || keywordSelection.ids.has(article.id);
-      const haystack = normalize([
-        article.title,
-        article.author,
-        article.source,
-        article.theme,
-        article.subtheme,
-        article.summary,
-        ...article.tags,
-      ].join(" "));
-      return (!added || addedInWindow(article, radarWindow)) && matchesType && matchesTheme && matchesKeyword && (!needle || haystack.includes(needle));
+      return (!added || addedInWindow(article, radarWindow)) && matchesType && matchesTheme && matchesKeyword && matchesSearch(article);
     }).sort(orderArticles);
   }, [articles, query, selectedKeyword, keywordSelection.ids, theme, type, orderArticles, added, radarWindow.start, radarWindow.end]);
 

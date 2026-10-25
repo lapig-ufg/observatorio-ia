@@ -27,6 +27,7 @@ import { TopicRadar } from "./TopicRadar";
 import { addedInWindow, radarDateWindow } from "./radarPeriod";
 import { defaultCatalogView } from "./discoverySelection";
 import { catalogDate, newestFirst } from "./catalogOrdering";
+import { catalogSearchMatcher } from "./catalogSearch";
 import { useKeywordSelection } from "./useKeywordSelection";
 import { isPublicResearchPaper, paperResearchArea, paperResearchAreas, type PaperResearchArea } from "./paperResearch";
 import { ArticleDetail, CatalogCard, useCatalogExperience } from "./CatalogExperience";
@@ -291,9 +292,6 @@ const featuredHistoryEnglish = [
   },
 ];
 
-function normalize(value: string) {
-  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-}
 
 function translatedInitiatives(initiatives: Initiative[]) {
   return combineInitiatives(initiatives.map(initiative => ({ ...initiative, ...ecosystemInitiativeTranslationsEnglish[initiative.id], actionLabel: "Explore initiative (in Portuguese)" })), ecosystemFeaturedInitiativesEnglish);
@@ -361,13 +359,12 @@ export function AppEnglish() {
     (sort === "published" ? catalogDate(right.publishedAt) - catalogDate(left.publishedAt) : catalogDate(right.includedAt) - catalogDate(left.includedAt)) || newestFirst(left, right), [sort]);
 
   const filtered = useMemo(() => {
-    const needle = normalize(query.trim());
+    const matchesSearch = catalogSearchMatcher(query);
     return articles.filter((article) => {
       const matchesType = type === "all" || article.type === type;
       const matchesTheme = theme === "all" || (article.type === "paper" ? readingTopic(paperResearchArea(article) || article.theme).id === readingTopic(theme).id : readingTopic(article.theme).id === readingTopic(theme).id);
       const matchesKeyword = !selectedKeyword || keywordSelection.ids.has(article.id);
-      const haystack = normalize([article.title, article.author, article.source, article.theme, article.subtheme, article.summary, ...article.tags].join(" "));
-      return (!added || addedInWindow(article, radarWindow)) && matchesType && matchesTheme && matchesKeyword && (!needle || haystack.includes(needle));
+      return (!added || addedInWindow(article, radarWindow)) && matchesType && matchesTheme && matchesKeyword && matchesSearch(article);
     }).sort(orderArticles);
   }, [articles, query, selectedKeyword, keywordSelection.ids, theme, type, orderArticles, added, radarWindow.start, radarWindow.end]);
 

@@ -80,7 +80,7 @@ test("todas as inclusões têm data reconhecida e cada coleção pode ser ordena
 
 test("busca permite ordenar e a seleção inicial prioriza inclusões recentes", () => {
   const app = fs.readFileSync("src/App.tsx", "utf8");
-  assert.match(app, /matchesType && matchesTheme && matchesKeyword && \(!needle \|\| haystack\.includes\(needle\)\);\s*}\)\.sort\(orderArticles\);/);
+  assert.match(app, /matchesType && matchesTheme && matchesKeyword && matchesSearch\(article\);\s*}\)\.sort\(orderArticles\);/);
   assert.match(fs.readFileSync("src/discoverySelection.ts", "utf8"), /sort\([\s\S]*catalogDate\(right.includedAt\)/);
   assert.match(app, /sort === "published" \? catalogDate\(right.publishedAt\) - catalogDate\(left.publishedAt\) : catalogDate\(right.includedAt\) - catalogDate\(left.includedAt\)/);
 });
