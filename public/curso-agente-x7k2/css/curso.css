@@ -503,6 +503,61 @@ body.aula .portal h2 { font-size: calc(var(--u) * 4); }
   body:not(.aula) .folha { padding-right: calc(var(--u) * 3.4); }
   body:not(.aula) .notas { position: static; width: auto; margin-top: 12px; }}
 
+/* ---------- Dois caminhos (chat × agente) ---------- */
+
+/* Lado a lado: o chat à esquerda, o agente à direita. Em cada lado, rótulo e contador no topo. */
+.caminhos { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: calc(var(--u) * 4); flex: 1; min-height: 0; }
+.caminho {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto minmax(0, 1fr);
+  column-gap: calc(var(--u) * 2); row-gap: calc(var(--u) * 1.6);
+  padding-top: calc(var(--u) * 1.4); border-top: 2px solid var(--verde);
+  min-height: 0;
+}
+.chat-lado { border-top-color: var(--terracota); }
+.caminho > .acoes, .caminho > .agente-corpo { grid-column: 1 / -1; grid-row: 2; }
+.caminho > .contador-acoes { grid-column: 2; grid-row: 1; }
+.caminho-rotulo { display: grid; gap: 4px; font-size: max(15px, calc(var(--u) * 1.5)); }
+.caminho-rotulo b { font-family: var(--serifa); color: var(--verde); font-size: 1.15em; line-height: 1.2; }
+.caminho-rotulo span { color: var(--tinta-2); font-size: .82em; }
+.contador-acoes { display: grid; justify-items: end; align-content: start; gap: 2px; text-align: right; font-size: max(13px, calc(var(--u) * 1.25)); color: var(--tinta-2); }
+.contador-acoes strong { font: 700 max(36px, calc(var(--u) * 5))/1 var(--serifa); color: var(--terracota); font-variant-numeric: tabular-nums; }
+.agente-lado .contador-acoes strong { color: var(--verde); }
+.relogio { margin-top: 6px; font: 600 max(15px, calc(var(--u) * 1.6))/1 var(--mono); color: var(--verde); font-style: normal; }
+.relogio::before { content: "tempo do agente "; font: 400 .7em var(--sans); color: var(--tinta-2); }
+
+/* As ações da pessoa no chat: cada uma é um passo feito à mão. */
+.acoes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.acoes li {
+  display: inline-flex; align-items: center; gap: .45em;
+  padding: .35em .75em; border-radius: 6px;
+  background: var(--papel); border: 1px solid #e7b9a1;
+  font-size: max(13px, calc(var(--u) * 1.28)); color: var(--tinta);
+  animation: chega .35s var(--curva) both;
+}
+.acoes li b { font: 700 .82em/1 var(--sans); color: var(--terracota); }
+
+.agente-corpo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: calc(var(--u) * 2.4); min-height: 0; }
+body.aula .agente-lado { height: 100%; }
+body.aula .agente-corpo, body.aula .agente-log { height: 100%; min-height: 0; }
+.agente-log { display: flex; flex-direction: column; min-height: 0; }
+.pedido-mini { font-size: max(14px, calc(var(--u) * 1.35)); margin-bottom: calc(var(--u) * 1); flex: none; }
+/* No projetor, o registro ocupa o que sobra; as linhas antigas saem por cima. */
+body.aula .registro-vivo { flex: 1; min-height: 0; overflow: hidden; }
+body.aula .agente-resultado img { max-height: calc(100% - 3.2em); width: auto; max-width: 100%; }
+body.aula .agente-resultado { min-height: 0; height: 100%; grid-template-rows: minmax(0, 1fr) auto; }
+.registro-vivo li { animation: chega .3s var(--curva) both; }
+.registro-vivo li .t { color: var(--tinta-2); margin-right: .6em; }
+.registro-vivo li.fala { color: var(--tinta); font-family: var(--sans); }
+.agente-resultado { margin: 0; display: grid; gap: 8px; align-content: start; transition: opacity .5s var(--curva); }
+.agente-resultado img { width: 100%; border: 1px solid var(--linha); border-radius: 6px; background: #fff; }
+.agente-resultado figcaption { font-size: max(14px, calc(var(--u) * 1.35)); color: var(--tinta-2); }
+.agente-resultado figcaption b { color: var(--verde); }
+.agente-resultado.esperando { opacity: 0; }
+
+@media (max-width: 760px) {
+  body:not(.aula) .caminhos, body:not(.aula) .agente-corpo { grid-template-columns: 1fr; }
+}
+
 /* ---------- Mau-Mau ---------- */
 
 .mm { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: calc(var(--u) * 2.4); flex: 1; min-height: 0; }

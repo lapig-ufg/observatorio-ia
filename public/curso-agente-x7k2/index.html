@@ -288,6 +288,36 @@
     </div>
   </section>
 
+  <!-- 10 · Chat × agente -->
+  <section class="tela" id="dois-caminhos" data-bloco="Do chat ao agente" data-min="10" data-titulo="A mesma tarefa, dois caminhos">
+    <div class="cabeca">
+      <h2>A mesma tarefa, dois caminhos</h2>
+      <p class="lead">Juntar 12 planilhas mensais de despesas, somar cada mês e fazer um gráfico.</p>
+    </div>
+    <i data-passo="1" hidden></i><i data-passo="2" hidden></i><i data-passo="3" hidden></i>
+    <div class="caminhos">
+      <div class="caminho chat-lado">
+        <div class="caminho-rotulo"><b>No chat do navegador</b><span>passos típicos</span></div>
+        <ol class="acoes"></ol>
+        <div class="contador-acoes"><strong>0</strong><span>ações suas</span></div>
+      </div>
+      <div class="caminho agente-lado">
+        <div class="caminho-rotulo"><b>Com o agente no computador</b><span>gravação real, 28/10/2026</span></div>
+        <div class="agente-corpo">
+          <div class="agente-log">
+            <p class="pedido pedido-mini">Junte as 12 planilhas numa só, some cada mês e faça um gráfico. Não altere os originais.</p>
+            <ul class="registro registro-vivo" aria-live="off"></ul>
+          </div>
+          <figure class="agente-resultado">
+            <img src="assets/img/agente-grafico-totais.png" alt="Gráfico de barras das despesas por mês feito pelo agente; total do ano R$ 79.466,18" loading="lazy">
+            <figcaption>Total do ano: <b>R$ 79.466,18</b>. Igual ao gabarito, centavo por centavo.</figcaption>
+          </figure>
+        </div>
+        <div class="contador-acoes"><strong>1</strong><span>ação sua</span><em class="relogio">0:00</em></div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="rodape-leitura">
@@ -303,5 +333,6 @@
 <script src="js/maumau.js"></script>
 <script src="js/telas-abertura.js"></script>
 <script src="js/telas-exemplos.js"></script>
+<script src="js/dois-caminhos.js"></script>
 </body>
 </html>
