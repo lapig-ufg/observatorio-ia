@@ -80,6 +80,13 @@
     }
   });
 
+  // ----- Mau-Mau: só roda enquanto a tela está à vista -----
+  const telaMM = document.getElementById("maumau");
+  const mesa = window.criarMesaMauMau(telaMM.querySelector(".mm"));
+  telaMM.addEventListener("entrou", mesa.ligar);
+  telaMM.addEventListener("saiu", mesa.desligar);
+  telaMM.addEventListener("tecla", (e) => { if (mesa.tecla(e.detail.key)) e.preventDefault(); });
+
   // ----- Ensaio (só no modo de demonstração): S simula 5 respostas, 0 apaga -----
   if (Q.demo()) {
     [telaLev, telaSala].forEach((t) => {

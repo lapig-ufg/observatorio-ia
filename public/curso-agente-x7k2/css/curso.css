@@ -354,6 +354,133 @@ body.aula .aviso-demo {
   border: 0; padding: 0; opacity: .6; font-size: calc(var(--u) * 1);
 }
 
+/* ---------- Mau-Mau ---------- */
+
+.mm { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: calc(var(--u) * 2.4); flex: 1; min-height: 0; }
+.mm-cabeca { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 14px 32px; }
+.mm-cabeca h2 { font-size: max(28px, calc(var(--u) * 3.6)); max-width: 22ch; }
+body.aula .mm-cabeca h2 { font-size: calc(var(--u) * 3.6); }
+.mm-cabeca .lead { font-size: max(16px, calc(var(--u) * 1.6)); max-width: 60ch; margin-top: calc(var(--u) * 1); }
+body.aula .mm-cabeca .lead { font-size: calc(var(--u) * 1.6); }
+.mm-controles { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.mm-controles .botao { font-size: max(14px, calc(var(--u) * 1.35)); padding: .45em 1em; }
+
+.mm-corpo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, calc(var(--u) * 30)); gap: calc(var(--u) * 3); min-height: 0; }
+/* A mesa em linhas: uma por jogador, na ordem da vez; o descarte fica à esquerda. */
+.mm-mesa {
+  --carta: max(26px, calc(var(--u) * 3));
+  position: relative; min-height: 400px;
+  display: grid;
+  grid-template-columns: calc(var(--u) * 13) minmax(0, 1fr);
+  grid-auto-rows: minmax(0, 1fr);
+  column-gap: calc(var(--u) * 2.4);
+  padding: calc(var(--u) * 1.2) calc(var(--u) * 2);
+  border: 1px solid var(--verde); border-radius: 14px;
+  background: var(--papel);
+}
+body.aula .mm-mesa { min-height: 0; }
+.mm-lugar {
+  grid-column: 2;
+  display: grid; grid-template-columns: calc(var(--u) * 11) minmax(0, 1fr); align-items: center; gap: calc(var(--u) * 1.2);
+  min-width: 0; padding: calc(var(--u) * .5) calc(var(--u) * 1);
+  border-bottom: 1px solid var(--linha); border-radius: 8px;
+}
+.mm-lugar:last-of-type { border-bottom: 0; }
+.mm-lugar.mm-vez { background: var(--menta-2); }
+.mm-id { display: flex; flex-direction: column; gap: .1em; font-size: max(13px, calc(var(--u) * 1.35)); }
+.mm-nome { font-weight: 700; color: var(--verde); }
+.mm-qtd { color: var(--tinta-2); font-variant-numeric: tabular-nums; }
+.mm-vez .mm-nome { color: var(--terracota); }
+.mm-vez .mm-nome::before { content: "●"; margin-right: .35em; font-size: .7em; vertical-align: .15em; }
+/* Mão em leque: uma linha só, as cartas se sobrepõem quando são muitas. */
+.mm-mao { display: flex; flex-wrap: nowrap; max-width: 100%; min-width: 0; }
+.mm-mao > * + * { margin-left: calc(var(--carta) * -.18); }
+.mm-mao > .mm-carta, .mm-mao > .mm-btn { flex: none; box-shadow: -2px 0 0 var(--papel); border-radius: calc(var(--carta) * .14); }
+
+.mm-carta {
+  --c: var(--tinta);
+  display: inline-grid; place-items: center;
+  width: var(--carta); height: calc(var(--carta) * 1.42);
+  border-radius: calc(var(--carta) * .14);
+  background: var(--c); color: #fff;
+  font: 700 calc(var(--carta) * .42)/1 var(--sans);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .22);
+}
+.mm-carta b { font-weight: 700; }
+.mm-vermelho { --c: #c4502a; }
+.mm-azul { --c: #1d3f5f; }
+.mm-verde { --c: #2b7055; }
+.mm-amarelo { --c: #c9971a; }
+.mm-coringa { --c: conic-gradient(#c4502a 0 25%, #1d3f5f 0 50%, #2b7055 0 75%, #c9971a 0); background: var(--c); }
+.mm-coringa b { background: var(--tinta); border-radius: 50%; width: 1.7em; height: 1.7em; display: grid; place-items: center; font-size: .8em; }
+.mm-grande { --carta: max(52px, calc(var(--u) * 6.4)); }
+.mm-nao { opacity: .5; }
+.mm-btn { padding: 0; border: 0; background: none; cursor: pointer; border-radius: 6px; transition: transform .15s; }
+.mm-btn:hover .mm-carta, .mm-btn:focus-visible .mm-carta { transform: translateY(-6px); }
+.mm-pode { transform: translateY(-3px); }
+.mm-verso {
+  display: grid; place-items: center;
+  width: var(--carta); height: calc(var(--carta) * 1.42); border-radius: calc(var(--carta) * .14);
+  background: repeating-linear-gradient(45deg, var(--verde) 0 4px, var(--verde-fundo) 4px 8px);
+  color: #fff; font: 700 calc(var(--carta) * .4)/1 var(--sans);
+}
+
+.mm-centro {
+  grid-column: 1; grid-row: 1 / span 4;
+  display: grid; justify-items: center; align-content: center; gap: 8px;
+  border-right: 1px solid var(--linha); padding-right: calc(var(--u) * 2);
+}
+.mm-sentido { font-size: max(12px, calc(var(--u) * 1.2)); color: var(--tinta-2); line-height: 1; }
+.mm-cabeca > div:first-child { flex: 1 1 520px; }
+body.sem-transicao .tela { transition: none !important; }
+.mm-cor { font-size: max(12px, calc(var(--u) * 1.2)); font-weight: 600; padding: .2em .7em; border-radius: 999px; color: #fff; background: var(--tinta); }
+.mm-cor[data-cor="vermelho"] { background: #c4502a; } .mm-cor[data-cor="azul"] { background: #1d3f5f; }
+.mm-cor[data-cor="verde"] { background: #2b7055; } .mm-cor[data-cor="amarelo"] { background: #c9971a; }
+.mm-acum { min-height: 1.2em; font-weight: 700; color: var(--terracota); font-size: max(13px, calc(var(--u) * 1.3)); }
+
+.mm-l0 { grid-template-areas: "id mao" "id acoes"; row-gap: 6px; }
+.mm-l0 .mm-id { grid-area: id; } .mm-l0 .mm-mao { grid-area: mao; }
+.mm-acoes { grid-area: acoes; display: flex; gap: 6px; }
+.mm-acoes[hidden] { display: none; }
+.mm-placar { text-align: center; max-width: 16ch; }
+.mm-acoes .botao { font-size: max(13px, calc(var(--u) * 1.25)); padding: .4em .9em; }
+.mm-acoes .botao:disabled { opacity: .35; cursor: default; }
+.mm-gritou { outline: 2px solid var(--verde); }
+.mm-placar { font-size: max(12px, calc(var(--u) * 1.15)); color: var(--tinta-2); }
+.mm-escolha {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: color-mix(in srgb, var(--papel) 88%, transparent); border-radius: 14px;
+  font-weight: 600; color: var(--verde);
+}
+.mm-escolha[hidden] { display: none; }
+.mm-escolha .mm-carta { --carta: max(44px, calc(var(--u) * 5)); border: 0; cursor: pointer; }
+
+/* O registro: mesma linguagem visual do registro de um agente. */
+.mm-registro { display: flex; flex-direction: column; min-height: 0; border-left: 1px solid var(--verde); padding-left: calc(var(--u) * 2); }
+.mm-registro h3 { font: 600 max(13px, calc(var(--u) * 1.3))/1.2 var(--sans); color: var(--tinta-2); margin-bottom: 10px; }
+.mm-registro ol { list-style: none; margin: 0; padding: 0; overflow: hidden; flex: 1; min-height: 240px;
+  -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+body.aula .mm-registro ol { min-height: 0; }
+.mm-registro li { padding: .55em 0; border-bottom: 1px solid var(--linha); font: 400 max(12.5px, calc(var(--u) * 1.22))/1.4 var(--mono); }
+.mm-registro li strong { color: var(--verde); font-weight: 600; }
+.mm-registro li em { font-style: normal; color: var(--terracota); font-weight: 600; margin-left: .3em; }
+.mm-registro li span { display: block; color: var(--tinta); font-family: var(--sans); }
+.mm-registro li:first-child { animation: chega .4s var(--curva); }
+.mm-registro li.mm-grito span { color: var(--terracota); font-weight: 600; }
+.mm-registro li.mm-multa span { color: #9b2c1b; }
+@keyframes chega { from { opacity: 0; transform: translateY(-6px); } }
+
+@media (max-width: 760px) {
+  .mm-corpo { grid-template-columns: 1fr; }
+  .mm-registro { border-left: 0; border-top: 1px solid var(--verde); padding: 12px 0 0; }
+  .mm-registro ol { max-height: 260px; }
+  .mm-mesa { --carta: 22px; padding: 10px; grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .mm-centro { grid-column: 1; grid-row: auto; border-right: 0; padding: 0 0 8px; grid-template-columns: repeat(4, auto); align-items: center; justify-content: start; }
+  .mm-lugar { grid-column: 1; grid-template-columns: 1fr; }
+  .mm-id { flex-direction: row; gap: .6em; }
+  .mm-acoes { position: static; width: auto; flex-direction: row; flex-wrap: wrap; padding-top: 8px; }
+}
+
 /* ---------- Rodapé do modo leitura ---------- */
 
 .rodape-leitura {

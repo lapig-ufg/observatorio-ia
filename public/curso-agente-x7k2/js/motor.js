@@ -94,7 +94,9 @@
   };
 
   const entrarAula = () => {
-    document.body.classList.add("aula");
+    // Sem transição na troca de modo: as telas não devem aparecer sobrepostas.
+    document.body.classList.add("sem-transicao", "aula");
+    requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.remove("sem-transicao")));
     const { i, p } = location.hash ? lerHash() : { i: telaVisivel(), p: 0 };
     telas.forEach((t) => t.classList.remove("atual"));
     ir(i, p, "entrada");

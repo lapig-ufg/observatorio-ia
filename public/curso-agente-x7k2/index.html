@@ -88,8 +88,57 @@
   <section class="tela rascunho" id="sob-medida" data-bloco="Abertura" data-titulo="Um programa feito para uma pessoa só">
     <div class="cabeca"><h2>Um programa feito para uma pessoa só</h2><p class="lead">Em construção.</p></div>
   </section>
-  <section class="tela rascunho" id="maumau" data-bloco="Abertura" data-titulo="Uma IA que não gera texto, escrita por uma que gera">
-    <div class="cabeca"><h2>Uma IA que não gera texto, escrita por uma que gera</h2><p class="lead">Em construção: Mau-Mau com quatro bots.</p></div>
+  <section class="tela" id="maumau" data-bloco="Abertura" data-titulo="Uma IA que não gera texto, escrita por uma que gera">
+    <div class="mm" data-modo="assistir">
+      <div class="mm-cabeca">
+        <div>
+          <h2>Uma IA que não gera texto, escrita por uma que gera</h2>
+          <p class="lead">Os bots seguem regras fixas que uma IA generativa escreveu. Durante a partida, nenhum modelo é chamado.</p>
+        </div>
+        <div class="mm-controles">
+          <div class="chave" role="group" aria-label="Modo">
+            <button type="button" data-modo="assistir" aria-pressed="true">Assistir</button>
+            <button type="button" data-modo="jogar" aria-pressed="false">Jogar</button>
+          </div>
+          <div class="chave" role="group" aria-label="Velocidade">
+            <button type="button" data-vel="1" aria-pressed="true">1×</button>
+            <button type="button" data-vel="2.5" aria-pressed="false">3×</button>
+          </div>
+          <button type="button" class="botao mm-pausa">Pausar</button>
+        </div>
+      </div>
+      <div class="mm-corpo">
+        <div class="mm-mesa">
+          <div class="mm-lugar mm-l0"><div class="mm-id"><span class="mm-nome"></span><span class="mm-qtd"></span></div><div class="mm-mao"></div>
+            <div class="mm-acoes" hidden>
+              <button type="button" class="botao mm-comprar">Comprar</button>
+              <button type="button" class="botao cheio mm-gritar">Mau-Mau!</button>
+            </div>
+          </div>
+          <div class="mm-lugar mm-l1"><div class="mm-id"><span class="mm-nome"></span><span class="mm-qtd"></span></div><div class="mm-mao"></div></div>
+          <div class="mm-lugar mm-l2"><div class="mm-id"><span class="mm-nome"></span><span class="mm-qtd"></span></div><div class="mm-mao"></div></div>
+          <div class="mm-lugar mm-l3"><div class="mm-id"><span class="mm-nome"></span><span class="mm-qtd"></span></div><div class="mm-mao"></div></div>
+          <div class="mm-centro">
+            <span class="mm-sentido" aria-hidden="true"></span>
+            <div class="mm-topo"></div>
+            <span class="mm-cor"></span>
+            <span class="mm-acum"></span>
+            <span class="mm-placar" aria-live="polite"></span>
+          </div>
+          <div class="mm-escolha" hidden>
+            <span>Escolha a cor</span>
+            <button type="button" data-cor="vermelho" class="mm-carta mm-vermelho" aria-label="vermelho"></button>
+            <button type="button" data-cor="azul" class="mm-carta mm-azul" aria-label="azul"></button>
+            <button type="button" data-cor="verde" class="mm-carta mm-verde" aria-label="verde"></button>
+            <button type="button" data-cor="amarelo" class="mm-carta mm-amarelo" aria-label="amarelo"></button>
+          </div>
+        </div>
+        <aside class="mm-registro" aria-label="Registro das jogadas">
+          <h3>Por que cada jogada</h3>
+          <ol></ol>
+        </aside>
+      </div>
+    </div>
   </section>
   <section class="tela rascunho" id="observatorio" data-bloco="Abertura" data-titulo="Um portal inteiro, feito do mesmo jeito">
     <div class="cabeca"><h2>Um portal inteiro, feito do mesmo jeito</h2><p class="lead">Em construção.</p></div>
@@ -125,6 +174,7 @@
 <script src="js/questionario.js"></script>
 <script src="js/sala.js"></script>
 <script src="js/motor.js"></script>
+<script src="js/maumau.js"></script>
 <script src="js/telas-abertura.js"></script>
 </body>
 </html>
