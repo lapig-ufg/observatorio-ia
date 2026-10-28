@@ -131,13 +131,14 @@
 
     if (ameaca && mais2.length) return [mais2[0], `${nc}: segura com +2.`];
     if (ameaca) { const w4 = coringas.find((i) => mao[i].valor === "wild4"); if (w4 !== undefined) return [w4, `${nc}: segura com +4.`]; }
+    const temCoringa = mao.some((c) => c.cor === "coringa");
     const daCor = numeros.filter((i) => mao[i].cor === s.corAtiva).sort((a, b) => mao[b].valor - mao[a].valor);
-    if (daCor.length) return [daCor[0], `Joga o maior número da cor da mesa e guarda os coringas.`];
-    if (especiais.length) return [especiais[0], `Nenhum número da cor: usa uma carta especial.`];
-    if (numeros.length) return [numeros[0], `Troca de cor com um número igual ao da mesa.`];
+    if (daCor.length) return [daCor[0], temCoringa ? `Joga o maior número da cor da mesa e guarda o coringa para depois.` : `Joga o maior número da cor da mesa.`];
+    if (especiais.length) return [especiais[0], `Não tem número da cor: usa uma carta especial.`];
+    if (numeros.length) return [numeros[0], `Não tem a cor da mesa: troca de cor com o mesmo número.`];
     const simples = coringas.find((i) => mao[i].valor === "wild");
-    if (simples !== undefined) return [simples, `Só restam coringas: usa o simples e guarda o +4.`];
-    return [jogaveis[0], `Só resta o +4.`];
+    if (simples !== undefined) return [simples, `Só um coringa serve: usa o simples e guarda o +4.`];
+    return [jogaveis[0], `A única carta que serve é o +4.`];
   }
 
   // Um turno de bot. Devolve as linhas do registro.
@@ -228,7 +229,7 @@
       lugares.slice(s.jogadores.length).forEach((l) => { l.hidden = true; });
       centro.querySelector(".mm-topo").innerHTML = cartaHTML(topo(s), "mm-grande");
       centro.querySelector(".mm-cor").dataset.cor = s.corAtiva;
-      centro.querySelector(".mm-cor").textContent = `cor da mesa: ${s.corAtiva}`;
+      centro.querySelector(".mm-cor").textContent = s.corAtiva;
       centro.querySelector(".mm-acum").textContent = s.acumulado ? `+${s.acumulado} acumulado` : "";
       centro.querySelector(".mm-sentido").textContent = s.sentido === 1 ? "a vez desce ↓" : "a vez sobe ↑";
 

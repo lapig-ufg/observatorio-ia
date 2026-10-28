@@ -181,6 +181,13 @@
   }, { rootMargin: "10% 0px" });
   telas.forEach((t) => vigia.observe(t));
 
+  // Endereço mudado por fora (voltar/avançar do navegador, link #tela): acompanha.
+  window.addEventListener("hashchange", () => {
+    const { i, p } = lerHash();
+    if (emAula()) { if (i !== atual || p !== passo) ir(i, p, "endereco"); }
+    else telas[i].scrollIntoView();
+  });
+
   // Início: espera os scripts das telas registrarem seus eventos.
   document.addEventListener("DOMContentLoaded", () => {
     telas.forEach((t) => aplicarPassos(t, passosDe(t)));

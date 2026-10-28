@@ -576,6 +576,7 @@ body.aula .mm-mesa { min-height: 0; }
 .mm-sentido { font-size: max(12px, calc(var(--u) * 1.2)); color: var(--tinta-2); line-height: 1; }
 .mm-cabeca > div:first-child { flex: 1 1 520px; }
 body.sem-transicao .tela { transition: none !important; }
+.mm-cor-rotulo { font-size: max(11px, calc(var(--u) * 1.05)); color: var(--tinta-2); margin-top: 4px; }
 .mm-cor { font-size: max(12px, calc(var(--u) * 1.2)); font-weight: 600; padding: .2em .7em; border-radius: 999px; color: #fff; background: var(--tinta); }
 .mm-cor[data-cor="vermelho"] { background: #c4502a; } .mm-cor[data-cor="azul"] { background: #1d3f5f; }
 .mm-cor[data-cor="verde"] { background: #2b7055; } .mm-cor[data-cor="amarelo"] { background: #c9971a; }
