@@ -56,8 +56,10 @@
   async function enviar(turma, respostas) {
     const linha = { t: Date.now(), turma: turma || "VISITANTE", v: VERSAO, r: respostas };
     if (!url()) { const l = lerDemo(); l.push(linha); gravarDemo(l); return true; }
-    // text/plain evita a pré-checagem CORS do Apps Script.
-    await fetch(url(), { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(linha) });
+    // text/plain evita a pré-checagem CORS do Apps Script; a resposta é lida para saber se gravou.
+    const resp = await fetch(url(), { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(linha) });
+    const dados = await resp.json().catch(() => ({}));
+    if (!resp.ok || !dados.ok) throw new Error(dados.erro || `O levantamento respondeu ${resp.status}.`);
     return true;
   }
 

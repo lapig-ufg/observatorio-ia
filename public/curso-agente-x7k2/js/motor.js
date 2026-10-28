@@ -98,13 +98,14 @@
     document.body.classList.add("sem-transicao", "aula");
     requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.remove("sem-transicao")));
     const { i, p } = location.hash ? lerHash() : { i: telaVisivel(), p: 0 };
-    telas.forEach((t) => t.classList.remove("atual"));
+    // O que estava rodando na rolagem (jogo, consultas) para antes; só a tela atual volta a rodar.
+    telas.forEach((t) => { t.classList.remove("atual"); t.dispatchEvent(new CustomEvent("saiu")); });
     ir(i, p, "entrada");
     window.dispatchEvent(new Event("modo"));
   };
   const sairAula = () => {
     document.body.classList.remove("aula");
-    telas.forEach((t) => { t.classList.remove("atual"); aplicarPassos(t, passosDe(t)); });
+    telas.forEach((t) => { t.classList.remove("atual"); t.dispatchEvent(new CustomEvent("saiu")); aplicarPassos(t, passosDe(t)); });
     telas[atual].scrollIntoView({ block: "start" });
     window.dispatchEvent(new Event("modo"));
   };

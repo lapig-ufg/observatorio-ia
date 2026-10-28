@@ -13,14 +13,16 @@
 
   // ----- Levantamento: QR e pontos chegando -----
   const telaLev = document.getElementById("levantamento");
-  const destino = new URL("responder.html", location.href);
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  const destino = new URL("responder.html", local && window.CURSO_PUBLICO ? window.CURSO_PUBLICO : location.href);
   if (turma) destino.searchParams.set("turma", turma);
   const qr = qrcode(0, "M");
   qr.addData(destino.href);
   qr.make();
   telaLev.querySelector(".qr-codigo").innerHTML = qr.createSvgTag({ cellSize: 8, margin: 0, scalable: true });
   telaLev.querySelector(".qr-codigo svg").setAttribute("aria-label", "QR code para responder ao levantamento");
-  telaLev.querySelector(".endereco").textContent = destino.host + destino.pathname.replace(/\/index\.html$/, "/") + (turma ? `?turma=${turma}` : "");
+  // O endereço completo é longo demais para digitar; embaixo do QR vai só a turma.
+  telaLev.querySelector(".endereco").textContent = turma ? `Turma ${turma}` : "Observatório UFG-IA";
 
   const chegada = window.criarSala(telaLev.querySelector(".sala"), { pergunta: -1 });
   const contador = telaLev.querySelector(".contador strong");
@@ -53,10 +55,12 @@
     sala.pergunta(i);
     titulo.textContent = Q.PERGUNTAS[i].texto;
     [...abas.children].forEach((b, k) => b.setAttribute("aria-pressed", k === i));
+    legenda.hidden = i === 0; // na pergunta 1 a cor já é a própria resposta
   };
 
   legenda.innerHTML = "<span>Cor do ponto: frequência de uso</span>" + Q.PERGUNTAS[0].opcoes
     .map((o, i) => `<span><i style="background:var(--f${i + 1})"></i>${o}</span>`).join("");
+  legenda.hidden = true;
 
   const chave = telaSala.querySelectorAll(".chave button");
   if (!turma) {

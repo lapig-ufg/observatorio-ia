@@ -220,6 +220,7 @@
         const podeJogar = humano && !j.bot && s.vez === j.i && !s.fim;
         lugar.querySelector(".mm-nome").textContent = `${j.nome}${j.bot ? "" : ""}`;
         lugar.querySelector(".mm-qtd").textContent = `${j.mao.length} carta${j.mao.length === 1 ? "" : "s"}`;
+        lugar.querySelector(".mm-mao").style.setProperty("--n", visivel ? j.mao.length : 1);
         lugar.querySelector(".mm-mao").innerHTML = visivel
           ? j.mao.map((c, i) => podeJogar && jogavel(s, c)
               ? `<button type="button" class="mm-btn" data-i="${i}">${cartaHTML(c, "mm-pode")}</button>`

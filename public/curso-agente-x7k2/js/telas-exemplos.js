@@ -11,25 +11,34 @@
     emAula() ? ir(i) : telas[i].scrollIntoView({ behavior: "smooth" });
   }));
 
-  // ----- Vitrines: a página pesada só entra quando alguém clica, e sai quando a tela sai -----
+  // ----- Vitrines: a página pesada abre por cima de tudo, em tela cheia, só quando alguém clica.
+  // Ao fechar, o iframe é removido (libera o WebGL do diorama) e o teclado volta para a apresentação.
   const telaPesquisa = document.getElementById("pesquisa");
-  const vitrines = [...telaPesquisa.querySelectorAll(".vitrine")];
-  vitrines.forEach((v) => {
-    const capa = v.querySelector(".vitrine-abrir");
-    capa.addEventListener("click", () => {
+  const camada = document.createElement("div");
+  camada.className = "sobreposta";
+  camada.hidden = true;
+  camada.innerHTML = `<button type="button" class="botao cheio sobreposta-fechar">Fechar e voltar à aula</button>`;
+  document.body.append(camada);
+  const fecharCamada = () => {
+    camada.querySelector("iframe")?.remove();
+    camada.hidden = true;
+    document.activeElement?.blur();
+  };
+  camada.querySelector(".sobreposta-fechar").addEventListener("click", fecharCamada);
+  document.addEventListener("keydown", (e) => { if (!camada.hidden && e.key === "Escape") { e.stopImmediatePropagation(); fecharCamada(); } }, true);
+  telaPesquisa.querySelectorAll(".vitrine").forEach((v) => {
+    v.querySelector(".vitrine-abrir").addEventListener("click", () => {
       const f = document.createElement("iframe");
       f.src = v.dataset.src;
-      f.title = capa.querySelector("img").alt;
+      f.title = v.querySelector("img").alt;
       f.allow = "fullscreen";
-      capa.hidden = true;
-      v.prepend(f);
-      f.addEventListener("load", () => { try { f.focus(); } catch { /* outra origem */ } });
+      camada.prepend(f);
+      camada.hidden = false;
+      // A balança avança pelas setas: o foco vai para ela quando carregar.
+      f.addEventListener("load", () => f.focus());
     });
   });
-  telaPesquisa.addEventListener("saiu", () => vitrines.forEach((v) => {
-    v.querySelector("iframe")?.remove();   // libera o WebGL do diorama
-    v.querySelector(".vitrine-abrir").hidden = false;
-  }));
+  telaPesquisa.addEventListener("saiu", fecharCamada);
 
   // ----- App de tarefas sob medida: entende datas, horas, #caixas e ! -----
   const telaApp = document.getElementById("sob-medida");
@@ -47,7 +56,8 @@
   function ler(frase) {
     let resto = " " + frase + " ";
     const r = {};
-    const hoje = new Date();
+    const agora = new Date();
+    const hoje = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate()); // compara por dia, não por hora
     const m = (re, f) => { const x = resto.match(re); if (x) { f(x); resto = resto.replace(x[0], " "); } };
     m(/\s!\s?/, () => { r.urgente = true; });
     m(/#([\p{L}\d-]+)/u, (x) => { r.caixa = x[1].toLowerCase(); });
@@ -106,7 +116,7 @@
   telaApp.addEventListener("entrou", () => {
     if (digitou) return;
     digitou = true;
-    const frase = "Reunião com a coordenação sexta 14h #projeto !";
+    const frase = "Reunião sexta 14h #projeto !";
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) { campo.value = frase; mostrarLeitura(ler(frase)); return; }
     let k = 0;
     const passo = () => {

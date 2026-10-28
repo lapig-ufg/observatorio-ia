@@ -14,6 +14,8 @@
 <script>
   // Endereço do Apps Script que guarda as respostas. Vazio = modo de demonstração (só neste navegador).
   window.LEVANTAMENTO_URL = "";
+  // Endereço público do curso: o QR code aponta para cá mesmo quando a apresentação roda no computador local.
+  window.CURSO_PUBLICO = "https://lapig-ufg.github.io/observatorio-ia/curso-agente-x7k2/";
 </script>
 </head>
 <body>
@@ -46,13 +48,13 @@
       </div>
       <div class="mesa" aria-hidden="true">
         <div class="pasta"><span class="nome">meu-projeto</span></div>
-        <span class="arquivo" data-ext="docx" style="--x:11%;--y:46%;--x0:-12%;--y0:4%;--r0:-24deg;--d:.05s">relatorio-final.docx</span>
-        <span class="arquivo" data-ext="pdf" style="--x:11%;--y:58%;--x0:2%;--y0:98%;--r0:-14deg;--d:.18s">edital-2026.pdf</span>
-        <span class="arquivo" data-ext="docx" style="--x:11%;--y:70%;--x0:60%;--y0:96%;--r0:22deg;--d:.31s">ata-12-03.docx</span>
-        <span class="arquivo" data-ext="txt" style="--x:11%;--y:82%;--x0:-16%;--y0:62%;--r0:-30deg;--d:.44s">anotacoes.txt</span>
-        <span class="arquivo" data-ext="xlsx" style="--x:55%;--y:46%;--x0:72%;--y0:-8%;--r0:18deg;--d:.12s">dados-2025.xlsx</span>
-        <span class="arquivo" data-ext="csv" style="--x:55%;--y:58%;--x0:96%;--y0:30%;--r0:12deg;--d:.25s">tabela-ibge.csv</span>
-        <span class="arquivo" data-ext="jpg" style="--x:55%;--y:70%;--x0:34%;--y0:-14%;--r0:-8deg;--d:.38s">foto-campo-031.jpg</span>
+        <span class="arquivo" data-ext="docx" style="--x:8%;--y:46%;--x0:-12%;--y0:4%;--r0:-24deg;--d:.05s">relatorio-final.docx</span>
+        <span class="arquivo" data-ext="pdf" style="--x:8%;--y:58%;--x0:2%;--y0:98%;--r0:-14deg;--d:.18s">edital-2026.pdf</span>
+        <span class="arquivo" data-ext="docx" style="--x:8%;--y:70%;--x0:60%;--y0:96%;--r0:22deg;--d:.31s">ata-12-03.docx</span>
+        <span class="arquivo" data-ext="txt" style="--x:8%;--y:82%;--x0:-16%;--y0:62%;--r0:-30deg;--d:.44s">anotacoes.txt</span>
+        <span class="arquivo" data-ext="xlsx" style="--x:53%;--y:46%;--x0:72%;--y0:-8%;--r0:18deg;--d:.12s">dados-2025.xlsx</span>
+        <span class="arquivo" data-ext="csv" style="--x:53%;--y:58%;--x0:96%;--y0:30%;--r0:12deg;--d:.25s">tabela-ibge.csv</span>
+        <span class="arquivo" data-ext="jpg" style="--x:53%;--y:70%;--x0:34%;--y0:-14%;--r0:-8deg;--d:.38s">foto-campo-031.jpg</span>
       </div>
     </div>
   </section>
@@ -61,7 +63,7 @@
   <section class="tela" id="levantamento" data-bloco="Abertura" data-titulo="Antes de começar, quatro toques">
     <div class="cabeca">
       <h2>Antes de começar, quatro toques</h2>
-      <p class="lead">Aponte a câmera do celular. São quatro perguntas, sem nome e sem nada para escrever.</p>
+      <p class="lead">Aponte a câmera do celular. Quatro perguntas de tocar, sem nome e sem digitar.</p>
     </div>
     <div class="levantar">
       <div class="qr">
@@ -83,7 +85,7 @@
     </div>
     <ol class="conversa">
       <li data-passo="1">
-        <blockquote class="pedido">Vamos pensar numa apresentação estilo site. Como é algo dentro de um site, podemos ser ousados e ter animações.</blockquote>
+        <blockquote class="pedido">Vamos pensar numa apresentação que seja um site. Dá para ousar nas animações.</blockquote>
         <ul class="registro">
           <li>leu a qualificação e o visual do Observatório</li>
           <li>pediu crítica do roteiro a duas outras IAs</li>
@@ -101,11 +103,11 @@
         <button type="button" class="ir" data-ir="sala">Ver a sala em pontos</button>
       </li>
       <li data-passo="3">
-        <blockquote class="pedido">Mostrar o Mau-Mau: a pessoa vê a partida acontecendo e joga contra uma IA não generativa, programada pela generativa.</blockquote>
+        <blockquote class="pedido">Mostrar o Mau-Mau funcionando: a pessoa assiste à partida e joga contra os bots.</blockquote>
         <ul class="registro">
           <li>leu as regras e os bots do jogo original</li>
           <li>reescreveu os bots para explicar cada jogada</li>
-          <li>simulou 500 partidas: nenhum erro</li>
+          <li>simulou 500 partidas para achar travas</li>
         </ul>
         <button type="button" class="ir" data-ir="maumau">Ver o Mau-Mau</button>
       </li>
@@ -116,7 +118,7 @@
   <section class="tela" id="pesquisa" data-bloco="Abertura" data-titulo="A pesquisa virou material de aula">
     <div class="cabeca">
       <h2>A pesquisa virou material de aula</h2>
-      <p class="lead">Da qualificação de mestrado do Victor, sobre a pastagem em Goiás. O conteúdo é da pesquisa; os recursos foram construídos conversando com a IA.</p>
+      <p class="lead">Dois recursos da minha qualificação de mestrado, sobre pastagens em Goiás, transformados em páginas interativas com a IA.</p>
     </div>
     <div class="vitrines">
       <figure class="vitrine" data-src="https://victorgit10.github.io/mestrado-lulc-goias/Visualizacao/apresentacao.html#11.0">
@@ -124,7 +126,7 @@
           <img src="assets/img/balanca.jpg" alt="Tela da balança: o centro de massa da pastagem se desloca 77,6 km ao norte" loading="lazy">
           <span class="vitrine-acao">Abrir a balança</span>
         </button>
-        <figcaption><b>A balança.</b> O centro de massa explicado com um halter que tomba, em sete passos. Depois de abrir, clique nela e use as setas.</figcaption>
+        <figcaption><b>A balança.</b> O centro de massa explicado com um halter que tomba, em sete passos. Abre em tela cheia; as setas avançam os passos.</figcaption>
       </figure>
       <figure class="vitrine" data-src="https://victorgit10.github.io/mestrado-lulc-goias/Visualizacao/diorama-encerramento/cena.html">
         <button type="button" class="vitrine-abrir">
@@ -140,7 +142,7 @@
   <section class="tela" id="relatorio" data-bloco="Abertura" data-titulo="O relatório volta com as mudanças marcadas">
     <div class="cabeca">
       <h2>O relatório volta com as mudanças marcadas</h2>
-      <p class="lead">A IA preenche, mas cada mudança fica visível para você aceitar ou recusar no Word. Documentos fictícios.</p>
+      <p class="lead">A IA preenche os números a partir das planilhas da pasta e marca cada alteração para você aceitar ou recusar no Word. Os documentos são fictícios.</p>
     </div>
     <div class="docs">
       <article class="folha" aria-label="Relatório com alterações marcadas">
@@ -177,7 +179,7 @@
   <section class="tela" id="sob-medida" data-bloco="Abertura" data-titulo="Um programa feito para uma pessoa só">
     <div class="cabeca">
       <h2>Um programa feito para uma pessoa só</h2>
-      <p class="lead">Um app de tarefas que entende o jeito de escrever do seu dono, e que a IA também consegue ler e preencher. Ninguém venderia esse programa: só uma pessoa precisa dele.</p>
+      <p class="lead">Um app de tarefas que entende o jeito de escrever de quem usa, e que a IA também lê e preenche. Não há mercado para ele: serve a uma pessoa.</p>
     </div>
     <div class="app">
       <div class="app-janela">
@@ -255,11 +257,11 @@
         <h2>Um portal inteiro, feito do mesmo jeito</h2>
         <ul class="portal-fatos">
           <li><strong>Mais de 1.600</strong> materiais no acervo, com busca em português e inglês</li>
-          <li><strong>Todo dia</strong>, as notícias sobre IA na imprensa</li>
+          <li>As notícias de IA na imprensa, <strong>todo dia</strong></li>
           <li><strong>Um panorama</strong> dos modelos e das IAs gratuitas</li>
           <li><strong>Uma aula interativa</strong> sobre como a IA escolhe a próxima palavra</li>
         </ul>
-        <p class="portal-fecho">O código é da IA. A curadoria, as escolhas e a revisão são das pessoas do LAPIG.</p>
+        <p class="portal-fecho">A IA escreveu o código do portal; a equipe do LAPIG escolhe e revisa cada conteúdo.</p>
         <a class="botao cheio" href="https://lapig-ufg.github.io/observatorio-ia/" target="_blank" rel="noopener">Abrir o Observatório</a>
       </div>
       <figure class="portal-tela">

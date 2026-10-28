@@ -78,6 +78,8 @@
       b.type = "button"; b.textContent = o;
       if (respostas[i] === k) b.classList.add("escolhida");
       b.addEventListener("click", () => {
+        if (box.dataset.travado) return; // toque duplo não pula pergunta
+        box.dataset.travado = "1";
         b.classList.add("escolhida");
         respostas[i] = k;
         setTimeout(() => { i++; i < Q.PERGUNTAS.length ? pergunta() : enviar(); }, 180);
@@ -87,15 +89,21 @@
     box.querySelector("button").focus({ preventScroll: true });
   }
 
+  let enviando = false;
   async function enviar() {
+    if (enviando) return;
+    enviando = true;
     marcarProgresso();
     voltar.hidden = true;
     corpo.innerHTML = `<div class="fim"><h1>Enviando…</h1></div>`;
     try {
       await Q.enviar(turma, respostas);
-      corpo.innerHTML = `<div class="fim"><h1>Pronto.</h1><p>Olhe para a tela: um dos pontos é você.</p></div>`;
+      corpo.innerHTML = Q.demo()
+        ? `<div class="fim"><h1>Pronto.</h1><p>Esta é uma demonstração: a resposta ficou só neste aparelho e não aparece na tela da sala.</p></div>`
+        : `<div class="fim"><h1>Pronto.</h1><p>Olhe para a tela: um dos pontos é você.</p></div>`;
       [...prog.children].forEach((el) => { el.className = "feito"; });
     } catch (e) {
+      enviando = false;
       corpo.innerHTML = `<div class="fim"><h1>A resposta não foi enviada.</h1><p class="erro">Verifique a internet do celular e toque em tentar de novo.</p><div class="opcoes"><button type="button">Tentar de novo</button></div></div>`;
       corpo.querySelector("button").addEventListener("click", enviar);
     }

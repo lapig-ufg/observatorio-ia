@@ -34,10 +34,11 @@
       calcularAlvos();
     }
 
+    // Respostas de quem visitou a página sem turma ficam fora das contas da sala.
     function visiveis() {
       const turma = window.CURSO?.turma;
       if (estado.escopo === "turma" && turma) return estado.linhas.filter((l) => l.turma === turma);
-      return estado.linhas;
+      return estado.linhas.filter((l) => l.turma !== "VISITANTE");
     }
 
     // Distribui os pontos de cada opção em colunas, empilhados de baixo para cima.
@@ -45,7 +46,8 @@
       const W = estado.larg, H = estado.alt;
       if (!W || !H) return;
       const linhas = visiveis();
-      const fonte = Math.max(12, Math.min(17, W / 70));
+      // Rótulos legíveis a 6 m no projetor: nunca abaixo de 15 px no modo aula.
+      const fonte = Math.max(window.CURSO?.emAula?.() ? 15 : 12, Math.min(20, W / 58));
       estado.fonte = fonte;
       estado.rotulos = [];
 
@@ -53,14 +55,19 @@
       const grupos = p < 0 ? [{ nome: "", itens: linhas }] :
         Q.PERGUNTAS[p].opcoes.map((nome, k) => ({ nome, itens: linhas.filter((l) => l.r[p] === k) }));
       const n = grupos.length;
-      const base = p < 0 ? H - 6 : H - fonte * 4.2;   // espaço dos rótulos embaixo
-      const colW = W / n;
       const maior = Math.max(1, ...grupos.map((g) => g.itens.length));
 
-      // Na chegada (pilha única) o monte é mais estreito, para crescer para cima.
-      const largUtil = p < 0 ? Math.min(colW * 0.82, Math.max(160, Math.sqrt(maior) * 46)) : colW * 0.82;
+      // Tela estreita (celular): uma linha por opção, rótulo à esquerda e pontos à direita.
+      estado.deitado = p >= 0 && W < 560;
+      if (estado.deitado) return alvosDeitados(grupos, linhas, W, H, fonte, maior);
+
+      const base = p < 0 ? H - 6 : H - fonte * 4.2;   // espaço dos rótulos embaixo
+      const colW = W / n;
+
+      // Na chegada (pilha única) o monte é estreito, para crescer para cima e encher o palco.
+      const largUtil = p < 0 ? Math.min(colW * 0.82, Math.max(180, Math.sqrt(maior) * 34)) : colW * 0.82;
       // Raio: o maior que faz a coluna mais cheia caber na altura disponível.
-      let raio = Math.min(colW / 6, p < 0 ? 12 : 24);
+      let raio = Math.min(colW / 6, 24);
       const caber = (r) => {
         const porLinha = Math.max(1, Math.floor(largUtil / (2 * r + 2)));
         return Math.ceil(maior / porLinha) * (2 * r + 2) <= base - 10;
@@ -96,6 +103,34 @@
       animar();
     }
 
+    function alvosDeitados(grupos, linhas, W, H, fonte, maior) {
+      const rotW = Math.min(150, W * 0.4);
+      const linhaH = H / grupos.length;
+      const largUtil = W - rotW - 8;
+      let raio = Math.min(10, linhaH / 3);
+      const caber = (r) => Math.ceil(maior / Math.max(1, Math.floor(largUtil / (2 * r + 2)))) * (2 * r + 2) <= linhaH - 8;
+      while (raio > 2 && !caber(raio)) raio -= 0.5;
+      estado.raio = raio;
+      const passoP = 2 * raio + 2;
+      const porLinha = Math.max(1, Math.floor(largUtil / passoP));
+      const vivos = new Set();
+      const total = linhas.length || 1;
+      grupos.forEach((g, gi) => {
+        const y0 = gi * linhaH + 4;
+        [...g.itens].sort((a, b) => a.r[0] - b.r[0] || a.t - b.t).forEach((l, k) => {
+          const tx = rotW + 8 + (k % porLinha) * passoP + raio;
+          const ty = y0 + Math.floor(k / porLinha) * passoP + raio;
+          vivos.add(l._id);
+          let pt = estado.pontos.get(l._id);
+          if (!pt) { pt = { x: tx, y: -20, tx, ty, cor: paleta[l.r[0]] || paleta[2] }; estado.pontos.set(l._id, pt); }
+          pt.tx = tx; pt.ty = ty;
+        });
+        estado.rotulos.push({ y: y0, w: rotW, nome: g.nome, qtd: g.itens.length, pct: Math.round((100 * g.itens.length) / total) });
+      });
+      for (const id of [...estado.pontos.keys()]) if (!vivos.has(id)) estado.pontos.delete(id);
+      animar();
+    }
+
     function desenhar() {
       const { dpr } = estado;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -109,18 +144,30 @@
       }
       if (estado.pergunta < 0) return;
       const f = estado.fonte;
+      ctx.textBaseline = "top";
+      if (estado.deitado) {
+        ctx.textAlign = "left";
+        estado.rotulos.forEach((rt) => {
+          ctx.fillStyle = "#114d3b";
+          ctx.font = `700 ${f * 1.05}px Georgia, serif`;
+          ctx.fillText(rt.qtd ? `${rt.pct}%` : "–", 0, rt.y);
+          ctx.fillStyle = "#10211b";
+          ctx.font = `500 ${f * 0.9}px Inter, system-ui, sans-serif`;
+          quebrar(rt.nome, rt.w).slice(0, 2).forEach((t, i) => ctx.fillText(t, 0, rt.y + f * 1.3 + i * f * 1.05));
+        });
+        return;
+      }
       const base = estado.alt - f * 4.2;
       ctx.textAlign = "center";
-      ctx.textBaseline = "top";
       estado.rotulos.forEach((rt) => {
         ctx.fillStyle = "#ccd9d2";
         ctx.fillRect(rt.x - rt.w / 2, base + 4, rt.w, 1);
         ctx.fillStyle = "#114d3b";
-        ctx.font = `700 ${f * 1.15}px Georgia, serif`;
+        ctx.font = `700 ${f * 1.2}px Georgia, serif`;
         ctx.fillText(rt.qtd ? `${rt.pct}%` : "–", rt.x, base + 10);
-        ctx.fillStyle = "#4d5f58";
-        ctx.font = `500 ${f * 0.86}px Inter, system-ui, sans-serif`;
-        quebrar(rt.nome, rt.w).slice(0, 2).forEach((t, i) => ctx.fillText(t, rt.x, base + 10 + f * 1.5 + i * f * 1.05));
+        ctx.fillStyle = "#10211b";
+        ctx.font = `500 ${f * 0.92}px Inter, system-ui, sans-serif`;
+        quebrar(rt.nome, rt.w).slice(0, 2).forEach((t, i) => ctx.fillText(t, rt.x, base + 10 + f * 1.5 + i * f * 1.08));
       });
     }
 
@@ -166,7 +213,8 @@
     }
 
     let timer = 0;
-    const ligar = () => { if (timer) return; medir(); atualizar(); timer = setInterval(atualizar, 4000); };
+    // Na sala, a tela consulta a cada 4 s; quem lê no Observatório consulta a cada minuto.
+    const ligar = () => { if (timer) return; medir(); atualizar(); timer = setInterval(atualizar, window.CURSO?.emAula?.() ? 4000 : 60000); };
     const desligar = () => { clearInterval(timer); timer = 0; cancelAnimationFrame(estado.raf); estado.raf = 0; };
 
     new ResizeObserver(() => { if (timer) medir(); }).observe(canvas);
