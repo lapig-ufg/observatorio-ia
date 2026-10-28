@@ -1,0 +1,375 @@
+/* Do chat ao agente — identidade do Observatório UFG-IA.
+   Dois modos: .leitura (rolagem, padrão) e .aula (uma tela por vez, tamanhos
+   proporcionais à janela). Tudo é medido em --u, que muda com o modo. */
+
+:root {
+  --fundo: #eef3f0;
+  --papel: #ffffff;
+  --tinta: #10211b;
+  --tinta-2: #4d5f58;
+  --verde: #114d3b;
+  --verde-fundo: #0a382d;
+  --menta: #cbe6d9;
+  --menta-2: #e1efe8;
+  --terracota: #d76832;
+  --azul: #1d3f5f;
+  --linha: #ccd9d2;
+
+  /* Escala ordinal da frequência de uso (pergunta 1), do mais claro ao mais escuro. */
+  --f1: #b3cfc1;
+  --f2: #93bfa9;
+  --f3: #5a9a7c;
+  --f4: #2b7055;
+  --f5: #0a382d;
+
+  --serifa: Georgia, "Times New Roman", serif;
+  --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+
+  --u: clamp(6.4px, 0.92vw, 12px);
+  --corpo: max(16px, calc(var(--u) * 1.62));
+  --curva: cubic-bezier(.2, .7, .2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font: 400 var(--corpo)/1.55 var(--sans);
+  font-feature-settings: "ss01", "cv11";
+}
+img, svg, canvas { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; }
+a { color: var(--verde); text-underline-offset: .18em; }
+:focus-visible { outline: 3px solid var(--terracota); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Cabeçalho do modo leitura ---------- */
+
+.topo {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px max(16px, calc(50vw - 640px));
+  background: color-mix(in srgb, var(--fundo) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--linha);
+}
+.marca { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--verde); }
+.marca img { width: 34px; height: auto; }
+.marca strong { font: 700 19px/1.05 var(--serifa); letter-spacing: -.02em; }
+.marca small { display: block; font: 600 11px/1.2 var(--sans); color: var(--tinta-2); letter-spacing: .02em; }
+.topo .espaco { flex: 1; }
+.botao {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 16px; border-radius: 999px;
+  border: 1px solid var(--verde); background: transparent; color: var(--verde);
+  font-weight: 600; font-size: 15px; cursor: pointer; text-decoration: none;
+}
+.botao.cheio { background: var(--terracota); border-color: var(--terracota); color: #fff; }
+.botao:hover { filter: brightness(.95); }
+
+/* ---------- Telas ---------- */
+
+main { padding-bottom: 12vh; }
+.tela {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: calc(var(--u) * 9) max(16px, calc(var(--u) * 6));
+  border-bottom: 1px solid var(--linha);
+}
+.tela > .cabeca { margin-bottom: calc(var(--u) * 3.5); }
+.tela > .cabeca h2 { max-width: 24ch; }
+
+.bloco-nome {
+  margin: 0 0 calc(var(--u) * 1.2);
+  font: 600 max(13px, calc(var(--u) * 1.2))/1.2 var(--sans);
+  color: var(--terracota);
+}
+h1, h2, h3 { font-family: var(--serifa); font-weight: 700; color: var(--verde); margin: 0; }
+h2 {
+  font-size: max(30px, calc(var(--u) * 4.4));
+  line-height: 1.06; letter-spacing: -.025em;
+  text-wrap: balance;
+}
+h3 { font-size: max(20px, calc(var(--u) * 2.1)); line-height: 1.15; letter-spacing: -.015em; }
+.lead {
+  margin: calc(var(--u) * 1.8) 0 0;
+  font-size: max(18px, calc(var(--u) * 2));
+  line-height: 1.45; color: var(--tinta-2);
+  max-width: 54ch; text-wrap: pretty;
+}
+p { margin: 0 0 1em; max-width: 68ch; }
+
+/* Passos: no modo leitura tudo aparece; no modo aula, o que ainda não chegou fica oculto. */
+[data-passo] { transition: opacity .45s var(--curva), transform .45s var(--curva); }
+
+/* ---------- Modo aula ---------- */
+
+body.aula {
+  --u: min(1vw, 1.7778vh);
+  --corpo: calc(var(--u) * 1.75);
+  overflow: hidden;
+  height: 100vh;
+}
+body.aula .topo, body.aula .rodape-leitura { display: none; }
+body.aula main { padding: 0; }
+body.aula .tela {
+  position: fixed; inset: 0;
+  max-width: none; margin: 0;
+  padding: calc(var(--u) * 6.5) calc(var(--u) * 7) calc(var(--u) * 5);
+  border: 0;
+  display: flex; flex-direction: column;
+  visibility: hidden; opacity: 0;
+  transition: opacity .35s var(--curva), visibility 0s linear .35s;
+}
+body.aula .tela.atual { visibility: visible; opacity: 1; transition: opacity .35s var(--curva); }
+body.aula .tela h2 { font-size: calc(var(--u) * 4.6); }
+body.aula .tela .lead { font-size: calc(var(--u) * 2.1); }
+body.aula .tela .bloco-nome { font-size: calc(var(--u) * 1.3); }
+body.aula [data-passo].oculto { opacity: 0; transform: translateY(calc(var(--u) * .8)); pointer-events: none; }
+body.aula.sem-cursor { cursor: none; }
+
+/* Linha do tempo das 8 h, fina, no topo do modo aula. */
+.trilha {
+  display: none;
+  position: fixed; left: 0; right: 0; top: 0; z-index: 30;
+  height: calc(var(--u) * 2.6);
+  padding: 0 calc(var(--u) * 7);
+  align-items: center; gap: 3px;
+}
+body.aula .trilha { display: flex; }
+.trilha .trecho {
+  position: relative; height: 4px; border-radius: 2px;
+  background: var(--linha); flex: var(--peso, 1);
+}
+.trilha .trecho.feito { background: var(--verde); }
+.trilha .trecho.agora { background: var(--terracota); }
+.trilha .trecho span {
+  position: absolute; left: 0; top: 8px; white-space: nowrap;
+  font: 500 calc(var(--u) * 1.05)/1 var(--sans); color: var(--tinta-2);
+  opacity: 0; transition: opacity .2s;
+}
+.trilha .trecho.agora span { opacity: 1; color: var(--terracota); }
+.trilha .pausa { width: calc(var(--u) * 1.4); flex: none; height: 4px; }
+
+/* Índice (Esc) */
+.indice {
+  position: fixed; inset: 0; z-index: 40;
+  display: none; place-items: center;
+  background: color-mix(in srgb, var(--verde-fundo) 72%, transparent);
+}
+.indice.aberto { display: grid; }
+.indice ol {
+  list-style: none; margin: 0; padding: calc(var(--u) * 2);
+  width: min(92vw, calc(var(--u) * 80)); max-height: 84vh; overflow: auto;
+  background: var(--papel); border-radius: 14px;
+  columns: 2; column-gap: calc(var(--u) * 3);
+  font-size: calc(var(--u) * 1.45);
+}
+.indice li { break-inside: avoid; }
+.indice button {
+  display: flex; gap: .7em; width: 100%; text-align: left;
+  padding: .35em .6em; border: 0; background: none; border-radius: 6px; cursor: pointer;
+}
+.indice button .n { color: var(--tinta-2); font-variant-numeric: tabular-nums; min-width: 1.6em; }
+.indice button:hover, .indice button.sel { background: var(--menta-2); }
+.indice button.atual { color: var(--terracota); font-weight: 600; }
+
+/* ---------- Objetos de arquivo (o elemento recorrente do curso) ---------- */
+
+.arquivo {
+  --cor: var(--azul);
+  display: inline-flex; align-items: center; gap: .6em;
+  padding: .55em .9em .55em .7em;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+  box-shadow: 0 1px 0 var(--linha);
+  font: 500 .82em/1.2 var(--mono);
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.arquivo::before {
+  content: attr(data-ext);
+  display: grid; place-items: center;
+  width: 2.5em; height: 3.1em;
+  border-radius: 3px 9px 3px 3px;
+  background: var(--cor); color: #fff;
+  font: 700 .62em/1 var(--sans); letter-spacing: .02em;
+  text-transform: lowercase;
+}
+.arquivo[data-ext="docx"] { --cor: #2b5797; }
+.arquivo[data-ext="xlsx"] { --cor: #1f7a4d; }
+.arquivo[data-ext="pdf"]  { --cor: #b8432f; }
+.arquivo[data-ext="csv"]  { --cor: #5a9a7c; }
+.arquivo[data-ext="jpg"]  { --cor: #7a5c9e; }
+.arquivo[data-ext="txt"]  { --cor: #61706a; }
+.arquivo[data-ext="html"] { --cor: var(--terracota); }
+
+/* ---------- Capa ---------- */
+
+.capa {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: calc(var(--u) * 5); align-items: center;
+  min-height: min(86vh, 900px);
+}
+body.aula .capa { min-height: 0; flex: 1; }
+.capa-texto .curso {
+  margin: 0 0 calc(var(--u) * 2.4);
+  font: 600 max(14px, calc(var(--u) * 1.35))/1.3 var(--sans); color: var(--tinta-2);
+}
+.capa h1 {
+  font-size: max(46px, calc(var(--u) * 8.2));
+  line-height: .98; letter-spacing: -.04em;
+  text-wrap: balance;
+}
+.capa .sub {
+  margin: calc(var(--u) * 2.2) 0 0;
+  font: 400 max(20px, calc(var(--u) * 2.6))/1.3 var(--serifa);
+  color: var(--tinta); max-width: 22ch;
+}
+.capa .assinatura {
+  margin-top: calc(var(--u) * 5);
+  display: flex; flex-wrap: wrap; gap: .4em 1.6em;
+  font-size: max(14px, calc(var(--u) * 1.4)); color: var(--tinta-2);
+}
+.capa .assinatura b { color: var(--tinta); font-weight: 600; }
+
+/* A mesa: arquivos espalhados que se assentam numa pasta. */
+.mesa {
+  position: relative;
+  aspect-ratio: 1 / .92;
+  font-size: max(11px, calc(var(--u) * 1.32));
+}
+.mesa .pasta {
+  position: absolute; left: 4%; right: 4%; bottom: 4%; height: 62%;
+  border-radius: 0 16px 16px 16px;
+  background: var(--menta);
+}
+.mesa .pasta::before {
+  content: ""; position: absolute; left: 0; top: -2.4em;
+  width: 42%; height: 2.6em;
+  border-radius: 12px 12px 0 0; background: var(--menta);
+}
+.mesa .pasta .nome {
+  position: absolute; left: 1.1em; top: -1.7em;
+  font: 600 1.1em/1 var(--sans); color: var(--verde);
+}
+.mesa .arquivo {
+  position: absolute;
+  left: var(--x); top: var(--y);
+  transform: rotate(var(--r, 0deg));
+  animation: assentar 1.4s var(--curva) both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes assentar {
+  from { left: var(--x0); top: var(--y0); transform: rotate(var(--r0, 0deg)); opacity: 0; }
+  20% { opacity: 1; }
+}
+
+/* ---------- Levantamento ---------- */
+
+.levantar {
+  display: grid; grid-template-columns: auto minmax(0, 1fr);
+  gap: calc(var(--u) * 6); align-items: stretch;
+  flex: 1; min-height: 0;
+}
+.levantar .sala { grid-template-rows: minmax(0, 1fr) auto; min-height: 320px; }
+body.aula .levantar .sala { min-height: 0; }
+.levantar .sala-palco { border-bottom: 1px solid var(--verde); }
+.levantar .contador { margin: 0; }
+.qr {
+  align-self: start;
+  background: var(--papel); border-radius: 14px; padding: calc(var(--u) * 1.8);
+  border: 1px solid var(--linha);
+  width: max(200px, min(calc(var(--u) * 26), 46vh));
+}
+body.aula .qr { width: min(calc(var(--u) * 24), 40vh); }
+.qr .qr-codigo svg { width: 100%; height: auto; }
+.qr canvas, .qr svg { width: 100%; height: auto; image-rendering: pixelated; }
+.qr .endereco {
+  margin-top: calc(var(--u) * 1.2); text-align: center;
+  font: 600 max(12px, calc(var(--u) * 1.2))/1.3 var(--mono); color: var(--verde);
+  overflow-wrap: anywhere;
+}
+.perguntas { list-style: none; padding: 0; margin: calc(var(--u) * 3) 0 0; counter-reset: q; }
+.perguntas li {
+  counter-increment: q;
+  display: grid; grid-template-columns: calc(var(--u) * 3.6) 1fr; align-items: baseline;
+  padding: calc(var(--u) * 1.1) 0; border-top: 1px solid var(--linha);
+  font: 400 max(17px, calc(var(--u) * 2))/1.3 var(--serifa);
+}
+.perguntas li::before { content: counter(q); font: 600 .8em/1 var(--sans); color: var(--terracota); }
+.contador {
+  display: flex; align-items: baseline; gap: .5em;
+  margin-top: calc(var(--u) * 3);
+  font-size: max(15px, calc(var(--u) * 1.6)); color: var(--tinta-2);
+}
+.contador strong { font: 700 max(34px, calc(var(--u) * 4.4))/1 var(--serifa); color: var(--verde); font-variant-numeric: tabular-nums; }
+
+/* ---------- A sala em pontos ---------- */
+
+.sala {
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: calc(var(--u) * 1.6); flex: 1; min-height: 0;
+}
+.sala-cabeca { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; }
+.sala-cabeca h2 { font-size: max(26px, calc(var(--u) * 3.4)); max-width: 30ch; min-height: 2.2em; display: flex; align-items: flex-end; }
+body.aula .sala-cabeca h2 { font-size: calc(var(--u) * 3.6); }
+.sala-palco { position: relative; min-height: 380px; }
+body.aula .sala-palco { min-height: 0; }
+.sala-palco canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sala-rodape { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; align-items: center; }
+
+.chave { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--menta-2); }
+.chave button {
+  border: 0; background: none; cursor: pointer;
+  padding: .45em 1em; border-radius: 999px;
+  font-size: max(14px, calc(var(--u) * 1.35)); font-weight: 600; color: var(--tinta-2);
+}
+.chave button[aria-pressed="true"] { background: var(--papel); color: var(--verde); box-shadow: 0 1px 2px rgba(10, 56, 45, .15); }
+
+.abas-perguntas { display: flex; flex-wrap: wrap; gap: 6px; }
+.abas-perguntas button {
+  border: 1px solid var(--linha); background: var(--papel); cursor: pointer;
+  padding: .4em .8em; border-radius: 8px;
+  font-size: max(13px, calc(var(--u) * 1.25)); color: var(--tinta-2);
+}
+.abas-perguntas button kbd { font: 600 .9em var(--mono); color: var(--terracota); margin-right: .4em; }
+.abas-perguntas button[aria-pressed="true"] { border-color: var(--verde); color: var(--verde); font-weight: 600; }
+
+.legenda { display: flex; flex-wrap: wrap; align-items: center; gap: .3em 1em; font-size: max(13px, calc(var(--u) * 1.2)); color: var(--tinta-2); }
+.legenda i { display: inline-block; width: .8em; height: .8em; border-radius: 50%; margin-right: .35em; vertical-align: -.05em; }
+
+.aviso-demo {
+  margin: 0;
+  font-size: max(12px, calc(var(--u) * 1.1)); color: var(--tinta-2);
+  border: 1px dashed var(--linha); border-radius: 8px; padding: .35em .7em;
+}
+/* No modo aula, o aviso vira uma linha discreta no canto. */
+body.aula .aviso-demo {
+  position: fixed; right: calc(var(--u) * 2); bottom: calc(var(--u) * 1.2);
+  border: 0; padding: 0; opacity: .6; font-size: calc(var(--u) * 1);
+}
+
+/* ---------- Rodapé do modo leitura ---------- */
+
+.rodape-leitura {
+  max-width: 1280px; margin: 0 auto; padding: 40px max(16px, calc(var(--u) * 6));
+  color: var(--tinta-2); font-size: 15px;
+}
+
+/* ---------- Telas estreitas (modo leitura no celular) ---------- */
+
+@media (max-width: 760px) {
+  .capa, .levantar { grid-template-columns: 1fr; }
+  .mesa { max-width: 440px; }
+  .qr { margin: 0 auto; }
+  .indice ol { columns: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do chat ao agente</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Curso prático: IA trabalhando no seu computador. Observatório UFG-IA, LAPIG/IESA/UFG.">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/curso.css">
+<script>
+  // Endereço do Apps Script que guarda as respostas. Vazio = modo de demonstração (só neste navegador).
+  window.LEVANTAMENTO_URL = "";
+</script>
+</head>
+<body>
+
+<header class="topo">
+  <a class="marca" href="https://lapig-ufg.github.io/observatorio-ia/">
+    <img src="assets/brand/observatorio-coruja.svg" alt="">
+    <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
+  </a>
+  <span class="espaco"></span>
+  <button class="botao cheio" data-acao="aula" type="button">Apresentar</button>
+</header>
+
+<nav class="trilha" aria-hidden="true"></nav>
+
+<main>
+
+  <!-- 1 · Capa -->
+  <section class="tela" id="capa" data-bloco="Abertura" data-min="35" data-titulo="Capa">
+    <div class="capa">
+      <div class="capa-texto">
+        <p class="curso">Curso prático de 8 horas</p>
+        <h1>Do chat ao agente</h1>
+        <p class="sub">IA trabalhando no seu computador</p>
+        <div class="assinatura">
+          <span><b>Victor Amaral</b></span>
+          <span>LAPIG, IESA, UFG</span>
+          <span class="turma-capa" hidden></span>
+        </div>
+      </div>
+      <div class="mesa" aria-hidden="true">
+        <div class="pasta"><span class="nome">meu-projeto</span></div>
+        <span class="arquivo" data-ext="docx" style="--x:11%;--y:46%;--x0:-12%;--y0:4%;--r0:-24deg;--d:.05s">relatorio-final.docx</span>
+        <span class="arquivo" data-ext="pdf" style="--x:11%;--y:58%;--x0:2%;--y0:98%;--r0:-14deg;--d:.18s">edital-2026.pdf</span>
+        <span class="arquivo" data-ext="docx" style="--x:11%;--y:70%;--x0:60%;--y0:96%;--r0:22deg;--d:.31s">ata-12-03.docx</span>
+        <span class="arquivo" data-ext="txt" style="--x:11%;--y:82%;--x0:-16%;--y0:62%;--r0:-30deg;--d:.44s">anotacoes.txt</span>
+        <span class="arquivo" data-ext="xlsx" style="--x:55%;--y:46%;--x0:72%;--y0:-8%;--r0:18deg;--d:.12s">dados-2025.xlsx</span>
+        <span class="arquivo" data-ext="csv" style="--x:55%;--y:58%;--x0:96%;--y0:30%;--r0:12deg;--d:.25s">tabela-ibge.csv</span>
+        <span class="arquivo" data-ext="jpg" style="--x:55%;--y:70%;--x0:34%;--y0:-14%;--r0:-8deg;--d:.38s">foto-campo-031.jpg</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Levantamento -->
+  <section class="tela" id="levantamento" data-bloco="Abertura" data-titulo="Antes de começar, quatro toques">
+    <div class="cabeca">
+      <h2>Antes de começar, quatro toques</h2>
+      <p class="lead">Aponte a câmera do celular. São quatro perguntas, sem nome e sem nada para escrever.</p>
+    </div>
+    <div class="levantar">
+      <div class="qr">
+        <div class="qr-codigo"></div>
+        <div class="endereco"></div>
+      </div>
+      <div class="sala chegada">
+        <div class="sala-palco"><canvas aria-label="Cada ponto é uma resposta que chegou"></canvas></div>
+        <p class="contador"><strong>0</strong> <span>respostas</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 a 8 · Exemplos (em construção) -->
+  <section class="tela rascunho" id="este-site" data-bloco="Abertura" data-titulo="Este site foi feito conversando com uma IA">
+    <div class="cabeca"><h2>Este site foi feito conversando com uma IA</h2><p class="lead">Em construção: pedidos reais ao lado do que cada um produziu.</p></div>
+  </section>
+  <section class="tela rascunho" id="pesquisa" data-bloco="Abertura" data-titulo="A pesquisa virou material de aula">
+    <div class="cabeca"><h2>A pesquisa virou material de aula</h2><p class="lead">Em construção: a balança do centro de massa e o diorama de Goiás.</p></div>
+  </section>
+  <section class="tela rascunho" id="relatorio" data-bloco="Abertura" data-titulo="O relatório volta com as mudanças marcadas">
+    <div class="cabeca"><h2>O relatório volta com as mudanças marcadas</h2><p class="lead">Em construção.</p></div>
+  </section>
+  <section class="tela rascunho" id="sob-medida" data-bloco="Abertura" data-titulo="Um programa feito para uma pessoa só">
+    <div class="cabeca"><h2>Um programa feito para uma pessoa só</h2><p class="lead">Em construção.</p></div>
+  </section>
+  <section class="tela rascunho" id="maumau" data-bloco="Abertura" data-titulo="Uma IA que não gera texto, escrita por uma que gera">
+    <div class="cabeca"><h2>Uma IA que não gera texto, escrita por uma que gera</h2><p class="lead">Em construção: Mau-Mau com quatro bots.</p></div>
+  </section>
+  <section class="tela rascunho" id="observatorio" data-bloco="Abertura" data-titulo="Um portal inteiro, feito do mesmo jeito">
+    <div class="cabeca"><h2>Um portal inteiro, feito do mesmo jeito</h2><p class="lead">Em construção.</p></div>
+  </section>
+
+  <!-- 9 · A sala em pontos -->
+  <section class="tela" id="sala" data-bloco="Abertura" data-titulo="A sala em pontos" data-passo-max="0">
+    <div class="sala analise">
+      <div class="sala-cabeca">
+        <h2 class="pergunta-titulo">Com que frequência você usa IA?</h2>
+        <div class="chave" role="group" aria-label="Quais respostas mostrar">
+          <button type="button" data-escopo="turma" aria-pressed="true">Esta turma</button>
+          <button type="button" data-escopo="todas" aria-pressed="false">Todas as turmas</button>
+        </div>
+      </div>
+      <div class="sala-palco"><canvas aria-label="Cada ponto é uma pessoa, agrupada pela resposta"></canvas></div>
+      <div class="sala-rodape">
+        <div class="abas-perguntas" role="group" aria-label="Pergunta"></div>
+        <div class="legenda"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape-leitura">
+  Observatório UFG-IA · LAPIG/IESA/UFG. Para apresentar: botão <b>Apresentar</b>, setas para avançar, Esc para o índice, F para tela cheia, L para voltar à leitura.
+</footer>
+
+<div class="indice" role="dialog" aria-label="Índice das telas"><ol></ol></div>
+
+<script src="assets/vendor/qrcode.min.js"></script>
+<script src="js/questionario.js"></script>
+<script src="js/sala.js"></script>
+<script src="js/motor.js"></script>
+<script src="js/telas-abertura.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quatro toques</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/curso.css">
+<style>
+  body { min-height: 100svh; display: flex; flex-direction: column; }
+  .resp { flex: 1; width: min(100%, 560px); margin: 0 auto; padding: 20px 16px 28px; display: flex; flex-direction: column; }
+  .resp-topo { display: flex; align-items: center; gap: 10px; color: var(--verde); }
+  .resp-topo img { width: 30px; }
+  .resp-topo strong { font: 700 17px/1 var(--serifa); }
+  .progresso { display: flex; gap: 6px; margin: 22px 0 26px; }
+  .progresso i { flex: 1; height: 4px; border-radius: 2px; background: var(--linha); transition: background .3s; }
+  .progresso i.feito { background: var(--verde); }
+  .progresso i.agora { background: var(--terracota); }
+  .resp h1 { font-size: 27px; line-height: 1.15; letter-spacing: -.02em; text-wrap: balance; }
+  .resp .dica { margin: 8px 0 0; color: var(--tinta-2); font-size: 15px; }
+  .opcoes { display: grid; gap: 8px; margin-top: 22px; }
+  .opcoes button {
+    text-align: left; cursor: pointer;
+    padding: 15px 16px; border-radius: 12px;
+    background: var(--papel); border: 1px solid var(--linha);
+    font-size: 17px; line-height: 1.3; color: var(--tinta);
+    transition: border-color .15s, background .15s;
+  }
+  .opcoes button:active, .opcoes button.escolhida { border-color: var(--terracota); background: #fbeee6; }
+  .voltar { margin-top: auto; padding-top: 20px; align-self: flex-start; background: none; border: 0; color: var(--tinta-2); font-size: 15px; cursor: pointer; }
+  .fim { text-align: left; margin-top: 8vh; }
+  .fim h1 { font-size: 34px; }
+  .fim p { color: var(--tinta-2); font-size: 18px; margin-top: 12px; }
+  .erro { color: #9b2c1b; margin-top: 16px; }
+</style>
+</head>
+<body>
+<div class="resp">
+  <div class="resp-topo"><img src="assets/brand/observatorio-coruja.svg" alt=""><strong>Do chat ao agente</strong></div>
+  <div class="progresso" aria-hidden="true"></div>
+  <div class="corpo" aria-live="polite"></div>
+  <button class="voltar" type="button" hidden>Voltar à pergunta anterior</button>
+</div>
+<script src="js/questionario.js"></script>
+<script>
+  // Endereço do Apps Script (o mesmo do index.html).
+  window.LEVANTAMENTO_URL = "";
+</script>
+<script>
+(() => {
+  const Q = window.QUESTIONARIO;
+  const turma = (new URLSearchParams(location.search).get("turma") || "").toUpperCase().replace(/[^A-Z0-9-]/g, "").slice(0, 24);
+  const corpo = document.querySelector(".corpo");
+  const prog = document.querySelector(".progresso");
+  const voltar = document.querySelector(".voltar");
+  const respostas = [];
+  let i = 0;
+
+  Q.PERGUNTAS.forEach(() => prog.append(document.createElement("i")));
+  const marcarProgresso = () => [...prog.children].forEach((el, k) => {
+    el.classList.toggle("feito", k < i); el.classList.toggle("agora", k === i);
+  });
+
+  function pergunta() {
+    const p = Q.PERGUNTAS[i];
+    marcarProgresso();
+    voltar.hidden = i === 0;
+    corpo.innerHTML = `<h1>${p.texto.replace(" Marque o ponto mais distante.", "")}</h1>` +
+      (p.id === "q3" ? `<p class="dica">Marque o ponto mais distante a que você já chegou.</p>` : "") +
+      `<div class="opcoes" role="group"></div>`;
+    const box = corpo.querySelector(".opcoes");
+    p.opcoes.forEach((o, k) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = o;
+      if (respostas[i] === k) b.classList.add("escolhida");
+      b.addEventListener("click", () => {
+        b.classList.add("escolhida");
+        respostas[i] = k;
+        setTimeout(() => { i++; i < Q.PERGUNTAS.length ? pergunta() : enviar(); }, 180);
+      });
+      box.append(b);
+    });
+    box.querySelector("button").focus({ preventScroll: true });
+  }
+
+  async function enviar() {
+    marcarProgresso();
+    voltar.hidden = true;
+    corpo.innerHTML = `<div class="fim"><h1>Enviando…</h1></div>`;
+    try {
+      await Q.enviar(turma, respostas);
+      corpo.innerHTML = `<div class="fim"><h1>Pronto.</h1><p>Olhe para a tela: um dos pontos é você.</p></div>`;
+      [...prog.children].forEach((el) => { el.className = "feito"; });
+    } catch (e) {
+      corpo.innerHTML = `<div class="fim"><h1>A resposta não foi enviada.</h1><p class="erro">Verifique a internet do celular e toque em tentar de novo.</p><div class="opcoes"><button type="button">Tentar de novo</button></div></div>`;
+      corpo.querySelector("button").addEventListener("click", enviar);
+    }
+  }
+
+  voltar.addEventListener("click", () => { if (i > 0) { i--; pergunta(); } });
+  pergunta();
+})();
+</script>
+</body>
+</html>
