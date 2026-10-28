@@ -75,18 +75,126 @@
     </div>
   </section>
 
-  <!-- 3 a 8 · Exemplos (em construção) -->
-  <section class="tela rascunho" id="este-site" data-bloco="Abertura" data-titulo="Este site foi feito conversando com uma IA">
-    <div class="cabeca"><h2>Este site foi feito conversando com uma IA</h2><p class="lead">Em construção: pedidos reais ao lado do que cada um produziu.</p></div>
+  <!-- 3 · Este site -->
+  <section class="tela" id="este-site" data-bloco="Abertura" data-titulo="Este site foi feito conversando com uma IA">
+    <div class="cabeca">
+      <h2>Este site foi feito conversando com uma IA</h2>
+      <p class="lead">Três pedidos em português comum e o que a IA fez com cada um.</p>
+    </div>
+    <ol class="conversa">
+      <li data-passo="1">
+        <blockquote class="pedido">Vamos pensar numa apresentação estilo site. Como é algo dentro de um site, podemos ser ousados e ter animações.</blockquote>
+        <ul class="registro">
+          <li>leu a qualificação e o visual do Observatório</li>
+          <li>pediu crítica do roteiro a duas outras IAs</li>
+          <li>criou as páginas e conferiu no navegador</li>
+        </ul>
+        <button type="button" class="ir" data-ir="capa">Ver a capa</button>
+      </li>
+      <li data-passo="2">
+        <blockquote class="pedido">Os resultados têm que aparecer de forma bem chamativa na tela, só daquela turma ou de todas.</blockquote>
+        <ul class="registro">
+          <li>escreveu quatro perguntas de opções fixas</li>
+          <li>desenhou um ponto por pessoa</li>
+          <li>simulou respostas para testar</li>
+        </ul>
+        <button type="button" class="ir" data-ir="sala">Ver a sala em pontos</button>
+      </li>
+      <li data-passo="3">
+        <blockquote class="pedido">Mostrar o Mau-Mau: a pessoa vê a partida acontecendo e joga contra uma IA não generativa, programada pela generativa.</blockquote>
+        <ul class="registro">
+          <li>leu as regras e os bots do jogo original</li>
+          <li>reescreveu os bots para explicar cada jogada</li>
+          <li>simulou 500 partidas: nenhum erro</li>
+        </ul>
+        <button type="button" class="ir" data-ir="maumau">Ver o Mau-Mau</button>
+      </li>
+    </ol>
   </section>
-  <section class="tela rascunho" id="pesquisa" data-bloco="Abertura" data-titulo="A pesquisa virou material de aula">
-    <div class="cabeca"><h2>A pesquisa virou material de aula</h2><p class="lead">Em construção: a balança do centro de massa e o diorama de Goiás.</p></div>
+
+  <!-- 4 · A pesquisa -->
+  <section class="tela" id="pesquisa" data-bloco="Abertura" data-titulo="A pesquisa virou material de aula">
+    <div class="cabeca">
+      <h2>A pesquisa virou material de aula</h2>
+      <p class="lead">Da qualificação de mestrado do Victor, sobre a pastagem em Goiás. O conteúdo é da pesquisa; os recursos foram construídos conversando com a IA.</p>
+    </div>
+    <div class="vitrines">
+      <figure class="vitrine" data-src="https://victorgit10.github.io/mestrado-lulc-goias/Visualizacao/apresentacao.html#11.0">
+        <button type="button" class="vitrine-abrir">
+          <img src="assets/img/balanca.jpg" alt="Tela da balança: o centro de massa da pastagem se desloca 77,6 km ao norte" loading="lazy">
+          <span class="vitrine-acao">Abrir a balança</span>
+        </button>
+        <figcaption><b>A balança.</b> O centro de massa explicado com um halter que tomba, em sete passos. Depois de abrir, clique nela e use as setas.</figcaption>
+      </figure>
+      <figure class="vitrine" data-src="https://victorgit10.github.io/mestrado-lulc-goias/Visualizacao/diorama-encerramento/cena.html">
+        <button type="button" class="vitrine-abrir">
+          <img src="assets/img/diorama.jpg" alt="Diorama em 3D de Goiás, com lavoura, pasto e mata" loading="lazy">
+          <span class="vitrine-acao">Abrir o diorama</span>
+        </button>
+        <figcaption><b>O diorama.</b> O fecho da apresentação: a paisagem de Goiás em 3D, em movimento.</figcaption>
+      </figure>
+    </div>
   </section>
-  <section class="tela rascunho" id="relatorio" data-bloco="Abertura" data-titulo="O relatório volta com as mudanças marcadas">
-    <div class="cabeca"><h2>O relatório volta com as mudanças marcadas</h2><p class="lead">Em construção.</p></div>
+
+  <!-- 5 · Documentos -->
+  <section class="tela" id="relatorio" data-bloco="Abertura" data-titulo="O relatório volta com as mudanças marcadas">
+    <div class="cabeca">
+      <h2>O relatório volta com as mudanças marcadas</h2>
+      <p class="lead">A IA preenche, mas cada mudança fica visível para você aceitar ou recusar no Word. Documentos fictícios.</p>
+    </div>
+    <div class="docs">
+      <article class="folha" aria-label="Relatório com alterações marcadas">
+        <p class="folha-titulo">Relatório parcial: projeto Água no Cerrado</p>
+        <p class="folha-secao">2. Atividades realizadas</p>
+        <p>No período, a equipe realizou <del>duas</del> <ins>três</ins> campanhas de campo, em março, maio <ins>e agosto</ins>. Foram coletadas <ins data-nota="1">142</ins> amostras de água em <ins>11</ins> pontos.</p>
+        <p class="folha-secao">3. Execução financeira</p>
+        <p>Até agosto, foram executados <ins data-nota="2">R$ 48.320,00 (61% do previsto)</ins>.</p>
+        <p>Bolsista substituto: <span class="vazio" data-nota="3">__________</span></p>
+        <aside class="notas">
+          <p data-nota="1">Contado na planilha <code>amostras-2026.xlsx</code>, aba Campo.</p>
+          <p data-nota="2">Somado no extrato da conta do projeto. Conferir com a coordenação.</p>
+          <p data-nota="3">Deixado em branco: o nome não está em nenhum arquivo da pasta.</p>
+        </aside>
+      </article>
+      <div class="ata" data-passo="1">
+        <span class="arquivo" data-ext="docx">ata-12-03.docx</span>
+        <p class="ata-rotulo">vira três tarefas</p>
+        <ul class="tarefas">
+          <li><b>Ana</b> envia a planilha de amostras até 20/03</li>
+          <li><b>Bruno</b> reserva o carro para a campanha de agosto</li>
+          <li><b>Carla</b> revisa o relatório parcial</li>
+        </ul>
+        <p class="ata-rotulo">e um rascunho de e-mail</p>
+        <div class="email">
+          <p><b>Assunto:</b> Encaminhamentos da reunião de 12/03</p>
+          <p>Olá, equipe. Seguem os três encaminhamentos combinados, com responsáveis e prazos…</p>
+        </div>
+      </div>
+    </div>
   </section>
-  <section class="tela rascunho" id="sob-medida" data-bloco="Abertura" data-titulo="Um programa feito para uma pessoa só">
-    <div class="cabeca"><h2>Um programa feito para uma pessoa só</h2><p class="lead">Em construção.</p></div>
+
+  <!-- 6 · Sob medida -->
+  <section class="tela" id="sob-medida" data-bloco="Abertura" data-titulo="Um programa feito para uma pessoa só">
+    <div class="cabeca">
+      <h2>Um programa feito para uma pessoa só</h2>
+      <p class="lead">Um app de tarefas que entende o jeito de escrever do seu dono, e que a IA também consegue ler e preencher. Ninguém venderia esse programa: só uma pessoa precisa dele.</p>
+    </div>
+    <div class="app">
+      <div class="app-janela">
+        <label class="app-campo">
+          <span class="app-rotulo">Nova tarefa</span>
+          <input type="text" autocomplete="off" spellcheck="false" placeholder="Escreva como falaria: reunião sexta 14h #projeto">
+        </label>
+        <div class="app-leitura" aria-live="polite"></div>
+        <ol class="app-lista"></ol>
+      </div>
+      <dl class="app-regras">
+        <dt>sexta, amanhã, 20/11</dt><dd>vira data</dd>
+        <dt>14h, 9h30</dt><dd>vira hora</dd>
+        <dt>#projeto</dt><dd>vira caixa</dd>
+        <dt>!</dt><dd>vira urgente</dd>
+      </dl>
+    </div>
   </section>
   <section class="tela" id="maumau" data-bloco="Abertura" data-titulo="Uma IA que não gera texto, escrita por uma que gera">
     <div class="mm" data-modo="assistir">
@@ -140,8 +248,23 @@
       </div>
     </div>
   </section>
-  <section class="tela rascunho" id="observatorio" data-bloco="Abertura" data-titulo="Um portal inteiro, feito do mesmo jeito">
-    <div class="cabeca"><h2>Um portal inteiro, feito do mesmo jeito</h2><p class="lead">Em construção.</p></div>
+  <section class="tela" id="observatorio" data-bloco="Abertura" data-titulo="Um portal inteiro, feito do mesmo jeito">
+    <div class="portal">
+      <div class="portal-texto">
+        <h2>Um portal inteiro, feito do mesmo jeito</h2>
+        <ul class="portal-fatos">
+          <li><strong>Mais de 1.600</strong> materiais no acervo, com busca em português e inglês</li>
+          <li><strong>Todo dia</strong>, as notícias sobre IA na imprensa</li>
+          <li><strong>Um panorama</strong> dos modelos e das IAs gratuitas</li>
+          <li><strong>Uma aula interativa</strong> sobre como a IA escolhe a próxima palavra</li>
+        </ul>
+        <p class="portal-fecho">O código é da IA. A curadoria, as escolhas e a revisão são das pessoas do LAPIG.</p>
+        <a class="botao cheio" href="https://lapig-ufg.github.io/observatorio-ia/" target="_blank" rel="noopener">Abrir o Observatório</a>
+      </div>
+      <figure class="portal-tela">
+        <img src="assets/img/observatorio.jpg" alt="Página inicial do Observatório UFG-IA" loading="lazy">
+      </figure>
+    </div>
   </section>
 
   <!-- 9 · A sala em pontos -->
@@ -176,5 +299,6 @@
 <script src="js/motor.js"></script>
 <script src="js/maumau.js"></script>
 <script src="js/telas-abertura.js"></script>
+<script src="js/telas-exemplos.js"></script>
 </body>
 </html>
