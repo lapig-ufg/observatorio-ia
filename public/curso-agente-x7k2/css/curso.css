@@ -506,7 +506,7 @@ body.aula .portal h2 { font-size: calc(var(--u) * 4); }
 /* ---------- Dois caminhos (chat × agente) ---------- */
 
 /* Lado a lado: o chat à esquerda, o agente à direita. Em cada lado, rótulo e contador no topo. */
-.caminhos { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: calc(var(--u) * 4); flex: 1; min-height: 0; }
+.caminhos { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); grid-template-rows: minmax(0, 1fr); gap: calc(var(--u) * 4); flex: 1; min-height: 0; }
 .caminho {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto minmax(0, 1fr);
   column-gap: calc(var(--u) * 2); row-gap: calc(var(--u) * 1.6);
@@ -548,7 +548,14 @@ body.aula .agente-resultado { min-height: 0; height: 100%; grid-template-rows: m
 .registro-vivo li { animation: chega .3s var(--curva) both; }
 .registro-vivo li .t { color: var(--tinta-2); margin-right: .6em; }
 .registro-vivo li.fala { color: var(--tinta); font-family: var(--sans); }
-.agente-resultado { margin: 0; display: grid; gap: 8px; align-content: start; transition: opacity .5s var(--curva); }
+.agente-resultado { margin: 0; display: grid; gap: 8px; transition: opacity .5s var(--curva); }
+body:not(.aula) .agente-resultado { align-content: start; }
+.registro-vivo { font-size: max(12.5px, calc(var(--u) * 1.15)); }
+/* No fim (passo 3), o registro vira um resumo de marcos e o gráfico cresce. */
+.agente-corpo.resumo { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); }
+body.aula .agente-corpo.resumo .pedido-mini { display: none; }
+.agente-lado [data-so-passo2] { visibility: hidden; }
+.agente-lado.com-pedido [data-so-passo2] { visibility: visible; }
 .agente-resultado img { width: 100%; border: 1px solid var(--linha); border-radius: 6px; background: #fff; }
 .agente-resultado figcaption { font-size: max(14px, calc(var(--u) * 1.35)); color: var(--tinta-2); }
 .agente-resultado figcaption b { color: var(--verde); }
@@ -564,7 +571,7 @@ body.aula .agente-resultado { min-height: 0; height: 100%; grid-template-rows: m
 
 .conferir { list-style: none; margin: 0; padding: 0; max-width: 78ch; }
 .conferir li { border-top: 1px solid var(--linha); }
-.conferir label { display: grid; grid-template-columns: auto 1fr; gap: calc(var(--u) * 1.6); align-items: start; padding: calc(var(--u) * 1.3) 0; cursor: pointer; font-size: max(16px, calc(var(--u) * 1.65)); }
+.conferir label { display: grid; grid-template-columns: auto 1fr; gap: calc(var(--u) * 1.6); align-items: start; padding: calc(var(--u) * 1) 0; cursor: pointer; font-size: max(16px, calc(var(--u) * 1.55)); }
 .conferir input { appearance: none; width: 1.3em; height: 1.3em; margin: .1em 0 0; border: 2px solid var(--verde); border-radius: 5px; display: grid; place-items: center; cursor: pointer; }
 .conferir input:checked { background: var(--verde); }
 .conferir input:checked::after { content: "✓"; color: #fff; font-weight: 700; font-size: .85em; }
@@ -597,14 +604,22 @@ body.aula .monitor-respostas li:nth-child(n + 3) { display: none; }
 .intervalo-dica { margin: 0; color: var(--tinta-2); font-size: max(16px, calc(var(--u) * 1.7)); }
 
 /* Esquema da janela de um agente: quatro lugares numerados. */
+.janela-esquema b { line-height: 1.2; }
+.janela-esquema .je-n + b { margin-left: .4em; }
 .janela-esquema {
-  display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr) minmax(0, .9fr); gap: 1px;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 1px;
   background: var(--linha); border: 1px solid var(--verde); border-radius: 12px; overflow: hidden;
-  min-height: calc(var(--u) * 24); font-size: max(13px, calc(var(--u) * 1.3));
+  font-size: max(13px, calc(var(--u) * 1.3));
 }
-.janela-esquema > div, .je-conversa > div { background: var(--papel); padding: calc(var(--u) * 1.6); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
-.je-conversa { display: grid; grid-template-rows: 1fr auto; gap: 1px; background: var(--linha); padding: 0 !important; }
-.je-conversa > div { align-items: stretch; }
+.je-conversa > div { background: var(--papel); padding: calc(var(--u) * 1.6); display: flex; flex-flow: row wrap; gap: 8px; align-items: center; align-content: flex-start; }
+.je-conversa > div > .je-caixa, .je-conversa > div > .registro { flex-basis: 100%; }
+.janela-esquema > .je-conversa { display: grid; grid-template-rows: auto 1fr; gap: 1px; background: var(--linha); padding: 0; }
+.janela-esquema > .je-pasta { background: var(--papel); padding: calc(var(--u) * 1.6); display: flex; flex-flow: row wrap; gap: 8px; align-content: flex-start; }
+.je-pasta > .je-n { flex: none; }
+.je-pasta > b { flex: 1 1 calc(100% - 3em); align-self: center; }
+.je-novos { flex-direction: row !important; flex-wrap: wrap; align-items: center !important; }
+.je-novos > b { flex: 1 1 calc(100% - 3em); }
+.je-novos { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: auto; padding-top: 10px; border-top: 1px dashed var(--terracota); width: 100%; }
 .je-n { display: grid; place-items: center; width: 1.8em; height: 1.8em; border-radius: 50%; background: var(--terracota); color: #fff; font-weight: 700; }
 .janela-esquema b { color: var(--verde); font-size: 1.1em; }
 .je-caixa { border: 1px solid var(--linha); border-radius: 8px; padding: .6em .8em; color: var(--tinta-2); background: var(--fundo); }
@@ -646,14 +661,15 @@ body:not(.aula) .tela-escura { max-width: none; padding-left: max(16px, calc(50v
 .tela-escura h2 { color: #fff; }
 .tela-escura .lead, .tela-escura .nota { color: #b9d3c6; }
 .triagem { display: grid; gap: 8px; }
-.tri-linha { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; align-items: center; padding: .4em .8em; border-radius: 10px; background: rgba(255, 255, 255, .06); font-size: max(15px, calc(var(--u) * 1.45)); }
+.tri-linha { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; align-items: center; padding: .3em .8em; border-radius: 10px; background: rgba(255, 255, 255, .06); font-size: max(15px, calc(var(--u) * 1.45)); }
 .tri-linha .arquivo { justify-self: start; }
 .tri-opcoes { display: flex; gap: 6px; flex-wrap: wrap; }
 .tri-opcoes button { border: 1px solid rgba(255, 255, 255, .3); background: none; color: #e7f2ec; border-radius: 999px; padding: .35em .9em; cursor: pointer; font-size: .9em; }
 .tri-opcoes button:hover { border-color: #fff; }
 .tri-opcoes button.certa { background: var(--menta); color: var(--verde-fundo); border-color: var(--menta); font-weight: 700; }
 .tri-opcoes button.errada { text-decoration: line-through; opacity: .6; }
-.tri-motivo { grid-column: 1 / -1; margin: 0; color: #cfe3d9; animation: chega .3s var(--curva); }
+.tri-motivo { margin: calc(var(--u) * .8) 0 0; min-height: 1.6em; color: #cfe3d9; font-size: max(15px, calc(var(--u) * 1.5)); }
+.tri-linha.feita .arquivo::after { content: attr(data-veredito); margin-left: .6em; font: 700 .8em var(--sans); color: var(--verde); }
 .tri-motivo b { color: #fff; }
 .tela-escura .arquivo { box-shadow: none; }
 
@@ -669,8 +685,23 @@ body:not(.aula) .tela-escura { max-width: none; padding-left: max(16px, calc(50v
 .ps-versoes { grid-column: 1 / -1; max-width: 70ch; font-size: max(15px, calc(var(--u) * 1.5)); }
 .ps-versoes p { margin: 0 0 .5em; }
 
+/* Tela 11: conferências à esquerda, QR para abrir a apresentação à direita. */
+.conferir-grade { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: calc(var(--u) * 5); align-items: start; }
+.abrir-aqui { width: max(200px, calc(var(--u) * 22)); padding: calc(var(--u) * 1.8); border: 1px solid var(--verde); border-radius: 14px; background: var(--papel); font-size: max(14px, calc(var(--u) * 1.35)); }
+.abrir-aqui p { margin: .8em 0 0; }
+.qr-pequeno svg { width: 100%; height: auto; }
+.endereco-curso { font: 600 .9em var(--mono); color: var(--verde); overflow-wrap: anywhere; }
+
+/* Tela 19: os quatro passos da cópia, cada pasta com sua cor. */
+.passos-copia { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: calc(var(--u) * 2); }
+.passos-copia li { display: grid; gap: calc(var(--u) * 1.2); align-content: start; font-size: max(15px, calc(var(--u) * 1.45)); }
+.passos-copia .ps-pasta b { font-size: 1em; }
+.ps-aberta { background: var(--menta); outline: 3px solid var(--terracota); outline-offset: -3px; } .ps-aberta b { color: var(--verde); }
+.ps-versao { background: var(--menta-2); } .ps-versao b { color: var(--verde); }
+
 @media (max-width: 760px) {
-  body:not(.aula) .instalar, body:not(.aula) .montador, body:not(.aula) .aprovar, body:not(.aula) .situacoes, body:not(.aula) .janela-esquema, body:not(.aula) .pastas-seguras { grid-template-columns: 1fr; }
+  body:not(.aula) .conferir-grade, body:not(.aula) .passos-copia { grid-template-columns: 1fr; }
+  body:not(.aula) .instalar, body:not(.aula) .montador, body:not(.aula) .aprovar, body:not(.aula) .situacoes, body:not(.aula) .janela-esquema { grid-template-columns: 1fr; }
   body:not(.aula) .tri-linha { grid-template-columns: 1fr; }
 }
 

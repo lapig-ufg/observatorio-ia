@@ -15,6 +15,17 @@
     c.addEventListener("change", () => { marcadas[c.dataset.chave] = c.checked; guardar("conferir", marcadas); });
   });
 
+  // QR para o participante abrir a apresentação no próprio computador.
+  const abrir = document.querySelector(".abrir-aqui");
+  if (abrir && window.qrcode) {
+    const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+    const url = new URL(local && window.CURSO_PUBLICO ? window.CURSO_PUBLICO : location.pathname.replace(/[^/]*$/, ""), location.href);
+    if (window.CURSO?.turma) url.searchParams.set("turma", window.CURSO.turma);
+    const qr = qrcode(0, "M"); qr.addData(url.href); qr.make();
+    abrir.querySelector(".qr-pequeno").innerHTML = qr.createSvgTag({ cellSize: 6, margin: 0, scalable: true });
+    abrir.querySelector(".endereco-curso").textContent = url.host + url.pathname;
+  }
+
   // ----- Copiar -----
   const copiar = async (texto, botao) => {
     try { await navigator.clipboard.writeText(texto); } catch { /* navegador sem permissão: a pessoa seleciona à mão */ }
@@ -29,10 +40,10 @@
     { p: "Entrar com a conta da instituição não funciona", r: "O Antigravity só aceita conta de instituição quando ela libera o programa. Use uma conta Google pessoal, como @gmail.com, que funciona no plano gratuito.", k: "conta login entrar instituição ufg institucional workspace email falha erro acesso" },
     { p: "O Windows bloqueou o instalador", r: "Se o arquivo veio de antigravity.google/download, clique em “Mais informações” e depois em “Executar assim mesmo”. Se veio de outro lugar, não instale.", k: "windows bloqueou smartscreen protegeu instalador executar aviso antivírus" },
     { p: "Não tenho permissão para instalar programas", r: "Em computador da instituição, quem instala costuma ser o suporte de TI. Para hoje, use outro computador ou faça em dupla.", k: "permissão administrador admin senha instalar bloqueado ti suporte" },
-    { p: "A cota acabou", r: "No plano gratuito, o limite renova toda semana. Continue com o opencode ou faça em dupla com quem ainda tem cota.", k: "cota limite acabou quota esgotou rate limit espera" },
+    { p: "A cota acabou", r: "No plano gratuito, o limite renova toda semana. Na aula, faça em dupla com quem ainda tem cota, ou entre com outra conta Google pessoal.", k: "cota limite acabou quota esgotou rate limit espera" },
     { p: "O agente pediu para instalar algo", r: "Leia o pedido: o que ele quer instalar e para quê. Biblioteca para ler PDF ou planilha costuma ser normal. Na dúvida, recuse e pergunte por quê.", k: "instalar pip python biblioteca permissão comando pediu aprovar" },
     { p: "Não sei onde ficou o arquivo que ele criou", r: "Fica dentro da pasta que você abriu. Peça: “me diga o caminho completo do arquivo que você criou”.", k: "onde arquivo salvou criou achar pasta caminho resultado" },
-    { p: "Ele mexeu no arquivo errado", r: "Pare o agente. Volte a última cópia da pasta 01_trabalho (tela Originais numa pasta). Depois diga a ele exatamente qual arquivo usar.", k: "errado apagou mexeu estragou desfazer voltar original" },
+    { p: "Ele mexeu no arquivo errado", r: "Pare o agente. Volte para a última cópia da pasta, que você guardou antes do passo grande. Depois diga a ele exatamente qual arquivo usar.", k: "errado apagou mexeu estragou desfazer voltar original" },
     { p: "No opencode: comando não encontrado", r: "Feche e abra o terminal de novo depois de instalar. Se continuar, confira se o Node.js está instalado com: node --version", k: "opencode comando não encontrado not found terminal npm node instalar" },
     { p: "Apareceu uma mensagem de erro em inglês", r: "Se a IA já está instalada, copie a mensagem inteira e cole nela: “Deu este erro, o que faço?”. Se não está, mostre ao monitor ou a quem está ao lado.", k: "erro inglês mensagem error falhou exception" },
   ];
@@ -53,10 +64,14 @@
 
   // ----- Intervalo: hora de voltar -----
   const telaIntervalo = document.getElementById("intervalo-1");
-  telaIntervalo?.addEventListener("entrou", () => {
-    const volta = new Date(Date.now() + 15 * 60000);
+  // A hora de voltar é marcada na primeira vez que a tela aparece; R marca de novo.
+  let volta = null;
+  const marcarVolta = () => {
+    volta = new Date(Date.now() + 15 * 60000);
     telaIntervalo.querySelector(".intervalo-hora strong").textContent = volta.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-  });
+  };
+  telaIntervalo?.addEventListener("entrou", () => { if (!volta) marcarVolta(); });
+  telaIntervalo?.addEventListener("tecla", (e) => { if (e.detail.key === "r" || e.detail.key === "R") { marcarVolta(); e.preventDefault(); } });
 
   // ----- 15 · Montador de pedido -----
   const montador = document.querySelector(".montador");
@@ -65,7 +80,7 @@
     const saida = montador.querySelector(".montado");
     const texto = () => {
       const [ler, fazer, salvar, naoMexer] = partes.map((p) => p.querySelector("input").value.trim());
-      return [ler && `Leia ${ler}.`, fazer && `${fazer.charAt(0).toUpperCase() + fazer.slice(1)}.`, salvar && `Salve o resultado ${salvar}.`, naoMexer && `${naoMexer.charAt(0).toUpperCase() + naoMexer.slice(1)}.`]
+      return [ler && `Leia ${ler}.`, fazer && `${fazer.charAt(0).toUpperCase() + fazer.slice(1)}.`, salvar && `Salve em ${salvar}.`, naoMexer && `${naoMexer.charAt(0).toUpperCase() + naoMexer.slice(1)}.`]
         .filter(Boolean).join(" ").replace(/\.\./g, ".");
     };
     const desenhar = () => {
@@ -73,7 +88,7 @@
       const cor = (c, t) => (t ? `<mark style="--c:var(${c})">${t}</mark>` : "");
       saida.innerHTML = [
         ler && `Leia ${cor("--p1", ler)}.`, fazer && `${cor("--p2", fazer.charAt(0).toUpperCase() + fazer.slice(1))}.`,
-        salvar && `Salve o resultado ${cor("--p3", salvar)}.`, naoMexer && `${cor("--p4", naoMexer.charAt(0).toUpperCase() + naoMexer.slice(1))}.`,
+        salvar && `Salve em ${cor("--p3", salvar)}.`, naoMexer && `${cor("--p4", naoMexer.charAt(0).toUpperCase() + naoMexer.slice(1))}.`,
       ].filter(Boolean).join(" ");
     };
     partes.forEach((p) => p.querySelector("input").addEventListener("input", desenhar));
@@ -114,8 +129,9 @@
       linha.querySelectorAll("button").forEach((x) => x.classList.remove("certa", "errada"));
       linha.querySelector(`button[data-k="${t.certa}"]`).classList.add("certa");
       if (k !== t.certa) b.classList.add("errada");
-      linha.querySelector(".tri-motivo")?.remove();
-      linha.insertAdjacentHTML("beforeend", `<p class="tri-motivo"><b>${k === t.certa ? "Isso." : "Repense."}</b> ${t.motivo}</p>`);
+      linha.classList.add("feita");
+      linha.querySelector(".arquivo").dataset.veredito = k === t.certa ? "✓" : "repense";
+      document.querySelector(".tela-escura .tri-motivo").innerHTML = `<b>${esc(t.nome)}:</b> ${k === t.certa ? "isso." : "repense."} ${t.motivo}`;
     });
   }
 })();

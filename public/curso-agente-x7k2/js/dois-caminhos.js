@@ -9,9 +9,10 @@
   const tela = document.getElementById("dois-caminhos");
   if (!tela) return;
 
+  // Contagem conservadora: anexar as 12 planilhas conta como uma ação só.
   const CHAT_1 = [
-    ["12×", "anexa as planilhas, uma a uma"],
-    ["1×", "explica que julho é CSV e que dois meses têm valores escritos como texto"],
+    ["1×", "anexa as 12 planilhas"],
+    ["1×", "explica que julho veio em CSV (texto simples) e que há valores digitados como texto"],
   ];
   const CHAT_2 = [
     ["1×", "copia a tabela da resposta"],
@@ -37,6 +38,14 @@
     [78, "confere a planilha e se os originais continuam intactos"],
     [84, "confere de novo, por outro caminho, os meses com valor em texto e o CSV"],
     [90, "Pronto. Total do ano: R$ 79.466,18.", "fala"],
+  ];
+  // No fim, o registro vira estes marcos (a gravação inteira fica na leitura).
+  const MARCOS = [
+    [0, "olhou a pasta e as 12 planilhas"],
+    [42, "escreveu e rodou o programa que junta tudo"],
+    [59, "olhou o próprio gráfico e corrigiu o título"],
+    [78, "conferiu os totais e os originais, por dois caminhos"],
+    [90, "entregou a planilha, o gráfico e o total", "fala"],
   ];
   const ACELERA = 7; // 90 s de gravação viram ~13 s na tela
 
@@ -95,12 +104,26 @@
     tocou = true;
   }
 
+  const corpo = tela.querySelector(".agente-corpo");
+  const lado = tela.querySelector(".agente-lado");
+
+  function resumir() {
+    parar();
+    registro.replaceChildren(...MARCOS.map(linha));
+    relogio.textContent = mmss(90);
+    resultado.classList.remove("esperando");
+    corpo.classList.add("resumo");
+  }
+
   function aplicar(passo) {
     desenharChat(passo);
     pedido.style.visibility = passo >= 2 ? "visible" : "hidden";
+    lado.classList.toggle("com-pedido", passo >= 2);
     // Na leitura, quem dispara a gravação é a rolagem (evento "entrou"), não o carregamento.
-    if (!document.body.classList.contains("aula")) return;
+    if (!document.body.classList.contains("aula")) { lado.classList.add("com-pedido"); return; }
+    corpo.classList.toggle("resumo", passo >= 3);
     if (passo < 2) { parar(); registro.replaceChildren(); relogio.textContent = "0:00"; resultado.classList.add("esperando"); tocou = false; }
+    else if (passo >= 3) { resumir(); tocou = true; }
     else if (!tocou) tocar();
   }
 

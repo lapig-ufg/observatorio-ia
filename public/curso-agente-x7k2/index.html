@@ -299,7 +299,7 @@
       <div class="caminho chat-lado">
         <div class="caminho-rotulo"><b>No chat do navegador</b><span>passos típicos</span></div>
         <ol class="acoes"></ol>
-        <div class="contador-acoes"><strong>0</strong><span>ações suas</span></div>
+        <div class="contador-acoes"><strong>0</strong><span>ações manuais</span></div>
       </div>
       <div class="caminho agente-lado">
         <div class="caminho-rotulo"><b>Com o agente no computador</b><span>gravação real, 28/10/2026</span></div>
@@ -313,7 +313,7 @@
             <figcaption>Total do ano: <b>R$ 79.466,18</b>. Igual ao gabarito, centavo por centavo.</figcaption>
           </figure>
         </div>
-        <div class="contador-acoes"><strong>1</strong><span>ação sua</span><em class="relogio">0:00</em></div>
+        <div class="contador-acoes" data-so-passo2><strong>1</strong><span>pedido seu</span><em class="relogio">0:00</em></div>
       </div>
     </div>
   </section>
@@ -324,13 +324,20 @@
       <h2>Antes de instalar, cinco conferências</h2>
       <p class="lead">Marque o que já está certo. Fica salvo neste navegador.</p>
     </div>
+    <div class="conferir-grade">
     <ul class="conferir">
       <li><label><input type="checkbox" data-chave="so"><span><b>Windows 10 ou 11 (64 bits), macOS 12 ou mais novo, ou Linux recente.</b> Celular e tablet não servem.</span></label></li>
-      <li><label><input type="checkbox" data-chave="conta"><span><b>Uma conta Google que entre no Antigravity.</b> Conta pessoal (como @gmail.com) funciona no plano gratuito. Conta da instituição só entra se a instituição tiver liberado o Antigravity para ela.</span></label></li>
+      <li><label><input type="checkbox" data-chave="conta"><span><b>Uma conta Google que entre no Antigravity.</b> Conta pessoal (como @gmail.com) funciona no plano gratuito. Conta institucional só entra se o administrador tiver liberado o acesso.</span></label></li>
       <li><label><input type="checkbox" data-chave="senha"><span><b>A senha dessa conta e o celular da verificação em duas etapas</b>, à mão.</span></label></li>
       <li><label><input type="checkbox" data-chave="admin"><span><b>Permissão para instalar programas</b> neste computador. Em máquina da instituição, às vezes só o suporte instala.</span></label></li>
       <li><label><input type="checkbox" data-chave="idade"><span><b>Ter 18 anos ou mais</b>, exigência do próprio Antigravity.</span></label></li>
     </ul>
+    <aside class="abrir-aqui">
+      <div class="qr-pequeno"></div>
+      <p><b>Abra esta apresentação no seu computador.</b> Os pedidos prontos, os links e o monitor ficam à mão.</p>
+      <p class="endereco-curso"></p>
+    </aside>
+    </div>
   </section>
 
   <!-- 12 · Instalar -->
@@ -344,12 +351,12 @@
         <li><span><b>Baixe</b> a versão do seu sistema em <a href="https://antigravity.google/download" target="_blank" rel="noopener">antigravity.google/download</a>. Só baixe desse endereço.</span></li>
         <li><span><b>Instale</b> como qualquer programa e abra.</span></li>
         <li><span><b>Entre</b> com a conta Google que você conferiu.</span></li>
-        <li><span><b>Nas configurações</b>, decida se o Google pode usar suas conversas para melhorar os produtos. Na conta pessoal, isso vem ligado; dá para desligar.</span></li>
+        <li><span><b>No painel Settings</b> (o programa é em inglês), decida se o Google pode usar suas conversas para melhorar os produtos. Na conta pessoal, isso vem ligado; dá para desligar.</span></li>
         <li><span><b>Abra uma pasta de teste</b>, não uma pasta com seus arquivos de verdade.</span></li>
       </ol>
       <aside class="para-casa">
         <h3>Para casa: o opencode</h3>
-        <p>O mesmo jeito de trabalhar, pelo terminal, com modelos gratuitos. Com o Node.js instalado:</p>
+        <p>O mesmo jeito de trabalhar, pelo terminal, com modelos gratuitos. Precisa do Node.js, que o guia ensina a instalar. Depois:</p>
         <div class="comando"><code>npm install -g opencode-ai</code><button type="button" class="copiar" data-copiar="npm install -g opencode-ai">Copiar</button></div>
         <p class="nota">No Windows, o próprio opencode recomenda usar o WSL. Guia completo em <a href="https://opencode.ai/docs/" target="_blank" rel="noopener">opencode.ai/docs</a>.</p>
       </aside>
@@ -359,16 +366,15 @@
   <!-- 13 · Deu erro -->
   <section class="tela" id="deu-erro" data-bloco="Instalação" data-titulo="Deu erro? Pergunte ao monitor">
     <div class="cabeca">
-      <h2>Deu erro? Pergunte ao monitor do curso</h2>
-      <p class="lead">Antes de a IA estar instalada, quem ajuda é o monitor. Depois, a própria IA resolve: cole nela a mensagem de erro inteira.</p>
+      <h2>Deu erro? Pergunte ao monitor</h2>
+      <p class="lead">Enquanto a IA não estiver instalada, o monitor ajuda. Depois, cole a mensagem de erro inteira na própria IA e pergunte o que fazer.</p>
     </div>
     <div class="monitor">
       <label class="monitor-campo">
-        <span>Escreva o que aconteceu</span>
+        <span>Escreva o que aconteceu. Por enquanto, o monitor busca só nas perguntas frequentes do curso; ainda não usa IA.</span>
         <input type="search" placeholder="ex.: o Windows bloqueou o instalador" autocomplete="off">
       </label>
       <ol class="monitor-respostas" aria-live="polite"></ol>
-      <p class="nota">O monitor responde só sobre o curso. Nesta versão, ele procura nas perguntas frequentes; ainda não usa IA.</p>
     </div>
   </section>
 
@@ -385,30 +391,32 @@
   <section class="tela" id="abra-uma-pasta" data-bloco="Primeiro contato" data-min="20" data-titulo="Abra uma pasta, não o computador inteiro">
     <div class="cabeca">
       <h2>Abra uma pasta, não o computador inteiro</h2>
-      <p class="lead">O agente trabalha a partir da pasta que você abre. Abrir Documentos inteiro é deixar tudo ao alcance dele.</p>
+      <p class="lead">O agente trabalha a partir da pasta que você abre. Abrir Documentos inteiro deixa tudo ao alcance dele.</p>
     </div>
     <div class="janela-esquema" aria-label="Esquema de uma janela de agente">
-      <div class="je-pasta" data-passo="1"><span class="je-n">1</span><b>A pasta aberta</b><span class="arquivo" data-ext="xlsx">jan.xlsx</span><span class="arquivo" data-ext="csv">julho.csv</span><span class="arquivo" data-ext="xlsx">nov.xlsx</span></div>
-      <div class="je-conversa">
-        <div class="je-mudou" data-passo="3"><span class="je-n">3</span><b>O que ele fez</b><ul class="registro"><li>leu 12 arquivos</li><li>criou despesas-2026-completo.xlsx</li></ul></div>
-        <div class="je-pedir" data-passo="2"><span class="je-n">2</span><b>Onde você pede</b><span class="je-caixa">Junte as 12 planilhas…</span></div>
+      <div class="je-pasta"><span class="je-n">1</span><b>A pasta aberta</b>
+        <span class="arquivo" data-ext="xlsx">jan.xlsx</span><span class="arquivo" data-ext="csv">julho.csv</span><span class="arquivo" data-ext="xlsx">nov.xlsx</span>
+        <span class="je-novos" data-passo="3"><span class="je-n">4</span><b>O resultado aparece aqui</b><span class="arquivo" data-ext="xlsx">despesas-2026-completo.xlsx</span><span class="arquivo" data-ext="png">grafico-totais.png</span></span>
       </div>
-      <div class="je-resultado" data-passo="4"><span class="je-n">4</span><b>O resultado fica na pasta</b><span class="arquivo" data-ext="xlsx">despesas-2026-completo.xlsx</span><span class="arquivo" data-ext="png">grafico-totais.png</span></div>
+      <div class="je-conversa">
+        <div class="je-pedir" data-passo="1"><span class="je-n">2</span><b>Onde você pede</b><span class="je-caixa">Junte as 12 planilhas numa só, some cada mês e faça um gráfico.</span></div>
+        <div class="je-mudou" data-passo="2"><span class="je-n">3</span><b>O que ele fez</b><ul class="registro"><li>leu 12 arquivos</li><li>criou despesas-2026-completo.xlsx</li><li>criou grafico-totais.png</li></ul></div>
+      </div>
     </div>
-    <p class="nota">Esquema. A tela de cada programa muda, mas os quatro lugares existem em todos.</p>
+    <p class="nota">Esquema. A tela muda de um programa para outro, mas estes quatro lugares existem em todos.</p>
   </section>
 
   <!-- 15 · Quatro partes -->
   <section class="tela" id="quatro-partes" data-bloco="Primeiro contato" data-titulo="Um pedido que funciona tem quatro partes">
     <div class="cabeca">
-      <h2>Um pedido que funciona tem quatro partes</h2>
-      <p class="lead">Escreva cada parte e copie o pedido pronto. As cores voltam em todos os exercícios.</p>
+      <h2>Um pedido completo tem quatro partes</h2>
+      <p class="lead">Escreva cada parte e copie o pedido pronto.</p>
     </div>
     <div class="montador">
       <div class="montador-campos">
         <label class="parte p-ler"><span>Onde ler</span><input type="text" value="as 12 planilhas desta pasta"></label>
-        <label class="parte p-fazer"><span>O que fazer</span><input type="text" value="junte tudo numa planilha só, some cada mês e faça um gráfico de barras"></label>
-        <label class="parte p-salvar"><span>Onde salvar</span><input type="text" value="numa pasta nova chamada resultado"></label>
+        <label class="parte p-fazer"><span>O que fazer</span><input type="text" value="junte numa planilha só, some cada mês e faça um gráfico"></label>
+        <label class="parte p-salvar"><span>Onde salvar</span><input type="text" value="uma pasta nova chamada resultado"></label>
         <label class="parte p-naomexer"><span>No que não mexer</span><input type="text" value="não altere nem apague os arquivos originais"></label>
       </div>
       <div class="montador-saida">
@@ -429,16 +437,17 @@
         <p class="pp-quem">O agente quer executar um comando</p>
         <code class="pp-comando">pip install pdfplumber</code>
         <p class="pp-porque">Para ler as tabelas dos PDFs, preciso de uma biblioteca que ainda não está instalada.</p>
+        <p class="nota">O <code>pip</code> é o instalador de bibliotecas do Python. No programa, estes botões aparecem em inglês.</p>
         <div class="pp-botoes"><button type="button" class="botao" data-resposta="recusar">Recusar</button><button type="button" class="botao cheio" data-resposta="permitir">Permitir</button></div>
         <p class="pp-explica" aria-live="polite"></p>
       </div>
       <div class="niveis">
         <h3>Quanto ele faz sem perguntar</h3>
         <ol>
-          <li><b>Request Review</b><span>pergunta antes de qualquer comando</span></li>
-          <li class="recomendado"><b>Default</b><span>pergunta antes do que é sensível. É o que usamos no curso.</span></li>
-          <li><b>Auto</b><span>decide sozinho se o comando roda</span></li>
-          <li class="perigo"><b>Turbo</b><span>libera tudo, sem caixa de proteção. Não use.</span></li>
+          <li><b>Request Review</b><span>(pedir revisão) pergunta antes de qualquer comando</span></li>
+          <li class="recomendado"><b>Default</b><span>(padrão) pergunta antes do que é sensível. É o que usamos no curso.</span></li>
+          <li><b>Auto</b><span>(automático) decide sozinho o que pode executar</span></li>
+          <li class="perigo"><b>Turbo</b><span>roda qualquer comando, sem pedir confirmação. Não use.</span></li>
         </ol>
         <p class="nota">No Antigravity: Settings › General › Global Permissions › Permission Preset. O Auto ainda está em teste (Preview).</p>
       </div>
@@ -451,10 +460,10 @@
       <h2>Quando sai errado, ou só mais ou menos</h2>
     </div>
     <div class="situacoes">
-      <article data-passo="1"><h3>Ele está fazendo outra coisa</h3><p>Pare no meio, pelo botão de parar. Explique de novo, com o que faltou.</p></article>
+      <article data-passo="1"><h3>Ele está fazendo outra coisa</h3><p>Clique no botão de parar e explique de novo, com o que faltou.</p></article>
       <article data-passo="2"><h3>Ficou quase certo</h3><p>Corrija na mesma conversa, dizendo o que manter: <span class="pedido-inline">mantenha o gráfico, mas some só a categoria Análises</span>.</p></article>
       <article data-passo="3"><h3>A conversa ficou longa e confusa</h3><p>Abra uma conversa nova e comece com um resumo do que já está pronto.</p></article>
-      <article data-passo="4"><h3>A cota acabou</h3><p>No plano gratuito, o limite renova toda semana. Use outra ferramenta (o opencode, por exemplo) ou espere.</p></article>
+      <article data-passo="4"><h3>A cota acabou</h3><p>No plano gratuito, o limite renova toda semana. Na aula, faça em dupla com quem ainda tem cota, ou entre com outra conta pessoal.</p></article>
     </div>
   </section>
 
@@ -462,28 +471,26 @@
   <section class="tela tela-escura" id="o-que-sai" data-bloco="Segurança" data-min="15" data-titulo="O que a IA lê sai do seu computador">
     <div class="cabeca">
       <h2>O que a IA lê sai do seu computador</h2>
-      <p class="lead">O agente roda aqui, mas o modelo pensa num servidor. Cada arquivo que ele abre vai para lá. Decida, arquivo por arquivo.</p>
+      <p class="lead">O programa roda aqui, mas a IA pensa num servidor: o que o agente mostra a ela, arquivo inteiro ou só um resumo, sai pela internet. Decida antes.</p>
     </div>
     <div class="triagem"></div>
-    <p class="nota triagem-nota">Na conta pessoal gratuita do Antigravity, o Google pode usar as conversas para melhorar os produtos, a menos que você desligue nas configurações. Nos modelos gratuitos do opencode, a regra muda de modelo para modelo.</p>
+    <p class="tri-motivo" aria-live="polite">Escolha uma opção para cada arquivo.</p>
+    <p class="nota triagem-nota">Conta pessoal gratuita do Antigravity: o Google pode usar as conversas para melhorar produtos, a menos que você desligue em Settings. No opencode, a regra muda de modelo para modelo.</p>
   </section>
 
   <!-- 19 · Originais -->
-  <section class="tela" id="originais" data-bloco="Segurança" data-titulo="Originais numa pasta, trabalho em outra">
+  <section class="tela" id="originais" data-bloco="Segurança" data-titulo="Você guarda o original, a IA trabalha na cópia">
     <div class="cabeca">
-      <h2>Originais numa pasta, trabalho em outra</h2>
-      <p class="lead">Não conte com um botão de desfazer. A proteção é a cópia.</p>
+      <h2>Você guarda o original, a IA trabalha na cópia</h2>
+      <p class="lead">Não conte com um botão de desfazer no Antigravity. A proteção é a cópia que você mesmo faz, pelo Explorador de Arquivos.</p>
     </div>
-    <div class="pastas-seguras">
-      <div class="ps-pasta ps-originais"><b>00_originais</b><span>a IA não mexe aqui</span><div><span class="arquivo" data-ext="xlsx">jan.xlsx</span><span class="arquivo" data-ext="csv">julho.csv</span></div></div>
-      <div class="ps-seta" aria-hidden="true">copia</div>
-      <div class="ps-pasta ps-trabalho"><b>01_trabalho</b><span>a IA trabalha aqui</span><div><span class="arquivo" data-ext="xlsx">jan.xlsx</span><span class="arquivo" data-ext="csv">julho.csv</span></div></div>
-      <div class="ps-versoes" data-passo="1">
-        <p>Antes de cada passo grande:</p>
-        <p class="pedido">Copie a pasta 01_trabalho para _versoes/passo-1 antes de começar.</p>
-        <p class="nota">Deu errado? Troque o conteúdo de 01_trabalho pela última versão guardada.</p>
-      </div>
-    </div>
+    <ol class="passos-copia">
+      <li><span class="ps-pasta ps-originais"><b>meus-dados</b><span>os originais, só seus</span></span><span class="ps-texto">Deixe os arquivos de verdade numa pasta.</span></li>
+      <li data-passo="1"><span class="ps-pasta ps-trabalho"><b>meus-dados - Cópia</b><span>onde a IA vai trabalhar</span></span><span class="ps-texto">Copie a pasta inteira (Ctrl+C, Ctrl+V) e dê um nome claro.</span></li>
+      <li data-passo="2"><span class="ps-pasta ps-aberta"><b>meus-dados - Cópia</b><span>aberta no agente</span></span><span class="ps-texto">No agente, abra só a cópia. A pasta original fica fora do alcance dele.</span></li>
+      <li data-passo="3"><span class="ps-pasta ps-versao"><b>meus-dados - Cópia (2)</b><span>antes de um passo grande</span></span><span class="ps-texto">Antes de um passo grande, copie de novo. Deu errado? Volte para essa cópia.</span></li>
+    </ol>
+    <p class="nota">No opencode existe o comando /undo, que desfaz a última mudança. A cópia vale para os dois.</p>
   </section>
 
 </main>
