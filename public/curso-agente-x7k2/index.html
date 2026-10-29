@@ -318,6 +318,174 @@
     </div>
   </section>
 
+  <!-- 11 · Antes de instalar -->
+  <section class="tela" id="antes-de-instalar" data-bloco="Instalação" data-min="45" data-titulo="Antes de instalar">
+    <div class="cabeca">
+      <h2>Antes de instalar, cinco conferências</h2>
+      <p class="lead">Marque o que já está certo. Fica salvo neste navegador.</p>
+    </div>
+    <ul class="conferir">
+      <li><label><input type="checkbox" data-chave="so"><span><b>Windows 10 ou 11 (64 bits), macOS 12 ou mais novo, ou Linux recente.</b> Celular e tablet não servem.</span></label></li>
+      <li><label><input type="checkbox" data-chave="conta"><span><b>Uma conta Google que entre no Antigravity.</b> Conta pessoal (como @gmail.com) funciona no plano gratuito. Conta da instituição só entra se a instituição tiver liberado o Antigravity para ela.</span></label></li>
+      <li><label><input type="checkbox" data-chave="senha"><span><b>A senha dessa conta e o celular da verificação em duas etapas</b>, à mão.</span></label></li>
+      <li><label><input type="checkbox" data-chave="admin"><span><b>Permissão para instalar programas</b> neste computador. Em máquina da instituição, às vezes só o suporte instala.</span></label></li>
+      <li><label><input type="checkbox" data-chave="idade"><span><b>Ter 18 anos ou mais</b>, exigência do próprio Antigravity.</span></label></li>
+    </ul>
+  </section>
+
+  <!-- 12 · Instalar -->
+  <section class="tela" id="instalar" data-bloco="Instalação" data-titulo="Instalar o Antigravity">
+    <div class="cabeca">
+      <h2>Instalar o Antigravity</h2>
+      <p class="lead">É gratuito, com um limite de uso que renova toda semana.</p>
+    </div>
+    <div class="instalar">
+      <ol class="passos-instalar">
+        <li><span><b>Baixe</b> a versão do seu sistema em <a href="https://antigravity.google/download" target="_blank" rel="noopener">antigravity.google/download</a>. Só baixe desse endereço.</span></li>
+        <li><span><b>Instale</b> como qualquer programa e abra.</span></li>
+        <li><span><b>Entre</b> com a conta Google que você conferiu.</span></li>
+        <li><span><b>Nas configurações</b>, decida se o Google pode usar suas conversas para melhorar os produtos. Na conta pessoal, isso vem ligado; dá para desligar.</span></li>
+        <li><span><b>Abra uma pasta de teste</b>, não uma pasta com seus arquivos de verdade.</span></li>
+      </ol>
+      <aside class="para-casa">
+        <h3>Para casa: o opencode</h3>
+        <p>O mesmo jeito de trabalhar, pelo terminal, com modelos gratuitos. Com o Node.js instalado:</p>
+        <div class="comando"><code>npm install -g opencode-ai</code><button type="button" class="copiar" data-copiar="npm install -g opencode-ai">Copiar</button></div>
+        <p class="nota">No Windows, o próprio opencode recomenda usar o WSL. Guia completo em <a href="https://opencode.ai/docs/" target="_blank" rel="noopener">opencode.ai/docs</a>.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 13 · Deu erro -->
+  <section class="tela" id="deu-erro" data-bloco="Instalação" data-titulo="Deu erro? Pergunte ao monitor">
+    <div class="cabeca">
+      <h2>Deu erro? Pergunte ao monitor do curso</h2>
+      <p class="lead">Antes de a IA estar instalada, quem ajuda é o monitor. Depois, a própria IA resolve: cole nela a mensagem de erro inteira.</p>
+    </div>
+    <div class="monitor">
+      <label class="monitor-campo">
+        <span>Escreva o que aconteceu</span>
+        <input type="search" placeholder="ex.: o Windows bloqueou o instalador" autocomplete="off">
+      </label>
+      <ol class="monitor-respostas" aria-live="polite"></ol>
+      <p class="nota">O monitor responde só sobre o curso. Nesta versão, ele procura nas perguntas frequentes; ainda não usa IA.</p>
+    </div>
+  </section>
+
+  <!-- Intervalo -->
+  <section class="tela tela-intervalo" id="intervalo-1" data-bloco="Intervalo" data-titulo="Intervalo">
+    <div class="intervalo">
+      <p class="intervalo-rotulo">Intervalo de 15 minutos</p>
+      <p class="intervalo-hora">Voltamos às <strong>--:--</strong></p>
+      <p class="intervalo-dica">Quem ainda está instalando continua; o monitor do curso fica aberto.</p>
+    </div>
+  </section>
+
+  <!-- 14 · Abra uma pasta -->
+  <section class="tela" id="abra-uma-pasta" data-bloco="Primeiro contato" data-min="20" data-titulo="Abra uma pasta, não o computador inteiro">
+    <div class="cabeca">
+      <h2>Abra uma pasta, não o computador inteiro</h2>
+      <p class="lead">O agente trabalha a partir da pasta que você abre. Abrir Documentos inteiro é deixar tudo ao alcance dele.</p>
+    </div>
+    <div class="janela-esquema" aria-label="Esquema de uma janela de agente">
+      <div class="je-pasta" data-passo="1"><span class="je-n">1</span><b>A pasta aberta</b><span class="arquivo" data-ext="xlsx">jan.xlsx</span><span class="arquivo" data-ext="csv">julho.csv</span><span class="arquivo" data-ext="xlsx">nov.xlsx</span></div>
+      <div class="je-conversa">
+        <div class="je-mudou" data-passo="3"><span class="je-n">3</span><b>O que ele fez</b><ul class="registro"><li>leu 12 arquivos</li><li>criou despesas-2026-completo.xlsx</li></ul></div>
+        <div class="je-pedir" data-passo="2"><span class="je-n">2</span><b>Onde você pede</b><span class="je-caixa">Junte as 12 planilhas…</span></div>
+      </div>
+      <div class="je-resultado" data-passo="4"><span class="je-n">4</span><b>O resultado fica na pasta</b><span class="arquivo" data-ext="xlsx">despesas-2026-completo.xlsx</span><span class="arquivo" data-ext="png">grafico-totais.png</span></div>
+    </div>
+    <p class="nota">Esquema. A tela de cada programa muda, mas os quatro lugares existem em todos.</p>
+  </section>
+
+  <!-- 15 · Quatro partes -->
+  <section class="tela" id="quatro-partes" data-bloco="Primeiro contato" data-titulo="Um pedido que funciona tem quatro partes">
+    <div class="cabeca">
+      <h2>Um pedido que funciona tem quatro partes</h2>
+      <p class="lead">Escreva cada parte e copie o pedido pronto. As cores voltam em todos os exercícios.</p>
+    </div>
+    <div class="montador">
+      <div class="montador-campos">
+        <label class="parte p-ler"><span>Onde ler</span><input type="text" value="as 12 planilhas desta pasta"></label>
+        <label class="parte p-fazer"><span>O que fazer</span><input type="text" value="junte tudo numa planilha só, some cada mês e faça um gráfico de barras"></label>
+        <label class="parte p-salvar"><span>Onde salvar</span><input type="text" value="numa pasta nova chamada resultado"></label>
+        <label class="parte p-naomexer"><span>No que não mexer</span><input type="text" value="não altere nem apague os arquivos originais"></label>
+      </div>
+      <div class="montador-saida">
+        <p class="pedido montado" aria-live="polite"></p>
+        <button type="button" class="botao cheio copiar-pedido">Copiar pedido</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · Aprovar -->
+  <section class="tela" id="aprovar" data-bloco="Primeiro contato" data-titulo="Ele propõe, você aprova">
+    <div class="cabeca">
+      <h2>Ele propõe, você aprova</h2>
+      <p class="lead">Quando precisa fazer algo fora do comum, o agente pergunta antes. Leia o que ele pede.</p>
+    </div>
+    <div class="aprovar">
+      <div class="pedido-permissao">
+        <p class="pp-quem">O agente quer executar um comando</p>
+        <code class="pp-comando">pip install pdfplumber</code>
+        <p class="pp-porque">Para ler as tabelas dos PDFs, preciso de uma biblioteca que ainda não está instalada.</p>
+        <div class="pp-botoes"><button type="button" class="botao" data-resposta="recusar">Recusar</button><button type="button" class="botao cheio" data-resposta="permitir">Permitir</button></div>
+        <p class="pp-explica" aria-live="polite"></p>
+      </div>
+      <div class="niveis">
+        <h3>Quanto ele faz sem perguntar</h3>
+        <ol>
+          <li><b>Request Review</b><span>pergunta antes de qualquer comando</span></li>
+          <li class="recomendado"><b>Default</b><span>pergunta antes do que é sensível. É o que usamos no curso.</span></li>
+          <li><b>Auto</b><span>decide sozinho se o comando roda</span></li>
+          <li class="perigo"><b>Turbo</b><span>libera tudo, sem caixa de proteção. Não use.</span></li>
+        </ol>
+        <p class="nota">No Antigravity: Settings › General › Global Permissions › Permission Preset. O Auto ainda está em teste (Preview).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · Quando sai errado -->
+  <section class="tela" id="sai-errado" data-bloco="Primeiro contato" data-titulo="Quando sai errado, ou só mais ou menos">
+    <div class="cabeca">
+      <h2>Quando sai errado, ou só mais ou menos</h2>
+    </div>
+    <div class="situacoes">
+      <article data-passo="1"><h3>Ele está fazendo outra coisa</h3><p>Pare no meio, pelo botão de parar. Explique de novo, com o que faltou.</p></article>
+      <article data-passo="2"><h3>Ficou quase certo</h3><p>Corrija na mesma conversa, dizendo o que manter: <span class="pedido-inline">mantenha o gráfico, mas some só a categoria Análises</span>.</p></article>
+      <article data-passo="3"><h3>A conversa ficou longa e confusa</h3><p>Abra uma conversa nova e comece com um resumo do que já está pronto.</p></article>
+      <article data-passo="4"><h3>A cota acabou</h3><p>No plano gratuito, o limite renova toda semana. Use outra ferramenta (o opencode, por exemplo) ou espere.</p></article>
+    </div>
+  </section>
+
+  <!-- 18 · O que sai do computador (tela escura) -->
+  <section class="tela tela-escura" id="o-que-sai" data-bloco="Segurança" data-min="15" data-titulo="O que a IA lê sai do seu computador">
+    <div class="cabeca">
+      <h2>O que a IA lê sai do seu computador</h2>
+      <p class="lead">O agente roda aqui, mas o modelo pensa num servidor. Cada arquivo que ele abre vai para lá. Decida, arquivo por arquivo.</p>
+    </div>
+    <div class="triagem"></div>
+    <p class="nota triagem-nota">Na conta pessoal gratuita do Antigravity, o Google pode usar as conversas para melhorar os produtos, a menos que você desligue nas configurações. Nos modelos gratuitos do opencode, a regra muda de modelo para modelo.</p>
+  </section>
+
+  <!-- 19 · Originais -->
+  <section class="tela" id="originais" data-bloco="Segurança" data-titulo="Originais numa pasta, trabalho em outra">
+    <div class="cabeca">
+      <h2>Originais numa pasta, trabalho em outra</h2>
+      <p class="lead">Não conte com um botão de desfazer. A proteção é a cópia.</p>
+    </div>
+    <div class="pastas-seguras">
+      <div class="ps-pasta ps-originais"><b>00_originais</b><span>a IA não mexe aqui</span><div><span class="arquivo" data-ext="xlsx">jan.xlsx</span><span class="arquivo" data-ext="csv">julho.csv</span></div></div>
+      <div class="ps-seta" aria-hidden="true">copia</div>
+      <div class="ps-pasta ps-trabalho"><b>01_trabalho</b><span>a IA trabalha aqui</span><div><span class="arquivo" data-ext="xlsx">jan.xlsx</span><span class="arquivo" data-ext="csv">julho.csv</span></div></div>
+      <div class="ps-versoes" data-passo="1">
+        <p>Antes de cada passo grande:</p>
+        <p class="pedido">Copie a pasta 01_trabalho para _versoes/passo-1 antes de começar.</p>
+        <p class="nota">Deu errado? Troque o conteúdo de 01_trabalho pela última versão guardada.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="rodape-leitura">
@@ -334,5 +502,6 @@
 <script src="js/telas-abertura.js"></script>
 <script src="js/telas-exemplos.js"></script>
 <script src="js/dois-caminhos.js"></script>
+<script src="js/telas-pratica.js"></script>
 </body>
 </html>

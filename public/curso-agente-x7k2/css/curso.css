@@ -206,7 +206,7 @@ body.aula .trilha { display: flex; }
 .arquivo[data-ext="xlsx"] { --cor: #1f7a4d; }
 .arquivo[data-ext="pdf"]  { --cor: #b8432f; }
 .arquivo[data-ext="csv"]  { --cor: #5a9a7c; }
-.arquivo[data-ext="jpg"]  { --cor: #7a5c9e; }
+.arquivo[data-ext="jpg"], .arquivo[data-ext="png"] { --cor: #7a5c9e; }
 .arquivo[data-ext="txt"]  { --cor: #61706a; }
 .arquivo[data-ext="html"] { --cor: var(--terracota); }
 
@@ -556,6 +556,122 @@ body.aula .agente-resultado { min-height: 0; height: 100%; grid-template-rows: m
 
 @media (max-width: 760px) {
   body:not(.aula) .caminhos, body:not(.aula) .agente-corpo { grid-template-columns: 1fr; }
+}
+
+/* ---------- Instalação e primeiro contato ---------- */
+
+.nota { font-size: max(13px, calc(var(--u) * 1.2)); color: var(--tinta-2); margin: calc(var(--u) * 1.2) 0 0; }
+
+.conferir { list-style: none; margin: 0; padding: 0; max-width: 78ch; }
+.conferir li { border-top: 1px solid var(--linha); }
+.conferir label { display: grid; grid-template-columns: auto 1fr; gap: calc(var(--u) * 1.6); align-items: start; padding: calc(var(--u) * 1.3) 0; cursor: pointer; font-size: max(16px, calc(var(--u) * 1.65)); }
+.conferir input { appearance: none; width: 1.3em; height: 1.3em; margin: .1em 0 0; border: 2px solid var(--verde); border-radius: 5px; display: grid; place-items: center; cursor: pointer; }
+.conferir input:checked { background: var(--verde); }
+.conferir input:checked::after { content: "✓"; color: #fff; font-weight: 700; font-size: .85em; }
+.conferir input:checked + span { color: var(--tinta-2); }
+.conferir b { color: var(--tinta); }
+
+.instalar { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: calc(var(--u) * 5); align-items: start; }
+.passos-instalar { margin: 0; padding: 0; list-style: none; counter-reset: p; }
+.passos-instalar li { counter-increment: p; display: grid; grid-template-columns: calc(var(--u) * 4) 1fr; padding: calc(var(--u) * 1.1) 0; border-top: 1px solid var(--linha); font-size: max(16px, calc(var(--u) * 1.6)); }
+.passos-instalar li::before { content: counter(p); font: 700 1.3em/1 var(--serifa); color: var(--terracota); }
+.para-casa { border: 1px solid var(--verde); border-radius: 12px; padding: calc(var(--u) * 2.2); background: var(--papel); font-size: max(15px, calc(var(--u) * 1.45)); }
+.para-casa h3 { margin-bottom: .5em; }
+.comando { display: flex; align-items: center; gap: 8px; margin: .8em 0; padding: .5em .5em .5em .9em; border-radius: 8px; background: var(--tinta); color: #e7f2ec; }
+.comando code { flex: 1; font: 500 .95em var(--mono); overflow-wrap: anywhere; }
+.copiar { border: 0; border-radius: 6px; padding: .35em .8em; background: var(--menta); color: var(--verde-fundo); font-weight: 600; cursor: pointer; font-size: .85em; }
+
+.monitor { max-width: 80ch; }
+.monitor-campo { display: grid; gap: 6px; font-weight: 600; color: var(--tinta-2); font-size: max(14px, calc(var(--u) * 1.3)); }
+.monitor-campo input { padding: .7em .9em; border-radius: 10px; border: 1px solid var(--verde); background: var(--papel); font: 500 max(17px, calc(var(--u) * 1.7)) var(--sans); color: var(--tinta); }
+.monitor-respostas { list-style: none; margin: calc(var(--u) * 1.6) 0 0; padding: 0; display: grid; gap: 8px; }
+body.aula .monitor-respostas li:nth-child(n + 3) { display: none; }
+.monitor-respostas li { padding: .8em 1em; border-left: 3px solid var(--verde); background: var(--papel); border-radius: 0 8px 8px 0; font-size: max(15px, calc(var(--u) * 1.45)); animation: chega .3s var(--curva); }
+.monitor-respostas li b { display: block; color: var(--verde); margin-bottom: .2em; }
+
+.tela-intervalo { justify-content: center; }
+.intervalo { display: grid; justify-items: start; gap: calc(var(--u) * 1.5); }
+.intervalo-rotulo { margin: 0; font-weight: 600; color: var(--terracota); font-size: max(16px, calc(var(--u) * 1.8)); }
+.intervalo-hora { margin: 0; font: 400 max(40px, calc(var(--u) * 7)) / 1 var(--serifa); color: var(--verde); }
+.intervalo-hora strong { font-variant-numeric: tabular-nums; }
+.intervalo-dica { margin: 0; color: var(--tinta-2); font-size: max(16px, calc(var(--u) * 1.7)); }
+
+/* Esquema da janela de um agente: quatro lugares numerados. */
+.janela-esquema {
+  display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr) minmax(0, .9fr); gap: 1px;
+  background: var(--linha); border: 1px solid var(--verde); border-radius: 12px; overflow: hidden;
+  min-height: calc(var(--u) * 24); font-size: max(13px, calc(var(--u) * 1.3));
+}
+.janela-esquema > div, .je-conversa > div { background: var(--papel); padding: calc(var(--u) * 1.6); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.je-conversa { display: grid; grid-template-rows: 1fr auto; gap: 1px; background: var(--linha); padding: 0 !important; }
+.je-conversa > div { align-items: stretch; }
+.je-n { display: grid; place-items: center; width: 1.8em; height: 1.8em; border-radius: 50%; background: var(--terracota); color: #fff; font-weight: 700; }
+.janela-esquema b { color: var(--verde); font-size: 1.1em; }
+.je-caixa { border: 1px solid var(--linha); border-radius: 8px; padding: .6em .8em; color: var(--tinta-2); background: var(--fundo); }
+
+.montador { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: calc(var(--u) * 4); align-items: start; }
+.montador-campos { display: grid; gap: calc(var(--u) * 1.1); }
+.parte { display: grid; gap: 4px; padding-left: .9em; border-left: 4px solid var(--c); }
+.parte span { font-weight: 700; color: var(--c); font-size: max(13px, calc(var(--u) * 1.25)); }
+.parte input { padding: .55em .7em; border-radius: 8px; border: 1px solid var(--linha); background: var(--papel); font: 500 max(15px, calc(var(--u) * 1.45)) var(--sans); color: var(--tinta); }
+:root { --p1: #1d3f5f; --p2: #2b7055; --p3: #8a6a14; --p4: #b8432f; }
+.p-ler { --c: var(--p1); } .p-fazer { --c: var(--p2); } .p-salvar { --c: var(--p3); } .p-naomexer { --c: var(--p4); }
+.montado { font-size: max(18px, calc(var(--u) * 2)); line-height: 1.45; }
+.montado mark { background: none; color: var(--c); font-weight: 600; }
+.copiar-pedido { margin-top: calc(var(--u) * 2); }
+
+.aprovar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: calc(var(--u) * 5); align-items: start; }
+.pedido-permissao { border: 2px solid var(--terracota); border-radius: 14px; padding: calc(var(--u) * 2.2); background: var(--papel); font-size: max(15px, calc(var(--u) * 1.5)); }
+.pp-quem { margin: 0 0 .6em; font-weight: 700; color: var(--terracota); }
+.pp-comando { display: block; padding: .6em .8em; border-radius: 8px; background: var(--tinta); color: #e7f2ec; font: 500 1.05em var(--mono); }
+.pp-porque { color: var(--tinta-2); }
+.pp-botoes { display: flex; gap: 8px; justify-content: flex-end; }
+.pp-explica { margin: 1em 0 0; min-height: 3em; color: var(--tinta); }
+.niveis ol { list-style: none; margin: .8em 0 0; padding: 0; }
+.niveis li { display: grid; grid-template-columns: calc(var(--u) * 13) 1fr; gap: 1em; padding: calc(var(--u) * .9) .6em; border-top: 1px solid var(--linha); font-size: max(15px, calc(var(--u) * 1.45)); }
+.niveis li b { font-family: var(--mono); font-weight: 600; color: var(--verde); }
+.niveis li span { color: var(--tinta-2); }
+.niveis li.recomendado { background: var(--menta-2); border-radius: 8px; }
+.niveis li.perigo b { color: #9b2c1b; }
+
+.situacoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(var(--u) * 2.4) calc(var(--u) * 4); }
+.situacoes article { border-top: 2px solid var(--verde); padding-top: calc(var(--u) * 1.2); font-size: max(16px, calc(var(--u) * 1.6)); }
+.situacoes h3 { margin-bottom: .4em; }
+.situacoes p { margin: 0; color: var(--tinta-2); }
+.pedido-inline { font-family: var(--serifa); color: var(--tinta); border-left: 3px solid var(--terracota); padding-left: .4em; }
+
+/* A única tela escura do curso. */
+.tela-escura { background: var(--verde-fundo); color: #e7f2ec; }
+body:not(.aula) .tela-escura { max-width: none; padding-left: max(16px, calc(50vw - 640px + var(--u) * 6)); padding-right: max(16px, calc(50vw - 640px + var(--u) * 6)); }
+.tela-escura h2 { color: #fff; }
+.tela-escura .lead, .tela-escura .nota { color: #b9d3c6; }
+.triagem { display: grid; gap: 8px; }
+.tri-linha { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; align-items: center; padding: .4em .8em; border-radius: 10px; background: rgba(255, 255, 255, .06); font-size: max(15px, calc(var(--u) * 1.45)); }
+.tri-linha .arquivo { justify-self: start; }
+.tri-opcoes { display: flex; gap: 6px; flex-wrap: wrap; }
+.tri-opcoes button { border: 1px solid rgba(255, 255, 255, .3); background: none; color: #e7f2ec; border-radius: 999px; padding: .35em .9em; cursor: pointer; font-size: .9em; }
+.tri-opcoes button:hover { border-color: #fff; }
+.tri-opcoes button.certa { background: var(--menta); color: var(--verde-fundo); border-color: var(--menta); font-weight: 700; }
+.tri-opcoes button.errada { text-decoration: line-through; opacity: .6; }
+.tri-motivo { grid-column: 1 / -1; margin: 0; color: #cfe3d9; animation: chega .3s var(--curva); }
+.tri-motivo b { color: #fff; }
+.tela-escura .arquivo { box-shadow: none; }
+
+.pastas-seguras { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); grid-template-rows: auto auto; gap: calc(var(--u) * 2) calc(var(--u) * 3); align-items: center; }
+.ps-pasta { display: grid; gap: 6px; padding: calc(var(--u) * 2); border-radius: 4px 14px 14px 14px; font-size: max(14px, calc(var(--u) * 1.4)); }
+.ps-pasta b { font: 600 1.2em var(--mono); }
+.ps-pasta > span { color: var(--tinta-2); }
+.ps-pasta div { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.ps-originais { background: #f3e3da; } .ps-originais b { color: #9b3d17; }
+.ps-trabalho { background: var(--menta); } .ps-trabalho b { color: var(--verde); }
+.ps-seta { font-weight: 700; color: var(--tinta-2); }
+.ps-seta::after { content: " →"; }
+.ps-versoes { grid-column: 1 / -1; max-width: 70ch; font-size: max(15px, calc(var(--u) * 1.5)); }
+.ps-versoes p { margin: 0 0 .5em; }
+
+@media (max-width: 760px) {
+  body:not(.aula) .instalar, body:not(.aula) .montador, body:not(.aula) .aprovar, body:not(.aula) .situacoes, body:not(.aula) .janela-esquema, body:not(.aula) .pastas-seguras { grid-template-columns: 1fr; }
+  body:not(.aula) .tri-linha { grid-template-columns: 1fr; }
 }
 
 /* ---------- Mau-Mau ---------- */
