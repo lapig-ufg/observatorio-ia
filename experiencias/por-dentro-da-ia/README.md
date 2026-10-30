@@ -10,7 +10,7 @@ Trilha de duas aulas para a disciplina de sensoriamento remoto do LAPIG/UFG. Int
 
 ## Conteúdo e rigor
 
-As duas aulas são independentes e estão ordenadas apenas por complexidade. A aula **Redes neurais** tem 26 capítulos e cinco playgrounds: construção, passagem direta, retropropagação, atualização dos pesos e treino/previsão. A rede didática é `[2, 3, 1]`, treinada no XOR, com cálculo integralmente local no navegador. O motor foi adaptado do projeto `neural-network-xray`: rede, passagem direta, retropropagação com regra da cadeia, gradiente descendente, momentum e previsão.
+As duas aulas são independentes e estão ordenadas apenas por complexidade. A aula **Redes neurais** tem 26 capítulos e cinco playgrounds: construção, passagem direta, retropropagação, atualização dos pesos e treino/previsão. A rede didática é `[2, 3, 1]`, treinada no jogo de Halloween “Gostosura ou travessura”, com cálculo integralmente local no navegador. O motor foi adaptado do projeto `neural-network-xray`: rede, passagem direta, retropropagação com regra da cadeia, gradiente descendente, momentum e previsão.
 
 A aula **Transformers** mantém os 19 capítulos da jornada anterior: GPT-3 175B como referência, inferência com pesos fixos, atenção, MLP e geração autoregressiva.
 

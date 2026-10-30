@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
+import { HalloweenTag } from "../halloween";
 import { MatrixTable } from "./Matrix";
 import { ActivationLab, NeuronLab } from "./labs";
-import { DEMO, XOR_X, XOR_Y } from "./demo";
+import { DEMO, HOUSE_X, HOUSE_Y } from "./demo";
 import { BackpropVisual, ChainRuleVisual, DeltaVisual, GradientVisual, LearningRateLab, LossLab, MomentumVisual } from "./visuals";
 
 function Formula({ children }: { children: ReactNode }) {
@@ -86,15 +87,15 @@ function LayerMatrices() {
   );
 }
 
-function XorTable() {
+function HalloweenTable() {
   return (
     <table className="nn-data-table">
       <thead>
-        <tr><th>x₁</th><th>x₂</th><th>alvo y</th></tr>
+        <tr><th>luz acesa</th><th>porta aberta</th><th>gostosura?</th></tr>
       </thead>
       <tbody>
-        {XOR_X.map((row, index) => (
-          <tr key={index}><td>{row[0]}</td><td>{row[1]}</td><td>{XOR_Y[index]}</td></tr>
+        {HOUSE_X.map((row, index) => (
+          <tr key={index}><td>{row[0]}</td><td>{row[1]}</td><td>{HOUSE_Y[index]}</td></tr>
         ))}
       </tbody>
     </table>
@@ -194,7 +195,7 @@ function LoopDiagram() {
       <div className="nn-loop-steps">
         <span>ida</span><i>→</i><span>perda</span><i>→</i><span>volta</span><i>→</i><span>atualização</span>
       </div>
-      <div className="nn-epoch-samples" aria-label="Quatro amostras do XOR">
+      <div className="nn-epoch-samples" aria-label="Quatro casas do jogo de Halloween">
         {["x₁", "x₂", "x₃", "x₄"].map((sample) => (
           <span key={sample}>{sample}<small>gradiente</small></span>
         ))}
@@ -238,15 +239,16 @@ export const CHAPTERS: Chapter[] = [
       "Vamos construir uma rede neural pequena, treinável e totalmente visível: do neurônio à atualização dos pesos.",
     content: (
       <>
+        <HalloweenTag />
         <div className="nn-goals">
-          <div><b>O que você vai fazer</b><span>Construir uma rede, conduzir a passagem direta, retropropagar o erro, atualizar pesos e treinar no XOR.</span></div>
+          <div><b>O que você vai fazer</b><span>Construir uma rede, conduzir a passagem direta, retropropagar o erro, atualizar pesos e treinar no desafio de Halloween: gostosura ou travessura.</span></div>
           <div><b>Como funciona</b><span>Cada conceito tem um capítulo. Os cinco playgrounds aparecem quando a base necessária já foi apresentada.</span></div>
           <div><b>O que fica no navegador</b><span>Dados, pesos, cálculo e gráficos. O playground calcula tudo localmente.</span></div>
         </div>
         <p>
           A rede desta aula tem <b>2 entradas</b>, <b>3 neurônios ocultos</b> e <b>1 saída</b>. É pequena o suficiente para
           enxergar cada número, mas já contém o ciclo completo que sustenta modelos maiores: representar, prever, medir o
-          erro e ajustar parâmetros.
+          erro e ajustar parâmetros. Nesta edição, o problema é um pequeno jogo de Halloween.
         </p>
         <BuildDiagram />
         <Note title="Escopo">
@@ -319,29 +321,33 @@ export const CHAPTERS: Chapter[] = [
   {
     id: "dados",
     module: "Fundamentos",
-    label: "Dados e XOR",
-    kicker: "O problema",
-    title: "O conjunto de dados faz parte do modelo",
+    label: "Gostosura ou travessura",
+    kicker: "O problema de Halloween",
+    title: "Gostosura ou travessura: o conjunto de dados",
     lead:
-      "Features(...) guarda as entradas; Labels(...) guarda as respostas que queremos que a rede produza. Vamos usar o clássico XOR.",
+      "Features(...) guarda as entradas; Labels(...) guarda as respostas que queremos que a rede produza. Vamos usar um pequeno jogo de Halloween.",
     content: (
       <>
         <p>
-          <CodeInline>X</CodeInline> tem uma linha por amostra e uma coluna por atributo. <CodeInline>y</CodeInline> tem
-          uma resposta por amostra. No XOR, as duas classes não são separáveis por uma única reta.
+          <CodeInline>X</CodeInline> tem uma linha por casa e duas colunas: <b>luz acesa</b> e <b>porta aberta</b>.{" "}
+          <CodeInline>y</CodeInline> tem uma resposta por casa: 1 para gostosura e 0 para travessura.
         </p>
-        <XorTable />
         <p>
-          Uma camada oculta permite dobrar a fronteira de decisão. É por isso que o XOR é um exemplo tão útil: uma rede
-          sem camada oculta não resolve o problema; com uma camada oculta, resolve.
+          A regra do jogo é simples: se exatamente um dos dois sinais estiver ativo, a casa dá <b>gostosura</b>. Se os
+          dois estiverem iguais, é <b>travessura</b>.
+        </p>
+        <HalloweenTable />
+        <p>
+          Essa regra não é separável por uma única reta. Uma camada oculta permite dobrar a fronteira de decisão: uma
+          rede sem camada oculta não resolve o problema; com uma camada oculta, resolve.
         </p>
         <Formula>
           X · 4×2
           <br />y · 4×1
         </Formula>
         <Note>
-          Os quatro pares definem o problema. Mudar a amostra escolhida muda os valores intermediários, mas não os
-          parâmetros aprendidos.
+          É um jogo didático, não um classificador real de casas. Mudar a casa escolhida muda os valores intermediários,
+          mas não os parâmetros aprendidos.
         </Note>
       </>
     ),
@@ -367,7 +373,7 @@ export const CHAPTERS: Chapter[] = [
         <ActivationLab />
         <p>
           Sem uma ativação não linear, empilhar camadas ainda seria uma única função linear grande. A dobra da ReLU e a
-          compressão da tanh são o que permite representar regras não lineares como o XOR.
+          compressão da tanh são o que permite representar regras não lineares como gostosura ou travessura.
         </p>
         <Note>
           Outras redes usam funções mais suaves, como GELU. ReLU e tanh aparecem aqui porque são simples de derivar e
@@ -915,7 +921,7 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
           <br />acurácia ↑ significa que as respostas arredondadas batem
         </Formula>
         <p>
-          Uma perda que cai com 100% de acurácia no XOR significa que a rede aprendeu a regra não linear. Em um conjunto
+          Uma perda que cai com 100% de acurácia no desafio significa que a rede aprendeu a regra não linear. Em um conjunto
           mais difícil, a curva pode achatar acima de zero — sinal para adicionar capacidade, ajustar a taxa ou treinar
           por mais tempo.
         </p>
@@ -959,7 +965,7 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
     observation: (
       <ul>
         <li>A curva de perda mostra a perda inicial, a final e a acurácia no cabeçalho.</li>
-        <li>A tabela de resultados mostra a previsão <CodeInline>ŷ</CodeInline>, o alvo <CodeInline>y</CodeInline> e um ✓ ou ✗.</li>
+        <li>A tabela de resultados mostra a previsão <CodeInline>ŷ</CodeInline>, o alvo <CodeInline>y</CodeInline> e um ✓ ou ✗. Na tabela, 0 = travessura e 1 = gostosura.</li>
         <li>Experimente <CodeInline>epochs=3000</CodeInline> ou uma taxa menor/maior.</li>
         <li>Defina <CodeInline>momentum=0.0</CodeInline> e compare a velocidade de convergência.</li>
         <li>Mude a largura oculta para <CodeInline>[2, 5, 1]</CodeInline> e treine de novo.</li>
@@ -985,7 +991,7 @@ P = nn.predict(X)`}</CodeBlock>
     kicker: "O ciclo completo",
     title: "Construir, prever, medir, voltar e atualizar",
     lead:
-      "Você percorreu o ciclo que transforma uma rede aleatória em uma função capaz de resolver o XOR.",
+      "Você percorreu o ciclo que transforma uma rede aleatória em uma função capaz de resolver o desafio de Halloween.",
     content: (
       <>
         <div className="nn-summary-line">
@@ -997,7 +1003,7 @@ P = nn.predict(X)`}</CodeBlock>
           <div><b>Aprendizado</b><p>A perda mede o erro; a regra da cadeia distribui a culpa; o gradiente desce a encosta.</p></div>
         </div>
         <Note title="Limite do exemplo">
-          O XOR é um problema minúsculo. Uma rede real pode ter milhões de parâmetros, vários tipos de camada e dados
+          O problema de Halloween é minúsculo. Uma rede real pode ter milhões de parâmetros, vários tipos de camada e dados
           muito mais complexos. O ciclo, porém, continua reconhecível: representar, prever, medir o erro e ajustar.
         </Note>
         <p className="nn-source-note">

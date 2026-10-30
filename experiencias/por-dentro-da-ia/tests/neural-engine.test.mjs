@@ -7,7 +7,7 @@ import { activation, addVectors, rowTimesMatrix } from "../app/neural/math.ts";
 import { parseProgram } from "../app/neural/dsl.ts";
 import { SourceError } from "../app/neural/errors.ts";
 
-const XOR = [
+const HOUSE = [
   [0, 0],
   [0, 1],
   [1, 0],
@@ -40,7 +40,7 @@ I2 = nn.forward(I1, 2)`,
   assert.ok(nn instanceof NeuralNetwork);
   assert.equal(nn.nLayers, 2);
 
-  const sample = XOR[1];
+  const sample = HOUSE[1];
   const expectedZ1 = addVectors(rowTimesMatrix(sample, nn.weightMats[0]), nn.biasMats[0][0]);
   const expectedI1 = activation("relu", expectedZ1);
   const expectedZ2 = addVectors(rowTimesMatrix(expectedI1, nn.weightMats[1]), nn.biasMats[1][0]);
@@ -53,12 +53,12 @@ I2 = nn.forward(I1, 2)`,
 
 test("backpropagation gradients match finite differences", () => {
   const nn = new NeuralNetwork([2, 3, 1], { hidden: "relu", output: "tanh", init: "xavier", seed: 42 });
-  const output = nn.feedforward(XOR[1]);
+  const output = nn.feedforward(HOUSE[1]);
   const target = [1];
   const trace = buildBackwardTrace(nn, output, target);
 
   const lossAt = () => {
-    const out = nn.feedforward(XOR[1]);
+    const out = nn.feedforward(HOUSE[1]);
     return 0.5 * (out[0] - target[0]) ** 2;
   };
 
@@ -95,7 +95,7 @@ test("backpropagation gradients match finite differences", () => {
   }
 });
 
-test("full-batch training solves XOR and records one metric per epoch", () => {
+test("full-batch training solves the Halloween problem and records one metric per epoch", () => {
   const session = build();
   const result = session.run(
     `loss = nn.train(X, y, epochs=800, learning_rate=0.5, momentum=0.1)

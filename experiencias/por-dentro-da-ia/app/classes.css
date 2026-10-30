@@ -81,6 +81,41 @@
   }
 }
 
+.halloween-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
+  padding: 6px 10px;
+  border: 1px solid #ecd193;
+  border-radius: 999px;
+  background: #fff8e7;
+  color: #8a5a00;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.halloween-tag small {
+  color: #a87a2d;
+  font-size: 0.66rem;
+  font-weight: 650;
+}
+
+.halloween-tag.is-compact small {
+  display: none;
+}
+
+.halloween-pumpkin {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+}
+
+.class-card .halloween-tag {
+  margin-top: 12px;
+}
+
 .classes-home {
   background:
     radial-gradient(circle at 88% 6%, #e6f4f2 0, transparent 28%),

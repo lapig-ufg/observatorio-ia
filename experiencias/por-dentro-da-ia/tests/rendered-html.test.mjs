@@ -31,6 +31,7 @@ test("serves the hub with two independent classes ordered by complexity", async 
     "Do neurônio ao aprendizado",
     "Da frase ao próximo token",
     "Observatório",
+    "Edição de Halloween",
   ]) {
     assert.ok(text.includes(phrase), phrase);
   }
@@ -100,10 +101,11 @@ test("serves the Neural Network class with its chapter map and first lesson", as
   assert.ok(!html.includes("Voltar ao Observatório"));
   assert.ok(!html.includes("Todas as aulas"));
   assert.ok(text.includes("REDES NEURAIS · 26 CAPÍTULOS"));
-  for (const label of ["Do neurônio à rede", "Um neurônio", "Funções de ativação", "Construção da rede", "Passagem direta", "Retropropagação", "Atualização dos pesos", "Treino e previsão", "Síntese"]) {
+  for (const label of ["Do neurônio à rede", "Um neurônio", "Funções de ativação", "Gostosura ou travessura", "Construção da rede", "Passagem direta", "Retropropagação", "Atualização dos pesos", "Treino e previsão", "Síntese"]) {
     assert.ok(text.includes(label), label);
   }
   assert.ok(text.includes("Uma rede neural é uma função feita de camadas"));
+  assert.ok(text.includes("Edição de Halloween"));
   assert.ok(text.includes("O playground calcula tudo localmente"));
   assert.ok(html.includes('aria-current="step"'));
   assert.ok(html.includes('id="inicio"'));
@@ -112,8 +114,13 @@ test("serves the Neural Network class with its chapter map and first lesson", as
   const sources = await Promise.all([
     readFile(new URL("../app/neural/content.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/neural/NeuralNetworkPage.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/neural/demo.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/neural/scripts.ts", import.meta.url), "utf8"),
   ]);
-  for (const source of sources) assert.doesNotMatch(source, /Transformer/i);
+  for (const source of sources) {
+    assert.doesNotMatch(source, /Transformer/i);
+    assert.doesNotMatch(source, /XOR/i);
+  }
   assert.doesNotMatch(sources[0], /WorkedExample/);
   assert.match(sources[0], /ForwardUntilN/);
 });

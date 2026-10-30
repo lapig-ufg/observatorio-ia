@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { HalloweenPumpkin, SpiderWeb } from "../halloween";
 import { LessonHeader } from "../lesson-header";
 import { CHAPTERS } from "./content";
 import { PlaygroundCard, PlaygroundPreamble } from "./PlaygroundCard";
@@ -96,6 +97,10 @@ export function NeuralNetworkPage() {
             <b>Cálculo no navegador</b>
             <span>Pesos, gradientes e treino.<br />Nenhum dado sai da página.</span>
           </div>
+          <div className="nn-halloween-menu">
+            <HalloweenPumpkin />
+            <span>Edição de Halloween<small>31 de outubro</small></span>
+          </div>
         </aside>
 
         <div className="chapter-stage nn-chapter-stage">
@@ -121,6 +126,7 @@ export function NeuralNetworkPage() {
           </div>
 
           <section className="chapter active-chapter nn-chapter" id={chapter.id} tabIndex={-1}>
+            {chapter.id === "inicio" && <SpiderWeb className="nn-spiderweb" />}
             <header className="section-title nn-section-title">
               <div className="scope-pill">
                 <span>aula 1</span>

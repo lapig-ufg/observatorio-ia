@@ -48,9 +48,9 @@ export const DEFAULT_SCRIPTS: Record<number, string> = {
   1: `# etapa 1 — construa a rede
 # Edite o que quiser abaixo e execute.
 
-# o conjunto de dados: uma linha por amostra (esta rede lê dois números)
+# cada linha é uma casa: [luz acesa, porta aberta]
 X = Features([[0, 0], [0, 1], [1, 0], [1, 1]])
-# as respostas que ela deve aprender depois (a tabela-verdade do XOR)
+# 0 = travessura, 1 = gostosura
 y = Labels([0, 1, 1, 0])
 
 # a rede em si: 2 entradas -> 3 neurônios ocultos -> 1 saída
@@ -86,7 +86,9 @@ nn.update_weights(0.5, 1, nn.gradient(1))   # camada oculta`,
 # Reconstrua os dados e uma rede nova, e deixe o treino fazer o laço
 # de ida + volta + atualização para você, época após época.
 
+# cada linha é uma casa: [luz acesa, porta aberta]
 X = Features([[0, 0], [0, 1], [1, 0], [1, 1]])
+# 0 = travessura, 1 = gostosura
 y = Labels([0, 1, 1, 0])
 
 nn = NeuralNetwork([2, 3, 1],

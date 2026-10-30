@@ -2,14 +2,14 @@ import { buildBackwardTrace, type BackwardTrace } from "./backward";
 import { activation, addVectors, rowTimesMatrix } from "./math";
 import { NeuralNetwork } from "./network";
 
-export const XOR_X = [
+export const HOUSE_X = [
   [0, 0],
   [0, 1],
   [1, 0],
   [1, 1],
 ];
 
-export const XOR_Y = [0, 1, 1, 0];
+export const HOUSE_Y = [0, 1, 1, 0];
 
 export const DEMO = new NeuralNetwork([2, 3, 1], {
   hidden: "relu",
@@ -19,8 +19,8 @@ export const DEMO = new NeuralNetwork([2, 3, 1], {
 });
 
 export const SAMPLE_INDEX = 1;
-export const SAMPLE = XOR_X[SAMPLE_INDEX];
-export const SAMPLE_TARGET = XOR_Y[SAMPLE_INDEX];
+export const SAMPLE = HOUSE_X[SAMPLE_INDEX];
+export const SAMPLE_TARGET = HOUSE_Y[SAMPLE_INDEX];
 
 export const Z1 = addVectors(rowTimesMatrix(SAMPLE, DEMO.weightMats[0]), DEMO.biasMats[0][0]);
 export const I1 = activation("relu", Z1);

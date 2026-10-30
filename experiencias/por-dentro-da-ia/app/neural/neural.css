@@ -86,7 +86,53 @@
 }
 
 .nn-chapter {
+  position: relative;
   max-width: 1480px;
+}
+
+.nn-spiderweb {
+  position: absolute;
+  z-index: 0;
+  top: 14px;
+  right: 14px;
+  width: 92px;
+  height: 92px;
+  color: #c56834;
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.nn-section-title {
+  position: relative;
+  z-index: 1;
+}
+
+.nn-halloween-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 9px 0;
+  padding-top: 14px;
+  border-top: 1px solid #e0e4eb;
+  color: #8a5a00;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.nn-halloween-menu .halloween-pumpkin {
+  width: 20px;
+  height: 20px;
+}
+
+.nn-halloween-menu > span {
+  display: grid;
+  gap: 2px;
+}
+
+.nn-halloween-menu small {
+  color: #a87a2d;
+  font-size: 0.64rem;
+  font-weight: 600;
 }
 
 .nn-section-title h2 {
@@ -97,6 +143,10 @@
   max-width: 1080px;
   color: #2f4358;
   font-size: 1.02rem;
+}
+
+.nn-chapter-body .halloween-tag {
+  margin-bottom: 18px;
 }
 
 .nn-chapter-body > p,
@@ -2391,6 +2441,14 @@
   .nn-note {
     grid-template-columns: 1fr;
     gap: 7px;
+  }
+
+  .nn-spiderweb {
+    top: 8px;
+    right: 8px;
+    width: 68px;
+    height: 68px;
+    opacity: 0.12;
   }
 
   .nn-playground-head,
