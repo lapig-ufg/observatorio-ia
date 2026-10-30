@@ -40,6 +40,7 @@
 .lesson-glossary dd { margin:5px 0 0; font-size:.95rem; color:#52647a; }
 .mobile-chapters { display:none; }
 .friendly-site .chapter-stage>.chapter { flex:1 0 auto; width:100%; background:transparent; min-height:calc(100dvh - 235px); padding:32px clamp(20px,3.5vw,56px) 45px; max-width:none; margin:0; color:var(--ink); }
+.friendly-site .chapter-stage>.chapter>:not(.nn-spiderweb) { width:min(100%,1180px); margin-left:auto; margin-right:auto; }
 .friendly-site .chapter-stage>.chapter:focus { outline:none; }
 .friendly-site .section-title { padding-top:0; margin-bottom:30px; }
 .friendly-site .section-title h2 { font-size:clamp(2rem,3.6vw,3.6rem); line-height:1.08; max-width:1100px; margin:.35em 0; }
