@@ -62,36 +62,6 @@
   color: #52647a;
 }
 
-.classes-hero-facts {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  margin-top: 30px;
-  background: #d9dfeb;
-  border: 1px solid #d9dfeb;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.classes-hero-facts > div {
-  background: #fff;
-  padding: 15px 14px;
-  display: grid;
-  gap: 4px;
-}
-
-.classes-hero-facts b {
-  font-size: 1.5rem;
-  color: #12847b;
-  line-height: 1;
-}
-
-.classes-hero-facts span {
-  color: #52647a;
-  font-size: 0.75rem;
-  line-height: 1.35;
-}
-
 .classes-path {
   padding: clamp(34px, 5vw, 60px) 0;
   border-top: 1px solid #dde3ec;
@@ -383,10 +353,6 @@
 }
 
 @media (max-width: 760px) {
-  .classes-hero-facts {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .classes-how-grid {
     grid-template-columns: 1fr;
   }
@@ -400,8 +366,4 @@
   }
 }
 
-@media (max-width: 480px) {
-  .classes-hero-facts {
-    grid-template-columns: 1fr;
-  }
-}
+

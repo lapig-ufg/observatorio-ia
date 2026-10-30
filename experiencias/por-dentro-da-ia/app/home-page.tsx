@@ -33,12 +33,6 @@ export function ClassesHome() {
               Escolha o assunto que quer abrir. Cada aula tem seu próprio percurso, com explicações, figuras e
               laboratórios que rodam no navegador.
             </p>
-            <div className="classes-hero-facts">
-              <div><b>2</b><span>aulas independentes</span></div>
-              <div><b>5</b><span>playgrounds de rede neural</span></div>
-              <div><b>19</b><span>capítulos de Transformers</span></div>
-              <div><b>0</b><span>chamadas a modelos externos</span></div>
-            </div>
           </div>
         </section>
 

@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
 import { MatrixTable } from "./Matrix";
 import { ActivationLab, NeuronLab } from "./labs";
-import { formatNumber } from "./math";
-import { DEMO, I1, I2, SAMPLE, XOR_X, XOR_Y, Z1, Z2 } from "./demo";
+import { DEMO, XOR_X, XOR_Y } from "./demo";
 import { BackpropVisual, ChainRuleVisual, DeltaVisual, GradientVisual, LearningRateLab, LossLab, MomentumVisual } from "./visuals";
 
 function Formula({ children }: { children: ReactNode }) {
@@ -118,43 +117,33 @@ function ForwardDiagram() {
   );
 }
 
-function WorkedExample() {
+function ForwardUntilN() {
   return (
-    <div className="nn-worked-example">
-      <div className="nn-worked-row">
-        <span className="nn-worked-label">camada 1</span>
-        <MatrixTable label="I0 · 1×2" values={[SAMPLE]} />
-        <i>×</i>
-        <MatrixTable label="W₁ · 2×3" values={DEMO.weightMats[0]} highlight={(_, col) => col === 0} />
-        <i>+</i>
-        <MatrixTable label="B₁ · 1×3" values={DEMO.biasMats[0]} highlight={(_, col) => col === 0} />
-        <i>=</i>
-        <MatrixTable label="Z₁ · 1×3" values={[Z1]} highlight={(_, col) => col === 0} />
+    <div className="nn-forward-until-n">
+      <div className="nn-forward-chain" aria-label="Passagem direta genérica por L camadas">
+        <span>I₀</span>
+        <i>× W₁ + b₁ → φ₁</i>
+        <span>I₁</span>
+        <i>…</i>
+        <span>Iₗ₋₁</span>
+        <i>× Wₗ + bₗ → φₗ</i>
+        <span>Iₗ</span>
+        <i>…</i>
+        <span>I_L</span>
       </div>
-      <div className="nn-worked-row">
-        <span className="nn-worked-label">camada 1 · φ</span>
-        <MatrixTable label="Z₁" values={[Z1]} />
-        <span className="nn-worked-arrow">relu →</span>
-        <MatrixTable label="I₁ · 1×3" values={[I1]} />
-        <span className="nn-worked-note">o valor negativo é desligado</span>
+      <div className="nn-forward-layer-card">
+        <span>camada l</span>
+        <code>Iₗ = φₗ(Iₗ₋₁ · Wₗ + bₗ)</code>
+        <div>
+          <b>Wₗ</b> nₗ₋₁ × nₗ
+          <b>bₗ</b> 1 × nₗ
+          <b>Iₗ</b> 1 × nₗ
+        </div>
       </div>
-      <div className="nn-worked-row">
-        <span className="nn-worked-label">camada 2</span>
-        <MatrixTable label="I₁ · 1×3" values={[I1]} />
-        <i>×</i>
-        <MatrixTable label="W₂ · 3×1" values={DEMO.weightMats[1]} />
-        <i>+</i>
-        <MatrixTable label="B₂ · 1×1" values={DEMO.biasMats[1]} />
-        <i>=</i>
-        <MatrixTable label="Z₂ · 1×1" values={[Z2]} />
-      </div>
-      <div className="nn-worked-row">
-        <span className="nn-worked-label">camada 2 · φ</span>
-        <MatrixTable label="Z₂" values={[Z2]} />
-        <span className="nn-worked-arrow">tanh →</span>
-        <MatrixTable label="I₂ · 1×1" values={[I2]} />
-        <span className="nn-worked-note">a resposta final para esta amostra</span>
-      </div>
+      <p>
+        O número de camadas de processamento é o tamanho da topologia menos um. Cada passo depende do anterior: por
+        isso a passagem é sequencial, da primeira camada até a saída.
+      </p>
     </div>
   );
 }
@@ -180,7 +169,7 @@ function BackwardDiagram() {
         <i>←</i>
         <span className="is-loss">perda</span>
       </div>
-      <p>As ativações da ida ficam na tela; o erro é desenhado por cima, da direita para a esquerda.</p>
+      <p>As ativações da ida permanecem no diagrama; o erro é desenhado por cima, da direita para a esquerda.</p>
     </div>
   );
 }
@@ -291,8 +280,8 @@ export const CHAPTERS: Chapter[] = [
         </p>
         <NeuronLab />
         <Note>
-          O número dentro de cada círculo na tela do playground é <CodeInline>a</CodeInline>, a ativação que o neurônio
-          envia adiante — não o valor de <CodeInline>z</CodeInline>.
+          Na figura interativa acima, o número dentro de cada círculo é <CodeInline>a</CodeInline>, a ativação que o
+          neurônio envia adiante — não o valor de <CodeInline>z</CodeInline>.
         </Note>
       </>
     ),
@@ -351,8 +340,8 @@ export const CHAPTERS: Chapter[] = [
           <br />y · 4×1
         </Formula>
         <Note>
-          Os quatro pares são os mesmos em todos os playgrounds. Mudar a amostra escolhida muda os valores intermediários,
-          mas não os parâmetros aprendidos.
+          Os quatro pares definem o problema. Mudar a amostra escolhida muda os valores intermediários, mas não os
+          parâmetros aprendidos.
         </Note>
       </>
     ),
@@ -404,7 +393,7 @@ export const CHAPTERS: Chapter[] = [
         </p>
         <p>
           <CodeInline>seed=42</CodeInline> faz a mesma semente e a mesma topologia construírem sempre a mesma rede. É por
-          isso que os exemplos desta aula e o playground mostram os mesmos números.
+          isso que os exemplos desta aula mostram os mesmos números.
         </p>
         <CodeBlock>{`nn = NeuralNetwork([2, 3, 1],
                    hidden="relu",
@@ -473,8 +462,8 @@ export const CHAPTERS: Chapter[] = [
           significa que a entrada aponta na mesma direção dos pesos; um muito negativo, na direção oposta.
         </p>
         <Note>
-          Na tela, as linhas coloridas são pesos: verde/teal para positivo, azul para negativo, mais grossas quando a
-          magnitude é maior.
+          O sinal do produto escalar resume a compatibilidade entre entrada e pesos. O viés desloca o limiar em que o
+          neurônio começa a responder.
         </Note>
       </>
     ),
@@ -500,8 +489,8 @@ export const CHAPTERS: Chapter[] = [
           Assim <CodeInline>Z</CodeInline> e <CodeInline>I′</CodeInline> saem como uma linha com um valor por neurônio.
         </p>
         <Note>
-          A primeira camada transforma uma linha 1×2 em 1×3. A camada de saída transforma essa linha 1×3 em 1×1. O painel
-          de matrizes do playground mostra exatamente esses cartões, com as formas em cada legenda.
+          A forma da saída acompanha a topologia: uma camada com <CodeInline>n</CodeInline> neurônios devolve uma linha{" "}
+          <CodeInline>1 × n</CodeInline>. A camada seguinte transforma essa linha na próxima forma.
         </Note>
       </>
     ),
@@ -511,28 +500,27 @@ export const CHAPTERS: Chapter[] = [
     module: "Passagem direta",
     label: "Camada por camada",
     kicker: "Passagem direta · 3",
-    title: "Por que há duas chamadas de forward",
+    title: "A passagem direta vai da entrada até a saída",
     lead:
-      "Cada chamada nn.forward(valor, camada) avança exatamente uma camada explícita e devolve as novas ativações.",
+      "Uma rede com n camadas de processamento aplica n transformações em sequência. A saída de uma camada é a entrada da próxima.",
     content: (
       <>
-        <CodeBlock>{`I1 = nn.forward(I0, 1)   # camada oculta
-I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
+        <Formula>
+          I₀ = amostra de entrada
+          <br />Iₗ = φₗ(Iₗ₋₁ · Wₗ + bₗ), para l = 1, 2, …, L
+          <br />resposta = I_L
+        </Formula>
+        <ForwardUntilN />
         <p>
-          A numeração começa em 1. A chamada guarda os valores intermediários — <CodeInline>z</CodeInline> e as ativações
-          que entram em cada camada — na rede. Essa passagem armazenada é o que a retropropagação vai usar depois.
+          A forma de cada matriz acompanha a topologia. Se a camada anterior tem <CodeInline>nₗ₋₁</CodeInline> neurônios
+          e a camada atual tem <CodeInline>nₗ</CodeInline>, então <CodeInline>Wₗ</CodeInline> é{" "}
+          <CodeInline>nₗ₋₁ × nₗ</CodeInline>, <CodeInline>bₗ</CodeInline> é <CodeInline>1 × nₗ</CodeInline> e a saída{" "}
+          <CodeInline>Iₗ</CodeInline> é <CodeInline>1 × nₗ</CodeInline>.
         </p>
         <p>
-          Abaixo, uma passagem completa com a rede padrão na segunda amostra do XOR, <CodeInline>X[1] = [0, 1]</CodeInline>.
-          Todos os números são calculados pela mesma rede da página:
-        </p>
-        <WorkedExample />
-        <Formula>z₁ = 0·w₁₁ + 1·w₂₁ + b₁ = {formatNumber(Z1[0], 3)}</Formula>
-        <p>
-          A ReLU corta o valor negativo para zero, então a linha oculta é{" "}
-          <CodeInline>[{I1.map((value) => formatNumber(value)).join(", ")}]</CodeInline>. O neurônio de saída repete a
-          operação com <CodeInline>W₂</CodeInline> e <CodeInline>B₂</CodeInline>, e a tanh comprime o resultado para{" "}
-          <CodeInline>{formatNumber(I2[0], 3)}</CodeInline>.
+          A ordem importa: a camada 2 precisa da saída da camada 1, a camada 3 precisa da saída da camada 2, e assim por
+          diante. Guardar os valores intermediários permite calcular os gradientes mais tarde, mas a passagem em si é
+          sempre da entrada para a saída.
         </p>
       </>
     ),
@@ -548,8 +536,11 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
     playground: 2,
     observation: (
       <ul>
+        <li>As linhas coloridas são pesos: verde/teal para positivo, azul para negativo, mais grossas quando a magnitude é maior.</li>
+        <li>O painel de matrizes mostra o passo como <CodeInline>[I] × [W] + [B] = [z] → [I′]</CodeInline>.</li>
+        <li>Pause a animação para comparar um neurônio antes e depois de sua camada rodar.</li>
         <li>Mude a amostra: <CodeInline>I0 = X[1]</CodeInline> ou <CodeInline>X[3]</CodeInline>.</li>
-        <li>Apague a última chamada de <CodeInline>nn.forward</CodeInline> e pare no meio da rede.</li>
+        <li>Apague a última chamada de <CodeInline>nn.forward</CodeInline> e pare no meio da rede para ver a mensagem de passagem incompleta.</li>
         <li>Clique na camada oculta e compare suas matrizes com as da saída.</li>
         <li>Volte à construção, troque a ativação e retorne para comparar os números.</li>
       </ul>
@@ -557,17 +548,36 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
     content: (
       <>
         <p>
-          A rede guarda a passagem inteira: os valores que entram em cada camada, as pré-ativações e as ativações que saem.
-          É essa passagem armazenada que permite à retropropagação saber por onde o erro deve voltar.
+          Aqui, os três conceitos da passagem direta aparecem juntos: o produto escalar de cada neurônio, a equação
+          matricial da camada e a passagem sequencial de uma camada para a próxima. A tela mostra a rede real construída
+          na etapa anterior.
         </p>
         <Formula>
           I′ = φ(I · W + B)
         </Formula>
         <p>
-          O painel de matrizes do playground mostra o passo como uma equação:{" "}
-          <CodeInline>[I] × [W] + [B] = [z] → [I′]</CodeInline>. Pause a animação para comparar antes e depois de cada
-          camada.
+          O script padrão tem duas chamadas de <CodeInline>nn.forward</CodeInline> porque a rede padrão{" "}
+          <CodeInline>[2, 3, 1]</CodeInline> tem duas camadas de processamento.
         </p>
+        <CodeBlock>{`# rede [2, 3, 1] — duas camadas de processamento
+I0 = X[0]
+I1 = nn.forward(I0, 1)
+I2 = nn.forward(I1, 2)`}</CodeBlock>
+        <p>
+          Se você mudou a topologia, acrescente uma chamada para cada camada extra. O segundo argumento é o número da
+          camada, começando em 1, e não a quantidade de neurônios. Para uma rede <CodeInline>[2, 3, 5, 1]</CodeInline>, a
+          passagem correta tem três chamadas:
+        </p>
+        <CodeBlock>{`# rede [2, 3, 5, 1] — três camadas de processamento
+I0 = X[0]
+I1 = nn.forward(I0, 1)
+I2 = nn.forward(I1, 2)
+I3 = nn.forward(I2, 3)`}</CodeBlock>
+        <Note>
+          A ordem precisa ser 1, 2, 3, … e a saída de uma chamada é a entrada da próxima. Se você errar e parar no meio,
+          a mensagem de erro indica qual camada falta. Corrija o script e execute de novo começando pela camada 1: a nova
+          execução reinicia a passagem.
+        </Note>
       </>
     ),
   },
@@ -584,7 +594,7 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
         <Formula>L = ½ · Σₖ (ŷₖ − tₖ)²</Formula>
         <p>
           Se a saída for exatamente o alvo, <CodeInline>L = 0</CodeInline>. Uma resposta errada dá uma perda positiva. O
-          nó de perda acrescentado à tela é esse escalar; seu valor é o erro ao quadrado da amostra escolhida.
+          valor da perda é esse escalar: quanto maior a diferença, maior o custo.
         </p>
         <p>
           Para <CodeInline>X[0] = [0, 0]</CodeInline> o alvo é 0; para <CodeInline>X[1] = [0, 1]</CodeInline> o alvo é 1.
@@ -617,8 +627,8 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
         </p>
         <DeltaVisual />
         <Note>
-          O delta da camada de saída e a perda aparecem juntos na primeira linha de volta. O painel de matrizes mostra δ,
-          as ativações que entram na camada e os gradientes que vêm a seguir.
+          O delta da saída conecta a perda à derivada da ativação. A partir dele, a culpa é distribuída para as camadas
+          anteriores.
         </Note>
       </>
     ),
@@ -643,8 +653,8 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
           oculto e então moldados pela derivada da ativação oculta. Essa é a <b>regra da cadeia</b>.
         </p>
         <p>
-          Para uma rede com mais camadas ocultas, repita o mesmo passo uma camada por vez, caminhando para a esquerda. É
-          por isso que o script de volta tem uma chamada por camada.
+          Para uma rede com mais camadas ocultas, repita o mesmo passo uma camada por vez, caminhando para a esquerda. O
+          cálculo é sequencial porque cada delta depende do delta da camada seguinte.
         </p>
         <ChainRuleVisual />
       </>
@@ -670,14 +680,12 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
         </p>
         <p>
           Um gradiente positivo significa que aumentar o peso aumentaria a perda, então o treino vai mover o peso no
-          sentido oposto. Passe o mouse em qualquer peso, viés ou neurônio da tela para ler sua regra da cadeia pessoal
-          desde a perda, salto a salto com números.
+          sentido oposto. O sinal do gradiente indica a direção; a magnitude indica a força da correção.
         </p>
         <GradientVisual />
         <Note>
-          As matrizes do painel mostram as mesmas quantidades como cartões: <CodeInline>W</CodeInline>,{" "}
-          <CodeInline>a</CodeInline>, <CodeInline>δ</CodeInline>, <CodeInline>∂L/∂W</CodeInline> e{" "}
-          <CodeInline>∂L/∂b</CodeInline>.
+          Cada parâmetro tem seu próprio gradiente, com a mesma forma do parâmetro. Isso permite atualizar{" "}
+          <CodeInline>W</CodeInline> e <CodeInline>b</CodeInline> elemento a elemento.
         </Note>
       </>
     ),
@@ -693,6 +701,8 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
     playground: 3,
     observation: (
       <ul>
+        <li>O nó de perda mostra o erro da amostra; o painel mostra δ, as ativações que entram na camada e os gradientes.</li>
+        <li>As matrizes do painel mostram <CodeInline>W</CodeInline>, <CodeInline>a</CodeInline>, <CodeInline>δ</CodeInline>, <CodeInline>∂L/∂W</CodeInline> e <CodeInline>∂L/∂b</CodeInline>.</li>
         <li>Passe o mouse no nó de perda para ver como o erro ao quadrado se soma.</li>
         <li>Passe o mouse em uma aresta oculta e leia sua cadeia até o gradiente.</li>
         <li>Pause em uma linha de volta e compare os δs com as ativações acima deles.</li>
@@ -760,8 +770,8 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
         </Formula>
         <p>
           Com η minúsculo, a perda melhora muito devagar; com η enorme, o passo pode pular o vale e piorar a perda, ou até
-          divergir. Os cartões de atualização mostram <CodeInline>lr</CodeInline> explicitamente para você comparar
-          valores como 0.1, 0.5 e 2.0.
+          divergir. Comparar valores como <CodeInline>0.1</CodeInline>, <CodeInline>0.5</CodeInline> e{" "}
+          <CodeInline>2.0</CodeInline> mostra como o mesmo gradiente produz passos diferentes.
         </p>
         <LearningRateLab />
         <Note>
@@ -774,22 +784,24 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
   {
     id: "origem-gradientes",
     module: "Atualizar",
-    label: "De onde vêm os gradientes",
+    label: "O gradiente guardado",
     kicker: "Atualização · 3",
-    title: "O gradiente guardado é reutilizado",
+    title: "Depois da retropropagação, cada camada tem seus gradientes",
     lead:
-      "nn.gradient(camada) devolve o par [dW, dB] daquela camada; nn.update_weights(lr, camada, gradientes) o aplica.",
+      "A retropropagação produz um par de gradientes por camada. Esse par fica disponível para a atualização dos pesos.",
     content: (
       <>
-        <CodeBlock>{`g2 = nn.gradient(2)                    # [dW₂, dB₂]
-nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBlock>
         <p>
-          Você pode atualizar qualquer camada, quantas vezes quiser, em qualquer ordem. Repetir uma camada reutiliza os
-          mesmos gradientes, o que é útil para explorar o tamanho do passo, mas não é o mesmo que treino de verdade.
+          O gradiente guardado tem a mesma forma do parâmetro: uma matriz para os pesos e uma linha para os vieses. Ele
+          descreve como a perda mudaria se aquele parâmetro fosse alterado.
         </p>
         <p>
-          Uma atualização marca a passagem direta guardada como desatualizada. A tela redesenha os novos pesos; para
-          calcular outra passagem de volta, volte ao playground de passagem direta e execute de novo.
+          Uma atualização pode reutilizar o mesmo gradiente mais de uma vez. Isso é útil para comparar tamanhos de passo,
+          mas não é o mesmo que treino de verdade: o treino recalcula os gradientes depois de cada mudança de peso.
+        </p>
+        <p>
+          Depois de uma atualização, a passagem direta guardada fica desatualizada. Os valores intermediários pertencem
+          aos pesos antigos, então uma nova passagem direta é necessária antes de calcular novos gradientes.
         </p>
       </>
     ),
@@ -805,6 +817,7 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
     playground: 4,
     observation: (
       <ul>
+        <li>Os cartões mostram o W antigo, a taxa de aprendizado, o gradiente e o novo W′.</li>
         <li>Atualize a camada de saída com <CodeInline>lr=1.0</CodeInline> e compare com os pesos antigos.</li>
         <li>Atualize a mesma camada duas vezes: o mesmo gradiente é aplicado duas vezes.</li>
         <li>Atualize a camada oculta antes da saída — a ordem é você quem decide.</li>
@@ -817,9 +830,11 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
           W′ = W − η · ∂L/∂W
           <br />B′ = B − η · ∂L/∂b
         </Formula>
+        <CodeBlock>{`g2 = nn.gradient(2)                    # [dW₂, dB₂]
+nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBlock>
         <p>
           A taxa de aprendizado <CodeInline>η</CodeInline> controla o tamanho do passo. Um passo pequeno demais demora; um
-          passo grande demais pode passar do ponto. O playground mostra <CodeInline>lr</CodeInline> e o gradiente em cada
+          passo grande demais pode passar do ponto. O playground aplica o gradiente guardado e mostra o resultado da
           atualização.
         </p>
         <DescentDiagram />
@@ -836,7 +851,7 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
       "O treino de verdade repete o ciclo ida → perda → volta → atualização para cada amostra, muitas vezes.",
     content: (
       <>
-        <p>Em cada época, <CodeInline>nn.train</CodeInline>:</p>
+        <p>Em cada época, o treino:</p>
         <ol className="nn-numbered-list">
           <li>roda a passagem direta para cada amostra;</li>
           <li>calcula a perda e os gradientes verdadeiros para cada amostra;</li>
@@ -871,7 +886,7 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
         </Formula>
         <p>
           <CodeInline>μ = 0</CodeInline> é descida do gradiente pura; o padrão <CodeInline>μ = 0.1</CodeInline> suaviza o
-          caminho e pode acelerar a convergência. Os parâmetros do tutorial são só um ponto de partida.
+          caminho e pode acelerar a convergência. Esses valores são só um ponto de partida.
         </p>
         <MomentumVisual />
         <Note>
@@ -892,8 +907,8 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
     content: (
       <>
         <p>
-          O cabeçalho do gráfico mostra a perda inicial, a final e a <b>acurácia</b>: a fração de amostras cuja saída
-          arredondada bate com o rótulo.
+          Duas métricas resumem o treino: a <b>perda</b>, que mede o erro, e a <b>acurácia</b>, a fração de amostras cuja
+          saída arredondada bate com o rótulo.
         </p>
         <Formula>
           perda ↓ significa que a rede está ajustando os dados
@@ -912,20 +927,22 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
     module: "Treinar e prever",
     label: "Prever e comparar",
     kicker: "Treino · 4",
-    title: "Preveja cada amostra e compare com os alvos",
+    title: "Prever é comparar a saída com o alvo",
     lead:
-      "nn.predict(X) passa cada linha do conjunto pela rede treinada e devolve uma linha de saída por amostra.",
+      "Depois do treino, cada amostra atravessa a rede e produz uma previsão. Comparar a previsão com o alvo mostra se a rede aprendeu a regra.",
     content: (
       <>
-        <CodeBlock>{`P = nn.predict(X)   # forma (n_amostras, n_saídas)`}</CodeBlock>
         <p>
-          Como a ativação de saída é <CodeInline>tanh</CodeInline>, as previsões são valores contínuos perto de −1 … 1; a
-          tabela os arredonda para a checagem de acurácia. Para as amostras XOR, os valores treinados devem ficar perto
-          dos alvos.
+          Como a ativação de saída é <CodeInline>tanh</CodeInline>, as previsões são valores contínuos perto de −1 … 1.
+          Para comparar com rótulos 0 e 1, arredondamos a saída e verificamos se ela cai no lado correto.
         </p>
+        <Formula>
+          previsão ŷ → arredondar → comparar com o alvo y
+          <br />acertos ÷ amostras = acurácia
+        </Formula>
         <Note>
-          A tabela de resultados mostra <CodeInline>ŷ</CodeInline>, o alvo <CodeInline>y</CodeInline> e um ✓ ou ✗. Ela
-          usa a mesma rede e os mesmos dados do gráfico de perda.
+          Uma previsão perto de 0,49 e outra perto de 0,01 podem ambas ser arredondadas para 0. A acurácia conta acertos
+          após o arredondamento; a perda continua medindo o erro contínuo antes do arredondamento.
         </Note>
       </>
     ),
@@ -941,6 +958,8 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
     playground: 5,
     observation: (
       <ul>
+        <li>A curva de perda mostra a perda inicial, a final e a acurácia no cabeçalho.</li>
+        <li>A tabela de resultados mostra a previsão <CodeInline>ŷ</CodeInline>, o alvo <CodeInline>y</CodeInline> e um ✓ ou ✗.</li>
         <li>Experimente <CodeInline>epochs=3000</CodeInline> ou uma taxa menor/maior.</li>
         <li>Defina <CodeInline>momentum=0.0</CodeInline> e compare a velocidade de convergência.</li>
         <li>Mude a largura oculta para <CodeInline>[2, 5, 1]</CodeInline> e treine de novo.</li>
@@ -953,11 +972,9 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
           O script final reconstrói os dados e uma rede nova. Ele usa a mesma topologia e a mesma semente do início, então
           você pode comparar o ponto de partida com a rede treinada.
         </p>
+        <CodeBlock>{`loss = nn.train(X, y, epochs=800, learning_rate=0.5, momentum=0.1)
+P = nn.predict(X)`}</CodeBlock>
         <LoopDiagram />
-        <p>
-          O gráfico de perda registra cada época; a tabela de resultados compara a previsão <CodeInline>ŷ</CodeInline> com
-          o alvo <CodeInline>y</CodeInline>.
-        </p>
       </>
     ),
   },

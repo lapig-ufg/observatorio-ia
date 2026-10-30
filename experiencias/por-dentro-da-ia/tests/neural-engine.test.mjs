@@ -203,6 +203,45 @@ test("seeded networks are deterministic while different seeds differ", () => {
   assert.equal(a.nParams, 13);
 });
 
+test("a new forward pass can restart at layer 1 after an incomplete attempt", () => {
+  const session = new Session(1);
+  const built = session.run(
+    `X = Features([[0, 0], [0, 1], [1, 0], [1, 1]])
+y = Labels([0, 1, 1, 0])
+nn = NeuralNetwork([2, 3, 5, 1], hidden="relu", output="tanh", init="xavier", seed=42)`,
+    1,
+  );
+  assert.equal(built.ok, true, built.error?.message);
+
+  const partial = session.run(
+    `I0 = X[1]
+I1 = nn.forward(I0, 1)
+I2 = nn.forward(I1, 2)`,
+    2,
+  );
+  assert.equal(partial.ok, false);
+  assert.match(partial.error.message, /passagem direta está incompleta/);
+
+  const full = session.run(
+    `I0 = X[1]
+I1 = nn.forward(I0, 1)
+I2 = nn.forward(I1, 2)
+I3 = nn.forward(I2, 3)`,
+    2,
+  );
+  assert.equal(full.ok, true, full.error?.message);
+  assert.ok(full.events.some((event) => event.type === "forward_done"));
+
+  const backward = session.run(
+    `d3 = nn.backward(y[1], 3)
+d2 = nn.backward(d3, 2)
+d1 = nn.backward(d2, 1)`,
+    3,
+  );
+  assert.equal(backward.ok, true, backward.error?.message);
+  assert.ok(backward.events.some((event) => event.type === "backward_done"));
+});
+
 test("read-only attributes expose the layer count and matrices", () => {
   const session = build();
   const result = session.run(

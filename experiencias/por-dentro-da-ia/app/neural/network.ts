@@ -227,6 +227,14 @@ export class NeuralNetwork {
       throw new NNError(`a camada precisa ser um número inteiro de 1 a ${this.nLayers}.`);
     }
 
+    // Starting again at layer 1 is always a fresh pass. This lets the learner
+    // recover after an incomplete forward attempt (for example, a custom
+    // network with more processing layers than the default script).
+    if (layer === 1 && this.stepCursor !== 0) {
+      this.stepCursor = 0;
+      this.passComplete = false;
+    }
+
     const expectedLayer = this.stepCursor + 1;
     if (layer !== expectedLayer) {
       throw new NNError(`a passagem direta acontece camada por camada — esperava a camada ${expectedLayer}, recebeu ${layer}.`);

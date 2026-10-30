@@ -179,6 +179,18 @@ export class Session {
       }
     }
 
+    if (!error && stage === 2) {
+      const nn = this.namespace.nn;
+      const hadForward = this.records.some((event) => event.type === "forward_start" || event.type === "layer_done");
+      if (nn instanceof NeuralNetwork && hadForward && !nn.passComplete) {
+        const total = nn.nLayers;
+        const processed = Math.min(nn.stepCursor, total);
+        error = new SourceError(
+          `a passagem direta está incompleta: ${processed} de ${total} camadas foram processadas. Acrescente a chamada da camada ${processed + 1} e execute o script de novo.`,
+        );
+      }
+    }
+
     return {
       ok: error === null,
       error: error ? error.asDict() : null,

@@ -153,6 +153,23 @@ export function PlaygroundCard({
         )}
       </div>
 
+      {stage === 2 && controller.viz.snapshot && controller.viz.snapshot.topology.length - 1 > 2 && (
+        <div className="nn-topology-hint">
+          <b>
+            A rede atual tem {controller.viz.snapshot.topology.length - 1} camadas de processamento.
+          </b>
+          <p>
+            O script padrão foi escrito para duas chamadas. Acrescente as chamadas restantes, em ordem, antes de
+            executar:
+          </p>
+          <pre>{`I0 = X[0]
+${Array.from(
+  { length: controller.viz.snapshot.topology.length - 1 },
+  (_, index) => `I${index + 1} = nn.forward(I${index}, ${index + 1})`,
+).join("\n")}`}</pre>
+        </div>
+      )}
+
       {observation && (
         <div className="nn-observe">
           <p className="mini-label">O que observar</p>

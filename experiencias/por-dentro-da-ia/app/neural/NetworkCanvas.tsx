@@ -7,7 +7,9 @@ import type { Selection } from "./playground-state";
 const NODE_R = 14;
 const COL_GAP = 132;
 const ROW_GAP = 46;
-const MARGIN = 32;
+const MARGIN_X = 54;
+const MARGIN_TOP = 42;
+const MARGIN_BOTTOM = 30;
 
 function nodeY(count: number, index: number, rows: number) {
   const mid = (rows * ROW_GAP) / 2;
@@ -67,8 +69,8 @@ export function NetworkCanvas({
   const rows = Math.max(...t);
   const withLoss = loss !== null;
   const columns = t.length + (withLoss ? 1 : 0);
-  const height = rows * ROW_GAP + MARGIN * 2;
-  const width = (columns - 1) * COL_GAP + MARGIN * 2 + (withLoss ? NODE_R : 0);
+  const height = rows * ROW_GAP + MARGIN_TOP + MARGIN_BOTTOM;
+  const width = (columns - 1) * COL_GAP + MARGIN_X * 2 + (withLoss ? NODE_R : 0);
   const displayWidth = Math.min(Math.max(width, 520), 640);
 
   const biasFor = (column: number, n: number) => {
@@ -76,7 +78,7 @@ export function NetworkCanvas({
     return bias ? bias[0][n] : null;
   };
 
-  const columnX = (col: number) => MARGIN + col * COL_GAP;
+  const columnX = (col: number) => MARGIN_X + col * COL_GAP;
 
   const chainFor = (kind: string, dataset: DOMStringMap): Chains[string] | null => {
     if (!chains) return null;
@@ -213,8 +215,8 @@ export function NetworkCanvas({
               const id = `edge-${i}-${j}-${k}`;
               const x1 = columnX(i) + NODE_R;
               const x2 = columnX(i + 1) - NODE_R;
-              const y1 = MARGIN + nodeY(t[i], j, rows);
-              const y2 = MARGIN + nodeY(t[i + 1], k, rows);
+              const y1 = MARGIN_TOP + nodeY(t[i], j, rows);
+              const y2 = MARGIN_TOP + nodeY(t[i + 1], k, rows);
               const color = weight >= 0 ? "var(--nn-pos)" : "var(--nn-neg)";
               const strokeWidth = Math.min(4.5, 0.7 + Math.abs(weight) * 1.6);
               return (
@@ -254,8 +256,8 @@ export function NetworkCanvas({
             {Array.from({ length: t[t.length - 1] }, (_, k) => {
               const x1 = columnX(t.length - 1) + NODE_R;
               const x2 = columnX(t.length) + NODE_R - NODE_R;
-              const y1 = MARGIN + nodeY(t[t.length - 1], k, rows);
-              const y2 = MARGIN + (rows * ROW_GAP) / 2;
+              const y1 = MARGIN_TOP + nodeY(t[t.length - 1], k, rows);
+              const y2 = MARGIN_TOP + (rows * ROW_GAP) / 2;
               return (
                 <g key={`loss-edge-${k}`}>
                   <line
@@ -281,12 +283,12 @@ export function NetworkCanvas({
             <g
               className={`nn-node nn-loss-node ${lossHot ? "is-lit" : ""}`}
               data-kind="loss-node"
-              transform={`translate(${columnX(t.length) + NODE_R}, ${MARGIN + (rows * ROW_GAP) / 2})`}
+              transform={`translate(${columnX(t.length) + NODE_R}, ${MARGIN_TOP + (rows * ROW_GAP) / 2})`}
             >
               <circle r={NODE_R} />
               <text y={4}>{loss !== null ? formatNumber(loss) : ""}</text>
             </g>
-            <text className="nn-layer-label" x={columnX(t.length) + NODE_R} y={MARGIN - NODE_R - 12}>
+            <text className="nn-layer-label" x={columnX(t.length) + NODE_R} y={MARGIN_TOP - NODE_R - 12}>
               perda
             </text>
           </>
@@ -311,7 +313,7 @@ export function NetworkCanvas({
                     data-kind="node"
                     data-col={col}
                     data-n={n}
-                    transform={`translate(${columnX(col)}, ${MARGIN + nodeY(count, n, rows)})`}
+                    transform={`translate(${columnX(col)}, ${MARGIN_TOP + nodeY(count, n, rows)})`}
                   >
                     <circle r={NODE_R} />
                     <text y={4}>{value !== undefined ? formatNumber(value) : ""}</text>
@@ -326,7 +328,7 @@ export function NetworkCanvas({
                 data-kind="layer"
                 data-col={col}
                 x={columnX(col)}
-                y={MARGIN - NODE_R - 12}
+                y={MARGIN_TOP - NODE_R - 12}
               >
                 {isInput ? `entrada · ${count}` : isOutput ? `saída · ${count}` : `oculta ${col} · ${count}`}
               </text>

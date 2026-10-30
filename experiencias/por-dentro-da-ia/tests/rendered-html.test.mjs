@@ -36,7 +36,7 @@ test("serves the hub with two independent classes ordered by complexity", async 
     assert.ok(text.includes(phrase), phrase);
   }
   assert.ok(text.indexOf("Redes neurais") < text.lastIndexOf("Transformers"));
-  assert.doesNotMatch(html, /classes-hero-figure|classes-connector/);
+  assert.doesNotMatch(html, /classes-hero-figure|classes-hero-facts|classes-connector/);
   assert.doesNotMatch(text, /A base primeiro|Em seguida|Comece aqui|depois/);
 });
 
@@ -112,4 +112,6 @@ test("serves the Neural Network class with its chapter map and first lesson", as
     readFile(new URL("../app/neural/NeuralNetworkPage.tsx", import.meta.url), "utf8"),
   ]);
   for (const source of sources) assert.doesNotMatch(source, /Transformer/i);
+  assert.doesNotMatch(sources[0], /WorkedExample/);
+  assert.match(sources[0], /ForwardUntilN/);
 });
