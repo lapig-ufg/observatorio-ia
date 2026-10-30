@@ -48,9 +48,24 @@ function abrir(tr: HTMLElement) {
   det.hidden = aberto;
 }
 
+type Secao = { id: string; rotulo: string };
+
+// Sumário lateral: os títulos da matéria viram atalhos. Rolagem por botão, e não por link,
+// porque o portal usa o # do endereço para navegar entre páginas.
+function rotular(raiz: HTMLElement): Secao[] {
+  const alvos = [...raiz.querySelectorAll<HTMLElement>(".texto > h2, .opiniao > h2, .metodo summary")];
+  return alvos.map((el, i) => {
+    el.id = el.id || `ip-secao-${i}`;
+    const rotulo = el.closest(".opiniao") ? "Ponderações do autor" : (el.textContent || "").trim();
+    return { id: el.id, rotulo };
+  });
+}
+
 export function IAPropriaPage() {
   const [artigo, setArtigo] = useState<Artigo | null>(null);
   const [falhou, setFalhou] = useState(false);
+  const [secoes, setSecoes] = useState<Secao[]>([]);
+  const [atual, setAtual] = useState("");
   const corpo = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -70,6 +85,15 @@ export function IAPropriaPage() {
     raiz.innerHTML = artigo.corpo;
     const cartoes = [...raiz.querySelectorAll<HTMLElement>(".pub")];
     cartoes.forEach(card => desenhar(card, artigo.dados));
+    const lista = rotular(raiz);
+    setSecoes(lista);
+    const visiveis = new Map<string, boolean>();
+    const observador = new IntersectionObserver(entradas => {
+      entradas.forEach(e => visiveis.set(e.target.id, e.isIntersecting));
+      const primeira = lista.find(s => visiveis.get(s.id));
+      if (primeira) setAtual(primeira.id);
+    }, { rootMargin: "-96px 0px -55% 0px" });
+    lista.forEach(s => observador.observe(document.getElementById(s.id)!));
     const clique = (e: MouseEvent) => {
       const alvo = e.target as HTMLElement, card = alvo.closest<HTMLElement>(".pub");
       if (!card) return;
@@ -84,20 +108,42 @@ export function IAPropriaPage() {
     };
     raiz.addEventListener("click", clique);
     raiz.addEventListener("keydown", tecla);
-    return () => { raiz.removeEventListener("click", clique); raiz.removeEventListener("keydown", tecla); };
+    return () => { observador.disconnect(); raiz.removeEventListener("click", clique); raiz.removeEventListener("keydown", tecla); };
   }, [artigo]);
 
-  return <section id="levantamento" className="ip-page panorama-page" aria-labelledby="ip-title" lang="pt-BR">
-    <div className="panorama-intro pt-panorama-intro">
-      <div className="panorama-heading">
-        <p className="eyebrow">Levantamento do Observatório · Outubro de 2026</p>
+  const ir = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === "SUMMARY") (el.parentElement as HTMLDetailsElement).open = true;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const resumo = artigo ? [["Docentes", "doc"], ["Docentes e técnicos", "doctae"], ["Comunidade toda", "todos"]]
+    .map(([nome, k]) => ({ nome, total: artigo.dados[k]["0"].total })) : [];
+
+  return <article id="levantamento" className="ip-page" aria-labelledby="ip-title" lang="pt-BR">
+    <header className="ip-hero">
+      <div className="ip-moldura">
+        <p className="ip-eyebrow">Levantamento do Observatório · Outubro de 2026</p>
         <h1 id="ip-title">{artigo?.titulo || "Quanto custa ter uma IA própria rodando dentro da universidade?"}</h1>
         {artigo && <div className="ip-abertura" dangerouslySetInnerHTML={{ __html: artigo.abertura }} />}
         {artigo && <p className="ip-leitura"><Clock3 size={16} aria-hidden="true" />Leitura de {artigo.minutos} minutos</p>}
       </div>
+    </header>
+    <div className="ip-moldura ip-grade">
+      <aside className="ip-trilho" aria-label="Nesta página">
+        {secoes.length > 0 && <nav>
+          <p className="ip-trilho-titulo">Nesta página</p>
+          <ol>{secoes.map(s => <li key={s.id}><button type="button" aria-current={atual === s.id ? "true" : undefined} onClick={() => ir(s.id)}>{s.rotulo}</button></li>)}</ol>
+        </nav>}
+        {resumo.length > 0 && <div className="ip-resumo">
+          <p className="ip-trilho-titulo">Total em 5 anos</p>
+          <p className="ip-resumo-sub">IA própria, cenário básico</p>
+          <dl>{resumo.map(r => <div key={r.nome}><dt>{r.nome}</dt><dd dangerouslySetInnerHTML={{ __html: r.total }} /></div>)}</dl>
+        </div>}
+      </aside>
+      {falhou ? <p className="ip-aviso" role="alert">Não foi possível carregar o levantamento. Tente recarregar a página.</p>
+        : !artigo ? <p className="ip-aviso" aria-live="polite">Carregando o levantamento…</p>
+        : <div className="ip-artigo" ref={corpo} />}
     </div>
-    {falhou ? <p className="ip-aviso" role="alert">Não foi possível carregar o levantamento. Tente recarregar a página.</p>
-      : !artigo ? <p className="ip-aviso" aria-live="polite">Carregando o levantamento…</p>
-      : <div className="ip-artigo" ref={corpo} />}
-  </section>;
+  </article>;
 }
