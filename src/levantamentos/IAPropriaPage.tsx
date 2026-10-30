@@ -56,7 +56,7 @@ function rotular(raiz: HTMLElement): Secao[] {
   const alvos = [...raiz.querySelectorAll<HTMLElement>(".texto > h2, .opiniao > h2, .metodo summary")];
   return alvos.map((el, i) => {
     el.id = el.id || `ip-secao-${i}`;
-    const rotulo = el.closest(".opiniao") ? "Ponderações do autor" : (el.textContent || "").trim();
+    const rotulo = el.closest(".opiniao") ? "Ponderações" : (el.textContent || "").trim();
     return { id: el.id, rotulo };
   });
 }
