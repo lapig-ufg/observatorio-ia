@@ -93,12 +93,12 @@
 .nn-spiderweb {
   position: absolute;
   z-index: 0;
-  top: 14px;
-  left: 14px;
-  width: 92px;
-  height: 92px;
+  top: 0;
+  left: 0;
+  width: 130px;
+  height: 130px;
   color: #c56834;
-  opacity: 0.14;
+  opacity: 0.16;
   pointer-events: none;
 }
 
@@ -2444,11 +2444,11 @@
   }
 
   .nn-spiderweb {
-    top: 8px;
-    left: 8px;
-    width: 68px;
-    height: 68px;
-    opacity: 0.12;
+    top: 0;
+    left: 0;
+    width: 92px;
+    height: 92px;
+    opacity: 0.13;
   }
 
   .nn-playground-head,
