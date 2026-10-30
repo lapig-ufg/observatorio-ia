@@ -9,7 +9,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build && vite build --ssr app/prerender.tsx --outDir .prerender && node scripts/prerender.mjs",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "node --experimental-strip-types --test tests/*.test.mjs"
+    "test": "node --experimental-strip-types --import ./tests/register.mjs --test tests/*.test.mjs"
   },
   "dependencies": { "react": "19.2.6", "react-dom": "19.2.6" },
   "devDependencies": {
