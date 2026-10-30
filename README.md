@@ -8,7 +8,7 @@ As aulas interativas integram este repositório em `experiencias/por-dentro-da-i
 - https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/ — aula 1, redes neurais: do neurônio à retropropagação, com cinco playgrounds.
 - https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/transformers/ — aula 2, Transformers: da frase ao próximo token.
 
-As aulas estão ordenadas por complexidade, mas são independentes: redes neurais é a mais fundamental e Transformers é a mais avançada. Todas as páginas têm o botão **Voltar ao Observatório**, no cabeçalho.
+As aulas estão ordenadas por complexidade, mas são independentes: redes neurais é a mais fundamental e Transformers é a mais avançada. Todas as páginas usam o logotipo do Observatório no cabeçalho para retornar ao portal.
 
 Para publicar o conjunto, instalar também as dependências da aula com `pnpm --dir experiencias/por-dentro-da-ia install --frozen-lockfile` e executar `pnpm build:all`. Esse comando compila portal e as três páginas, testa as experiências e reúne tudo em `dist/`. O workflow do Observatório já usa esse procedimento; não criar uma publicação independente que substitua o portal.
 

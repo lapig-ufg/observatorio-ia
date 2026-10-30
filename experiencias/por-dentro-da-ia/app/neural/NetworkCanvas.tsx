@@ -4,12 +4,12 @@ import { formatNumber } from "./math";
 import type { Snapshot } from "./network";
 import type { Selection } from "./playground-state";
 
-const NODE_R = 14;
+const NODE_R = 18;
 const COL_GAP = 132;
-const ROW_GAP = 46;
+const ROW_GAP = 54;
 const MARGIN_X = 54;
-const MARGIN_TOP = 42;
-const MARGIN_BOTTOM = 30;
+const MARGIN_TOP = 48;
+const MARGIN_BOTTOM = 34;
 
 function nodeY(count: number, index: number, rows: number) {
   const mid = (rows * ROW_GAP) / 2;
@@ -195,19 +195,23 @@ export function NetworkCanvas({
         }}
         onClick={handleClick}
       >
-        {t.map((_, col) => (
-          <rect
-            key={`hit-${col}`}
-            className={`nn-layer-hit ${selection?.kind === "layer" && selection.col === col ? "is-selected" : ""}`}
-            data-kind="layer"
-            data-col={col}
-            x={columnX(col) - 70}
-            y={0}
-            width={140}
-            height={height}
-            rx={12}
-          />
-        ))}
+        {t.map((_, col) => {
+          const hitWidth = 100;
+          const hitX = Math.max(0, Math.min(width - hitWidth, columnX(col) - hitWidth / 2));
+          return (
+            <rect
+              key={`hit-${col}`}
+              className={`nn-layer-hit ${selection?.kind === "layer" && selection.col === col ? "is-selected" : ""}`}
+              data-kind="layer"
+              data-col={col}
+              x={hitX}
+              y={0}
+              width={hitWidth}
+              height={height}
+              rx={12}
+            />
+          );
+        })}
 
         {snapshot.weight_mats.map((matrix, i) =>
           matrix.map((row, j) =>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { LessonHeader } from "./lesson-header";
 import { MatrixLandscape } from "./matrix-landscape";
 import { ArchitectureCompass } from "./architecture-compass";
 import { embeddings as embeddingRows, positions } from "./lesson-math";
@@ -497,7 +498,7 @@ export default function Home() {
   const jump=(id:string)=>go(sectionIds.indexOf(id));
   return <main className="site-root friendly-site">
     <a className="skip-content" href={`#${sectionIds[activeSection]}`}>Ir ao conteúdo</a>
-    <header className="site-header"><a className="site-brand" href="../"><span>POR DENTRO DA IA</span><small>Transformers · aula 2</small></a><div className="site-course"><b>Tópicos em sensoriamento remoto</b><span>Entendendo e utilizando modelos de IA para o processamento e análise de dados de observação da Terra · LAPIG / UFG</span></div><div className="header-actions"><span className="model-badge">Referência · GPT‑3 175B</span><a className="nn-class-link" href="../">← Todas as aulas</a><a className="observatory-return" href="/observatorio-ia/#experiencias-interativas"><span aria-hidden="true">← </span>Voltar ao Observatório</a></div></header>
+    <LessonHeader />
     <div className="site-layout">
       <aside className="chapter-menu" aria-label="Capítulos da aula"><p>ABRA A CAIXA, PASSO A PASSO</p>{sectionIds.map((id,index)=><button key={id} className={activeSection===index?"active":""} aria-current={activeSection===index?"step":undefined} onClick={()=>go(index)}><span>{String(index+1).padStart(2,"0")}</span><b>{sectionLabels[index]}</b></button>)}<div className="menu-scope"><b>Sempre em inferência</b><span>Pesos fixos.<br/>Estados em transformação.</span></div></aside>
       <div className="chapter-stage" ref={stageRef}>

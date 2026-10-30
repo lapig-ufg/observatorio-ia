@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
+import { LessonHeader } from "../lesson-header";
 import { CHAPTERS } from "./content";
-import { PlaygroundCard } from "./PlaygroundCard";
+import { PlaygroundCard, PlaygroundPreamble } from "./PlaygroundCard";
 import { useNeuralPlayground } from "./playground-state";
-
-const OBSERVATORY_URL = "/observatorio-ia/#experiencias-interativas";
 
 export function NeuralNetworkPage() {
   const [active, setActive] = useState(0);
@@ -46,27 +45,10 @@ export function NeuralNetworkPage() {
   }, []);
 
   const previousPlayground = chapter.playground ? CHAPTERS.find((item) => item.playground === chapter.playground! - 1) : null;
-  const nextChapter = CHAPTERS[active + 1];
 
   return (
     <main className="site-root friendly-site nn-page">
-      <header className="site-header">
-        <a className="site-brand" href="../">
-          <span>POR DENTRO DA IA</span>
-          <small>Redes neurais · aula 1</small>
-        </a>
-        <div className="site-course">
-          <b>Trilha de aprendizagem · fundamentos</b>
-          <span>Do neurônio à retropropagação: uma rede pequena, treinável e visível por dentro.</span>
-        </div>
-        <div className="header-actions">
-          <span className="model-badge">Cálculo local</span>
-          <a className="nn-class-link" href="../">← Todas as aulas</a>
-          <a className="observatory-return" href={OBSERVATORY_URL}>
-            <span aria-hidden="true">← </span>Voltar ao Observatório
-          </a>
-        </div>
-      </header>
+      <LessonHeader />
 
       <div className="site-layout nn-layout">
         <aside className="chapter-menu nn-chapter-menu" aria-label="Capítulos da aula de redes neurais">
@@ -152,16 +134,20 @@ export function NeuralNetworkPage() {
             <div className="nn-chapter-body">{chapter.content}</div>
 
             {chapter.playground && (
-              <PlaygroundCard
-                stage={chapter.playground}
-                controller={controller}
-                onGoChapter={(id) => go(CHAPTERS.findIndex((item) => item.id === id))}
-                onNext={() => go(active + 1)}
-                nextLabel={nextChapter ? nextChapter.label : "Concluir"}
-                previousLabel={previousPlayground?.label ?? "o playground anterior"}
-                previousId={previousPlayground?.id ?? "construir"}
-                observation={chapter.observation}
-              />
+              <>
+                <PlaygroundPreamble
+                  stage={chapter.playground}
+                  snapshot={controller.viz.snapshot}
+                  observation={chapter.observation}
+                />
+                <PlaygroundCard
+                  stage={chapter.playground}
+                  controller={controller}
+                  onGoChapter={(id) => go(CHAPTERS.findIndex((item) => item.id === id))}
+                  previousLabel={previousPlayground?.label ?? "o playground anterior"}
+                  previousId={previousPlayground?.id ?? "construir"}
+                />
+              </>
             )}
 
             <nav className="chapter-controls" aria-label="Navegação entre capítulos">

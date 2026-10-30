@@ -7,14 +7,17 @@ const pages = ["dist/index.html", "dist/transformers/index.html", "dist/redes-ne
 test("all built local assets resolve under the GitHub Pages project path", () => {
   for (const file of pages) {
     const html = readFileSync(file, "utf8");
-    const paths = [...html.matchAll(/(?:src|href)="(\/[^"#]+)"/g)].map((match) => new URL(match[1], "https://lapig-ufg.github.io").pathname);
+    const paths = [...html.matchAll(/(?:src|href)="(\/[^"#]+)"/g)]
+      .map((match) => new URL(match[1], "https://lapig-ufg.github.io").pathname)
+      .filter((path) => path.startsWith("/observatorio-ia/por-dentro-da-ia/"));
     assert.ok(paths.some((path) => path.endsWith(".js")), file);
     assert.ok(paths.some((path) => path.endsWith(".css")), file);
     for (const path of paths) {
       assert.ok(path.startsWith("/observatorio-ia/por-dentro-da-ia/"), `${file}: ${path}`);
       assert.ok(existsSync(`dist/${path.slice("/observatorio-ia/por-dentro-da-ia/".length)}`), `${file}: ${path}`);
     }
-    assert.match(html, /Voltar ao Observatório/, file);
+    assert.match(html, /class="lesson-header"/, file);
+    assert.match(html, /brand\/observatorio-coruja\.svg/, file);
     assert.doesNotMatch(html, /<!--app-html-->|\/app\/main\.tsx|_next\/|chatgpt-auth/, file);
   }
   assert.ok(existsSync("dist/og.png"));

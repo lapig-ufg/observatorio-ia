@@ -30,13 +30,14 @@ test("serves the hub with two independent classes ordered by complexity", async 
     "Transformers",
     "Do neurônio ao aprendizado",
     "Da frase ao próximo token",
-    "Voltar ao Observatório",
-    "Cálculo local",
+    "Observatório",
   ]) {
     assert.ok(text.includes(phrase), phrase);
   }
   assert.ok(text.indexOf("Redes neurais") < text.lastIndexOf("Transformers"));
-  assert.doesNotMatch(html, /classes-hero-figure|classes-hero-facts|classes-connector/);
+  assert.ok(html.includes('class="lesson-header"'));
+  assert.ok(html.includes("brand/observatorio-coruja.svg"));
+  assert.doesNotMatch(html, /classes-hero-figure|classes-hero-facts|classes-connector|header-actions|site-course/);
   assert.doesNotMatch(text, /A base primeiro|Em seguida|Comece aqui|depois/);
 });
 
@@ -50,7 +51,7 @@ test("preserves the 19-chapter Transformer lesson on its own page", async () => 
   assert.ok(html.includes('aria-current="step"'));
   assert.ok(html.includes("ABC · consultar conceitos e símbolos"));
   assert.ok(html.includes("Ir ao conteúdo"));
-  for (const sentence of ["Tópicos em sensoriamento remoto", "LAPIG / UFG", "A vegetação saudável apresenta alta reflectância no infravermelho próximo.", "O treinamento já terminou.", "Nenhum parâmetro é ajustado nesta jornada."]) {
+  for (const sentence of ["A vegetação saudável apresenta alta reflectância no infravermelho próximo.", "O treinamento já terminou.", "Nenhum parâmetro é ajustado nesta jornada."]) {
     assert.ok(text.includes(sentence), sentence);
   }
 });
@@ -93,15 +94,16 @@ test("serves the Neural Network class with its chapter map and first lesson", as
   assert.match(html, /<html lang="pt-BR">/);
   assert.ok(html.includes('data-page="redes-neurais"'));
   assert.ok(html.includes('class="site-root friendly-site nn-page"'));
-  assert.ok(html.includes('href="../"'));
-  assert.ok(html.includes("Voltar ao Observatório"));
-  assert.ok(html.includes("← Todas as aulas"));
+  assert.ok(html.includes('class="lesson-header"'));
+  assert.ok(html.includes("brand/observatorio-coruja.svg"));
+  assert.ok(html.includes('href="/observatorio-ia/"'));
+  assert.ok(!html.includes("Voltar ao Observatório"));
+  assert.ok(!html.includes("Todas as aulas"));
   assert.ok(text.includes("REDES NEURAIS · 26 CAPÍTULOS"));
   for (const label of ["Do neurônio à rede", "Um neurônio", "Funções de ativação", "Construção da rede", "Passagem direta", "Retropropagação", "Atualização dos pesos", "Treino e previsão", "Síntese"]) {
     assert.ok(text.includes(label), label);
   }
   assert.ok(text.includes("Uma rede neural é uma função feita de camadas"));
-  assert.ok(text.includes("Cálculo local"));
   assert.ok(text.includes("O playground calcula tudo localmente"));
   assert.ok(html.includes('aria-current="step"'));
   assert.ok(html.includes('id="inicio"'));

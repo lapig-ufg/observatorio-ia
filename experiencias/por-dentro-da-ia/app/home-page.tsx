@@ -1,24 +1,11 @@
+import { LessonHeader } from "./lesson-header";
+
 const OBSERVATORY_URL = "/observatorio-ia/#experiencias-interativas";
 
 export function ClassesHome() {
   return (
     <main className="site-root friendly-site classes-home">
-      <header className="site-header">
-        <a className="site-brand" href="./">
-          <span>POR DENTRO DA IA</span>
-          <small>Duas aulas independentes</small>
-        </a>
-        <div className="site-course">
-          <b>Tópicos em sensoriamento remoto</b>
-          <span>Entendendo e utilizando modelos de IA para o processamento e análise de dados de observação da Terra · LAPIG / UFG</span>
-        </div>
-        <div className="header-actions">
-          <span className="model-badge">Cálculo local</span>
-          <a className="observatory-return" href={OBSERVATORY_URL}>
-            <span aria-hidden="true">← </span>Voltar ao Observatório
-          </a>
-        </div>
-      </header>
+      <LessonHeader />
 
       <div className="classes-shell">
         <section className="classes-hero">

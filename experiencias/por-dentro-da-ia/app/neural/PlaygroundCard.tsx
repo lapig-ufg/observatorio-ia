@@ -5,29 +5,64 @@ import { ResultsTable, TrainingChart } from "./TrainingChart";
 import type { PlaygroundController } from "./playground-state";
 import { STAGES } from "./scripts";
 
+export function PlaygroundPreamble({
+  stage,
+  snapshot,
+  observation,
+}: {
+  stage: number;
+  snapshot: { topology: number[] } | null;
+  observation?: ReactNode;
+}) {
+  const processingLayers = snapshot ? snapshot.topology.length - 1 : 0;
+  const showTopologyHint = stage === 2 && processingLayers > 2;
+  if (!observation && !showTopologyHint) return null;
+
+  return (
+    <div className="nn-playground-preamble">
+      {showTopologyHint && snapshot && (
+        <div className="nn-topology-hint">
+          <b>A rede atual tem {processingLayers} camadas de processamento.</b>
+          <p>
+            O script padrão foi escrito para duas chamadas. Acrescente as chamadas restantes, em ordem, antes de
+            executar:
+          </p>
+          <pre>{`I0 = X[0]
+${Array.from(
+  { length: processingLayers },
+  (_, index) => `I${index + 1} = nn.forward(I${index}, ${index + 1})`,
+).join("\n")}`}</pre>
+        </div>
+      )}
+
+      {observation && (
+        <div className="nn-observe">
+          <p className="mini-label">O que observar</p>
+          {observation}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function PlaygroundCard({
   stage,
   controller,
   onGoChapter,
-  onNext,
-  nextLabel,
   previousLabel,
   previousId,
-  observation,
 }: {
   stage: number;
   controller: PlaygroundController;
   onGoChapter: (id: string) => void;
-  onNext: () => void;
-  nextLabel: string;
   previousLabel: string;
   previousId: string;
-  observation?: ReactNode;
 }) {
   const source = controller.draftFor(stage);
   const [scrollTop, setScrollTop] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const lines = source.split("\n");
+  const editorHeight = Math.min(Math.max(lines.length * 20 + 24, 260), 520);
   const active = controller.activeLine;
   const visibleBand =
     active !== null && active > 0 && active <= lines.length
@@ -35,6 +70,7 @@ export function PlaygroundCard({
       : null;
   const locked = !controller.canRun(stage);
   const complete = controller.completed.has(stage);
+  const showNetwork = stage !== 5;
 
   useEffect(() => {
     controller.enterStage(stage);
@@ -121,27 +157,30 @@ export function PlaygroundCard({
         <div className={`nn-status ${controller.statusKind}`} role="status">
           {controller.status}
         </div>
-        <NetworkCanvas
-          snapshot={controller.viz.snapshot}
-          values={controller.viz.values}
-          deltas={controller.viz.deltas}
-          loss={controller.viz.loss}
-          chains={controller.viz.chains}
-          hotLayer={controller.viz.hotLayer}
-          errLayers={controller.viz.errLayers}
-          lossHot={controller.viz.lossHot}
-          selection={controller.viz.selection}
-          onSelect={controller.select}
-          onClear={controller.clearSelection}
-        />
-        <div className="nn-legend">
-          <span><i className="nn-legend-line is-pos" /> peso positivo</span>
-          <span><i className="nn-legend-line is-neg" /> peso negativo</span>
-          <span>Passe o mouse nos pesos para ler a regra da cadeia; clique em um neurônio ou camada para ver as matrizes.</span>
-        </div>
-
-        {controller.viz.panel && (
-          <MatrixPanel title={controller.viz.panel.title} groups={controller.viz.panel.groups} />
+        {showNetwork && (
+          <>
+            <NetworkCanvas
+              snapshot={controller.viz.snapshot}
+              values={controller.viz.values}
+              deltas={controller.viz.deltas}
+              loss={controller.viz.loss}
+              chains={controller.viz.chains}
+              hotLayer={controller.viz.hotLayer}
+              errLayers={controller.viz.errLayers}
+              lossHot={controller.viz.lossHot}
+              selection={controller.viz.selection}
+              onSelect={controller.select}
+              onClear={controller.clearSelection}
+            />
+            <div className="nn-legend">
+              <span><i className="nn-legend-line is-pos" /> peso positivo</span>
+              <span><i className="nn-legend-line is-neg" /> peso negativo</span>
+              <span>Passe o mouse nos pesos para ler a regra da cadeia; clique em um neurônio ou camada para ver as matrizes.</span>
+            </div>
+            {controller.viz.panel && (
+              <MatrixPanel title={controller.viz.panel.title} groups={controller.viz.panel.groups} />
+            )}
+          </>
         )}
         {controller.viz.metrics && <TrainingChart metrics={controller.viz.metrics} />}
         {controller.viz.results && (
@@ -151,31 +190,12 @@ export function PlaygroundCard({
             labels={controller.viz.labels}
           />
         )}
+        {!showNetwork && !controller.viz.metrics && !controller.viz.results && (
+          <div className="nn-training-empty">
+            Execute o script para ver a curva de perda e a tabela de previsões.
+          </div>
+        )}
       </div>
-
-      {stage === 2 && controller.viz.snapshot && controller.viz.snapshot.topology.length - 1 > 2 && (
-        <div className="nn-topology-hint">
-          <b>
-            A rede atual tem {controller.viz.snapshot.topology.length - 1} camadas de processamento.
-          </b>
-          <p>
-            O script padrão foi escrito para duas chamadas. Acrescente as chamadas restantes, em ordem, antes de
-            executar:
-          </p>
-          <pre>{`I0 = X[0]
-${Array.from(
-  { length: controller.viz.snapshot.topology.length - 1 },
-  (_, index) => `I${index + 1} = nn.forward(I${index}, ${index + 1})`,
-).join("\n")}`}</pre>
-        </div>
-      )}
-
-      {observation && (
-        <div className="nn-observe">
-          <p className="mini-label">O que observar</p>
-          {observation}
-        </div>
-      )}
 
       <div className="nn-editor-head">
         <div>
@@ -187,11 +207,10 @@ ${Array.from(
           <button onClick={controller.paused ? controller.resume : controller.pause} disabled={!controller.playing}>
             {controller.paused ? "Retomar" : "Pausar"}
           </button>
-          <button onClick={onNext} title={nextLabel}>Próximo →</button>
         </div>
       </div>
 
-      <div className="nn-editor">
+      <div className="nn-editor" style={{ height: `${editorHeight}px` }}>
         <div className="nn-line-numbers" aria-hidden="true">
           <div className="nn-line-numbers-inner" style={{ transform: `translateY(${-scrollTop}px)` }}>
             {lines.map((_, index) => (

@@ -1,20 +1,84 @@
-.nn-class-link {
-  display: inline-flex;
+.lesson-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 9px 12px;
-  border: 1px solid #d5dae5;
-  border-radius: 8px;
-  color: #513f9a;
-  background: #fff;
-  font-size: 0.875rem;
-  font-weight: 700;
-  white-space: nowrap;
+  min-height: 86px;
+  padding: 10px clamp(20px, 4vw, 56px);
+  background: #fffffff2;
+  border-bottom: 1px solid #dfe3eb;
+  box-shadow: 0 5px 22px #102a430f;
+  backdrop-filter: blur(12px);
 }
 
-.nn-class-link:hover {
-  border-color: #6754b8;
-  background: #f3f1fa;
+.lesson-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: #114d3b;
+}
+
+.lesson-brand-mark {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 44px;
+}
+
+.lesson-brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.lesson-brand-name {
+  display: grid;
+  gap: 0;
+}
+
+.lesson-brand-name strong:first-child {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  color: #114d3b;
+}
+
+.lesson-brand-name strong:last-child {
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: #315e4d;
+}
+
+@media (max-width: 560px) {
+  .lesson-header {
+    min-height: 76px;
+    padding: 8px 16px;
+  }
+
+  .lesson-brand {
+    gap: 7px;
+  }
+
+  .lesson-brand-mark {
+    width: 40px;
+    height: 36px;
+  }
+
+  .lesson-brand-name strong:first-child {
+    font-size: 17px;
+  }
+
+  .lesson-brand-name strong:last-child {
+    font-size: 9px;
+  }
 }
 
 .classes-home {
@@ -22,11 +86,6 @@
     radial-gradient(circle at 88% 6%, #e6f4f2 0, transparent 28%),
     radial-gradient(circle at 4% 42%, #eeebf8 0, transparent 24%),
     #f6f7fb;
-}
-
-.classes-home .site-header {
-  background: #fffffff2;
-  backdrop-filter: blur(12px);
 }
 
 .classes-shell {
@@ -359,10 +418,6 @@
 
   .classes-how > div:first-child {
     display: block;
-  }
-
-  .classes-home .site-header .header-actions .nn-class-link {
-    display: none;
   }
 }
 

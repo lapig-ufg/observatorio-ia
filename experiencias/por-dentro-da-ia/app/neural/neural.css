@@ -1919,6 +1919,17 @@
   font: 600 10px ui-monospace, Consolas, monospace;
 }
 
+.nn-training-empty {
+  margin-top: 16px;
+  padding: 22px;
+  border: 1px dashed #cfd8e4;
+  border-radius: 12px;
+  background: #fbfcfe;
+  color: #62768b;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
 .nn-results {
   margin-top: 16px;
   padding: 14px;
@@ -1966,8 +1977,15 @@
   font-weight: 800;
 }
 
+.nn-playground-preamble {
+  display: grid;
+  gap: 14px;
+  max-width: 1080px;
+  margin: 0 0 30px;
+}
+
 .nn-topology-hint {
-  margin: 0 26px 20px;
+  margin: 0;
   padding: 16px 18px;
   border: 1px solid #ecd193;
   border-left: 5px solid #f2a900;
@@ -2000,7 +2018,7 @@
 }
 
 .nn-observe {
-  margin: 0 26px 20px;
+  margin: 0;
   padding: 16px 18px;
   border: 1px solid #e1e6ee;
   border-left: 5px solid #12847b;
@@ -2125,7 +2143,7 @@
 .nn-line-numbers {
   position: relative;
   height: 100%;
-  min-height: 260px;
+  min-height: 0;
   border-right: 1px solid #24445e;
   color: #6f8aa0;
   text-align: right;
@@ -2152,6 +2170,7 @@
 .nn-code-wrap {
   position: relative;
   min-width: 0;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -2167,11 +2186,12 @@
 .nn-code-wrap textarea {
   display: block;
   width: 100%;
-  min-height: 260px;
+  height: 100%;
+  min-height: 0;
   padding: 12px 14px;
   border: 0;
   outline: 0;
-  resize: vertical;
+  resize: none;
   background: transparent;
   color: #e6f0f7;
   caret-color: #ffd461;
@@ -2379,12 +2399,6 @@
   .nn-visual-lab {
     padding-left: 16px;
     padding-right: 16px;
-  }
-
-  .nn-observe,
-  .nn-topology-hint {
-    margin-left: 16px;
-    margin-right: 16px;
   }
 
   .nn-editor-actions button {
