@@ -94,7 +94,7 @@
   position: absolute;
   z-index: 0;
   top: 14px;
-  right: 14px;
+  left: 14px;
   width: 92px;
   height: 92px;
   color: #c56834;
@@ -2445,7 +2445,7 @@
 
   .nn-spiderweb {
     top: 8px;
-    right: 8px;
+    left: 8px;
     width: 68px;
     height: 68px;
     opacity: 0.12;
