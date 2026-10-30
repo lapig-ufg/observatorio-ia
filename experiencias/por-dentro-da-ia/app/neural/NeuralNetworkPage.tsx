@@ -156,22 +156,22 @@ export function NeuralNetworkPage() {
               </>
             )}
 
-            <nav className="chapter-controls" aria-label="Navegação entre capítulos">
-              <button onClick={() => go(active - 1)} disabled={active === 0}>
-                ← Anterior
-              </button>
-              <div>
-                <span>
-                  {String(active + 1).padStart(2, "0")} / {CHAPTERS.length}
-                </span>
-                <b>{chapter.label}</b>
-                <progress value={active + 1} max={CHAPTERS.length} aria-label="Progresso pela aula" />
-              </div>
-              <button onClick={() => go(active + 1)} disabled={active === CHAPTERS.length - 1}>
-                Próximo →
-              </button>
-            </nav>
           </section>
+          <nav className="chapter-controls" aria-label="Navegação entre capítulos">
+            <button onClick={() => go(active - 1)} disabled={active === 0}>
+              ← Anterior
+            </button>
+            <div>
+              <span>
+                {String(active + 1).padStart(2, "0")} / {CHAPTERS.length}
+              </span>
+              <b>{chapter.label}</b>
+              <progress value={active + 1} max={CHAPTERS.length} aria-label="Progresso pela aula" />
+            </div>
+            <button onClick={() => go(active + 1)} disabled={active === CHAPTERS.length - 1}>
+              Próximo →
+            </button>
+          </nav>
         </div>
       </div>
     </main>
