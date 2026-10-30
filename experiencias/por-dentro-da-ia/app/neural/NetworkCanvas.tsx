@@ -4,10 +4,10 @@ import { formatNumber } from "./math";
 import type { Snapshot } from "./network";
 import type { Selection } from "./playground-state";
 
-const NODE_R = 18;
-const COL_GAP = 170;
-const ROW_GAP = 60;
-const MARGIN = 46;
+const NODE_R = 14;
+const COL_GAP = 132;
+const ROW_GAP = 46;
+const MARGIN = 32;
 
 function nodeY(count: number, index: number, rows: number) {
   const mid = (rows * ROW_GAP) / 2;
@@ -69,7 +69,7 @@ export function NetworkCanvas({
   const columns = t.length + (withLoss ? 1 : 0);
   const height = rows * ROW_GAP + MARGIN * 2;
   const width = (columns - 1) * COL_GAP + MARGIN * 2 + (withLoss ? NODE_R : 0);
-  const displayWidth = Math.max(width, 720);
+  const displayWidth = Math.min(Math.max(width, 520), 640);
 
   const biasFor = (column: number, n: number) => {
     const bias = snapshot.bias_mats[column - 1];
@@ -183,7 +183,7 @@ export function NetworkCanvas({
       <svg
         className="nn-canvas"
         viewBox={`0 0 ${width} ${height}`}
-        style={{ minWidth: `${displayWidth}px` }}
+        style={{ width: `${displayWidth}px`, maxWidth: "100%" }}
         role="group"
         aria-label="Rede neural: camadas, neurônios e pesos"
         onMouseMove={handleMove}

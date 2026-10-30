@@ -151,17 +151,6 @@ export function NeuralNetworkPage() {
 
             <div className="nn-chapter-body">{chapter.content}</div>
 
-            {chapter.id === "sintese" && (
-              <div className="nn-next-class">
-                <div>
-                  <span>próxima aula da trilha</span>
-                  <b>Transformers: da frase ao próximo token</b>
-                  <p>Agora que a rede neural e o ciclo de aprendizado estão claros, siga para a arquitetura que sustenta os modelos de linguagem.</p>
-                </div>
-                <a href="../transformers/">Abrir aula 2 →</a>
-              </div>
-            )}
-
             {chapter.playground && (
               <PlaygroundCard
                 stage={chapter.playground}
@@ -171,6 +160,7 @@ export function NeuralNetworkPage() {
                 nextLabel={nextChapter ? nextChapter.label : "Concluir"}
                 previousLabel={previousPlayground?.label ?? "o playground anterior"}
                 previousId={previousPlayground?.id ?? "construir"}
+                observation={chapter.observation}
               />
             )}
 

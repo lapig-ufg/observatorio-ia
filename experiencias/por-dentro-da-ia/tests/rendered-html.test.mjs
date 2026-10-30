@@ -11,7 +11,7 @@ async function page(path) {
 
 const plain = (html) => html.replace(/<!--.*?-->/g, "").replace(/<[^>]+>/g, "");
 
-test("serves the class hub with the recommended learning sequence", async () => {
+test("serves the hub with two independent classes ordered by complexity", async () => {
   const response = await page("../dist/index.html");
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type"), /^text\/html/);
@@ -22,9 +22,10 @@ test("serves the class hub with the recommended learning sequence", async () => 
   assert.ok(html.includes('href="redes-neurais/"'));
   assert.ok(html.includes('href="transformers/"'));
   for (const phrase of [
-    "A base primeiro. O Transformer depois.",
-    "Comece aqui",
-    "Em seguida",
+    "Duas aulas independentes.",
+    "aulas disponíveis",
+    "Nível fundamental",
+    "Nível avançado",
     "Redes neurais",
     "Transformers",
     "Do neurônio ao aprendizado",
@@ -35,6 +36,8 @@ test("serves the class hub with the recommended learning sequence", async () => 
     assert.ok(text.includes(phrase), phrase);
   }
   assert.ok(text.indexOf("Redes neurais") < text.lastIndexOf("Transformers"));
+  assert.doesNotMatch(html, /classes-hero-figure|classes-connector/);
+  assert.doesNotMatch(text, /A base primeiro|Em seguida|Comece aqui|depois/);
 });
 
 test("preserves the 19-chapter Transformer lesson on its own page", async () => {
@@ -94,7 +97,7 @@ test("serves the Neural Network class with its chapter map and first lesson", as
   assert.ok(html.includes("Voltar ao Observatório"));
   assert.ok(html.includes("← Todas as aulas"));
   assert.ok(text.includes("REDES NEURAIS · 26 CAPÍTULOS"));
-  for (const label of ["Do neurônio à rede", "Um neurônio", "Funções de ativação", "Playground: construa a rede", "Playground: passagem direta", "Playground: retropropague", "Playground: atualize os pesos", "Playground: treine e preveja", "Síntese"]) {
+  for (const label of ["Do neurônio à rede", "Um neurônio", "Funções de ativação", "Construção da rede", "Passagem direta", "Retropropagação", "Atualização dos pesos", "Treino e previsão", "Síntese"]) {
     assert.ok(text.includes(label), label);
   }
   assert.ok(text.includes("Uma rede neural é uma função feita de camadas"));
@@ -103,4 +106,10 @@ test("serves the Neural Network class with its chapter map and first lesson", as
   assert.ok(html.includes('aria-current="step"'));
   assert.ok(html.includes('id="inicio"'));
   assert.ok(html.includes("progress"));
+
+  const sources = await Promise.all([
+    readFile(new URL("../app/neural/content.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/neural/NeuralNetworkPage.tsx", import.meta.url), "utf8"),
+  ]);
+  for (const source of sources) assert.doesNotMatch(source, /Transformer/i);
 });

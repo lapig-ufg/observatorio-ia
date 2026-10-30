@@ -1,28 +1,9 @@
 import type { ReactNode } from "react";
 import { MatrixTable } from "./Matrix";
 import { ActivationLab, NeuronLab } from "./labs";
-import { activation, addVectors, formatNumber, rowTimesMatrix } from "./math";
-import { NeuralNetwork } from "./network";
-
-const DEMO = new NeuralNetwork([2, 3, 1], {
-  hidden: "relu",
-  output: "tanh",
-  init: "xavier",
-  seed: 42,
-});
-
-const XOR_X = [
-  [0, 0],
-  [0, 1],
-  [1, 0],
-  [1, 1],
-];
-const XOR_Y = [0, 1, 1, 0];
-const SAMPLE = XOR_X[1];
-const Z1 = addVectors(rowTimesMatrix(SAMPLE, DEMO.weightMats[0]), DEMO.biasMats[0][0]);
-const I1 = activation("relu", Z1);
-const Z2 = addVectors(rowTimesMatrix(I1, DEMO.weightMats[1]), DEMO.biasMats[1][0]);
-const I2 = activation("tanh", Z2);
+import { formatNumber } from "./math";
+import { DEMO, I1, I2, SAMPLE, XOR_X, XOR_Y, Z1, Z2 } from "./demo";
+import { BackpropVisual, ChainRuleVisual, DeltaVisual, GradientVisual, LearningRateLab, LossLab, MomentumVisual } from "./visuals";
 
 function Formula({ children }: { children: ReactNode }) {
   return <div className="nn-formula">{children}</div>;
@@ -224,6 +205,16 @@ function LoopDiagram() {
       <div className="nn-loop-steps">
         <span>ida</span><i>→</i><span>perda</span><i>→</i><span>volta</span><i>→</i><span>atualização</span>
       </div>
+      <div className="nn-epoch-samples" aria-label="Quatro amostras do XOR">
+        {["x₁", "x₂", "x₃", "x₄"].map((sample) => (
+          <span key={sample}>{sample}<small>gradiente</small></span>
+        ))}
+      </div>
+      <div className="nn-epoch-average">
+        <span>∇W da época</span>
+        <b>média dos 4 gradientes</b>
+        <small>um único passo de atualização</small>
+      </div>
       <b>↺ a cada época</b>
       <div className="nn-loop-bars">{[85, 58, 30, 10, 4].map((height) => <i key={height} style={{ height: `${height}%` }} />)}</div>
       <small>perda por época</small>
@@ -243,6 +234,7 @@ export interface Chapter {
   title: string;
   lead: string;
   playground?: number;
+  observation?: ReactNode;
   content: ReactNode;
 }
 
@@ -254,7 +246,7 @@ export const CHAPTERS: Chapter[] = [
     kicker: "Comece pela base",
     title: "Uma rede neural é uma função feita de camadas",
     lead:
-      "Antes de olhar para um Transformer, vamos construir a peça que ele usa em cada bloco: uma rede neural pequena, treinável e totalmente visível.",
+      "Vamos construir uma rede neural pequena, treinável e totalmente visível: do neurônio à atualização dos pesos.",
     content: (
       <>
         <div className="nn-goals">
@@ -269,8 +261,8 @@ export const CHAPTERS: Chapter[] = [
         </p>
         <BuildDiagram />
         <Note title="Escopo">
-          Estamos construindo uma rede <i>feed-forward</i> densa, não um Transformer. Atenção, embeddings e geração de
-          texto ficam para a segunda aula. Aqui, o objetivo é entender o vocabulário matemático que aparece depois.
+          Estamos construindo uma rede <i>feed-forward</i> densa. O foco é o funcionamento interno: representação,
+          passagem direta, perda, retropropagação e atualização dos parâmetros.
         </Note>
       </>
     ),
@@ -389,8 +381,8 @@ export const CHAPTERS: Chapter[] = [
           compressão da tanh são o que permite representar regras não lineares como o XOR.
         </p>
         <Note>
-          O GPT‑3 usa GELU, não ReLU. ReLU e tanh aparecem aqui porque são simples de derivar e visualizar; a ideia de não
-          linearidade é a mesma.
+          Outras redes usam funções mais suaves, como GELU. ReLU e tanh aparecem aqui porque são simples de derivar e
+          visualizar; a ideia de não linearidade é a mesma.
         </Note>
       </>
     ),
@@ -429,24 +421,31 @@ export const CHAPTERS: Chapter[] = [
   {
     id: "construir",
     module: "Construir",
-    label: "Playground: construa a rede",
-    kicker: "Playground 1",
-    title: "Construa a rede e inspecione as matrizes",
+    label: "Construção da rede",
+    kicker: "Construção · playground 1",
+    title: "Construção da rede: dados, topologia e parâmetros",
     lead:
-      "Agora você monta o conjunto de dados, a topologia, as ativações e a semente. A tela desenha a rede que você construiu.",
+      "Uma rede começa pela escolha do problema, pela topologia e pelos valores iniciais. O playground desenha exatamente a rede que o script constrói.",
     playground: 1,
+    observation: (
+      <ul>
+        <li>Dê 5 neurônios à camada oculta: <CodeInline>[2, 5, 1]</CodeInline> — conte as linhas e os parâmetros extras.</li>
+        <li>Empilhe uma segunda camada oculta: <CodeInline>[2, 4, 3, 1]</CodeInline>.</li>
+        <li>Troque <CodeInline>init</CodeInline> para <CodeInline>"random"</CodeInline> e passe o mouse nas arestas.</li>
+        <li>Mude a semente e execute de novo: outro sorteio, o mesmo projeto.</li>
+      </ul>
+    ),
     content: (
       <>
         <p>
-          Execute o script padrão. Depois, clique em uma camada para ler as matrizes <CodeInline>W</CodeInline> e{" "}
+          O conjunto de dados define a entrada e o alvo. A topologia define quantas camadas e quantos neurônios existem.
+          A inicialização e a semente definem o ponto de partida dos pesos e vieses.
+        </p>
+        <p>
+          No playground, a tela é a própria rede. Clique em uma camada para ler <CodeInline>W</CodeInline> e{" "}
           <CodeInline>B</CodeInline>, ou em um neurônio para ver os pesos que chegam nele e o viés.
         </p>
-        <ul className="nn-idea-list">
-          <li>Dê 5 neurônios à camada oculta: <CodeInline>[2, 5, 1]</CodeInline> — conte as linhas e os parâmetros extras.</li>
-          <li>Empilhe uma segunda camada oculta: <CodeInline>[2, 4, 3, 1]</CodeInline>.</li>
-          <li>Troque <CodeInline>init</CodeInline> para <CodeInline>"random"</CodeInline> e passe o mouse nas arestas.</li>
-          <li>Mude a semente e execute de novo: outro sorteio, o mesmo projeto.</li>
-        </ul>
+        <BuildDiagram />
       </>
     ),
   },
@@ -541,24 +540,34 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
   {
     id: "passagem",
     module: "Passagem direta",
-    label: "Playground: passagem direta",
-    kicker: "Playground 2",
-    title: "Conduza a passagem direta, camada por camada",
+    label: "Passagem direta",
+    kicker: "Passagem direta · playground 2",
+    title: "Passagem direta: da entrada à resposta",
     lead:
-      "A rede construída no playground anterior continua disponível. Agora você a atravessa com uma amostra e vê cada multiplicação.",
+      "A passagem direta transforma uma amostra em uma resposta. Cada camada multiplica pela matriz de pesos, soma o viés e aplica a ativação.",
     playground: 2,
+    observation: (
+      <ul>
+        <li>Mude a amostra: <CodeInline>I0 = X[1]</CodeInline> ou <CodeInline>X[3]</CodeInline>.</li>
+        <li>Apague a última chamada de <CodeInline>nn.forward</CodeInline> e pare no meio da rede.</li>
+        <li>Clique na camada oculta e compare suas matrizes com as da saída.</li>
+        <li>Volte à construção, troque a ativação e retorne para comparar os números.</li>
+      </ul>
+    ),
     content: (
       <>
         <p>
-          O painel de matrizes mostra o passo como uma equação: <CodeInline>[I] × [W] + [B] = [z] → [I′]</CodeInline>.
-          Use <b>Pausar</b> para congelar a animação e inspecionar um neurônio antes e depois de sua camada rodar.
+          A rede guarda a passagem inteira: os valores que entram em cada camada, as pré-ativações e as ativações que saem.
+          É essa passagem armazenada que permite à retropropagação saber por onde o erro deve voltar.
         </p>
-        <ul className="nn-idea-list">
-          <li>Mude a amostra: <CodeInline>I0 = X[1]</CodeInline> ou <CodeInline>X[3]</CodeInline>.</li>
-          <li>Apague a última chamada de <CodeInline>nn.forward</CodeInline> e pare no meio da rede.</li>
-          <li>Clique na camada oculta e compare suas matrizes com as da saída.</li>
-          <li>Volte ao playground de construção, troque a ativação e retorne para comparar os números.</li>
-        </ul>
+        <Formula>
+          I′ = φ(I · W + B)
+        </Formula>
+        <p>
+          O painel de matrizes do playground mostra o passo como uma equação:{" "}
+          <CodeInline>[I] × [W] + [B] = [z] → [I′]</CodeInline>. Pause a animação para comparar antes e depois de cada
+          camada.
+        </p>
       </>
     ),
   },
@@ -581,6 +590,7 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
           Para <CodeInline>X[0] = [0, 0]</CodeInline> o alvo é 0; para <CodeInline>X[1] = [0, 1]</CodeInline> o alvo é 1.
           Uma resposta confiantemente errada custa muito mais que uma resposta errada por pouco.
         </p>
+        <LossLab />
         <BackwardDiagram />
       </>
     ),
@@ -605,6 +615,7 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
           Com <CodeInline>tanh</CodeInline>, a derivada é <CodeInline>1 − tanh(z)²</CodeInline>. Saídas saturadas têm
           derivada pequena e, por isso, aprendem devagar.
         </p>
+        <DeltaVisual />
         <Note>
           O delta da camada de saída e a perda aparecem juntos na primeira linha de volta. O painel de matrizes mostra δ,
           as ativações que entram na camada e os gradientes que vêm a seguir.
@@ -635,6 +646,7 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
           Para uma rede com mais camadas ocultas, repita o mesmo passo uma camada por vez, caminhando para a esquerda. É
           por isso que o script de volta tem uma chamada por camada.
         </p>
+        <ChainRuleVisual />
       </>
     ),
   },
@@ -661,6 +673,7 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
           sentido oposto. Passe o mouse em qualquer peso, viés ou neurônio da tela para ler sua regra da cadeia pessoal
           desde a perda, salto a salto com números.
         </p>
+        <GradientVisual />
         <Note>
           As matrizes do painel mostram as mesmas quantidades como cartões: <CodeInline>W</CodeInline>,{" "}
           <CodeInline>a</CodeInline>, <CodeInline>δ</CodeInline>, <CodeInline>∂L/∂W</CodeInline> e{" "}
@@ -672,24 +685,36 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
   {
     id: "retropropagacao",
     module: "Retropropagar",
-    label: "Playground: retropropague",
-    kicker: "Playground 3",
-    title: "Retropropague o erro da saída para a entrada",
+    label: "Retropropagação",
+    kicker: "Retropropagação · playground 3",
+    title: "Retropropagação: o erro volta pela rede",
     lead:
-      "A passagem direta do playground anterior continua guardada. Agora o erro caminha da direita para a esquerda e cada parâmetro recebe sua parte da culpa.",
+      "A retropropagação calcula quanto cada peso e viés contribuiu para a perda. O erro caminha da saída para a entrada, camada por camada.",
     playground: 3,
+    observation: (
+      <ul>
+        <li>Passe o mouse no nó de perda para ver como o erro ao quadrado se soma.</li>
+        <li>Passe o mouse em uma aresta oculta e leia sua cadeia até o gradiente.</li>
+        <li>Pause em uma linha de volta e compare os δs com as ativações acima deles.</li>
+        <li>Clique em uma camada para inspecionar W e B enquanto os δs estão visíveis.</li>
+      </ul>
+    ),
     content: (
       <>
         <p>
-          Não há chamadas de <CodeInline>nn.forward</CodeInline> aqui. A primeira chamada de <CodeInline>nn.backward</CodeInline>{" "}
-          recebe o rótulo e reconstrói o traço; a próxima recebe o δ devolvido e caminha uma camada para a esquerda.
+          O primeiro passo compara a saída com o alvo. O delta da saída carrega esse erro e a derivada da ativação. Depois,
+          cada camada oculta recebe a soma ponderada dos deltas da camada seguinte.
         </p>
-        <ul className="nn-idea-list">
-          <li>Passe o mouse no nó de perda para ver como o erro ao quadrado se soma.</li>
-          <li>Passe o mouse em uma aresta oculta e leia sua cadeia até o gradiente.</li>
-          <li>Pause em uma linha de volta e compare os δs com as ativações acima deles.</li>
-          <li>Clique em uma camada para inspecionar W e B enquanto os δs estão visíveis.</li>
-        </ul>
+        <Formula>
+          δ_out = (ŷ − t) ⊙ φ′(z_out)
+          <br />δ_hidden = (W_outᵀ · δ_out) ⊙ φ′(z_hidden)
+        </Formula>
+        <BackpropVisual />
+        <p>
+          No playground, não há chamadas de <CodeInline>nn.forward</CodeInline>. A primeira chamada de{" "}
+          <CodeInline>nn.backward</CodeInline> recebe o rótulo e reconstrói o traço; a próxima recebe o δ devolvido e
+          caminha uma camada para a esquerda.
+        </p>
       </>
     ),
   },
@@ -738,6 +763,7 @@ I2 = nn.forward(I1, 2)   # camada de saída`}</CodeBlock>
           divergir. Os cartões de atualização mostram <CodeInline>lr</CodeInline> explicitamente para você comparar
           valores como 0.1, 0.5 e 2.0.
         </p>
+        <LearningRateLab />
         <Note>
           A taxa não altera os parâmetros aprendidos por conta própria. Ela só escala o passo dado na direção do
           gradiente.
@@ -771,24 +797,32 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
   {
     id: "atualizacao",
     module: "Atualizar",
-    label: "Playground: atualize os pesos",
-    kicker: "Playground 4",
-    title: "Aplique um passo contra o gradiente",
+    label: "Atualização dos pesos",
+    kicker: "Atualização · playground 4",
+    title: "Atualização dos pesos: um passo contra o gradiente",
     lead:
-      "Os gradientes do playground anterior continuam na rede. Agora você aplica a taxa de aprendizado e vê os pesos mudarem.",
+      "O gradiente aponta para onde a perda cresce. Atualizar os pesos significa dar um passo na direção oposta, escalado pela taxa de aprendizado.",
     playground: 4,
+    observation: (
+      <ul>
+        <li>Atualize a camada de saída com <CodeInline>lr=1.0</CodeInline> e compare com os pesos antigos.</li>
+        <li>Atualize a mesma camada duas vezes: o mesmo gradiente é aplicado duas vezes.</li>
+        <li>Atualize a camada oculta antes da saída — a ordem é você quem decide.</li>
+        <li>Tente rodar uma volta depois de atualizar e leia a mensagem: é preciso uma nova passagem direta.</li>
+      </ul>
+    ),
     content: (
       <>
+        <Formula>
+          W′ = W − η · ∂L/∂W
+          <br />B′ = B − η · ∂L/∂b
+        </Formula>
         <p>
-          Cada chamada de <CodeInline>nn.update_weights</CodeInline> atualiza uma camada explícita. A tela mostra duas
-          linhas de equação: o W antigo, a taxa, o gradiente e o novo W′; o mesmo para os vieses.
+          A taxa de aprendizado <CodeInline>η</CodeInline> controla o tamanho do passo. Um passo pequeno demais demora; um
+          passo grande demais pode passar do ponto. O playground mostra <CodeInline>lr</CodeInline> e o gradiente em cada
+          atualização.
         </p>
-        <ul className="nn-idea-list">
-          <li>Atualize a camada de saída com <CodeInline>lr=1.0</CodeInline> e compare com os pesos antigos.</li>
-          <li>Atualize a mesma camada duas vezes: o mesmo gradiente é aplicado duas vezes.</li>
-          <li>Atualize a camada oculta antes da saída — a ordem é você quem decide.</li>
-          <li>Tente rodar uma volta depois de atualizar e leia a mensagem: é preciso uma nova passagem direta.</li>
-        </ul>
+        <DescentDiagram />
       </>
     ),
   },
@@ -839,6 +873,7 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
           <CodeInline>μ = 0</CodeInline> é descida do gradiente pura; o padrão <CodeInline>μ = 0.1</CodeInline> suaviza o
           caminho e pode acelerar a convergência. Os parâmetros do tutorial são só um ponto de partida.
         </p>
+        <MomentumVisual />
         <Note>
           Momentum é um estado temporário do otimizador, não um novo parâmetro aprendido da rede. Ele guarda a última
           mudança de cada peso e viés.
@@ -898,24 +933,31 @@ nn.update_weights(0.5, 2, g2)         # W₂ ← W₂ − 0.5·dW₂`}</CodeBloc
   {
     id: "treino",
     module: "Treinar e prever",
-    label: "Playground: treine e preveja",
-    kicker: "Playground 5",
-    title: "A viagem inteira em um script",
+    label: "Treino e previsão",
+    kicker: "Treino · playground 5",
+    title: "Treino e previsão: o ciclo completo",
     lead:
-      "Esta etapa reconstrói os dados e uma rede nova, treina por muitas épocas e prevê todas as amostras.",
+      "Treinar é repetir o ciclo de passagem direta, perda, retropropagação e atualização por muitas épocas. Depois, a rede prevê cada amostra.",
     playground: 5,
+    observation: (
+      <ul>
+        <li>Experimente <CodeInline>epochs=3000</CodeInline> ou uma taxa menor/maior.</li>
+        <li>Defina <CodeInline>momentum=0.0</CodeInline> e compare a velocidade de convergência.</li>
+        <li>Mude a largura oculta para <CodeInline>[2, 5, 1]</CodeInline> e treine de novo.</li>
+        <li>Compare a tabela de resultados depois de 20 e de 800 épocas.</li>
+      </ul>
+    ),
     content: (
       <>
         <p>
-          O script final é independente dos pesos que você explorou nas etapas anteriores. Ele usa a mesma topologia e a
-          mesma semente, então você pode comparar o ponto de partida com a rede que construiu no início.
+          O script final reconstrói os dados e uma rede nova. Ele usa a mesma topologia e a mesma semente do início, então
+          você pode comparar o ponto de partida com a rede treinada.
         </p>
-        <ul className="nn-idea-list">
-          <li>Experimente <CodeInline>epochs=3000</CodeInline> ou uma taxa menor/maior.</li>
-          <li>Defina <CodeInline>momentum=0.0</CodeInline> e compare a velocidade de convergência.</li>
-          <li>Mude a largura oculta para <CodeInline>[2, 5, 1]</CodeInline> e treine de novo.</li>
-          <li>Compare a tabela de resultados depois de 20 e de 800 épocas.</li>
-        </ul>
+        <LoopDiagram />
+        <p>
+          O gráfico de perda registra cada época; a tabela de resultados compara a previsão <CodeInline>ŷ</CodeInline> com
+          o alvo <CodeInline>y</CodeInline>.
+        </p>
       </>
     ),
   },

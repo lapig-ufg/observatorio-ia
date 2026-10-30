@@ -6,7 +6,7 @@ export function ClassesHome() {
       <header className="site-header">
         <a className="site-brand" href="./">
           <span>POR DENTRO DA IA</span>
-          <small>Uma trilha para abrir a caixa</small>
+          <small>Duas aulas independentes</small>
         </a>
         <div className="site-course">
           <b>Tópicos em sensoriamento remoto</b>
@@ -27,38 +27,30 @@ export function ClassesHome() {
             <h1>
               Por dentro da IA
               <br />
-              <em>Duas aulas, uma trilha.</em>
+              <em>Duas aulas independentes.</em>
             </h1>
             <p className="lead">
-              Comece pelo funcionamento de uma rede neural pequena. Depois, use essa base para atravessar um bloco
-              Transformer e acompanhar como uma frase se transforma em um próximo token.
+              Escolha o assunto que quer abrir. Cada aula tem seu próprio percurso, com explicações, figuras e
+              laboratórios que rodam no navegador.
             </p>
             <div className="classes-hero-facts">
-              <div><b>2</b><span>aulas guiadas</span></div>
+              <div><b>2</b><span>aulas independentes</span></div>
               <div><b>5</b><span>playgrounds de rede neural</span></div>
-              <div><b>19</b><span>capítulos de Transformer</span></div>
+              <div><b>19</b><span>capítulos de Transformers</span></div>
               <div><b>0</b><span>chamadas a modelos externos</span></div>
             </div>
-          </div>
-          <div className="classes-hero-figure" aria-hidden="true">
-            <div className="classes-figure-node is-one"><span>W</span><b>+ b</b></div>
-            <div className="classes-figure-node is-two"><span>φ</span><b>ativação</b></div>
-            <div className="classes-figure-node is-three"><span>δ</span><b>erro</b></div>
-            <div className="classes-figure-line is-a" />
-            <div className="classes-figure-line is-b" />
-            <div className="classes-figure-caption">representar → prever → medir → ajustar</div>
           </div>
         </section>
 
         <section className="classes-path" aria-labelledby="classes-path-title">
           <div className="classes-path-head">
             <div>
-              <p className="mini-label">sequência recomendada</p>
-              <h2 id="classes-path-title">A base primeiro. O Transformer depois.</h2>
+              <p className="mini-label">aulas disponíveis</p>
+              <h2 id="classes-path-title">Escolha o assunto que quer abrir.</h2>
             </div>
             <p>
-              A aula de Transformers usa a ideia de neurônio, matriz de pesos e ativação. Por isso, a ordem sugerida começa
-              pela rede neural.
+              As aulas estão ordenadas do nível mais fundamental ao mais avançado, mas não dependem uma da outra. Você
+              pode começar por qualquer card.
             </p>
           </div>
 
@@ -66,7 +58,7 @@ export function ClassesHome() {
             <a className="class-card is-neural" href="redes-neurais/">
               <div className="class-card-top">
                 <span className="class-number">01</span>
-                <span className="class-badge">Comece aqui</span>
+                <span className="class-badge">Nível fundamental</span>
               </div>
               <h3>Redes neurais</h3>
               <p className="class-subtitle">Do neurônio ao aprendizado</p>
@@ -87,18 +79,13 @@ export function ClassesHome() {
                 <span>5 playgrounds</span>
                 <span>~45 min</span>
               </div>
-              <span className="class-cta">Começar pela base <i>→</i></span>
+              <span className="class-cta">Abrir aula 1 <i>→</i></span>
             </a>
-
-            <div className="classes-connector" aria-hidden="true">
-              <span>depois</span>
-              <i>→</i>
-            </div>
 
             <a className="class-card is-transformer" href="transformers/">
               <div className="class-card-top">
                 <span className="class-number">02</span>
-                <span className="class-badge is-secondary">Em seguida</span>
+                <span className="class-badge is-secondary">Nível avançado</span>
               </div>
               <h3>Transformers</h3>
               <p className="class-subtitle">Da frase ao próximo token</p>
@@ -119,7 +106,7 @@ export function ClassesHome() {
                 <span>laboratórios interativos</span>
                 <span>~50 min</span>
               </div>
-              <span className="class-cta">Abrir a aula <i>→</i></span>
+              <span className="class-cta">Abrir aula 2 <i>→</i></span>
             </a>
           </div>
         </section>
@@ -130,9 +117,9 @@ export function ClassesHome() {
             <h2>Leia, mexa, execute.</h2>
           </div>
           <div className="classes-how-grid">
-            <div><span>1</span><b>Abra um capítulo</b><p>Cada conceito tem uma explicação curta, uma figura e, quando faz sentido, um laboratório.</p></div>
+            <div><span>1</span><b>Escolha uma aula</b><p>Os dois percursos são autônomos. Cada card abre a aula completa, sem exigir a outra.</p></div>
             <div><span>2</span><b>Execute o playground</b><p>Os scripts rodam no navegador. Você pode editar pesos, amostras, ativações e épocas.</p></div>
-            <div><span>3</span><b>Compare e siga</b><p>O próximo capítulo depende do anterior apenas quando o cálculo precisa dos mesmos dados.</p></div>
+            <div><span>3</span><b>Siga no seu ritmo</b><p>Quando um capítulo precisa de um cálculo anterior, o próprio playground mostra o que fazer.</p></div>
           </div>
         </section>
 

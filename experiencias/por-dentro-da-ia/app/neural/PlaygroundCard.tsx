@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from "react";
 import { NetworkCanvas } from "./NetworkCanvas";
 import { MatrixPanel } from "./Matrix";
 import { ResultsTable, TrainingChart } from "./TrainingChart";
@@ -13,6 +13,7 @@ export function PlaygroundCard({
   nextLabel,
   previousLabel,
   previousId,
+  observation,
 }: {
   stage: number;
   controller: PlaygroundController;
@@ -21,6 +22,7 @@ export function PlaygroundCard({
   nextLabel: string;
   previousLabel: string;
   previousId: string;
+  observation?: ReactNode;
 }) {
   const source = controller.draftFor(stage);
   const [scrollTop, setScrollTop] = useState(0);
@@ -151,9 +153,16 @@ export function PlaygroundCard({
         )}
       </div>
 
+      {observation && (
+        <div className="nn-observe">
+          <p className="mini-label">O que observar</p>
+          {observation}
+        </div>
+      )}
+
       <div className="nn-editor-head">
         <div>
-          <h4>Script da etapa</h4>
+          <h4>Script do playground</h4>
           <span>Edite e execute. <kbd>Ctrl</kbd> + <kbd>Enter</kbd></span>
         </div>
         <div className="nn-editor-actions">
@@ -166,12 +175,14 @@ export function PlaygroundCard({
       </div>
 
       <div className="nn-editor">
-        <div className="nn-line-numbers" aria-hidden="true" style={{ transform: `translateY(${-scrollTop}px)` }}>
-          {lines.map((_, index) => (
-            <span key={index} className={controller.activeLine === index + 1 ? "is-active" : ""}>
-              {index + 1}
-            </span>
-          ))}
+        <div className="nn-line-numbers" aria-hidden="true">
+          <div className="nn-line-numbers-inner" style={{ transform: `translateY(${-scrollTop}px)` }}>
+            {lines.map((_, index) => (
+              <span key={index} className={controller.activeLine === index + 1 ? "is-active" : ""}>
+                {index + 1}
+              </span>
+            ))}
+          </div>
         </div>
         <div className="nn-code-wrap">
           {visibleBand !== null && <div className="nn-line-band" style={{ top: `${visibleBand}px`, height: 20 }} />}

@@ -972,6 +972,543 @@
   font-size: 0.74rem;
 }
 
+/* ------------------------------------------------------- visual labs */
+
+.nn-visual-lab {
+  margin: 26px 0;
+  padding: clamp(20px, 2.6vw, 30px);
+  border: 1px solid #d7ddea;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.nn-visual-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr);
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 22px;
+}
+
+.nn-visual-head h3 {
+  margin: 4px 0 0;
+  font-size: 1.45rem;
+}
+
+.nn-visual-head > p:last-child {
+  margin: 0;
+  color: #62768b;
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+.nn-loss-gauges {
+  display: grid;
+  gap: 16px;
+}
+
+.nn-loss-gauge {
+  padding: 16px 18px;
+  border: 1px solid #e1e6ee;
+  border-radius: 12px;
+  background: #f8fbfb;
+}
+
+.nn-gauge-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+  color: #62768b;
+  font-size: 0.82rem;
+}
+
+.nn-gauge-title b {
+  color: #102a43;
+  font: 800 0.92rem/1 ui-monospace, Consolas, monospace;
+}
+
+.nn-gauge-track {
+  position: relative;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e7f0f8, #e6f4f2, #fff8e7);
+  border: 1px solid #d7ddea;
+}
+
+.nn-gauge-marker {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 8px #102a4333;
+}
+
+.nn-gauge-marker.is-output {
+  background: #12847b;
+}
+
+.nn-gauge-marker.is-target {
+  background: #f2a900;
+}
+
+.nn-gauge-ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  color: #8a9aac;
+  font: 600 0.65rem/1 ui-monospace, Consolas, monospace;
+}
+
+.nn-loss-equation {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.nn-loss-equation > div {
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #102a43;
+  color: #fff;
+}
+
+.nn-loss-equation span {
+  display: block;
+  margin-bottom: 6px;
+  color: #8db0c7;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.nn-loss-equation code {
+  padding: 0;
+  background: none;
+  color: #ffd461;
+  font: 600 0.84rem/1.5 ui-monospace, Consolas, monospace;
+  white-space: normal;
+}
+
+.nn-loss-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.nn-loss-controls label,
+.nn-rate-panel label {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 54px;
+  gap: 9px;
+  align-items: center;
+  color: #52647a;
+  font-size: 0.82rem;
+}
+
+.nn-loss-controls output,
+.nn-rate-panel output {
+  text-align: right;
+  color: #102a43;
+  font: 700 0.8rem/1 ui-monospace, Consolas, monospace;
+}
+
+.nn-loss-controls input,
+.nn-rate-panel input {
+  width: 100%;
+  accent-color: #12847b;
+}
+
+.nn-factor-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.nn-factor-flow > i {
+  font-style: normal;
+  color: #c56834;
+  font-size: 1.35rem;
+}
+
+.nn-factor-flow > i:first-child {
+  margin-left: 0;
+}
+
+.nn-factor-card {
+  min-width: 118px;
+  padding: 15px 14px;
+  border: 1px solid #d7ddea;
+  border-radius: 11px;
+  background: #f8f9fc;
+  text-align: center;
+}
+
+.nn-factor-card span {
+  display: block;
+  color: #62768b;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nn-factor-card b {
+  display: block;
+  margin: 7px 0 3px;
+  color: #102a43;
+  font: 800 1.35rem/1 ui-monospace, Consolas, monospace;
+}
+
+.nn-factor-card small {
+  color: #7b8b9c;
+  font-size: 0.7rem;
+}
+
+.nn-factor-card.is-result {
+  border-color: #ecd193;
+  background: #fff8e7;
+}
+
+.nn-factor-card.is-result b {
+  color: #8a5a00;
+}
+
+.nn-chain-picker,
+.nn-gradient-tabs,
+.nn-backprop-selector,
+.nn-momentum-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.nn-chain-picker button,
+.nn-gradient-tabs button,
+.nn-backprop-selector button,
+.nn-momentum-tabs button {
+  padding: 8px 11px;
+  border: 1px solid #d7ddea;
+  border-radius: 7px;
+  background: #fff;
+  color: #52647a;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.nn-chain-picker button.is-active,
+.nn-gradient-tabs button.is-active,
+.nn-backprop-selector button.is-active,
+.nn-momentum-tabs button.is-active {
+  border-color: #12847b;
+  background: #e6f4f2;
+  color: #0b6d67;
+}
+
+.nn-gradient-tabs > span {
+  align-self: center;
+  margin-left: auto;
+  color: #7b8b9c;
+  font: 600 0.72rem/1 ui-monospace, Consolas, monospace;
+}
+
+.nn-gradient-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid #e1e6ee;
+  border-radius: 12px;
+  background: #f8fbfb;
+}
+
+.nn-gradient-flow > i {
+  font-style: normal;
+  color: #c56834;
+  font-size: 1.1rem;
+}
+
+.nn-gradient-bias {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #fff8e7;
+}
+
+.nn-gradient-bias > span {
+  color: #8a5a00;
+  font-size: 0.8rem;
+}
+
+.nn-backprop-flow {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.nn-backprop-flow > i {
+  align-self: center;
+  font-style: normal;
+  color: #c56834;
+  font-size: 1.35rem;
+}
+
+.nn-backprop-card {
+  min-width: 130px;
+  padding: 16px 14px;
+  border: 1px solid #d7ddea;
+  border-radius: 11px;
+  background: #f8f9fc;
+  text-align: center;
+}
+
+.nn-backprop-card span {
+  display: block;
+  color: #62768b;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nn-backprop-card b {
+  display: block;
+  margin: 8px 0 4px;
+  color: #102a43;
+  font: 800 1.35rem/1 ui-monospace, Consolas, monospace;
+}
+
+.nn-backprop-card small {
+  color: #7b8b9c;
+  font-size: 0.7rem;
+}
+
+.nn-backprop-card.is-loss {
+  border-color: #f0c978;
+  background: #fff8e7;
+}
+
+.nn-backprop-card.is-loss b {
+  color: #8a5a00;
+}
+
+.nn-backprop-card.is-selected {
+  border-color: #b9d8d4;
+  background: #e6f4f2;
+}
+
+.nn-backprop-card.is-gradient {
+  border-color: #c8bde9;
+  background: #f3f0fb;
+}
+
+.nn-backprop-card.is-gradient b {
+  color: #513f9a;
+}
+
+.nn-backprop-gradient {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 16px 0;
+  padding: 14px;
+  border: 1px solid #e1e6ee;
+  border-radius: 11px;
+  background: #fbfcfe;
+}
+
+.nn-visual-note {
+  margin: 16px 0 0;
+  padding: 13px 16px;
+  border-left: 4px solid #f2a900;
+  background: #fff8e7;
+  color: #655c43;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.nn-rate-layout,
+.nn-momentum-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(230px, 0.85fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.nn-toy-chart {
+  padding: 12px;
+  border: 1px solid #e1e6ee;
+  border-radius: 12px;
+  background: #fbfcfe;
+}
+
+.nn-toy-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.nn-toy-curve {
+  fill: none;
+  stroke: #b7c4d3;
+  stroke-width: 3;
+}
+
+.nn-toy-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 8px;
+  color: #62768b;
+  font-size: 0.72rem;
+}
+
+.nn-toy-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nn-toy-legend i {
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.nn-rate-panel,
+.nn-momentum-panel {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #f6f7fb;
+}
+
+.nn-rate-panel label {
+  grid-template-columns: 1fr;
+  gap: 7px;
+}
+
+.nn-rate-panel label span {
+  font-weight: 700;
+  color: #52647a;
+}
+
+.nn-rate-panel output {
+  text-align: left;
+  color: #12847b;
+  font-size: 1.2rem;
+}
+
+.nn-rate-status {
+  display: grid;
+  gap: 5px;
+  padding: 13px;
+  border-left: 4px solid #12847b;
+  background: #fff;
+}
+
+.nn-rate-status span {
+  color: #62768b;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.nn-rate-status b {
+  color: #102a43;
+  font: 800 1rem/1.2 ui-monospace, Consolas, monospace;
+}
+
+.nn-rate-status small {
+  color: #7b8b9c;
+  font-size: 0.72rem;
+}
+
+.nn-rate-panel p,
+.nn-momentum-panel p {
+  margin: 0;
+  color: #62768b;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.nn-rate-panel code {
+  padding: 0;
+  background: none;
+  color: #513f9a;
+  white-space: nowrap;
+}
+
+.nn-epoch-samples {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 14px 0;
+}
+
+.nn-epoch-samples span {
+  display: grid;
+  gap: 3px;
+  min-width: 64px;
+  padding: 9px 8px;
+  border: 1px solid #d7ddea;
+  border-radius: 8px;
+  background: #f8f9fc;
+  color: #2f4358;
+  font: 700 0.75rem/1 ui-monospace, Consolas, monospace;
+  text-align: center;
+}
+
+.nn-epoch-samples small {
+  color: #7b8b9c;
+  font: 500 0.62rem/1.2 ui-monospace, Consolas, monospace;
+}
+
+.nn-epoch-average {
+  display: grid;
+  gap: 4px;
+  width: min(420px, 100%);
+  margin: 0 auto 14px;
+  padding: 14px;
+  border-left: 4px solid #6754b8;
+  background: #f3f0fb;
+  text-align: center;
+}
+
+.nn-epoch-average span {
+  color: #7b6bb5;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.nn-epoch-average b {
+  color: #44337f;
+  font: 800 0.9rem/1.3 ui-monospace, Consolas, monospace;
+}
+
+.nn-epoch-average small {
+  color: #7b8b9c;
+  font-size: 0.7rem;
+}
+
 /* -------------------------------------------------------- playground */
 
 .nn-playground {
@@ -1063,6 +1600,8 @@
 
 .nn-canvas-wrap {
   position: relative;
+  display: flex;
+  justify-content: center;
   overflow-x: auto;
   border: 1px solid #e1e6ee;
   border-radius: 14px;
@@ -1073,8 +1612,8 @@
 
 .nn-canvas {
   display: block;
-  width: 100%;
   height: auto;
+  flex: 0 0 auto;
   cursor: default;
 }
 
@@ -1082,8 +1621,8 @@
   display: grid;
   gap: 6px;
   place-items: center;
-  min-height: 250px;
-  padding: 30px;
+  min-height: 180px;
+  padding: 24px;
   border: 1px dashed #cfd8e4;
   border-radius: 14px;
   background: #fbfcfe;
@@ -1398,9 +1937,60 @@
   font-weight: 800;
 }
 
+.nn-observe {
+  margin: 0 26px 20px;
+  padding: 16px 18px;
+  border: 1px solid #e1e6ee;
+  border-left: 5px solid #12847b;
+  border-radius: 0 12px 12px 0;
+  background: #f8fbfb;
+}
+
+.nn-observe .mini-label {
+  margin-bottom: 9px;
+  color: #0b6d67;
+}
+
+.nn-observe p {
+  margin: 0;
+  color: #52647a;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.nn-observe ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nn-observe li {
+  position: relative;
+  padding-left: 20px;
+  color: #52647a;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.nn-observe li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #12847b;
+  font-weight: 900;
+}
+
+.nn-observe code {
+  white-space: nowrap;
+}
+
 /* ---------------------------------------------------------- editor */
 
 .nn-editor-head {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -1467,16 +2057,24 @@
   grid-template-columns: 46px minmax(0, 1fr);
   background: #102a43;
   min-height: 260px;
+  overflow: hidden;
 }
 
 .nn-line-numbers {
-  padding: 12px 8px;
+  position: relative;
+  height: 100%;
+  min-height: 260px;
   border-right: 1px solid #24445e;
   color: #6f8aa0;
-  font: 500 12px/20px ui-monospace, Consolas, monospace;
   text-align: right;
   user-select: none;
   overflow: hidden;
+}
+
+.nn-line-numbers-inner {
+  padding: 12px 8px;
+  font: 500 12px/20px ui-monospace, Consolas, monospace;
+  will-change: transform;
 }
 
 .nn-line-numbers span {
@@ -1614,64 +2212,6 @@
   font-size: 0.84rem;
 }
 
-.nn-next-class {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 24px;
-  align-items: center;
-  margin: 30px 0 10px;
-  padding: 24px 26px;
-  border: 1px solid #c8bde9;
-  border-radius: 18px;
-  background: linear-gradient(120deg, #f5f2fc, #fff);
-}
-
-.nn-next-class span {
-  display: block;
-  color: #7b6bb5;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.nn-next-class b {
-  display: block;
-  margin-top: 5px;
-  color: #44337f;
-  font-size: 1.25rem;
-}
-
-.nn-next-class p {
-  margin: 8px 0 0;
-  color: #62768b;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.nn-next-class a {
-  padding: 11px 15px;
-  border-radius: 9px;
-  background: #6754b8;
-  color: #fff;
-  font-weight: 800;
-  white-space: nowrap;
-}
-
-.nn-next-class a:hover {
-  background: #513f9a;
-}
-
-@media (max-width: 700px) {
-  .nn-next-class {
-    grid-template-columns: 1fr;
-  }
-
-  .nn-next-class a {
-    justify-self: start;
-  }
-}
-
 @media (max-width: 1150px) {
   .nn-layout {
     grid-template-columns: 230px minmax(0, 1fr);
@@ -1711,8 +2251,13 @@
   }
 
   .nn-lab-head,
+  .nn-visual-head,
   .nn-playground-head,
-  .nn-editor-head {
+  .nn-editor-head,
+  .nn-rate-layout,
+  .nn-momentum-layout,
+  .nn-loss-equation,
+  .nn-loss-controls {
     grid-template-columns: 1fr;
     display: grid;
   }
@@ -1771,9 +2316,15 @@
 
   .nn-playground-head,
   .nn-visual,
-  .nn-editor-head {
+  .nn-editor-head,
+  .nn-visual-lab {
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .nn-observe {
+    margin-left: 16px;
+    margin-right: 16px;
   }
 
   .nn-editor-actions button {
