@@ -117,8 +117,6 @@ export function IAPropriaPage() {
     if (el.tagName === "SUMMARY") (el.parentElement as HTMLDetailsElement).open = true;
     el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-  const resumo = artigo ? [["Docentes", "doc"], ["Docentes e técnicos", "doctae"], ["Comunidade toda", "todos"]]
-    .map(([nome, k]) => ({ nome, total: artigo.dados[k]["0"].total })) : [];
 
   return <article id="levantamento" className="ip-page" aria-labelledby="ip-title" lang="pt-BR">
     <header className="ip-hero">
@@ -135,11 +133,6 @@ export function IAPropriaPage() {
           <p className="ip-trilho-titulo">Nesta página</p>
           <ol>{secoes.map(s => <li key={s.id}><button type="button" aria-current={atual === s.id ? "true" : undefined} onClick={() => ir(s.id)}>{s.rotulo}</button></li>)}</ol>
         </nav>}
-        {resumo.length > 0 && <div className="ip-resumo">
-          <p className="ip-trilho-titulo">Total em 5 anos</p>
-          <p className="ip-resumo-sub">IA própria, cenário básico</p>
-          <dl>{resumo.map(r => <div key={r.nome}><dt>{r.nome}</dt><dd dangerouslySetInnerHTML={{ __html: r.total }} /></div>)}</dl>
-        </div>}
       </aside>
       {falhou ? <p className="ip-aviso" role="alert">Não foi possível carregar o levantamento. Tente recarregar a página.</p>
         : !artigo ? <p className="ip-aviso" aria-live="polite">Carregando o levantamento…</p>

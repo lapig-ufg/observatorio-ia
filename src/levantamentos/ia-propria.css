@@ -31,12 +31,6 @@
 .ip-page .ip-trilho button:hover { color: var(--ip-green); }
 .ip-page .ip-trilho button[aria-current="true"] { border-left-color: var(--ip-green); color: var(--ip-green-dark); font-weight: 700; }
 .ip-page .ip-trilho button:focus-visible { outline: 2px solid var(--ip-mark); outline-offset: 2px; }
-.ip-resumo { padding-top: 22px; border-top: 1px solid var(--ip-line); }
-.ip-page .ip-resumo-sub { margin: -6px 0 12px; color: var(--ip-muted); font: 400 12.5px/1.4 var(--ip-sans); }
-.ip-resumo dl { margin: 0; }
-.ip-resumo dl > div { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--ip-line2); }
-.ip-resumo dt { color: var(--ip-text); font: 500 13.5px/1.35 var(--ip-sans); }
-.ip-resumo dd { margin: 0; color: var(--ip-green); font: 700 15px/1.2 var(--ip-serif); white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 /* Matéria */
 .ip-artigo { min-width: 0; color: var(--ip-text); font-family: var(--ip-serif); font-size: 1.125rem; line-height: 1.7; }
