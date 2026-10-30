@@ -30,7 +30,7 @@
 .nn-menu-group > span {
   display: block;
   margin: 0 10px 6px;
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.64rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -76,7 +76,7 @@
 
 .nn-progress-label {
   margin-left: auto;
-  color: #62768b;
+  color: #52615b;
   font: 700 0.78rem/1 monospace;
   white-space: nowrap;
 }
@@ -113,15 +113,17 @@
   gap: 8px;
   margin: 16px 9px 0;
   padding-top: 14px;
-  border-top: 1px solid #e0e4eb;
-  color: #8a5a00;
-  font-size: 0.74rem;
+  border-top: 1px solid #dfe3eb;
+  color: #6b4a1f;
+  font-size: 0.7rem;
   font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.nn-halloween-menu .halloween-pumpkin {
-  width: 20px;
-  height: 20px;
+.nn-halloween-menu .halloween-icon {
+  width: 18px;
+  height: 18px;
 }
 
 .nn-halloween-menu > span {
@@ -130,9 +132,11 @@
 }
 
 .nn-halloween-menu small {
-  color: #a87a2d;
-  font-size: 0.64rem;
-  font-weight: 600;
+  color: #7a6a58;
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  text-transform: none;
 }
 
 .nn-section-title h2 {
@@ -145,8 +149,8 @@
   font-size: 1.02rem;
 }
 
-.nn-chapter-body .halloween-tag {
-  margin-bottom: 18px;
+.nn-chapter-body .halloween-kicker {
+  margin: 0 0 18px;
 }
 
 .nn-chapter-body > p,
@@ -375,7 +379,7 @@
 
 .nn-build-neuron i {
   font-style: normal;
-  color: #7b8b9c;
+  color: #5f7186;
 }
 
 .nn-layer-stack {
@@ -397,7 +401,7 @@
 }
 
 .nn-layer-stack > div span {
-  color: #62768b;
+  color: #52615b;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -418,7 +422,7 @@
 .nn-build-diagram > p,
 .nn-backward-diagram > p {
   margin: 20px 0 0;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.9rem;
   text-align: center;
 }
@@ -470,7 +474,7 @@
 .nn-layer-block-title {
   display: block;
   margin-bottom: 12px;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.05em;
@@ -492,7 +496,7 @@
 }
 
 .nn-matrix-label {
-  color: #62768b;
+  color: #52615b;
   font: 700 0.68rem/1.2 ui-monospace, Consolas, monospace;
 }
 
@@ -586,7 +590,7 @@
 
 .nn-diagram-matrix span {
   grid-column: 1 / -1;
-  color: #62768b;
+  color: #52615b;
   font: 700 0.65rem/1.2 ui-monospace, Consolas, monospace;
   margin-bottom: 3px;
 }
@@ -631,7 +635,7 @@
 
 .nn-forward-chain i {
   font-style: normal;
-  color: #62768b;
+  color: #52615b;
   font: 600 0.7rem/1.3 ui-monospace, Consolas, monospace;
   text-align: center;
 }
@@ -663,7 +667,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px 14px;
-  color: #62768b;
+  color: #52615b;
   font: 600 0.74rem/1.4 ui-monospace, Consolas, monospace;
 }
 
@@ -673,7 +677,7 @@
 
 .nn-forward-until-n > p {
   margin: 14px 0 0;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.86rem;
   line-height: 1.55;
 }
@@ -712,7 +716,7 @@
 }
 
 .nn-flow-row small {
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.66rem;
 }
 
@@ -737,7 +741,7 @@
 }
 
 .nn-descent-diagram > span {
-  color: #62768b;
+  color: #52615b;
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -773,7 +777,7 @@
 }
 
 .nn-descent-diagram small {
-  color: #7b8b9c;
+  color: #5f7186;
   font: 600 0.64rem/1 monospace;
 }
 
@@ -842,7 +846,7 @@
 }
 
 .nn-loop-diagram > small {
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.72rem;
 }
 
@@ -871,7 +875,7 @@
 
 .nn-lab-head > p:last-child {
   margin: 0;
-  color: #62768b;
+  color: #52615b;
   line-height: 1.55;
   font-size: 0.92rem;
 }
@@ -1016,7 +1020,7 @@
 }
 
 .nn-plot-label {
-  fill: #7b8b9c;
+  fill: #5f7186;
   font: 600 10px ui-monospace, Consolas, monospace;
 }
 
@@ -1035,7 +1039,7 @@
 
 .nn-activation-results span {
   display: block;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.72rem;
 }
 
@@ -1047,7 +1051,7 @@
 }
 
 .nn-activation-results small {
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.74rem;
 }
 
@@ -1076,7 +1080,7 @@
 
 .nn-visual-head > p:last-child {
   margin: 0;
-  color: #62768b;
+  color: #52615b;
   line-height: 1.55;
   font-size: 0.92rem;
 }
@@ -1099,7 +1103,7 @@
   justify-content: space-between;
   gap: 14px;
   margin-bottom: 12px;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.82rem;
 }
 
@@ -1139,7 +1143,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 6px;
-  color: #8a9aac;
+  color: #5f7186;
   font: 600 0.65rem/1 ui-monospace, Consolas, monospace;
 }
 
@@ -1232,7 +1236,7 @@
 
 .nn-factor-card span {
   display: block;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1246,7 +1250,7 @@
 }
 
 .nn-factor-card small {
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.7rem;
 }
 
@@ -1294,7 +1298,7 @@
 .nn-gradient-tabs > span {
   align-self: center;
   margin-left: auto;
-  color: #7b8b9c;
+  color: #5f7186;
   font: 600 0.72rem/1 ui-monospace, Consolas, monospace;
 }
 
@@ -1358,7 +1362,7 @@
 
 .nn-backprop-card span {
   display: block;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1372,7 +1376,7 @@
 }
 
 .nn-backprop-card small {
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.7rem;
 }
 
@@ -1453,7 +1457,7 @@
   flex-wrap: wrap;
   gap: 8px 16px;
   margin-top: 8px;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.72rem;
 }
 
@@ -1503,7 +1507,7 @@
 }
 
 .nn-rate-status span {
-  color: #62768b;
+  color: #52615b;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -1515,14 +1519,14 @@
 }
 
 .nn-rate-status small {
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.72rem;
 }
 
 .nn-rate-panel p,
 .nn-momentum-panel p {
   margin: 0;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.82rem;
   line-height: 1.5;
 }
@@ -1556,7 +1560,7 @@
 }
 
 .nn-epoch-samples small {
-  color: #7b8b9c;
+  color: #5f7186;
   font: 500 0.62rem/1.2 ui-monospace, Consolas, monospace;
 }
 
@@ -1584,7 +1588,7 @@
 }
 
 .nn-epoch-average small {
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.7rem;
 }
 
@@ -1713,7 +1717,7 @@
 }
 
 .nn-canvas-empty span {
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.86rem;
 }
 
@@ -1823,7 +1827,7 @@
 }
 
 .nn-layer-label {
-  fill: #62768b;
+  fill: #52615b;
   font: 700 10px/1 ui-monospace, Consolas, monospace;
   text-anchor: middle;
   cursor: pointer;
@@ -1855,7 +1859,7 @@
   flex-wrap: wrap;
   gap: 8px 18px;
   margin-top: 12px;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.76rem;
 }
 
@@ -1886,7 +1890,7 @@
 
 .nn-matrix-panel-title {
   margin-bottom: 8px;
-  color: #62768b;
+  color: #52615b;
   font: 700 0.74rem/1.3 ui-monospace, Consolas, monospace;
 }
 
@@ -1900,7 +1904,7 @@
 
 .nn-matrix-row-label {
   min-width: 48px;
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.64rem;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -1914,7 +1918,7 @@
 }
 
 .nn-matrix-op {
-  color: #7b8b9c;
+  color: #5f7186;
   font: 700 1rem/1 ui-monospace, Consolas, monospace;
 }
 
@@ -1928,7 +1932,7 @@
 
 .nn-matrix-card figcaption {
   margin-bottom: 4px;
-  color: #7b8b9c;
+  color: #5f7186;
   font: 600 0.64rem/1.3 ui-monospace, Consolas, monospace;
 }
 
@@ -1942,7 +1946,7 @@
 
 .nn-training-head {
   margin-bottom: 6px;
-  color: #62768b;
+  color: #52615b;
   font: 600 0.72rem/1.4 ui-monospace, Consolas, monospace;
 }
 
@@ -1965,7 +1969,7 @@
 }
 
 .nn-chart-label {
-  fill: #7b8b9c;
+  fill: #5f7186;
   font: 600 10px ui-monospace, Consolas, monospace;
 }
 
@@ -1975,7 +1979,7 @@
   border: 1px dashed #cfd8e4;
   border-radius: 12px;
   background: #fbfcfe;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.88rem;
   text-align: center;
 }
@@ -1991,7 +1995,7 @@
 
 .nn-results-title {
   margin-bottom: 8px;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.76rem;
 }
 
@@ -2011,7 +2015,7 @@
 
 .nn-results th {
   background: #f6f7fb;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.66rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -2136,7 +2140,7 @@
 }
 
 .nn-editor-head span {
-  color: #7b8b9c;
+  color: #5f7186;
   font-size: 0.76rem;
 }
 
@@ -2340,7 +2344,7 @@
   margin-top: 26px;
   padding-top: 18px;
   border-top: 1px solid #d9dfeb;
-  color: #62768b;
+  color: #52615b;
   font-size: 0.84rem;
 }
 

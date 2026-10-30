@@ -12,7 +12,7 @@ const html = fs.readFileSync(source, "utf8")
   .replace(/(content=")\.\//g, "$1../")
   .replace('<html lang="pt-BR">', '<html lang="en">')
   .replaceAll("Observatório UFG-IA", "UFG-AI Observatory")
-  .replaceAll("Portal do LAPIG/UFG com Panorama da IA, levantamentos originais, acervo curado, IA na imprensa, destaque semanal e aula interativa.", "LAPIG/UFG portal with an AI Panorama, original research, a curated collection, AI in the news, weekly highlights and an interactive lesson.")
+  .replaceAll("Portal do LAPIG/UFG com Panorama da IA, levantamentos originais, acervo curado, IA na imprensa, destaque semanal e aulas interativas.", "LAPIG/UFG portal with an AI Panorama, original research, a curated collection, AI in the news, weekly highlights and interactive classes.")
   // O card em inglês aponta para a própria entrada /en/ e declara o idioma certo.
   .replace('content="https://lapig-ufg.github.io/observatorio-ia/" />', 'content="https://lapig-ufg.github.io/observatorio-ia/en/" />')
   .replace('<meta property="og:locale" content="pt_BR" />', '<meta property="og:locale" content="en_US" />')

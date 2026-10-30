@@ -19,7 +19,7 @@ export const portalNavigation = [
   { english: { label: "Collection", featured: { title: "Collection", description: "Readings, documents, videos, audio and presentations.", href: "#catalog" }, links: [
     { label: "Full collection", href: "#catalog", description: "Search and filter the selected materials." },
     { label: "AI Readings", href: "#ai-readings", description: "Read essays and articles organized by topic." },
-    { label: "Inside AI (interactive lesson, in Portuguese)", href: "por-dentro-da-ia/", description: "Explore the interactive classes on neural networks and language models (in Portuguese)." },
+    { label: "Inside AI (interactive classes, in Portuguese)", href: "por-dentro-da-ia/", description: "Explore the interactive classes on neural networks and language models (in Portuguese)." },
   ] }, id: "acervo", label: "Acervo", featured: { title: "Acervo", description: "Leituras, documentos, vídeos, áudios e apresentações.", icon: "acervo", href: "#acervo", event: "nav_catalog", metric: "materials" }, links: [
     { label: "Todo o acervo", href: "#acervo", description: "Busque e filtre os materiais selecionados.", event: "nav_catalog" },
     { label: "Leituras em IA", href: "#leituras-em-ia", description: "Leia ensaios e artigos organizados por tema.", event: "nav_ai_readings" },

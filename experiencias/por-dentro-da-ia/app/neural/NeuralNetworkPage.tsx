@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { HalloweenPumpkin, SpiderWeb } from "../halloween";
+import { HalloweenIcon, SpiderWeb } from "../halloween";
 import { LessonHeader } from "../lesson-header";
 import { CHAPTERS } from "./content";
 import { PlaygroundCard, PlaygroundPreamble } from "./PlaygroundCard";
@@ -50,6 +50,7 @@ export function NeuralNetworkPage() {
   return (
     <main className="site-root friendly-site nn-page">
       <LessonHeader />
+      <h1 className="sr-only">Redes neurais — Por dentro da IA</h1>
 
       <div className="site-layout nn-layout">
         <aside className="chapter-menu nn-chapter-menu" aria-label="Capítulos da aula de redes neurais">
@@ -98,7 +99,7 @@ export function NeuralNetworkPage() {
             <span>Pesos, gradientes e treino.<br />Nenhum dado sai da página.</span>
           </div>
           <div className="nn-halloween-menu">
-            <HalloweenPumpkin />
+            <HalloweenIcon />
             <span>Edição de Halloween<small>31 de outubro</small></span>
           </div>
         </aside>

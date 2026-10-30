@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { HalloweenTag } from "../halloween";
+import { HalloweenKicker } from "../halloween";
 import { MatrixTable } from "./Matrix";
 import { ActivationLab, NeuronLab } from "./labs";
 import { DEMO, HOUSE_X, HOUSE_Y } from "./demo";
@@ -239,7 +239,7 @@ export const CHAPTERS: Chapter[] = [
       "Vamos construir uma rede neural pequena, treinável e totalmente visível: do neurônio à atualização dos pesos.",
     content: (
       <>
-        <HalloweenTag />
+        <HalloweenKicker />
         <div className="nn-goals">
           <div><b>O que você vai fazer</b><span>Construir uma rede, conduzir a passagem direta, retropropagar o erro, atualizar pesos e treinar no desafio de Halloween: gostosura ou travessura.</span></div>
           <div><b>Como funciona</b><span>Cada conceito tem um capítulo. Os cinco playgrounds aparecem quando a base necessária já foi apresentada.</span></div>

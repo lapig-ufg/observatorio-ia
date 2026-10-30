@@ -1,4 +1,4 @@
-import { HalloweenTag } from "./halloween";
+import { HalloweenKicker } from "./halloween";
 import { LessonHeader } from "./lesson-header";
 
 const OBSERVATORY_URL = "/observatorio-ia/#experiencias-interativas";
@@ -44,7 +44,7 @@ export function ClassesHome() {
               </div>
               <h3>Redes neurais</h3>
               <p className="class-subtitle">Do neurônio ao aprendizado</p>
-              <HalloweenTag />
+              <HalloweenKicker />
               <p className="class-description">
                 Construa uma rede [2, 3, 1], conduza a passagem direta, retropropague o erro, atualize os pesos e treine
                 no desafio de Halloween: gostosura ou travessura. Cada etapa tem teoria antes do playground.

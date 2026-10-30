@@ -6,7 +6,7 @@ Trilha de duas aulas para a disciplina de sensoriamento remoto do LAPIG/UFG. Int
 - Hub: https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/
 - Aula 1: https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/
 - Aula 2: https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/transformers/
-- Retorno: logotipo do Observatório no cabeçalho de cada página, na mesma aba.
+- Retorno: logotipo do Observatório no cabeçalho de cada página, na mesma aba, para a seção Experiências interativas do portal.
 
 ## Conteúdo e rigor
 

@@ -97,7 +97,8 @@ test("serves the Neural Network class with its chapter map and first lesson", as
   assert.ok(html.includes('class="site-root friendly-site nn-page"'));
   assert.ok(html.includes('class="lesson-header"'));
   assert.ok(html.includes("brand/observatorio-coruja.svg"));
-  assert.ok(html.includes('href="/observatorio-ia/"'));
+  assert.ok(html.includes('href="/observatorio-ia/#experiencias-interativas"'));
+  assert.match(html, /<h1[^>]*>Redes neurais/);
   assert.ok(!html.includes("Voltar ao Observatório"));
   assert.ok(!html.includes("Todas as aulas"));
   assert.ok(text.includes("REDES NEURAIS · 26 CAPÍTULOS"));

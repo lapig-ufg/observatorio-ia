@@ -1,12 +1,40 @@
-export function HalloweenPumpkin({ className = "" }: { className?: string }) {
+export function HalloweenIcon({ className = "" }: { className?: string }) {
   return (
-    <svg className={`halloween-pumpkin ${className}`.trim()} viewBox="0 0 32 32" aria-hidden="true">
-      <path d="M16 8c-.8-3 1.2-5.2 4.2-6.2" fill="none" stroke="#114d3b" strokeWidth="2" strokeLinecap="round" />
-      <ellipse cx="16" cy="19.5" rx="11" ry="8.8" fill="#d76832" />
-      <ellipse cx="10" cy="19.5" rx="5.3" ry="7.8" fill="#e07a3f" />
-      <ellipse cx="22" cy="19.5" rx="5.3" ry="7.8" fill="#e07a3f" />
-      <path d="M11.4 17.4l3 2.8M20.6 17.4l-3 2.8" fill="none" stroke="#102a43" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M12 24.2c2.2 1.2 5.8 1.2 8 0" fill="none" stroke="#102a43" strokeWidth="1.5" strokeLinecap="round" />
+    <svg
+      className={`halloween-icon ${className}`.trim()}
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M12 5.9C10.9 4.7 9.5 4.4 8.2 4.9 5.2 6 3.6 8.6 3.6 11.9c0 3.8 3.7 6.5 8.4 6.5s8.4-2.7 8.4-6.5c0-3.3-1.6-5.9-4.6-7-1.3-.5-2.7-.2-3.8 1Z"
+        fill="#f4ddcd"
+        stroke="#114d3b"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8.7 5.6C7.3 7.2 6.5 9.4 6.5 11.9c0 2.6 1 4.8 2.7 6"
+        fill="none"
+        stroke="#114d3b"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M15.3 5.6c1.4 1.6 2.2 3.8 2.2 6.3 0 2.6-1 4.8-2.7 6"
+        fill="none"
+        stroke="#114d3b"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M12.1 5.9c-.2-1.6.5-2.7 2-3.2"
+        fill="none"
+        stroke="#114d3b"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path d="M14.2 4.2c1.1-.9 2.6-.9 3.6 0-1.1 1-2.6 1-3.6 0Z" fill="#114d3b" />
     </svg>
   );
 }
@@ -53,12 +81,12 @@ export function SpiderWeb({ className = "" }: { className?: string }) {
   );
 }
 
-export function HalloweenTag({ compact = false }: { compact?: boolean }) {
+export function HalloweenKicker({ className = "" }: { className?: string }) {
   return (
-    <span className={`halloween-tag ${compact ? "is-compact" : ""}`.trim()}>
-      <HalloweenPumpkin />
-      <span>Edição de Halloween</span>
-      {!compact && <small>31 de outubro</small>}
+    <span className={`halloween-kicker ${className}`.trim()}>
+      <HalloweenIcon />
+      <span className="halloween-kicker-label">Edição de Halloween</span>
+      <span className="halloween-kicker-date">31 de outubro</span>
     </span>
   );
 }

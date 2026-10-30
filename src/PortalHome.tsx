@@ -21,7 +21,7 @@ export function PortalHome({ english = false, articles, initiatives, catalog, er
       <section className="pt-home-opening" aria-labelledby="page-title">
         <p className="eyebrow">{english ? "Artificial intelligence in perspective" : "Inteligência artificial em perspectiva"}</p>
         <h1 id="page-title">{english ? "Generative AI explained, compared and followed by UFG" : "IA generativa explicada, comparada e acompanhada pela UFG"}</h1>
-        <p>{english ? "A curated collection, model comparisons, news and an interactive lesson for students, researchers and educators." : "Acervo curado, comparação de modelos, notícias e uma aula interativa para quem estuda, pesquisa e ensina."}</p>
+        <p>{english ? "A curated collection, model comparisons, news and interactive classes for students, researchers and educators." : "Acervo curado, comparação de modelos, notícias e aulas interativas para quem estuda, pesquisa e ensina."}</p>
         <PortalSectionCards english={english} counts={{ materials: catalog ? articles.length : undefined, news: newsSummary?.total, initiatives: catalog ? initiatives.length : undefined }} />
         <form className="hero-search pt-hero-search" role="search" onSubmit={event => { event.preventDefault(); revealCatalog(); }}>
           <Search size={20} aria-hidden="true" /><label className="sr-only" htmlFor={english ? "hero-search-en" : "hero-search-pt"}>{english ? "Search the collection" : "Buscar no acervo"}</label>
