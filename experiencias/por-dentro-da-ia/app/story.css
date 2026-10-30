@@ -28,7 +28,7 @@
 .menu-scope { margin:24px 9px 4px; padding-top:18px; border-top:1px solid #e0e4eb; display:grid; gap:6px; font-size:.875rem; color:#62768b; }
 .menu-scope b { color:#12847b; }
 .friendly-site .chapter-stage { overflow:visible; min-width:0; background:#f6f7fb; display:flex; flex-direction:column; min-height:calc(100dvh - 86px); }
-.lesson-wayfinding { padding:16px clamp(20px,3.5vw,56px); display:flex; align-items:center; justify-content:space-between; gap:20px; border-bottom:1px solid #e1e6ee; background:#fff; }
+.lesson-wayfinding { position:sticky; top:86px; z-index:25; padding:16px clamp(20px,3.5vw,56px); display:flex; align-items:center; justify-content:space-between; gap:20px; border-bottom:1px solid #e1e6ee; background:#fff; }
 .lesson-wayfinding>div { display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:.875rem; }
 .lesson-wayfinding>div>span:last-child { color:#5e7085; }
 .travel-dot { width:9px; height:9px; border-radius:50%; background:linear-gradient(130deg,#6754b8,#267bc0,#12847b,#c56834); }
@@ -39,7 +39,7 @@
 .lesson-glossary dt { color:#513f9a; font-weight:750; }
 .lesson-glossary dd { margin:5px 0 0; font-size:.95rem; color:#52647a; }
 .mobile-chapters { display:none; }
-.friendly-site .chapter-stage>.chapter { flex:1 0 auto; background:transparent; min-height:calc(100dvh - 235px); padding:32px clamp(20px,3.5vw,56px) 45px; max-width:1680px; margin:0 auto; color:var(--ink); }
+.friendly-site .chapter-stage>.chapter { flex:1 0 auto; width:100%; background:transparent; min-height:calc(100dvh - 235px); padding:32px clamp(20px,3.5vw,56px) 45px; max-width:none; margin:0; color:var(--ink); }
 .friendly-site .chapter-stage>.chapter:focus { outline:none; }
 .friendly-site .section-title { padding-top:0; margin-bottom:30px; }
 .friendly-site .section-title h2 { font-size:clamp(2rem,3.6vw,3.6rem); line-height:1.08; max-width:1100px; margin:.35em 0; }
@@ -431,5 +431,5 @@
 }
 @media(min-width:1451px) and (max-width:1750px) { .friendly-site .hero-grid { grid-template-columns:1fr; }.friendly-site .hero h1 { font-size:3.5rem; }.journey-prelude { max-width:780px; } }
 @media(max-width:800px) { .friendly-site .site-layout { display:block; }.architecture-compact { width:100%; }.architecture-compact>.compass-body { left:0; right:auto; }.lesson-wayfinding>div { width:100%; } }
-@media(max-width:560px) { .friendly-site .chapter-stage { min-height:calc(100dvh - 76px); } }
+@media(max-width:560px) { .friendly-site .chapter-stage { min-height:calc(100dvh - 76px); } .lesson-wayfinding { top:76px; } }
 @media(prefers-reduced-motion:reduce) { .friendly-site *, .friendly-site *::before, .friendly-site *::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; } }
