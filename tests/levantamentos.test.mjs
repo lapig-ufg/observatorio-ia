@@ -50,7 +50,7 @@ test("o não se aplica fica fora do denominador, mas é contado à parte", () =>
 test("filtros combinam busca sem acento, área e abrangência", () => {
   const empty = { query: "", area: "", type: "", gen: "", rev: "", scope: "" };
   assert.equal(survey.filterPolicies(data.rows, { ...empty, gen: "Vedada" }).length, data.rows.filter(row => row.gen === "Vedada").length);
-  assert.equal(survey.filterPolicies(data.rows, { ...empty, gen: "N/A" }).length, 4);
+  assert.deepEqual(survey.filterPolicies(data.rows, { ...empty, gen: "N/A" }).map(row => row.nome).sort(), ["DFG", "ERC", "STM — classificação de usos de IA"]);
   assert.ok(survey.filterPolicies(data.rows, { ...empty, query: "educacao" }).some(row => row.nome.includes("Educação")));
   assert.ok(survey.filterPolicies(data.rows, { ...empty, scope: "br" }).every(survey.isBrazilian));
   assert.equal(survey.filterPolicies(data.rows, { ...empty, query: "zzzz" }).length, 0);
@@ -101,6 +101,11 @@ test("revisão inventaria todas as identidades e só avança a referência com c
 });
 
 test("divergências de revisão, imagens e declaração não regressam", () => {
+  assert.equal(data.rows.find(row => row.nome === "ICML 2026").gen, "Permitida");
+  assert.equal(data.rows.find(row => row.nome === "ICML 2026").loc, "Sem exigência p/ redação");
+  assert.equal(data.rows.find(row => row.nome === "USGS").loc, "Múltiplos");
+  assert.equal(data.rows.find(row => row.nome === "Royal Society of Chemistry").rev, "Condicionado");
+  assert.equal(data.rows.find(row => row.nome === "Royal Society (periódicos)").rev, "Condicionado");
   assert.equal(data.rows.find(row => row.nome === "London Mathematical Society").rev, "Condicionado");
   assert.equal(data.rows.find(row => row.nome === "RAE (FGV EAESP)").gen, "Vedada");
   assert.equal(data.rows.find(row => row.nome === "Current Anthropology / AAA").loc, "Múltiplos");

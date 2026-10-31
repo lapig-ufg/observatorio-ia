@@ -1,5 +1,5 @@
 {
-  "sourceSha256": "44df4e2a08de7a90b71be4b3c732e5a53b9a056264ca86557b4fbb3c9b17c038",
+  "sourceSha256": "0724def43b6428f8bfe110772a70de4f88c05267712c63d3162c6fe1e57855ec",
   "messages": [
     [
       "Human responsibility, different rules",
@@ -23,21 +23,21 @@
     ],
     [
       "Coverage and limits",
-      "In the 24 October 2026 review, all four policy fields were reconciled for 149 of 149 records; four received coding, metadata or description updates and none remains unresolved. Chicago Press’s book policy was revised on 21 October. The other corrections do not in themselves establish a policy change during this week. A/NL express bounded findings, not implicit permission."
+      "On 31 October 2026, 148/149 records were reconciled across all four policy fields; 17 received coding, metadata or description corrections. Science/AAAS remains unresolved because current access failed; its previous record is preserved and the last full reference remains 24 October. Corrections do not in themselves establish policy changes during this week. A/NL are bounded findings, never implicit permission."
     ]
   ],
   "cross": [
     [
       "Scope of comparison",
-      "Counts describe the purposive inventory reconciled on 24 October, preserving its 149 historical identities. Aggregated records and A/NL codes have explicit limits; proportions do not represent the universe of journals."
+      "Counts describe the purposive inventory of 149 identities. Reconciliation on 31 October: 148/149; 1 unresolved. Unresolved records retain the valid 24 October data. Aggregates and A/NL codes have explicit limits; proportions do not represent all journals."
     ],
     [
       "Text generation",
-      "102 Allowed; 18 Restricted; 8 Prohibited; 17 No rule located; 4 Not applicable. Codes summarise the writing policy; they do not replace its exceptions or the rule for AI as a method."
+      "103 Allowed; 18 Restricted; 8 Prohibited; 17 No rule located; 3 Not applicable. Codes summarise writing policy; they do not replace its exceptions or the rule for AI as a research method."
     ],
     [
       "Peer review",
-      "84 records make use conditional, 12 prohibit it and 53 have no coded provision. Language assistance and scientific judgement are different tasks."
+      "86 records make use conditional, 12 prohibit it and 51 have no coded provision. Language assistance and scientific judgement are distinct tasks. Counts cover the full dataset, including previous information in unresolved records."
     ],
     [
       "Images",
@@ -128,8 +128,8 @@
       "Purposive survey compiled on 14–16 October 2026. The previous full reference date is 16 October; this maintenance does not retroactively certify the compilation's reading or methodological independence. This is neither a PRISMA review nor a worldwide census."
     ],
     [
-      "Review of 24 October 2026",
-      "All 149 identities were checked in official sources across the four fields; four records were updated and none remains unresolved. The comparison uses the full 17 October review, preserved in the history. Chicago Press states a revision on 21 October; no policy-change date was invented for the other corrections. Sources were read between 13:06 and 21:46:15 UTC on 24 October, with technical interruptions and resumption on the same day. A located source, HTTP 200 or a search result is not equivalent to a verified rule. A/NL remain limited to the described corpora."
+      "Review of 31 October 2026",
+      "On 31 October 2026, 148/149 records were reconciled across all four policy fields; 17 received coding, metadata or description corrections. Science/AAAS remains unresolved because current access failed; its previous record is preserved and the last full reference remains 24 October. Corrections do not in themselves establish policy changes during this week. A/NL are bounded findings, never implicit permission. Compared with the valid full 24 October review, without inventing historical versions. Consultation began at 13:03:52 UTC, with individual timestamps in the history. A located source, HTTP 200 or a search result is not equivalent to a verified rule."
     ],
     [
       "Sample",
@@ -145,11 +145,11 @@
     ],
     [
       "Evidence and dates",
-      "History by identity with URL, owner, section, actual consultation time, consulted normative-body hash and field-level decisions. The comparison starts from the valid 17 October dataset. A coding or description difference does not demonstrate an institutional policy change this week; only explicit source dates are assigned to rules. Transient access failures were resolved through official alternatives or normal browsing, without circumventing controls."
+      "History by identity with URL, owner, section, actual consultation time, consulted normative-text hash and field-level decisions. Comparison starts from the valid 24 October dataset. A coding or description difference does not establish an institutional change during this week. Explicit source dates are separate from consultation dates. Browser readings and optional downloads used only previously configured persistent permissions; some SBL norms were fully collated in the viewer without download. Science/AAAS remains unresolved until current reading is possible."
     ],
     [
       "Limits",
-      "The 149 identities were reconciled without expansion or merger; aggregates such as AAR/SBL and FAPESP/CAPES/FAPEG remain heterogeneous, with separate scopes in the notes. A/NL cannot certify the absence of rules in other calls, internal guidance or activities. Non-random sample; AI-assisted coding, without independent duplicate extraction."
+      "148 of 149 identities reconciled; 1 unresolved because of access, without expansion or merger. AAR/SBL and FAPESP/CAPES/FAPEG remain heterogeneous, with separate scopes. A/NL cannot certify absence of rules in other calls, internal guidance or activities. Non-random sample; AI-assisted coding, without independent duplicate extraction."
     ],
     [
       "Policy and practice",
@@ -157,11 +157,11 @@
     ],
     [
       "AI-use disclosure",
-      "Initial compilation with Claude (Anthropic); reviews on 17 and 24 October with Codex (OpenAI) for reading/comparing sources, coding, export generation and testing. Editorial responsibility rests with the Observatory; no new independent human audit or independent duplicate extraction took place. The English translation was also prepared with Codex; it is an editorial translation, not an official translation of institutional policies."
+      "Initial compilation with Claude (Anthropic); reviews on 17, 24 and 31 October with Codex (OpenAI) for reading/comparing sources, coding, editorial translation, exports and testing. Editorial responsibility rests with the Observatory; no new independent human audit or independent duplicate extraction took place."
     ],
     [
       "Dataset and traceability",
-      "JSON, CSV and XLSX derive from the same dataset. The XLSX preserves its codebook and historical v4 → v5 column; public histories for 17 and 24 October document each review without reproducing full source pages. Portuguese and English exports preserve entity identities, codes, years and official URLs. English headers, notes, field descriptions and the codebook are editorial translations; the detailed audit history remains in Portuguese."
+      "JSON, CSV and XLSX derive from the same dataset. The workbook preserves its codebook and historical v4 to v5 column. Public histories for 17, 24 and 31 October document sources, decisions and unresolved records without reproducing full policies. Portuguese/English exports preserve identities, codes, years and official URLs. This is an editorial translation, not an official translation of institutional policies. Partial review and last full reference are stated separately."
     ]
   ]
 }

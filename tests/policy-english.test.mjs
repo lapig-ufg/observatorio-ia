@@ -7,7 +7,7 @@ import ts from 'typescript';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {buildPolicyEnglish,currentPolicyEnglish} from '../scripts/build-policy-english.mjs';
-import {EXPORT_FIELDS,ENGLISH_HEADERS,translateHistoricalChange,toCsv} from '../scripts/policy-export-data.mjs';
+import {EXPORT_FIELDS,ENGLISH_HEADERS,translateHistoricalChange,toCsv,englishCodebook} from '../scripts/policy-export-data.mjs';
 const read=file=>JSON.parse(fs.readFileSync(file,'utf8'));
 const pt=read('public/levantamentos/politicas-ia/dados.json');
 const en=read('public/levantamentos/politicas-ia/dados-en.json');
@@ -15,6 +15,16 @@ const content=read('data/politicas-ia/english-content.json');
 const notes=read('data/politicas-ia/english-notes.json');
 const vocabulary=read('src/levantamentos/policy-vocabulary-en.json');
 const ui=read('src/levantamentos/policy-ui-en.json');
+
+test('livro de códigos distingue revisão parcial da última referência integral',()=>{
+  const partial=structuredClone(pt);
+  partial.meta.referencia='2026-10-24';
+  partial.meta.revisao={data:'2026-10-31',inventory:149,verified:148,changed:17,unresolved:1,history:'levantamentos/politicas-ia/revisao-2026-10-31.json'};
+  const reference=englishCodebook(partial,vocabulary).find(row=>row[0]==='Reference date')[1];
+  assert.match(reference,/Last full reference: 2026-10-24/);
+  assert.match(reference,/Partial review: 2026-10-31; 148\/149/);
+  assert.doesNotMatch(reference,/Full review: 2026-10-31/);
+});
 
 test('tradução integral preserva identidades, códigos, URLs, datas e números dos 149 registros',()=>{
   assert.deepEqual(en,currentPolicyEnglish());
