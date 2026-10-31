@@ -16,6 +16,19 @@
     return n.length ? Math.max(...n) : 0;
   };
 
+  // ----- Telas "faça comigo": um passo por vez, com a lista dos passos ao lado -----
+  document.querySelectorAll("ol.foco").forEach((ol) => {
+    const lista = document.createElement("ol");
+    lista.className = "foco-trilha";
+    lista.setAttribute("aria-hidden", "true");
+    [...ol.children].forEach((li) => {
+      const item = document.createElement("li");
+      item.textContent = li.dataset.rotulo || "";
+      lista.append(item);
+    });
+    ol.before(lista);
+  });
+
   // ----- Trilha das 8 h (barra fina no topo) -----
   const trilha = document.querySelector(".trilha");
   const blocos = [];
@@ -52,7 +65,9 @@
   const aplicarPassos = (tela, p) => {
     tela.querySelectorAll("[data-passo]").forEach((el) => {
       el.classList.toggle("oculto", +el.dataset.passo > p);
+      el.classList.toggle("agora", +el.dataset.passo === p);
     });
+    tela.querySelectorAll(".foco-trilha li").forEach((el, k) => { el.classList.toggle("feito", k < p); el.classList.toggle("agora", k === p); });
     tela.dataset.passoAtual = p;
     tela.dispatchEvent(new CustomEvent("passo", { detail: { passo: p } }));
   };

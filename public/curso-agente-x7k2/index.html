@@ -343,24 +343,56 @@
   <!-- 12 · Instalar -->
   <section class="tela" id="instalar" data-bloco="Instalação" data-titulo="Instalar o Antigravity">
     <div class="cabeca">
+      <p class="faca-comigo">Faça comigo</p>
       <h2>Instalar o Antigravity</h2>
-      <p class="lead">É gratuito, com um limite de uso que renova toda semana.</p>
     </div>
-    <div class="instalar">
-      <ol class="passos-instalar">
-        <li><span><b>Baixe</b> a versão do seu sistema em <a href="https://antigravity.google/download" target="_blank" rel="noopener">antigravity.google/download</a>. Só baixe desse endereço.</span></li>
-        <li><span><b>Instale</b> como qualquer programa e abra.</span></li>
-        <li><span><b>Entre</b> com a conta Google que você conferiu.</span></li>
-        <li><span><b>No painel Settings</b> (o programa é em inglês), decida se o Google pode usar suas conversas para melhorar os produtos. Na conta pessoal, isso vem ligado; dá para desligar.</span></li>
-        <li><span><b>Abra uma pasta de teste</b>, não uma pasta com seus arquivos de verdade.</span></li>
-      </ol>
-      <aside class="para-casa">
-        <h3>Para casa: o opencode</h3>
-        <p>O mesmo jeito de trabalhar, pelo terminal, com modelos gratuitos. Precisa do Node.js, que o guia ensina a instalar. Depois:</p>
-        <div class="comando"><code>npm install -g opencode-ai</code><button type="button" class="copiar" data-copiar="npm install -g opencode-ai">Copiar</button></div>
-        <p class="nota">No Windows, o próprio opencode recomenda usar o WSL. Guia completo em <a href="https://opencode.ai/docs/" target="_blank" rel="noopener">opencode.ai/docs</a>.</p>
-      </aside>
-    </div>
+    <ol class="foco">
+      <li data-passo="0" data-rotulo="Abrir o site">
+        <div class="foco-texto">
+          <p class="foco-acao">No navegador, digite este endereço</p>
+          <p class="foco-grande endereco">antigravity.google/download</p>
+          <p class="foco-dica">Baixe só daqui. Site parecido com outro nome pode ser golpe.</p>
+        </div>
+      </li>
+      <li data-passo="1" data-rotulo="Baixar">
+        <div class="foco-texto">
+          <p class="foco-acao">Clique em <b>Baixar para x64</b></p>
+          <p class="foco-dica">Quase todo notebook é x64. O site já escolhe o seu sistema (Windows ou Mac).</p>
+        </div>
+        <figure class="foco-figura captura">
+          <img src="assets/img/download-antigravity.jpg" alt="Página oficial de download do Antigravity, com o botão Baixar para x64" loading="lazy">
+          <span class="marca-clique" style="left:3.6%;top:73.6%;width:31%;height:12%"></span>
+        </figure>
+      </li>
+      <li data-passo="2" data-rotulo="Instalar">
+        <div class="foco-texto">
+          <p class="foco-acao">Abra o arquivo baixado e instale</p>
+          <p class="foco-dica">Ele fica na pasta <b>Downloads</b>. Clique em “Avançar” até terminar, como em qualquer programa.</p>
+        </div>
+        <figure class="foco-figura pasta-mini">
+          <figcaption>Downloads</figcaption>
+          <span class="arquivo" data-ext="exe">Antigravity-Setup.exe</span>
+        </figure>
+      </li>
+      <li data-passo="3" data-rotulo="Entrar">
+        <div class="foco-texto">
+          <p class="foco-acao">Entre com sua conta Google pessoal</p>
+          <p class="foco-dica">A que termina em <b>@gmail.com</b>. A conta da universidade só funciona se a instituição tiver liberado.</p>
+        </div>
+      </li>
+      <li data-passo="4" data-rotulo="Privacidade">
+        <div class="foco-texto">
+          <p class="foco-acao">Decida se o Google pode usar suas conversas</p>
+          <p class="foco-dica">Vem ligado. Para desligar: <b>Settings</b> (Configurações), na opção sobre melhorar os produtos. O programa é em inglês; vamos juntos.</p>
+        </div>
+      </li>
+    </ol>
+    <aside class="para-casa so-leitura">
+      <h3>Para casa: o opencode</h3>
+      <p>O mesmo jeito de trabalhar, pelo terminal, com modelos gratuitos. Precisa do Node.js, que o guia ensina a instalar. Depois:</p>
+      <div class="comando"><code>npm install -g opencode-ai</code><button type="button" class="copiar" data-copiar="npm install -g opencode-ai">Copiar</button></div>
+      <p class="nota">No Windows, o próprio opencode recomenda usar o WSL. Guia completo em <a href="https://opencode.ai/docs/" target="_blank" rel="noopener">opencode.ai/docs</a>.</p>
+    </aside>
   </section>
 
   <!-- 13 · Deu erro -->
@@ -455,16 +487,41 @@
   </section>
 
   <!-- 17 · Quando sai errado -->
-  <section class="tela" id="sai-errado" data-bloco="Primeiro contato" data-titulo="Quando sai errado, ou só mais ou menos">
+  <section class="tela" id="sai-errado" data-bloco="Primeiro contato" data-titulo="Quando sai errado">
     <div class="cabeca">
-      <h2>Quando sai errado, ou só mais ou menos</h2>
+      <h2>Quando sai errado</h2>
     </div>
-    <div class="situacoes">
-      <article data-passo="1"><h3>Ele está fazendo outra coisa</h3><p>Clique no botão de parar e explique de novo, com o que faltou.</p></article>
-      <article data-passo="2"><h3>Ficou quase certo</h3><p>Corrija na mesma conversa, dizendo o que manter: <span class="pedido-inline">mantenha o gráfico, mas some só a categoria Análises</span>.</p></article>
-      <article data-passo="3"><h3>A conversa ficou longa e confusa</h3><p>Abra uma conversa nova e comece com um resumo do que já está pronto.</p></article>
-      <article data-passo="4"><h3>A cota acabou</h3><p>No plano gratuito, o limite renova toda semana. Na aula, faça em dupla com quem ainda tem cota, ou entre com outra conta pessoal.</p></article>
-    </div>
+    <ol class="foco foco-situacao">
+      <li data-passo="0" data-rotulo="Fazendo outra coisa">
+        <div class="foco-texto">
+          <p class="foco-situ">Ele começou a fazer outra coisa</p>
+          <p class="foco-acao">Pare e explique de novo</p>
+          <p class="foco-dica">O botão de parar fica onde você escreve o pedido. Parar não estraga nada.</p>
+        </div>
+      </li>
+      <li data-passo="1" data-rotulo="Quase certo">
+        <div class="foco-texto">
+          <p class="foco-situ">Ficou quase certo</p>
+          <p class="foco-acao">Corrija na mesma conversa</p>
+          <p class="foco-dica">Diga o que manter e o que mudar:</p>
+          <p class="foco-pedido">Mantenha o gráfico, mas some só a categoria Análises.</p>
+        </div>
+      </li>
+      <li data-passo="2" data-rotulo="Conversa confusa">
+        <div class="foco-texto">
+          <p class="foco-situ">A conversa ficou longa e confusa</p>
+          <p class="foco-acao">Comece uma conversa nova</p>
+          <p class="foco-dica">Os arquivos continuam na pasta. Conte em uma frase o que já está pronto.</p>
+        </div>
+      </li>
+      <li data-passo="3" data-rotulo="Limite acabou">
+        <div class="foco-texto">
+          <p class="foco-situ">Apareceu um aviso de limite</p>
+          <p class="foco-acao">Continue em dupla</p>
+          <p class="foco-dica">O uso gratuito tem um limite por semana. Na aula, trabalhe no computador do colega até o fim da atividade.</p>
+        </div>
+      </li>
+    </ol>
   </section>
 
   <!-- 18 · O que sai do computador (tela escura) -->
