@@ -51,7 +51,7 @@ test("English navigation translates all five entries and preserves each event an
   const english = localizedPortalNavigation(true);
   assert.deepEqual(english.map(section => section.label), ["Panorama", "Research", "Collection", "News", "AI at UFG", "About"]);
   assert.deepEqual(english[0].links.map(link => link.label), ["Timeline", "Which model to use", "Free AI tools", "Using AI outside the browser"]);
-  assert.deepEqual(english[2].links.map(link => link.label), ["Full collection", "AI Readings", "Inside AI (interactive lesson, in Portuguese)"]);
+  assert.deepEqual(english[2].links.map(link => link.label), ["Full collection", "AI Readings", "Inside AI (interactive classes, in Portuguese)"]);
   assert.deepEqual(english[3].links.map(link => link.label), ["Weekly highlight", "AI in the daily news"]);
   for (const [i, section] of english.entries()) {
     assert.equal(section.id, portalNavigation[i].id);
