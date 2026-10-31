@@ -327,7 +327,7 @@ function ToyLossChart({
                 cy={yMap(lossAt(w))}
                 r={index === 0 ? 4.5 : 3}
                 fill={index === entry.points.length - 1 ? "#f2a900" : entry.color}
-                stroke="#102a43"
+                stroke="#123d31"
                 strokeWidth={1}
               />
             ))}
@@ -372,7 +372,7 @@ export function LearningRateLab() {
       text="A curva é uma perda de brinquedo. Cada ponto é uma atualização; mude η e veja a trajetória."
     >
       <div className="nn-rate-layout">
-        <ToyLossChart series={[{ label: "trajetória", color: "#12847b", points }]} />
+        <ToyLossChart series={[{ label: "trajetória", color: "#1d6650", points }]} />
         <div className="nn-rate-panel">
           <label>
             <span>taxa de aprendizado η</span>
@@ -409,8 +409,8 @@ function momentumTrajectory(momentum: number) {
 export function MomentumVisual() {
   const [momentum, setMomentum] = useState(0.1);
   const series = [
-    { label: "sem momentum", color: "#8fa3b6", points: momentumTrajectory(0) },
-    { label: `momentum ${formatNumber(momentum, 1)}`, color: "#6754b8", points: momentumTrajectory(momentum) },
+    { label: "sem momentum", color: "#93a19b", points: momentumTrajectory(0) },
+    { label: `momentum ${formatNumber(momentum, 1)}`, color: "#b94f3d", points: momentumTrajectory(momentum) },
   ];
   const finalWith = momentumTrajectory(momentum).at(-1) ?? W_START;
 

@@ -51,7 +51,7 @@ function Plot({
         <line x1={xMap(-2)} y1={top} x2={xMap(-2)} y2={height - bottom} className="nn-plot-grid" />
         <line x1={xMap(2)} y1={top} x2={xMap(2)} y2={height - bottom} className="nn-plot-grid" />
         <polyline points={points} fill="none" stroke={color} strokeWidth={4} />
-        <circle cx={xMap(pointX)} cy={yMap(pointY)} r={8} fill="#f2a900" stroke="#102a43" strokeWidth={2} />
+        <circle cx={xMap(pointX)} cy={yMap(pointY)} r={8} fill="#f2a900" stroke="#123d31" strokeWidth={2} />
         <text x={width - right} y={height - 6} textAnchor="end" className="nn-plot-label">
           z
         </text>
@@ -153,7 +153,7 @@ export function ActivationLab() {
           maxY={3}
           pointX={z}
           pointY={relu}
-          color="#12847b"
+          color="#1d6650"
         />
         <Plot
           title="tanh"
@@ -162,7 +162,7 @@ export function ActivationLab() {
           maxY={1.1}
           pointX={z}
           pointY={tanh}
-          color="#6754b8"
+          color="#b94f3d"
         />
       </div>
       <div className="nn-activation-results">

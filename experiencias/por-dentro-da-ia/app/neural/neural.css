@@ -1,11 +1,11 @@
 .nn-page {
-  --nn-pos: #12847b;
-  --nn-neg: #2a7fb0;
+  --nn-pos: #1d6650;
+  --nn-neg: #3a5f8a;
   --nn-hot: #f2a900;
-  --nn-coral: #e35d43;
-  --nn-violet: #6754b8;
-  --nn-line: #d9dfeb;
-  --nn-paper: #f6f7fb;
+  --nn-coral: #d76832;
+  --nn-violet: #b94f3d;
+  --nn-line: #d7dfdb;
+  --nn-paper: #f4f6f4;
   background: var(--nn-paper);
 }
 
@@ -24,13 +24,13 @@
 .nn-menu-group {
   margin-bottom: 14px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #e7eaf1;
+  border-bottom: 1px solid #e5ebe8;
 }
 
 .nn-menu-group > span {
   display: block;
   margin: 0 10px 6px;
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.64rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -51,13 +51,13 @@
 }
 
 .nn-menu-play {
-  color: #12847b;
+  color: #1d6650;
   font-size: 0.62rem;
   font-style: normal;
 }
 
 .nn-menu-play.is-done {
-  color: #0b6d67;
+  color: #164e3d;
   font-weight: 900;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .nn-chapter-menu button.active .nn-menu-play {
-  color: #6754b8;
+  color: #b94f3d;
 }
 
 .nn-chapter-stage {
@@ -95,10 +95,10 @@
   z-index: 0;
   top: 0;
   left: 0;
-  width: 130px;
-  height: 130px;
-  color: #c56834;
-  opacity: 0.16;
+  width: 170px;
+  height: 170px;
+  color: #a9522a;
+  opacity: 0.3;
   pointer-events: none;
 }
 
@@ -113,7 +113,7 @@
   gap: 8px;
   margin: 16px 9px 0;
   padding-top: 14px;
-  border-top: 1px solid #dfe3eb;
+  border-top: 1px solid #dde4e0;
   color: #6b4a1f;
   font-size: 0.7rem;
   font-weight: 800;
@@ -122,8 +122,8 @@
 }
 
 .nn-halloween-menu .halloween-icon {
-  width: 18px;
-  height: 18px;
+  width: 36px;
+  height: 36px;
 }
 
 .nn-halloween-menu > span {
@@ -145,7 +145,7 @@
 
 .nn-chapter-body {
   max-width: 1080px;
-  color: #2f4358;
+  color: #2f3d37;
   font-size: 1.02rem;
 }
 
@@ -168,7 +168,7 @@
 }
 
 .nn-chapter-body a {
-  color: #12847b;
+  color: #1d6650;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -177,8 +177,8 @@
 .nn-chapter-body code {
   padding: 0.12em 0.34em;
   border-radius: 4px;
-  background: #eef2f6;
-  color: #2f4358;
+  background: #eef2ef;
+  color: #2f3d37;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
   font-size: 0.9em;
   white-space: nowrap;
@@ -187,10 +187,10 @@
 .nn-formula {
   margin: 22px 0;
   padding: 20px 24px;
-  border-left: 5px solid #6754b8;
+  border-left: 5px solid #b94f3d;
   border-radius: 0 12px 12px 0;
-  background: #f2effa;
-  color: #44337f;
+  background: #fbebe5;
+  color: #7d3226;
   font: 600 1.02rem/1.85 ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
   white-space: pre-wrap;
   overflow-x: auto;
@@ -200,8 +200,8 @@
   margin: 22px 0;
   padding: 20px 22px;
   border-radius: 12px;
-  background: #102a43;
-  color: #e6f0f7;
+  background: #123d31;
+  color: #e4eaf2;
   font: 500 0.86rem/1.65 ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
   overflow-x: auto;
   white-space: pre;
@@ -250,11 +250,11 @@
 .nn-goals b {
   display: block;
   margin-bottom: 8px;
-  color: #12847b;
+  color: #1d6650;
 }
 
 .nn-goals span {
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.9rem;
   line-height: 1.5;
 }
@@ -270,17 +270,17 @@
 .nn-idea-list li {
   position: relative;
   padding: 12px 16px 12px 38px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 9px;
   background: #fff;
-  color: #52647a;
+  color: #5a6862;
 }
 
 .nn-idea-list li::before {
   content: "→";
   position: absolute;
   left: 14px;
-  color: #12847b;
+  color: #1d6650;
   font-weight: 900;
 }
 
@@ -296,7 +296,7 @@
   counter-increment: nn-step;
   position: relative;
   padding: 12px 16px 12px 44px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 9px;
   background: #fff;
 }
@@ -311,7 +311,7 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: #12847b;
+  background: #1d6650;
   color: #fff;
   font: 800 0.7rem/1 monospace;
 }
@@ -330,7 +330,7 @@
 
 .nn-build-diagram {
   padding: 24px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 18px;
   background: #fff;
 }
@@ -352,23 +352,23 @@
 .nn-build-neuron b {
   min-width: 46px;
   padding: 9px 11px;
-  border: 1px solid #cfd8e4;
+  border: 1px solid #cfd9d4;
   border-radius: 8px;
-  background: #f8f9fc;
+  background: #f7f9f7;
   text-align: center;
   font-family: ui-monospace, "SF Mono", Consolas, monospace;
 }
 
 .nn-build-neuron span.is-weight {
-  background: #e6f4f2;
-  color: #0b6d67;
-  border-color: #a7d3cf;
+  background: #dcefe7;
+  color: #164e3d;
+  border-color: #b5d6c6;
 }
 
 .nn-build-neuron b.is-activation {
-  background: #eeebf8;
-  border-color: #c8bde9;
-  color: #513f9a;
+  background: #fae6df;
+  border-color: #efc2b5;
+  color: #943c2e;
 }
 
 .nn-build-neuron b.is-output {
@@ -379,7 +379,7 @@
 
 .nn-build-neuron i {
   font-style: normal;
-  color: #5f7186;
+  color: #61706a;
 }
 
 .nn-layer-stack {
@@ -395,9 +395,9 @@
   gap: 5px;
   justify-items: center;
   padding: 14px 18px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 12px;
-  background: #f8f9fc;
+  background: #f7f9f7;
 }
 
 .nn-layer-stack > div span {
@@ -411,7 +411,7 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #12847b;
+  background: #1d6650;
 }
 
 .nn-layer-stack > b {
@@ -434,7 +434,7 @@
   gap: 9px;
   margin: 22px 0;
   padding: 16px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 12px;
   background: #fff;
 }
@@ -448,14 +448,14 @@
 .nn-shape-pill {
   padding: 9px 11px;
   border-radius: 8px;
-  background: #e6f4f2;
-  color: #0b6d67;
+  background: #dcefe7;
+  color: #164e3d;
   font: 700 0.78rem/1.2 ui-monospace, Consolas, monospace;
 }
 
 .nn-shape-pill.is-matrix {
-  background: #eef2f6;
-  color: #2f4358;
+  background: #eef2ef;
+  color: #2f3d37;
 }
 
 .nn-layer-matrices {
@@ -466,7 +466,7 @@
 
 .nn-layer-matrices > div {
   padding: 18px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 14px;
   background: #fff;
 }
@@ -508,21 +508,21 @@
 .nn-mini-matrix td {
   padding: 5px 7px;
   border-radius: 4px;
-  background: #eef2f6;
-  color: #2f4358;
+  background: #eef2ef;
+  color: #2f3d37;
   font: 600 0.72rem/1.1 ui-monospace, Consolas, monospace;
   text-align: right;
   white-space: nowrap;
 }
 
 .nn-mini-matrix td.is-pos {
-  background: #e2f4f2;
-  color: #0b6d67;
+  background: #e6f1ec;
+  color: #164e3d;
 }
 
 .nn-mini-matrix td.is-neg {
-  background: #e7f0f8;
-  color: #1f5f8b;
+  background: #e4eaf2;
+  color: #243a5a;
 }
 
 .nn-mini-matrix td.is-highlight {
@@ -539,25 +539,25 @@
   width: min(420px, 100%);
   margin: 20px 0;
   border-collapse: collapse;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   background: #fff;
 }
 
 .nn-data-table th,
 .nn-data-table td {
   padding: 10px 13px;
-  border-bottom: 1px solid #e5e9f0;
+  border-bottom: 1px solid #e4eae7;
   text-align: center;
 }
 
 .nn-data-table th {
-  background: #102a43;
+  background: #123d31;
   color: #fff;
   font-size: 0.75rem;
 }
 
 .nn-data-table td {
-  color: #52647a;
+  color: #5a6862;
 }
 
 .nn-flow-diagram {
@@ -566,7 +566,7 @@
   flex-wrap: wrap;
   gap: 10px;
   padding: 20px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 16px;
   background: #fff;
   overflow-x: auto;
@@ -583,9 +583,9 @@
   grid-template-columns: repeat(3, minmax(38px, 1fr));
   gap: 2px;
   padding: 7px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 8px;
-  background: #f8f9fc;
+  background: #f7f9f7;
 }
 
 .nn-diagram-matrix span {
@@ -598,15 +598,15 @@
 .nn-diagram-matrix b {
   padding: 5px;
   border-radius: 3px;
-  background: #eef2f6;
-  color: #2f4358;
+  background: #eef2ef;
+  color: #2f3d37;
   font: 600 0.66rem/1 ui-monospace, Consolas, monospace;
   text-align: center;
 }
 
 .nn-forward-until-n {
   padding: 20px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 18px;
   background: #fff;
 }
@@ -619,16 +619,16 @@
   gap: 8px;
   padding: 16px;
   border-radius: 12px;
-  background: #f8fbfb;
+  background: #f8faf9;
 }
 
 .nn-forward-chain span {
   min-width: 42px;
   padding: 9px 10px;
-  border: 1px solid #a7d3cf;
+  border: 1px solid #b5d6c6;
   border-radius: 8px;
-  background: #e6f4f2;
-  color: #0b6d67;
+  background: #dcefe7;
+  color: #164e3d;
   font: 700 0.8rem/1 ui-monospace, Consolas, monospace;
   text-align: center;
 }
@@ -645,12 +645,12 @@
   gap: 7px;
   margin-top: 14px;
   padding: 16px;
-  border-left: 5px solid #6754b8;
-  background: #f3f0fb;
+  border-left: 5px solid #b94f3d;
+  background: #fbebe5;
 }
 
 .nn-forward-layer-card > span {
-  color: #7b6bb5;
+  color: #c46a58;
   font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -658,7 +658,7 @@
 }
 
 .nn-forward-layer-card code {
-  color: #44337f;
+  color: #7d3226;
   font: 600 0.84rem/1.5 ui-monospace, Consolas, monospace;
   white-space: normal;
 }
@@ -672,7 +672,7 @@
 }
 
 .nn-forward-layer-card > div b {
-  color: #102a43;
+  color: #123d31;
 }
 
 .nn-forward-until-n > p {
@@ -684,7 +684,7 @@
 
 .nn-backward-diagram {
   padding: 22px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 16px;
   background: #fff;
 }
@@ -700,10 +700,10 @@
 .nn-flow-row > span {
   min-width: 90px;
   padding: 12px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 9px;
-  background: #f8f9fc;
-  color: #2f4358;
+  background: #f7f9f7;
+  color: #2f3d37;
   text-align: center;
   font-size: 0.78rem;
   line-height: 1.3;
@@ -716,7 +716,7 @@
 }
 
 .nn-flow-row small {
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.66rem;
 }
 
@@ -729,12 +729,12 @@
 .nn-flow-row.is-backward {
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px dashed #d7ddea;
+  border-top: 1px dashed #d7dfdb;
 }
 
 .nn-descent-diagram {
   padding: 22px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 16px;
   background: #fff;
   text-align: center;
@@ -755,7 +755,7 @@
   min-height: 130px;
   margin: 12px 0;
   padding-top: 10px;
-  border-bottom: 2px solid #d7ddea;
+  border-bottom: 2px solid #d7dfdb;
 }
 
 .nn-descent-diagram > div > div {
@@ -768,16 +768,16 @@
   display: block;
   width: 42px;
   border-radius: 5px 5px 0 0;
-  background: linear-gradient(180deg, #6754b8, #12847b);
+  background: linear-gradient(180deg, #b94f3d, #1d6650);
 }
 
 .nn-descent-diagram b {
-  color: #52647a;
+  color: #5a6862;
   font: 700 0.7rem/1 monospace;
 }
 
 .nn-descent-diagram small {
-  color: #5f7186;
+  color: #61706a;
   font: 600 0.64rem/1 monospace;
 }
 
@@ -786,14 +786,14 @@
   margin-top: 12px;
   padding: 9px 12px;
   border-radius: 6px;
-  background: #102a43;
+  background: #123d31;
   color: #ffd461;
   font: 700 0.78rem/1 ui-monospace, Consolas, monospace;
 }
 
 .nn-loop-diagram {
   padding: 22px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 16px;
   background: #fff;
   text-align: center;
@@ -810,8 +810,8 @@
 .nn-loop-steps span {
   padding: 9px 12px;
   border-radius: 7px;
-  background: #e6f4f2;
-  color: #0b6d67;
+  background: #dcefe7;
+  color: #164e3d;
   font-weight: 750;
   font-size: 0.82rem;
 }
@@ -824,7 +824,7 @@
 .nn-loop-diagram > b {
   display: block;
   margin: 14px 0;
-  color: #6754b8;
+  color: #b94f3d;
   font-size: 0.82rem;
 }
 
@@ -836,17 +836,17 @@
   height: 82px;
   margin: 10px auto 6px;
   max-width: 320px;
-  border-bottom: 2px solid #d7ddea;
+  border-bottom: 2px solid #d7dfdb;
 }
 
 .nn-loop-bars i {
   width: 28px;
   border-radius: 4px 4px 0 0;
-  background: linear-gradient(180deg, #6754b8, #2a7fb0);
+  background: linear-gradient(180deg, #b94f3d, #3a5f8a);
 }
 
 .nn-loop-diagram > small {
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.72rem;
 }
 
@@ -855,7 +855,7 @@
 .nn-lab {
   margin: 26px 0;
   padding: clamp(20px, 2.6vw, 30px);
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 18px;
   background: #fff;
 }
@@ -890,7 +890,7 @@
 .nn-lab-controls {
   padding: 18px;
   border-radius: 12px;
-  background: #f6f7fb;
+  background: #f4f6f4;
 }
 
 .nn-lab-controls label,
@@ -900,21 +900,21 @@
   gap: 9px;
   align-items: center;
   margin: 9px 0;
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.82rem;
 }
 
 .nn-lab-controls output,
 .nn-activation-slider output {
   text-align: right;
-  color: #102a43;
+  color: #123d31;
   font: 700 0.8rem/1 ui-monospace, Consolas, monospace;
 }
 
 .nn-lab-controls input[type="range"],
 .nn-activation-slider input[type="range"] {
   width: 100%;
-  accent-color: #12847b;
+  accent-color: #1d6650;
 }
 
 .nn-activation-switch {
@@ -926,17 +926,17 @@
 .nn-activation-switch button {
   flex: 1;
   padding: 9px 12px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 7px;
   background: #fff;
-  color: #52647a;
+  color: #5a6862;
   font-weight: 750;
 }
 
 .nn-activation-switch button.is-active {
-  border-color: #12847b;
-  background: #e6f4f2;
-  color: #0b6d67;
+  border-color: #1d6650;
+  background: #dcefe7;
+  color: #164e3d;
 }
 
 .nn-neuron-machine {
@@ -945,12 +945,12 @@
   gap: 9px;
   padding: 22px;
   border-radius: 12px;
-  background: #102a43;
+  background: #123d31;
   color: #fff;
 }
 
 .nn-neuron-machine > span {
-  color: #8db0c7;
+  color: #9db3a9;
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -959,7 +959,7 @@
 .nn-neuron-machine code {
   padding: 0;
   background: none;
-  color: #e6f0f7;
+  color: #e4eaf2;
   font: 500 0.78rem/1.5 ui-monospace, Consolas, monospace;
   white-space: normal;
 }
@@ -970,7 +970,7 @@
 }
 
 .nn-neuron-machine .nn-machine-output {
-  color: #69d3cd;
+  color: #9fd4bd;
 }
 
 .nn-activation-slider {
@@ -986,15 +986,15 @@
 
 .nn-plot {
   padding: 12px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 12px;
-  background: #fbfcfe;
+  background: #fbfcfb;
 }
 
 .nn-plot > b {
   display: block;
   margin: 0 0 6px 4px;
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.8rem;
 }
 
@@ -1006,21 +1006,21 @@
 
 .nn-plot-frame {
   fill: #fff;
-  stroke: #d7ddea;
+  stroke: #d7dfdb;
 }
 
 .nn-plot-axis {
-  stroke: #8fa3b6;
+  stroke: #93a19b;
   stroke-width: 1.4;
 }
 
 .nn-plot-grid {
-  stroke: #e5eaf0;
+  stroke: #e4eae7;
   stroke-width: 1;
 }
 
 .nn-plot-label {
-  fill: #5f7186;
+  fill: #61706a;
   font: 600 10px ui-monospace, Consolas, monospace;
 }
 
@@ -1034,7 +1034,7 @@
 .nn-activation-results > div {
   padding: 14px;
   border-radius: 10px;
-  background: #f6f7fb;
+  background: #f4f6f4;
 }
 
 .nn-activation-results span {
@@ -1046,12 +1046,12 @@
 .nn-activation-results strong {
   display: block;
   margin: 5px 0;
-  color: #12847b;
+  color: #1d6650;
   font: 800 1.2rem/1.2 ui-monospace, Consolas, monospace;
 }
 
 .nn-activation-results small {
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.74rem;
 }
 
@@ -1060,7 +1060,7 @@
 .nn-visual-lab {
   margin: 26px 0;
   padding: clamp(20px, 2.6vw, 30px);
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 18px;
   background: #fff;
 }
@@ -1092,9 +1092,9 @@
 
 .nn-loss-gauge {
   padding: 16px 18px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 12px;
-  background: #f8fbfb;
+  background: #f8faf9;
 }
 
 .nn-gauge-title {
@@ -1108,7 +1108,7 @@
 }
 
 .nn-gauge-title b {
-  color: #102a43;
+  color: #123d31;
   font: 800 0.92rem/1 ui-monospace, Consolas, monospace;
 }
 
@@ -1116,8 +1116,8 @@
   position: relative;
   height: 12px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #e7f0f8, #e6f4f2, #fff8e7);
-  border: 1px solid #d7ddea;
+  background: linear-gradient(90deg, #e4eaf2, #dcefe7, #fff8e7);
+  border: 1px solid #d7dfdb;
 }
 
 .nn-gauge-marker {
@@ -1128,11 +1128,11 @@
   border-radius: 50%;
   border: 3px solid #fff;
   transform: translate(-50%, -50%);
-  box-shadow: 0 2px 8px #102a4333;
+  box-shadow: 0 2px 8px #123d3133;
 }
 
 .nn-gauge-marker.is-output {
-  background: #12847b;
+  background: #1d6650;
 }
 
 .nn-gauge-marker.is-target {
@@ -1143,7 +1143,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 6px;
-  color: #5f7186;
+  color: #61706a;
   font: 600 0.65rem/1 ui-monospace, Consolas, monospace;
 }
 
@@ -1157,14 +1157,14 @@
 .nn-loss-equation > div {
   padding: 14px 16px;
   border-radius: 10px;
-  background: #102a43;
+  background: #123d31;
   color: #fff;
 }
 
 .nn-loss-equation span {
   display: block;
   margin-bottom: 6px;
-  color: #8db0c7;
+  color: #9db3a9;
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -1190,21 +1190,21 @@
   grid-template-columns: 34px minmax(0, 1fr) 54px;
   gap: 9px;
   align-items: center;
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.82rem;
 }
 
 .nn-loss-controls output,
 .nn-rate-panel output {
   text-align: right;
-  color: #102a43;
+  color: #123d31;
   font: 700 0.8rem/1 ui-monospace, Consolas, monospace;
 }
 
 .nn-loss-controls input,
 .nn-rate-panel input {
   width: 100%;
-  accent-color: #12847b;
+  accent-color: #1d6650;
 }
 
 .nn-factor-flow {
@@ -1228,9 +1228,9 @@
 .nn-factor-card {
   min-width: 118px;
   padding: 15px 14px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 11px;
-  background: #f8f9fc;
+  background: #f7f9f7;
   text-align: center;
 }
 
@@ -1245,12 +1245,12 @@
 .nn-factor-card b {
   display: block;
   margin: 7px 0 3px;
-  color: #102a43;
+  color: #123d31;
   font: 800 1.35rem/1 ui-monospace, Consolas, monospace;
 }
 
 .nn-factor-card small {
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.7rem;
 }
 
@@ -1278,10 +1278,10 @@
 .nn-backprop-selector button,
 .nn-momentum-tabs button {
   padding: 8px 11px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 7px;
   background: #fff;
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.76rem;
   font-weight: 700;
 }
@@ -1290,15 +1290,15 @@
 .nn-gradient-tabs button.is-active,
 .nn-backprop-selector button.is-active,
 .nn-momentum-tabs button.is-active {
-  border-color: #12847b;
-  background: #e6f4f2;
-  color: #0b6d67;
+  border-color: #1d6650;
+  background: #dcefe7;
+  color: #164e3d;
 }
 
 .nn-gradient-tabs > span {
   align-self: center;
   margin-left: auto;
-  color: #5f7186;
+  color: #61706a;
   font: 600 0.72rem/1 ui-monospace, Consolas, monospace;
 }
 
@@ -1309,9 +1309,9 @@
   flex-wrap: wrap;
   gap: 10px;
   padding: 18px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 12px;
-  background: #f8fbfb;
+  background: #f8faf9;
 }
 
 .nn-gradient-flow > i {
@@ -1354,9 +1354,9 @@
 .nn-backprop-card {
   min-width: 130px;
   padding: 16px 14px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 11px;
-  background: #f8f9fc;
+  background: #f7f9f7;
   text-align: center;
 }
 
@@ -1371,12 +1371,12 @@
 .nn-backprop-card b {
   display: block;
   margin: 8px 0 4px;
-  color: #102a43;
+  color: #123d31;
   font: 800 1.35rem/1 ui-monospace, Consolas, monospace;
 }
 
 .nn-backprop-card small {
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.7rem;
 }
 
@@ -1390,17 +1390,17 @@
 }
 
 .nn-backprop-card.is-selected {
-  border-color: #b9d8d4;
-  background: #e6f4f2;
+  border-color: #bcd9cb;
+  background: #dcefe7;
 }
 
 .nn-backprop-card.is-gradient {
-  border-color: #c8bde9;
-  background: #f3f0fb;
+  border-color: #efc2b5;
+  background: #fbebe5;
 }
 
 .nn-backprop-card.is-gradient b {
-  color: #513f9a;
+  color: #943c2e;
 }
 
 .nn-backprop-gradient {
@@ -1410,9 +1410,9 @@
   gap: 16px;
   margin: 16px 0;
   padding: 14px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 11px;
-  background: #fbfcfe;
+  background: #fbfcfb;
 }
 
 .nn-visual-note {
@@ -1435,9 +1435,9 @@
 
 .nn-toy-chart {
   padding: 12px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 12px;
-  background: #fbfcfe;
+  background: #fbfcfb;
 }
 
 .nn-toy-chart svg {
@@ -1448,7 +1448,7 @@
 
 .nn-toy-curve {
   fill: none;
-  stroke: #b7c4d3;
+  stroke: #b7c2bd;
   stroke-width: 3;
 }
 
@@ -1479,7 +1479,7 @@
   gap: 14px;
   padding: 18px;
   border-radius: 12px;
-  background: #f6f7fb;
+  background: #f4f6f4;
 }
 
 .nn-rate-panel label {
@@ -1489,12 +1489,12 @@
 
 .nn-rate-panel label span {
   font-weight: 700;
-  color: #52647a;
+  color: #5a6862;
 }
 
 .nn-rate-panel output {
   text-align: left;
-  color: #12847b;
+  color: #1d6650;
   font-size: 1.2rem;
 }
 
@@ -1502,7 +1502,7 @@
   display: grid;
   gap: 5px;
   padding: 13px;
-  border-left: 4px solid #12847b;
+  border-left: 4px solid #1d6650;
   background: #fff;
 }
 
@@ -1514,12 +1514,12 @@
 }
 
 .nn-rate-status b {
-  color: #102a43;
+  color: #123d31;
   font: 800 1rem/1.2 ui-monospace, Consolas, monospace;
 }
 
 .nn-rate-status small {
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.72rem;
 }
 
@@ -1534,7 +1534,7 @@
 .nn-rate-panel code {
   padding: 0;
   background: none;
-  color: #513f9a;
+  color: #943c2e;
   white-space: nowrap;
 }
 
@@ -1551,16 +1551,16 @@
   gap: 3px;
   min-width: 64px;
   padding: 9px 8px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 8px;
-  background: #f8f9fc;
-  color: #2f4358;
+  background: #f7f9f7;
+  color: #2f3d37;
   font: 700 0.75rem/1 ui-monospace, Consolas, monospace;
   text-align: center;
 }
 
 .nn-epoch-samples small {
-  color: #5f7186;
+  color: #61706a;
   font: 500 0.62rem/1.2 ui-monospace, Consolas, monospace;
 }
 
@@ -1570,25 +1570,25 @@
   width: min(420px, 100%);
   margin: 0 auto 14px;
   padding: 14px;
-  border-left: 4px solid #6754b8;
-  background: #f3f0fb;
+  border-left: 4px solid #b94f3d;
+  background: #fbebe5;
   text-align: center;
 }
 
 .nn-epoch-average span {
-  color: #7b6bb5;
+  color: #c46a58;
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
 .nn-epoch-average b {
-  color: #44337f;
+  color: #7d3226;
   font: 800 0.9rem/1.3 ui-monospace, Consolas, monospace;
 }
 
 .nn-epoch-average small {
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.7rem;
 }
 
@@ -1596,10 +1596,10 @@
 
 .nn-playground {
   margin: 34px 0 10px;
-  border: 1px solid #cfd8e4;
+  border: 1px solid #cfd9d4;
   border-radius: 22px;
   background: #fff;
-  box-shadow: 0 20px 50px #24345412;
+  box-shadow: 0 20px 50px #31473c12;
   overflow: hidden;
 }
 
@@ -1609,8 +1609,8 @@
   justify-content: space-between;
   gap: 24px;
   padding: 24px 26px;
-  border-bottom: 1px solid #e1e6ee;
-  background: linear-gradient(120deg, #f8fbfb, #f4f2fb);
+  border-bottom: 1px solid #dfe6e2;
+  background: linear-gradient(120deg, #f8faf9, #fcefea);
 }
 
 .nn-playground-head h3 {
@@ -1630,8 +1630,8 @@
 .nn-lock-badge {
   padding: 6px 9px;
   border-radius: 999px;
-  background: #e6f4f2;
-  color: #0b6d67;
+  background: #dcefe7;
+  color: #164e3d;
   font-size: 0.68rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -1645,10 +1645,10 @@
 
 .nn-reset {
   padding: 8px 10px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 7px;
   background: #fff;
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.76rem;
   font-weight: 700;
 }
@@ -1665,12 +1665,12 @@
 .nn-status {
   min-height: 24px;
   margin-bottom: 10px;
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.86rem;
 }
 
 .nn-status.ok {
-  color: #0b6d67;
+  color: #164e3d;
 }
 
 .nn-status.err {
@@ -1678,7 +1678,7 @@
 }
 
 .nn-status.info {
-  color: #2f5f86;
+  color: #243a5a;
 }
 
 .nn-canvas-wrap {
@@ -1686,11 +1686,11 @@
   display: flex;
   justify-content: center;
   overflow-x: auto;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 14px;
   background:
-    radial-gradient(circle, #e9edf4 1px, transparent 1px) 0 0 / 22px 22px,
-    #fbfcfe;
+    radial-gradient(circle, #e7ede9 1px, transparent 1px) 0 0 / 22px 22px,
+    #fbfcfb;
 }
 
 .nn-canvas {
@@ -1706,18 +1706,18 @@
   place-items: center;
   min-height: 180px;
   padding: 24px;
-  border: 1px dashed #cfd8e4;
+  border: 1px dashed #cfd9d4;
   border-radius: 14px;
-  background: #fbfcfe;
+  background: #fbfcfb;
   text-align: center;
 }
 
 .nn-canvas-empty b {
-  color: #52647a;
+  color: #5a6862;
 }
 
 .nn-canvas-empty span {
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.86rem;
 }
 
@@ -1740,7 +1740,7 @@
 }
 
 .nn-edge.is-hot {
-  stroke: #2aa7b8 !important;
+  stroke: #3f8f73 !important;
   opacity: 1;
 }
 
@@ -1778,14 +1778,14 @@
 
 .nn-node circle {
   fill: #fff;
-  stroke: #9fb3c8;
+  stroke: #a3b0aa;
   stroke-width: 2;
   transition: fill 0.15s, stroke 0.15s;
 }
 
 .nn-node.is-lit circle {
-  fill: #e6f4f2;
-  stroke: #12847b;
+  fill: #dcefe7;
+  stroke: #1d6650;
 }
 
 .nn-node.is-selected circle {
@@ -1794,12 +1794,12 @@
 }
 
 .nn-node.is-hot circle {
-  stroke: #2aa7b8;
+  stroke: #3f8f73;
   stroke-width: 3;
 }
 
 .nn-node text {
-  fill: #102a43;
+  fill: #123d31;
   font: 700 10px/1 ui-monospace, Consolas, monospace;
   text-anchor: middle;
   pointer-events: none;
@@ -1844,11 +1844,11 @@
   gap: 3px;
   max-width: 390px;
   padding: 11px 13px;
-  border: 1px solid #cfd8e4;
+  border: 1px solid #cfd9d4;
   border-radius: 9px;
   background: #fffffff5;
-  box-shadow: 0 14px 40px #102a4326;
-  color: #2f4358;
+  box-shadow: 0 14px 40px #123d3126;
+  color: #2f3d37;
   font: 500 0.74rem/1.45 ui-monospace, Consolas, monospace;
   pointer-events: none;
   white-space: pre-wrap;
@@ -1872,19 +1872,19 @@
 .nn-legend-line {
   width: 22px;
   height: 0;
-  border-top: 3px solid #12847b;
+  border-top: 3px solid #1d6650;
 }
 
 .nn-legend-line.is-neg {
-  border-top-color: #2a7fb0;
+  border-top-color: #3a5f8a;
 }
 
 .nn-matrix-panel {
   margin-top: 16px;
   padding: 14px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 12px;
-  background: #fbfcfe;
+  background: #fbfcfb;
   overflow-x: auto;
 }
 
@@ -1904,7 +1904,7 @@
 
 .nn-matrix-row-label {
   min-width: 48px;
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.64rem;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -1918,28 +1918,28 @@
 }
 
 .nn-matrix-op {
-  color: #5f7186;
+  color: #61706a;
   font: 700 1rem/1 ui-monospace, Consolas, monospace;
 }
 
 .nn-matrix-card {
   margin: 0;
   padding: 6px 8px 8px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 8px;
   background: #fff;
 }
 
 .nn-matrix-card figcaption {
   margin-bottom: 4px;
-  color: #5f7186;
+  color: #61706a;
   font: 600 0.64rem/1.3 ui-monospace, Consolas, monospace;
 }
 
 .nn-training {
   margin-top: 16px;
   padding: 14px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 12px;
   background: #fff;
 }
@@ -1958,27 +1958,27 @@
 }
 
 .nn-chart-axis {
-  stroke: #cfd8e4;
+  stroke: #cfd9d4;
   stroke-width: 1;
 }
 
 .nn-loss-line {
   fill: none;
-  stroke: #6754b8;
+  stroke: #b94f3d;
   stroke-width: 2.4;
 }
 
 .nn-chart-label {
-  fill: #5f7186;
+  fill: #61706a;
   font: 600 10px ui-monospace, Consolas, monospace;
 }
 
 .nn-training-empty {
   margin-top: 16px;
   padding: 22px;
-  border: 1px dashed #cfd8e4;
+  border: 1px dashed #cfd9d4;
   border-radius: 12px;
-  background: #fbfcfe;
+  background: #fbfcfb;
   color: #52615b;
   font-size: 0.88rem;
   text-align: center;
@@ -1987,7 +1987,7 @@
 .nn-results {
   margin-top: 16px;
   padding: 14px;
-  border: 1px solid #e1e6ee;
+  border: 1px solid #dfe6e2;
   border-radius: 12px;
   background: #fff;
   overflow-x: auto;
@@ -2008,13 +2008,13 @@
 .nn-results th,
 .nn-results td {
   padding: 7px 9px;
-  border-bottom: 1px solid #eef1f5;
+  border-bottom: 1px solid #edf1ef;
   text-align: left;
   white-space: nowrap;
 }
 
 .nn-results th {
-  background: #f6f7fb;
+  background: #f4f6f4;
   color: #52615b;
   font-size: 0.66rem;
   text-transform: uppercase;
@@ -2022,7 +2022,7 @@
 }
 
 .nn-results td.is-ok {
-  color: #0b6d67;
+  color: #164e3d;
   font-weight: 800;
 }
 
@@ -2064,8 +2064,8 @@
   margin: 0;
   padding: 12px 14px;
   border-radius: 8px;
-  background: #102a43;
-  color: #e6f0f7;
+  background: #123d31;
+  color: #e4eaf2;
   font: 500 0.76rem/1.55 ui-monospace, Consolas, monospace;
   overflow-x: auto;
   white-space: pre;
@@ -2074,20 +2074,20 @@
 .nn-observe {
   margin: 0;
   padding: 16px 18px;
-  border: 1px solid #e1e6ee;
-  border-left: 5px solid #12847b;
+  border: 1px solid #dfe6e2;
+  border-left: 5px solid #1d6650;
   border-radius: 0 12px 12px 0;
-  background: #f8fbfb;
+  background: #f8faf9;
 }
 
 .nn-observe .mini-label {
   margin-bottom: 9px;
-  color: #0b6d67;
+  color: #164e3d;
 }
 
 .nn-observe p {
   margin: 0;
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.88rem;
   line-height: 1.55;
 }
@@ -2103,7 +2103,7 @@
 .nn-observe li {
   position: relative;
   padding-left: 20px;
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.88rem;
   line-height: 1.5;
 }
@@ -2112,7 +2112,7 @@
   content: "→";
   position: absolute;
   left: 0;
-  color: #12847b;
+  color: #1d6650;
   font-weight: 900;
 }
 
@@ -2130,8 +2130,8 @@
   justify-content: space-between;
   gap: 20px;
   padding: 18px 26px 14px;
-  border-top: 1px solid #e1e6ee;
-  background: #fbfcfe;
+  border-top: 1px solid #dfe6e2;
+  background: #fbfcfb;
 }
 
 .nn-editor-head h4 {
@@ -2140,13 +2140,13 @@
 }
 
 .nn-editor-head span {
-  color: #5f7186;
+  color: #61706a;
   font-size: 0.76rem;
 }
 
 .nn-editor-head kbd {
   padding: 2px 5px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-bottom-width: 2px;
   border-radius: 4px;
   background: #fff;
@@ -2161,35 +2161,35 @@
 
 .nn-editor-actions button {
   padding: 9px 12px;
-  border: 1px solid #d7ddea;
+  border: 1px solid #d7dfdb;
   border-radius: 7px;
   background: #fff;
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.78rem;
   font-weight: 750;
 }
 
 .nn-editor-actions button:hover:not(:disabled) {
-  border-color: #6754b8;
-  color: #513f9a;
+  border-color: #b94f3d;
+  color: #943c2e;
 }
 
 .nn-editor-actions .nn-run {
-  border-color: #12847b;
-  background: #12847b;
+  border-color: #1d6650;
+  background: #1d6650;
   color: #fff;
 }
 
 .nn-editor-actions .nn-run:hover:not(:disabled) {
-  background: #0b6d67;
-  border-color: #0b6d67;
+  background: #164e3d;
+  border-color: #164e3d;
   color: #fff;
 }
 
 .nn-editor {
   display: grid;
   grid-template-columns: 46px minmax(0, 1fr);
-  background: #102a43;
+  background: #123d31;
   min-height: 260px;
   overflow: hidden;
 }
@@ -2198,8 +2198,8 @@
   position: relative;
   height: 100%;
   min-height: 0;
-  border-right: 1px solid #24445e;
-  color: #6f8aa0;
+  border-right: 1px solid #1d4a3c;
+  color: #7e8c86;
   text-align: right;
   user-select: none;
   overflow: hidden;
@@ -2247,7 +2247,7 @@
   outline: 0;
   resize: none;
   background: transparent;
-  color: #e6f0f7;
+  color: #e4eaf2;
   caret-color: #ffd461;
   font: 500 12.5px/20px ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
   white-space: pre;
@@ -2292,7 +2292,7 @@
   padding: 10px 14px;
   border: 0;
   border-radius: 8px;
-  background: #12847b;
+  background: #1d6650;
   color: #fff;
   font-weight: 750;
 }
@@ -2301,7 +2301,7 @@
   margin: 24px 0;
   padding: 22px;
   border-radius: 14px;
-  background: #102a43;
+  background: #123d31;
   color: #fff;
   text-align: center;
   font: 700 clamp(0.9rem, 1.6vw, 1.2rem)/1.6 ui-monospace, Consolas, monospace;
@@ -2330,12 +2330,12 @@
 }
 
 .nn-summary-grid b {
-  color: #12847b;
+  color: #1d6650;
 }
 
 .nn-summary-grid p {
   margin: 8px 0 0;
-  color: #52647a;
+  color: #5a6862;
   font-size: 0.9rem;
   line-height: 1.5;
 }
@@ -2343,7 +2343,7 @@
 .nn-source-note {
   margin-top: 26px;
   padding-top: 18px;
-  border-top: 1px solid #d9dfeb;
+  border-top: 1px solid #d7dfdb;
   color: #52615b;
   font-size: 0.84rem;
 }
@@ -2478,4 +2478,51 @@
   .nn-matrix-row-label {
     width: 100%;
   }
+}
+
+/* ------------------------------------------- títulos como no portal */
+
+.friendly-site h1,
+.friendly-site .section-title h2,
+.classes-hero h1,
+.classes-path-head h2,
+.classes-how h2,
+.class-card h3 {
+  color: #123d31;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.friendly-site .section-title h2 {
+  line-height: 1.12;
+}
+
+.classes-hero h1 {
+  font-size: clamp(2.5rem, 4.4vw, 4.2rem);
+  line-height: 1.04;
+}
+
+.classes-hero h1 em {
+  color: #b94f3d;
+}
+
+.chapter-controls progress {
+  appearance: none;
+  background: #dfe6e2;
+}
+
+.chapter-controls progress::-webkit-progress-bar {
+  border-radius: 5px;
+  background: #dfe6e2;
+}
+
+.chapter-controls progress::-webkit-progress-value {
+  border-radius: 5px;
+  background: #1d6650;
+}
+
+.chapter-controls progress::-moz-progress-bar {
+  border-radius: 5px;
+  background: #1d6650;
 }

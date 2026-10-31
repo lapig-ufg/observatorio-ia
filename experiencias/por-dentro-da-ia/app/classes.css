@@ -7,8 +7,8 @@
   min-height: 86px;
   padding: 10px clamp(20px, 4vw, 56px);
   background: #fffffff2;
-  border-bottom: 1px solid #dfe3eb;
-  box-shadow: 0 5px 22px #102a430f;
+  border-bottom: 1px solid #dde4e0;
+  box-shadow: 0 5px 22px #123d310f;
   backdrop-filter: blur(12px);
 }
 
@@ -103,14 +103,16 @@
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   row-gap: 3px;
   width: fit-content;
   margin-top: 14px;
-  padding: 2px 0 2px 10px;
-  border-left: 2px solid #b94f3d;
-  color: #6b4a1f;
-  font-size: 0.7rem;
+  padding: 5px 16px 5px 6px;
+  border: 1px solid #f0cdb8;
+  border-radius: 999px;
+  background: #fdf1e8;
+  color: #a9522a;
+  font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   line-height: 1.2;
@@ -138,8 +140,9 @@
 
 .halloween-icon {
   flex: 0 0 auto;
-  width: 18px;
-  height: 18px;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
 }
 
 .class-card .halloween-kicker {
@@ -148,7 +151,7 @@
 
 .classes-home {
   background:
-    radial-gradient(circle at 88% 6%, #e6f4f2 0, transparent 28%),
+    radial-gradient(circle at 88% 6%, #dcefe7 0, transparent 28%),
     radial-gradient(circle at 4% 42%, #f0e9dc 0, transparent 24%),
     #f4f6f4;
 }
@@ -253,11 +256,11 @@
   position: absolute;
   inset: 0 0 auto;
   height: 5px;
-  background: #087f7b;
+  background: #1d6650;
 }
 
 .class-card.is-transformer::before {
-  background: #6754b8;
+  background: #b94f3d;
 }
 
 .class-card:hover {
@@ -281,8 +284,8 @@
 .class-badge {
   padding: 6px 9px;
   border-radius: 999px;
-  background: #e6f4f2;
-  color: #0b6d67;
+  background: #dcefe7;
+  color: #164e3d;
   font-size: 0.68rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -290,8 +293,8 @@
 }
 
 .class-badge.is-secondary {
-  background: #eeebf8;
-  color: #513f9a;
+  background: #fae6df;
+  color: #943c2e;
 }
 
 .class-card h3 {
@@ -304,13 +307,13 @@
 
 .class-subtitle {
   margin: 8px 0 0;
-  color: #087f7b;
+  color: #1d6650;
   font-weight: 750;
   font-size: 1.02rem;
 }
 
 .class-card.is-transformer .class-subtitle {
-  color: #6754b8;
+  color: #b94f3d;
 }
 
 .class-description {
@@ -360,11 +363,11 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #087f7b;
+  background: #1d6650;
 }
 
 .class-card.is-transformer .class-meta span::before {
-  background: #6754b8;
+  background: #b94f3d;
 }
 
 .class-cta {
@@ -380,13 +383,13 @@
 
 .class-cta i {
   font-style: normal;
-  color: #087f7b;
+  color: #1d6650;
   font-size: 1.2rem;
   transition: transform 0.18s ease;
 }
 
 .class-card.is-transformer .class-cta i {
-  color: #6754b8;
+  color: #b94f3d;
 }
 
 .class-card:hover .class-cta i {
@@ -473,7 +476,7 @@
 }
 
 .classes-footer a {
-  color: #087f7b;
+  color: #1d6650;
   font-weight: 800;
   white-space: nowrap;
 }

@@ -1,41 +1,14 @@
+// Ilustração gerada pelo Imagen (agy), com o fundo removido.
 export function HalloweenIcon({ className = "" }: { className?: string }) {
   return (
-    <svg
+    <img
       className={`halloween-icon ${className}`.trim()}
-      viewBox="0 0 24 24"
+      src={`${import.meta.env.BASE_URL}halloween/abobora.png`}
+      width={128}
+      height={128}
+      alt=""
       aria-hidden="true"
-      focusable="false"
-    >
-      <path
-        d="M12 5.9C10.9 4.7 9.5 4.4 8.2 4.9 5.2 6 3.6 8.6 3.6 11.9c0 3.8 3.7 6.5 8.4 6.5s8.4-2.7 8.4-6.5c0-3.3-1.6-5.9-4.6-7-1.3-.5-2.7-.2-3.8 1Z"
-        fill="#f4ddcd"
-        stroke="#114d3b"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8.7 5.6C7.3 7.2 6.5 9.4 6.5 11.9c0 2.6 1 4.8 2.7 6"
-        fill="none"
-        stroke="#114d3b"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M15.3 5.6c1.4 1.6 2.2 3.8 2.2 6.3 0 2.6-1 4.8-2.7 6"
-        fill="none"
-        stroke="#114d3b"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M12.1 5.9c-.2-1.6.5-2.7 2-3.2"
-        fill="none"
-        stroke="#114d3b"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-      />
-      <path d="M14.2 4.2c1.1-.9 2.6-.9 3.6 0-1.1 1-2.6 1-3.6 0Z" fill="#114d3b" />
-    </svg>
+    />
   );
 }
 
