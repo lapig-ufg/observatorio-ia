@@ -107,6 +107,10 @@ test('as sete abas reais renderizam em inglês e português, sem lacunas de voca
       assert(html.length>1000,`${english}/${tab}`);
       assert(!html.includes('Missing policy UI translation'));
       if(english){assert(!html.includes('Onde declarar'));assert(!html.includes('Gerar texto'));assert(!html.includes('Fonte primária'));}
+      if(tab==='autores'){
+        assert(!html.includes('RAE, RBCS-ANPOCS'));
+        assert.equal(pt.rows.find(row=>row.nome==='Rev. Brasileira de Ciências Sociais (ANPOCS)').gen,'Permitida');
+      }
       if(tab==='metodo'){
         assert(html.includes(`base-politicas-ia-2026-10${english?'-en':''}.csv`));
         assert(html.includes(`base-politicas-ia-2026-10${english?'-en':''}.xlsx`));
