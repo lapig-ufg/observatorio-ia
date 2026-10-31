@@ -38,7 +38,7 @@ export function featuredManifest(source) {
   });
   if (!materials.length || new Set(materials.map(x => x.href)).size !== materials.length) throw new Error('Featured materials missing or duplicated');
   for (const material of materials) {
-    if (!['audio', 'presentation', 'document', 'survey'].includes(material.kind) || !/^(https:\/\/|#)/.test(material.href)) throw new Error('Invalid featured material');
+    if (!['audio', 'presentation', 'document', 'survey', 'lesson'].includes(material.kind) || !/^(https:\/\/|#)/.test(material.href)) throw new Error('Invalid featured material');
   }
   return {schemaVersion: 1, edition: string(prop(pt, 'title')), startsOn: string(prop(pt, 'startsOn')), editionAliases: [string(prop(prop(editions, 'en'), 'title'))], materials};
 }

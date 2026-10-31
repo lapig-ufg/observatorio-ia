@@ -77,6 +77,35 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    "date": "25 a 31 de outubro de 2026",
+    "source": "Leão XIV / Santa Sé · curadoria do Observatório UFG-IA",
+    "title": "Magnifica Humanitas: a dignidade humana na era da IA",
+    "summary": "Encíclica sobre dignidade humana, discernimento ético, acesso desigual à IA e responsabilidade. Texto original da Santa Sé, podcast complementar e apresentação; a gravura editorial aborda o risco de ampliar desigualdades.",
+    "links": [
+      {
+        "label": "Encíclica original (PDF)",
+        "href": "https://drive.google.com/file/d/185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/view"
+      },
+      {
+        "label": "Texto oficial em português",
+        "href": "https://www.vatican.va/content/leo-xiv/pt/encyclicals/documents/20260515-magnifica-humanitas.html"
+      },
+      {
+        "label": "Texto oficial em inglês",
+        "href": "https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html"
+      },
+      {
+        "label": "Ouvir podcast",
+        "href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"
+      },
+      {
+        "label": "Ver apresentação",
+        "href": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
+      }
+    ],
+    "eventLabel": "magnifica-humanitas-20261025"
+  },
+  {
     "date": "18 a 24 de outubro de 2026",
     "source": "Curadoria do Observatório UFG-IA",
     "title": "IA na publicação científica: regras diversas, responsabilidade humana",

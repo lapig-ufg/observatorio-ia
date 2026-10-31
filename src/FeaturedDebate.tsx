@@ -1,90 +1,59 @@
 import { useEffect, useRef } from "react";
-import { ArrowUpRight, FileText, Headphones, Presentation, TableProperties } from "lucide-react";
+import { ArrowUpRight, FileText, Headphones, Presentation, TableProperties, Network } from "lucide-react";
 import { trackEvent } from "./analytics";
 import { assetUrl } from "./catalog";
 
 type Language = "pt" | "en";
-type MaterialKind = "audio" | "presentation" | "document" | "survey";
-
-const sources = {
-  "original": "https://drive.google.com/file/d/185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/view",
-  "officialPT": "https://www.vatican.va/content/leo-xiv/pt/encyclicals/documents/20260515-magnifica-humanitas.html",
-  "officialEN": "https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html",
-  "podcast": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view",
-  "presentation": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
-};
+type MaterialKind = "audio" | "presentation" | "document" | "survey" | "lesson";
 
 const editions = {
   "pt": {
-    "startsOn": "2026-10-24",
+    "startsOn": "2026-10-31",
     "kicker": "Em destaque...",
-    "period": "25 a 31 out 2026 · encíclica, podcast e apresentação",
-    "eyebrow": "Dignidade humana, discernimento e bem comum",
-    "title": "Magnifica Humanitas: a dignidade humana na era da IA",
-    "lead": "Em Magnifica Humanitas, Leão XIV desloca o debate do simples apoio ou rejeição à tecnologia para o discernimento sobre quem ela serve. A encíclica reconhece a contribuição da IA ao cuidado, à educação e ao desenvolvimento humano, enquanto exige que seu uso preserve a dignidade da pessoa, a responsabilidade e o bem comum. O acesso desigual a esses recursos e o risco de ampliar desigualdades tornam essa responsabilidade ainda mais urgente.",
-    "first": "O ponto de partida é a Doutrina Social da Igreja e sua compreensão cristã da pessoa. As imagens de Babel e da reconstrução de Jerusalém contrapõem a concentração de poder à cooperação e à responsabilidade partilhada (§§7–10). A técnica pode beneficiar a humanidade, mas suas escolhas não são neutras: incorporam valores, interesses e parâmetros culturais de quem a desenvolve, financia, regula e utiliza (§§9 e 100–104). Por isso, a dignidade humana não pode ser reduzida a dados, produtividade ou capacidade de otimização. Transparência, prestação de contas, participação e regras adequadas devem orientar o desenvolvimento e o uso da IA (§§105–111). Isso inclui ampliar o acesso às tecnologias e à formação, evitando que dados e capacidade computacional reforcem privilégios já concentrados (§§108–109).",
-    "second": "Esse discernimento alcança a verdade pública, a educação, o trabalho e as formas de exploração (§§132–177). O alerta sobre perda de empregos é contextual e condicionado; não constitui uma previsão quantitativa inevitável (§§151–156). No campo militar, o texto rejeita confiar a sistemas artificiais decisões letais ou irreversíveis e exige responsabilidade identificável, rastreabilidade e controle humano efetivo, consciente e responsável (§§197–200). É uma orientação ética, teológica e social: a tecnologia deve servir à vida, à dignidade e à convivência humana. A encíclica é a fonte primária; podcast e apresentação são materiais complementares de leitura e discussão.",
-    "imageAlt": "Uma pequena mesa com livros, computadores e servidores atrás de um portão, separada por um abismo de um grupo diverso com livros e carteiras escolares; pontes incompletas e o livro Magnifica Humanitas simbolizam o desafio do acesso equitativo à IA.",
-    "imageCredit": "Ilustração editorial: Observatório UFG-IA · gerada com IA; metáfora do acesso desigual, sem representação quantitativa",
-    "explore": "Três caminhos para explorar o tema",
-    "note": "Encíclica original da Santa Sé · podcast e apresentação em português.",
-    "sourceLabel": "Conferir os parágrafos na fonte oficial da Santa Sé",
+    "period": "1 a 7 nov 2026 · redes neurais e IA na universidade",
+    "eyebrow": "Aprender por dentro, decidir com fundamento",
+    "title": "Do neurônio ao campus: entender para decidir",
+    "lead": "Como uma rede neural aprende — e o que é preciso para manter uma IA na universidade? Explore uma rede pequena, treinável e totalmente visível; depois, examine os custos e as escolhas de infraestrutura de uma IA própria no campus.",
+    "first": "Na aula interativa, uma rede com duas entradas, três neurônios ocultos e uma saída permite acompanhar o ciclo de aprendizado: passagem direta, cálculo do erro, retropropagação e atualização dos pesos. Os cinco playgrounds rodam no navegador, com números e operações à vista.",
+    "second": "O levantamento compara a compra e a operação de um modelo de pesos abertos por cinco anos com a contratação por uso. Equipamentos, equipe, energia, manutenção, demanda e redundância entram na discussão. São estimativas para orientar o debate, não um orçamento ou uma decisão de compra; operar esse modelo institucional é uma questão distinta de treinar a pequena rede didática.",
+    "imageAlt": "Gravura em verde e cobre sobre papel claro: uma rede de neurônios desenhada em um caderno aberto se conecta a um gabinete de servidores, com edifícios universitários ao fundo.",
+    "imageCredit": "Gravura editorial: Observatório UFG-IA · gerada com IA; composição simbólica",
+    "explore": "Dois caminhos complementares",
+    "note": "Dois conteúdos do Observatório UFG-IA.",
     "quick": [
       {
-        "kind": "document",
-        "label": "Ler encíclica (PDF)",
-        "href": "https://drive.google.com/file/d/185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/view"
+        "kind": "lesson",
+        "label": "Explorar a rede neural",
+        "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/"
       },
       {
-        "kind": "audio",
-        "label": "Ouvir podcast",
-        "href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"
-      },
-      {
-        "kind": "presentation",
-        "label": "Ver apresentação",
-        "href": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
+        "kind": "survey",
+        "label": "Quanto custa uma IA própria?",
+        "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
       }
     ],
     "cards": [
       {
-        "meta": "Fonte primária · Leão XIV · 15 de maio de 2026",
-        "title": "Carta Encíclica Magnifica Humanitas",
-        "description": "Texto integral sobre a salvaguarda da pessoa humana na era da inteligência artificial. Assinada em 15 de maio de 2026. PDF preservado em Documentos gerais e acesso ao texto oficial da Santa Sé.",
+        "meta": "Aula interativa · Por dentro da IA",
+        "title": "Como construir uma rede neural pequena, treinável e totalmente visível",
+        "description": "Do neurônio à atualização dos pesos: 26 capítulos e cinco playgrounds para construir, inspecionar e treinar uma rede no navegador.",
         "links": [
           {
-            "kind": "document",
-            "label": "Ler encíclica original (PDF)",
-            "href": "https://drive.google.com/file/d/185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/view"
-          },
-          {
-            "kind": "document",
-            "label": "Ler na Santa Sé",
-            "href": "https://www.vatican.va/content/leo-xiv/pt/encyclicals/documents/20260515-magnifica-humanitas.html"
+            "kind": "lesson",
+            "label": "Abrir a aula de redes neurais",
+            "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/"
           }
         ]
       },
       {
-        "meta": "Podcast · material complementar · português",
-        "title": "A crítica do Papa à inteligência artificial",
-        "description": "Áudio indicado pelo editor para acompanhar a leitura da encíclica. Uma entrada complementar para o debate; para conferir a formulação e o contexto das afirmações, consulte o texto original. Formato M4A.",
+        "meta": "Levantamento · infraestrutura e custos",
+        "title": "Quanto custa ter uma IA própria rodando dentro da universidade?",
+        "description": "Compare cenários de público e redundância, custos de compra e operação por cinco anos e a alternativa de pagar por uso. Consulte as hipóteses e os limites de cada estimativa.",
         "links": [
           {
-            "kind": "audio",
-            "label": "Ouvir o podcast",
-            "href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"
-          }
-        ]
-      },
-      {
-        "meta": "Apresentação · síntese visual · português",
-        "title": "Magnifica Humanitas",
-        "description": "Quinze lâminas sobre dignidade, humanismo cristão, governança, justiça social e responsabilidade. Síntese visual baseada na encíclica, com marca Gemini Notebook, para estudo e discussão. PDF em português.",
-        "links": [
-          {
-            "kind": "presentation",
-            "label": "Ver apresentação (PDF)",
-            "href": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
+            "kind": "survey",
+            "label": "Explorar o levantamento",
+            "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
           }
         ]
       }
@@ -92,73 +61,50 @@ const editions = {
   },
   "en": {
     "kicker": "Featured",
-    "period": "Oct 25, 2026 – Oct 31, 2026 · encyclical, podcast and presentation",
-    "eyebrow": "Human dignity, discernment and the common good",
-    "title": "Magnifica Humanitas: human dignity in the age of AI",
-    "lead": "In Magnifica Humanitas, Leo XIV shifts the debate from simply accepting or rejecting technology to discerning whom it serves. The encyclical recognizes AI’s contribution to care, education and human development, while insisting that its use safeguard personal dignity, responsibility and the common good. Unequal access to these resources and the risk of widening inequality make that responsibility more urgent.",
-    "first": "The starting point is Catholic social teaching and its Christian understanding of the human person. The images of Babel and the rebuilding of Jerusalem contrast concentrated power with cooperation and shared responsibility (§§7–10). Technology can benefit humanity, but its choices are not neutral: they embody the values, interests and cultural assumptions of those who develop, finance, regulate and use it (§§9 and 100–104). Human dignity therefore cannot be reduced to data, productivity or optimization. Transparency, accountability, participation and appropriate rules should guide AI’s development and use (§§105–111). This includes widening access to technology and education, rather than allowing concentrated data and computing capacity to reinforce existing privilege (§§108–109).",
-    "second": "This discernment encompasses public truth, education, work and exploitation (§§132–177). The warning about job losses is contextual and conditional, rather than an inevitable quantitative forecast (§§151–156). In warfare, the text rejects entrusting lethal or irreversible decisions to artificial systems and requires identifiable responsibility, traceability and effective, conscious and responsible human control (§§197–200). Its guidance is ethical, theological and social: technology should serve life, dignity and human coexistence. The encyclical is the primary source; the podcast and presentation are companion materials for reading and discussion.",
-    "imageAlt": "A small table with books, computers and servers behind a gate, separated by a chasm from a diverse group with books and school desks; incomplete bridges and the book Magnifica Humanitas symbolize the challenge of equitable access to AI.",
-    "imageCredit": "Editorial illustration: UFG-AI Observatory · AI-generated metaphor of unequal access, not a quantitative representation",
-    "explore": "Three ways to explore the topic",
-    "note": "Official encyclical available in English · companion audio and slides in Portuguese.",
-    "sourceLabel": "Check the paragraphs in the Holy See’s official text",
+    "period": "Nov 1–7, 2026 · neural networks and AI at university",
+    "eyebrow": "Understand the workings, make informed choices",
+    "title": "From neuron to campus: understand, then decide",
+    "lead": "How does a neural network learn — and what does it take to run AI at a university? Explore a small, trainable, fully visible network, then examine the costs and infrastructure choices involved in running AI on campus.",
+    "first": "In the interactive class, a network with two inputs, three hidden neurons and one output reveals the learning cycle: forward propagation, error calculation, backpropagation and weight updates. Five playgrounds run in the browser, keeping numbers and operations visible.",
+    "second": "The survey compares purchasing and operating an open-weight model over five years with paying for usage. Equipment, staffing, energy, maintenance, demand and redundancy all enter the discussion. These estimates inform debate; they are not a budget or procurement decision. Operating that institutional model is a different task from training the small teaching network.",
+    "imageAlt": "An engraving in green and copper on light paper: a neural network drawn in an open notebook connects to a server cabinet, with university buildings in the background.",
+    "imageCredit": "Editorial engraving: UFG-AI Observatory · AI-generated symbolic composition",
+    "explore": "Two complementary paths",
+    "note": "Two Observatory resources, available in Portuguese.",
     "quick": [
       {
-        "kind": "document",
-        "label": "Read encyclical (English)",
-        "href": "https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html"
+        "kind": "lesson",
+        "label": "Explore the neural network (Portuguese)",
+        "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/"
       },
       {
-        "kind": "audio",
-        "label": "Listen to podcast (Portuguese)",
-        "href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"
-      },
-      {
-        "kind": "presentation",
-        "label": "View presentation (Portuguese)",
-        "href": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
+        "kind": "survey",
+        "label": "The cost of on-campus AI (Portuguese)",
+        "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
       }
     ],
     "cards": [
       {
-        "meta": "Primary source · Leo XIV · 15 May 2026",
-        "title": "Encyclical Letter Magnifica Humanitas",
-        "description": "The complete text on safeguarding the human person in the time of artificial intelligence, signed on 15 May 2026. Read the Holy See’s official English text or the preserved Portuguese PDF.",
+        "meta": "Interactive class · Inside AI · Portuguese",
+        "title": "Build a small, trainable, fully visible neural network",
+        "description": "From a neuron to weight updates: 26 chapters and five playgrounds for building, inspecting and training a network in your browser.",
         "links": [
           {
-            "kind": "document",
-            "label": "Read official English text",
-            "href": "https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html"
-          },
-          {
-            "kind": "document",
-            "label": "Open original PDF (Portuguese)",
-            "href": "https://drive.google.com/file/d/185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/view"
+            "kind": "lesson",
+            "label": "Open the neural network class (Portuguese)",
+            "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/"
           }
         ]
       },
       {
-        "meta": "Podcast · companion material · Portuguese",
-        "title": "The Pope’s critique of artificial intelligence",
-        "description": "Audio selected by the editor to accompany the encyclical. A companion introduction to the discussion; consult the original document to check the wording and context of its claims. M4A format, in Portuguese.",
+        "meta": "Survey · infrastructure and costs · Portuguese",
+        "title": "What does it cost to run AI within a university?",
+        "description": "Compare audience sizes and redundancy, five-year purchase and operating costs, and the pay-per-use alternative. Check the assumptions and limits behind each estimate.",
         "links": [
           {
-            "kind": "audio",
-            "label": "Listen to the podcast (Portuguese)",
-            "href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"
-          }
-        ]
-      },
-      {
-        "meta": "Presentation · visual synthesis · Portuguese",
-        "title": "Magnifica Humanitas",
-        "description": "Fifteen slides on dignity, Christian humanism, governance, social justice and responsibility. A visual synthesis based on the encyclical, bearing the Gemini Notebook mark, for study and discussion. Portuguese PDF.",
-        "links": [
-          {
-            "kind": "presentation",
-            "label": "View presentation (Portuguese PDF)",
-            "href": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
+            "kind": "survey",
+            "label": "Explore the survey (Portuguese)",
+            "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
           }
         ]
       }
@@ -173,6 +119,7 @@ function MaterialIcon({ kind }: { kind: MaterialKind }) {
   if (kind === "audio") return <Headphones size={15} aria-hidden="true" />;
   if (kind === "presentation") return <Presentation size={15} aria-hidden="true" />;
   if (kind === "document") return <FileText size={15} aria-hidden="true" />;
+  if (kind === "lesson") return <Network size={15} aria-hidden="true" />;
   if (kind === "survey") return <TableProperties size={15} aria-hidden="true" />;
   return <ArrowUpRight size={15} aria-hidden="true" />;
 }
@@ -214,15 +161,15 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
       </div>
       <figure className="featured-debate-art">
         <picture>
-        <source type="image/webp" srcSet={`${assetUrl("covers/magnifica-humanitas-desigualdade-2026-10-25-640.webp")} 640w, ${assetUrl("covers/magnifica-humanitas-desigualdade-2026-10-25-1280.webp")} 1280w`} sizes="(max-width: 700px) calc(100vw - 64px), 550px" />
-        <img src={assetUrl("covers/magnifica-humanitas-desigualdade-2026-10-25.png")} alt={edition.imageAlt} width="1672" height="941" decoding="async" />
+        <source type="image/webp" srcSet={`${assetUrl("covers/do-neuronio-ao-campus-2026-11-01-640.webp")} 640w, ${assetUrl("covers/do-neuronio-ao-campus-2026-11-01-1280.webp")} 1280w`} sizes="(max-width: 700px) calc(100vw - 64px), 550px" />
+        <img src={assetUrl("covers/do-neuronio-ao-campus-2026-11-01.png")} alt={edition.imageAlt} width="1536" height="1024" decoding="async" />
         </picture>
         <figcaption>{edition.imageCredit}</figcaption>
       </figure>
     </div>
     <details className="featured-reading">
     <summary>{language === "pt" ? "Explorar a análise e as conexões" : "Explore the analysis and connections"}</summary>
-    <div className="featured-full-analysis"><p>{edition.first}</p><p>{edition.second}</p><p><a href={language === "pt" ? sources.officialPT : sources.officialEN} target="_blank" rel="noreferrer">{edition.sourceLabel} <ArrowUpRight size={14} aria-hidden="true" /></a></p></div>
+    <div className="featured-full-analysis"><p>{edition.first}</p><p>{edition.second}</p></div>
     <div className="featured-debate-list" aria-label={edition.explore}>
       <p className="eyebrow">{edition.explore}</p>
       <div className="featured-debate-grid">

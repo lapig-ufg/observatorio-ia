@@ -131,6 +131,35 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 
 const featuredHistoryEnglish = [
   {
+    "date": "Oct 25, 2026 – Oct 31, 2026",
+    "source": "Leo XIV / Holy See · UFG-AI Observatory curation",
+    "title": "Magnifica Humanitas: human dignity in the age of AI",
+    "summary": "An encyclical on human dignity, ethical discernment, unequal access to AI and responsibility. The Holy See’s original text, a companion podcast and slides; the editorial engraving addresses the risk of widening inequality.",
+    "links": [
+      {
+        "label": "Original encyclical (Portuguese PDF)",
+        "href": "https://drive.google.com/file/d/185ViyhuZnuPq3rQPnsGMAGsxhpJH0-Ws/view"
+      },
+      {
+        "label": "Official Portuguese text",
+        "href": "https://www.vatican.va/content/leo-xiv/pt/encyclicals/documents/20260515-magnifica-humanitas.html"
+      },
+      {
+        "label": "Official English text",
+        "href": "https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html"
+      },
+      {
+        "label": "Listen to podcast (Portuguese)",
+        "href": "https://drive.google.com/file/d/1iHJIoj-6ywqf7uh8DGKd8M29nFEg2GFK/view"
+      },
+      {
+        "label": "View presentation (Portuguese)",
+        "href": "https://drive.google.com/file/d/1SnHeGl1MMMoj-K5EVSdMMyvf6NxRcEVt/view"
+      }
+    ],
+    "eventLabel": "magnifica-humanitas-20261025"
+  },
+  {
     "date": "Oct 18, 2026 – Oct 24, 2026",
     "source": "UFG-AI Observatory · Curated feature",
     "title": "AI in scientific publishing: different rules, human responsibility",
