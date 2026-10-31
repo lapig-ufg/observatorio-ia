@@ -24,6 +24,10 @@ test('livro de códigos distingue revisão parcial da última referência integr
   assert.match(reference,/Last full reference: 2026-10-24/);
   assert.match(reference,/Partial review: 2026-10-31; 148\/149/);
   assert.doesNotMatch(reference,/Full review: 2026-10-31/);
+  assert.match(pt.metodo[1][1],/referência inicial em 16\/10/);
+  assert.match(pt.metodo[1][1],/última revisão integral.*24\/10/);
+  assert.match(en.metodo[1][1],/initial reference date of 16 October/);
+  assert.match(en.metodo[1][1],/latest full review.*24 October/);
 });
 
 test('tradução integral preserva identidades, códigos, URLs, datas e números dos 149 registros',()=>{

@@ -2606,7 +2606,7 @@
     ],
     [
       "Historical baseline",
-      "Purposive survey compiled on 14–16 October 2026. The previous full reference date is 16 October; this maintenance does not retroactively certify the compilation's reading or methodological independence. This is neither a PRISMA review nor a worldwide census."
+      "Purposive survey compiled on 14–16 October 2026, with an initial reference date of 16 October. The latest full review, after compilation, is dated 24 October and documented in the history. Maintenance does not retroactively certify the compilation’s reading or methodological independence. This is neither a PRISMA review nor a worldwide census."
     ],
     [
       "Review of 31 October 2026",
@@ -2661,7 +2661,7 @@
   "translation": {
     "language": "en",
     "sourceLanguage": "pt-BR",
-    "sourceSha256": "0724def43b6428f8bfe110772a70de4f88c05267712c63d3162c6fe1e57855ec",
+    "sourceSha256": "7eb4d2d52bf68d2435084a9c506a0b76d1cf6206d430ee98d2d001224b7f1cb4",
     "sourceReference": "2026-10-24",
     "kind": "editorial-not-official",
     "preserved": [
