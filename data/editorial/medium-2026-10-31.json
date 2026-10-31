@@ -1,0 +1,155 @@
+{
+  "collection": "medium",
+  "dateBasis": "included",
+  "start": "2026-10-25",
+  "end": "2026-10-31",
+  "reviewedAt": "2026-10-31",
+  "expectedCount": 61,
+  "title": {
+    "pt": "Agentes mais ativos, evidências ainda sob exame",
+    "en": "More active agents, evidence still under scrutiny"
+  },
+  "summary": {
+    "pt": "As 61 leituras incorporadas nesta edição convergem para uma pergunta concreta: como distinguir trabalho concluído de uma resposta que apenas parece correta? Agentes e aplicações reúnem 26 textos, estratégia e mercado 17, aprendizagem e produtividade nove; modelos, fundamentos e gestão do conhecimento completam a seleção. Experimentos de compras sintéticas, análise de dados e observabilidade tornam erros e custos visíveis, mas não certificam desempenho empresarial. Comentários sobre os mesmos lançamentos não são confirmações independentes, e cenários financeiros, clínicos e ambientais exigem preservar suas hipóteses. A síntese deste corpus aponta para requisitos explícitos, comparação por tarefa e verificação independente, inclusive quando uma crítica à IA parece convincente. Não representa levantamento exaustivo do setor nem validação de todos os estudos e produtos citados.",
+    "en": "The 61 readings added in this edition converge on a concrete question: how can completed work be distinguished from an answer that merely looks correct? Agents and applications account for 26 texts, strategy and markets for 17, and learning and productivity for nine; models, foundations and knowledge management complete the selection. Synthetic procurement experiments, data analysis and observability make errors and costs visible without certifying enterprise performance. Comments on the same launches are not independent confirmations, while financial, clinical and environmental scenarios must retain their assumptions. This corpus points toward explicit requirements, task-specific comparison and independent verification, including when criticism of AI sounds persuasive. It is neither an exhaustive industry survey nor validation of every cited study and product."
+  },
+  "method": {
+    "pt": "Universo fixado em 31/10/2026 às 08:49:11 de Brasília (11:49:11 UTC): 64 candidatos PENDENTE capturados de 24 a 30/10, incluindo saldo anterior. Dois repetiam IDs já concluídos no catálogo PT/EN e foram reconciliados sem nova inclusão. Os 62 originais restantes tiveram seu texto renderizado integralmente lido na sessão autenticada do Medium; uma lista predominantemente promocional foi descartada pelo critério editorial, e 61 receberam fichas bilíngues. O período 25–31/10 representa incorporação, não data original; publicações de 12/07 a 30/10 preservam datas visíveis e metadados confrontados, com divergências registradas. A coleta informa dia, não hora; capturas posteriores ao corte pertencem ao próximo ciclo, sem alegar cobertura de horas futuras do sábado. Deduplicação por ID, URL, título e conteúdo contra Fila, Descartados e catálogo PT/EN. Os seis eixos atribuem uma única área principal a cada publicação. Opinião, anúncios, publicidade e experimentos exploratórios permanecem distintos; números secundários não são resultados auditados pela curadoria. Código, simulações e estudos citados não foram reproduzidos; imagens, tabelas e equações não textuais não foram todas transcritas ou verificadas. Os textos completos ficam somente como evidência interna, e os links públicos remetem aos originais, sem PDFs internos.",
+    "en": "The universe was fixed on 31 October 2026 at 08:49:11 Brasília time (11:49:11 UTC): 64 PENDENTE candidates captured on 24–30 October, including earlier outstanding work. Two repeated already completed PT/EN catalog IDs and were reconciled without another inclusion. The full rendered text of the remaining 62 originals was read in the authenticated Medium session; one predominantly promotional list was rejected under editorial criteria and 61 received bilingual entries. The 25–31 October period concerns addition rather than original publication; originals dated 12 July–30 October retain visible dates checked against metadata, with discrepancies recorded. Capture records contain dates rather than times; captures after the cutoff belong to the next cycle, with no coverage claimed for future Saturday hours. Deduplication used IDs, URLs, titles and content against the queue, discarded items and PT/EN catalog. Six themes assign one primary area to each publication. Opinion, announcements, promotion and exploratory experiments remain distinct; secondary figures are not results audited by this curation. Code, simulations and cited studies were not reproduced; not every non-text image, table or equation was transcribed or checked. Full texts remain internal evidence, while public links lead to originals without internal PDFs."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Agentes, RAG e aplicações",
+        "en": "Agents, RAG and applications"
+      },
+      "summary": {
+        "pt": "As 26 leituras aproximam arquitetura, recuperação, contexto, segurança e custo da supervisão. Na experiência com 58 casos sintéticos de compras, acrescentar um validador não produz a estratégia economicamente preferida sob as perdas supostas; isso não elimina controles obrigatórios. No armazém sintético, a melhora ainda deixa 9,8% das respostas emitidas erradas e a latência real de cauda acima da meta. Tutoriais de STAIR, observabilidade e especificações sugerem tornar critérios e falhas inspecionáveis, sem confundir concordância entre agentes ou aprovação de testes com verdade. Relatos de incidentes e ferramentas novas permanecem atribuídos, sem certificar segurança. Acompanhamento editorial: medir o resultado final, os casos recusados e o esforço humano, além do volume de chamadas.",
+        "en": "The 26 readings connect architecture, retrieval, context, security and supervision costs. In the 58-case synthetic procurement comparison, adding a validator does not yield the preferred economic strategy under assumed error losses; this does not remove mandatory controls. Improvements in the synthetic warehouse still leave 9.8% of emitted answers wrong and real tail latency above target. STAIR, observability and specification tutorials suggest making criteria and failures inspectable without equating agent agreement or passing tests with truth. Incident accounts and new tools remain attributed rather than certified safe. The editorial focus is measuring final outcomes, declined cases and human effort alongside call volume."
+      },
+      "sourceIds": [
+        "medium-e67c3c79bffa",
+        "medium-93b5e1ab4534",
+        "medium-c2ab0001a710",
+        "medium-33d7977d6ea6",
+        "medium-b8e6142ada49",
+        "medium-a4ccab50ba2b",
+        "medium-7aa19a8e8817",
+        "medium-8a125d1b7e77",
+        "medium-6a025d74dba0",
+        "medium-3d4c40d00969",
+        "medium-993263d654db",
+        "medium-2f1a64793e1d",
+        "medium-4ce5e473a1b7",
+        "medium-97d4d66a8dd7",
+        "medium-dcbacf4c3e9e",
+        "medium-0c6101f70ee0",
+        "medium-4ba1ae10374a",
+        "medium-1ffbc8086b99",
+        "medium-bf783fbc593e",
+        "medium-c41fd35256e0",
+        "medium-6a762a7ba126",
+        "medium-6743a5c724ed",
+        "medium-11d57cf512d8",
+        "medium-6f292c41e6ca",
+        "medium-5a89b7c3bd3b",
+        "medium-0015703c6064"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Estratégia, mercado e impactos",
+        "en": "Strategy, market and impacts"
+      },
+      "summary": {
+        "pt": "Os 17 textos relacionam lançamentos, adoção, inferência local, preços, financiamento e energia. Os comentários sobre Duet enfatizam conveniência, frequência de execução e controle, mas vários autores ainda não usaram a prévia. Comparações de hardware precisam separar hospedagem da inferência remota, qualidade, tempo de leitura e custo total. Ensaios de mercado trazem riscos relevantes de concentração e compromissos futuros, sem demonstrar insolvência a partir de tarifas isoladas ou contratos potencialmente sobrepostos. A crítica ao gás em centros de dados distingue capacidade anunciada de operante, mas seus cenários não substituem medições e normas por instalação. O eixo comum é perguntar quem paga, quem controla e quais resultados sustentam a promessa.",
+        "en": "Seventeen texts connect launches, adoption, local inference, pricing, financing and energy. Duet commentaries emphasize convenience, execution frequency and control, although several authors have not used the preview. Hardware comparisons must separate hosting from remote inference, quality, prefill time and total cost. Market essays raise relevant concentration and future-commitment risks without establishing insolvency from isolated tariffs or potentially overlapping contracts. Criticism of gas-powered data centers distinguishes announced from operating capacity, but its scenarios cannot replace facility-specific measurements and rules. The shared questions concern who pays, who controls and which results support the promise."
+      },
+      "sourceIds": [
+        "medium-c03bcb63dc82",
+        "medium-8f9ce8eb94d6",
+        "medium-c3a729535bb3",
+        "medium-85bd0ff8a97d",
+        "medium-261ab6eba2c4",
+        "medium-89d26bd4feaa",
+        "medium-e77cf62574e2",
+        "medium-772e2d45db21",
+        "medium-49caec05a8ef",
+        "medium-dc6e9133e028",
+        "medium-5bd8bf8ef8b4",
+        "medium-d9335f95f343",
+        "medium-4012e1cddb8c",
+        "medium-3121f7f95185",
+        "medium-11be03c1f255",
+        "medium-e581fc2e5a55",
+        "medium-f945183c86b4"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aprendizado, pesquisa e produtividade",
+        "en": "Learning, research and productivity"
+      },
+      "summary": {
+        "pt": "Nove leituras exploram rotinas com fontes, estudo, escrita, apresentações e avaliação. As propostas de Notebook e skills organizam métodos reutilizáveis, sem comprovar integração disponível ou precisão automática. A comparação de médicos é uma simulação calibrada, sem medir quanto das diferenças clínicas observadas decorre das regras; o autor não leu o artigo científico final. A crítica a benchmarks também requer rigor: intervalos individuais sobrepostos não resolvem uma comparação pareada. Em escrita, reunir registros não reduz necessariamente a variância; em apresentações, textos editáveis podem coexistir com gráficos em imagem. O ponto comum é aprender a conferir o que a ferramenta efetivamente entregou, sem tratar percentuais promocionais como competência demonstrada.",
+        "en": "Nine readings explore source-based routines, studying, writing, presentations and evaluation. Notebook and skill proposals organize reusable methods without proving available integration or automatic accuracy. The physician comparison is a calibrated simulation rather than a measurement of how much observed clinical differences arise from contest rules; its author did not read the final scientific article. Benchmark criticism also needs rigor: overlapping individual intervals do not settle paired comparisons. Pooling writing registers does not necessarily lower variance, while editable presentation text can coexist with image-based charts. The shared focus is learning to check what a tool actually delivered without treating promotional percentages as demonstrated competence."
+      },
+      "sourceIds": [
+        "medium-0080af7e318c",
+        "medium-01d4b4d8094d",
+        "medium-93a40186bb82",
+        "medium-109716e98e64",
+        "medium-f4ef8ee8ca0d",
+        "medium-494f64c1bf67",
+        "medium-a6437ec4d7b6",
+        "medium-1aec3146f8cd",
+        "medium-931775caae8c"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos de linguagem e IA generativa",
+        "en": "Language models and generative AI"
+      },
+      "summary": {
+        "pt": "Cinco textos abordam realismo sintético, diário conversacional, detecção, vocabulário e limites de geração de imagens. Exemplos visuais selecionados e um teste com uma personagem não sustentam rankings universais. Marcação estatística, classificação genérica e autoria são problemas distintos; um falso positivo possível impede prometer teste negativo apenas por escrever com palavras próprias. O relato de intimidade com chatbots mostra como a conversa pode aprofundar interpretações sem acrescentar evidência, sem demonstrar efeito terapêutico. Analogias de raciocínio e agentes ajudam na introdução, mas pausa, fluência e ação não garantem verificação correta. As descrições de políticas de plataformas permanecem cobertura secundária datada, sem substituir fontes oficiais.",
+        "en": "Five texts address synthetic realism, conversational diaries, detection, terminology and image-generation limits. Selected visuals and a single-character test cannot support universal rankings. Statistical watermarking, generic classification and authorship are distinct problems; possible false positives prevent guaranteeing a negative test merely by writing original prose. The chatbot-intimacy account shows how conversation may deepen interpretations without adding evidence, not therapeutic effectiveness. Reasoning and agent analogies help introductions, but pauses, fluency and action do not guarantee correct verification. Descriptions of platform policies remain dated secondary coverage rather than substitutes for official sources."
+      },
+      "sourceIds": [
+        "medium-1a4f0cbe9bbe",
+        "medium-c4d7eb60830a",
+        "medium-c6f0293cbca4",
+        "medium-e878cbed1139",
+        "medium-d90ccbe73919"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Fundamentos técnicos de IA",
+        "en": "Technical foundations of AI"
+      },
+      "summary": {
+        "pt": "Duas leituras tratam de representações e detecção visual. A proposta de redes com geometrias alternativas a neurônios usuais é explicada como hipótese e resultado selecionado, sem garantir controle geral de modelos. O tutorial de FPN mostra caminhos descendentes, conexões laterais e tensores em várias escalas, mas utiliza uma CNN simplificada e não treina nem avalia um detector completo. Uma RPN entrega propostas, não classes finais; dimensões compatíveis não certificam fidelidade à arquitetura original. Este pequeno recorte oferece intuições e vocabulário, mantendo separados demonstração didática, hipótese de pesquisa e desempenho empiricamente validado.",
+        "en": "Two readings address representations and visual detection. The proposal for networks with alternatives to conventional neuron geometry is presented as a hypothesis and selected result rather than general model control. The FPN tutorial illustrates top-down pathways, lateral connections and multiscale tensors but uses a simplified CNN without training or evaluating a complete detector. An RPN provides proposals rather than final classes; compatible dimensions do not certify fidelity to the original architecture. This small selection offers intuition and vocabulary while separating educational demonstration, research hypothesis and empirically validated performance."
+      },
+      "sourceIds": [
+        "medium-3586af10d98d",
+        "medium-8dd040a54b73"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Dados, vetores e gestão do conhecimento",
+        "en": "Data, vectors and knowledge management"
+      },
+      "summary": {
+        "pt": "Duas leituras questionam a ideia de que acumular dados seja suficiente. A análise de dados sintéticos distingue substituição de dados reais, acumulação, diversidade e rastreabilidade, sem concluir que colapso seja inevitável ou que síntese garanta privacidade. A organização de notas em Markdown é ilustrada por duas buscas exploratórias; menos arquivos abertos não prova cobertura, atualização ou superioridade universal à busca vetorial. Taxonomia e contexto precisam de governança humana e avaliação do que foi omitido. O sinal comum é preservar proveniência e relações úteis, em vez de usar tamanho do acervo ou aparência organizada como evidência de conhecimento confiável.",
+        "en": "Two readings question whether accumulating data is sufficient. Synthetic-data analysis distinguishes replacement of real data, accumulation, diversity and traceability without making collapse inevitable or synthesis a privacy guarantee. Markdown-note organization is illustrated by two exploratory searches; fewer opened files do not prove coverage, freshness or universal superiority to vector search. Taxonomy and context require human governance and evaluation of omissions. The shared direction is preserving provenance and useful relationships rather than treating collection size or orderly appearance as evidence of reliable knowledge."
+      },
+      "sourceIds": [
+        "medium-4b91277e47f5",
+        "medium-0d5d09eae67a"
+      ]
+    }
+  ]
+}
