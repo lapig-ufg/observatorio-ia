@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
+import { fallbackInitiatives } from "./initiativeSnapshot";
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPage } from "./DailyNewsPage";
 import { PortalCollections } from "./PortalDiscovery";
@@ -259,7 +260,7 @@ export function App() {
     const refresh = async () => {
       setRefreshing(true);
       try {
-        const result = await loadCatalog();
+        const result = await loadCatalog(undefined, "pt", fallbackInitiatives);
         if (active) {
           setCatalog(result);
           setLastUpdated(new Date());
@@ -307,7 +308,7 @@ export function App() {
     () => nonNewsArticles.filter((article) => article.type !== "paper" || isPublicResearchPaper(article)),
     [nonNewsArticles],
   );
-  const initiatives = catalog?.initiatives || [];
+  const initiatives = catalog?.initiatives ?? fallbackInitiatives;
   const themes = useMemo(() => catalogThemeOptions(articles.filter((article) => type === "todos" || article.type === type).map((article) => article.type === "paper" ? paperResearchArea(article) || article.theme : article.theme)).map(topic => topic.id), [articles, type]);
   const keywordSelection = useKeywordSelection(articles, selectedKeyword, keywordLocale, "pt");
   const counts = useMemo(() => ({

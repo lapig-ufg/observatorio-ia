@@ -134,7 +134,7 @@ test("English version includes the UFG ecosystem and linked curator emails", () 
     "ceia-ufg", "ciap-ufg", "bacharelado-ia-inf-ufg", "pasto-legal", "cempa-cerrado",
     "lamcad-ufg", "cerise-ufg", "akcit-ufg", "labmol-ufg",
   ]) assert.match(english, new RegExp(`"${initiativeId}"`), `missing English translation for ${initiativeId}`);
-  assert.match(english, /initiatives=\{translatedInitiatives\(catalog\?\.initiatives \|\| \[\]\)\}/);
+  assert.match(english, /initiatives=\{translatedInitiatives\(catalog\?\.initiatives \?\? fallbackInitiatives\)\}/);
   assert.match(english, /visibleInitiatives\.map/);
 });
 

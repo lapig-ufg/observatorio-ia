@@ -186,16 +186,20 @@ export function articlesFromGviz(response: GvizResponse): Article[] {
   return articlesFromRows([headers, ...rows]);
 }
 
-function initiativesFromGviz(response: GvizResponse): Initiative[] {
-  if (response.status !== "ok" || !response.table?.cols || !response.table.rows) {
-    throw new Error("A planilha de iniciativas não respondeu no formato esperado.");
+export function initiativesFromRows(rows: string[][]): Initiative[] {
+  const headers = (rows[0] || []).map(header => header.replace(/^\uFEFF/, "").trim());
+  const required = ["id", "ativo", "sigla", "nome", "resumo", "frentes", "url", "fonte", "cor", "ordem"];
+  if (required.some(header => !headers.includes(header))) throw new Error("Colunas ausentes na planilha de iniciativas.");
+  const records = rows.slice(1).filter(values => values.some(value => value.trim())).map(values =>
+    Object.fromEntries(headers.map((header, index) => [header, values[index]?.trim() || ""])));
+  if (records.some(record => !record.id) || new Set(records.map(record => record.id)).size !== records.length) {
+    throw new Error("Identidades ausentes ou duplicadas na planilha de iniciativas.");
   }
-
-  const headers = response.table.cols.map((column) => column.label?.trim() || "");
-  return response.table.rows.map((row) => {
-    const values = (row.c || []).map(gvizCellText);
-    return Object.fromEntries(headers.map((header, index) => [header, values[index]?.trim() || ""]));
-  }).filter((record) => isActive(record.ativo) && record.id && record.nome && record.url)
+  const active = records.filter(record => isActive(record.ativo));
+  if (active.some(record => !record.nome || !record.resumo || !/^https?:\/\//i.test(record.url) || !Number.isFinite(Number(record.ordem || 999)))) {
+    throw new Error("Iniciativas ativas com dados incompletos.");
+  }
+  return active
     .map((record) => ({
       id: record.id,
       acronym: record.sigla || record.nome,
@@ -208,6 +212,14 @@ function initiativesFromGviz(response: GvizResponse): Initiative[] {
       order: Number(record.ordem || 999),
     }))
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name, "pt-BR"));
+}
+
+function initiativesFromGviz(response: GvizResponse): Initiative[] {
+  if (response.status !== "ok" || !response.table?.cols || !response.table.rows) {
+    throw new Error("A planilha de iniciativas não respondeu no formato esperado.");
+  }
+  const headers = response.table.cols.map(column => column.label?.trim() || "");
+  return initiativesFromRows([headers, ...response.table.rows.map(row => (row.c || []).map(gvizCellText))]);
 }
 
 function fetchGviz(sheetId: string, gid: string, signal?: AbortSignal): Promise<GvizResponse> {
@@ -258,7 +270,7 @@ async function fetchGvizInitiatives(sheetId: string, gid: string, signal?: Abort
   return initiativesFromGviz(await fetchGviz(sheetId, gid, signal));
 }
 
-export async function loadCatalog(signal?: AbortSignal, locale: "pt" | "en" = "pt"): Promise<CatalogLoadResult> {
+export async function loadCatalog(signal?: AbortSignal, locale: "pt" | "en" = "pt", fallbackInitiatives: Initiative[] = []): Promise<CatalogLoadResult> {
   const sheetId = import.meta.env.VITE_GOOGLE_SHEETS_ID?.trim();
   const sheetGid = locale === "en"
     ? import.meta.env.VITE_GOOGLE_SHEETS_EN_GID?.trim()
@@ -266,46 +278,52 @@ export async function loadCatalog(signal?: AbortSignal, locale: "pt" | "en" = "p
   const initiativesGid = import.meta.env.VITE_GOOGLE_SHEETS_INITIATIVES_GID?.trim();
   // May also load the source-language corpus to preserve a translated filter.
   const localUrl = assetUrl(locale === "en" ? "catalogo-en.csv" : "catalogo.csv");
-
-  if (sheetId && sheetGid) {
-    try {
-      const [articles, initiatives] = await Promise.all([
-        fetchGvizCatalog(sheetId, sheetGid, signal),
-        initiativesGid ? fetchGvizInitiatives(sheetId, initiativesGid, signal).catch(() => []) : Promise.resolve([]),
-      ]);
-      return {
-        articles,
-        initiatives,
-        source: "google-sheets",
-        warning: "",
-      };
-    } catch (error) {
+  // The initiative source is independent of the article source. A failure in
+  // either request must not discard a successful response from the other.
+  const initiativesPromise = sheetId && initiativesGid
+    ? fetchGvizInitiatives(sheetId, initiativesGid, signal).catch(error => {
       if (signal?.aborted) throw error;
-      return {
-        articles: await fetch(localUrl, { cache: "no-store", signal }).then(async (response) => {
-          if (!response.ok) throw new Error(`Falha ao carregar o catálogo (${response.status}).`);
-          return articlesFromCsv(await response.text());
-        }),
-        initiatives: [],
-        source: "local",
-        warning: locale === "en"
-          ? "The live spreadsheet did not respond; showing the latest validated catalog copy."
-          : "A planilha não respondeu; exibindo a última cópia validada do catálogo.",
-      };
-    }
-  }
+      return fallbackInitiatives;
+    })
+    : Promise.resolve(fallbackInitiatives);
 
-  return {
-    articles: await fetch(localUrl, { cache: "no-store", signal }).then(async (response) => {
-      if (!response.ok) throw new Error(`Falha ao carregar o catálogo (${response.status}).`);
-      return articlesFromCsv(await response.text());
-    }),
-    initiatives: [],
-    source: "local",
-    warning: locale === "en"
-      ? "The spreadsheet is not connected; showing the deployment catalog copy."
-      : "Planilha ainda não conectada; exibindo o catálogo preparado para implantação.",
-  };
+  const articlesPromise = (async (): Promise<Omit<CatalogLoadResult, "initiatives">> => {
+    if (sheetId && sheetGid) {
+      try {
+        const articles = await fetchGvizCatalog(sheetId, sheetGid, signal);
+        return {
+          articles,
+          source: "google-sheets",
+          warning: "",
+        };
+      } catch (error) {
+        if (signal?.aborted) throw error;
+        return {
+          articles: await fetch(localUrl, { cache: "no-store", signal }).then(async (response) => {
+            if (!response.ok) throw new Error(`Falha ao carregar o catálogo (${response.status}).`);
+            return articlesFromCsv(await response.text());
+          }),
+          source: "local",
+          warning: locale === "en"
+            ? "The live spreadsheet did not respond; showing the latest validated catalog copy."
+            : "A planilha não respondeu; exibindo a última cópia validada do catálogo.",
+        };
+      }
+    }
+
+    return {
+      articles: await fetch(localUrl, { cache: "no-store", signal }).then(async (response) => {
+        if (!response.ok) throw new Error(`Falha ao carregar o catálogo (${response.status}).`);
+        return articlesFromCsv(await response.text());
+      }),
+      source: "local",
+      warning: locale === "en"
+        ? "The spreadsheet is not connected; showing the deployment catalog copy."
+        : "Planilha ainda não conectada; exibindo o catálogo preparado para implantação.",
+    };
+  })();
+  const [articles, initiatives] = await Promise.all([articlesPromise, initiativesPromise]);
+  return { ...articles, initiatives };
 }
 
 export function assetUrl(path: string) {

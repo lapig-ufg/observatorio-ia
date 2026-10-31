@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { loadCatalog, type Article, type ArticleType, type CatalogLoadResult, type Initiative } from "./catalog";
+import { fallbackInitiatives } from "./initiativeSnapshot";
 import { trackEvent, trackPageView } from "./analytics";
 import { DailyNewsPageEnglish } from "./DailyNewsPageEnglish";
 import { PortalCollections } from "./PortalDiscovery";
@@ -317,7 +318,7 @@ export function AppEnglish() {
     const refresh = async () => {
       setRefreshing(true);
       try {
-        const result = await loadCatalog(undefined, "en");
+        const result = await loadCatalog(undefined, "en", fallbackInitiatives);
         if (active) { setCatalog(result); setLastUpdated(new Date()); setError(""); }
       } catch (reason) {
         if (active) setError(reason instanceof Error ? reason.message : "The catalog could not be loaded.");
@@ -393,7 +394,7 @@ export function AppEnglish() {
     }} />
 
     <div id="page-content" tabIndex={-1}>
-    {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} english onClose={closeDetail} /> : page === "about" ? <AboutPageEnglish articles={articles} loaded={!!catalog} /> : page === "panorama" ? <PanoramaPage english /> : page === "survey" ? <PoliticasIAPage english /> : page === "ecosystem" ? <EcosystemPage initiatives={translatedInitiatives(catalog?.initiatives || [])} english /> : page === "daily-news" ? <DailyNewsPageEnglish /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} english detailHref={detailHref} onOpen={openDetail} /> : page === "home" ? <PortalHome english articles={articles} initiatives={translatedInitiatives(catalog?.initiatives || [])} catalog={!!catalog} error={error} query={query} setQuery={setQuery} setSelectedKeyword={setSelectedKeyword} setAdded={setAdded} revealCatalog={revealCatalog} detailHref={detailHref} openDetail={openDetail} featuredHistory={featuredHistoryEnglish} showFeaturedHistory={showFeaturedHistory} setShowFeaturedHistory={setShowFeaturedHistory} newsSummary={newsSummary} /> : <div id="catalog" className="pt-acervo-page">
+    {item ? <ArticleDetail article={articles.find((article) => article.id === item)} loading={!catalog && !error} english onClose={closeDetail} /> : page === "about" ? <AboutPageEnglish articles={articles} loaded={!!catalog} /> : page === "panorama" ? <PanoramaPage english /> : page === "survey" ? <PoliticasIAPage english /> : page === "ecosystem" ? <EcosystemPage initiatives={translatedInitiatives(catalog?.initiatives ?? fallbackInitiatives)} english /> : page === "daily-news" ? <DailyNewsPageEnglish /> : page === "readings" ? <MediumReadingsPage articles={articles} loading={!catalog && !error} error={error} english detailHref={detailHref} onOpen={openDetail} /> : page === "home" ? <PortalHome english articles={articles} initiatives={translatedInitiatives(catalog?.initiatives ?? fallbackInitiatives)} catalog={!!catalog} error={error} query={query} setQuery={setQuery} setSelectedKeyword={setSelectedKeyword} setAdded={setAdded} revealCatalog={revealCatalog} detailHref={detailHref} openDetail={openDetail} featuredHistory={featuredHistoryEnglish} showFeaturedHistory={showFeaturedHistory} setShowFeaturedHistory={setShowFeaturedHistory} newsSummary={newsSummary} /> : <div id="catalog" className="pt-acervo-page">
     <div className="pt-internal-heading"><p className="eyebrow">Selected materials</p><h1 id="acervo-title">Collection</h1><p>Search by title, author, topic or keyword and explore the seven collections.</p></div>
     <PortalCollections articles={articles} type={type} onSelect={selectCategory} onExplore={revealCatalog} english loading={!catalog} />
 

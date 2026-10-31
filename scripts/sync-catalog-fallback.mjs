@@ -1,13 +1,15 @@
 import fs from "node:fs";
+import { prepareInitiativeSnapshot } from "./prepare-initiative-snapshot.mjs";
 
 const sheetId = process.env.VITE_GOOGLE_SHEETS_ID?.trim();
 const gid = process.env.VITE_GOOGLE_SHEETS_GID?.trim();
 const englishGid = process.env.VITE_GOOGLE_SHEETS_EN_GID?.trim();
+const initiativesGid = process.env.VITE_GOOGLE_SHEETS_INITIATIVES_GID?.trim();
 const requiredHeaders = ["id", "ativo", "tipo", "tema", "subtema", "titulo", "resumo", "palavras_chave", "url_original", "url_pdf_institucional", "data_inclusao"];
 const allowedTypes = new Set(["medium", "documento", "link-video", "audio", "noticia", "paper", "apresentacao", "entrevista"]);
 
-if (!sheetId || !gid || !englishGid) {
-  throw new Error("VITE_GOOGLE_SHEETS_ID, VITE_GOOGLE_SHEETS_GID and VITE_GOOGLE_SHEETS_EN_GID are required.");
+if (!sheetId || !gid || !englishGid || !initiativesGid) {
+  throw new Error("VITE_GOOGLE_SHEETS_ID, VITE_GOOGLE_SHEETS_GID, VITE_GOOGLE_SHEETS_EN_GID and VITE_GOOGLE_SHEETS_INITIATIVES_GID are required.");
 }
 
 function parseCsv(input) {
@@ -90,7 +92,12 @@ const extraEnglishIds = english.records.filter((record) => !portugueseIds.has(re
 if (missingEnglishIds.length || extraEnglishIds.length) {
   throw new Error(`Catalog parity failed: ${missingEnglishIds.length} missing and ${extraEnglishIds.length} extra English IDs.`);
 }
+const initiatives = prepareInitiativeSnapshot(parseCsv(await downloadCatalog(initiativesGid)), { spreadsheetId: sheetId, sheetId: initiativesGid });
 
 fs.writeFileSync(new URL("../public/catalogo.csv", import.meta.url), portugueseCsv.endsWith("\n") ? portugueseCsv : `${portugueseCsv}\n`, "utf8");
 fs.writeFileSync(new URL("../public/catalogo-en.csv", import.meta.url), englishCsv.endsWith("\n") ? englishCsv : `${englishCsv}\n`, "utf8");
+const initiativesPath = new URL("../data/iniciativas.json", import.meta.url);
+const initiativesJson = `${JSON.stringify(initiatives, null, 2)}\n`;
+if (fs.readFileSync(initiativesPath, "utf8") !== initiativesJson) fs.writeFileSync(initiativesPath, initiativesJson);
 console.log(`Catalogs synchronized: ${portuguese.records.length} Portuguese records and ${english.records.length} English records; ${english.active.length} active.`);
+console.log(`UFG initiatives synchronized: ${initiatives.values.length - 1} records.`);

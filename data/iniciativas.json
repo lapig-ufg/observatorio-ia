@@ -1,0 +1,127 @@
+{
+  "spreadsheetId": "1XCN44Ax5EvPJ12rhUej9y3e8ts2VBV6KV70r8cR0hPE",
+  "sheetId": 649757764,
+  "sheetName": "Iniciativas",
+  "values": [
+    [
+      "id",
+      "ativo",
+      "sigla",
+      "nome",
+      "resumo",
+      "frentes",
+      "url",
+      "fonte",
+      "cor",
+      "ordem"
+    ],
+    [
+      "ceia-ufg",
+      "TRUE",
+      "CEIA",
+      "Centro de Excelência em Inteligência Artificial",
+      "Polo de inovação da UFG que desenvolve soluções de alto impacto com dados e inteligência artificial. Criado em 2019, articula academia, governo e empresas para pesquisa, desenvolvimento e transferência de tecnologia.",
+      "Pesquisa aplicada | Inovação | Dados e IA | Parcerias",
+      "https://ceia.ufg.br/",
+      "https://ceia.ufg.br/sobre-nos/",
+      "verde",
+      "1"
+    ],
+    [
+      "ciap-ufg",
+      "TRUE",
+      "CIAP",
+      "Centro de Colaboração Interinstitucional de Inteligência Artificial Aplicada às Políticas Públicas",
+      "Iniciativa interinstitucional voltada ao uso responsável de inteligência artificial para fortalecer políticas públicas, reunindo CEPASP/UFG, NEPP/Unicamp e ENCE/IBGE na Rede de Pesquisa em IA no Aprimoramento de Políticas Públicas.",
+      "Políticas públicas | Gestão do conhecimento | Dados e IA | Cooperação interinstitucional",
+      "https://ciap.org.br/",
+      "https://ciap.org.br/",
+      "azul",
+      "2"
+    ],
+    [
+      "bacharelado-ia-inf-ufg",
+      "TRUE",
+      "BIA",
+      "Bacharelado em Inteligência Artificial",
+      "Graduação do Instituto de Informática da UFG voltada à formação de profissionais capazes de resolver problemas complexos com inteligência artificial, incluindo sistemas embarcados e autônomos. A formação integra fundamentos de computação e matemática, métodos de IA e inovação.",
+      "Formação | Computação e matemática | Sistemas autônomos | Inovação",
+      "https://inf.ufg.br/p/44958-inteligencia-artificial",
+      "https://inf.ufg.br/p/44958-inteligencia-artificial",
+      "azul",
+      "3"
+    ],
+    [
+      "pasto-legal",
+      "TRUE",
+      "Pasto Legal",
+      "Pasto Legal",
+      "Plataforma de inteligência artificial via WhatsApp para monitorar a saúde das pastagens com dados de satélite e conhecimento de campo. Oferece informação em tempo real para apoiar decisões de manejo, em uma iniciativa de ciência aberta, gratuita e feita no Brasil.",
+      "IA via WhatsApp | Dados de satélite | Monitoramento de pastagens | Ciência aberta",
+      "https://pasto.legal/",
+      "https://pasto.legal/",
+      "verde",
+      "4"
+    ],
+    [
+      "cempa-cerrado",
+      "TRUE",
+      "CEMPA-Cerrado",
+      "Centro de Excelência em Estudos, Monitoramento e Previsões Ambientais para o bioma Cerrado",
+      "Centro da UFG dedicado a estudos, monitoramento e previsões ambientais para o Cerrado. Seu modelo PROPEC emprega machine learning e dados regionais para estimar, a cada 30 minutos, a probabilidade e a intensidade de chuva em horizonte de seis horas.",
+      "Monitoramento ambiental | Machine learning | Previsão de precipitação | Cerrado",
+      "https://cempa.ufg.br/",
+      "https://cempa.ufg.br/p/48048-previsao-da-probabilidade-de-ocorrencia-de-precipitacao-a-curto-prazo-propec-v1-0",
+      "azul",
+      "5"
+    ],
+    [
+      "lamcad-ufg",
+      "TRUE",
+      "LaMCAD",
+      "Laboratório Multiusuário de Computação de Alto Desempenho",
+      "Infraestrutura multiusuária da UFG para computação científica, alto desempenho e nuvem. Apoia projetos de inteligência artificial com capacidade computacional avançada, acelerando pesquisas em áreas como previsão ambiental, saúde e políticas públicas.",
+      "Computação de alto desempenho | Computação em nuvem | Inteligência artificial | Pesquisa científica",
+      "https://lamcad.ufg.br/n/195288-lamcad-ufg-se-destaca-no-suporte-a-projetos-de-ia",
+      "https://lamcad.ufg.br/n/195288-lamcad-ufg-se-destaca-no-suporte-a-projetos-de-ia",
+      "verde",
+      "6"
+    ],
+    [
+      "cerise-ufg",
+      "TRUE",
+      "CERISE",
+      "Centro de Excelência em Redes Inteligentes Sem Fio e Serviços Avançados",
+      "Centro da EMC/UFG que integra inteligência artificial, telecomunicações, sensoriamento e gêmeos digitais para desenvolver soluções tecnológicas de impacto urbano. Atua também com visão computacional, robótica autônoma e formação em dados sintéticos.",
+      "Redes 5G e pós-5G | IA e telecomunicações | Gêmeos digitais | Robótica | Dados sintéticos",
+      "https://cerise.ufg.br/",
+      "https://jornal.ufg.br/n/192921-solucoes-tecnologicas-em-forma-de-prototipos",
+      "azul",
+      "7"
+    ],
+    [
+      "akcit-ufg",
+      "TRUE",
+      "AKCIT",
+      "Centro de Competência Embrapii em Tecnologias Imersivas Aplicadas a Mundos Virtuais",
+      "Centro de competência da UFG voltado a tecnologias imersivas, inteligência artificial e mundos virtuais. Desenvolve pesquisa aplicada e formação em IA generativa, visão computacional, realidade virtual e aumentada, gêmeos digitais e internet das coisas.",
+      "IA generativa | Tecnologias imersivas | Visão computacional | Gêmeos digitais | IoT",
+      "https://akcit.ufg.br/",
+      "https://akcit.ufg.br/quemsomos",
+      "verde",
+      "8"
+    ],
+    [
+      "labmol-ufg",
+      "TRUE",
+      "LabMol",
+      "Laboratório de Planejamento de Fármacos e Modelagem Molecular",
+      "Laboratório da Faculdade de Farmácia da UFG coordenado pela professora Carolina Horta Andrade. Emprega inteligência artificial, aprendizado de máquina e triagem virtual de compostos para acelerar a descoberta de candidatos a medicamentos e reduzir tempo e custo de desenvolvimento.",
+      "Química medicinal | Descoberta de fármacos | Aprendizado de máquina | Triagem virtual | Modelagem molecular",
+      "https://prpi.ufg.br/n/132193-pesquisa-utiliza-inteligencia-artificial-para-descoberta-de-farmacos-para-covid-19?atr=en&locale=en",
+      "https://prpi.ufg.br/n/132193-pesquisa-utiliza-inteligencia-artificial-para-descoberta-de-farmacos-para-covid-19?atr=en&locale=en",
+      "azul",
+      "9"
+    ]
+  ]
+}
