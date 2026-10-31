@@ -1,6 +1,6 @@
 {
-  "total": 6908,
-  "lastDate": "2026-10-24",
+  "total": 6986,
+  "lastDate": "2026-10-31",
   "monthlyCounts": [
     {
       "month": "2025-11",
@@ -48,24 +48,24 @@
     },
     {
       "month": "2026-10",
-      "count": 292
+      "count": 370
     }
   ],
   "articles": [
     {
-      "date": "2026-10-24",
-      "title": "BNDES aprova R$ 298 milhões para Althaia desenvolver 31 medicamentos e pesquisar novas moléculas — financiamento prevê IA para pesquisar peptídeos; não equivale a tratamento validado",
-      "url": "https://www1.folha.uol.com.br/colunas/painelsa/2026/10/bndes-aprova-r-298-milhoes-para-althaia-desenvolver-31-medicamentos-e-pesquisar-novas-moleculas.shtml"
+      "date": "2026-10-31",
+      "title": "Precarização dos artistas vem de muito antes da IA, diz escritor Odorico Leal — entrevista sobre trabalho artístico e ficção; avaliações do escritor não são previsões demonstradas",
+      "url": "https://www1.folha.uol.com.br/ilustrada/2026/10/precarizacao-dos-artistas-vem-de-muito-antes-da-ia-diz-escritor-odorico-leal.shtml"
     },
     {
-      "date": "2026-10-24",
-      "title": "Filme 'Zona Zero' transforma mortos-vivos em alegoria da inteligência artificial — crítica cultural interpreta a IA como eixo da alegoria cinematográfica",
-      "url": "https://www1.folha.uol.com.br/ilustrada/2026/10/filme-zona-zero-transforma-mortos-vivos-em-alegoria-da-inteligencia-artificial.shtml"
+      "date": "2026-10-30",
+      "title": "Ações de tecnologia desabam nos EUA com novas dúvidas sobre gastos em IA — queda das ações evidencia receios com investimentos; desvalorização não equivale a desembolso",
+      "url": "https://www1.folha.uol.com.br/mercado/2026/10/nasdaq-cai-ao-menor-nivel-em-tres-meses-com-duvidas-sobre-gastos-com-ia.shtml"
     },
     {
-      "date": "2026-10-24",
-      "title": "Solidão é o fator mais ligado à pior saúde mental no Brasil, mostra pesquisa — levantamento aborda procura por chatbots; associação não demonstra eficácia terapêutica",
-      "url": "https://www1.folha.uol.com.br/equilibrioesaude/2026/10/solidao-e-o-fator-mais-ligado-a-pior-saude-mental-no-brasil-mostra-pesquisa.shtml"
+      "date": "2026-10-30",
+      "title": "Blackstone vê risco de Anthropic ficar sem grau de investimento após IPO — avaliação de risco de crédito é prospectiva, não classificação definitiva após abertura de capital",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/10/blackstone-ve-risco-de-anthropic-ficar-sem-grau-de-investimento-apos-ipo.shtml"
     }
   ]
 }

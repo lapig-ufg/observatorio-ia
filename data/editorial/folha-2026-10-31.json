@@ -1,0 +1,186 @@
+{
+  "collection": "folha",
+  "start": "2026-10-25",
+  "end": "2026-10-31",
+  "reviewedAt": "2026-10-31",
+  "expectedCount": 69,
+  "title": {
+    "pt": "Expansão sob escrutínio: custos, direitos e trabalho",
+    "en": "Expansion under scrutiny: costs, rights and work"
+  },
+  "summary": {
+    "pt": "As 69 matérias de 25–31/10, até 07:59:30 de sábado, mostram a expansão da IA sob escrutínio financeiro, jurídico e social. Balanços e a preparação do IPO da Anthropic tornam mais visíveis custos, concentração e riscos de financiamento; desvalorização em bolsa não equivale a gasto de caixa. Disputas autorais, regulação de chatbots e investigações eleitorais colocam responsabilidades em debate, sem tornar alegações em fatos julgados. No trabalho, o PDV da Microsoft deve ser contado por elegibilidade, sem presumir desligamentos ou causalidade da IA. Educação e matemática questionam formas de avaliar conhecimento e verificar resultados. Cultura e publicidade expõem escolhas de autoria, enquanto infraestrutura e custos ambientais lembram as dependências materiais da expansão. A síntese descreve o corpus jornalístico selecionado, não uma tendência representativa de toda a sociedade.",
+    "en": "The 69 articles published on 25–31 October, up to 07:59:30 São Paulo time on Saturday, place AI expansion under financial, legal and social scrutiny. Financial results and preparations for Anthropic's IPO expose costs, concentration and financing risks; stock-market devaluation is not cash expenditure. Copyright disputes, chatbot regulation and electoral investigations raise questions of responsibility without turning allegations into adjudicated facts. Microsoft's voluntary-departure offer must be counted by eligibility, without assuming completed departures or AI causation. Education and mathematics question how knowledge is assessed and results verified. Culture and advertising expose authorship choices, while infrastructure and environmental costs reveal material dependencies. This briefing describes the selected journalistic corpus, not a representative trend across society."
+  },
+  "method": {
+    "pt": "Corpus: 69 matérias de 25–31/10/2026, com corte real às 07:59:30 de 31/10 (America/Sao_Paulo, UTC−3), ancorado no relógio observado imediatamente antes da busca. A pesquisa autenticada de 24–31/10 fixou 137 resultados, percorridos em seis páginas (5×25 + 12). Foram incluídos 78 registros: 69 desta edição e nove complementos de 24/10, que ficam fora desta síntese. Houve 49 exclusões e dez deduplicações, incluindo cinco URLs anteriores. Base lida: títulos e trechos dos 137 resultados, com exame focal de 59 originais para aberturas, passagens pertinentes e destaques; a entrevista de Terence Tao também teve o corpo integral lido. Não houve leitura integral de todas as matérias nem validação independente de suas alegações. A reconferência às 08:09:17 encontrou três novas publicações das 08h, posteriores ao corte: seus IDs/URLs ficam no saldo do ciclo seguinte, sem reabrir este universo. Reportagens e opiniões do especial Top of Mind foram distinguidas de publicidade e promoção de marcas. Os oito assuntos são agrupamentos editoriais do corpus, sem representatividade estatística. Opiniões, promessas, anúncios, suspeitas, decisões e resultados são distinguidos. Links preservam fontes originais e podem exigir assinatura. A versão inglesa é tradução editorial; títulos originais são preservados. Nenhuma hora posterior ao corte está coberta.",
+    "en": "Corpus: 69 articles published on 25–31 October 2026, with an actual cutoff of 07:59:30 on 31 October (America/Sao_Paulo, UTC−3), anchored to the clock observed immediately before searching. The authenticated 24–31 October search fixed 137 results across six pages (5×25 + 12). There were 78 additions: this edition's 69 articles and nine additions from the 24 October overlap, excluded from this briefing. There were 49 exclusions and ten deduplications, including five earlier URLs. Material examined: headlines and excerpts for all 137 results, plus focused examination of 59 originals for openings, relevant passages and highlights; Terence Tao's interview body was also read in full. Not every article was read in full, nor were all claims independently validated. Rechecking at 08:09:17 found three new articles published at 08:00, after the cutoff: their identities and URLs are retained for the next cycle without reopening this universe. Top of Mind reporting and opinion were distinguished from advertising and brand promotion. The eight themes are editorial groupings without statistical representativeness. Opinions, pledges, announcements, suspicions, rulings and results are distinguished. Links preserve original sources and may require a subscription. The English version is an editorial translation; original titles are retained. No time after the cutoff is covered."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Regulação, direitos e governança",
+        "en": "Regulation, rights and governance"
+      },
+      "summary": {
+        "pt": "A cobertura articula três planos distintos: suspeitas eleitorais sob investigação no Brasil, restrições estaduais a chatbots para menores e disputas de direitos autorais. A abertura de inquérito não comprova financiamento ilícito nem favorecimento algorítmico. A manifestação da Wikimedia distingue treinamento e reprodução de conteúdo, mas não constitui decisão judicial; ações da imprensa norueguesa e dos titulares da obra de Elvis Presley também permanecem contestações em curso. A PEC de soberania digital é uma proposição. A notícia de Nova York descreve uma norma estadual, sem autorizar extrapolação para todos os EUA.",
+        "en": "Coverage connects three distinct levels: electoral suspicions under investigation in Brazil, state restrictions on chatbots for minors, and copyright disputes. Opening an investigation does not establish unlawful funding or algorithmic favoritism. Wikimedia's submission distinguishes training from reproducing content, but is not a court ruling; Norwegian media and the owners of Elvis Presley's works likewise bring ongoing claims. Brazil's digital-sovereignty constitutional amendment is a proposal. The New York report concerns state legislation and cannot be generalized to the whole United States."
+      },
+      "sourceIds": [
+        "b6e280dacd2b21",
+        "e1d1010ca96b86",
+        "899f7eb9c17dde",
+        "2231c4ef0ee44b",
+        "df2371179ccfe4",
+        "12f6d44c6cab1a",
+        "164d8c1776c3d1",
+        "1132ec88d66afd",
+        "97d8a37c2acdbb",
+        "9e8fffcf084929",
+        "05aac51c761635",
+        "5b853d6c958f18",
+        "7d17ecbfcb5125",
+        "041b1b06ef1d41",
+        "52b3ec29c55822",
+        "e09f913b855051",
+        "d8b5120d164361"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Segurança, agentes e confiabilidade",
+        "en": "Security, agents and reliability"
+      },
+      "summary": {
+        "pt": "As notícias colocam lado a lado a descoberta de vulnerabilidades por IA, ações não solicitadas de agentes e salvaguardas anunciadas para adolescentes. Encontrar falhas não equivale a criá-las. No episódio sobre eleitores da Geórgia, a empresa nega acesso ao sistema de registro eleitoral ou alteração de votos: a notícia trata de um portal pago e não comprova comprometimento da votação. As novas restrições do ChatGPT têm implementação anunciada para as semanas seguintes; sua eficácia não foi verificada nesta curadoria. O caso de identificação equivocada pelo Grok expõe a necessidade de conferir respostas em contexto eleitoral.",
+        "en": "Reports bring together AI-assisted vulnerability discovery, unsolicited agent actions and announced safeguards for teenagers. Discovering flaws is not the same as creating them. In the Georgia voter-data case, the company denies access to the voter-registration system or changes to votes: the report concerns a paid portal and does not establish compromised voting. The new ChatGPT restrictions are announced for rollout over the following weeks; this curation does not verify their effectiveness. Reported misidentification by Grok underscores the need to check answers in an electoral context."
+      },
+      "sourceIds": [
+        "5cd00d2d99117d",
+        "c41cd6fccc73b2",
+        "2ad36d879b2b19",
+        "2f96cda7380abe"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Financiamento, balanços e mercados",
+        "en": "Financing, financial results and markets"
+      },
+      "summary": {
+        "pt": "A sequência de balanços, quedas de ações e documentos da Anthropic dá concretude à tensão entre crescimento e financiamento. Valor de mercado perdido, gasto de capital, receita e fluxo de caixa não são medidas intercambiáveis; os diferentes balanços e dias de negociação não devem ser somados como perdas independentes. Pedido de IPO, avaliação pretendida e expectativa de nota de crédito não equivalem a oferta concluída ou classificação definitiva. A taxa de 3,4% do PIB americano é anualizada e preliminar, e a reportagem não permite atribuir todo o crescimento à IA. A aquisição anunciada pelo Itaú e os planos de fundos mostram estratégias distintas de internalizar tecnologia e financiar sua expansão.",
+        "en": "Financial results, stock declines and Anthropic's disclosures make the tension between growth and financing concrete. Lost market capitalization, capital spending, revenue and cash flow are not interchangeable; overlapping earnings reports and trading days should not be added as independent losses. An IPO filing, intended valuation and expected credit rating are not a completed offering or final rating. The reported 3.4% US GDP rate is annualized and preliminary, and the article does not attribute all growth to AI. Itaú's announced acquisition and proposed investment funds show different strategies for bringing technology in-house and financing expansion."
+      },
+      "sourceIds": [
+        "2ee61261455b0f",
+        "dfdd5abe5e064e",
+        "35c4554aca4649",
+        "29f99621889bad",
+        "abead2ad303999",
+        "3cddb18b627c20",
+        "f8d7353063d145",
+        "45f3fc25318d09",
+        "31ebee40788eef",
+        "5b85982a92e449",
+        "bd2589b9499542",
+        "3d8f6da5f61e28",
+        "ef7558007d430f",
+        "416bbd66658f40",
+        "2d2501db02d1b8",
+        "3d1f6ce509eaac",
+        "5ff93ee5566768",
+        "c2ebe65ca8fda6"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Infraestrutura, chips e geopolítica",
+        "en": "Infrastructure, chips and geopolitics"
+      },
+      "summary": {
+        "pt": "Data centers e chips aparecem simultaneamente como base produtiva, compromisso financeiro e objeto de cooperação internacional. A aliança Canadá–UE e a aproximação Nvidia–Meta são anúncios com escopos próprios, enquanto a possível compra de chips do Google pela OpenAI é atribuída a uma reportagem, sem confirmação de contrato concluído. A matéria sobre custos ambientais questiona a medição nas empresas brasileiras; consumo de todos os data centers não deve ser apresentado como consumo exclusivo da IA. A coluna de Marcelo Leite, incorporada na sobreposição de 24/10 e fora do corpus desta síntese, permanece no cumulativo com seu caráter opinativo identificado.",
+        "en": "Data centers and chips appear as productive infrastructure, financial commitments and subjects of international cooperation. The Canada–EU alliance and Nvidia–Meta agreement are announcements with distinct scopes, whereas a possible OpenAI purchase of Google chips is attributed to reporting rather than a confirmed completed contract. Environmental coverage questions how Brazilian businesses measure impacts; consumption by all data centers must not be described as consumption exclusively attributable to AI. Marcelo Leite's column, added through the 24 October overlap and outside this briefing's corpus, remains in the cumulative archive with its opinion status identified."
+      },
+      "sourceIds": [
+        "c42bb2f68092ab",
+        "5a3c9d319bb24c",
+        "7b5132fc9727de",
+        "809a6a73cee2d3",
+        "4107f21cc68698",
+        "5efb1ca5f1df31",
+        "19a1828529917b",
+        "0a149e4bb0ce59"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Trabalho, organização e expectativas",
+        "en": "Work, organization and expectations"
+      },
+      "summary": {
+        "pt": "O PDV da Microsoft e o contraste entre executivos e funcionários exigem precisão: 60 mil pessoas elegíveis não significam 60 mil desligamentos realizados, e receio de substituição não mede desemprego causado por IA. A resenha sobre carreiras, a reportagem sobre organização de dados e o artigo de opinião sobre transformação empresarial mostram uma transição que depende de processos e competências, além de ferramentas. Ganhos relatados por empresas e declarações de consultores não constituem avaliação independente de produtividade. Aplicações em estacionamentos e serviços de telefonia registram a difusão setorial sem provar benefício universal.",
+        "en": "Microsoft's voluntary-departure offer and the contrast between executives and staff require precision: 60,000 eligible employees do not mean 60,000 completed departures, and fear of replacement does not measure unemployment caused by AI. The careers book review, reporting on data organization and an opinion piece on business transformation describe a transition that depends on processes and skills as well as tools. Company-reported gains and consultants' assessments are not independent productivity evaluations. Parking and telecommunications applications document sectoral adoption without establishing universal benefits."
+      },
+      "sourceIds": [
+        "1f8dc2be338608",
+        "2c60021073ba34",
+        "929a72574b9167",
+        "9024eccfaa094d",
+        "18cf46337319be",
+        "2216fdcb23e60d",
+        "7ac8ce8ef8f511"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Educação, pesquisa e verificação",
+        "en": "Education, research and verification"
+      },
+      "summary": {
+        "pt": "A promessa de formar capacidades nacionais em matemática e engenharia convive com mudanças nas avaliações escolares e com disputas sobre resultados matemáticos anunciados pela OpenAI. A entrevista de Terence Tao e a análise posterior têm ângulos distintos: experiência e formação da comunidade, de um lado, verificação e incentivos de divulgação, de outro. Anúncios de solução não substituem exame por especialistas nem consenso científico. Provas orais e atividades presenciais são experiências relatadas por docentes, não evidência de eficácia generalizável. A formação aplicada para trabalhadores também aparece como resposta organizacional à difusão de IA.",
+        "en": "The pledge to build national mathematics and engineering capabilities sits alongside changes in school assessments and disputes over mathematical results announced by OpenAI. Terence Tao's interview and the later analysis have distinct angles: community experience and training on one hand, verification and publication incentives on the other. Announced solutions do not replace specialist scrutiny or scientific agreement. Oral exams and classroom assignments are teacher-reported experiences, not evidence of generalizable effectiveness. Applied training for employees also appears as an organizational response to AI adoption."
+      },
+      "sourceIds": [
+        "3c1c71e2f26b1c",
+        "9748af4d9e287f",
+        "8641f618107a7a",
+        "4019f3fbb63c3c",
+        "7dde41c3c25129"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Cultura, autoria e circulação de imagens",
+        "en": "Culture, authorship and image circulation"
+      },
+      "summary": {
+        "pt": "Literatura, animação artesanal e publicidade oferecem reações diferentes à criação automatizada. A entrevista com Odorico Leal discute precarização e ficção, sem transformar a voz do escritor em previsão científica. Publicitários e executivos descrevem práticas e opiniões; as colagens manuais do especial tornam visíveis escolhas humanas de autoria. Imagens sintéticas de personagens políticos e celebridades são manifestações de circulação pública, não registros autênticos das cenas. O relato sobre vídeo divulgado por Elon Musk também é situado como produção sintética e repercussão cultural.",
+        "en": "Literature, handcrafted animation and advertising offer different responses to automated creation. Odorico Leal's interview discusses precarious work and fiction without turning the writer's views into scientific predictions. Advertisers and executives describe practices and opinions; the special issue's manual collages expose human authorship choices. Synthetic political and celebrity images are instances of public circulation, not authentic records of the depicted scenes. Reporting on the video shared by Elon Musk likewise concerns synthetic production and cultural reception."
+      },
+      "sourceIds": [
+        "4326b9089e3919",
+        "a8367f85d0b6fb",
+        "87032df9eb78bd",
+        "295f80d3928c95",
+        "baf3e43050e09a",
+        "16d472b2dcb126",
+        "43a37395875ae5",
+        "dcadc2629d8868",
+        "d1adea40a235ec"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aplicações e controle de vetores",
+        "en": "Applications and vector control"
+      },
+      "summary": {
+        "pt": "O aparelho anunciado por uma empresa chinesa combina reconhecimento com IA e laser para atingir mosquitos. A existência do produto ou demonstrações do fabricante não comprovam impacto epidemiológico, segurança em todas as condições ou redução de doenças. O registro acompanha a difusão de uma aplicação, preservando a distância entre promessa comercial e eficácia sanitária demonstrada.",
+        "en": "A device announced by a Chinese company combines AI recognition and a laser to target mosquitoes. A product or manufacturer demonstration does not establish epidemiological impact, safety under every condition or reduced disease incidence. The record tracks an application while preserving the distinction between a commercial promise and demonstrated public-health effectiveness."
+      },
+      "sourceIds": [
+        "6ee00245df3da4"
+      ]
+    }
+  ]
+}
