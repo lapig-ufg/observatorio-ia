@@ -2,11 +2,15 @@
 
 ## Experiência “Por dentro da IA”
 
-A aula interativa integra este repositório em `experiencias/por-dentro-da-ia/`. Seu botão aparece na seção **Experiências interativas** da página inicial. O botão **Voltar ao Observatório**, no cabeçalho da aula, retorna à mesma seção.
+As aulas interativas integram este repositório em `experiencias/por-dentro-da-ia/`. O botão aparece na seção **Experiências interativas** da página inicial. A entrada é um hub de aulas:
 
-Endereço: https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/
+- https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/ — hub com a trilha recomendada.
+- https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/ — aula 1, redes neurais: do neurônio à retropropagação, com cinco playgrounds.
+- https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/transformers/ — aula 2, Transformers: da frase ao próximo token.
 
-Para publicar o conjunto, instalar também as dependências da aula com `pnpm --dir experiencias/por-dentro-da-ia install --frozen-lockfile` e executar `pnpm build:all`. Esse comando compila portal e aula, testa a experiência e reúne tudo em `dist/`. O workflow do Observatório já usa esse procedimento; não criar uma publicação independente que substitua o portal.
+As aulas estão ordenadas por complexidade, mas são independentes: redes neurais é a mais fundamental e Transformers é a mais avançada. Todas as páginas usam o logotipo do Observatório no cabeçalho para retornar à seção Experiências interativas do portal.
+
+Para publicar o conjunto, instalar também as dependências da aula com `pnpm --dir experiencias/por-dentro-da-ia install --frozen-lockfile` e executar `pnpm build:all`. Esse comando compila portal e as três páginas, testa as experiências e reúne tudo em `dist/`. O workflow do Observatório já usa esse procedimento; não criar uma publicação independente que substitua o portal.
 
 Catálogo público de conteúdos sobre inteligência artificial. O projeto é uma
 aplicação React/Vite estática, preparada para GitHub Pages, que carrega os
