@@ -971,6 +971,12 @@ body.aula #dois-numeros .foco-dica { max-width: 46ch; }
 body.aula ol.foco > li.passo-largo .foco-texto { max-width: 86%; }
 body.aula .pedido-cores.pedido-longo { font-size: calc(var(--u) * 2); }
 
+.cartao-tarefa { max-width: 640px; margin-top: calc(var(--u) * 2); padding: calc(var(--u) * 2) calc(var(--u) * 2.6); background: #fffdf6; border: 1px solid #e6dcc0; border-radius: 4px; box-shadow: 0 8px 24px rgba(10, 56, 45, .1); transform: rotate(-.6deg); font: 400 max(17px, calc(var(--u) * 1.9))/1.4 var(--serifa); }
+.cartao-rotulo { margin: 0 0 .6em; font: 700 .7em var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--terracota); }
+.cartao-linha { margin: .3em 0 0; padding-bottom: .3em; border-bottom: 1px dashed #d9cfb2; }
+.cartao-linha span { font: 600 .75em var(--sans); color: var(--tinta-2); margin-right: .4em; }
+body.aula .cartao-tarefa { font-size: calc(var(--u) * 2.3); max-width: none; width: calc(var(--u) * 64); }
+
 /* ---------- Rodapé do modo leitura ---------- */
 
 .rodape-leitura {
