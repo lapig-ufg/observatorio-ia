@@ -947,6 +947,7 @@ ol.foco .copiar { margin-top: 1em; font-size: max(15px, calc(var(--u) * 1.4)); p
 body:not(.aula) .so-aula { display: none; }
 .relatorio-mini { margin: 0; max-width: 520px; padding: calc(var(--u) * 2.4) calc(var(--u) * 3); background: var(--papel); border: 1px solid var(--linha); border-radius: 6px; box-shadow: 0 10px 30px rgba(10, 56, 45, .1); font-size: max(15px, calc(var(--u) * 1.5)); }
 .relatorio-mini figcaption { font: 700 1em var(--serifa); color: var(--tinta); margin-bottom: .6em; }
+.relatorio-mini figcaption small { display: block; font: 400 .78em var(--sans); color: var(--tinta-2); }
 .relatorio-mini table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .relatorio-mini td { padding: .25em 0; border-bottom: 1px solid var(--linha); }
 .relatorio-mini td:last-child { text-align: right; font-family: var(--mono); }
