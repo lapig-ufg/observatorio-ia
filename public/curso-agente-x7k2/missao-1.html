@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missão 1: a pasta bagunçada</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Do chat ao agente, Missão 1: juntar 12 planilhas mensais numa só, somar cada mês e fazer um gráfico, sem mexer nos originais.">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/curso.css">
+</head>
+<body class="pagina-missao">
+
+<header class="topo">
+  <a class="marca" href="https://lapig-ufg.github.io/observatorio-ia/">
+    <img src="assets/brand/observatorio-coruja.svg" alt="">
+    <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
+  </a>
+  <span class="espaco"></span>
+  <button class="botao cheio" data-acao="aula" type="button">Apresentar</button>
+</header>
+
+<nav class="trilha" aria-hidden="true"></nav>
+
+<main>
+
+  <!-- Abertura da missão -->
+  <section class="tela" id="missao" data-bloco="Missão 1" data-min="50" data-titulo="Missão 1: a pasta bagunçada">
+    <div class="cabeca">
+      <p class="faca-comigo">Missão 1 de 5</p>
+      <h2>A pasta bagunçada</h2>
+      <p class="lead">Doze planilhas de despesas, uma por mês, cada uma de um jeito. No fim, uma planilha só, com o total de cada mês e um gráfico.</p>
+    </div>
+    <div class="missao-antes-depois">
+      <figure class="pasta-mini bagunca">
+        <figcaption>despesas-2026</figcaption>
+        <span class="arquivo" data-ext="xlsx">jan.xlsx</span>
+        <span class="arquivo" data-ext="xlsx">Fevereiro 2026.xlsx</span>
+        <span class="arquivo" data-ext="xlsx">despesas_mar.xlsx</span>
+        <span class="arquivo" data-ext="csv">julho.csv</span>
+        <span class="mais">e mais 8</span>
+      </figure>
+      <span class="seta" aria-hidden="true">→</span>
+      <figure class="pasta-mini">
+        <figcaption>resultado</figcaption>
+        <span class="arquivo" data-ext="xlsx">despesas-2026-completo.xlsx</span>
+        <span class="arquivo" data-ext="png">grafico-totais.png</span>
+      </figure>
+    </div>
+    <p class="so-leitura missao-kit">Os arquivos são fictícios. <a class="botao cheio" href="kit/missao-1.zip" download>Baixar o kit da Missão 1</a></p>
+  </section>
+
+  <!-- Faça comigo -->
+  <section class="tela" id="passos" data-bloco="Missão 1" data-titulo="Faça comigo">
+    <div class="cabeca">
+      <p class="faca-comigo">Faça comigo</p>
+      <h2>A pasta bagunçada</h2>
+    </div>
+    <ol class="foco">
+      <li data-passo="0" data-rotulo="Copiar a pasta">
+        <div class="foco-texto">
+          <p class="foco-acao">Faça uma cópia da pasta</p>
+          <p class="foco-dica">Clique com o botão direito em <b>despesas-2026</b> e escolha <b>Copiar</b>. Depois, botão direito num espaço vazio e <b>Colar</b>.</p>
+        </div>
+        <figure class="foco-figura pasta-mini">
+          <figcaption>Downloads</figcaption>
+          <span class="arquivo pasta">despesas-2026</span>
+          <span class="arquivo pasta nova">despesas-2026 - Cópia</span>
+        </figure>
+      </li>
+      <li data-passo="1" data-rotulo="Abrir a cópia">
+        <div class="foco-texto">
+          <p class="foco-acao">No Antigravity, abra só a cópia</p>
+          <p class="foco-dica">Use <b>Open Folder</b> (Abrir pasta) e escolha <b>despesas-2026 - Cópia</b>. A pasta original fica fora do alcance dele.</p>
+        </div>
+      </li>
+      <li data-passo="2" data-rotulo="Pedir">
+        <div class="foco-texto">
+          <p class="foco-acao">Cole o pedido e envie</p>
+          <p class="pedido-cores">
+            <span class="p1">Leia as 12 planilhas desta pasta.</span>
+            <span class="p2">Junte tudo numa planilha só, some o total de cada mês e faça um gráfico dos totais.</span>
+            <span class="p3">Salve numa pasta nova chamada resultado.</span>
+            <span class="p4">Não altere nem apague as planilhas originais.</span>
+          </p>
+          <button type="button" class="copiar so-leitura" data-copiar="Leia as 12 planilhas desta pasta. Junte tudo numa planilha só, some o total de cada mês e faça um gráfico dos totais. Salve numa pasta nova chamada resultado. Não altere nem apague as planilhas originais.">Copiar o pedido</button>
+        </div>
+      </li>
+      <li data-passo="3" data-rotulo="Aprovar">
+        <div class="foco-texto">
+          <p class="foco-acao">Leia antes de aprovar</p>
+          <p class="foco-dica">Ele vai pedir permissão para rodar comandos. Se o pedido fala em ler as planilhas ou criar a pasta resultado, aprove. Se fala em apagar alguma coisa, recuse.</p>
+        </div>
+      </li>
+      <li data-passo="4" data-rotulo="Conferir">
+        <div class="foco-texto">
+          <p class="foco-acao">Confira o total do ano</p>
+          <p class="foco-grande">R$ 79.466,18</p>
+          <p class="foco-dica">Se o seu deu diferente, um mês ficou de fora ou foi somado duas vezes. Pergunte a ele qual.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Faça sozinho -->
+  <section class="tela" id="sozinho" data-bloco="Missão 1" data-titulo="Agora sozinho">
+    <div class="cabeca">
+      <p class="faca-comigo">Agora sozinho</p>
+      <h2>Quanto foi de combustível?</h2>
+      <p class="lead">Na mesma conversa, peça o total gasto com combustível no ano e a categoria que mais gastou.</p>
+    </div>
+    <details class="so-leitura gabarito">
+      <summary>Ver a resposta</summary>
+      <p>Combustível: <b>R$ 6.139,97</b>. A categoria que mais gastou foi Análises: <b>R$ 38.690,08</b>.</p>
+    </details>
+  </section>
+
+  <!-- Só na leitura -->
+  <section class="tela-extra so-leitura" id="gravacao" data-bloco="Missão 1" data-titulo="A gravação e os problemas comuns">
+    <div class="cabeca">
+      <h2>Veja como foi feito</h2>
+    </div>
+    <div class="gravacao-vaga">
+      <p>A gravação desta missão no Antigravity entra aqui, dividida por passo.</p>
+    </div>
+    <h3 class="missao-sub">Deu errado?</h3>
+    <dl class="deu-errado">
+      <dt>Ele leu só algumas planilhas</dt>
+      <dd>Diga quais faltaram: “Você leu a de julho? Ela é um CSV.”</dd>
+      <dt>Os valores vieram como texto e a soma deu zero</dt>
+      <dd>Peça: “Os valores estão escritos como texto em reais. Converta para número antes de somar.”</dd>
+      <dt>Ele mexeu numa planilha original</dt>
+      <dd>Sem problema: você trabalhou na cópia. Apague a cópia, copie de novo e repita o pedido.</dd>
+      <dt>Apareceu um aviso de limite</dt>
+      <dd>Continue no computador do colega até o fim da missão.</dd>
+    </dl>
+  </section>
+
+</main>
+
+<footer class="rodape-leitura">
+  <p>Do chat ao agente · Observatório UFG-IA · LAPIG/IESA/UFG. Os arquivos das missões são fictícios.</p>
+</footer>
+
+<div class="indice" role="dialog" aria-label="Índice das telas"><ol></ol></div>
+
+<script src="js/motor.js"></script>
+<script src="js/telas-pratica.js"></script>
+</body>
+</html>

@@ -913,6 +913,37 @@ body.aula .pasta-mini { font-size: calc(var(--u) * 2.4); }
   body:not(.aula) ol.foco > li { grid-template-columns: 1fr; }
 }
 
+/* ---------- Páginas de missão ---------- */
+
+.tela-extra { max-width: 1280px; margin: 0 auto; padding: calc(var(--u) * 9) max(16px, calc(var(--u) * 6)); border-bottom: 1px solid var(--linha); }
+.missao-antes-depois { display: flex; align-items: center; gap: calc(var(--u) * 3); flex-wrap: wrap; }
+.missao-antes-depois .pasta-mini { font-size: max(14px, calc(var(--u) * 1.5)); }
+.pasta-mini.bagunca { grid-template-columns: repeat(2, auto); }
+.pasta-mini.bagunca figcaption { grid-column: 1 / -1; }
+.pasta-mini .mais { font: 600 .8em var(--sans); color: var(--verde-fundo); align-self: center; }
+.missao-antes-depois .seta { font: 700 calc(var(--u) * 5)/1 var(--serifa); color: var(--terracota); }
+body.aula .missao-antes-depois { flex: 1; justify-content: flex-start; flex-wrap: nowrap; gap: calc(var(--u) * 5); }
+body.aula.pagina-missao .tela > .cabeca .lead { font-size: calc(var(--u) * 2.4); max-width: 46ch; }
+body.aula .missao-antes-depois .pasta-mini { font-size: calc(var(--u) * 1.5); }
+body.aula .missao-antes-depois .seta { font-size: calc(var(--u) * 4); }
+.arquivo.pasta::before { content: ""; width: 2.6em; height: 2em; border-radius: 3px 8px 4px 4px; background: #e2b33c; }
+.arquivo.pasta.nova { outline: 3px solid var(--terracota); outline-offset: 2px; }
+.missao-kit { margin-top: calc(var(--u) * 3); display: flex; align-items: center; gap: 1em; flex-wrap: wrap; color: var(--tinta-2); }
+
+.pedido-cores { margin: .5em 0 0; font: 400 max(18px, calc(var(--u) * 2))/1.45 var(--serifa); border-left: 4px solid var(--terracota); padding-left: .7em; }
+.pedido-cores span { font-weight: 700; }
+.pedido-cores .p1 { color: var(--p1); } .pedido-cores .p2 { color: var(--p2); } .pedido-cores .p3 { color: var(--p3); } .pedido-cores .p4 { color: var(--p4); }
+body.aula .pedido-cores { font-size: calc(var(--u) * 2.5); }
+ol.foco .copiar { margin-top: 1em; font-size: max(15px, calc(var(--u) * 1.4)); padding: .6em 1.1em; }
+
+.gabarito { margin-top: calc(var(--u) * 3); padding: 1em 1.2em; border-radius: 10px; background: var(--papel); border: 1px solid var(--linha); font-size: max(16px, calc(var(--u) * 1.7)); }
+.gabarito summary { cursor: pointer; font-weight: 600; color: var(--verde); }
+.gravacao-vaga { display: grid; place-items: center; aspect-ratio: 16 / 9; max-width: 720px; border-radius: 12px; border: 2px dashed var(--linha); color: var(--tinta-2); text-align: center; padding: 1em; }
+.missao-sub { margin: calc(var(--u) * 5) 0 calc(var(--u) * 1.5); }
+.deu-errado { margin: 0; display: grid; gap: .3em 0; max-width: 72ch; font-size: max(16px, calc(var(--u) * 1.6)); }
+.deu-errado dt { font-weight: 700; color: var(--tinta); margin-top: .9em; }
+.deu-errado dd { margin: 0; color: var(--tinta-2); }
+
 /* ---------- Rodapé do modo leitura ---------- */
 
 .rodape-leitura {
