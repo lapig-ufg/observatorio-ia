@@ -963,6 +963,13 @@ body.aula .sair-aula:hover { opacity: 1; }
 .antes-de-comecar ol { margin: 0; padding-left: 1.3em; display: grid; gap: .45em; }
 .proxima { display: flex; justify-content: flex-end; max-width: 1280px; margin: 0 auto; padding: calc(var(--u) * 4) max(16px, calc(var(--u) * 6)); }
 
+.exemplo-retrato { justify-self: start; margin-top: calc(var(--u) * 2); max-width: 640px; }
+body.aula .exemplo-retrato { width: min(100%, 100vh); align-self: flex-start; }
+body.aula .exemplo-retrato img { max-height: 52vh; object-fit: cover; object-position: top; }
+body.aula #dois-numeros .foco-dica { max-width: 46ch; }
+body.aula ol.foco > li.passo-largo .foco-texto { max-width: 86%; }
+body.aula .pedido-cores.pedido-longo { font-size: calc(var(--u) * 2); }
+
 /* ---------- Rodapé do modo leitura ---------- */
 
 .rodape-leitura {
