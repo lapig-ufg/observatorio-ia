@@ -979,6 +979,14 @@ mark.troque { background: #fbe3cf; color: inherit; padding: 0 .2em; border-radiu
 .cartao-linha span { font: 600 .75em var(--sans); color: var(--tinta-2); margin-right: .4em; }
 body.aula .cartao-tarefa { font-size: calc(var(--u) * 2.3); max-width: none; width: calc(var(--u) * 64); }
 
+.lista-missoes { list-style: none; margin: calc(var(--u) * 3) 0 0; padding: 0; display: grid; gap: 10px; max-width: 760px; }
+.lista-missoes a { display: grid; grid-template-columns: 2.6em 1fr; grid-template-rows: auto auto; column-gap: 1em; align-items: center; padding: 14px 18px; background: var(--papel); border: 1px solid var(--linha); border-radius: 12px; text-decoration: none; color: var(--tinta); transition: border-color .2s, transform .2s; }
+.lista-missoes a:hover { border-color: var(--verde); transform: translateX(4px); }
+.lista-missoes .n { grid-row: 1 / 3; display: grid; place-items: center; width: 2.4em; height: 2.4em; border-radius: 50%; background: var(--verde); color: #fff; font: 700 1.1em var(--serifa); }
+.lista-missoes li:first-child .n { background: var(--terracota); }
+.lista-missoes b { font: 700 max(18px, calc(var(--u) * 1.9)) var(--serifa); color: var(--verde); }
+.lista-missoes small { color: var(--tinta-2); font-size: max(14px, calc(var(--u) * 1.35)); }
+
 /* ---------- Rodapé do modo leitura ---------- */
 
 .rodape-leitura {
