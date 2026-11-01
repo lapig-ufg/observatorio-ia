@@ -20,10 +20,11 @@
     <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
   </a>
   <span class="espaco"></span>
-  <button class="botao cheio" data-acao="aula" type="button">Apresentar</button>
+  <button class="botao" data-acao="aula" type="button" title="Mostra uma tela por vez, para projetar na sala. Para sair, aperte L.">Projetar na sala</button>
 </header>
 
 <nav class="trilha" aria-hidden="true"></nav>
+<button class="sair-aula" data-acao="leitura" type="button">Sair da projeção (L)</button>
 
 <main>
 
@@ -51,6 +52,14 @@
       </figure>
     </div>
     <p class="so-leitura missao-kit">Os arquivos são fictícios. <a class="botao cheio" href="kit/missao-1.zip" download>Baixar o kit da Missão 1</a></p>
+    <div class="so-leitura antes-de-comecar">
+      <h3>Antes de começar</h3>
+      <ol>
+        <li>Faça no notebook ou computador, não no celular: o kit e o Antigravity precisam estar na mesma máquina.</li>
+        <li>O Antigravity precisa estar instalado (<a href="index.html#instalar">como instalar</a>).</li>
+        <li>Clique em <b>Baixar o kit</b>. O arquivo .zip vai para a pasta <b>Downloads</b>. Abra o Explorador de Arquivos, vá em Downloads, clique com o botão direito no .zip e escolha <b>Extrair tudo</b>. Trabalhe na pasta extraída, não dentro do .zip.</li>
+      </ol>
+    </div>
   </section>
 
   <!-- Faça comigo -->
@@ -63,7 +72,7 @@
       <li data-passo="0" data-rotulo="Copiar a pasta">
         <div class="foco-texto">
           <p class="foco-acao">Faça uma cópia da pasta</p>
-          <p class="foco-dica">Clique com o botão direito em <b>despesas-2026</b> e escolha <b>Copiar</b>. Depois, botão direito num espaço vazio e <b>Colar</b>.</p>
+          <p class="foco-dica">Clique com o botão direito em <b>despesas-2026</b> e escolha <b>Copiar</b>. Sem entrar na pasta, clique com o botão direito num espaço vazio ao lado e escolha <b>Colar</b>.</p>
         </div>
         <figure class="foco-figura pasta-mini">
           <figcaption>Downloads</figcaption>
@@ -74,12 +83,13 @@
       <li data-passo="1" data-rotulo="Abrir a cópia">
         <div class="foco-texto">
           <p class="foco-acao">No Antigravity, abra só a cópia</p>
-          <p class="foco-dica">Use <b>Open Folder</b> (Abrir pasta) e escolha <b>despesas-2026 - Cópia</b>. A pasta original fica fora do alcance dele.</p>
+          <p class="foco-dica">Use <b>Open Folder</b> (Abrir pasta) e escolha <b>despesas-2026 - Cópia</b>. O agente trabalha a partir dessa pasta. Se ele pedir para mexer fora dela, leia com atenção antes de aprovar.</p>
         </div>
       </li>
       <li data-passo="2" data-rotulo="Pedir">
         <div class="foco-texto">
           <p class="foco-acao">Cole o pedido e envie</p>
+          <p class="foco-dica so-leitura">Cole na caixa de mensagem do Antigravity e aperte Enter.</p>
           <p class="pedido-cores">
             <span class="p1">Leia as 12 planilhas desta pasta.</span>
             <span class="p2">Junte tudo numa planilha só, some o total de cada mês e faça um gráfico dos totais.</span>
@@ -92,14 +102,15 @@
       <li data-passo="3" data-rotulo="Aprovar">
         <div class="foco-texto">
           <p class="foco-acao">Leia antes de aprovar</p>
-          <p class="foco-dica">Ele vai pedir permissão para rodar comandos. Se o pedido fala em ler as planilhas ou criar a pasta resultado, aprove. Se fala em apagar alguma coisa, recuse.</p>
+          <p class="foco-dica"><b>Ler, criar, instalar biblioteca:</b> aprove.<br><b>Apagar, excluir, remover:</b> recuse.</p>
+          <p class="foco-dica so-leitura">Ele vai pedir permissão para rodar comandos. Ler arquivos, criar a pasta resultado e instalar uma biblioteca de planilhas (algo como <code>pip install openpyxl</code>) são esperados.</p>
         </div>
       </li>
       <li data-passo="4" data-rotulo="Conferir">
         <div class="foco-texto">
           <p class="foco-acao">Confira o total do ano</p>
           <p class="foco-grande">R$ 79.466,18</p>
-          <p class="foco-dica">Se o seu deu diferente, um mês ficou de fora ou foi somado duas vezes. Pergunte a ele qual.</p>
+          <p class="foco-dica">Ele mostra o total na resposta; a planilha e o gráfico ficam na pasta <b>resultado</b>. Se não bater, peça a soma mês a mês e compare.</p>
         </div>
       </li>
     </ol>
@@ -110,7 +121,7 @@
     <div class="cabeca">
       <p class="faca-comigo">Agora sozinho</p>
       <h2>Quanto foi de combustível?</h2>
-      <p class="lead">Na mesma conversa, peça o total gasto com combustível no ano e a categoria que mais gastou.</p>
+      <p class="lead">Na mesma conversa (sem abrir uma nova), peça o total gasto com combustível no ano e a categoria que mais gastou.</p>
     </div>
     <details class="so-leitura gabarito">
       <summary>Ver a resposta</summary>
@@ -120,24 +131,20 @@
 
   <!-- Só na leitura -->
   <section class="tela-extra so-leitura" id="gravacao" data-bloco="Missão 1" data-titulo="A gravação e os problemas comuns">
-    <div class="cabeca">
-      <h2>Veja como foi feito</h2>
-    </div>
-    <div class="gravacao-vaga">
-      <p>A gravação desta missão no Antigravity entra aqui, dividida por passo.</p>
-    </div>
-    <h3 class="missao-sub">Deu errado?</h3>
+    <div class="cabeca"><h2>Deu errado?</h2></div>
     <dl class="deu-errado">
       <dt>Ele leu só algumas planilhas</dt>
       <dd>Diga quais faltaram: “Você leu a de julho? Ela é um CSV.”</dd>
-      <dt>Os valores vieram como texto e a soma deu zero</dt>
-      <dd>Peça: “Os valores estão escritos como texto em reais. Converta para número antes de somar.”</dd>
+      <dt>O total não bateu</dt>
+      <dd>Duas planilhas têm os valores escritos como texto, e julho é um CSV. Peça: “Converta os valores escritos como texto em número e confira se julho entrou.”</dd>
       <dt>Ele mexeu numa planilha original</dt>
-      <dd>Sem problema: você trabalhou na cópia. Apague a cópia, copie de novo e repita o pedido.</dd>
+      <dd>Sem problema: você trabalhou na cópia. Feche a pasta no Antigravity, apague a cópia no Explorador (confira que é a que termina em “- Cópia”), copie de novo e repita o pedido.</dd>
       <dt>Apareceu um aviso de limite</dt>
-      <dd>Continue no computador do colega até o fim da missão.</dd>
+      <dd>Na sala, continue no computador do colega. Em casa, o limite volta na semana seguinte; o que já foi feito fica salvo na pasta.</dd>
     </dl>
   </section>
+
+  <nav class="proxima so-leitura"><a class="botao cheio" href="missao-2.html">Próxima: Missão 2 →</a></nav>
 
 </main>
 

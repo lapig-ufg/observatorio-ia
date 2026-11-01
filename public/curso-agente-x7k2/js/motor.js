@@ -189,6 +189,7 @@
   });
 
   document.querySelectorAll("[data-acao='aula']").forEach((b) => b.addEventListener("click", entrarAula));
+  document.querySelectorAll("[data-acao='leitura']").forEach((b) => b.addEventListener("click", sairAula));
 
   // No modo leitura, cada tela avisa quando entra na vista (para iniciar ou pausar o que for pesado).
   const vigia = new IntersectionObserver((itens) => {

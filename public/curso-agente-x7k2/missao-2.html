@@ -20,10 +20,11 @@
     <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
   </a>
   <span class="espaco"></span>
-  <button class="botao cheio" data-acao="aula" type="button">Apresentar</button>
+  <button class="botao" data-acao="aula" type="button" title="Mostra uma tela por vez, para projetar na sala. Para sair, aperte L.">Projetar na sala</button>
 </header>
 
 <nav class="trilha" aria-hidden="true"></nav>
+<button class="sair-aula" data-acao="leitura" type="button">Sair da projeção (L)</button>
 
 <main>
 
@@ -46,6 +47,14 @@
       </figure>
     </div>
     <p class="so-leitura missao-kit">A ata é fictícia. <a class="botao cheio" href="kit/missao-2.zip" download>Baixar o kit da Missão 2</a></p>
+    <div class="so-leitura antes-de-comecar">
+      <h3>Antes de começar</h3>
+      <ol>
+        <li>Faça no notebook ou computador, não no celular: o kit e o Antigravity precisam estar na mesma máquina.</li>
+        <li>O Antigravity precisa estar instalado (<a href="index.html#instalar">como instalar</a>).</li>
+        <li>Clique em <b>Baixar o kit</b>. O arquivo .zip vai para a pasta <b>Downloads</b>. Abra o Explorador de Arquivos, vá em Downloads, clique com o botão direito no .zip e escolha <b>Extrair tudo</b>. Trabalhe na pasta extraída, não dentro do .zip.</li>
+      </ol>
+    </div>
   </section>
 
   <section class="tela" id="passos" data-bloco="Missão 2" data-titulo="Faça comigo">
@@ -63,6 +72,7 @@
       <li data-passo="1" data-rotulo="Pedir">
         <div class="foco-texto">
           <p class="foco-acao">Cole o pedido e envie</p>
+          <p class="foco-dica so-leitura">Cole na caixa de mensagem do Antigravity e aperte Enter.</p>
           <p class="pedido-cores">
             <span class="p1">Leia a ata desta pasta.</span>
             <span class="p2">Faça uma lista de tarefas com quem faz, o que faz e o prazo, e um rascunho de e-mail para a equipe.</span>
@@ -99,7 +109,7 @@
     <div class="cabeca">
       <p class="faca-comigo">Agora sozinho</p>
       <h2>Só o que vence em março</h2>
-      <p class="lead">Na mesma conversa, peça um e-mail curto só para quem tem prazo até o fim de março.</p>
+      <p class="lead">Na mesma conversa (sem abrir uma nova), peça um e-mail curto só para quem tem prazo até o fim de março.</p>
     </div>
     <details class="so-leitura gabarito">
       <summary>Ver a resposta</summary>
@@ -108,13 +118,7 @@
   </section>
 
   <section class="tela-extra so-leitura" id="gravacao" data-titulo="A gravação e os problemas comuns">
-    <div class="cabeca">
-      <h2>Veja como foi feito</h2>
-    </div>
-    <div class="gravacao-vaga">
-      <p>A gravação desta missão no Antigravity entra aqui, dividida por passo.</p>
-    </div>
-    <h3 class="missao-sub">Deu errado?</h3>
+    <div class="cabeca"><h2>Deu errado?</h2></div>
     <dl class="deu-errado">
       <dt>Ele inventou um responsável</dt>
       <dd>Diga: “A ata não diz quem pede os orçamentos. Não invente nome: escreva ‘a definir’.”</dd>
@@ -126,6 +130,8 @@
       <dd>Você trabalhou na cópia. Copie a pasta de novo e repita o pedido.</dd>
     </dl>
   </section>
+
+  <nav class="proxima so-leitura"><a class="botao cheio" href="missao-3.html">Próxima: Missão 3 →</a></nav>
 
 </main>
 

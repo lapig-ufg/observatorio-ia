@@ -20,10 +20,11 @@
     <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
   </a>
   <span class="espaco"></span>
-  <button class="botao cheio" data-acao="aula" type="button">Apresentar</button>
+  <button class="botao" data-acao="aula" type="button" title="Mostra uma tela por vez, para projetar na sala. Para sair, aperte L.">Projetar na sala</button>
 </header>
 
 <nav class="trilha" aria-hidden="true"></nav>
+<button class="sair-aula" data-acao="leitura" type="button">Sair da projeção (L)</button>
 
 <main>
 
@@ -47,6 +48,14 @@
       <p>“O maior gasto foi em março, mês da primeira campanha de campo.”</p>
     </figure>
     <p class="so-leitura missao-kit">O relatório é fictício. <a class="botao cheio" href="kit/missao-3.zip" download>Baixar o kit da Missão 3</a></p>
+    <div class="so-leitura antes-de-comecar">
+      <h3>Antes de começar</h3>
+      <ol>
+        <li>Faça no notebook ou computador, não no celular: o kit e o Antigravity precisam estar na mesma máquina.</li>
+        <li>O Antigravity precisa estar instalado (<a href="index.html#instalar">como instalar</a>).</li>
+        <li>Clique em <b>Baixar o kit</b>. O arquivo .zip vai para a pasta <b>Downloads</b>. Abra o Explorador de Arquivos, vá em Downloads, clique com o botão direito no .zip e escolha <b>Extrair tudo</b>. Trabalhe na pasta extraída, não dentro do .zip.</li>
+      </ol>
+    </div>
   </section>
 
   <section class="tela" id="passos" data-bloco="Missão 3" data-titulo="Faça comigo">
@@ -106,13 +115,7 @@
   </section>
 
   <section class="tela-extra so-leitura" id="gravacao" data-titulo="A gravação e os problemas comuns">
-    <div class="cabeca">
-      <h2>Veja como foi feito</h2>
-    </div>
-    <div class="gravacao-vaga">
-      <p>A gravação desta missão no Antigravity entra aqui, dividida por passo.</p>
-    </div>
-    <h3 class="missao-sub">Deu errado?</h3>
+    <div class="cabeca"><h2>Deu errado?</h2></div>
     <dl class="deu-errado">
       <dt>Ela disse que está tudo certo</dt>
       <dd>Peça de novo, mais exato: “Compare cada mês do relatório com o total da planilha daquele mês.”</dd>
