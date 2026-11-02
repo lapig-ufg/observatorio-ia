@@ -6,7 +6,7 @@
 // as respostas ficam só neste navegador (localStorage).
 
 (() => {
-  const VERSAO = 1;
+  const VERSAO = 2; // v2 (02/11/2026): entrou a pergunta 5, que ordena os problemas da Fase 2
 
   const PERGUNTAS = [
     {
@@ -40,6 +40,18 @@
         "Depender demais dela",
       ],
     },
+    {
+      id: "q5", curta: "Seu tempo",
+      texto: "O que mais toma o seu tempo no trabalho?",
+      opcoes: [
+        "Escrever e responder e-mails",
+        "Reuniões, atas e encaminhamentos",
+        "Planilhas e números",
+        "Procurar e conferir informações",
+        "Preparar aulas e materiais",
+        "Relatórios e prestação de contas",
+      ],
+    },
   ];
 
   const url = () => window.LEVANTAMENTO_URL || "";
@@ -52,7 +64,7 @@
     try { localStorage.setItem(CHAVE_DEMO, JSON.stringify(linhas)); } catch { /* sem armazenamento: segue sem gravar */ }
   };
 
-  // Linha: { t: carimbo ms, turma, r: [i1, i2, i3, i4] } (índices das opções)
+  // Linha: { t: carimbo ms, turma, r: [i1, ..., i5] } (índices das opções)
   async function enviar(turma, respostas) {
     const linha = { t: Date.now(), turma: turma || "VISITANTE", v: VERSAO, r: respostas };
     if (!url()) { const l = lerDemo(); l.push(linha); gravarDemo(l); return true; }
@@ -79,7 +91,8 @@
       const ia = sortear(f === 0 ? [0, 0, 0, 0, 0, 0, 1] : [0.46, 0.24, 0.07, 0.08, 0.08, 0.04, 0.03]);
       const ate = Math.min(3, Math.max(0, sortear([0.45, 0.32, 0.17, 0.06]) + (f >= 3 ? 1 : 0) - (f <= 1 ? 1 : 0)));
       const medo = sortear([0.38, 0.24, 0.1, 0.16, 0.12]);
-      l.push({ t: Date.now() - Math.floor(Math.random() * 6e5), turma: turma || "ENSAIO", v: VERSAO, r: [f, ia, ate, medo] });
+      const tempo = sortear([0.2, 0.17, 0.24, 0.12, 0.14, 0.13]);
+      l.push({ t: Date.now() - Math.floor(Math.random() * 6e5), turma: turma || "ENSAIO", v: VERSAO, r: [f, ia, ate, medo, tempo] });
     }
     gravarDemo(l);
   }

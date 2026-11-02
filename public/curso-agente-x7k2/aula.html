@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do chat ao agente</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Curso prático: IA trabalhando no seu computador. Observatório UFG-IA, LAPIG/IESA/UFG.">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/palco.css">
+<script>
+  // Endereço do Apps Script que guarda as respostas. Vazio = modo de demonstração (só neste navegador).
+  window.LEVANTAMENTO_URL = "";
+  // O QR code aponta para o endereço público mesmo quando a aula roda no computador local.
+  window.CURSO_PUBLICO = "https://lapig-ufg.github.io/observatorio-ia/curso-agente-x7k2/";
+</script>
+</head>
+<body>
+
+<div class="palco">
+
+  <!-- ===================== FASE 1 ===================== -->
+
+  <section class="cena" id="capa" data-fase="1" data-titulo="Capa e levantamento">
+    <canvas class="fundo" aria-hidden="true"></canvas>
+    <div class="capa-texto">
+      <span class="rotulo">Curso prático · Observatório UFG-IA</span>
+      <h1><span>Do chat</span><span>ao <em>agente</em></span></h1>
+      <p class="linha-fina">IA trabalhando no seu computador</p>
+    </div>
+    <div class="convite">
+      <div class="qr"><div></div></div>
+      <p>Aponte a câmera do celular<small>Cinco toques, sem nome, sem digitar</small></p>
+      <div class="contagem"><b>0</b><small>responderam</small></div>
+    </div>
+    <div class="capa-assina">
+      <img src="assets/brand/observatorio-coruja.svg" alt="">
+      <span><b>Victor Amaral</b></span><span>LAPIG · IESA · UFG</span><span class="turma"></span>
+      <span class="demo" hidden>demonstração: S simula respostas, 0 apaga</span>
+    </div>
+    <div class="verso-fonte" hidden>
+      <div class="verso">
+        <blockquote>Precisamos fazer esse curso ser uma experiência.</blockquote>
+        <p class="quem">Victor, ao pedir esta apresentação · 2 nov. 2026</p>
+        <span data-resumo="Claude Code: leu as conversas anteriores, propôs as três fases e escreveu o código."></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="sala" data-fase="1" data-passos="4" data-titulo="A sala em pontos">
+    <canvas class="fundo" aria-hidden="true"></canvas>
+    <div class="sala-destaque" hidden>
+      <span class="rotulo">Vamos começar por aqui</span>
+      <strong></strong>
+    </div>
+    <div class="sala-cabeca">
+      <div>
+        <span class="rotulo num"></span>
+        <h2 class="titulo"></h2>
+      </div>
+      <div class="legenda-freq" aria-label="Brilho do ponto: frequência de uso">
+        <span>cada ponto é uma pessoa · <b class="contagem-sala"></b></span>
+        <i style="background:#3f6455"></i>nunca usou
+        <i style="background:#fff6e3;box-shadow:0 0 10px #fff6e3"></i>todo dia
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="folha" data-fase="1" data-passos="5" data-titulo="Quatro anos de IA no jornal">
+    <canvas class="fundo interativo" aria-label="Cada ponto é uma matéria da Folha de S.Paulo sobre IA, por mês, de novembro de 2022 a outubro de 2026"></canvas>
+    <div class="folha-cabeca"><span class="rotulo">A IA no jornal, mês a mês</span></div>
+    <div class="folha-frase">
+      <h2 class="titulo" data-passo="0" data-ate="0">Novembro de 2022. A Folha publica 17 matérias que falam de IA.</h2>
+      <h2 class="titulo" data-passo="1" data-ate="1">No dia 30, a OpenAI abre o <em>ChatGPT</em> para qualquer pessoa.</h2>
+      <h2 class="titulo" data-passo="2" data-ate="2">Desde então, o assunto não saiu mais do jornal.</h2>
+      <h2 class="titulo" data-passo="3" data-ate="3">Em 2023, quase metade falava de modelos e empresas. Em 2026, um quarto.</h2>
+      <h2 class="titulo" data-passo="4" data-ate="4">Cada traço no alto é um modelo novo.</h2>
+      <h2 class="titulo" data-passo="5">Em 2025, a IA sai do chat e vai <em>trabalhar no computador</em>.</h2>
+    </div>
+    <div class="folha-contador"><span class="numero">17</span><small>matérias até nov/2022</small></div>
+    <div class="folha-legenda" data-passo="3" data-ate="3"></div>
+    <p class="folha-manchete" data-passo="2" data-ate="2"></p>
+    <p class="folha-fonte">Matérias: Folha de S.Paulo, coleção do Observatório UFG-IA · Lançamentos: Panorama da IA</p>
+    <div class="dica-ponto"></div>
+    <div class="verso-fonte" hidden>
+      <div class="verso">
+        <blockquote>Mostrar esse cenário a partir do observatório, utilizando o observatório como um “meta” exemplo.</blockquote>
+        <p class="quem">Victor, nas anotações para o curso · 2 nov. 2026</p>
+        <span data-resumo="Claude Code: juntou dados que já estavam no Observatório e desenhou o gráfico."></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="balanca" data-fase="1" data-titulo="A balança">
+    <div class="vitrine">
+      <div class="vitrine-texto">
+        <span class="rotulo">Uma pesquisa</span>
+        <h2 class="titulo">O centro de massa, numa balança</h2>
+        <p class="linha-fina">Quarenta anos de pastagem em Goiás, explicados com um halter que tomba.</p>
+        <button class="abrir" type="button">Abrir ao vivo <kbd>Enter</kbd></button>
+      </div>
+      <div class="peca" data-ao-vivo="https://victorgit10.github.io/mestrado-lulc-goias/Visualizacao/apresentacao.html#11.0">
+        <div class="peca-giro">
+          <div class="frente"><img src="assets/img/balanca.jpg" alt="A balança: o centro de massa da pastagem se desloca 77,6 km ao norte"></div>
+          <div class="verso">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Conseguiria tornar a explicação do centro de massa mais visual? […] Algo muito bem explicado, usando dados reais e a conta real.</blockquote>
+            <p class="quem">Victor, preparando a qualificação de mestrado · 19 set. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Claude Code, na pasta da dissertação</dd>
+              <dt>O que fez</dt><dd data-resumo="Claude Code: transformou a conta numa balança interativa, com os dados da pesquisa.">Transformou a conta numa balança interativa, com os dados da própria pesquisa</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="reflexo"></div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <section class="cena" id="diorama" data-fase="1" data-titulo="O diorama">
+    <div class="vitrine">
+      <div class="vitrine-texto">
+        <span class="rotulo">A mesma pesquisa</span>
+        <h2 class="titulo">Goiás em 3D, em movimento</h2>
+        <p class="linha-fina">O fecho da apresentação de qualificação: lavoura, pasto e mata num diorama.</p>
+        <button class="abrir" type="button">Abrir ao vivo <kbd>Enter</kbd></button>
+      </div>
+      <div class="peca" data-ao-vivo="https://victorgit10.github.io/mestrado-lulc-goias/Visualizacao/diorama-encerramento/cena.html">
+        <div class="peca-giro">
+          <div class="frente"><img src="assets/img/diorama.jpg" alt="Diorama em 3D de Goiás, com lavoura, pasto e mata"></div>
+          <div class="verso">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Pedi pra uma IA gerar um diorama bem interessante e impressionante.</blockquote>
+            <p class="quem">Victor, contando como fez · 23 set. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Uma IA de código <span class="rascunho">confirmar qual</span></dd>
+              <dt>O que fez</dt><dd data-resumo="Uma IA montou a cena em 3D; outra conferiu se ela travava os slides.">Montou a cena em 3D; o Claude Code conferiu se ela travava os slides</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="reflexo"></div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <section class="cena" id="maumau" data-fase="1" data-titulo="O Mau-Mau">
+    <div class="vitrine">
+      <div class="vitrine-texto">
+        <span class="rotulo">Um jogo</span>
+        <h2 class="titulo">Bots que explicam cada jogada</h2>
+        <p class="linha-fina">As regras dos bots foram escritas por uma IA. Durante a partida, nenhuma IA é chamada.</p>
+        <button class="abrir" type="button">Jogar em tela cheia <kbd>Enter</kbd></button>
+      </div>
+      <div class="peca" data-ao-vivo="vitrine-maumau.html">
+        <div class="peca-giro">
+          <div class="frente"><iframe data-src="vitrine-maumau.html" title="Mau-Mau: partida entre bots" loading="lazy"></iframe></div>
+          <div class="verso">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Mostrar o Mau-Mau funcionando: a pessoa assiste à partida e joga contra os bots.</blockquote>
+            <p class="quem">Victor, preparando este curso · out. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Claude Code</dd>
+              <dt>O que fez</dt><dd data-resumo="Claude Code: reescreveu os bots para explicar cada jogada e simulou 500 partidas.">Leu as regras do jogo original, reescreveu os bots para explicar cada jogada e simulou 500 partidas para achar travas</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <section class="cena" id="observatorio" data-fase="1" data-titulo="O Observatório">
+    <div class="vitrine">
+      <div class="vitrine-texto">
+        <span class="rotulo">Um portal</span>
+        <h2 class="titulo">Um observatório inteiro sobre IA</h2>
+        <p class="linha-fina">Mais de 1.600 materiais, as notícias de IA todo dia e aulas interativas. De onde vieram os dados que vocês acabaram de ver.</p>
+        <button class="abrir" type="button">Abrir ao vivo <kbd>Enter</kbd></button>
+      </div>
+      <div class="peca" data-ao-vivo="https://lapig-ufg.github.io/observatorio-ia/">
+        <div class="peca-giro">
+          <div class="frente"><img src="assets/img/observatorio.jpg" alt="Página inicial do Observatório UFG-IA"></div>
+          <div class="verso">
+            <span class="rotulo">O pedido</span>
+            <blockquote>[o pedido que deu origem ao portal]</blockquote>
+            <p class="quem">Victor <span class="rascunho">pedido a buscar</span></p>
+            <dl>
+              <dt>Quem fez</dt><dd>IAs de código <span class="rascunho">confirmar quais</span></dd>
+              <dt>O que fez</dt><dd data-resumo="Código escrito com IA; a equipe do LAPIG escolhe e revisa cada conteúdo.">Escreveu o código do portal; a equipe do LAPIG escolhe e revisa cada conteúdo</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="reflexo"></div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <section class="cena" id="revelacao" data-fase="1" data-passos="2" data-titulo="A revelação">
+    <div class="revela-cabeca">
+      <h2 class="titulo" data-passo="0" data-ate="0">Antes de seguir, uma pergunta: <em>quem fez tudo isso?</em></h2>
+      <h2 class="titulo" data-passo="1" data-ate="1">Tudo foi feito conversando com uma IA, em português comum.</h2>
+      <h2 class="titulo" data-passo="2">Inclusive <em>esta apresentação</em>. Hoje vocês aprendem o caminho.</h2>
+    </div>
+    <div class="cartas">
+      <div class="carta" data-de="capa"><div class="peca-giro">
+        <div class="frente"><div class="mini-capa"><b>Do chat<br>ao <em>agente</em></b></div><span>Esta apresentação</span></div>
+        <div class="verso"></div>
+      </div></div>
+      <div class="carta" data-de="folha"><div class="peca-giro">
+        <div class="frente"><div class="miniatura mini-folha"><canvas></canvas></div><span>A IA no jornal</span></div>
+        <div class="verso"></div>
+      </div></div>
+      <div class="carta" data-de="balanca"><div class="peca-giro">
+        <div class="frente"><img src="assets/img/balanca.jpg" alt=""><span>A balança</span></div>
+        <div class="verso"></div>
+      </div></div>
+      <div class="carta" data-de="diorama"><div class="peca-giro">
+        <div class="frente"><img src="assets/img/diorama.jpg" alt=""><span>O diorama</span></div>
+        <div class="verso"></div>
+      </div></div>
+      <div class="carta" data-de="maumau"><div class="peca-giro">
+        <div class="frente"><img src="assets/img/maumau.jpg" alt=""><span>O Mau-Mau</span></div>
+        <div class="verso"></div>
+      </div></div>
+      <div class="carta" data-de="observatorio"><div class="peca-giro">
+        <div class="frente"><img src="assets/img/observatorio.jpg" alt=""><span>O Observatório</span></div>
+        <div class="verso"></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ===================== PONTE PARA A FASE 2 (em construção) ===================== -->
+
+  <section class="cena" id="ponte" data-fase="2" data-titulo="Fase 2: no navegador">
+    <div class="ponte">
+      <div class="janela">
+        <div class="janela-barra"><i></i><i></i><i></i><span>o chat de IA que você já usa</span></div>
+        <div class="janela-corpo">
+          <span class="rotulo">Fase 2 · No navegador</span>
+          <h2 class="titulo">Começando pelo que toma o seu tempo</h2>
+          <p class="comeca-por">Um problema por vez, resolvido aqui mesmo, sem instalar nada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<nav class="trilho" aria-label="Navegação da aula">
+  <button type="button" data-acao="voltar" aria-label="Voltar">←</button>
+  <div class="fases"></div>
+  <button type="button" data-acao="avancar" aria-label="Avançar">→</button>
+  <button type="button" data-acao="tela-cheia">Tela cheia (F)</button>
+</nav>
+
+<div class="ao-vivo" hidden>
+  <header><strong></strong><span>ao vivo</span><button type="button">Fechar e voltar à aula (Esc)</button></header>
+  <iframe title="Trabalho aberto ao vivo"></iframe>
+</div>
+<div class="tela-preta" aria-hidden="true"></div>
+
+<script src="assets/vendor/qrcode.min.js"></script>
+<script src="js/questionario.js"></script>
+<script src="js/palco.js"></script>
+<script src="js/cena-sala.js"></script>
+<script src="js/cena-folha.js"></script>
+<script src="js/cena-vitrine.js"></script>
+<script>
+  // A ponte já mostra o que a turma escolheu na pergunta 5.
+  document.getElementById("ponte").addEventListener("entrou", () => {
+    const k = document.body.dataset.comecaPor;
+    if (k === undefined) return;
+    const opcao = window.QUESTIONARIO.PERGUNTAS[4].opcoes[k];
+    document.querySelector("#ponte .comeca-por").textContent = `A turma escolheu: ${opcao.toLowerCase()}. Um problema por vez, resolvido aqui mesmo, sem instalar nada.`;
+  });
+</script>
+</body>
+</html>
