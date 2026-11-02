@@ -82,7 +82,7 @@
         box.dataset.travado = "1";
         b.classList.add("escolhida");
         respostas[i] = k;
-        setTimeout(() => { i++; i < Q.PERGUNTAS.length ? pergunta() : enviar(); }, 180);
+        setTimeout(() => { i = seguinte(i); i < Q.PERGUNTAS.length ? pergunta() : enviar(); }, 180);
       });
       box.append(b);
     });
@@ -109,7 +109,18 @@
     }
   }
 
-  voltar.addEventListener("click", () => { if (i > 0) { i--; pergunta(); } });
+  // Quem nunca usou IA pula as perguntas sobre uso (ficam -1).
+  function seguinte(k) {
+    let n = k + 1;
+    while (n < Q.PERGUNTAS.length && Q.pula(respostas, n)) { respostas[n] = -1; n++; }
+    return n;
+  }
+  function anterior(k) {
+    let n = k - 1;
+    while (n > 0 && Q.pula(respostas, n)) n--;
+    return n;
+  }
+  voltar.addEventListener("click", () => { if (i > 0) { i = anterior(i); pergunta(); } });
   pergunta();
 })();
 </script>

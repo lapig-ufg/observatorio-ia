@@ -23,10 +23,18 @@
   };
   if (PALCO.revelado) document.body.classList.add("revelado");
 
-  // ----- Escala: o quadro de 1600×900 cabe inteiro na janela -----
+  // ----- Escala: o quadro ocupa a janela inteira, sem barras -----
+  // Na tela larga a altura fica em 900 px lógicos e a largura acompanha a janela;
+  // na tela mais estreita que 16:9, a largura fica em 1600 e a altura cresce (até 1100).
+  // As cenas se ancoram nas bordas e leem PALCO.W e PALCO.H para desenhar.
   function escalar() {
-    const s = Math.min(innerWidth / 1600, innerHeight / 900);
-    PALCO.escala = s;
+    const asp = innerWidth / innerHeight;
+    let W, H;
+    if (asp >= 16 / 9) { H = 900; W = Math.min(2400, Math.round(900 * asp)); }
+    else { W = 1600; H = Math.min(1100, Math.round(1600 / asp)); }
+    const s = Math.min(innerWidth / W, innerHeight / H);
+    Object.assign(PALCO, { escala: s, W, H });
+    palco.style.width = W + "px"; palco.style.height = H + "px";
     palco.style.setProperty("--escala", s);
     palco.dispatchEvent(new CustomEvent("escala", { detail: s }));
   }
@@ -148,6 +156,8 @@
   aoVivo.querySelector("button").addEventListener("click", fecharAoVivo);
   addEventListener("keydown", (e) => { if (e.key === "Escape" && !aoVivo.hidden) fecharAoVivo(); }, true);
 
-  // Começa onde o endereço manda (útil para ensaiar uma cena só).
-  requestAnimationFrame(() => { const [i, p] = lerHash(); ir(i, p); });
+  // Começa onde o endereço manda (útil para ensaiar uma cena só), só depois que
+  // todos os scripts das cenas carregaram: antes, a primeira cena entraria sem ninguém ouvindo.
+  const comecar = () => { const [i, p] = lerHash(); ir(i, p); };
+  if (document.readyState === "loading") addEventListener("DOMContentLoaded", comecar); else setTimeout(comecar);
 })();

@@ -346,5 +346,5 @@
   }
 
   window.criarMesaMauMau = criarMesa;
-  window.MAUMAU_REGRAS = { novaPartida, turnoBot, jogavel }; // para testes
+  window.MAUMAU_REGRAS = { novaPartida, turnoBot, jogavel, topo, nomeCarta, ehNumero, SIMBOLO }; // para testes e para a mesa (mesa.html)
 })();

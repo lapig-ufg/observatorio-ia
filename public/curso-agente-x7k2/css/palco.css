@@ -1,7 +1,7 @@
 /* Do chat ao agente — o palco (v4, 02/11/2026).
-   Cada cena é desenhada num quadro fixo de 1600×900 que escala para caber na
-   janela: o que se vê no projetor é o mesmo que se vê no notebook. Medidas em
-   px lógicos desse quadro. Fase 1 acontece "à noite" (espetáculo); as fases 2
+   Cada cena é desenhada num quadro de 900 px lógicos de altura cuja largura
+   acompanha a janela (1600 em 16:9, mais numa tela larga), escalado para
+   ocupar a tela inteira. Os elementos se ancoram nas bordas do quadro. Fase 1 acontece "à noite" (espetáculo); as fases 2
    e 3 terão o próprio cenário. */
 
 :root {
@@ -41,7 +41,7 @@ button { font: inherit; color: inherit; }
 
 .palco {
   position: absolute; left: 50%; top: 50%;
-  width: 1600px; height: 900px;
+  width: 1600px; height: 900px; /* palco.js troca pela proporção da janela */
   transform: translate(-50%, -50%) scale(var(--escala, 1));
   background: radial-gradient(120% 90% at 30% 10%, var(--noite-3) 0%, var(--noite-2) 38%, var(--noite) 100%);
   overflow: hidden;
@@ -58,7 +58,7 @@ button { font: inherit; color: inherit; }
   transition: opacity .7s var(--curva), visibility 0s linear .7s;
 }
 .cena.ativa { opacity: 1; visibility: visible; transition: opacity .7s var(--curva), visibility 0s; }
-.cena canvas.fundo { position: absolute; inset: 0; width: 1600px; height: 900px; }
+.cena canvas.fundo { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 /* Elementos que entram num passo: data-passo="n" aparece a partir do passo n. */
 [data-passo] { transition: opacity .6s var(--curva), transform .8s var(--curva), filter .6s; }
@@ -81,31 +81,43 @@ button { font: inherit; color: inherit; }
 
 /* ---------- Capa ---------- */
 
-.capa-texto { position: absolute; left: 110px; top: 150px; width: 860px; z-index: 2; }
+.capa-texto { position: absolute; left: 110px; top: 50%; translate: 0 -58%; width: 900px; z-index: 2; }
 .capa-texto .rotulo { display: block; margin-bottom: 34px; }
 .capa-texto h1 { font: 400 156px/.94 var(--serifa); letter-spacing: -.035em; margin: 0; }
 .capa-texto h1 span { display: block; }
 .capa-texto h1 span + span { padding-left: 88px; }
 .capa-texto h1 em { font-style: italic; color: var(--terracota); }
 .capa-texto .linha-fina { margin-top: 40px; font-size: 34px; }
-.capa-assina { position: absolute; left: 110px; bottom: 84px; z-index: 2; display: flex; gap: 28px; align-items: center; font-size: 22px; color: var(--creme-2); }
+.capa-assina { position: absolute; left: 110px; bottom: 70px; z-index: 2; display: flex; gap: 28px; align-items: center; font-size: 22px; color: var(--creme-2); }
 .capa-assina b { color: var(--creme); font-weight: 600; }
-.capa-assina img { width: 40px; opacity: .9; filter: brightness(0) invert(1); }
+.capa-assina .demo { font-size: 16px; color: var(--creme-3); }
 
+/* O convite para responder: um painel que não deixa dúvida do que fazer */
 .convite {
-  position: absolute; right: 110px; top: 150px; width: 360px; z-index: 2;
-  text-align: center;
+  position: absolute; right: 90px; top: 50%; translate: 0 -50%; width: 470px; z-index: 2;
+  padding: 32px 40px 28px; border-radius: 28px;
+  background: rgba(8, 32, 26, .72); border: 1px solid rgba(243, 239, 230, .14);
+  backdrop-filter: blur(6px); box-shadow: 0 40px 100px -40px rgba(0, 0, 0, .8);
 }
-.convite .qr {
-  background: var(--creme); border-radius: 22px; padding: 22px; width: 300px; margin: 0 auto;
-  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08);
-}
-.convite .qr svg { width: 256px; height: 256px; display: block; }
-.convite .qr svg path, .convite .qr svg rect[fill="black"] { fill: #08201a; }
-.convite p { margin: 26px 0 0; font-size: 26px; line-height: 1.3; }
-.convite p small { display: block; color: var(--creme-2); font-size: 20px; margin-top: 6px; }
-.convite .contagem { margin-top: 30px; font: 400 64px/1 var(--serifa); }
-.convite .contagem small { display: block; font: 500 18px/1.2 var(--sans); color: var(--creme-2); letter-spacing: .08em; text-transform: uppercase; margin-top: 8px; }
+.convite .rotulo { display: block; }
+.convite h2 { font: 400 42px/1.05 var(--serifa); margin: 10px 0 26px; letter-spacing: -.01em; }
+.convite .qr { position: relative; background: var(--creme); border-radius: 20px; padding: 18px; width: 266px; margin: 0 auto; }
+.convite .qr svg { width: 230px; height: 230px; display: block; }
+/* Cantos que pulsam em volta do código, como o visor da câmera */
+.convite .canto { position: absolute; width: 44px; height: 44px; border: 5px solid var(--terracota); animation: visor 2.4s var(--curva) infinite; }
+.convite .c1 { left: -14px; top: -14px; border-right: 0; border-bottom: 0; border-radius: 16px 0 0 0; }
+.convite .c2 { right: -14px; top: -14px; border-left: 0; border-bottom: 0; border-radius: 0 16px 0 0; }
+.convite .c3 { left: -14px; bottom: -14px; border-right: 0; border-top: 0; border-radius: 0 0 0 16px; }
+.convite .c4 { right: -14px; bottom: -14px; border-left: 0; border-top: 0; border-radius: 0 0 16px 0; }
+@keyframes visor { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: .55; scale: 1.08; } }
+.passos-qr { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 14px; }
+.passos-qr li { display: grid; grid-template-columns: 38px 1fr; gap: 14px; align-items: center; font-size: 21px; line-height: 1.25; }
+.passos-qr b { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--terracota); color: #fff; font-size: 19px; }
+.convite .contagem { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--linha); display: flex; align-items: baseline; gap: 14px; }
+.convite .contagem b { display: inline-block; font: 400 64px/1 var(--serifa); }
+.convite .contagem b.pulo { animation: pulo .7s var(--curva); }
+@keyframes pulo { 0% { scale: 1; color: var(--creme); } 30% { scale: 1.35; color: var(--terracota); } 100% { scale: 1; color: var(--creme); } }
+.convite .contagem small { font-size: 22px; color: var(--creme-2); }
 
 /* ---------- A sala em pontos ---------- */
 
@@ -170,9 +182,21 @@ button { font: inherit; color: inherit; }
 .vitrine-texto .abrir:hover { background: rgba(243, 239, 230, .08); border-color: var(--creme); }
 .vitrine-texto .abrir kbd { font: 600 14px/1 var(--mono); padding: 5px 8px; border-radius: 6px; background: rgba(243, 239, 230, .12); }
 
+/* O problema vem antes da solução: uma frase grande, no meio da tela. */
+.problema { position: absolute; left: 110px; right: 110px; top: 50%; translate: 0 -50%; z-index: 3; max-width: 1350px; }
+.problema .rotulo { display: block; margin-bottom: 30px; }
+.problema p { margin: 0; font: 400 68px/1.15 var(--serifa); letter-spacing: -.015em; text-wrap: balance; }
+.problema em { font-style: italic; color: var(--terracota); }
+
+/* Os quatro robôs lado a lado, sobre o creme do retrato original */
+.robos-frente { background: var(--creme) !important; display: flex; align-items: center; justify-content: space-around; padding: 0 4%; }
+.robos-frente img { width: 22% !important; height: auto !important; object-fit: contain !important; }
+.carta .robos-frente img { width: 23% !important; flex: none; }
+
 /* A peça: uma carta que pode virar. Frente = o trabalho; verso = o pedido. */
 .peca {
-  position: absolute; left: 600px; top: 190px; width: 890px; height: 500px; /* 16:9, como as capturas */
+  position: absolute; right: 110px; top: 50%; translate: 0 -50%;
+  width: min(calc(100% - 710px), 1140px); aspect-ratio: 16 / 9; /* 16:9, como as capturas; cresce na tela larga */
   perspective: 2600px; z-index: 2;
 }
 .peca-giro {

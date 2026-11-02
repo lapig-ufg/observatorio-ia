@@ -32,14 +32,19 @@
       <p class="linha-fina">IA trabalhando no seu computador</p>
     </div>
     <div class="convite">
-      <div class="qr"><div></div></div>
-      <p>Aponte a câmera do celular<small>Cinco toques, sem nome, sem digitar</small></p>
-      <div class="contagem"><b>0</b><small>responderam</small></div>
+      <span class="rotulo">Antes de começar</span>
+      <h2>Responda pelo celular</h2>
+      <div class="qr"><div></div><i class="canto c1"></i><i class="canto c2"></i><i class="canto c3"></i><i class="canto c4"></i></div>
+      <ol class="passos-qr">
+        <li><b>1</b>Abra a câmera e aponte para o código</li>
+        <li><b>2</b>Toque nas respostas: cinco perguntas, sem nome</li>
+        <li><b>3</b>Seu ponto aparece nesta tela</li>
+      </ol>
+      <div class="contagem"><b>0</b><small>pessoas responderam</small></div>
     </div>
     <div class="capa-assina">
-      <img src="assets/brand/observatorio-coruja.svg" alt="">
-      <span><b>Victor Amaral</b></span><span>LAPIG · IESA · UFG</span><span class="turma"></span>
-      <span class="demo" hidden>demonstração: S simula respostas, 0 apaga</span>
+      <span><b>Victor Amaral</b></span><span class="turma"></span>
+      <span class="demo" hidden>demonstração: S simula respostas, 0 apaga, T alterna turma e todas</span>
     </div>
     <div class="verso-fonte" hidden>
       <div class="verso">
@@ -77,7 +82,7 @@
       <h2 class="titulo" data-passo="1" data-ate="1">No dia 30, a OpenAI abre o <em>ChatGPT</em> para qualquer pessoa.</h2>
       <h2 class="titulo" data-passo="2" data-ate="2">Desde então, o assunto não saiu mais do jornal.</h2>
       <h2 class="titulo" data-passo="3" data-ate="3">Em 2023, quase metade falava de modelos e empresas. Em 2026, um quarto.</h2>
-      <h2 class="titulo" data-passo="4" data-ate="4">Cada traço no alto é um modelo novo.</h2>
+      <h2 class="titulo" data-passo="4" data-ate="4">Cada selo é um modelo novo, com a marca de quem lançou.</h2>
       <h2 class="titulo" data-passo="5">Em 2025, a IA sai do chat e vai <em>trabalhar no computador</em>.</h2>
     </div>
     <div class="folha-contador"><span class="numero">17</span><small>matérias até nov/2022</small></div>
@@ -94,78 +99,59 @@
     </div>
   </section>
 
-  <section class="cena" id="balanca" data-fase="1" data-titulo="A balança">
+  <section class="cena" id="gangorra" data-fase="1" data-passos="1" data-titulo="A gangorra">
     <div class="vitrine">
-      <div class="vitrine-texto">
-        <span class="rotulo">Uma pesquisa</span>
-        <h2 class="titulo">O centro de massa, numa balança</h2>
-        <p class="linha-fina">Quarenta anos de pastagem em Goiás, explicados com um halter que tomba.</p>
-        <button class="abrir" type="button">Abrir ao vivo <kbd>Enter</kbd></button>
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Uma professora de Física quer que a turma <em>veja</em>, e não só decore, como se calcula o centro de massa.</p>
       </div>
-      <div class="peca" data-ao-vivo="https://victorgit10.github.io/mestrado-lulc-goias/Visualizacao/apresentacao.html#11.0">
+      <div class="vitrine-texto" data-passo="1">
+        <span class="rotulo">Uma conversa depois</span>
+        <h2 class="titulo">A gangorra que faz a conta</h2>
+        <p class="linha-fina">Arraste os pesos: a gangorra tomba e a fórmula se refaz com os números da tela.</p>
+        <button class="abrir" type="button">Abrir em tela cheia <kbd>Enter</kbd></button>
+      </div>
+      <div class="peca" data-passo="1" data-ao-vivo="centro-de-massa.html">
         <div class="peca-giro">
-          <div class="frente"><img src="assets/img/balanca.jpg" alt="A balança: o centro de massa da pastagem se desloca 77,6 km ao norte"></div>
+          <div class="frente"><iframe data-src="centro-de-massa.html" title="Gangorra do centro de massa"></iframe></div>
           <div class="verso">
             <span class="rotulo">O pedido</span>
-            <blockquote>Conseguiria tornar a explicação do centro de massa mais visual? […] Algo muito bem explicado, usando dados reais e a conta real.</blockquote>
-            <p class="quem">Victor, preparando a qualificação de mestrado · 19 set. 2026</p>
-            <dl>
-              <dt>Quem fez</dt><dd>Claude Code, na pasta da dissertação</dd>
-              <dt>O que fez</dt><dd data-resumo="Claude Code: transformou a conta numa balança interativa, com os dados da pesquisa.">Transformou a conta numa balança interativa, com os dados da própria pesquisa</dd>
-            </dl>
-          </div>
-        </div>
-        <div class="reflexo"></div>
-      </div>
-      <button class="virar" type="button">Virar <kbd>V</kbd></button>
-    </div>
-  </section>
-
-  <section class="cena" id="diorama" data-fase="1" data-titulo="O diorama">
-    <div class="vitrine">
-      <div class="vitrine-texto">
-        <span class="rotulo">A mesma pesquisa</span>
-        <h2 class="titulo">Goiás em 3D, em movimento</h2>
-        <p class="linha-fina">O fecho da apresentação de qualificação: lavoura, pasto e mata num diorama.</p>
-        <button class="abrir" type="button">Abrir ao vivo <kbd>Enter</kbd></button>
-      </div>
-      <div class="peca" data-ao-vivo="https://victorgit10.github.io/mestrado-lulc-goias/Visualizacao/diorama-encerramento/cena.html">
-        <div class="peca-giro">
-          <div class="frente"><img src="assets/img/diorama.jpg" alt="Diorama em 3D de Goiás, com lavoura, pasto e mata"></div>
-          <div class="verso">
-            <span class="rotulo">O pedido</span>
-            <blockquote>Pedi pra uma IA gerar um diorama bem interessante e impressionante.</blockquote>
-            <p class="quem">Victor, contando como fez · 23 set. 2026</p>
-            <dl>
-              <dt>Quem fez</dt><dd>Uma IA de código <span class="rascunho">confirmar qual</span></dd>
-              <dt>O que fez</dt><dd data-resumo="Uma IA montou a cena em 3D; outra conferiu se ela travava os slides.">Montou a cena em 3D; o Claude Code conferiu se ela travava os slides</dd>
-            </dl>
-          </div>
-        </div>
-        <div class="reflexo"></div>
-      </div>
-      <button class="virar" type="button">Virar <kbd>V</kbd></button>
-    </div>
-  </section>
-
-  <section class="cena" id="maumau" data-fase="1" data-titulo="O Mau-Mau">
-    <div class="vitrine">
-      <div class="vitrine-texto">
-        <span class="rotulo">Um jogo</span>
-        <h2 class="titulo">Bots que explicam cada jogada</h2>
-        <p class="linha-fina">As regras dos bots foram escritas por uma IA. Durante a partida, nenhuma IA é chamada.</p>
-        <button class="abrir" type="button">Jogar em tela cheia <kbd>Enter</kbd></button>
-      </div>
-      <div class="peca" data-ao-vivo="vitrine-maumau.html">
-        <div class="peca-giro">
-          <div class="frente"><iframe data-src="vitrine-maumau.html" title="Mau-Mau: partida entre bots" loading="lazy"></iframe></div>
-          <div class="verso">
-            <span class="rotulo">O pedido</span>
-            <blockquote>Mostrar o Mau-Mau funcionando: a pessoa assiste à partida e joga contra os bots.</blockquote>
-            <p class="quem">Victor, preparando este curso · out. 2026</p>
+            <blockquote>Um professor quer criar uma visualização para explicar para os seus alunos como funciona o cálculo de centro de massa.</blockquote>
+            <p class="quem">Victor, pedindo este exemplo · 2 nov. 2026</p>
             <dl>
               <dt>Quem fez</dt><dd>Claude Code</dd>
-              <dt>O que fez</dt><dd data-resumo="Claude Code: reescreveu os bots para explicar cada jogada e simulou 500 partidas.">Leu as regras do jogo original, reescreveu os bots para explicar cada jogada e simulou 500 partidas para achar travas</dd>
+              <dt>O que fez</dt><dd data-resumo="Claude Code: montou a gangorra, o balanço e a fórmula que se refaz a cada movimento.">Montou a gangorra, o balanço e a fórmula que se refaz a cada movimento</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="reflexo"></div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <section class="cena" id="mesa" data-fase="1" data-passos="1" data-titulo="A mesa de cartas">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Um professor de computação quer mostrar que dá para ter adversários espertos num jogo <em>sem nenhuma IA rodando</em> durante a partida.</p>
+      </div>
+      <div class="vitrine-texto" data-passo="1">
+        <span class="rotulo">Uma conversa depois</span>
+        <h2 class="titulo">Quatro robôs numa mesa de Mau-Mau</h2>
+        <p class="linha-fina">As regras de cada robô foram escritas por uma IA. Na partida, nenhuma IA é chamada: o balão mostra a regra usada.</p>
+        <button class="abrir" type="button">Abrir em tela cheia <kbd>Enter</kbd></button>
+      </div>
+      <div class="peca" data-passo="1" data-ao-vivo="mesa.html">
+        <div class="peca-giro">
+          <div class="frente"><iframe data-src="mesa.html" title="Mesa de Mau-Mau com quatro robôs"></iframe></div>
+          <div class="verso">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Fazer algo bem mais impressionante, como se fosse uma mesa e tendo algum tipo de representação para cada bot.</blockquote>
+            <p class="quem">Victor, sobre a versão anterior · 2 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Claude Code (regras e mesa) e Gemini no Antigravity (os robôs)</dd>
+              <dt>O que fez</dt><dd data-resumo="Claude Code montou a mesa e as regras; pediu ao Gemini os quatro robôs.">Montou a mesa e as regras dos bots, e pediu ao Gemini os retratos dos quatro robôs</dd>
             </dl>
           </div>
         </div>
@@ -174,15 +160,49 @@
     </div>
   </section>
 
-  <section class="cena" id="observatorio" data-fase="1" data-titulo="O Observatório">
+  <section class="cena" id="robos" data-fase="1" data-passos="1" data-titulo="Os robôs">
     <div class="vitrine">
-      <div class="vitrine-texto">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Por trás da mesa</span>
+        <p>Os robôs não foram desenhados por ninguém. <em>Uma IA pediu a outra.</em></p>
+      </div>
+      <div class="vitrine-texto" data-passo="1">
+        <span class="rotulo">Uma IA pedindo a outra</span>
+        <h2 class="titulo">Quatro jeitos de jogar</h2>
+        <p class="linha-fina">Confiante, pensativo, alegre e desconfiado, cada um na cor das cartas.</p>
+      </div>
+      <div class="peca" data-passo="1">
+        <div class="peca-giro">
+          <div class="frente robos-frente"><img src="assets/img/bots/bia.png" alt="Bia, a confiante"><img src="assets/img/bots/caio.png" alt="Caio, o pensativo"><img src="assets/img/bots/dani.png" alt="Dani, a alegre"><img src="assets/img/bots/edu.png" alt="Edu, o desconfiado"></div>
+          <div class="verso">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Quatro bustos de robôs simpáticos, lado a lado […] cada um com uma personalidade visível no rosto: um confiante, um pensativo, um alegre, um desconfiado.</blockquote>
+            <p class="quem">Claude Code, pedindo ao Gemini (Antigravity) · 2 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, pela ferramenta de imagens do Antigravity</dd>
+              <dt>O que fez</dt><dd data-resumo="O Gemini desenhou os quatro robôs; o Claude recortou cada um e pôs na mesa.">Desenhou os quatro numa imagem só; o Claude recortou cada um e pôs na mesa</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="reflexo"></div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <section class="cena" id="observatorio" data-fase="1" data-passos="1" data-titulo="O Observatório">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Um laboratório quer acompanhar tudo o que sai sobre IA, em português, <em>sem ter uma equipe de programadores</em>.</p>
+      </div>
+      <div class="vitrine-texto" data-passo="1">
         <span class="rotulo">Um portal</span>
         <h2 class="titulo">Um observatório inteiro sobre IA</h2>
         <p class="linha-fina">Mais de 1.600 materiais, as notícias de IA todo dia e aulas interativas. De onde vieram os dados que vocês acabaram de ver.</p>
         <button class="abrir" type="button">Abrir ao vivo <kbd>Enter</kbd></button>
       </div>
-      <div class="peca" data-ao-vivo="https://lapig-ufg.github.io/observatorio-ia/">
+      <div class="peca" data-passo="1" data-ao-vivo="https://lapig-ufg.github.io/observatorio-ia/">
         <div class="peca-giro">
           <div class="frente"><img src="assets/img/observatorio.jpg" alt="Página inicial do Observatório UFG-IA"></div>
           <div class="verso">
@@ -216,16 +236,16 @@
         <div class="frente"><div class="miniatura mini-folha"><canvas></canvas></div><span>A IA no jornal</span></div>
         <div class="verso"></div>
       </div></div>
-      <div class="carta" data-de="balanca"><div class="peca-giro">
-        <div class="frente"><img src="assets/img/balanca.jpg" alt=""><span>A balança</span></div>
+      <div class="carta" data-de="gangorra"><div class="peca-giro">
+        <div class="frente"><img src="assets/img/gangorra.jpg" alt=""><span>A gangorra</span></div>
         <div class="verso"></div>
       </div></div>
-      <div class="carta" data-de="diorama"><div class="peca-giro">
-        <div class="frente"><img src="assets/img/diorama.jpg" alt=""><span>O diorama</span></div>
+      <div class="carta" data-de="mesa"><div class="peca-giro">
+        <div class="frente"><img src="assets/img/mesa.jpg" alt=""><span>A mesa de cartas</span></div>
         <div class="verso"></div>
       </div></div>
-      <div class="carta" data-de="maumau"><div class="peca-giro">
-        <div class="frente"><img src="assets/img/maumau.jpg" alt=""><span>O Mau-Mau</span></div>
+      <div class="carta" data-de="robos"><div class="peca-giro">
+        <div class="frente robos-frente"><img src="assets/img/bots/bia.png" alt=""><img src="assets/img/bots/caio.png" alt=""><img src="assets/img/bots/dani.png" alt=""><img src="assets/img/bots/edu.png" alt=""><span>Os robôs</span></div>
         <div class="verso"></div>
       </div></div>
       <div class="carta" data-de="observatorio"><div class="peca-giro">

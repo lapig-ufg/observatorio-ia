@@ -6,7 +6,7 @@
 // as respostas ficam só neste navegador (localStorage).
 
 (() => {
-  const VERSAO = 2; // v2 (02/11/2026): entrou a pergunta 5, que ordena os problemas da Fase 2
+  const VERSAO = 2; // v2 (02/11/2026): pergunta 5 (ordena a Fase 2), sem Copilot nem "Nenhuma", e quem nunca usou pula as perguntas 2 e 3
 
   const PERGUNTAS = [
     {
@@ -17,7 +17,7 @@
     {
       id: "q2", curta: "Qual IA",
       texto: "Qual IA você mais usa?",
-      opcoes: ["ChatGPT", "Gemini", "Claude", "Copilot", "Meta AI", "Outra", "Nenhuma"],
+      opcoes: ["ChatGPT", "Gemini", "Claude", "Meta AI", "Outra"],
     },
     {
       id: "q3", curta: "Até onde",
@@ -64,7 +64,10 @@
     try { localStorage.setItem(CHAVE_DEMO, JSON.stringify(linhas)); } catch { /* sem armazenamento: segue sem gravar */ }
   };
 
-  // Linha: { t: carimbo ms, turma, r: [i1, ..., i5] } (índices das opções)
+  // Linha: { t: carimbo ms, turma, r: [i1, ..., i5] } (índices das opções).
+  // Quem marca "Nunca usei" (q1 = 0) não vê as perguntas 2 e 3: elas ficam -1.
+  const PULA_SE_NUNCA = [1, 2];
+  const pula = (respostas, i) => respostas[0] === 0 && PULA_SE_NUNCA.includes(i);
   async function enviar(turma, respostas) {
     const linha = { t: Date.now(), turma: turma || "VISITANTE", v: VERSAO, r: respostas };
     if (!url()) { const l = lerDemo(); l.push(linha); gravarDemo(l); return true; }
@@ -88,8 +91,8 @@
     const l = lerDemo();
     for (let k = 0; k < n; k++) {
       const f = sortear([0.06, 0.14, 0.26, 0.3, 0.24]);
-      const ia = sortear(f === 0 ? [0, 0, 0, 0, 0, 0, 1] : [0.46, 0.24, 0.07, 0.08, 0.08, 0.04, 0.03]);
-      const ate = Math.min(3, Math.max(0, sortear([0.45, 0.32, 0.17, 0.06]) + (f >= 3 ? 1 : 0) - (f <= 1 ? 1 : 0)));
+      const ia = f === 0 ? -1 : sortear([0.5, 0.27, 0.08, 0.09, 0.06]);
+      const ate = f === 0 ? -1 : Math.min(3, Math.max(0, sortear([0.45, 0.32, 0.17, 0.06]) + (f >= 3 ? 1 : 0) - (f <= 1 ? 1 : 0)));
       const medo = sortear([0.38, 0.24, 0.1, 0.16, 0.12]);
       const tempo = sortear([0.2, 0.17, 0.24, 0.12, 0.14, 0.13]);
       l.push({ t: Date.now() - Math.floor(Math.random() * 6e5), turma: turma || "ENSAIO", v: VERSAO, r: [f, ia, ate, medo, tempo] });
@@ -104,5 +107,5 @@
   }
   const limparDemo = () => gravarDemo([]);
 
-  window.QUESTIONARIO = { VERSAO, PERGUNTAS, enviar, listar, simular, limparDemo, demo: () => !url() };
+  window.QUESTIONARIO = { VERSAO, PERGUNTAS, pula, enviar, listar, simular, limparDemo, demo: () => !url() };
 })();

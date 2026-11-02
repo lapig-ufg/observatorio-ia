@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mesa de Mau-Mau</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* A mesa: um quadro de 1600×900 que escala para caber (como o palco da aula). */
+  :root {
+    --vermelho: #c4502a; --azul: #1d3f5f; --verde: #2b7055; --amarelo: #c9971a;
+    --creme: #f3efe6; --tinta: #10211b; --terracota: #e07a45;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b1a15; font-family: Inter, system-ui, sans-serif; color: var(--creme); }
+  button { font: inherit; color: inherit; }
+  .sala {
+    position: absolute; left: 50%; top: 50%; width: 1600px; height: 900px;
+    transform: translate(-50%, -50%) scale(var(--e, 1));
+    background: radial-gradient(90% 80% at 50% 45%, #1d3a2f 0%, #10241d 55%, #08140f 100%);
+    overflow: hidden;
+  }
+  .feltro {
+    position: absolute; left: 230px; top: 150px; width: 1140px; height: 620px; border-radius: 50%;
+    background: radial-gradient(60% 60% at 50% 45%, #2f7a5a 0%, #22604a 55%, #184735 100%);
+    box-shadow: 0 0 0 18px #4a2f1e, 0 0 0 22px #2c1b10, 0 60px 120px -20px rgba(0,0,0,.9), inset 0 0 80px rgba(0,0,0,.45);
+  }
+  .feltro::after { content: ""; position: absolute; inset: 26px; border-radius: 50%; border: 2px dashed rgba(243,239,230,.12); }
+
+  /* Cartas */
+  .carta {
+    position: absolute; width: var(--w, 50px); height: calc(var(--w, 50px) * 1.45); border-radius: calc(var(--w, 50px) * .14);
+    background: var(--c); border: 3px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,.35);
+    display: grid; place-items: center; color: #fff; font-weight: 700; font-size: calc(var(--w, 50px) * .42);
+  }
+  .carta::before { content: ""; position: absolute; inset: 14% 10%; border-radius: 50%; background: rgba(255,255,255,.16); transform: rotate(-30deg); }
+  .carta b { position: relative; text-shadow: 0 2px 0 rgba(0,0,0,.2); }
+  .carta.vermelho { --c: var(--vermelho); } .carta.azul { --c: var(--azul); } .carta.verde { --c: var(--verde); } .carta.amarelo { --c: var(--amarelo); }
+  .carta.coringa { --c: conic-gradient(var(--vermelho) 0 25%, var(--azul) 0 50%, var(--verde) 0 75%, var(--amarelo) 0); }
+  .carta.costas { --c: repeating-linear-gradient(45deg, #183a2d 0 8px, #1f4a39 8px 16px); }
+  .carta.costas::before { inset: 22% 18%; background: none; border: 3px solid rgba(224,122,69,.8); }
+  .voando { transition: left .5s cubic-bezier(.3,.7,.2,1), top .5s cubic-bezier(.3,.7,.2,1), transform .5s cubic-bezier(.3,.7,.2,1); z-index: 30; }
+
+  /* Monte e descarte */
+  .monte { left: 690px; top: 395px; --w: 96px; }
+  .monte.b { left: 684px; top: 389px; }
+  .descarte { position: absolute; left: 830px; top: 390px; width: 110px; height: 160px; }
+  .descarte .carta { --w: 110px; left: 0; top: 0; }
+  .anel { position: absolute; left: 790px; top: 350px; width: 190px; height: 240px; border-radius: 30px; border: 5px solid var(--cor-mesa, #fff); box-shadow: 0 0 40px var(--cor-mesa, #fff); opacity: .75; transition: border-color .4s, box-shadow .4s; }
+  .sentido { position: absolute; left: 630px; top: 330px; width: 380px; height: 280px; border-radius: 50%; border: 2px solid rgba(243,239,230,.18); transition: transform 1s; }
+  .sentido::before, .sentido::after { content: "➤"; position: absolute; color: rgba(243,239,230,.45); font-size: 22px; }
+  .sentido::before { top: -14px; left: 50%; }
+  .sentido::after { bottom: -14px; left: 45%; transform: rotate(180deg); }
+  .sentido.anti { transform: scaleX(-1); }
+  .acumulado { position: absolute; left: 960px; top: 400px; font-size: 40px; font-weight: 700; color: var(--terracota); text-shadow: 0 2px 10px rgba(0,0,0,.6); }
+
+  /* Lugares */
+  .lugar { position: absolute; display: flex; align-items: center; gap: 16px; }
+  .avatar { width: 130px; height: 130px; border-radius: 50%; position: relative; background: var(--creme); box-shadow: 0 0 0 5px var(--cor), 0 14px 30px rgba(0,0,0,.5); transition: box-shadow .3s, transform .3s; }
+  .avatar img { width: 100%; height: 100%; border-radius: 50%; display: block; }
+  .lugar.vez .avatar { box-shadow: 0 0 0 7px var(--cor), 0 0 0 12px rgba(243,239,230,.7), 0 0 50px var(--cor); transform: scale(1.06); }
+  .nome { font-weight: 700; font-size: 26px; line-height: 1.1; }
+  .nome small { display: block; font-weight: 500; font-size: 17px; color: #b7c6be; margin-top: 4px; }
+  .mao { position: absolute; height: 74px; }
+  .mao .carta { --w: 50px; transition: left .35s, top .35s; }
+  .l0 { left: 120px; top: 385px; flex-direction: column; text-align: center; }
+  .l1 { left: 735px; top: 18px; flex-direction: row; }
+  .l2 { right: 120px; top: 385px; flex-direction: column; text-align: center; }
+  .l3 { left: 735px; bottom: 18px; flex-direction: row; }
+
+  /* Balão: o motivo de cada jogada */
+  .balao {
+    position: absolute; max-width: 420px; padding: 16px 20px; border-radius: 18px; background: var(--creme); color: var(--tinta);
+    font-size: 21px; line-height: 1.3; box-shadow: 0 16px 40px rgba(0,0,0,.45); z-index: 40;
+    opacity: 0; transform: translateY(8px) scale(.96); transition: opacity .25s, transform .25s;
+  }
+  .balao.on { opacity: 1; transform: none; }
+  .balao b { display: block; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: var(--cor); margin-bottom: 4px; }
+  .balao.grito { font-size: 34px; font-weight: 800; color: var(--terracota); }
+
+  .fim { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(8,20,15,.72); z-index: 60; opacity: 0; pointer-events: none; transition: opacity .4s; }
+  .fim.on { opacity: 1; }
+  .fim div { text-align: center; }
+  .fim img { width: 180px; border-radius: 50%; background: var(--creme); box-shadow: 0 0 0 6px var(--terracota), 0 0 80px var(--terracota); }
+  .fim h2 { font: 400 64px/1 Georgia, serif; margin: 26px 0 8px; }
+  .fim p { font-size: 22px; color: #b7c6be; margin: 0; }
+
+  .controles { position: absolute; left: 24px; top: 20px; display: flex; gap: 8px; z-index: 50; }
+  .controles button { cursor: pointer; padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(243,239,230,.3); background: rgba(8,20,15,.6); font-size: 16px; font-weight: 600; }
+  .controles button[aria-pressed="true"] { background: var(--creme); color: var(--tinta); }
+</style>
+</head>
+<body>
+<div class="sala">
+  <div class="feltro"></div>
+  <div class="sentido" aria-hidden="true"></div>
+  <div class="anel" aria-hidden="true"></div>
+  <div class="carta costas monte b" aria-hidden="true"></div>
+  <div class="carta costas monte" aria-hidden="true"></div>
+  <div class="descarte" aria-live="polite"></div>
+  <div class="acumulado"></div>
+  <div class="controles">
+    <button type="button" class="pausa">Pausar</button>
+    <button type="button" data-vel="1" aria-pressed="true">1×</button>
+    <button type="button" data-vel="2.5" aria-pressed="false">3×</button>
+  </div>
+  <div class="fim"><div><img alt=""><h2></h2><p>Nova partida em instantes</p></div></div>
+</div>
+<script src="js/maumau.js"></script>
+<script src="js/mesa.js"></script>
+</body>
+</html>
