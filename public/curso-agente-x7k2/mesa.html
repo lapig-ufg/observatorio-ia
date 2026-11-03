@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mesa de Mau-Mau</title>
+<title>Mesa de Uno</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="assets/brand/observatorio-coruja.svg">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -62,6 +62,7 @@
   .avatar img { width: 100%; height: 100%; border-radius: 50%; display: block; }
   .lugar.vez .avatar { box-shadow: 0 0 0 7px var(--cor), 0 0 0 12px rgba(243,239,230,.7), 0 0 50px var(--cor); transform: scale(1.06); }
   .nome { font-weight: 700; font-size: 26px; line-height: 1.1; }
+  .nome em { display: block; font-style: normal; font-weight: 600; font-size: 17px; color: var(--cor-clara, #e9dfcc); margin-top: 2px; }
   .nome small { display: block; font-weight: 500; font-size: 17px; color: #b7c6be; margin-top: 4px; }
   .mao { position: absolute; height: 74px; }
   .mao .carta { --w: 50px; transition: left .35s, top .35s; }
@@ -79,6 +80,23 @@
   .balao.on { opacity: 1; transform: none; }
   .balao b { display: block; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: var(--cor); margin-bottom: 4px; }
   .balao.grito { font-size: 34px; font-weight: 800; color: var(--terracota); }
+  /* A ficha: três regras, conferidas de cima para baixo; a usada acende */
+  .balao ol { margin: 4px 0 0; padding: 0; list-style: none; counter-reset: r; font-size: 18px; line-height: 1.3; }
+  .balao li { counter-increment: r; position: relative; padding: 5px 8px 5px 36px; border-radius: 8px; color: #8a978f; }
+  .balao li::before { content: counter(r); position: absolute; left: 8px; top: 5px; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 700 13px/1 Inter, sans-serif; background: #d9d3c6; color: #fff; }
+  .balao li.passou { text-decoration: line-through; text-decoration-color: rgba(138,151,143,.6); }
+  .balao li.usada { background: color-mix(in srgb, var(--cor) 14%, #fff); color: var(--tinta); font-weight: 600; }
+  .balao li.usada::before { background: var(--cor); }
+  .balao .extra { margin: 8px 0 0; padding: 6px 10px; border-radius: 8px; background: #efe6d2; font-size: 17px; }
+  .balao .jogada { margin: 8px 0 0; font-weight: 700; font-size: 19px; }
+
+  /* Avisos fixos: é ao vivo e são robôs de regras */
+  .aviso { position: absolute; z-index: 50; font-size: 17px; line-height: 1.35; color: #d9e2dc; }
+  .aviso.vivo { left: 24px; top: 74px; display: flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 999px; background: rgba(8,20,15,.6); border: 1px solid rgba(243,239,230,.25); }
+  .aviso.vivo i { width: 11px; height: 11px; border-radius: 50%; background: #e5484d; box-shadow: 0 0 0 0 rgba(229,72,77,.7); animation: pulso 1.6s infinite; }
+  @keyframes pulso { 70% { box-shadow: 0 0 0 10px rgba(229,72,77,0); } 100% { box-shadow: 0 0 0 0 rgba(229,72,77,0); } }
+  .aviso.robos { left: 24px; top: 130px; max-width: 360px; padding: 12px 16px; border-radius: 14px; background: rgba(8,20,15,.6); border: 1px solid rgba(243,239,230,.18); }
+  .aviso.robos b { color: var(--creme); }
 
   .fim { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(8,20,15,.72); z-index: 60; opacity: 0; pointer-events: none; transition: opacity .4s; }
   .fim.on { opacity: 1; }
@@ -106,7 +124,9 @@
     <button type="button" data-vel="1" aria-pressed="true">1×</button>
     <button type="button" data-vel="2.5" aria-pressed="false">3×</button>
   </div>
-  <div class="fim"><div><img alt=""><h2></h2><p>Nova partida em instantes</p></div></div>
+  <div class="aviso vivo"><i></i><span><b>Ao vivo</b> · não é vídeo: as cartas são embaralhadas agora</span></div>
+  <div class="aviso robos"><b>Robôs, não IAs.</b> Cada um segue a sua ficha de três regras, sempre na mesma ordem.</div>
+  <div class="fim"><div><img alt=""><h2></h2><p>Nova partida, com cartas novas, em instantes</p></div></div>
 </div>
 <script src="js/maumau.js"></script>
 <script src="js/mesa.js"></script>

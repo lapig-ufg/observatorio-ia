@@ -6,6 +6,19 @@
 (() => {
   const P = window.PALCO;
 
+  // Vira uma carta em 2D: encolhe na horizontal, troca a face e abre de novo.
+  // (A virada em 3D deixava o exemplo borrado; ver palco.css.)
+  function virarCarta(carta, sim = !carta.classList.contains("virada")) {
+    if (carta.classList.contains("virada") === sim) return;
+    const giro = carta.querySelector(".peca-giro");
+    const curva = "cubic-bezier(.55, 0, .45, 1)";
+    giro.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0) scaleY(.96)" }], { duration: 260, easing: curva })
+      .finished.then(() => {
+        carta.classList.toggle("virada", sim);
+        giro.animate([{ transform: "scaleX(0) scaleY(.96)" }, { transform: "scaleX(1)" }], { duration: 320, easing: "cubic-bezier(.2, .8, .2, 1)" });
+      });
+  }
+
   // ----- Peças: quadro ao vivo carrega só quando a cena entra -----
   document.querySelectorAll(".cena .peca").forEach((peca) => {
     const cena = peca.closest(".cena");
@@ -16,7 +29,7 @@
       if (quadro) quadro.src = "about:blank"; // jogo e 3D não ficam rodando escondidos
       peca.classList.remove("virada");
     });
-    const virar = () => { if (P.revelado) peca.classList.toggle("virada"); };
+    const virar = () => { if (P.revelado) virarCarta(peca); };
     cena.querySelector(".virar")?.addEventListener("click", virar);
     cena.querySelector(".abrir")?.addEventListener("click", () => P.abrirAoVivo(url, nome));
     cena.addEventListener("tecla", (e) => {
@@ -45,7 +58,7 @@
     cascata.forEach(clearTimeout); cascata = [];
     cartas.forEach((c, i) => {
       const atraso = sim ? 220 * i + 200 : 0;
-      cascata.push(setTimeout(() => c.classList.toggle("virada", sim), atraso));
+      cascata.push(setTimeout(() => (sim ? virarCarta(c, true) : c.classList.remove("virada")), atraso));
     });
   }
   cena.addEventListener("entrou", () => {
@@ -57,5 +70,5 @@
   });
   cena.addEventListener("saiu", () => virarTodas(false));
   // Depois de virar todas, cada carta pode ser virada à mão.
-  cartas.forEach((c) => c.addEventListener("click", () => { if (P.revelado) c.classList.toggle("virada"); }));
+  cartas.forEach((c) => c.addEventListener("click", () => { if (P.revelado) virarCarta(c); }));
 })();

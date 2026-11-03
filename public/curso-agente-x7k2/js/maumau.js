@@ -142,16 +142,17 @@
   }
 
   // Um turno de bot. Devolve as linhas do registro.
-  function turnoBot(s) {
+  // `decisor` troca o jeito de escolher a carta (a mesa da aula dá uma ficha a cada robô).
+  function turnoBot(s, decisor = decidir) {
     const j = s.jogadores[s.vez];
     const registro = [];
     const jogaveis = j.mao.map((c, i) => (jogavel(s, c) ? i : -1)).filter((i) => i >= 0);
     if (jogaveis.length) {
-      const [idx, motivo] = decidir(s, j, jogaveis);
+      const [idx, motivo, regra] = decisor(s, j, jogaveis);
       const carta = j.mao[idx];
       let cor;
       if (carta.cor === "coringa") cor = corPreferida({ mao: j.mao.filter((_, k) => k !== idx) });
-      registro.push({ quem: j.nome, carta: nomeCarta(carta), motivo: motivo + (cor ? ` Escolhe ${cor}, a cor que mais tem na mão.` : "") });
+      registro.push({ quem: j.nome, carta: nomeCarta(carta), regra, cor, motivo: motivo + (cor ? ` Escolhe ${cor}, a cor que mais tem na mão.` : "") });
       registro.push(...jogar(s, j, idx, cor));
       return registro;
     }
@@ -346,5 +347,5 @@
   }
 
   window.criarMesaMauMau = criarMesa;
-  window.MAUMAU_REGRAS = { novaPartida, turnoBot, jogavel, topo, nomeCarta, ehNumero, SIMBOLO }; // para testes e para a mesa (mesa.html)
+  window.MAUMAU_REGRAS = { novaPartida, turnoBot, jogavel, topo, nomeCarta, ehNumero, proximo, SIMBOLO }; // para testes e para a mesa (mesa.html)
 })();
