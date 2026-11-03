@@ -74,27 +74,25 @@
     </div>
   </section>
 
-  <section class="cena" id="folha" data-fase="1" data-passos="5" data-titulo="Quatro anos de IA no jornal">
-    <canvas class="fundo interativo" aria-label="Cada ponto é uma matéria da Folha de S.Paulo sobre IA, por mês, de novembro de 2022 a outubro de 2026"></canvas>
-    <div class="folha-cabeca"><span class="rotulo">A IA no jornal, mês a mês</span></div>
+  <section class="cena" id="busca" data-fase="1" data-passos="4" data-titulo="O jornal e a busca">
+    <canvas class="fundo interativo" aria-label="Duas faixas de nov/2022 a out/2026: em cima, quantos textos da Folha citam inteligência artificial por mês; embaixo, a procura no Google Trends, no Brasil"></canvas>
+    <div class="folha-cabeca"><span class="rotulo">A IA no jornal e na busca</span></div>
     <div class="folha-frase">
-      <h2 class="titulo" data-passo="0" data-ate="0">Novembro de 2022. A Folha publica 17 matérias que falam de IA.</h2>
-      <h2 class="titulo" data-passo="1" data-ate="1">No dia 30, a OpenAI abre o <em>ChatGPT</em> para qualquer pessoa.</h2>
-      <h2 class="titulo" data-passo="2" data-ate="2">Desde então, o assunto não saiu mais do jornal.</h2>
-      <h2 class="titulo" data-passo="3" data-ate="3">Em 2023, quase metade falava de modelos e empresas. Em 2026, um quarto.</h2>
-      <h2 class="titulo" data-passo="4" data-ate="4">Cada selo é um modelo novo, com a marca de quem lançou.</h2>
-      <h2 class="titulo" data-passo="5">Em 2025, a IA sai do chat e vai <em>trabalhar no computador</em>.</h2>
+      <h2 class="titulo" data-passo="0" data-ate="0">Em 2022, 48 textos por mês da Folha citavam “inteligência artificial”. Em 2026, dez vezes mais.</h2>
+      <h2 class="titulo" data-passo="1" data-ate="1">No Google, a procura por “inteligência artificial” parou de crescer em 2023.</h2>
+      <h2 class="titulo estreito" data-passo="2" data-ate="2">O Brasil não procura “inteligência artificial”. Procura o <em>ChatGPT</em>.</h2>
+      <h2 class="titulo estreito" data-passo="3" data-ate="3">O jornal e o público nem sempre olham para o mesmo lugar.</h2>
+      <h2 class="titulo estreito" data-passo="4">Os <em>agentes</em> já estão no jornal. Quase ninguém os procura.</h2>
     </div>
-    <div class="folha-contador"><span class="numero">17</span><small>matérias até nov/2022</small></div>
-    <div class="folha-legenda" data-passo="3" data-ate="3"></div>
-    <p class="folha-manchete" data-passo="2" data-ate="2"></p>
-    <p class="folha-fonte">Matérias: Folha de S.Paulo, coleção do Observatório UFG-IA · Lançamentos: Panorama da IA</p>
+    <div class="busca-notas" aria-live="polite"></div>
+    <div class="folha-contador busca-contador" data-ate="0"><span class="numero">0</span><small>textos</small></div>
+    <p class="folha-fonte">Jornal: busca do site da Folha de S.Paulo, sem curadoria · Busca: Google Trends, Brasil · coletados em 2 nov. 2026</p>
     <div class="dica-ponto"></div>
     <div class="verso-fonte" hidden>
       <div class="verso">
         <blockquote>Mostrar esse cenário a partir do observatório, utilizando o observatório como um “meta” exemplo.</blockquote>
         <p class="quem">Victor, nas anotações para o curso · 2 nov. 2026</p>
-        <span data-resumo="Claude Code: juntou dados que já estavam no Observatório e desenhou o gráfico."></span>
+        <span data-resumo="Claude Code: contou as citações na busca da Folha, cruzou com o Google Trends e desenhou o gráfico."></span>
       </div>
     </div>
   </section>
@@ -232,8 +230,8 @@
         <div class="frente"><div class="mini-capa"><b>Do chat<br>ao <em>agente</em></b></div><span>Esta apresentação</span></div>
         <div class="verso"></div>
       </div></div>
-      <div class="carta" data-de="folha"><div class="peca-giro">
-        <div class="frente"><div class="miniatura mini-folha"><canvas></canvas></div><span>A IA no jornal</span></div>
+      <div class="carta" data-de="busca"><div class="peca-giro">
+        <div class="frente"><div class="miniatura mini-folha"><canvas></canvas></div><span>O jornal e a busca</span></div>
         <div class="verso"></div>
       </div></div>
       <div class="carta" data-de="gangorra"><div class="peca-giro">
@@ -289,7 +287,7 @@
 <script src="js/questionario.js"></script>
 <script src="js/palco.js"></script>
 <script src="js/cena-sala.js"></script>
-<script src="js/cena-folha.js"></script>
+<script src="js/cena-busca.js"></script>
 <script src="js/cena-vitrine.js"></script>
 <script>
   // A ponte já mostra o que a turma escolheu na pergunta 5.

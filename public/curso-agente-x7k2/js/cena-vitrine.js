@@ -62,7 +62,7 @@
     });
   }
   cena.addEventListener("entrou", () => {
-    if (!miniaturaFeita && window.miniaturaFolha) { miniaturaFeita = true; window.miniaturaFolha(cena.querySelector(".mini-folha canvas")); }
+    if (!miniaturaFeita && window.miniaturaBusca) { miniaturaFeita = true; window.miniaturaBusca(cena.querySelector(".mini-folha canvas")); }
   });
   cena.addEventListener("passo", (e) => {
     virarTodas(e.detail >= 1);

@@ -156,6 +156,18 @@ button { font: inherit; color: inherit; }
 .folha-legenda { position: absolute; left: 110px; top: 236px; width: 860px; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 32px; font-size: 19px; color: var(--creme-2); }
 .folha-legenda span { display: flex; gap: 12px; align-items: center; }
 .folha-legenda i { width: 14px; height: 14px; border-radius: 3px; flex: none; }
+/* Cena do jornal e da busca */
+#busca .folha-frase { width: min(960px, calc(100% - 700px)); }
+#busca .folha-frase .titulo { font-size: 44px; }
+#busca .folha-frase .estreito { width: 720px; } /* deixa lugar para o quadro de notas */
+.busca-notas {
+  position: absolute; right: 110px; top: 56px; width: 620px; z-index: 3; display: grid; gap: 8px;
+  opacity: 0; transform: translateY(8px); transition: opacity .5s var(--curva), transform .5s var(--curva);
+}
+.busca-notas.on { opacity: 1; transform: none; }
+.busca-notas p { margin: 0; position: relative; padding: 9px 14px 9px 50px; border-radius: 12px; background: rgba(8, 32, 26, .72); border: 1px solid var(--linha); font-size: 16px; line-height: 1.38; color: var(--creme-2); }
+.busca-notas b { color: var(--creme); font-weight: 600; }
+.busca-notas i { position: absolute; left: 13px; top: 9px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 700 14px/1 var(--sans); font-style: normal; color: #fff; }
 .folha-fonte { position: absolute; right: 110px; bottom: 38px; z-index: 2; font-size: 14px; color: var(--creme-3); text-align: right; }
 .dica-ponto {
   position: absolute; z-index: 6; pointer-events: none; max-width: 460px;
@@ -191,7 +203,8 @@ button { font: inherit; color: inherit; }
 /* Os quatro robôs lado a lado, sobre o creme do retrato original */
 .robos-frente { background: var(--creme) !important; display: flex; align-items: center; justify-content: space-around; padding: 0 4%; }
 .robos-frente img { width: 22% !important; height: auto !important; object-fit: contain !important; }
-.carta .robos-frente img { width: 23% !important; flex: none; }
+.carta .frente.robos-frente { flex-direction: row; align-items: center; } /* .carta .frente empilha; os robôs ficam lado a lado */
+.carta .frente.robos-frente img { width: 23% !important; flex: none; }
 
 /* A peça: uma carta que pode virar. Frente = o trabalho; verso = o pedido. */
 .peca {
