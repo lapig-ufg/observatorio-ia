@@ -1,0 +1,283 @@
+/* Pergunte ao Observatório: a coruja do logo, no canto da tela, e a conversa com ela.
+   Tamanhos em px de propósito: a coruja não acompanha a escala do palco nem das
+   telas, para ter o mesmo tamanho em qualquer página. As cores repetem as do
+   curso, para funcionar também em páginas que não carregam o curso.css. */
+
+.coruja {
+  --c-verde: #114d3b;
+  --c-verde-fundo: #0a382d;
+  --c-menta: #cbe6d9;
+  --c-menta-2: #e1efe8;
+  --c-terracota: #d76832;
+  --c-azul: #1d3f5f;
+  --c-tinta: #10211b;
+  --c-tinta-2: #4d5f58;
+  --c-linha: #ccd9d2;
+  --c-papel: #ffffff;
+  --c-fundo: #f6f9f7;
+  --c-curva: cubic-bezier(.2, .7, .2, 1);
+  font: 400 16px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--c-tinta);
+}
+.coruja *, .coruja *::before, .coruja *::after { box-sizing: border-box; }
+.coruja .sr, .coruja-apresentacao .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.coruja svg { display: block; width: 100%; height: auto; }
+
+/* ---------- A coruja no canto ---------- */
+
+.coruja-botao {
+  position: fixed; right: 20px; bottom: 20px; z-index: 9000;
+  display: flex; align-items: center; gap: 10px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  transition: opacity .5s var(--c-curva), transform .5s var(--c-curva);
+}
+.coruja-poleiro {
+  display: grid; place-items: center;
+  width: 68px; height: 68px; border-radius: 50%;
+  background: var(--c-papel);
+  border: 2px solid var(--c-verde);
+  box-shadow: 0 6px 18px rgba(10, 56, 45, .22), 0 1px 3px rgba(10, 56, 45, .18);
+  transition: transform .35s var(--c-curva), box-shadow .35s var(--c-curva);
+}
+.coruja-desenho { width: 50px; margin-top: 3px; }
+.coruja-botao:hover .coruja-poleiro,
+.coruja-botao:focus-visible .coruja-poleiro { transform: translateY(-3px) rotate(-4deg); box-shadow: 0 10px 24px rgba(10, 56, 45, .28), 0 1px 3px rgba(10, 56, 45, .18); }
+.coruja-botao:focus-visible { outline: none; }
+.coruja-botao:focus-visible .coruja-poleiro { outline: 3px solid var(--c-terracota); outline-offset: 3px; }
+
+.coruja-rotulo {
+  padding: 8px 14px; border-radius: 999px;
+  background: var(--c-verde); color: #fff;
+  font-weight: 600; font-size: 15px; white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(10, 56, 45, .2);
+  opacity: 0; transform: translateX(8px); pointer-events: none;
+  transition: opacity .3s var(--c-curva), transform .3s var(--c-curva);
+}
+.coruja-botao:hover .coruja-rotulo,
+.coruja-botao:focus-visible .coruja-rotulo,
+.coruja.pousou .coruja-rotulo { opacity: 1; transform: none; }
+.coruja.aberta .coruja-rotulo { opacity: 0 !important; }
+.coruja.aberta .coruja-poleiro { background: var(--c-menta-2); }
+
+/* Na projeção das missões, o canto de baixo é do botão "Sair da projeção": a coruja sobe. */
+body.aula .coruja-botao { bottom: 64px; }
+body.aula .coruja-painel { bottom: 146px; height: min(600px, calc(100vh - 220px)); }
+
+/* Na projeção: some sem pressa e volta quando o mouse mexe. */
+.coruja.escondida .coruja-botao { opacity: 0; transform: translateY(14px); pointer-events: none; }
+.coruja.pousando .coruja-botao { opacity: 0; transition: none; }
+.coruja.pousou .coruja-poleiro { animation: pousar .7s var(--c-curva); }
+@keyframes pousar {
+  0% { transform: scale(.86); }
+  55% { transform: scale(1.06) rotate(-3deg); }
+  100% { transform: none; }
+}
+
+/* ---------- O painel da conversa ---------- */
+
+.coruja-painel {
+  position: fixed; right: 20px; bottom: 102px; z-index: 9001;
+  display: flex; flex-direction: column;
+  width: min(410px, calc(100vw - 32px));
+  height: min(640px, calc(100vh - 190px));
+  background: var(--c-fundo);
+  border: 1px solid var(--c-linha); border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(10, 56, 45, .25), 0 2px 6px rgba(10, 56, 45, .12);
+  overflow: hidden;
+  transform-origin: calc(100% - 34px) calc(100% + 40px);
+  animation: abrir-painel .38s var(--c-curva);
+}
+.coruja-painel[hidden] { display: none; }
+@keyframes abrir-painel { from { opacity: 0; transform: scale(.6) translateY(20px); } }
+/* O rabinho do balão, apontando para a coruja. */
+.coruja:not(.coruja-pagina) .coruja-painel::after {
+  content: ""; position: absolute; right: 28px; bottom: -9px;
+  width: 16px; height: 16px; background: var(--c-fundo);
+  border-right: 1px solid var(--c-linha); border-bottom: 1px solid var(--c-linha);
+  transform: rotate(45deg);
+}
+.coruja:not(.coruja-pagina) .coruja-painel { overflow: visible; }
+.coruja:not(.coruja-pagina) .coruja-cabeca { border-radius: 14px 14px 0 0; }
+
+.coruja-cabeca {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 14px 14px 16px;
+  background: var(--c-verde); color: #fff;
+}
+.coruja-retrato {
+  flex: none; display: grid; place-items: center;
+  width: 50px; height: 50px; border-radius: 50%;
+  background: var(--c-papel);
+}
+.coruja-retrato svg { width: 38px; margin-top: 2px; }
+.coruja-cabeca > div { flex: 1; min-width: 0; }
+.coruja-cabeca h2 {
+  margin: 0; font: 700 20px/1.15 Georgia, "Times New Roman", serif; letter-spacing: -.01em; color: #fff;
+}
+.coruja-estado { margin: 2px 0 0; font-size: 13px; color: var(--c-menta); max-width: none; }
+.coruja-fechar {
+  flex: none; width: 36px; height: 36px; border-radius: 50%;
+  border: 0; background: rgba(255, 255, 255, .12); color: #fff;
+  font-size: 24px; line-height: 1; cursor: pointer;
+}
+.coruja-fechar:hover { background: rgba(255, 255, 255, .22); }
+
+.coruja-conversa {
+  flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+  list-style: none; margin: 0; padding: 16px 14px 8px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.coruja-conversa p { margin: 0 0 .55em; max-width: none; }
+.coruja-conversa p:last-child { margin-bottom: 0; }
+
+.coruja-conversa .eu {
+  align-self: flex-end; max-width: 86%;
+  padding: 9px 13px;
+  background: var(--c-verde); color: #fff;
+  border-radius: 14px 14px 4px 14px;
+}
+.coruja-conversa .eu p { white-space: pre-wrap; overflow-wrap: anywhere; }
+.coruja-conversa .eu small { display: block; margin-top: 5px; font-size: 12.5px; color: var(--c-menta); }
+
+/* A fala da coruja: papel, com a borda terracota do olho dela. */
+.coruja-conversa .dela {
+  align-self: flex-start; max-width: 94%;
+  padding: 11px 14px;
+  background: var(--c-papel);
+  border: 1px solid var(--c-linha); border-left: 3px solid var(--c-terracota);
+  border-radius: 4px 14px 14px 14px;
+  overflow-wrap: anywhere;
+}
+.coruja-conversa .dela.busca { border-left-color: var(--c-azul); }
+.coruja-conversa .boas-vindas { font-size: 15.5px; }
+.coruja-conversa .quem { margin: 8px 0 0; font-size: 12px; color: var(--c-tinta-2); }
+.coruja-conversa .busca .quem { margin: 0 0 6px; }
+
+.coruja .pensando { display: inline-flex; gap: 5px; padding: 6px 0; }
+.coruja .pensando i {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--c-verde);
+  animation: pensar 1.3s ease-in-out infinite;
+}
+.coruja .pensando i:nth-child(2) { animation-delay: .18s; }
+.coruja .pensando i:nth-child(3) { animation-delay: .36s; }
+@keyframes pensar { 0%, 100% { opacity: .25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+
+.coruja-achados { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.coruja-achados li { display: grid; gap: 2px; padding-top: 9px; border-top: 1px solid var(--c-menta-2); font-size: 15px; }
+.coruja-achados li:first-child { border-top: 0; padding-top: 0; }
+.coruja-achados b { color: var(--c-verde); }
+.coruja-achados span { color: var(--c-tinta-2); }
+
+.coruja-fontes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.coruja-ir {
+  display: inline-flex; align-items: center; gap: 6px; max-width: 100%;
+  padding: 7px 12px; border-radius: 999px;
+  background: var(--c-menta-2); color: var(--c-verde);
+  border: 1px solid var(--c-menta);
+  font-size: 14px; font-weight: 600; line-height: 1.3; text-decoration: none;
+}
+.coruja-ir::before { content: "→"; }
+.coruja-ir.obs::before { content: "◆"; font-size: .75em; color: var(--c-terracota); }
+.coruja-ir:hover { background: var(--c-menta); }
+.coruja-oficial { margin: 6px 0 0; font-size: 12px; color: var(--c-tinta-2); }
+.coruja-oficial a { color: var(--c-verde); }
+
+.coruja-sugestoes { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px 14px 10px; }
+.coruja-sugestoes[hidden] { display: none; }
+.coruja-sugestoes button {
+  padding: 6px 12px; border-radius: 999px;
+  background: var(--c-papel); border: 1px solid var(--c-linha); color: var(--c-tinta);
+  font: inherit; font-size: 14px; cursor: pointer; text-align: left;
+}
+.coruja-sugestoes button:hover { border-color: var(--c-verde); color: var(--c-verde); }
+
+.coruja-form { padding: 10px 14px 12px; background: var(--c-papel); border-top: 1px solid var(--c-linha); border-radius: 0 0 14px 14px; }
+.coruja-linha { display: flex; gap: 8px; align-items: flex-end; }
+.coruja-linha textarea, .coruja-linha input {
+  flex: 1; min-width: 0;
+  padding: 10px 12px;
+  font: inherit; font-size: 16px; color: var(--c-tinta);
+  background: var(--c-fundo);
+  border: 1px solid var(--c-linha); border-radius: 10px;
+  resize: none;
+}
+.coruja-linha textarea:focus, .coruja-linha input:focus { outline: 2px solid var(--c-verde); outline-offset: 0; background: #fff; }
+.coruja-enviar {
+  flex: none; display: grid; place-items: center;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 0; background: var(--c-terracota); color: #fff; cursor: pointer;
+}
+.coruja-enviar svg { width: 22px; }
+.coruja-enviar:disabled { opacity: .45; cursor: wait; }
+.coruja-enviar .quadrado, .coruja-enviar.parar .seta { display: none; }
+.coruja-enviar.parar .quadrado { display: block; }
+.coruja-enviar.parar { background: var(--c-verde); }
+.coruja-aviso { margin: 7px 0 0; font-size: 12px; line-height: 1.4; color: var(--c-tinta-2); max-width: none; }
+.coruja-turma { margin-top: 6px; font-size: 13px; color: var(--c-tinta-2); }
+.coruja-turma summary { cursor: pointer; font-weight: 600; }
+.coruja-turma .coruja-linha { margin: 6px 0 4px; }
+.coruja-turma input { text-transform: uppercase; font-family: "JetBrains Mono", ui-monospace, Consolas, monospace; font-size: 15px; padding: 7px 10px; }
+.coruja-usar {
+  padding: 7px 14px; border-radius: 999px; border: 1px solid var(--c-verde);
+  background: none; color: var(--c-verde); font: inherit; font-weight: 600; cursor: pointer;
+}
+
+/* ---------- Página própria (monitor.html): a mesma conversa, no corpo da página ---------- */
+
+.coruja-pagina .coruja-painel {
+  position: static; width: 100%; height: min(720px, calc(100vh - 260px)); min-height: 440px;
+  animation: none;
+}
+
+/* ---------- Celular ---------- */
+
+@media (max-width: 520px) {
+  .coruja-botao { right: 14px; bottom: 14px; }
+  .coruja-poleiro { width: 60px; height: 60px; }
+  .coruja-desenho { width: 44px; }
+  .coruja:not(.coruja-pagina) .coruja-painel { right: 8px; left: 8px; top: 8px; bottom: 88px; width: auto; height: auto; }
+  .coruja:not(.coruja-pagina) .coruja-painel::after { right: 30px; }
+}
+
+/* ---------- A apresentação: a coruja grande, que depois voa para o canto ---------- */
+
+.coruja-apresentacao {
+  position: fixed; inset: 0; z-index: 9500;
+  display: grid; grid-template-columns: auto minmax(0, 34rem); align-items: center; justify-content: center;
+  gap: clamp(24px, 5vw, 80px); padding: 5vh 6vw;
+  background: #0a382d; color: #fff;
+  cursor: pointer;
+  opacity: 0; transition: opacity .7s cubic-bezier(.2, .7, .2, 1);
+}
+.coruja-apresentacao.visivel { opacity: 1; }
+.coruja-apresentacao.saindo { background: transparent; transition: background .9s ease; }
+.coruja-apresentacao.saindo .ca-texto { opacity: 0; transition: opacity .35s ease; }
+/* O mesmo disco branco do canto, grande: é ele que voa e vira o ícone. */
+.ca-coruja {
+  display: grid; place-items: center;
+  width: min(46vh, 40vw); aspect-ratio: 1; border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 calc(min(46vh, 40vw) * .03) #114d3b, 0 24px 60px rgba(0, 0, 0, .35);
+  transform: translateY(24px) scale(.94); opacity: 0;
+  transition: transform 1s cubic-bezier(.2, .7, .2, 1), opacity .8s ease;
+}
+.ca-coruja svg { display: block; width: 74%; height: auto; margin-top: 4%; }
+.ca-texto { text-wrap: balance; }
+.coruja-apresentacao.visivel .ca-coruja { transform: none; opacity: 1; }
+.ca-texto p {
+  margin: 0; opacity: 0; transform: translateY(14px);
+  transition: opacity .8s cubic-bezier(.2, .7, .2, 1), transform .8s cubic-bezier(.2, .7, .2, 1);
+}
+.ca-1 { font: 400 clamp(22px, 2.6vw, 34px)/1.2 Georgia, "Times New Roman", serif; color: #cbe6d9; }
+.ca-2 { margin-top: .3em !important; font: 700 clamp(36px, 5vw, 72px)/1.05 Georgia, "Times New Roman", serif; letter-spacing: -.02em; }
+.ca-3 { margin-top: 1.1em !important; font: 400 clamp(17px, 1.6vw, 24px)/1.45 Inter, ui-sans-serif, system-ui, sans-serif; color: #cbe6d9; max-width: 30em; }
+.fala-1 .ca-1, .fala-2 .ca-2, .fala-3 .ca-3 { opacity: 1; transform: none; }
+
+@media (max-width: 700px) {
+  .coruja-apresentacao { grid-template-columns: 1fr; justify-items: center; text-align: center; align-content: center; }
+  .ca-coruja { width: min(52vw, 30vh); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coruja *, .coruja-apresentacao, .coruja-apresentacao * { animation: none !important; transition: none !important; }
+}

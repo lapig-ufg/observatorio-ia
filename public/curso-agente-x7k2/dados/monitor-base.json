@@ -1,0 +1,653 @@
+{
+ "gerada": "2026-11-02",
+ "curso": "Do chat ao agente (curso prático de IA do Observatório UFG-IA)",
+ "entradas": [
+  {
+   "id": "missoes",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente",
+   "texto": "Curso prático de 8 horas Do chat ao agente IA trabalhando no seu computador, em cinco missões. Cada uma tem os arquivos para baixar, o pedido pronto para copiar e o que fazer quando dá errado. Serve para quem está na aula e para quem faz sozinho, em casa. 0 Instalar o Antigravity Antes do curso, uns 20 minutos 1 A pasta bagunçada 12 planilhas viram uma, com totais e gráfico 2 A ata que vira tarefas Quem faz o quê, até quando, e o e-mail 3 Ache o erro Conferir um relatório que a IA preencheu 4 Minha cidade em dados Números públicos e o tempo no dia em que você nasceu 5 A sua tarefa Um problema real do seu trabalho, sem dados pessoais",
+   "href": "missoes.html"
+  },
+  {
+   "id": "instalar-antes",
+   "tipo": "curso",
+   "titulo": "Instalar o Antigravity · Antes do curso: instalar",
+   "texto": "Antes do curso Instalar o Antigravity Uns 20 minutos, antes do primeiro encontro. Se travar, há um plantão para ajudar. Você vai precisar de Um notebook ou computador com Windows 10 ou 11, ou Mac com macOS 12 ou mais novo. Celular e tablet não servem. Uma conta Google pessoal, a que termina em @gmail.com, com a senha e o celular da verificação à mão. A conta da universidade só funciona se a instituição tiver liberado o Antigravity. Permissão para instalar programas. Em computador da instituição, às vezes só o suporte de TI instala. Ter 18 anos ou mais, exigência do próprio Antigravity.",
+   "href": "instalar.html#antes"
+  },
+  {
+   "id": "instalar-passos",
+   "tipo": "curso",
+   "titulo": "Instalar o Antigravity · Passo a passo",
+   "texto": "Passo a passo Instalar o Antigravity No notebook, digite este endereço antigravity.google/download Na barra de endereço do navegador, no alto, não na busca do Google. Baixe só daqui. Clique em Baixar para x64 Quase todo notebook é x64. O site já escolhe o seu sistema. Não é o “Antigravity CLI”, mais abaixo. Abra o arquivo baixado Ele vai para a pasta Downloads. No navegador, Ctrl+J mostra a lista do que você baixou; clique no arquivo. Downloads Antigravity-Setup.exe Se o Windows avisar, confira e siga Se aparecer “O Windows protegeu o computador”, clique em Mais informações e depois em Executar assim mesmo. Só faça isso com o arquivo que veio de antigravity.google. Entre com a conta Google pessoal Ao abrir, o programa pede para entrar. Use a conta @gmail.com. Decida se o Google pode usar suas conversas Na conta pessoal, isso vem ligado. Para desligar, abra Settings (Configurações) e procure a opção sobre usar suas interações para melhorar os produtos. Teste com uma pasta vazia Abra uma pasta vazia com Open Folder e escreva: Quais arquivos existem nesta pasta? Respondeu que está vazia? Tudo pronto.",
+   "href": "instalar.html#passos"
+  },
+  {
+   "id": "instalar-deu-errado",
+   "tipo": "curso",
+   "titulo": "Instalar o Antigravity · Deu errado?",
+   "texto": "Deu errado? Entrar com a conta da universidade não funciona O Antigravity só aceita conta de instituição quando ela libera o programa. Use uma conta Google pessoal, como @gmail.com. Não tenho permissão para instalar Em computador da instituição, quem instala costuma ser o suporte de TI. Peça a instalação com antecedência, ou traga um notebook pessoal. Não acho o arquivo baixado No navegador, aperte Ctrl+J. A lista mostra o arquivo; clique em “Mostrar na pasta”. Ele diz que preciso ter 18 anos ou verificar a idade O Google pede a verificação de idade da conta. A FAQ oficial explica como fazer: antigravity.google/docs/faq. Apareceu uma mensagem de erro em inglês Tire uma foto da tela ou copie o texto da mensagem e traga ao plantão. Com o programa já funcionando, você pode colar a mensagem na própria conversa e perguntar o que fazer. Endereços e requisitos conferidos nas páginas oficiais em 1º de novembro de 2026.",
+   "href": "instalar.html#deu-errado"
+  },
+  {
+   "id": "missao-1-missao",
+   "tipo": "curso",
+   "titulo": "Missão 1: a pasta bagunçada",
+   "texto": "Missão 1 de 5 A pasta bagunçada Doze planilhas de despesas, uma por mês, cada uma de um jeito. No fim, uma planilha só, com o total de cada mês e um gráfico. despesas-2026 jan.xlsx Fevereiro 2026.xlsx despesas_mar.xlsx julho.csv e mais 8 → resultado despesas-2026-completo.xlsx grafico-totais.png Os arquivos são fictícios. Baixar o kit da Missão 1 Antes de começar Faça no notebook ou computador, não no celular: o kit e o Antigravity precisam estar na mesma máquina. O Antigravity precisa estar instalado (como instalar). Clique em Baixar o kit. O arquivo .zip vai para a pasta Downloads. Abra o Explorador de Arquivos, vá em Downloads, clique com o botão direito no .zip e escolha Extrair tudo (no Windows 11, às vezes está em Mostrar mais opções). Trabalhe na pasta extraída: se o endereço no alto da janela termina em .zip, você ainda está dentro do arquivo.",
+   "href": "missao-1.html#missao"
+  },
+  {
+   "id": "missao-1-passos",
+   "tipo": "curso",
+   "titulo": "Missão 1: a pasta bagunçada · Faça comigo",
+   "texto": "Faça comigo A pasta bagunçada Faça uma cópia da pasta Clique com o botão direito em despesas-2026 e escolha Copiar. Sem entrar na pasta, clique com o botão direito num espaço vazio ao lado e escolha Colar. Downloads despesas-2026 despesas-2026 - Cópia No Antigravity, abra só a cópia Use Open Folder (Abrir pasta) e escolha despesas-2026 - Cópia. O agente trabalha a partir dessa pasta. Se ele pedir para mexer fora dela, leia com atenção antes de aprovar. Cole o pedido e envie Cole na caixa de mensagem do Antigravity e aperte Enter. Leia as 12 planilhas desta pasta. Junte tudo numa planilha só, some o total de cada mês e faça um gráfico dos totais. Salve numa pasta nova chamada resultado. Não altere nem apague as planilhas originais. Leia antes de aprovar Ler, criar, instalar biblioteca: aprove. Apagar, excluir, remover: recuse. Ele vai pedir permissão para rodar comandos. Ler arquivos, criar a pasta resultado e instalar uma biblioteca de planilhas (algo como pip install openpyxl) são esperados. Confira o total do ano R$ 79.466,18 Ele mostra o total na resposta; a planilha e o gráfico ficam na pasta resultado. Se não bater, peça a soma mês a mês e compare.",
+   "href": "missao-1.html#passos"
+  },
+  {
+   "id": "missao-1-gravacao",
+   "tipo": "curso",
+   "titulo": "Missão 1: a pasta bagunçada · A gravação e os problemas comuns",
+   "texto": "Deu errado? Ele leu só algumas planilhas Diga quais faltaram: “Você leu a de julho? Ela é um CSV.” O total não bateu Duas planilhas têm os valores escritos como texto, e julho é um CSV. Peça: “Converta os valores escritos como texto em número e confira se julho entrou.” Ele mexeu numa planilha original Sem problema: você trabalhou na cópia. Feche a pasta no Antigravity, apague a cópia no Explorador (confira que é a que termina em “- Cópia”), copie de novo e repita o pedido. Ele abriu o Excel e o Excel travou Aconteceu num teste: o agente tentou recalcular a planilha pelo próprio Excel. Feche o Excel (ou reinicie o computador) e use o arquivo que ele indicar como pronto. Arquivos que começam com ~$ são temporários e podem ser apagados depois. Apareceu um aviso de limite Na sala, continue no computador do colega. Em casa, o limite volta na semana seguinte; o que já foi feito fica salvo na pasta.",
+   "href": "missao-1.html#gravacao"
+  },
+  {
+   "id": "missao-2-missao",
+   "tipo": "curso",
+   "titulo": "Missão 2: a ata que vira tarefas",
+   "texto": "Missão 2 de 5 A ata que vira tarefas Uma ata de reunião em texto corrido. No fim, a lista de quem faz o quê e até quando, e um e-mail pronto para revisar. missao-2 ata-reuniao-2026-03-12.docx → missao-2 tarefas.md email.txt A ata é fictícia. Baixar o kit da Missão 2 Antes de começar Faça no notebook ou computador, não no celular: o kit e o Antigravity precisam estar na mesma máquina. O Antigravity precisa estar instalado (como instalar). Clique em Baixar o kit. O arquivo .zip vai para a pasta Downloads. Abra o Explorador de Arquivos, vá em Downloads, clique com o botão direito no .zip e escolha Extrair tudo (no Windows 11, às vezes está em Mostrar mais opções). Trabalhe na pasta extraída: se o endereço no alto da janela termina em .zip, você ainda está dentro do arquivo.",
+   "href": "missao-2.html#missao"
+  },
+  {
+   "id": "missao-2-passos",
+   "tipo": "curso",
+   "titulo": "Missão 2: a ata que vira tarefas · Faça comigo",
+   "texto": "Faça comigo A ata que vira tarefas Copie a pasta e abra só a cópia O mesmo da Missão 1: botão direito, Copiar, Colar. No Antigravity, Open Folder na pasta missao-2 - Cópia. Cole o pedido e envie Cole na caixa de mensagem do Antigravity e aperte Enter. Leia a ata desta pasta. Faça uma lista de tarefas com quem faz, o que faz e o prazo, e um rascunho de e-mail para a equipe. Salve a lista em tarefas.md e o e-mail em email.txt. Não altere a ata. Conte as tarefas 6 tarefas Abra tarefas.md e conte. Bruno, Carla, Diego, Ana, Elisa e uma que ficou sem dono. Procure as duas armadilhas Os orçamentos de reagentes não têm responsável na ata. Se a lista trouxer um nome, a IA inventou. O congresso foi só comentado. Se virou tarefa, a IA inventou. O e-mail é um rascunho Não envie direto. Confira se assina quem coordenou a reunião (Ana), se os prazos são os da ata e se as seis tarefas aparecem.",
+   "href": "missao-2.html#passos"
+  },
+  {
+   "id": "missao-2-gravacao",
+   "tipo": "curso",
+   "titulo": "Missão 2: a ata que vira tarefas · A gravação e os problemas comuns",
+   "texto": "Deu errado? Ele inventou um responsável Diga: “A ata não diz quem pede os orçamentos. Não invente nome: escreva ‘a definir’.” O e-mail ficou formal ou longo demais Peça do jeito que você escreveria: “Mais curto, em tom de conversa entre colegas, com uma linha por pessoa.” Ele trocou uma data Aponte qual: “O prazo da Carla é 20 de março, confira na ata.” E confira de novo o resto. Ele mudou a ata Você trabalhou na cópia. Extraia o .zip de novo, faça outra cópia e repita o pedido. Não reaproveite a pasta alterada.",
+   "href": "missao-2.html#gravacao"
+  },
+  {
+   "id": "missao-3-missao",
+   "tipo": "curso",
+   "titulo": "Missão 3: ache o erro",
+   "texto": "Missão 3 de 5 Ache o erro A IA preencheu este relatório com os números das planilhas da Missão 1. Uma coisa está errada. O total está certo. Relatório parcial · Execução financeira (resumida aqui; o total inclui junho a agosto) Janeiro R$ 3.460,67 Fevereiro R$ 9.613,07 Março R$ 3.687,19 Abril R$ 13.986,91 Maio R$ 5.005,10 … … Total R$ 59.818,50 “O maior gasto foi em março, mês da primeira campanha de campo.” O relatório é fictício. Baixar o kit da Missão 3 Antes de começar Faça no notebook ou computador, não no celular: o kit e o Antigravity precisam estar na mesma máquina. O Antigravity precisa estar instalado (como instalar). Clique em Baixar o kit. O arquivo .zip vai para a pasta Downloads. Abra o Explorador de Arquivos, vá em Downloads, clique com o botão direito no .zip e escolha Extrair tudo (no Windows 11, às vezes está em Mostrar mais opções). Trabalhe na pasta extraída: se o endereço no alto da janela termina em .zip, você ainda está dentro do arquivo.",
+   "href": "missao-3.html#missao"
+  },
+  {
+   "id": "missao-3-passos",
+   "tipo": "curso",
+   "titulo": "Missão 3: ache o erro · Faça comigo",
+   "texto": "Faça comigo Ache o erro Abra os dois lado a lado O relatório no Word e a planilha que você juntou na Missão 1. Primeiro, confira você mesmo, sem IA. Compare mês a mês Somar o total não adianta: ele está certo. O erro está numa linha. Leia o texto do relatório Ele diz que março foi o mês de maior gasto. A tabela concorda? Agora peça a uma conversa nova Copie a pasta missao-3, abra a cópia no Antigravity (Open Folder) e comece uma conversa nova. Cole o pedido na caixa de mensagem e aperte Enter. Leia o relatório e as planilhas da pasta despesas-2026. Confira se cada número do relatório bate com as planilhas. Salve a conferência em conferencia.md. Não altere o relatório nem as planilhas. Você e a IA acharam o mesmo? Uma conversa nova não sabe o que a outra fez. Por isso ela serve para conferir.",
+   "href": "missao-3.html#passos"
+  },
+  {
+   "id": "missao-3-gravacao",
+   "tipo": "curso",
+   "titulo": "Missão 3: ache o erro · A gravação e os problemas comuns",
+   "texto": "Deu errado? Ela disse que está tudo certo Peça de novo, mais exato: “Compare cada mês do relatório com o total da planilha daquele mês.” Ela leu arquivos de fora da pasta Acontece: um agente pode procurar em pastas vizinhas. É por isso que se abre só a pasta da missão, e que os seus arquivos de verdade não ficam ao lado. Ela corrigiu o relatório sem pedir Você trabalhou na cópia. Extraia o .zip de novo e diga: “Só confira. Não altere o relatório.”",
+   "href": "missao-3.html#gravacao"
+  },
+  {
+   "id": "missao-4-missao",
+   "tipo": "curso",
+   "titulo": "Missão 4: minha cidade em dados",
+   "texto": "Missão 4 de 5 Minha cidade em dados Uma página com os números da sua cidade, cada um com a fonte, e o tempo no dia em que você nasceu. Antes de começar Faça no notebook ou computador. O Antigravity precisa estar instalado (como instalar) e a internet, funcionando. Nesta missão não há kit: o agente busca os dados em sites públicos, como o IBGE. Crie uma pasta vazia chamada minha-cidade em Documentos.",
+   "href": "missao-4.html#missao"
+  },
+  {
+   "id": "missao-4-passos",
+   "tipo": "curso",
+   "titulo": "Missão 4: minha cidade em dados · Faça comigo",
+   "texto": "Faça comigo Minha cidade em dados Abra uma pasta vazia Crie minha-cidade em Documentos e abra no Antigravity com Open Folder (Abrir pasta). Confira o nome da pasta no alto da janela. Troque a cidade e a data, e envie Use dados públicos, como os do IBGE. Faça um retrato de Anápolis (GO): população no Censo 2022, área, PIB, IDHM e densidade, cada número com o ano, a fonte e o link. Diga como estava o tempo na cidade em 15 de agosto de 1988, com a estação usada e a distância até a cidade. Salve como retrato.html nesta pasta. Não invente números: se não achar um dado, ou se ele não foi medido, diga isso. Cole na caixa de mensagem do Antigravity. Troque as duas partes marcadas: a cidade com a sigla do estado, e a data inteira (a do seu nascimento, por exemplo). Depois aperte Enter. Deixe ele procurar 5 a 15 minutos Fique na tela: ele vai pedir para abrir sites e baixar dados. Sites oficiais, como IBGE, INMET e NOAA: aprove. Abra o retrato.html Na pasta minha-cidade, botão direito em retrato (ou retrato.html), Abrir com, e escolha o navegador. Confira um número na fonte Clique no link ao lado da população. O número do IBGE para o Censo 2022 é o mesmo da sua página? Confira o ano.",
+   "href": "missao-4.html#passos"
+  },
+  {
+   "id": "missao-4-dois-numeros",
+   "tipo": "curso",
+   "titulo": "Missão 4: minha cidade em dados · O mesmo dia, dois números",
+   "texto": "O que aconteceu no teste O mesmo dia, dois números Pedimos o tempo de 15 de agosto de 1988 duas vezes. Uma resposta deu mínima de 13 °C e “0 mm de chuva”. A outra deu 12 °C e avisou que a chuva não foi medida naquele dia. As duas usaram a mesma estação, com cálculos diferentes. A primeira tratou a falta de medição como zero; a segunda avisou que o dado faltava. Por isso o pedido exige a estação e “se não foi medido, diga”.",
+   "href": "missao-4.html#dois-numeros"
+  },
+  {
+   "id": "missao-4-sozinho",
+   "tipo": "curso",
+   "titulo": "Missão 4: minha cidade em dados · Agora sozinho",
+   "texto": "Agora sozinho Compare com outra cidade Na mesma conversa (sem abrir uma nova), peça os mesmos cinco números da capital do seu estado, lado a lado com os da sua cidade.",
+   "href": "missao-4.html#sozinho"
+  },
+  {
+   "id": "missao-4-deu-errado",
+   "tipo": "curso",
+   "titulo": "Missão 4: minha cidade em dados · Deu errado?",
+   "texto": "Deu errado? Ele não achou o tempo do dia Nem toda cidade tem estação meteorológica, e os registros antigos têm falhas. Peça: “Use a estação mais próxima e diga a distância até a cidade.” Um número parece estranho Clique no link da fonte. Se não bater, diga: “A população no site do IBGE é outra. Confira e corrija.” Está demorando muito Com internet lenta, ou com a sala inteira na mesma rede, pode passar de 15 minutos. Se travar, pare e peça só a primeira parte: os números da cidade, sem o tempo. A página não abre Confira se o arquivo termina em .html. Clique nele com o botão direito, Abrir com, e escolha o navegador. Apareceu um aviso de limite Na sala, continue no computador do colega. Em casa, o limite volta na semana seguinte; o que já foi feito fica salvo na pasta.",
+   "href": "missao-4.html#deu-errado"
+  },
+  {
+   "id": "missao-5-missao",
+   "tipo": "curso",
+   "titulo": "Missão 5: a sua tarefa",
+   "texto": "Missão 5 de 5 A sua tarefa Um problema de verdade do seu trabalho, resolvido com o mesmo jeito das outras missões. Cartão da tarefa O arquivo: a planilha de frequência da turma O problema: todo mês eu calculo à mão quem passou de 25% de faltas Antes do encontro Escolha um arquivo e escreva o cartão da tarefa: qual arquivo, qual problema, numa frase cada. A regra: se você não mostraria esse arquivo no projetor, ele não entra. Nada de nome de aluno com nota, CPF, matrícula, salário, dado de saúde ou processo. Sem tarefa? Use uma das tarefas reserva: um ofício para padronizar, um edital para resumir, uma planilha de notas, notas fiscais para uma prestação de contas ou e-mails de alunos para responder.",
+   "href": "missao-5.html#missao"
+  },
+  {
+   "id": "missao-5-passos",
+   "tipo": "curso",
+   "titulo": "Missão 5: a sua tarefa · Passo a passo",
+   "texto": "Passo a passo A sua tarefa Tire os dados pessoais antes Numa cópia, troque nomes por A, B, C e apague o que identifica alguém. Faça isso você, no Word ou no Excel: pedir à IA já mandaria os dados para ela. Uma pasta só para esta tarefa Crie uma pasta, ponha nela só a cópia sem nomes, e abra essa pasta no Antigravity. Escreva o pedido em quatro partes Onde ler. O que fazer. Onde salvar. No que não mexer. Para montar com ajuda, use o montador de pedido. Peça ao colega para conferir Ele pega duas ou três linhas do resultado e compara com o arquivo de origem. Depois vocês trocam. Guarde o pedido que funcionou Copie para um arquivo seu, o caderno de pedidos. No mês que vem, é só colar de novo, com o arquivo novo.",
+   "href": "missao-5.html#passos"
+  },
+  {
+   "id": "missao-5-deu-errado",
+   "tipo": "curso",
+   "titulo": "Missão 5: a sua tarefa · Deu errado?",
+   "texto": "Deu errado? O resultado veio pela metade Tarefas grandes saem melhor em partes. Peça a primeira parte, confira, e só então peça a próxima. Ele entendeu outra coisa Pare e reescreva o “o que fazer” com um exemplo: “Por exemplo, na linha 3, o aluno B tem 9 faltas em 30 aulas: 30%, então reprovado por falta.” Ficou bom, mas não do seu jeito Corrija na mesma conversa, dizendo o que manter: “Mantenha a tabela, mas ordene por nome.” Percebi que um dado pessoal ficou no arquivo Pare a conversa. Não repita o pedido com o arquivo; tire o dado e comece de novo numa pasta nova. Se o arquivo tinha dados de outras pessoas, avise quem cuida disso no seu setor. Apareceu um aviso de limite Na sala, continue no computador do colega. Em casa, o limite volta na semana seguinte; o que já foi feito fica salvo na pasta.",
+   "href": "missao-5.html#deu-errado"
+  },
+  {
+   "id": "index-capa",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Capa",
+   "texto": "Curso prático de 8 horas Do chat ao agente IA trabalhando no seu computador Victor Amaral LAPIG, IESA, UFG meu-projeto relatorio-final.docx edital-2026.pdf ata-12-03.docx anotacoes.txt dados-2025.xlsx tabela-ibge.csv foto-campo-031.jpg",
+   "href": "index.html#capa"
+  },
+  {
+   "id": "index-levantamento",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Antes de começar, quatro toques",
+   "texto": "Antes de começar, quatro toques Aponte a câmera do celular. Quatro perguntas de tocar, sem nome e sem digitar. 0 respostas",
+   "href": "index.html#levantamento"
+  },
+  {
+   "id": "index-este-site",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Este site foi feito conversando com uma IA",
+   "texto": "Este site foi feito conversando com uma IA Três pedidos em português comum e o que a IA fez com cada um. Vamos pensar numa apresentação que seja um site. Dá para ousar nas animações. leu a qualificação e o visual do Observatório pediu crítica do roteiro a duas outras IAs criou as páginas e conferiu no navegador Os resultados têm que aparecer de forma bem chamativa na tela, só daquela turma ou de todas. escreveu quatro perguntas de opções fixas desenhou um ponto por pessoa simulou respostas para testar Mostrar o Mau-Mau funcionando: a pessoa assiste à partida e joga contra os bots. leu as regras e os bots do jogo original reescreveu os bots para explicar cada jogada simulou 500 partidas para achar travas",
+   "href": "index.html#este-site"
+  },
+  {
+   "id": "index-pesquisa",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · A pesquisa virou material de aula",
+   "texto": "A pesquisa virou material de aula Dois recursos da minha qualificação de mestrado, sobre pastagens em Goiás, transformados em páginas interativas com a IA. A balança. O centro de massa explicado com um halter que tomba, em sete passos. Abre em tela cheia; as setas avançam os passos. O diorama. O fecho da apresentação: a paisagem de Goiás em 3D, em movimento.",
+   "href": "index.html#pesquisa"
+  },
+  {
+   "id": "index-relatorio",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · O relatório volta com as mudanças marcadas",
+   "texto": "O relatório volta com as mudanças marcadas A IA preenche os números a partir das planilhas da pasta e marca cada alteração para você aceitar ou recusar no Word. Os documentos são fictícios. Relatório parcial: projeto Água no Cerrado 2. Atividades realizadas No período, a equipe realizou duas três campanhas de campo, em março, maio e agosto. Foram coletadas 142 amostras de água em 11 pontos. 3. Execução financeira Até agosto, foram executados R$ 48.320,00 (61% do previsto). Bolsista substituto: __________ Contado na planilha amostras-2026.xlsx, aba Campo. Somado no extrato da conta do projeto. Conferir com a coordenação. Deixado em branco: o nome não está em nenhum arquivo da pasta. ata-12-03.docx vira três tarefas Ana envia a planilha de amostras até 20/03 Bruno reserva o carro para a campanha de agosto Carla revisa o relatório parcial e um rascunho de e-mail Assunto: Encaminhamentos da reunião de 12/03 Olá, equipe. Seguem os três encaminhamentos combinados, com responsáveis e prazos…",
+   "href": "index.html#relatorio"
+  },
+  {
+   "id": "index-sob-medida",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Um programa feito para uma pessoa só",
+   "texto": "Um programa feito para uma pessoa só Um app de tarefas que entende o jeito de escrever de quem usa, e que a IA também lê e preenche. Não há mercado para ele: serve a uma pessoa. Nova tarefa sexta, amanhã, 20/11 vira data 14h, 9h30 vira hora #projeto vira caixa ! vira urgente",
+   "href": "index.html#sob-medida"
+  },
+  {
+   "id": "index-maumau",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Uma IA que não gera texto, escrita por uma que gera",
+   "texto": "Uma IA que não gera texto, escrita por uma que gera Os bots seguem regras fixas que uma IA generativa escreveu. Durante a partida, nenhum modelo é chamado. cor da mesa Escolha a cor Por que cada jogada",
+   "href": "index.html#maumau"
+  },
+  {
+   "id": "index-observatorio",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Um portal inteiro, feito do mesmo jeito",
+   "texto": "Um portal inteiro, feito do mesmo jeito Mais de 1.600 materiais no acervo, com busca em português e inglês As notícias de IA na imprensa, todo dia Um panorama dos modelos e das IAs gratuitas Uma aula interativa sobre como a IA escolhe a próxima palavra A IA escreveu o código do portal; a equipe do LAPIG escolhe e revisa cada conteúdo. Abrir o Observatório",
+   "href": "index.html#observatorio"
+  },
+  {
+   "id": "index-dois-caminhos",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · A mesma tarefa, dois caminhos",
+   "texto": "A mesma tarefa, dois caminhos Juntar 12 planilhas mensais de despesas, somar cada mês e fazer um gráfico. No chat do navegadorpassos típicos 0ações manuais Com o agente no computadorgravação real, 28/10/2026 Junte as 12 planilhas numa só, some cada mês e faça um gráfico. Não altere os originais. Total do ano: R$ 79.466,18. Igual ao gabarito, centavo por centavo. 1pedido seu0:00",
+   "href": "index.html#dois-caminhos"
+  },
+  {
+   "id": "index-antes-de-instalar",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Antes de instalar",
+   "texto": "Antes de instalar, cinco conferências Marque o que já está certo. Fica salvo neste navegador. Windows 10 ou 11 (64 bits), macOS 12 ou mais novo, ou Linux recente. Celular e tablet não servem. Uma conta Google que entre no Antigravity. Conta pessoal (como @gmail.com) funciona no plano gratuito. Conta institucional só entra se o administrador tiver liberado o acesso. A senha dessa conta e o celular da verificação em duas etapas, à mão. Permissão para instalar programas neste computador. Em máquina da instituição, às vezes só o suporte instala. Ter 18 anos ou mais, exigência do próprio Antigravity. Abra esta apresentação no seu computador. Os pedidos prontos, os links e o monitor ficam à mão.",
+   "href": "index.html#antes-de-instalar"
+  },
+  {
+   "id": "index-instalar",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Instalar o Antigravity",
+   "texto": "Faça comigo Instalar o Antigravity No navegador, digite este endereço antigravity.google/download Baixe só daqui. Site parecido com outro nome pode ser golpe. Clique em Baixar para x64 Quase todo notebook é x64. O site já escolhe o seu sistema (Windows ou Mac). Abra o arquivo baixado e instale Ele fica na pasta Downloads. Clique em “Avançar” até terminar, como em qualquer programa. Downloads Antigravity-Setup.exe Entre com sua conta Google pessoal A que termina em @gmail.com. A conta da universidade só funciona se a instituição tiver liberado. Decida se o Google pode usar suas conversas Vem ligado. Para desligar: Settings (Configurações), na opção sobre melhorar os produtos. O programa é em inglês; vamos juntos. Para casa: o opencode O mesmo jeito de trabalhar, pelo terminal, com modelos gratuitos. Precisa do Node.js, que o guia ensina a instalar. Depois: npm install -g opencode-ai No Windows, o próprio opencode recomenda usar o WSL. Guia completo em opencode.ai/docs.",
+   "href": "index.html#instalar"
+  },
+  {
+   "id": "index-deu-erro",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Deu erro? Pergunte ao monitor",
+   "texto": "Deu erro? Pergunte ao monitor Enquanto a IA não estiver instalada, o monitor ajuda. Depois, cole a mensagem de erro inteira na própria IA e pergunte o que fazer. Escreva o que aconteceu. Por enquanto, o monitor busca só nas perguntas frequentes do curso; ainda não usa IA.",
+   "href": "index.html#deu-erro"
+  },
+  {
+   "id": "index-intervalo-1",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Intervalo",
+   "texto": "Intervalo de 15 minutos Voltamos às --:-- Quem ainda está instalando continua; o monitor do curso fica aberto.",
+   "href": "index.html#intervalo-1"
+  },
+  {
+   "id": "index-abra-uma-pasta",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Abra uma pasta, não o computador inteiro",
+   "texto": "Abra uma pasta, não o computador inteiro O agente trabalha a partir da pasta que você abre. Abrir Documentos inteiro deixa tudo ao alcance dele. 1A pasta aberta jan.xlsxjulho.csvnov.xlsx 4O resultado aparece aquidespesas-2026-completo.xlsxgrafico-totais.png 2Onde você pedeJunte as 12 planilhas numa só, some cada mês e faça um gráfico. 3O que ele fez leu 12 arquivos criou despesas-2026-completo.xlsx criou grafico-totais.png Esquema. A tela muda de um programa para outro, mas estes quatro lugares existem em todos.",
+   "href": "index.html#abra-uma-pasta"
+  },
+  {
+   "id": "index-quatro-partes",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Um pedido que funciona tem quatro partes",
+   "texto": "Um pedido completo tem quatro partes Escreva cada parte e copie o pedido pronto. Onde ler O que fazer Onde salvar No que não mexer",
+   "href": "index.html#quatro-partes"
+  },
+  {
+   "id": "index-aprovar",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Ele propõe, você aprova",
+   "texto": "Ele propõe, você aprova Quando precisa fazer algo fora do comum, o agente pergunta antes. Leia o que ele pede. O agente quer executar um comando pip install pdfplumber Para ler as tabelas dos PDFs, preciso de uma biblioteca que ainda não está instalada. O pip é o instalador de bibliotecas do Python. No programa, estes botões aparecem em inglês. Quanto ele faz sem perguntar Request Review(pedir revisão) pergunta antes de qualquer comando Default(padrão) pergunta antes do que é sensível. É o que usamos no curso. Auto(automático) decide sozinho o que pode executar Turboroda qualquer comando, sem pedir confirmação. Não use. No Antigravity: Settings › General › Global Permissions › Permission Preset. O Auto ainda está em teste (Preview).",
+   "href": "index.html#aprovar"
+  },
+  {
+   "id": "index-sai-errado",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Quando sai errado",
+   "texto": "Quando sai errado Ele começou a fazer outra coisa Pare e explique de novo O botão de parar fica onde você escreve o pedido. Parar não estraga nada. Ficou quase certo Corrija na mesma conversa Diga o que manter e o que mudar: Mantenha o gráfico, mas some só a categoria Análises. A conversa ficou longa e confusa Comece uma conversa nova Os arquivos continuam na pasta. Conte em uma frase o que já está pronto. Apareceu um aviso de limite Continue em dupla O uso gratuito tem um limite por semana. Na aula, trabalhe no computador do colega até o fim da atividade.",
+   "href": "index.html#sai-errado"
+  },
+  {
+   "id": "index-o-que-sai",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · O que a IA lê sai do seu computador",
+   "texto": "O que a IA lê sai do seu computador O programa roda aqui, mas a IA pensa num servidor: o que o agente mostra a ela, arquivo inteiro ou só um resumo, sai pela internet. Decida antes. Escolha uma opção para cada arquivo. Conta pessoal gratuita do Antigravity: o Google pode usar as conversas para melhorar produtos, a menos que você desligue em Settings. No opencode, a regra muda de modelo para modelo.",
+   "href": "index.html#o-que-sai"
+  },
+  {
+   "id": "index-originais",
+   "tipo": "curso",
+   "titulo": "Do chat ao agente · Você guarda o original, a IA trabalha na cópia",
+   "texto": "Você guarda o original, a IA trabalha na cópia O Antigravity tem um botão de desfazer (Undo). Mesmo assim, a proteção que não depende do programa é a cópia que você mesmo faz, pelo Explorador de Arquivos. meus-dadosos originais, só seusDeixe os arquivos de verdade numa pasta. meus-dados - Cópiaonde a IA vai trabalharCopie a pasta inteira (Ctrl+C, Ctrl+V) e dê um nome claro. meus-dados - Cópiaaberta no agenteNo agente, abra só a cópia. A pasta original fica fora do alcance dele. meus-dados - Cópia (2)antes de um passo grandeAntes de um passo grande, copie de novo. Deu errado? Volte para essa cópia. No opencode existe o comando /undo, que desfaz a última mudança. A cópia vale para os dois.",
+   "href": "index.html#originais"
+  },
+  {
+   "id": "faq-01",
+   "tipo": "faq",
+   "titulo": "Baixei o Antigravity, mas não sei qual arquivo escolher: x64 ou ARM64.",
+   "texto": "Na página de download, clique em \"Download for x64\" para a maioria dos PCs com Windows 10 ou 11. Use \"Download for ARM64\" só se o seu computador tiver processador ARM (alguns notebooks Snapdragon). Se não souber, comece pelo x64.",
+   "palavras": "download instalador x64 arm64 qual baixar windows",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/download/"
+  },
+  {
+   "id": "faq-02",
+   "tipo": "faq",
+   "titulo": "Meu Windows é o 10. O Antigravity funciona nele?",
+   "texto": "Sim. O Antigravity pede Windows 10 de 64 bits ou mais novo, então serve tanto o Windows 10 quanto o Windows 11. Baixe o instalador x64 e execute.",
+   "palavras": "windows 10 requisitos versao 64 bits instalar",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/download/"
+  },
+  {
+   "id": "faq-03",
+   "tipo": "faq",
+   "titulo": "Apareceu \"O Windows protegeu o seu PC\" e não consigo instalar.",
+   "texto": "Esse aviso é do SmartScreen, que desconfia de arquivos novos baixados da internet. Se o instalador veio mesmo de antigravity.google, clique em \"Mais informações\" e depois em \"Executar assim mesmo\". Se veio de outro site, apague e baixe de novo no site oficial.",
+   "palavras": "smartscreen windows protegeu aviso executar assim mesmo bloqueado",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://support.microsoft.com/en-us/windows/security/windows-security/app-browser-control-in-the-windows-security-app"
+  },
+  {
+   "id": "faq-04",
+   "tipo": "faq",
+   "titulo": "Meu antivírus disse que o instalador tem vírus e apagou o arquivo.",
+   "texto": "Antivírus às vezes bloqueiam programas novos por engano; confira se o arquivo veio de antigravity.google antes de liberar. No app Segurança do Windows, abra \"Proteção contra vírus e ameaças\" e adicione uma exclusão para o arquivo, se você confiar nele. Na dúvida, chame o monitor em vez de desligar o antivírus.",
+   "palavras": "antivirus defender virus quarentena falso positivo",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app"
+  },
+  {
+   "id": "faq-05",
+   "tipo": "faq",
+   "titulo": "O instalador pede permissão de administrador e eu não tenho essa senha.",
+   "texto": "O Windows pode pedir a confirmação de um administrador para instalar programas. Se a sua conta não for de administrador, peça a um técnico do laboratório para liberar a instalação ou use um computador em que você seja administrador.",
+   "palavras": "administrador permissao senha uac conta",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://support.microsoft.com/en-us/windows/create-a-local-user-or-administrator-account-in-windows-20de74e0-ac7f-3502-a866-32915af2a34d"
+  },
+  {
+   "id": "faq-06",
+   "tipo": "faq",
+   "titulo": "Cliquei no instalador e não acontece nada.",
+   "texto": "Confira se o download terminou e procure o arquivo na pasta Downloads, onde o navegador salva os programas por padrão. Ache o arquivo Antigravity-x64.exe, clique nele com o botão direito e escolha \"Abrir\".",
+   "palavras": "nao abre nada acontece instalador cliquei baixado",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://support.microsoft.com/en-us/windows/apps/how-to-install-programs-from-online-sources-on-windows"
+  },
+  {
+   "id": "faq-07",
+   "tipo": "faq",
+   "titulo": "Baixei um .zip junto. Preciso abrir esse arquivo?",
+   "texto": "No Windows, o Antigravity é instalado pelo arquivo .exe; o .zip não é necessário. Se precisar abrir um .zip, clique nele com o botão direito e escolha \"Extrair tudo\" e depois \"Extrair\".",
+   "palavras": "zip compactado extrair descompactar",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/zip-and-unzip-files"
+  },
+  {
+   "id": "faq-08",
+   "tipo": "faq",
+   "titulo": "O arquivo que baixei não aparece na pasta Downloads.",
+   "texto": "Abra o Explorador de Arquivos e clique em \"Downloads\" na barra lateral; é onde o navegador salva os downloads por padrão. Se não estiver lá, abra a lista de downloads do navegador (Ctrl+J) para ver onde o arquivo foi parar.",
+   "palavras": "nao aparece download pasta arquivo sumiu",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/find-your-files-and-apps-in-windows"
+  },
+  {
+   "id": "faq-09",
+   "tipo": "faq",
+   "titulo": "Instalei, mas não acho o Antigravity para abrir.",
+   "texto": "Clique em Iniciar e digite \"Antigravity\": o app deve aparecer na lista. Se não aparecer, abra \"Todos os aplicativos\" e role a lista até encontrá-lo.",
+   "palavras": "nao acho atalho menu iniciar abrir app",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/find-your-files-and-apps-in-windows"
+  },
+  {
+   "id": "faq-10",
+   "tipo": "faq",
+   "titulo": "A internet daqui é lenta e o download não termina.",
+   "texto": "Downloads grandes demoram mais em conexões lentas, então deixe o arquivo baixando sem fechar o navegador. Se a conexão oscila, aproxime-se do roteador ou use o cabo de rede e evite baixar em horário de pico.",
+   "palavras": "internet lenta download devagar conexao cai",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/why-is-my-internet-connection-so-slow"
+  },
+  {
+   "id": "faq-11",
+   "tipo": "faq",
+   "titulo": "Tentei entrar com minha conta @ufg.br e não deu.",
+   "texto": "Contas de trabalho ou escola (Google Workspace) só entram se o administrador da UFG liberar o Antigravity para elas. Se a sua conta @ufg.br falha, peça essa liberação ao setor de TI ou entre com uma conta Google pessoal.",
+   "palavras": "ufg institucional workspace conta da universidade login",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/docs/faq/"
+  },
+  {
+   "id": "faq-12",
+   "tipo": "faq",
+   "titulo": "Minha conta pessoal do Gmail não entra e aparece um erro.",
+   "texto": "Contas pessoais podem usar o Antigravity em qualquer plano, inclusive no gratuito. Se o login falhar, confira se a conta está em um país onde o serviço existe e se a sua idade já foi verificada.",
+   "palavras": "gmail conta pessoal erro pais indisponivel",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/docs/faq/"
+  },
+  {
+   "id": "faq-13",
+   "tipo": "faq",
+   "titulo": "Ele diz que minha idade não foi verificada.",
+   "texto": "O Antigravity não está disponível para menores de 18 anos. Se você tem 18 ou mais, faça a verificação de idade na sua Conta Google e tente entrar de novo.",
+   "palavras": "idade 18 anos verificacao menor",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/docs/faq/"
+  },
+  {
+   "id": "faq-14",
+   "tipo": "faq",
+   "titulo": "Na hora de entrar apareceu \"Business account\". Qual opção escolho?",
+   "texto": "Se você usa um Gmail comum, escolha a entrada com a conta pessoal do Google. \"Business account\" serve para quem tem licença Gemini Enterprise da empresa ou da universidade.",
+   "palavras": "business account conta corporativa escolher conta login",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/docs/install/"
+  },
+  {
+   "id": "faq-15",
+   "tipo": "faq",
+   "titulo": "Abriu uma janela do navegador para entrar, ela sumiu e o app continua pedindo login.",
+   "texto": "O login começa no navegador e, ao terminar, a página volta sozinha para o Antigravity. Se a janela fechar antes de você concluir, clique em \"Sign in\" de novo e refaça o login do começo.",
+   "palavras": "login navegador janela nao volta entrar",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/docs/install/"
+  },
+  {
+   "id": "faq-16",
+   "tipo": "faq",
+   "titulo": "Entrei com a conta errada. Como troco?",
+   "texto": "Saia da conta no Antigravity e entre de novo, escolhendo a conta certa na janela do navegador.",
+   "palavras": "trocar conta conta errada sair logout",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/docs/install/"
+  },
+  {
+   "id": "faq-17",
+   "tipo": "faq",
+   "titulo": "Posso usar a conta do meu trabalho ou da minha escola?",
+   "texto": "Só se o administrador da sua organização liberar o Antigravity para a sua conta. Sem essa liberação o login falha; nesse caso, use uma conta Google pessoal.",
+   "palavras": "conta institucional trabalho escola workspace empresa",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/docs/faq/"
+  },
+  {
+   "id": "faq-18",
+   "tipo": "faq",
+   "titulo": "O Antigravity está todo em inglês. Tem como mudar para português?",
+   "texto": "A interface do Antigravity é em inglês e a documentação oficial não mostra uma opção para trocar o idioma do aplicativo. Combine com o monitor uma lista dos menus principais em português para consultar durante a aula.",
+   "palavras": "ingles idioma portugues traduzir menu",
+   "href": "instalar.html#deu-errado"
+  },
+  {
+   "id": "faq-19",
+   "tipo": "faq",
+   "titulo": "Apareceu que eu atingi o limite de uso. Quando ele volta?",
+   "texto": "Cada plano tem uma cota, que é a quantidade de uso disponível: no plano gratuito ela é renovada toda semana. Nos planos pagos a cota se renova a cada cinco horas, até o limite semanal. Você acompanha o consumo na página Settings do app.",
+   "palavras": "limite cota acabou uso esperar",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/docs/plans/"
+  },
+  {
+   "id": "faq-20",
+   "tipo": "faq",
+   "titulo": "Quero usar um modelo que só aparece nos planos pagos.",
+   "texto": "Alguns modelos exigem uma assinatura Google AI Pro ou Google AI Ultra e não entram no teste gratuito. Para liberar, assine um desses planos na página do Google One e entre de novo no Antigravity.",
+   "palavras": "modelo plano pago pro ultra assinatura",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/docs/faq/"
+  },
+  {
+   "id": "faq-21",
+   "tipo": "faq",
+   "titulo": "O Antigravity pede permissão para tudo. Dá para parar com isso?",
+   "texto": "Dá: cada ação sensível (ler arquivo, rodar comando, abrir site) pode ser liberada ou bloqueada nas configurações de permissões. No modo \"Default\", os comandos rodam numa área isolada e só pedem aprovação quando precisam sair dela. Evite o modo \"Turbo\", que libera tudo sem perguntar.",
+   "palavras": "permissao autorizar allow ask toda hora",
+   "href": "index.html#aprovar",
+   "fonte": "https://antigravity.google/docs/permissions/"
+  },
+  {
+   "id": "faq-22",
+   "tipo": "faq",
+   "titulo": "Mandei rodar um comando e ele ficou pedindo aprovação ou disse que não pode.",
+   "texto": "Por padrão, os comandos rodam numa área isolada (sandbox) sem internet, e o que precisa de rede pede a sua aprovação. No Windows, esse isolamento exige Windows 11 24H2 com a atualização de agosto de 2026 ou mais novo. Aprove o comando quando ele for seguro ou ajuste as permissões nas configurações.",
+   "palavras": "comando terminal bloqueado permissao de comando sandbox",
+   "href": "index.html#aprovar",
+   "fonte": "https://antigravity.google/docs/sandbox/"
+  },
+  {
+   "id": "faq-23",
+   "tipo": "faq",
+   "titulo": "O Antigravity é grátis? Preciso pagar?",
+   "texto": "Dá para usar com uma conta Google pessoal em qualquer plano, inclusive no gratuito. O plano gratuito tem uma cota semanal; os planos pagos (Google AI Pro e Ultra) têm cotas maiores.",
+   "palavras": "gratis preco pagar plano assinatura",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/docs/plans/"
+  },
+  {
+   "id": "faq-24",
+   "tipo": "faq",
+   "titulo": "Abri o Antigravity e ele não vê a pasta dos meus arquivos.",
+   "texto": "O agente só acessa as pastas que você adicionou ao projeto. Clique em \"New Project\", depois em \"Add Folder\", escolha a pasta certa e só então comece a conversa.",
+   "palavras": "pasta errada nao ve arquivos projeto adicionar pasta",
+   "href": "index.html#abra-uma-pasta",
+   "fonte": "https://antigravity.google/docs/getting-started/"
+  },
+  {
+   "id": "faq-25",
+   "tipo": "faq",
+   "titulo": "Salvei um arquivo, mas ele não aparece no Antigravity.",
+   "texto": "Confirme se o arquivo está dentro de uma das pastas do projeto, porque o Antigravity mostra só o que está nessas pastas. Se você salvou em outro lugar, mova o arquivo para a pasta do projeto ou adicione essa pasta ao projeto.",
+   "palavras": "arquivo nao aparece sumiu pasta atualizar",
+   "href": "index.html#abra-uma-pasta",
+   "fonte": "https://antigravity.google/docs/projects/"
+  },
+  {
+   "id": "faq-26",
+   "tipo": "faq",
+   "titulo": "O agente mudou ou apagou um arquivo meu. Dá para recuperar?",
+   "texto": "Antes de aceitar mudanças, use o painel \"Review\" para ver o que o agente alterou, arquivo por arquivo. Atenção: \"Discard unstaged changes\" desfaz na hora e apaga arquivos novos que ainda não estavam no Git. Se o arquivo estava no Git (o programa que guarda o histórico dos arquivos), dá para recuperar pelo histórico.",
+   "palavras": "apagou mudou perdi desfazer review",
+   "href": "index.html#originais",
+   "fonte": "https://antigravity.google/docs/review-changes/"
+  },
+  {
+   "id": "faq-27",
+   "tipo": "faq",
+   "titulo": "Ele criou uma cópia da minha pasta em outro lugar.",
+   "texto": "Isso acontece quando a conversa começa no modo \"New worktree\", que cria uma cópia separada para o agente trabalhar. Para editar direto na sua pasta, escolha o modo \"Local\" ao iniciar a conversa.",
+   "palavras": "worktree copia pasta nova local mode",
+   "href": "index.html#abra-uma-pasta",
+   "fonte": "https://antigravity.google/docs/projects/"
+  },
+  {
+   "id": "faq-28",
+   "tipo": "faq",
+   "titulo": "Posso fechar o notebook enquanto ele trabalha?",
+   "texto": "Com um agente rodando, o Antigravity impede o computador de dormir. Mesmo assim, evite fechar a tampa ou desligar o PC no meio da tarefa; espere o agente terminar.",
+   "palavras": "dormir fechar suspender sleep travou",
+   "href": "index.html#sai-errado",
+   "fonte": "https://antigravity.google/docs/faq/"
+  },
+  {
+   "id": "faq-29",
+   "tipo": "faq",
+   "titulo": "Como desinstalo o Antigravity?",
+   "texto": "Abra Configurações > Aplicativos > Aplicativos instalados, procure \"Antigravity\", clique nos três pontos e escolha \"Desinstalar\" (no Windows 10: Configurações > Aplicativos > Aplicativos e recursos). Depois apague o instalador da pasta Downloads, se quiser liberar espaço.",
+   "palavras": "desinstalar remover apagar",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://support.microsoft.com/en-us/windows/uninstall-or-remove-apps-and-programs-in-windows-4b55f974-2cc6-2d2b-d092-5905080eaf98"
+  },
+  {
+   "id": "faq-30",
+   "tipo": "faq",
+   "titulo": "Como atualizo para a versão nova?",
+   "texto": "Baixe o instalador novo na página oficial e execute por cima da versão atual, seguindo o assistente. O número da versão atual aparece na própria página de download.",
+   "palavras": "atualizar versao nova upgrade reinstalar",
+   "href": "instalar.html#deu-errado",
+   "fonte": "https://antigravity.google/download/"
+  },
+  {
+   "id": "obs-inicio",
+   "tipo": "observatorio",
+   "titulo": "Observatório UFG-IA (página inicial)",
+   "texto": "Portal do Observatório UFG de Inteligência Artificial: panorama dos modelos, levantamentos, acervo de leituras, IA na imprensa e iniciativas de IA na UFG.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/"
+  },
+  {
+   "id": "obs-panorama",
+   "tipo": "observatorio",
+   "titulo": "Panorama da IA: linha do tempo",
+   "texto": "Linha do tempo dos modelos de IA: quando cada modelo foi lançado e por quem.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#panorama"
+  },
+  {
+   "id": "obs-qual-modelo",
+   "tipo": "observatorio",
+   "titulo": "Panorama da IA: qual modelo usar",
+   "texto": "Compare opções de IA para cada tarefa: qual modelo usar para escrever, programar, analisar dados, ler documentos.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#panorama/guia"
+  },
+  {
+   "id": "obs-gratuitas",
+   "tipo": "observatorio",
+   "titulo": "Panorama da IA: IAs gratuitas",
+   "texto": "Ferramentas de IA com acesso gratuito e o que cada plano gratuito permite.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#panorama/gratuitos"
+  },
+  {
+   "id": "obs-como-usar",
+   "tipo": "observatorio",
+   "titulo": "Panorama da IA: como usar fora do navegador",
+   "texto": "Conheça o terminal e os agentes de IA: usar a IA instalada no computador, fora do navegador.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#panorama/como-usar"
+  },
+  {
+   "id": "obs-politicas",
+   "tipo": "observatorio",
+   "titulo": "Levantamento: políticas de IA na publicação científica",
+   "texto": "O que periódicos, editoras, sociedades científicas e agências de fomento permitem, exigem e vedam sobre o uso de IA em artigos e projetos.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/politicas-ia"
+  },
+  {
+   "id": "obs-ia-propria",
+   "tipo": "observatorio",
+   "titulo": "Levantamento: quanto custa uma IA própria na universidade",
+   "texto": "Estimativa de compra e operação de uma IA local na universidade por 5 anos, comparada a pagar por uso.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
+  },
+  {
+   "id": "obs-acervo",
+   "tipo": "observatorio",
+   "titulo": "Acervo do Observatório",
+   "texto": "Busque e filtre os materiais selecionados: leituras, documentos, vídeos, áudios e apresentações sobre IA.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#acervo"
+  },
+  {
+   "id": "obs-leituras",
+   "tipo": "observatorio",
+   "titulo": "Leituras em IA",
+   "texto": "Ensaios e artigos sobre IA organizados por tema.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#leituras-em-ia"
+  },
+  {
+   "id": "obs-por-dentro",
+   "tipo": "observatorio",
+   "titulo": "Por dentro da IA (aulas interativas)",
+   "texto": "Aulas interativas sobre redes neurais e modelos de linguagem: como a IA funciona por dentro, tokens, treinamento.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/"
+  },
+  {
+   "id": "obs-destaque",
+   "tipo": "observatorio",
+   "titulo": "Em destaque da semana",
+   "texto": "A edição da semana e os destaques anteriores sobre IA.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#em-destaque"
+  },
+  {
+   "id": "obs-noticias",
+   "tipo": "observatorio",
+   "titulo": "IA como notícia diária",
+   "texto": "Cobertura diária da Folha de S.Paulo sobre IA, por ano e assunto.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#ia-como-noticia-diaria"
+  },
+  {
+   "id": "obs-ufg",
+   "tipo": "observatorio",
+   "titulo": "IA na UFG",
+   "texto": "Cursos, projetos e iniciativas de inteligência artificial na Universidade Federal de Goiás.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#ecossistema-ufg"
+  },
+  {
+   "id": "obs-sobre",
+   "tipo": "observatorio",
+   "titulo": "Sobre o Observatório",
+   "texto": "Quem faz o Observatório UFG-IA, para que serve e como contribuir.",
+   "href": "https://lapig-ufg.github.io/observatorio-ia/#sobre"
+  }
+ ]
+}

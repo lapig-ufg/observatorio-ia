@@ -297,6 +297,19 @@
     const opcao = window.QUESTIONARIO.PERGUNTAS[4].opcoes[k];
     document.querySelector("#ponte .comeca-por").textContent = `A turma escolheu: ${opcao.toLowerCase()}. Um problema por vez, resolvido aqui mesmo, sem instalar nada.`;
   });
+
+  // Na primeira entrada da Fase 2, a coruja se apresenta e pousa no canto.
+  // Enquanto ela fala, a seta só a leva ao canto, sem trocar de cena.
+  let corujaApresentou = false;
+  document.getElementById("ponte").addEventListener("entrou", () => {
+    if (corujaApresentou || !window.Coruja) return;
+    corujaApresentou = true;
+    window.Coruja.apresentar().catch(() => {});
+  });
+  document.querySelectorAll(".cena").forEach((c) => c.addEventListener("tecla", (e) => {
+    if (window.Coruja?.apresentando) { window.Coruja.pular(); e.preventDefault(); }
+  }));
 </script>
+<script src="js/coruja.js" defer></script>
 </body>
 </html>
