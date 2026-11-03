@@ -281,10 +281,12 @@
   const animar = () => { if (!raf) raf = requestAnimationFrame(quadro); };
 
   const numero = cena.querySelector(".busca-contador .numero"), legenda = cena.querySelector(".busca-contador small");
+  // O contador para em ago/2026: set e out incluem o site C-Level e inflam a comparação com 2022.
+  const fimContador = () => { const i = d.meses.indexOf("2026-08"); return i >= 0 ? i : n - 3; };
   function contar() {
-    const i = Math.max(0, Math.min(n - 1, Math.ceil(anim.cursor.v) - 1));
+    const i = Math.max(0, Math.min(fimContador(), Math.ceil(anim.cursor.v) - 1));
     numero.textContent = d.jornal.ia[i].toLocaleString("pt-BR");
-    legenda.textContent = `textos em ${rotMes(i)}${i >= n - 2 ? " (com o C-Level)" : ""}`;
+    legenda.textContent = `textos em ${rotMes(i)}`;
   }
 
   function aplicar(k) {
@@ -297,7 +299,7 @@
     for (const [nome, v] of Object.entries(alvos)) anim[nome].alvo = v;
     if (NOTAS[k]) anim.eventos.v = 0; // os números entram de novo a cada passo
     mostrarNotas(k);
-    if (k > 0) { anim.cursor.v = n; numero.textContent = d.jornal.ia[n - 1].toLocaleString("pt-BR"); legenda.textContent = `textos em ${rotMes(n - 1)} (com o C-Level)`; }
+    if (k > 0) { anim.cursor.v = n; numero.textContent = d.jornal.ia[fimContador()].toLocaleString("pt-BR"); legenda.textContent = `textos em ${rotMes(fimContador())}`; }
     animar();
   }
 

@@ -51,6 +51,8 @@
         "Preparar aulas e materiais",
         "Relatórios e prestação de contas",
       ],
+      // Formas curtas só para os quadros da aula; não mudam a pergunta nem as respostas.
+      curtas: ["e-mails", "reuniões", "planilhas", "conferência de informações", "aulas", "relatórios"],
     },
   ];
 

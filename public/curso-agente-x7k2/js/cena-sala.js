@@ -166,7 +166,7 @@
   // ===================== A sala: montes de bolinhas =====================
   const sala = document.getElementById("sala");
   const ctxSala = preparar(sala.querySelector("canvas.fundo"));
-  let pergunta = 0, grupos = [], raio = 14, realce = null, rafSala = 0;
+  let pergunta = 0, grupos = [], raio = 14, realce = [], rafSala = 0;
 
   // Monta os grupos da pergunta e diz a cada ponto em que monte ele cai.
   function montes() {
@@ -185,15 +185,19 @@
       g.cx = x0 + passo * (i + .5); g.larg = passo * .86;
       g.itens.forEach((l) => { const pt = pontos.get(l._id); if (pt) { pt.monte = g; pt.apagado = !!g.aparte; } });
     });
-    // Na pergunta 5, o monte mais alto ganha destaque: é por ele que a Fase 2 começa.
+    // Na pergunta 5, o monte mais alto ganha destaque. Empates mostram todos os lados,
+    // e a ponte usa a mesma lista sem prometer que a aula começa por aqui.
     const destaque = sala.querySelector(".sala-destaque");
     if (pergunta === 4 && respondeu.length) {
-      const k = grupos.reduce((m, g, i) => g.itens.length > grupos[m].itens.length ? i : m, 0);
-      destaque.querySelector("strong").textContent = p.opcoes[k];
-      destaque.hidden = false;
-      realce = grupos[k];
-      document.body.dataset.comecaPor = k;
-    } else { destaque.hidden = true; realce = null; }
+      const maior = Math.max(...grupos.filter((g) => !g.aparte).map((g) => g.itens.length));
+      const empatados = grupos.map((g, i) => ({ g, i })).filter(({ g }) => !g.aparte && g.itens.length === maior).map(({ i }) => i);
+      if (maior > 0 && empatados.length) {
+        destaque.querySelector("strong").textContent = empatados.map((i) => p.curtas?.[i] || p.opcoes[i]).join(" · ");
+        destaque.hidden = false;
+        realce = empatados.map((i) => grupos[i]);
+        document.body.dataset.comecaPor = JSON.stringify(empatados);
+      } else { destaque.hidden = true; realce = []; delete document.body.dataset.comecaPor; }
+    } else { destaque.hidden = true; realce = []; }
     sala.querySelector(".titulo").textContent = p.texto.replace(" Marque o ponto mais distante.", "");
     sala.querySelector(".rotulo.num").textContent = `Pergunta ${pergunta + 1} de ${Q.PERGUNTAS.length}`;
   }
@@ -229,18 +233,21 @@
     }
     ctx.clearRect(0, 0, W, H);
     for (const g of grupos) {
-      ctx.fillStyle = g === realce ? "rgba(224,122,69,.6)" : "rgba(243,239,230,.16)";
-      ctx.fillRect(g.cx - g.larg / 2, chao + 3, g.larg, g === realce ? 3 : 1.5);
+      const destacado = realce.includes(g);
+      ctx.fillStyle = destacado ? "rgba(224,122,69,.6)" : "rgba(243,239,230,.16)";
+      ctx.fillRect(g.cx - g.larg / 2, chao + 3, g.larg, destacado ? 3 : 1.5);
     }
     for (const pt of pts) {
-      ctx.globalAlpha = pt.apagado ? .3 : realce && pt.monte !== realce ? .32 : 1;
-      if (realce && pt.monte === realce) { ctx.strokeStyle = "#e07a45"; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(pt.x, pt.y, raio + 3, 0, Math.PI * 2); ctx.stroke(); }
+      const destacado = realce.includes(pt.monte);
+      ctx.globalAlpha = pt.apagado ? .3 : realce.length && !destacado ? .32 : 1;
+      if (destacado) { ctx.strokeStyle = "#e07a45"; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(pt.x, pt.y, raio + 3, 0, Math.PI * 2); ctx.stroke(); }
       bola(ctx, pt.x, pt.y, raio, BRILHO[pt.f] || BRILHO[2], pt.f >= 3 ? 14 : 5);
     }
     ctx.globalAlpha = 1;
     ctx.textAlign = "center"; ctx.textBaseline = "top";
     for (const g of grupos) {
-      ctx.fillStyle = g.aparte ? "#7d958a" : g === realce ? "#e07a45" : "#f3efe6";
+      const destacado = realce.includes(g);
+      ctx.fillStyle = g.aparte ? "#7d958a" : destacado ? "#e07a45" : "#f3efe6";
       ctx.font = `400 ${g.aparte ? 30 : 48}px Georgia, serif`;
       ctx.fillText(g.aparte ? `${g.itens.length}` : g.itens.length ? `${g.pct}%` : "–", g.cx, chao + 18);
       ctx.fillStyle = g.aparte ? "#7d958a" : "#b7c6be"; ctx.font = "500 21px Inter, system-ui, sans-serif";

@@ -29,7 +29,7 @@
       if (quadro) quadro.src = "about:blank"; // jogo e 3D não ficam rodando escondidos
       peca.classList.remove("virada");
     });
-    const virar = () => { if (P.revelado) virarCarta(peca); };
+    const virar = () => { if (P.revelado && peca.classList.contains("visto")) virarCarta(peca); };
     cena.querySelector(".virar")?.addEventListener("click", virar);
     cena.querySelector(".abrir")?.addEventListener("click", () => P.abrirAoVivo(url, nome));
     cena.addEventListener("tecla", (e) => {
