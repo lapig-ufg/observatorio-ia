@@ -185,14 +185,14 @@ button { font: inherit; color: inherit; }
 .vitrine-texto .rotulo { margin-bottom: 26px; }
 .vitrine-texto .titulo { font-size: 64px; }
 .vitrine-texto .linha-fina { margin-top: 28px; font-size: 26px; }
-.vitrine-texto .abrir {
+.vitrine-texto .abrir, .instalar .abrir {
   margin-top: 40px; align-self: flex-start; cursor: pointer;
   padding: 16px 26px; border-radius: 999px; border: 1px solid rgba(243, 239, 230, .3); background: transparent;
   font-size: 20px; font-weight: 600; display: inline-flex; gap: 12px; align-items: center;
   transition: background .2s, border-color .2s;
 }
-.vitrine-texto .abrir:hover { background: rgba(243, 239, 230, .08); border-color: var(--creme); }
-.vitrine-texto .abrir kbd { font: 600 14px/1 var(--mono); padding: 5px 8px; border-radius: 6px; background: rgba(243, 239, 230, .12); }
+.vitrine-texto .abrir:hover, .instalar .abrir:hover { background: rgba(243, 239, 230, .08); border-color: var(--creme); }
+.vitrine-texto .abrir kbd, .instalar .abrir kbd { font: 600 14px/1 var(--mono); padding: 5px 8px; border-radius: 6px; background: rgba(243, 239, 230, .12); }
 
 /* O problema vem antes da solução: uma frase grande, no meio da tela. */
 .problema { position: absolute; left: 110px; right: 110px; top: 50%; translate: 0 -50%; z-index: 3; max-width: 1350px; }
@@ -336,3 +336,63 @@ body.preto .tela-preta { display: block; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* ---------- Fases 2 e 3: vídeos gravados, o balanço e a instalação ---------- */
+
+.peca.video { aspect-ratio: 1334 / 560; width: min(calc(100% - 710px), 1340px); }
+.peca.video .frente { background: #0b0b0d; }
+.peca.video video { width: 100%; height: 100%; object-fit: contain; display: block; cursor: pointer; }
+.peca.video.tela .frente video { object-fit: contain; }
+.peca.tela-cheia-16x9 { aspect-ratio: 16 / 9; }
+.selo-video {
+  position: absolute; left: 18px; top: 16px; z-index: 4; pointer-events: none;
+  font: 600 13px/1 var(--mono); letter-spacing: .04em; color: #fff;
+  background: rgba(0, 0, 0, .55); border-radius: 999px; padding: 7px 12px;
+}
+
+.balanco { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 110px; gap: 56px; }
+.balanco .titulo { font-size: 60px; max-width: 1400px; }
+.cartoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.cartao {
+  border-radius: 20px; padding: 34px 36px; background: rgba(243, 239, 230, .05);
+  border: 1px solid var(--linha); display: flex; flex-direction: column; gap: 16px;
+}
+.cartao b { font: 600 15px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+.cartao p { margin: 0; font-size: 25px; line-height: 1.4; color: var(--creme); }
+.cartao.funciona b { color: var(--menta); }
+.cartao.confira b { color: var(--ouro); }
+.cartao.para b { color: var(--terracota); }
+
+.area-de-trabalho {
+  width: 1100px; height: 400px; border-radius: 16px; position: relative;
+  background: radial-gradient(120% 120% at 20% 0%, #1d5a47, #0b2a21); box-shadow: 0 60px 140px -40px rgba(0, 0, 0, .9);
+}
+.area-de-trabalho .janela { position: absolute; width: 520px; height: 260px; left: 50px; top: 40px; grid-template-rows: 40px 1fr; opacity: .55; scale: .9; }
+.area-de-trabalho .janela .janela-corpo { padding: 20px; }
+.area-de-trabalho .janela .janela-corpo p { font-size: 18px; }
+.area-de-trabalho .pasta {
+  position: absolute; right: 50px; bottom: 36px; width: 600px; border-radius: 14px; overflow: hidden;
+  background: #f7f6f2; color: #10211b; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .7);
+}
+.area-de-trabalho .pasta header { background: #e7e4dc; padding: 12px 18px; font: 600 16px/1 var(--sans); }
+.area-de-trabalho .pasta ul { list-style: none; margin: 0; padding: 12px 18px; columns: 2; font: 400 16px/1.9 var(--mono); color: #3b4a44; }
+.area-de-trabalho .texto { position: absolute; left: 60px; right: 60px; bottom: 300px; }
+.ponte-3 .texto { position: static; text-align: center; max-width: 1100px; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+.ponte-3 { position: absolute; inset: 0; display: grid; place-items: center; gap: 40px; align-content: center; }
+.ponte-3 .titulo { font-size: 64px; }
+.ponte-3 .linha-fina { font-size: 26px; max-width: 900px; }
+
+.instalar { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; padding: 0 110px; }
+.instalar .titulo { font-size: 64px; }
+.instalar .linha-fina { margin-top: 28px; font-size: 24px; }
+.instalar ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; counter-reset: passo; }
+.instalar li {
+  counter-increment: passo; display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: center;
+  font-size: 26px; line-height: 1.35; padding: 22px 26px; border-radius: 18px; background: rgba(243, 239, 230, .05); border: 1px solid var(--linha);
+}
+.instalar li::before {
+  content: counter(passo); display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%;
+  background: var(--terracota); color: #10211b; font: 700 24px/1 var(--sans);
+}
+.instalar code { font: 600 .9em var(--mono); color: var(--ouro); }
+.instalar .abrir { margin-top: 34px; }
