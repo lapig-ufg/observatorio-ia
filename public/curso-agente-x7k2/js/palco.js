@@ -96,7 +96,7 @@
   });
   // Clique no palco: metade direita avança, esquerda volta (como um livro). Botões e quadros não contam.
   palco.addEventListener("click", (e) => {
-    if (e.target.closest("button, a, iframe, canvas.interativo, .peca, .carta, .qr")) return;
+    if (e.target.closest("button, a, iframe, canvas.interativo, .peca, .carta, .qr, .ficha, .resultado")) return;
     const r = palco.getBoundingClientRect();
     (e.clientX - r.left) / r.width > 0.35 ? avancar() : voltar();
   });

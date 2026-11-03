@@ -21,9 +21,12 @@
 
   /**
    * Onde a IA responde. Vazio = sem IA (é o desligador: a busca continua).
-   * No PC do Victor aponta para o servidor de teste (curso-ia/monitor/).
+   * No PC do Victor aponta para o servidor de teste (curso-ia/monitor/); no
+   * site público, para o Worker da Cloudflare que guarda a chave.
    */
-  const ENDERECO_IA = ["127.0.0.1", "localhost"].includes(location.hostname) ? "http://127.0.0.1:4895" : "";
+  const ENDERECO_IA = ["127.0.0.1", "localhost"].includes(location.hostname)
+    ? "http://127.0.0.1:4895"
+    : "https://coruja-observatorio.observatorio-ufg-ia.workers.dev";
 
   // Tudo é relativo ao próprio script, para funcionar em qualquer página do site.
   const RAIZ = new URL("..", document.currentScript?.src ?? location.href).href;
