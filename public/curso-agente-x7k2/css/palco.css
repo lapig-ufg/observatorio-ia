@@ -337,50 +337,79 @@ body.preto .tela-preta { display: block; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 
-/* ---------- Fases 2 e 3: vídeos gravados, o balanço e a instalação ---------- */
+/* ---------- Fases 2 e 3: vídeos gravados ---------- */
 
-.peca.video { aspect-ratio: 1334 / 560; width: min(calc(100% - 710px), 1340px); }
-.peca.video .frente { background: #0b0b0d; }
+.peca.video .frente { background: #131314; }
 .peca.video video { width: 100%; height: 100%; object-fit: contain; display: block; cursor: pointer; }
-.peca.video.tela .frente video { object-fit: contain; }
-.peca.tela-cheia-16x9 { aspect-ratio: 16 / 9; }
+.peca.video.maquina { aspect-ratio: 1142 / 720; width: min(calc(100% - 710px), 1000px); }
+.peca.video.maquina .frente { background: #0c0c0c; }
 .selo-video {
-  position: absolute; left: 18px; top: 16px; z-index: 4; pointer-events: none;
-  font: 600 13px/1 var(--mono); letter-spacing: .04em; color: #fff;
-  background: rgba(0, 0, 0, .55); border-radius: 999px; padding: 7px 12px;
+  position: absolute; left: 16px; top: 14px; z-index: 4; pointer-events: none;
+  font: 600 12px/1 var(--mono); letter-spacing: .04em; color: rgba(255, 255, 255, .85);
+  background: rgba(0, 0, 0, .55); border-radius: 999px; padding: 7px 11px;
 }
+.progresso { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: rgba(255, 255, 255, .1); z-index: 4; }
+.progresso b { display: block; height: 100%; width: 0; background: var(--terracota); transition: width .3s linear; }
 
-.balanco { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 110px; gap: 56px; }
-.balanco .titulo { font-size: 60px; max-width: 1400px; }
-.cartoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+/* ---------- O que vimos: três cartões com a prova de cada um ---------- */
+
+.balanco { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 110px; gap: 48px; }
+.balanco .titulo { font-size: 58px; max-width: 1200px; }
+.cartoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; align-items: stretch; }
 .cartao {
-  border-radius: 20px; padding: 34px 36px; background: rgba(243, 239, 230, .05);
-  border: 1px solid var(--linha); display: flex; flex-direction: column; gap: 16px;
+  border-radius: 20px; padding: 0 0 30px; background: rgba(243, 239, 230, .05);
+  border: 1px solid var(--linha); display: flex; flex-direction: column; gap: 14px; overflow: hidden;
+  opacity: 0; translate: 0 24px; transition: opacity .6s var(--curva), translate .8s var(--curva);
 }
+.cartao.visto { opacity: 1; translate: 0 0; }
+.cartao figure { margin: 0 0 8px; height: 170px; overflow: hidden; background: #131314; border-bottom: 1px solid var(--linha); }
+.cartao figure img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
+.cartao b, .cartao p { margin: 0 32px; }
 .cartao b { font: 600 15px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
-.cartao p { margin: 0; font-size: 25px; line-height: 1.4; color: var(--creme); }
+.cartao p { font-size: 23px; line-height: 1.42; color: var(--creme); }
 .cartao.funciona b { color: var(--menta); }
 .cartao.confira b { color: var(--ouro); }
+.cartao.confira figure { box-shadow: inset 0 0 0 3px var(--ouro); }
 .cartao.para b { color: var(--terracota); }
 
+/* O vaivém: cada arquivo sobe ao site e cada resultado desce de volta. */
+.vaivem { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 0 26px; background: radial-gradient(120% 120% at 50% 0%, #17392f, #0e241d) !important; }
+.vaivem .lado { font: 600 14px/1.2 var(--sans); color: var(--creme-2); text-align: center; width: 92px; padding: 30px 0 0; position: relative; }
+.vaivem .lado::before { content: ""; position: absolute; left: 50%; top: 0; translate: -50% 0; width: 34px; height: 24px; border-radius: 4px; background: var(--ouro); opacity: .85; }
+.vaivem .lado.site::before { background: #e7e4dc; border-top: 6px solid #cfc9bb; height: 20px; }
+.vaivem .trilha { position: relative; height: 90px; border-top: 1px dashed rgba(243, 239, 230, .25); border-bottom: 1px dashed rgba(243, 239, 230, .25); margin: 0 4px; }
+.doc { position: absolute; width: 20px; height: 26px; border-radius: 3px; background: var(--creme); clip-path: polygon(0 0, 70% 0, 100% 25%, 100% 100%, 0 100%); opacity: 0; }
+.doc.sobe { top: 10px; }
+.doc.desce { bottom: 10px; background: var(--terracota); }
+.cena.ativa .cartao.visto .doc.sobe { animation: sobe 3.2s var(--curva) infinite; }
+.cena.ativa .cartao.visto .doc.sobe.d2 { animation-delay: .5s; }
+.cena.ativa .cartao.visto .doc.desce { animation: desce 3.2s 1.6s var(--curva) infinite; }
+@keyframes sobe { 0% { left: 0; opacity: 0; } 12% { opacity: 1; } 80% { opacity: 1; } 100% { left: calc(100% - 20px); opacity: 0; } }
+@keyframes desce { 0% { left: calc(100% - 20px); opacity: 0; } 12% { opacity: 1; } 80% { opacity: 1; } 100% { left: 0; opacity: 0; } }
+
+/* ---------- Passagem para a Fase 3: a câmera recua do navegador para a área de trabalho ---------- */
+
+.ponte-3 { position: absolute; inset: 0; display: grid; place-items: center; gap: 40px; align-content: center; }
+.ponte-3 .texto { text-align: center; max-width: 1100px; display: flex; flex-direction: column; gap: 18px; align-items: center; }
+.ponte-3 .titulo { font-size: 60px; }
+.ponte-3 .linha-fina { font-size: 25px; max-width: 900px; }
 .area-de-trabalho {
   width: 1100px; height: 400px; border-radius: 16px; position: relative;
   background: radial-gradient(120% 120% at 20% 0%, #1d5a47, #0b2a21); box-shadow: 0 60px 140px -40px rgba(0, 0, 0, .9);
 }
-.area-de-trabalho .janela { position: absolute; width: 520px; height: 260px; left: 50px; top: 40px; grid-template-rows: 40px 1fr; opacity: .55; scale: .9; }
+.area-de-trabalho .janela { position: absolute; width: 520px; height: 260px; left: 50px; top: 40px; grid-template-rows: 40px 1fr; transform-origin: 0 0; z-index: 2; }
 .area-de-trabalho .janela .janela-corpo { padding: 20px; }
 .area-de-trabalho .janela .janela-corpo p { font-size: 18px; }
 .area-de-trabalho .pasta {
-  position: absolute; right: 50px; bottom: 36px; width: 600px; border-radius: 14px; overflow: hidden;
+  position: absolute; right: 50px; bottom: 36px; width: 600px; border-radius: 14px; overflow: hidden; z-index: 3;
   background: #f7f6f2; color: #10211b; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .7);
 }
-.area-de-trabalho .pasta header { background: #e7e4dc; padding: 12px 18px; font: 600 16px/1 var(--sans); }
+.area-de-trabalho .pasta header { display: flex; align-items: center; gap: 10px; background: #e7e4dc; padding: 12px 18px; font: 600 16px/1 var(--sans); }
+.icone-pasta { width: 22px; height: 16px; border-radius: 3px; background: var(--ouro); position: relative; }
+.icone-pasta::before { content: ""; position: absolute; left: 0; top: -4px; width: 10px; height: 5px; border-radius: 2px 2px 0 0; background: var(--ouro); }
 .area-de-trabalho .pasta ul { list-style: none; margin: 0; padding: 12px 18px; columns: 2; font: 400 16px/1.9 var(--mono); color: #3b4a44; }
-.area-de-trabalho .texto { position: absolute; left: 60px; right: 60px; bottom: 300px; }
-.ponte-3 .texto { position: static; text-align: center; max-width: 1100px; display: flex; flex-direction: column; gap: 20px; align-items: center; }
-.ponte-3 { position: absolute; inset: 0; display: grid; place-items: center; gap: 40px; align-content: center; }
-.ponte-3 .titulo { font-size: 64px; }
-.ponte-3 .linha-fina { font-size: 26px; max-width: 900px; }
+
+/* ---------- Instalar ---------- */
 
 .instalar { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; padding: 0 110px; }
 .instalar .titulo { font-size: 64px; }
@@ -394,5 +423,10 @@ body.preto .tela-preta { display: block; }
   content: counter(passo); display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%;
   background: var(--terracota); color: #10211b; font: 700 24px/1 var(--sans);
 }
+.cena.ativa .instalar li { animation: entra-passo .7s var(--curva) both; }
+.cena.ativa .instalar li:nth-child(2) { animation-delay: .15s; }
+.cena.ativa .instalar li:nth-child(3) { animation-delay: .3s; }
+.cena.ativa .instalar li:nth-child(4) { animation-delay: .45s; }
+@keyframes entra-passo { from { opacity: 0; translate: 30px 0; } to { opacity: 1; translate: 0 0; } }
 .instalar code { font: 600 .9em var(--mono); color: var(--ouro); }
 .instalar .abrir { margin-top: 34px; }
