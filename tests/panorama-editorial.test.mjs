@@ -51,13 +51,6 @@ test("crases e asteriscos são convertidos depois do escape; código e artefatos
   assert.equal(editorial.safeEditorialUrl('javascript:alert(1)'), '');
 });
 
-test("busca combina categoria, modelo, empresa, cota e etiquetas sem acentos", () => {
-  const items = freeFixture().items;
-  for (const query of ["ACADEMICA", "audio", "modelo a", "exemplo", "duas consultas"]) assert.deepEqual(editorial.filterFreeTools(items, "todos", query).map(i => i.id), ["alpha"]);
-  assert.equal(editorial.filterFreeTools(items, "codigo", "alpha").length, 0);
-  assert.equal(editorial.filterFreeTools(items, "codigo", "")[0].id, "beta");
-  assert.equal(editorial.filterFreeTools(items, "todos", "  ").length, 2);
-});
 
 test("simulador: vazio não executa; erro registra histórico antes do comando correto", () => {
   const steps = tutorialSteps();

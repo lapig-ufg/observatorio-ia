@@ -1,0 +1,603 @@
+{
+ "checked": "2026-11-04",
+ "lead": {
+  "pt": "Os limites do grátis mudam com frequência, e muitas empresas não divulgam números. Por isso cada cartão traz a data em que foi conferido e o link da página oficial.",
+  "en": "Free limits change often, and many companies do not publish numbers. That is why each card shows the date it was checked and the link to the official page."
+ },
+ "limitsIntro": {
+  "pt": "Todo plano grátis tem limite; o que muda é quando ele renova. Os selos coloridos indicam o tipo de limite. Quando a cota acaba, você precisa esperar renovar ou pagar.",
+  "en": "Every free tier has limits; what varies is when it renews. Colored badges show the limit type. When a quota runs out, you must wait for renewal or pay."
+ },
+ "limitTypes": [
+  {
+   "id": "horas",
+   "label": {
+    "pt": "Renova em horas",
+    "en": "Renews in hours"
+   },
+   "text": {
+    "pt": "Renova a cada poucas horas (ex.: 5 h), com teto semanal. Se acabar durante a tarefa, volta no mesmo dia.",
+    "en": "Renews every few hours (e.g., 5 h), under a weekly cap. If exhausted mid-task, it resets the same day."
+   }
+  },
+  {
+   "id": "dia",
+   "label": {
+    "pt": "Por dia",
+    "en": "Per day"
+   },
+   "text": {
+    "pt": "Conta por dia, como envios de arquivos ou buscas avançadas. Se o limite acabar, volta no dia seguinte.",
+    "en": "Counts per day, like file uploads or advanced searches. If exhausted, it resets the next day."
+   }
+  },
+  {
+   "id": "semana",
+   "label": {
+    "pt": "Renova na semana",
+    "en": "Renews weekly"
+   },
+   "text": {
+    "pt": "Renova uma vez por semana. Se acabar, só volta na semana seguinte. Num curso com dois encontros, convém não gastar tudo no primeiro.",
+    "en": "Renews once a week. If it runs out, it only comes back the following week. In a course with two sessions, avoid spending it all in the first one."
+   }
+  },
+  {
+   "id": "mes",
+   "label": {
+    "pt": "Renova em 30 dias",
+    "en": "Renews every 30 days"
+   },
+   "text": {
+    "pt": "Renova a cada 30 dias. Serve para experimentar ou acompanhar um curso, mas acaba rápido com o uso diário.",
+    "en": "Renews every 30 days. Good for experimenting or following a course, but runs out quickly with daily use."
+   }
+  },
+  {
+   "id": "rede",
+   "label": {
+    "pt": "Divide com a rede",
+    "en": "Shared by network"
+   },
+   "text": {
+    "pt": "O limite vale para a conta ou para a rede. Em salas com muitas pessoas no mesmo Wi-Fi, todos dividem a cota.",
+    "en": "The limit applies to your account or network. In rooms where many people share Wi-Fi, everyone shares the quota."
+   }
+  },
+  {
+   "id": "aberto",
+   "label": {
+    "pt": "Não divulgado",
+    "en": "Undisclosed"
+   },
+   "text": {
+    "pt": "A empresa não divulga a quantidade nem a janela de renovação. O serviço avisa apenas quando o limite chega.",
+    "en": "The company does not publish amounts or renewal windows. The service only notifies you when the limit is reached."
+   }
+  }
+ ],
+ "sections": [
+  {
+   "id": "navegador",
+   "title": {
+    "pt": "IA gratuita no navegador",
+    "en": "Free AI in the browser"
+   },
+   "short": {
+    "pt": "Abre no site, sem instalar",
+    "en": "Runs in browser, no install"
+   },
+   "text": {
+    "pt": "Chats que leem fotos, PDFs, arquivos Word e planilhas. Bons para uma tarefa por vez: você envia o arquivo e recebe a resposta ou faz download.",
+    "en": "Chats that read photos, PDFs, Word files and spreadsheets. Best for one task at a time: you upload the file and get the answer back in the chat or as a download."
+   }
+  },
+  {
+   "id": "instalada",
+   "title": {
+    "pt": "IA gratuita instalada no seu computador",
+    "en": "Free AI installed on your computer"
+   },
+   "short": {
+    "pt": "Trabalha numa pasta sua",
+    "en": "Works inside your folder"
+   },
+   "text": {
+    "pt": "Apps para Windows ou Mac que operam numa pasta: leem e criam arquivos, renomeiam, organizam e rodam comandos, pedindo autorização conforme a configuração.",
+    "en": "Apps for Windows or Mac that work inside a folder: they read and create files, rename, organize and run commands, asking for permission depending on your settings."
+   },
+   "leftOut": [
+    {
+     "name": "Claude",
+     "why": {
+      "pt": "O app existe, mas Cowork e Claude Code exigem plano pago; a versão grátis tem apenas o chat.",
+      "en": "The desktop app exists, but Cowork and Claude Code require paid plans; the free tier only includes chat."
+     }
+    },
+    {
+     "name": "Cursor · GitHub Copilot",
+     "why": {
+      "pt": "Foram feitos para quem programa, funcionando diretamente dentro de um editor de código.",
+      "en": "Designed for programmers, running directly inside a code editor."
+     }
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "gemini",
+   "section": "navegador",
+   "name": "Gemini",
+   "company": "Google",
+   "url": "https://gemini.google.com",
+   "source": "https://support.google.com/gemini/answer/16275805",
+   "checked": "2026-11-04",
+   "limitType": "horas",
+   "bestFor": {
+    "pt": "Ler fotos e documentos, montar tabelas e criar ferramentas simples no Canvas.",
+    "en": "Reading photos and documents, building tables, and creating simple tools in Canvas."
+   },
+   "model": {
+    "pt": "\"Auto\": quase sempre o Flash-Lite; perguntas difíceis podem ir ao Flash ou ao Pro",
+    "en": "\"Auto\": mostly Flash-Lite; harder questions may go to Flash or Pro"
+   },
+   "quota": {
+    "pt": "Limite padrão por uso de computação: renova a cada 5 horas, até um teto semanal. Sem número divulgado.",
+    "en": "Standard compute-based limit: renews every 5 hours, up to a weekly cap. No published number."
+   },
+   "files": {
+    "pt": "Até 10 arquivos por pergunta, 100 MB cada (vídeo até 2 GB).",
+    "en": "Up to 10 files per prompt, 100 MB each (video up to 2 GB)."
+   },
+   "creates": {
+    "pt": "Canvas gera documentos, slides e apps; exporta para Docs, Slides e PDF.",
+    "en": "Canvas creates documents, slides, and apps; exports to Docs, Slides, and PDF."
+   },
+   "account": {
+    "pt": "Conta Google pessoal.",
+    "en": "Personal Google account."
+   },
+   "privacy": {
+    "pt": "Com \"Manter atividade\" ligado, o Google pode usar as conversas para treinar modelos. Para desligar: Configurações > Atividade.",
+    "en": "With \"Keep Activity\" on, Google may use your chats to train models. To turn it off: Settings > Activity."
+   },
+   "catch": {
+    "pt": "Quase tudo roda no Flash-Lite e a cota não tem número divulgado.",
+    "en": "Most requests run on Flash-Lite, and the quota has no published numbers."
+   }
+  },
+  {
+   "id": "chatgpt",
+   "section": "navegador",
+   "name": "ChatGPT",
+   "company": "OpenAI",
+   "url": "https://chatgpt.com",
+   "source": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+   "checked": "2026-11-04",
+   "limitType": "dia",
+   "bestFor": {
+    "pt": "Conversa e texto à vontade no dia a dia.",
+    "en": "Everyday chat and writing, as much as you like."
+   },
+   "model": {
+    "pt": "GPT-5.6 Luna (inclusive no modo \"pensar\")",
+    "en": "GPT-5.6 Luna (including in \"Think\" mode)"
+   },
+   "quota": {
+    "pt": "Texto ilimitado no dia a dia com proteção contra abusos. Limites separados para arquivos: 3 envios por dia.",
+    "en": "Unlimited everyday text with abuse protection. Separate limits for files: 3 uploads per day."
+   },
+   "files": {
+    "pt": "Word, PDF, Excel, CSV, PowerPoint, imagens: 512 MB documento, 50 MB planilha, 20 MB imagem.",
+    "en": "Word, PDF, Excel, CSV, PowerPoint, images: 512 MB document, 50 MB spreadsheet, 20 MB image."
+   },
+   "creates": {
+    "pt": "Tabelas e gráficos pela análise de dados.",
+    "en": "Tables and charts via data analysis."
+   },
+   "account": {
+    "pt": "Conta OpenAI.",
+    "en": "OpenAI account."
+   },
+   "privacy": {
+    "pt": "Treino ativado por padrão no grátis. Para desligar: Configurações > Controles de dados > \"Melhorar o modelo para todos\".",
+    "en": "Training enabled by default on Free. To turn off: Settings > Data controls > \"Improve the model for everyone\"."
+   },
+   "catch": {
+    "pt": "Com 3 arquivos por dia, uma prática com vários documentos esgota a cota logo no começo.",
+    "en": "With 3 files a day, an exercise with several documents uses up the quota right at the start."
+   }
+  },
+  {
+   "id": "claude",
+   "section": "navegador",
+   "name": "Claude",
+   "company": "Anthropic",
+   "url": "https://claude.ai",
+   "source": "https://claude.com/pricing",
+   "checked": "2026-11-04",
+   "limitType": "horas",
+   "bestFor": {
+    "pt": "Textos longos, documentos grandes e entrega de arquivos prontos para baixar.",
+    "en": "Long texts, large documents, and delivering finished files ready to download."
+   },
+   "model": {
+    "pt": "Sonnet e Haiku (sem o Opus)",
+    "en": "Sonnet and Haiku (Opus excluded)"
+   },
+   "quota": {
+    "pt": "Uso limitado a cada 5 horas e a cada semana. Varia com a demanda, sem número publicado.",
+    "en": "Limited usage every 5 hours and every week. Varies with demand, without published numbers."
+   },
+   "files": {
+    "pt": "Até 20 arquivos por conversa (500 MB cada); PDF até 1.000 páginas, Word, planilhas, imagens.",
+    "en": "Up to 20 files per chat (500 MB each); 1,000-page PDFs, Word, spreadsheets, images."
+   },
+   "creates": {
+    "pt": "Word, Excel, PowerPoint e PDF para baixar, depois de ligar \"Create and edit files\" em Configurações > Capabilities.",
+    "en": "Word, Excel, PowerPoint and PDF to download, after turning on \"Create and edit files\" in Settings > Capabilities."
+   },
+   "account": {
+    "pt": "Conta Claude (18 anos ou mais).",
+    "en": "Claude account (18 years or older)."
+   },
+   "privacy": {
+    "pt": "Treino ligado por padrão. Para desligar: Configurações > Privacidade > \"Help improve our AI models\".",
+    "en": "Training on by default. To turn it off: Settings > Privacy > \"Help improve our AI models\"."
+   },
+   "catch": {
+    "pt": "A cota varia com a demanda e a empresa não divulga o número disponível.",
+    "en": "The quota varies with demand, and the company does not publish the number."
+   }
+  },
+  {
+   "id": "notebook",
+   "section": "navegador",
+   "name": "Gemini Notebook",
+   "company": "Google",
+   "url": "https://notebook.google.com",
+   "source": "https://support.google.com/gemininotebook/answer/17670842",
+   "checked": "2026-11-04",
+   "limitType": "horas",
+   "bestFor": {
+    "pt": "Estudar e consultar um conjunto próprio de documentos.",
+    "en": "Studying and querying your own set of documents."
+   },
+   "model": {
+    "pt": "Gemini (a página oficial não indica qual)",
+    "en": "Gemini (official page does not specify which)"
+   },
+   "quota": {
+    "pt": "Limite padrão por uso de computação: renova a cada 5 horas, até um teto semanal. Sem número divulgado.",
+    "en": "Standard compute-based limit: renews every 5 hours, up to a weekly cap. No published number."
+   },
+   "files": {
+    "pt": "Até 50 fontes por caderno (500 mil palavras ou 200 MB): documentos, planilhas, áudios, vídeos.",
+    "en": "Up to 50 sources per notebook (500k words or 200 MB): documents, spreadsheets, audio, videos."
+   },
+   "creates": {
+    "pt": "Resumos em áudio e vídeo, slides, relatórios; exporta Docs e baixa PDF, Word, Excel.",
+    "en": "Audio and video summaries, slides, reports; exports Docs and downloads PDF, Word, Excel."
+   },
+   "account": {
+    "pt": "Conta Google.",
+    "en": "Google account."
+   },
+   "privacy": {
+    "pt": "O conteúdo não é usado para treinar modelos, a menos que você avalie uma resposta (gostei/não gostei).",
+    "en": "Your content is not used to train models unless you rate an answer (thumbs up or down)."
+   },
+   "catch": {
+    "pt": "Responde somente a partir das fontes enviadas para o caderno.",
+    "en": "Only answers using the sources uploaded to the notebook."
+   }
+  },
+  {
+   "id": "copilot",
+   "section": "navegador",
+   "name": "Microsoft Copilot",
+   "company": "Microsoft",
+   "url": "https://copilot.cloud.microsoft",
+   "source": "https://support.microsoft.com/pt-br/microsoft-365-copilot/what-s-the-difference-between-microsoft-copilot-free-and-copilot-in-microsoft-365",
+   "checked": "2026-11-04",
+   "limitType": "aberto",
+   "bestFor": {
+    "pt": "Perguntas rápidas do dia a dia sem precisar criar conta.",
+    "en": "Quick everyday questions without needing to create an account."
+   },
+   "model": {
+    "pt": "Seletor \"Auto\" (a Microsoft não divulga o modelo)",
+    "en": "\"Auto\" selector (Microsoft does not disclose the model)"
+   },
+   "quota": {
+    "pt": "A Microsoft não publica números nem janelas de limite para o uso gratuito.",
+    "en": "Microsoft does not publish numbers or limit windows for free use."
+   },
+   "files": {
+    "pt": "A Microsoft não publica tipos nem limites de arquivos para o plano gratuito.",
+    "en": "Microsoft does not publish file types or limits for the free tier."
+   },
+   "creates": {
+    "pt": "Criação de imagens. Não há confirmação oficial de exportação de arquivos.",
+    "en": "Image creation. No official confirmation of exported files."
+   },
+   "account": {
+    "pt": "Não exige login. Conta Microsoft pessoal dá mais recursos.",
+    "en": "No login required. Personal Microsoft account adds extra features."
+   },
+   "privacy": {
+    "pt": "A regra oficial sobre treino vale só para o app antigo; para o app novo, a Microsoft ainda não publicou a sua.",
+    "en": "The official training rule covers only the old app; Microsoft has not yet published one for the new app."
+   },
+   "catch": {
+    "pt": "É o serviço que menos publica informações oficiais sobre o plano gratuito.",
+    "en": "It publishes the least official information about its free plan."
+   }
+  },
+  {
+   "id": "perplexity",
+   "section": "navegador",
+   "name": "Perplexity",
+   "company": "Perplexity",
+   "url": "https://www.perplexity.ai",
+   "source": "https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you",
+   "checked": "2026-11-04",
+   "limitType": "dia",
+   "bestFor": {
+    "pt": "Buscar na internet recebendo respostas com fontes citadas.",
+    "en": "Searching the web with direct answers and cited sources."
+   },
+   "model": {
+    "pt": "\"Best\" automático (sem escolha manual no grátis)",
+    "en": "Automatic \"Best\" (no manual choice on Free)"
+   },
+   "quota": {
+    "pt": "Buscas básicas quase ilimitadas; 3 buscas avançadas (\"Pro Search\") por dia; 1 pesquisa (\"Research\") por mês.",
+    "en": "Basic searches practically unlimited; 3 \"Pro Search\" a day; 1 \"Research\" a month."
+   },
+   "files": {
+    "pt": "Até 40 MB cada (texto, PDF, imagem, áudio, vídeo); limite semanal não publicado.",
+    "en": "Up to 40 MB each (text, PDF, image, audio, video); weekly quota not published."
+   },
+   "creates": {
+    "pt": "Não cria arquivos nem ferramentas no plano gratuito.",
+    "en": "Does not create files or tools on the free tier."
+   },
+   "account": {
+    "pt": "Conta Perplexity.",
+    "en": "Perplexity account."
+   },
+   "privacy": {
+    "pt": "\"AI data retention\" vem ligado por padrão. Para desligar: Conta > Preferências.",
+    "en": "\"AI data retention\" is enabled by default. To disable: Account > Preferences."
+   },
+   "catch": {
+    "pt": "Só 3 buscas avançadas por dia; depois disso, ficam as buscas básicas.",
+    "en": "Only 3 advanced searches a day; after that, you are left with basic searches."
+   }
+  },
+  {
+   "id": "meta",
+   "section": "navegador",
+   "name": "Meta AI",
+   "company": "Meta",
+   "url": "https://www.meta.ai",
+   "source": "https://www.meta.com/help/artificial-intelligence/1831790234178989/",
+   "checked": "2026-11-04",
+   "limitType": "dia",
+   "bestFor": {
+    "pt": "Quem já usa WhatsApp, Instagram ou Messenger no dia a dia.",
+    "en": "Anyone who already uses WhatsApp, Instagram, or Messenger every day."
+   },
+   "model": {
+    "pt": "Muse Spark (anúncio de julho de 2026)",
+    "en": "Muse Spark (announced July 2026)"
+   },
+   "quota": {
+    "pt": "Limite diário de uso grátis, sem número publicado; renova depois.",
+    "en": "Daily free usage limit with no published number; renews later."
+   },
+   "files": {
+    "pt": "Aceita fotos. A Meta não publica tipos nem limites adicionais.",
+    "en": "Accepts photos. Meta does not publish additional formats or limits."
+   },
+   "creates": {
+    "pt": "Documentos de texto e apresentações na conversa.",
+    "en": "Text documents and presentations directly in chat."
+   },
+   "account": {
+    "pt": "Conta Meta, Facebook ou Instagram.",
+    "en": "Meta, Facebook, or Instagram account."
+   },
+   "privacy": {
+    "pt": "A Meta usa as conversas para melhorar a IA; não há opção oficial para desligar.",
+    "en": "Meta uses chats to improve AI; there is no official option to opt out."
+   },
+   "catch": {
+    "pt": "Não há como impedir o treino, e o limite diário não tem número divulgado.",
+    "en": "There is no way to opt out of training, and the daily limit has no published number."
+   }
+  },
+  {
+   "id": "deepseek",
+   "section": "navegador",
+   "name": "DeepSeek",
+   "company": "DeepSeek",
+   "url": "https://chat.deepseek.com",
+   "source": "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html",
+   "checked": "2026-11-04",
+   "limitType": "aberto",
+   "bestFor": {
+    "pt": "Tarefas de raciocínio e produção de texto de graça.",
+    "en": "Reasoning tasks and text generation free of charge."
+   },
+   "model": {
+    "pt": "DeepSeek V4.1 Flash",
+    "en": "DeepSeek V4.1 Flash"
+   },
+   "quota": {
+    "pt": "A empresa não publica números de limite para o uso gratuito.",
+    "en": "The company does not publish quota numbers for free use."
+   },
+   "files": {
+    "pt": "Aceita fotos e arquivos; tipos e limites não foram publicados.",
+    "en": "Accepts photos and files; types and limits are not published."
+   },
+   "creates": {
+    "pt": "Responde apenas na conversa; a empresa não informa criação de arquivos.",
+    "en": "Answers only in chat; company does not disclose file creation."
+   },
+   "account": {
+    "pt": "Conta com e-mail, telefone, Google ou Apple.",
+    "en": "Account via email, phone, Google, or Apple."
+   },
+   "privacy": {
+    "pt": "Usa as conversas para treinar. Não há opção no menu; o pedido é por e-mail (privacy@deepseek.com).",
+    "en": "Uses your chats for training. There is no menu option; requests go by email (privacy@deepseek.com)."
+   },
+   "catch": {
+    "pt": "Os dados ficam guardados na China, e não há botão para desligar o treino.",
+    "en": "Your data is stored in China, and there is no button to turn off training."
+   }
+  },
+  {
+   "id": "antigravity",
+   "section": "instalada",
+   "name": "Antigravity",
+   "company": "Google",
+   "url": "https://antigravity.google/download",
+   "source": "https://antigravity.google/docs/plans",
+   "checked": "2026-11-04",
+   "limitType": "semana",
+   "bestFor": {
+    "pt": "Tarefas numa pasta inteira de arquivos, com pedidos em português.",
+    "en": "Working across a full folder of files using plain language prompts."
+   },
+   "model": {
+    "pt": "Gemini 3.8 Flash (até 18/11/2026, também Claude e GPT-OSS)",
+    "en": "Gemini 3.8 Flash (until 18 Nov 2026, also Claude and GPT-OSS)"
+   },
+   "quota": {
+    "pt": "Cota significativa renovada semanalmente, sem número publicado. Tarefas complexas consomem mais.",
+    "en": "A meaningful quota, renewed weekly; no published number. Complex tasks use more."
+   },
+   "files": {
+    "pt": "Não usa anexos: trabalha nos arquivos da pasta que você abrir.",
+    "en": "No attachments: it works on the files in the folder you open."
+   },
+   "creates": {
+    "pt": "Cria, edita e renomeia arquivos na pasta e roda comandos no terminal.",
+    "en": "Creates, edits and renames files in the folder and runs terminal commands."
+   },
+   "systems": {
+    "pt": "Windows 10 (64 bits)+ e macOS 12+.",
+    "en": "Windows 10 (64-bit)+ and macOS 12+."
+   },
+   "account": {
+    "pt": "Conta Google pessoal (institucional só se liberada pelo administrador).",
+    "en": "Personal Google account (institutional only if approved by administrator)."
+   },
+   "privacy": {
+    "pt": "É possível recusar a coleta de dados nas Configurações (nome da opção não publicado).",
+    "en": "You can opt out of data collection in Settings (option name not published)."
+   },
+   "catch": {
+    "pt": "Se a cota semanal acabar, o acesso só retorna na semana seguinte.",
+    "en": "If your weekly quota runs out, access only returns the following week."
+   }
+  },
+  {
+   "id": "codex",
+   "section": "instalada",
+   "name": "Codex",
+   "company": "OpenAI",
+   "url": "https://chatgpt.com/codex",
+   "source": "https://developers.openai.com/codex/pricing",
+   "checked": "2026-11-04",
+   "limitType": "mes",
+   "bestFor": {
+    "pt": "Quem já tem conta no ChatGPT e quer trabalhar em pastas.",
+    "en": "Anyone with a ChatGPT account who wants to work in folders."
+   },
+   "model": {
+    "pt": "GPT-6 Luna no app (sujeito a liberação gradual)",
+    "en": "GPT-6 Luna in app (subject to gradual rollout)"
+   },
+   "quota": {
+    "pt": "Sem número publicado. Numa conta grátis acompanhada pelo LAPIG em novembro de 2026, a cota renovava a cada 30 dias.",
+    "en": "No published number. In a free account tracked by LAPIG in November 2026, the quota renewed every 30 days."
+   },
+   "files": {
+    "pt": "Não usa anexos: trabalha nos arquivos da pasta do projeto.",
+    "en": "No attachments: it works on the files in the project folder."
+   },
+   "creates": {
+    "pt": "Cria e edita arquivos locais e executa comandos do sistema.",
+    "en": "Creates and edits local files and runs system commands."
+   },
+   "systems": {
+    "pt": "Windows, Mac e Linux.",
+    "en": "Windows, Mac, and Linux."
+   },
+   "account": {
+    "pt": "Conta ChatGPT (pode pedir verificação por telefone).",
+    "en": "ChatGPT account (may require phone verification)."
+   },
+   "privacy": {
+    "pt": "Treino ligado por padrão. Para desligar: Configurações > Controles de dados > \"Melhorar o modelo para todos\".",
+    "en": "Training enabled by default. To turn off: Settings > Data controls > \"Improve the model for everyone\"."
+   },
+   "catch": {
+    "pt": "A cota de 30 dias serve para testes ou cursos, não para o uso diário.",
+    "en": "The 30-day quota works for testing or courses, not for everyday use."
+   }
+  },
+  {
+   "id": "opencode",
+   "section": "instalada",
+   "name": "opencode",
+   "company": "OpenCode",
+   "url": "https://opencode.ai/download",
+   "source": "https://opencode.ai/v2/docs/console/models/",
+   "checked": "2026-11-04",
+   "limitType": "rede",
+   "bestFor": {
+    "pt": "Experimentar vários modelos abertos sem pagar nada.",
+    "en": "Trying out multiple open models completely free."
+   },
+   "model": {
+    "pt": "Vários grátis temporários (DeepSeek V4.1 Flash, GLM-5.3-Flash)",
+    "en": "Multiple temporary free models (DeepSeek V4.1 Flash, GLM-5.3-Flash)"
+   },
+   "quota": {
+    "pt": "Sem número publicado. O limite vale para conta ou rede, e trocar de modelo não contorna.",
+    "en": "No published numbers. Limits apply per account or network; switching models does not bypass."
+   },
+   "files": {
+    "pt": "Não usa anexos: trabalha nos arquivos da pasta do projeto.",
+    "en": "No attachments: it works on the files in the project folder."
+   },
+   "creates": {
+    "pt": "Cria e edita arquivos locais e roda comandos no terminal.",
+    "en": "Creates and modifies local files and runs terminal commands."
+   },
+   "systems": {
+    "pt": "Windows, Mac e Linux.",
+    "en": "Windows, Mac, and Linux."
+   },
+   "account": {
+    "pt": "Exige entrar no OpenCode Console para modelos gratuitos.",
+    "en": "Requires logging into OpenCode Console for free models."
+   },
+   "privacy": {
+    "pt": "Depende do modelo: DeepSeek e GLM grátis não treinam; outros podem usar dados para melhorias.",
+    "en": "Depends on model: DeepSeek and GLM free do not train; others may use data for improvements."
+   },
+   "catch": {
+    "pt": "Numa sala no mesmo Wi-Fi a cota pode acabar para todos; modelos entram e saem da lista.",
+    "en": "In a room on the same Wi-Fi, the quota may run out for everyone; free models come and go."
+   }
+  }
+ ]
+}

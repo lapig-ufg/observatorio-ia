@@ -160,11 +160,6 @@ export function editorialHtml(value: string) {
   // atributos. Qualquer tag nova fica visível até que seu contrato seja revisto.
   return escapeEditorial(value).replace(/&lt;(\/?(?:strong|em|code)|br\s*\/?)&gt;/gi, "<$1>");
 }
-export function filterFreeTools(items: FreeTool[], category: string, query: string) {
-  const key = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  const search = key(query.trim());
-  return items.filter(i => (category === "todos" || i.category === category) && (!search || key([i.name, i.company, i.highlight, i.freeModel, i.freeQuota, i.bestFor, ...i.tags].join(" ")).includes(search)));
-}
 
 export type SimulatorState = { step: number; phase: "guide" | "done" | "end"; input: string; attempts: { command: string; error: string }[] };
 export type SimulatorAction = { type: "type"; value: string } | { type: "submit" | "demonstrate" | "next" | "back" | "restart" };

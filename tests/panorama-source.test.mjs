@@ -33,7 +33,7 @@ test("sair de uma aba não cancela a configuração compartilhada com outra aba"
   assert.equal(guide.warning, "");
 });
 
-test("abas editoriais pedem os scripts vivos por idioma (gratuitos e exemplos medidos) e propagam cancelamento/erros", async (t) => {
+test("a aba Como usar pede os exemplos medidos por idioma e propaga cancelamento/erros", async (t) => {
   const source = await import(sourceUri);
   const requests = [];
   t.mock.method(globalThis, "fetch", async (url, options) => {
@@ -43,14 +43,12 @@ test("abas editoriais pedem os scripts vivos por idioma (gratuitos e exemplos me
   });
   const controller = new AbortController();
   for (const locale of ["pt", "en"]) {
-    assert.equal((await source.loadPanoramaFreeTools(locale, controller.signal)).items.length, 2);
     assert.equal((await source.loadPanoramaScenes(locale, controller.signal)).cenas.length, 1);
   }
-  assert.deepEqual(requests.map(r => new URL(r.url).pathname.split("/").at(-1)), ["gratuitos-data.js", "como-usar-cenas.js", "gratuitos-data-en.js", "como-usar-cenas-en.js"]);
+  assert.deepEqual(requests.map(r => new URL(r.url).pathname.split("/").at(-1)), ["como-usar-cenas.js", "como-usar-cenas-en.js"]);
   assert.ok(requests.every(r => r.url.startsWith("https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/assets/") && r.options.signal === controller.signal && r.options.cache === "no-cache"));
   t.mock.method(globalThis, "fetch", async () => ({ ok: false, status: 503 }));
-  await assert.rejects(source.loadPanoramaFreeTools(), /HTTP 503/);
   await assert.rejects(source.loadPanoramaScenes("en"), /HTTP 503/);
   t.mock.method(globalThis, "fetch", async () => { throw new DOMException("Cancelado", "AbortError"); });
-  await assert.rejects(source.loadPanoramaFreeTools(), { name: "AbortError" });
+  await assert.rejects(source.loadPanoramaScenes(), { name: "AbortError" });
 });

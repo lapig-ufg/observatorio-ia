@@ -83,12 +83,12 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
   const introductions: Record<TabKey, string> = english ? {
     "": "Follow model releases since ChatGPT in November 2022, by company and ecosystem.",
     guia: "Compare measured capability, API price and response speed for each task.",
-    gratuitos: "Compare free quotas, uses and paid plans before choosing a tool.",
+    gratuitos: "Free AI in the browser and installed on your computer: limits, catches and privacy, checked on the official pages.",
     "como-usar": "Understand what changes when AI can work with files and programs on your computer.",
   } : {
     "": "Acompanhe os lançamentos desde o ChatGPT, em novembro de 2022, por empresa e ecossistema.",
     guia: "Compare a capacidade medida, o preço da API e a velocidade de resposta para cada tarefa.",
-    gratuitos: "Compare cotas gratuitas, usos e planos pagos antes de escolher uma ferramenta.",
+    gratuitos: "IA gratuita no navegador e instalada no seu computador: limites, poréns e privacidade, conferidos nas páginas oficiais.",
     "como-usar": "Entenda o que muda quando a IA pode trabalhar com arquivos e programas no seu computador.",
   };
   const openOriginalUrl = english ? `${PANORAMA_SITE}en/` : PANORAMA_SITE;

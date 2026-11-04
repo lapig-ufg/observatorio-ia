@@ -29,7 +29,7 @@ const check = async (label, run) => {
 // O conteúdo das abas editoriais também é contrato de rede: os seis scripts
 // precisam continuar válidos nos dois idiomas, sem guardar uma cópia local.
 await Promise.all([
-  ["gratuitos-data", "GRATUITOS_DATA"], ["como-usar-data", "COMO_USAR_DATA"], ["como-usar-cenas", "COMO_USAR_CENAS"],
+  ["como-usar-data", "COMO_USAR_DATA"], ["como-usar-cenas", "COMO_USAR_CENAS"],
 ].flatMap(([file, name]) => ["", "-en"].map(suffix => check(`${file}${suffix}.js`, async () => {
   const response = await fetch(asset(`${file}${suffix}.js`));
   if (!response.ok) throw new Error(`HTTP ${response.status}`);

@@ -142,10 +142,6 @@ async function fetchEditorialScript(file: string, locale: PanoramaLocale, signal
   return response.text();
 }
 
-export async function loadPanoramaFreeTools(locale: PanoramaLocale = "pt", signal?: AbortSignal) {
-  return editorialFromScript(await fetchEditorialScript("gratuitos-data", locale, signal), "GRATUITOS_DATA");
-}
-
 /* A aba "Como usar" tem texto próprio no Observatório; do Panorama vivo ela
    lê só os exemplos medidos, que mudam a cada rodada de medição. */
 export async function loadPanoramaScenes(locale: PanoramaLocale = "pt", signal?: AbortSignal) {

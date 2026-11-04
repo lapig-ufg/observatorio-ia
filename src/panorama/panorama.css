@@ -114,60 +114,73 @@
 .guide-ranking-head > span { white-space: normal; }
 .guide-price { white-space: nowrap; }
 
-/* IAs gratuitas: três sugestões de entrada, filtros e cartões com a marca
-   de cada empresa. A cota gratuita é o dado principal de cada cartão. */
-.free-featured { margin: 6px 0 22px; }
-.free-featured h2, .free-featured h2 svg { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; color: var(--green-900); font-size: 1.05rem; }
-.free-featured h2 svg { color: #d98324; margin: 0; }
-.free-featured-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-.free-featured-card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 18px; border: 1px solid var(--line); border-top: 5px solid var(--brand); background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 9%, #fff), #fff 60%); }
-.free-featured-card header { display: flex; align-items: center; gap: 12px; padding-right: 26px; }
-.free-featured-card h3 { margin: 0; color: var(--ink); font-size: 1.15rem; }
-.free-featured-card small { color: var(--muted); font-size: .78rem; }
-.free-featured-rank { position: absolute; top: 12px; right: 14px; color: color-mix(in srgb, var(--brand) 70%, #000); font: 700 1.4rem/1 Georgia, serif; opacity: .5; }
-.free-best { margin: 0; color: var(--ink); font-size: .86rem; line-height: 1.5; }
-.free-access { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 14px; background: var(--green-800); color: #fff; font-size: .82rem; font-weight: 700; }
-.free-featured-card a { margin-top: auto; align-self: flex-start; color: #fff; text-decoration: none; background: var(--green-800); padding-right: 12px; font-weight: 700; }
-.free-featured-card a .free-access { padding-right: 4px; }
-.free-filters { display: flex; flex-direction: column; gap: 12px; margin-bottom: 8px; }
-.free-search { display: flex; align-items: center; gap: 8px; max-width: 420px; min-height: 46px; padding: 0 12px; border: 1px solid var(--line); background: #fff; color: var(--muted); }
-.free-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; color: var(--ink); }
-.free-search:focus-within { border-color: var(--green-700); box-shadow: 0 0 0 2px var(--green-100); }
-.free-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.free-chips button { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px !important; background: #fff; color: var(--green-900); cursor: pointer; font: inherit; font-size: .8rem; font-weight: 650; }
-.free-chips button small { padding: 1px 7px; border-radius: 999px; background: var(--surface); color: var(--muted); font-size: .7rem; }
-.free-chips button[aria-pressed="true"] { border-color: var(--green-800); background: var(--green-800); color: #fff; }
-.free-chips button[aria-pressed="true"] small { background: rgba(255,255,255,.18); color: #fff; }
-.free-count { margin: 10px 0 14px; color: var(--muted); font-size: .8rem; }
-.free-count strong { color: #9a5b12; font-weight: 600; }
-.free-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin: 0 0 20px; padding: 0; list-style: none; }
-.free-card { display: flex; flex-direction: column; gap: 10px; padding: 16px; border: 1px solid var(--line); border-left: 4px solid var(--brand); background: #fff; }
-.free-card header { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 4px 12px; }
-.free-card h3 { margin: 0; color: var(--ink); font-size: 1rem; }
-.free-card header small { color: var(--muted); font-size: .76rem; }
-.free-badge { grid-column: 1 / -1; justify-self: start; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--brand) 12%, #fff); color: color-mix(in srgb, var(--brand) 75%, #000); font-size: .68rem; font-weight: 700; }
-.free-model { margin: 0; color: var(--muted); font-size: .78rem; }
-.free-model strong { color: var(--ink); font-weight: 650; }
-.free-quota { margin: 0; padding: 10px 12px; background: #eef7f2; color: #0f4a37; font-size: .84rem; font-weight: 600; line-height: 1.45; }
-.free-quota > span { display: block; margin-bottom: 2px; color: #1d8a62; font-size: .66rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
-.free-facts, .free-detail dl { margin: 0; font-size: .8rem; line-height: 1.5; }
-.free-facts > div, .free-detail dl > div { margin: 0 0 6px; }
-.free-facts dt, .free-detail dt { color: var(--muted); font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
-.free-facts dd, .free-detail dd { margin: 1px 0 0; }
-.free-detail { padding-top: 8px; border-top: 1px dashed var(--line); font-size: .8rem; line-height: 1.5; }
-.free-detail[hidden] { display: none; }
-.free-detail > p:first-child { margin-top: 0; font-weight: 600; }
-.free-card footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); }
-.free-more { min-height: 40px; padding: 6px 0; border: 0; background: none; color: var(--green-800); cursor: pointer; font: inherit; font-size: .8rem; font-weight: 650; }
-.free-card footer a { color: var(--green-800); font-size: .82rem; font-weight: 700; text-decoration: none; }
-@media (min-width: 600px) and (max-width: 899px) {
-  .free-featured-grid { gap: 10px; }
-  .free-featured-card { padding: 14px; }
-  .free-featured-card header { flex-direction: column; align-items: flex-start; gap: 8px; padding-right: 0; }
-  .free-featured-card .free-best { display: none; }
-}
-@media (max-width: 599px) {
-  .free-featured-grid, .free-grid { grid-template-columns: 1fr; }
+/* IAs gratuitas (nov/2026): duas partes (navegador e instalada), uma legenda
+   dos tipos de limite e cartões com as mesmas linhas, para comparar de relance.
+   A cor do selo segue o tipo de limite, nunca a empresa. */
+.free2 { --lim-horas: #2c5f8a; --lim-horas-bg: #e8f0f8; --lim-semana: #1d6650; --lim-semana-bg: #e3f2ea; --lim-mes: #8a5a0c; --lim-mes-bg: #fbf0dc; --lim-rede: #a3401f; --lim-rede-bg: #fbe9e2; --lim-dia: #6a4a9c; --lim-dia-bg: #f0eaf8; --lim-aberto: #4c5a55; --lim-aberto-bg: #eceff0; }
+.free2-top { display: grid; gap: 16px; margin: 4px 0 26px; }
+.free2-lead { max-width: 760px; margin: 0; color: var(--ink); font-size: 1.02rem; line-height: 1.6; }
+.free2-checked { color: var(--muted); font-size: .88rem; }
+.free2-checked strong { color: #9a5b12; font-weight: 650; }
+.free2-jump { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 900px; }
+.free2 .free2-jump button { display: flex; align-items: center; gap: 14px; min-height: 72px; padding: 14px 18px; border: 1px solid var(--line); border-left: 5px solid var(--green-700); border-radius: 2px; background: #fff; text-align: left; transition: background .15s, border-color .15s; }
+.free2 .free2-jump button:hover { background: #f3f8f5; border-color: var(--green-700); }
+.free2-jump button > svg { flex: none; color: var(--green-700); }
+.free2-jump b { display: block; color: var(--green-900); font-size: 1rem; }
+.free2-jump small { display: block; color: var(--muted); font-size: .8rem; font-weight: 500; }
+
+.free2-limits { margin: 0 0 34px; padding: 18px 20px 20px; border: 1px solid var(--line); background: #f7faf8; }
+.free2-limits h2 { margin: 0 0 4px; font-size: 1.05rem; }
+.free2-limits > p { max-width: 760px; margin: 0 0 14px; color: var(--muted); font-size: .88rem; line-height: 1.55; }
+.free2-limits ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.free2-limit { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--lim); }
+.free2-limit p { margin: 0; color: var(--ink); font-size: .8rem; line-height: 1.45; }
+.free2-quota--horas { --lim: var(--lim-horas); --lim-bg: var(--lim-horas-bg); }
+.free2-quota--semana { --lim: var(--lim-semana); --lim-bg: var(--lim-semana-bg); }
+.free2-quota--mes { --lim: var(--lim-mes); --lim-bg: var(--lim-mes-bg); }
+.free2-quota--rede { --lim: var(--lim-rede); --lim-bg: var(--lim-rede-bg); }
+.free2-quota--dia { --lim: var(--lim-dia); --lim-bg: var(--lim-dia-bg); }
+.free2-quota--aberto { --lim: var(--lim-aberto); --lim-bg: var(--lim-aberto-bg); }
+.free2-type { display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; padding: 2px 8px 2px 6px; border-radius: 999px; background: var(--lim-bg); color: var(--lim); font-size: .7rem; font-weight: 800; letter-spacing: .02em; line-height: 1.6; }
+
+.free2-section { margin: 0 0 40px; scroll-margin-top: 90px; }
+.free2-section-head { display: flex; align-items: flex-start; gap: 14px; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 2px solid var(--green-900); }
+.free2-section-head > svg { flex: none; margin-top: 4px; color: var(--green-700); }
+.free2-section-head h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.55rem; font-weight: 600; line-height: 1.2; }
+.free2-section-head p { max-width: 760px; margin: 4px 0 0; color: var(--muted); font-size: .92rem; line-height: 1.55; }
+
+.free2-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.free2-card { display: flex; flex-direction: column; gap: 12px; padding: 16px 16px 12px; border: 1px solid var(--line); border-top: 4px solid var(--brand); background: #fff; }
+.free2-card > header { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; }
+.free2-card h3 { margin: 0; color: var(--ink); font-size: 1.08rem; }
+.free2-card header small { color: var(--muted); font-size: .76rem; }
+.free2-card header a { display: inline-block; padding: 6px 10px; border: 1px solid var(--green-700); color: var(--green-800); text-decoration: none; font-size: .8rem; font-weight: 750; white-space: nowrap; }
+.free2-card header a:hover { background: var(--green-800); color: #fff; }
+.free2-best { margin: 0; color: var(--ink); font-size: .9rem; line-height: 1.5; }
+.free2-quota { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: var(--lim-bg); border-left: 3px solid var(--lim); }
+.free2-quota p { margin: 0; color: var(--ink); font-size: .84rem; line-height: 1.5; }
+.free2-quota strong { display: block; margin-bottom: 2px; font-weight: 750; }
+.free2-facts { display: grid; gap: 0; margin: 0; font-size: .8rem; line-height: 1.5; }
+.free2-facts > div { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 10px; padding: 6px 0; border-top: 1px solid #edf1ee; }
+.free2-facts dt { color: var(--muted); font-size: .7rem; font-weight: 750; letter-spacing: .03em; text-transform: uppercase; padding-top: 2px; }
+.free2-facts dd { margin: 0; color: var(--ink); }
+.free2-catch { margin: 0; padding: 8px 10px; background: #fdf6ec; color: #4a3410; font-size: .82rem; line-height: 1.5; }
+.free2-catch b { display: block; color: #8a5a0c; font-size: .68rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+.free2-card > footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); color: var(--muted); font-size: .74rem; }
+.free2-card > footer a { color: var(--green-800); font-weight: 700; text-decoration: none; }
+
+.free2-left-out { margin-top: 18px; padding: 14px 18px; border: 1px dashed var(--line); background: #fafbfa; }
+.free2-left-out h3 { margin: 0 0 6px; color: var(--green-900); font-size: .9rem; }
+.free2-left-out ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.free2-left-out li { color: var(--ink); font-size: .84rem; line-height: 1.5; }
+.free2-left-out b { margin-right: 6px; }
+
+@media (max-width: 1099px) { .free2-limits ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 699px) {
+  .free2-jump, .free2-limits ul, .free2-grid { grid-template-columns: 1fr; }
+  .free2-limits { padding: 14px; }
+  .free2-facts > div { grid-template-columns: 1fr; gap: 0; }
+  .free2-section-head h2 { font-size: 1.3rem; }
 }
 .panorama-freshness { font-size: .82rem; color: var(--muted); }
 

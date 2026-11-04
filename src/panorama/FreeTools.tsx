@@ -1,117 +1,112 @@
+/* Aba "IAs gratuitas" do Panorama. Desde nov/2026 os dados moram no próprio
+   Observatório (public/gratuitos/gratuitos.json), conferidos nas páginas
+   oficiais, em duas partes: IA no navegador e IA instalada no computador.
+   É a página que o curso "Do chat ao agente" usa. */
 import { formatPublicDate } from "../dateLabels";
 import { useEffect, useState } from "react";
-import { Code2, Gift, Image, LayoutGrid, MessagesSquare, Music, Search, Server, Telescope, type LucideIcon } from "lucide-react";
-import { trackEvent } from "../analytics";
-import { filterFreeTools, type FreeTool } from "../panoramaEditorial";
-import { loadPanoramaConfig, loadPanoramaFreeTools } from "../panoramaSource";
+import { AppWindow, CalendarDays, CalendarRange, Clock3, HelpCircle, Laptop, Sun, Wifi, type LucideIcon } from "lucide-react";
+import { loadPanoramaConfig } from "../panoramaSource";
 import { canonicalCompany, emptyPanoramaConfig, type PanoramaConfig } from "../panoramaData";
-import { EditorialExternal, EditorialFooter, EditorialState, useEditorialData } from "./EditorialShared";
+import { EditorialExternal, EditorialState, useEditorialData } from "./EditorialShared";
 import { CompanyMark } from "./CompanyMark";
 import { verificationAge } from "../panoramaRefinement";
+import { loadFreeGuide, freeText, type Bilingual, type FreeGuideItem, type FreeLimitType } from "../freeGuide";
 
-const CATEGORY_ICONS: Record<string, LucideIcon> = {
-  todos: LayoutGrid, "assistentes-dev": Code2, "modelos-llm": MessagesSquare, "apis-inferencia": Server,
-  "pesquisa-busca": Telescope, "imagem-design": Image, "midia-av": Music,
+const LIMIT_ICONS: Record<FreeLimitType, LucideIcon> = {
+  horas: Clock3, dia: Sun, semana: CalendarDays, mes: CalendarRange, rede: Wifi, aberto: HelpCircle,
 };
+const SECTION_ICONS: Record<string, LucideIcon> = { navegador: AppWindow, instalada: Laptop };
 
-/* Empresas fora da régua (Cursor, Groq, Vercel…) ainda ganham uma cor estável,
-   tirada do nome: a página não fica com metade dos selos cinza. */
 const FALLBACK_COLORS = ["#2f6f8f", "#7a4fa3", "#b5562f", "#2f7d5b", "#9a6a12", "#3d5aa8", "#a23e62", "#4b6b2a"];
 function toolBrand(company: string, config: PanoramaConfig) {
-  const first = company.split(/\s*[/,]\s*/)[0];
-  const name = canonicalCompany(first, config);
-  const logoPath = config.logoPaths[config.logoMap[name]] || config.logoPaths[config.logoMap[first]] || "";
-  const known = config.companyColors[name] || config.companyColors[first];
-  const hash = [...first].reduce((sum, char) => sum + char.charCodeAt(0), 0);
-  return { name: first, logoPath, color: known || FALLBACK_COLORS[hash % FALLBACK_COLORS.length] };
+  const name = canonicalCompany(company, config);
+  const logoPath = config.logoPaths[config.logoMap[name]] || config.logoPaths[config.logoMap[company]] || "";
+  const known = config.companyColors[name] || config.companyColors[company];
+  const hash = [...company].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  return { name: company, logoPath, color: known || FALLBACK_COLORS[hash % FALLBACK_COLORS.length] };
 }
 
 export function FreeTools({ english = false, referenceDate }: { english?: boolean; referenceDate?: string }) {
-  const { data, loading, error, retry } = useEditorialData(loadPanoramaFreeTools, english);
+  const { data, loading, error, retry } = useEditorialData(loadFreeGuide, english);
   const [config, setConfig] = useState<PanoramaConfig>(emptyPanoramaConfig);
-  const [category, setCategory] = useState("todos");
-  const [query, setQuery] = useState("");
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
   useEffect(() => {
     let active = true;
     void loadPanoramaConfig().then((result) => { if (active) setConfig(result.config); });
     return () => { active = false; };
   }, []);
   if (loading || error || !data) return <EditorialState loading={loading} error={error} retry={retry} english={english} />;
-  const items = filterFreeTools(data.items, category, query);
-  const featured = [...data.items].filter(item => item.rank).sort((a, b) => (a.rank || 99) - (b.rank || 99)).slice(0, 3);
-  const showFeatured = category === "todos" && !query.trim() && featured.length === 3;
-  const count = (id: string) => id === "todos" ? data.items.length : data.items.filter(item => item.category === id).length;
-  const fields: { key: keyof FreeTool; label: string }[] = [
-    { key: "limits", label: english ? "Limits and rules" : "Limites e regras" },
-    { key: "theCatch", label: english ? "The catch" : "O porém" },
-    { key: "howToAccess", label: english ? "How to access" : "Como acessar" },
-  ];
-  const age = referenceDate ? verificationAge(data.source.lastChecked, referenceDate) : null;
-  const toggle = (id: string) => setExpanded(current => {
-    const next = new Set(current); if (next.has(id)) next.delete(id); else next.add(id); return next;
-  });
-  const access = (item: FreeTool, className: string) => <EditorialExternal href={item.link} english={english} label={item.id}>
-    <span className={className}>{english ? "Open" : "Acessar"} {item.name}</span>
-  </EditorialExternal>;
+  const t = (value: Bilingual | undefined) => freeText(value, english);
+  const lang = english ? "en" : "pt";
+  const age = referenceDate ? verificationAge(data.checked, referenceDate) : null;
+  const jump = (id: string) => document.getElementById(`free-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  return <div className="panorama-free">
-    {showFeatured && <section className="free-featured" aria-labelledby="free-featured-title">
-      <h2 id="free-featured-title"><Gift size={18} aria-hidden="true" />{english ? "Where to start" : "Por onde começar"}</h2>
-      <div className="free-featured-grid">{featured.map((item, i) => {
-        const brand = toolBrand(item.company, config);
-        return <article key={item.id} className="free-featured-card" style={{ ["--brand" as string]: brand.color }}>
-          <span className="free-featured-rank">{i + 1}</span>
-          <header><CompanyMark company={brand.name} color={brand.color} logoPath={brand.logoPath} size={44} /><div><h3>{item.name}</h3><small>{item.company}{item.freeModel ? ` · ${item.freeModel}` : ""}</small></div></header>
-          <p className="free-quota"><span>{english ? "Free" : "Grátis"}</span>{item.freeQuota}</p>
-          <p className="free-best">{item.highlight}</p>
-          {access(item, "free-access")}
-        </article>;
-      })}</div>
-    </section>}
-
-    <div className="free-filters">
-      <label className="free-search"><Search size={17} aria-hidden="true" /><span className="sr-only">{english ? "Search tools" : "Buscar ferramentas"}</span><input type="search" value={query} placeholder={english ? "Search by name, model or use…" : "Buscar por nome, modelo ou uso…"} onChange={e => setQuery(e.target.value)} onBlur={() => {
-        if (query.trim()) trackEvent(english ? "panorama_free_search_en" : "panorama_free_search", { event_category: "filter", event_label: "search" });
-      }} /></label>
-      <div className="free-chips" role="group" aria-label={english ? "Tool categories" : "Categorias de ferramentas"}>
-        {data.categories.map(c => {
-          const Icon = CATEGORY_ICONS[c.id] || LayoutGrid;
-          return <button key={c.id} type="button" aria-pressed={category === c.id} onClick={() => { setCategory(c.id); trackEvent(english ? "panorama_free_category_en" : "panorama_free_category", { event_category: "filter", event_label: c.id }); }}><Icon size={15} aria-hidden="true" />{c.label}<small>{count(c.id)}</small></button>;
-        })}
+  const card = (item: FreeGuideItem) => {
+    const brand = toolBrand(item.company, config);
+    const Icon = LIMIT_ICONS[item.limitType];
+    const type = data.limitTypes.find(l => l.id === item.limitType);
+    const facts: [string, string | undefined][] = [
+      [english ? "Files" : "Arquivos", t(item.files)],
+      [english ? "Creates" : "Entrega", t(item.creates)],
+      [english ? "Systems" : "Sistemas", t(item.systems)],
+      [english ? "Account" : "Conta", t(item.account)],
+      [english ? "Your chats" : "Suas conversas", t(item.privacy)],
+    ];
+    return <li key={item.id} className="free2-card" style={{ ["--brand" as string]: brand.color }}>
+      <header>
+        <CompanyMark company={brand.name} color={brand.color} logoPath={brand.logoPath} size={40} />
+        <div><h3>{item.name}</h3><small>{item.company}</small></div>
+        <EditorialExternal href={item.url} english={english} label={`free:${item.id}`}><span className="free2-open">{english ? "Open" : "Abrir"}<span className="sr-only"> {item.name}</span></span></EditorialExternal>
+      </header>
+      <p className="free2-best">{t(item.bestFor)}</p>
+      <div className={`free2-quota free2-quota--${item.limitType}`}>
+        <span className="free2-type"><Icon size={14} aria-hidden="true" />{type ? t(type.label) : item.limitType}</span>
+        <p><strong>{t(item.model)}</strong>{t(item.quota)}</p>
       </div>
+      <dl className="free2-facts">{facts.filter(([, v]) => v).map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+      <p className="free2-catch"><b>{english ? "The catch" : "O porém"}</b>{t(item.catch)}</p>
+      <footer>
+        <span>{english ? "Checked on" : "Conferido em"} <time dateTime={item.checked}>{formatPublicDate(item.checked, lang)}</time></span>
+        <EditorialExternal href={item.source} english={english} label={`free-source:${item.id}`}>{english ? "Official source" : "Fonte oficial"}</EditorialExternal>
+      </footer>
+    </li>;
+  };
+
+  return <div className="panorama-free free2">
+    <div className="free2-top">
+      <p className="free2-lead">{t(data.lead)} <span className="free2-checked">{english ? "Checked on the official pages on" : "Conferido nas páginas oficiais em"} <time dateTime={data.checked}>{formatPublicDate(data.checked, lang)}</time>.{age !== null && age > 30 && <strong> {english ? `That was ${age} days ago; free quotas change often.` : `Faz ${age} dias; cotas grátis mudam com frequência.`}</strong>}</span></p>
+      <nav className="free2-jump" aria-label={english ? "Sections" : "Partes da página"}>
+        {data.sections.map(s => {
+          const Icon = SECTION_ICONS[s.id] || AppWindow;
+          const n = data.items.filter(i => i.section === s.id).length;
+          return <button key={s.id} type="button" onClick={() => jump(s.id)}>
+            <Icon size={26} aria-hidden="true" />
+            <span><b>{t(s.title)}</b><small>{t(s.short)} · {n} {english ? "tools" : "ferramentas"}</small></span>
+          </button>;
+        })}
+      </nav>
     </div>
 
-    <p className="free-count" role="status">{items.length} {english ? "tools" : "ferramentas"} · {english ? "verified on" : "verificado em"} <time dateTime={data.source.lastChecked}>{formatPublicDate(data.source.lastChecked, english ? "en" : "pt")}</time>{age !== null && age > 30 && <strong> · {english ? `${age} days ago; free quotas change often` : `há ${age} dias; cotas gratuitas mudam com frequência`}</strong>}</p>
-    {!items.length && <div className="panorama-state"><p>{english ? "No tools match these filters." : "Nenhuma ferramenta corresponde aos filtros."}</p><button type="button" onClick={() => { setCategory("todos"); setQuery(""); }}>{english ? "Clear filters" : "Limpar filtros"}</button></div>}
+    <section className="free2-limits" aria-labelledby="free2-limits-title">
+      <h2 id="free2-limits-title">{english ? "How free limits work" : "Como funcionam os limites do grátis"}</h2>
+      <p>{t(data.limitsIntro)}</p>
+      <ul>{data.limitTypes.map(l => {
+        const Icon = LIMIT_ICONS[l.id];
+        return <li key={l.id} className={`free2-limit free2-quota--${l.id}`}><span className="free2-type"><Icon size={14} aria-hidden="true" />{t(l.label)}</span><p>{t(l.text)}</p></li>;
+      })}</ul>
+    </section>
 
-    <ul className="free-grid">{items.map(item => {
-      const brand = toolBrand(item.company, config);
-      const open = expanded.has(item.id);
-      return <li key={item.id} className="free-card" style={{ ["--brand" as string]: brand.color }}>
-        <header>
-          <CompanyMark company={brand.name} color={brand.color} logoPath={brand.logoPath} size={36} />
-          <div><h3>{item.name}</h3><small>{item.company}</small></div>
-          <span className="free-badge">{item.badge}</span>
+    {data.sections.map(s => {
+      const Icon = SECTION_ICONS[s.id] || AppWindow;
+      return <section key={s.id} id={`free-${s.id}`} className={`free2-section free2-section--${s.id}`} aria-labelledby={`free2-${s.id}-title`}>
+        <header className="free2-section-head">
+          <Icon size={30} aria-hidden="true" />
+          <div><h2 id={`free2-${s.id}-title`}>{t(s.title)}</h2><p>{t(s.text)}</p></div>
         </header>
-        {item.freeModel && <p className="free-model">{english ? "Free model: " : "Modelo grátis: "}<strong>{item.freeModel}</strong></p>}
-        <p className="free-quota"><span>{english ? "Free" : "Grátis"}</span>{item.freeQuota}</p>
-        <dl className="free-facts">
-          <div><dt>{english ? "Best for" : "Ideal para"}</dt><dd>{item.bestFor}</dd></div>
-          {item.paidStepUp && <div><dt>{english ? "Paid plan" : "Plano pago"}</dt><dd>{item.paidStepUp}</dd></div>}
-        </dl>
-        <div className="free-detail" id={`free-detail-${item.id}`} hidden={!open}>
-          <p>{item.highlight}</p>
-          <dl>{fields.map(({ key, label }) => item[key] ? <div key={key}><dt>{label}</dt><dd>{String(item[key])}</dd></div> : null)}</dl>
-          <p className="panorama-editorial-meta">{item.tags.join(" · ")} · <EditorialExternal href={item.sourceUrl || data.source.url} english={english} label={`source:${item.id}`}>{english ? "Source" : "Fonte"}</EditorialExternal></p>
-        </div>
-        <footer>
-          <button type="button" className="free-more" aria-expanded={open} aria-controls={`free-detail-${item.id}`} onClick={() => toggle(item.id)}>{open ? (english ? "Fewer details" : "Menos detalhes") : (english ? "Limits and catch" : "Limites e porém")}<span className="sr-only"> · {item.name}</span></button>
-          <EditorialExternal href={item.link} english={english} label={item.id}><span className="free-access-inline">{english ? "Open" : "Acessar"}</span></EditorialExternal>
-        </footer>
-      </li>;
-    })}</ul>
-    <p className="panorama-editorial-meta">{data.source.attribution} · <EditorialExternal href={data.source.url} english={english}>{data.source.name}</EditorialExternal></p>
-    <EditorialFooter date={data.updatedAt} page="gratuitos" english={english} />
+        <ul className="free2-grid">{data.items.filter(i => i.section === s.id).map(card)}</ul>
+        {s.leftOut && <div className="free2-left-out"><h3>{english ? "Left out, and why" : "Ficaram de fora, e por quê"}</h3><ul>{s.leftOut.map((l, i) => <li key={i}><b>{l.name}</b>{t(l.why)}</li>)}</ul></div>}
+      </section>;
+    })}
+
+    <footer className="panorama-provenance"><span>{english ? "Curation by LAPIG/UFG · each card links to the official page it was checked against" : "Curadoria LAPIG/UFG · cada cartão leva à página oficial em que foi conferido"}</span></footer>
   </div>;
 }
