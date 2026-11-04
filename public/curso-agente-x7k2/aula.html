@@ -268,27 +268,137 @@
     </div>
   </section>
 
-  <section class="cena" id="relatorio" data-fase="2" data-passos="1" data-titulo="O relatório">
+
+  <!-- IA grátis no navegador: os cartões vêm da página "IAs gratuitas" do Observatório
+       (gratuitos.json publicado; dados/gratuitos.json é a cópia de reserva, sem internet). -->
+  <section class="cena" id="gratis-navegador" data-fase="2" data-titulo="De graça no navegador">
+    <div class="gratis" data-secao="navegador">
+      <header class="gratis-cabeca">
+        <div>
+          <span class="rotulo">Antes de começar</span>
+          <h2 class="titulo">IA de graça no navegador: o que cada uma dá</h2>
+        </div>
+        <button class="abrir" type="button">Página completa <kbd>Enter</kbd></button>
+      </header>
+      <ul class="gratis-grade"></ul>
+      <p class="gratis-rodape"></p>
+    </div>
+  </section>
+
+  <section class="cena" id="monitor" data-fase="2" data-titulo="O monitor">
+    <div class="monitor">
+      <div class="monitor-texto">
+        <span class="rotulo">Durante a prática</span>
+        <h2 class="titulo">Travou? Pergunte à <em>coruja</em></h2>
+        <p class="linha-fina">O monitor do curso fica no canto de todas as páginas. Ele responde com IA e leva você à página certa.</p>
+        <ul class="monitor-pontos">
+          <li><b>Pergunte do seu jeito.</b> Pode colar a mensagem de erro que apareceu.</li>
+          <li><b>A resposta traz o link</b> para o trecho do curso que resolve.</li>
+          <li><b>Não escreva</b> nome, e-mail, CPF ou senha.</li>
+        </ul>
+      </div>
+      <div class="monitor-painel" aria-hidden="true">
+        <header><img src="assets/brand/observatorio-coruja.svg" alt=""><div><b>Pergunte ao Observatório</b><small>responde com IA</small></div></header>
+        <ol>
+          <li class="eu"><p>O Windows bloqueou o instalador. E agora?</p></li>
+          <li class="dela"><p>Se aparecer “O Windows protegeu o computador”, clique em <b>Mais informações</b> e depois em <b>Executar assim mesmo</b>. Faça isso só com o arquivo baixado de antigravity.google.</p><span class="link">Instalar o Antigravity · Deu errado? →</span></li>
+        </ol>
+        <div class="campo">Escreva sua dúvida ou cole o erro<span>→</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cada exemplo: o problema (passo 0), a vez da turma (passo 1) e o exemplo gravado (passo 2).
+       A tela "Sua vez" vem de js/exercicios.js, a mesma fonte da página pratica.html. -->
+
+  <section class="cena" id="lousa" data-fase="2" data-passos="3" data-titulo="A lousa">
     <div class="vitrine">
       <div class="problema" data-passo="0" data-ate="0">
         <span class="rotulo">Um problema</span>
-        <p>A coordenadora de um projeto de extensão precisa mandar amanhã o relatório anual para a Pró-Reitoria de Extensão, e <em>ninguém revisou o texto</em>.</p>
+        <p>No fim da reunião, você fotografou a lousa com as tarefas da semana. Precisa mandar a tabela para a equipe, e <em>ninguém quer digitar</em>.</p>
       </div>
-      <div class="vitrine-texto" data-passo="1">
-        <span class="rotulo">No Gemini da conta UFG</span>
-        <h2 class="titulo">Dez problemas achados</h2>
-        <p class="linha-fina">No navegador, o Gemini achou 7 erros de português e 3 informações que não batiam, mostrou as correções numa tabela e gerou o Word com as dúvidas entre colchetes.</p>
-        <button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button>
+      <div class="sua-vez" data-exercicio="lousa" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini</span>
+        <h2 class="titulo">As 7 tarefas numa tabela</h2>
+        <p class="linha-fina">Em cerca de 10 segundos, o Gemini transformou a foto da lousa escrita a giz numa tabela com tarefa, responsável e prazo. As 7 tarefas ficaram iguais às da foto.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
       </div>
-      <div class="peca video" data-passo="1" data-ao-vivo="assets/video/gemini-relatorio.mp4">
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-lousa.mp4">
         <div class="peca-giro">
-          <div class="frente"><span class="selo-video">gravado · esperas aceleradas</span><video src="assets/video/gemini-relatorio.mp4" poster="assets/video/gemini-relatorio.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-lousa.mp4" poster="assets/video/gemini-lousa.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Transforma essa foto do quadro numa tabela com as colunas tarefa, responsável e prazo.</blockquote>
+            <p class="quem">Digitado no Gemini, com a foto anexada · 3 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, no navegador</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: devolveu a tabela com as 7 tarefas da foto em menos de um minuto.">Leu a foto e devolveu a tabela com as 7 tarefas, responsáveis e prazos</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="lousa" data-passo="3"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="contrato" data-fase="2" data-passos="3" data-titulo="O contrato">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Você vai assinar o contrato de limpeza da sua padaria, de 5 páginas, e precisa entender valor, pagamento, multa e cancelamento <em>antes de assinar</em>.</p>
+      </div>
+      <div class="sua-vez" data-exercicio="contrato" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini</span>
+        <h2 class="titulo">O contrato, cláusula por cláusula</h2>
+        <p class="linha-fina">No PDF de 5 páginas, o Gemini explicou valor, pagamento, atraso e cancelamento citando as cláusulas certas. Perguntado se a empresa usa produtos ecológicos, disse que o contrato não fala disso, em vez de inventar.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-contrato.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-contrato.mp4" poster="assets/video/gemini-contrato.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
           <div class="verso verso-pedidos">
             <span class="rotulo">1º pedido</span>
-            <blockquote>Coordeno este projeto e preciso mandar este relatório para a Pró-Reitoria de Extensão amanhã. Revise o texto: corrija os erros de português e me mostre numa tabela o que mudou […]. Depois, aponte qualquer informação que não bate entre uma parte e outra do relatório.</blockquote>
+            <blockquote>Vou assinar esse contrato de limpeza. Me explica em linguagem simples o que ele diz sobre o valor, o pagamento, a multa e o cancelamento, citando a cláusula de cada coisa.</blockquote>
+            <span class="rotulo rotulo-2">2º pedido</span>
+            <blockquote>A empresa usa produtos ecológicos?</blockquote>
+            <p class="quem">Digitado no Gemini, com o PDF anexado · 3 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, no navegador</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: respondeu com a cláusula de cada item e avisou que o contrato não fala de produtos ecológicos.">Explicou citando as cláusulas e admitiu o que o contrato não diz</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="contrato" data-passo="3"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="relatorio" data-fase="2" data-passos="3" data-titulo="O relatório">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>A coordenadora de um programa de oficinas precisa mandar amanhã o relatório anual para a direção, e <em>ninguém revisou o texto</em>.</p>
+      </div>
+      <div class="sua-vez" data-exercicio="relatorio" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini</span>
+        <h2 class="titulo">Dez problemas achados</h2>
+        <p class="linha-fina">O Gemini achou os 10 problemas do relatório. Na primeira resposta, entregou o texto corrigido e escolheu sozinho qual número valia, sem marcar. No Word do segundo pedido, deixou as 3 divergências entre colchetes, em vermelho, como pedido.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-relatorio.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-relatorio.mp4" poster="assets/video/gemini-relatorio.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos">
+            <span class="rotulo">1º pedido</span>
+            <blockquote>Coordeno este programa e preciso mandar este relatório para a direção amanhã. Revise o texto: corrija os erros de português e me mostre numa tabela o que mudou (trecho original, correção e motivo). Depois, aponte qualquer informação que não bate entre uma parte e outra do relatório.</blockquote>
             <span class="rotulo rotulo-2">2º pedido</span>
             <blockquote>Agora me devolva o relatório inteiro já corrigido, num arquivo do Word para eu baixar. Onde houver informação que não bate, deixe destacado entre colchetes para eu conferir antes de enviar.</blockquote>
-            <p class="quem">Digitado no Gemini da conta UFG · 3 nov. 2026</p>
+            <p class="quem">Digitado no Gemini, com o Word anexado · 3 nov. 2026</p>
             <dl>
               <dt>Quem fez</dt><dd>Gemini, no navegador</dd>
               <dt>O que fez</dt><dd data-resumo="Gemini: achou os 10 problemas do relatório e devolveu um Word corrigido.">Achou os 7 erros e as 3 informações que não batem; depois gerou o Word corrigido</dd>
@@ -297,48 +407,116 @@
         </div>
       </div>
       <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="relatorio" data-passo="3"></div>
     </div>
   </section>
 
-  <section class="cena" id="planilha" data-fase="2" data-passos="1" data-titulo="A planilha">
+  <section class="cena" id="planilha" data-fase="2" data-passos="3" data-titulo="A planilha">
     <div class="vitrine">
       <div class="problema" data-passo="0" data-ate="0">
         <span class="rotulo">Um problema</span>
-        <p>O organizador das oficinas recebeu a planilha do formulário com cidades escritas de vários jeitos e <em>gente inscrita duas vezes</em>. Precisa saber quantas pessoas vêm de cada cidade.</p>
+        <p>A organizadora de um evento online recebeu a planilha do formulário com cidades escritas de vários jeitos e <em>gente inscrita duas vezes</em>. Precisa saber quantas pessoas vêm de cada cidade.</p>
       </div>
-      <div class="vitrine-texto" data-passo="1">
-        <span class="rotulo">No Gemini da conta UFG</span>
+      <div class="sua-vez" data-exercicio="planilha" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini</span>
         <h2 class="titulo">A planilha contada e arrumada</h2>
-        <p class="linha-fina">Em 159 linhas com 150 pessoas, o Gemini achou as 9 repetições, padronizou as cidades, ensinou a fórmula CONT.SE e gerou o arquivo com aba de resumo.</p>
-        <button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button>
+        <p class="linha-fina">Nas 159 linhas, o Gemini juntou as grafias das cidades, achou as 9 pessoas repetidas e devolveu a planilha com resumo. Por canal e por oficina, porém, contou inscrições (159) em vez de pessoas (150), sem avisar.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
       </div>
-      <div class="peca video" data-passo="1" data-ao-vivo="assets/video/gemini-planilha.mp4">
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-planilha.mp4">
         <div class="peca-giro">
-          <div class="frente"><span class="selo-video">gravado · esperas aceleradas</span><video src="assets/video/gemini-planilha.mp4" poster="assets/video/gemini-planilha.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-planilha.mp4" poster="assets/video/gemini-planilha.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
           <div class="verso verso-pedidos">
             <span class="rotulo">1º pedido</span>
-            <blockquote>Quero saber: quantas pessoas se inscreveram de cada cidade, de cada vínculo e em cada oficina? Tem alguém inscrito duas vezes? Faça um gráfico com as cidades. E me ensine a fórmula para eu fazer essa contagem sozinho no Excel da próxima vez.</blockquote>
+            <blockquote>Quero saber: quantas pessoas se inscreveram de cada cidade, por onde souberam do evento e em cada oficina? Tem alguém inscrito duas vezes? Faça um gráfico com as cidades. E me ensine a fórmula para eu fazer essa contagem sozinho no Excel da próxima vez.</blockquote>
             <span class="rotulo rotulo-2">2º pedido</span>
             <blockquote>Ótimo. Agora me devolva a planilha arrumada para eu baixar: com as cidades padronizadas, sem as inscrições repetidas e com uma aba de resumo com as contagens de pessoas únicas.</blockquote>
-            <p class="quem">Digitado no Gemini da conta UFG · 3 nov. 2026</p>
+            <p class="quem">Digitado no Gemini, com a planilha anexada · 3 nov. 2026</p>
             <dl>
               <dt>Quem fez</dt><dd>Gemini, no navegador</dd>
-              <dt>O que fez</dt><dd data-resumo="Gemini: contou, achou os 9 repetidos, ensinou o CONT.SE e devolveu a planilha arrumada.">Contou por cidade, vínculo e oficina, achou os 9 repetidos, ensinou o CONT.SE e devolveu a planilha arrumada</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: contou, achou os 9 repetidos, ensinou o CONT.SE e devolveu a planilha arrumada.">Contou por cidade, canal e oficina, achou os 9 repetidos, ensinou o CONT.SE e devolveu a planilha arrumada</dd>
             </dl>
           </div>
         </div>
       </div>
       <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="planilha" data-passo="3"></div>
     </div>
   </section>
 
-  <section class="cena" id="balanco" data-fase="2" data-passos="3" data-titulo="O que vimos">
+  <section class="cena" id="canvas" data-fase="2" data-passos="3" data-titulo="A calculadora">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Seis colegas dividiram as despesas da confraternização de fim de ano do setor. A Elisa não foi ao almoço, e <em>ninguém sabe quem deve quanto a quem</em>.</p>
+      </div>
+      <div class="sua-vez" data-exercicio="canvas" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini · Canvas</span>
+        <h2 class="titulo">Calculadora sob medida</h2>
+        <p class="linha-fina">Para 6 pessoas e 8 despesas, o Gemini montou uma calculadora no Canvas com total de R$ 1.528,20, igual à conta feita à mão. Com o almoço trocado de R$ 780 para R$ 900, recalculou tudo (R$ 1.648,20).</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-canvas.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-canvas.mp4" poster="assets/video/gemini-canvas.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Quero uma calculadora interativa no Canvas pra dividir os gastos da confraternização de fim de ano do nosso setor. Já deixa preenchida com a lista abaixo, mas com os valores e as pessoas editáveis. […] Cada despesa deve ser dividida em partes iguais só entre quem participou dela.</blockquote>
+            <p class="quem">Digitado no Gemini, com as 8 despesas no texto · 3 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, no navegador (Canvas)</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: criou no Canvas a calculadora que divide as 8 despesas e recalcula quando um valor muda.">Criou a calculadora, com as transferências e a conferência da conta; recalculou quando o almoço mudou</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="canvas" data-passo="3"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="cupons" data-fase="2" data-passos="3" data-titulo="Os comprovantes">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Você precisa prestar contas de 9 comprovantes de viagem fotografados com o celular, e <em>um dos cupons está desbotado</em>.</p>
+      </div>
+      <div class="sua-vez" data-exercicio="cupons" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini</span>
+        <h2 class="titulo">Nove comprovantes, total certo</h2>
+        <p class="linha-fina">O Gemini leu as 9 fotos de comprovantes e montou a tabela com o total certo, R$ 435,44. Acertou a data desbotada (13/07/2025), mas, num teste anterior, a mesma foto virou 19/07, sem aviso.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-cupons.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-cupons.mp4" poster="assets/video/gemini-cupons.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Tenho 9 comprovantes de despesas de uma viagem. Quero uma tabela com data, estabelecimento, categoria e valor de cada um, e o total no final. Se algum nome ou valor estiver ilegível, escreva "ilegível" em vez de chutar.</blockquote>
+            <p class="quem">Digitado no Gemini, com as 9 fotos anexadas · 3 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, no navegador</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: fez a tabela dos 9 comprovantes com o total certo, R$ 435,44.">Fez a tabela dos 9 comprovantes com o total certo, inclusive a data do cupom desbotado</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="cupons" data-passo="3"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="balanco" data-fase="2" data-passos="4" data-titulo="O que vimos">
     <div class="balanco">
-      <h2 class="titulo">A IA no navegador resolve bem, mas precisa de conferência sempre</h2>
+      <h2 class="titulo">O Gemini resolve tarefas no navegador, mas toda resposta precisa ser conferida</h2>
       <div class="cartoes">
-        <div class="cartao funciona" data-passo="1"><figure><img src="assets/img/fase2/tabela-correcoes.jpg" alt="Tabela do Gemini com trecho original, correção e motivo"></figure><b>Funciona</b><p>No relatório, o Gemini achou os 10 problemas, montou a tabela de correções e gerou o Word. Na planilha, achou as 9 inscrições repetidas e ensinou as fórmulas do Excel.</p></div>
-        <div class="cartao confira" data-passo="2"><figure><img src="assets/img/fase2/grafico-quebrado.jpg" alt="Gráfico da planilha gerada pelo Gemini, com o eixo de 0 a 1,2 e sem barras"></figure><b>Confira sempre</b><p>A pergunta era quantas pessoas, mas as tabelas da primeira resposta somaram as inscrições repetidas: 159 em vez de 150. O arquivo do segundo pedido trouxe as contagens certas, mas o gráfico veio vazio.</p></div>
-        <div class="cartao para" data-passo="3"><figure class="vaivem" aria-hidden="true"><span class="lado">seu computador</span><span class="trilha"><i class="doc sobe"></i><i class="doc sobe d2"></i><i class="doc desce"></i></span><span class="lado site">o site</span></figure><b>Onde ele para</b><p>Cada arquivo vai até o site e cada resultado volta como download. Numa pasta inteira com arquivos em formatos diferentes, isso vira subir, baixar e organizar tudo à mão.</p></div>
+        <div class="cartao funciona" data-passo="1"><figure><img src="assets/img/fase2/lousa-tabela.jpg" alt="A foto da lousa ao lado da tabela com as 7 tarefas feita pelo Gemini"></figure><b>Funciona</b><p>A lousa virou tabela com as 7 tarefas certas, e ele achou os 10 problemas do relatório. No contrato, citou as cláusulas certas e disse quando o contrato não falava do assunto. A calculadora fechou com a conta feita à mão, e o total dos comprovantes bateu.</p></div>
+        <div class="cartao confira" data-passo="2"><figure class="conta" aria-label="Oficina de projetos: ele contou 50; eram 46 pessoas"><span class="qual">Oficina de projetos</span><span class="linha ele">ele contou <b>50</b></span><span class="linha">pessoas <b>46</b></span></figure><b>Confira sempre</b><p>Na planilha, contou inscrições em vez de pessoas por canal e por oficina (50 na oficina de projetos, quando eram 46), sem avisar. No relatório, escolheu sozinho os números do texto corrigido. A resposta errada tem a mesma cara da certa.</p></div>
+        <div class="cartao recusa" data-passo="3"><figure><img src="assets/img/fase2/recusa-cupons.jpg" alt="Resposta do Gemini: Sou uma IA com base em texto. Isso está além das minhas capacidades."></figure><b>Se recusar, peça de novo</b><p>Nos testes, a primeira resposta às vezes foi uma recusa (“Sou uma IA com base em texto”, diante das fotos dos comprovantes). Não era verdade: o mesmo pedido, de novo, funcionou. Nas gravações finais, não recusou.</p></div>
+        <div class="cartao para" data-passo="4"><figure class="vaivem" aria-hidden="true"><span class="lado">seu computador</span><span class="trilha"><i class="doc sobe"></i><i class="doc sobe d2"></i><i class="doc desce"></i></span><span class="lado site">o site</span></figure><b>Onde ele para</b><p>No navegador, cada arquivo sobe ao site e cada resultado volta como download. Com uma pasta de dezenas de comprovantes todo mês, isso vira subir, baixar e organizar tudo à mão.</p></div>
       </div>
     </div>
   </section>
@@ -365,20 +543,18 @@
     </div>
   </section>
 
-  <section class="cena" id="instalar" data-fase="3" data-titulo="Instalar">
-    <div class="instalar">
-      <div>
-        <span class="rotulo">Antes de tudo</span>
-        <h2 class="titulo">Instale o Antigravity em uns 20 minutos</h2>
-        <p class="linha-fina">O passo a passo completo, com o que fazer se der errado, está na página Instalar do curso.</p>
-        <button class="abrir" type="button">Abrir o passo a passo <kbd>Enter</kbd></button>
-      </div>
-      <ol>
-        <li><span>No navegador, abra <code>antigravity.google/download</code> e baixe a versão do seu sistema.</span></li>
-        <li><span>Abra o arquivo baixado e instale o programa.</span></li>
-        <li><span>Entre com a conta pessoal @gmail.com, ou com a da UFG se estiver liberada.</span></li>
-        <li><span>Abra uma pasta vazia e pergunte: “Quais arquivos existem nesta pasta?”</span></li>
-      </ol>
+  <section class="cena" id="gratis-instalada" data-fase="3" data-titulo="De graça no computador">
+    <div class="gratis" data-secao="instalada">
+      <header class="gratis-cabeca">
+        <div>
+          <span class="rotulo">Fase 3 · Antes de instalar</span>
+          <h2 class="titulo">IA instalada de graça: três caminhos</h2>
+        </div>
+        <button class="abrir" type="button">Página completa <kbd>Enter</kbd></button>
+      </header>
+      <ul class="gratis-grade"></ul>
+      <p class="gratis-fora"></p>
+      <p class="gratis-rodape"></p>
     </div>
   </section>
 
@@ -433,6 +609,8 @@
 <script src="js/cena-sala.js"></script>
 <script src="js/cena-busca.js"></script>
 <script src="js/cena-vitrine.js"></script>
+<script src="js/exercicios.js"></script>
+<script src="js/resultados.js"></script>
 <script>
   // A ponte mostra o que mais toma o tempo da turma, sem prometer que a aula começa por ali.
   document.getElementById("ponte").addEventListener("entrou", () => {
@@ -448,13 +626,14 @@
     document.querySelector("#ponte .comeca-por").textContent = frase.replace("{lista}", lista);
   });
 
-  // Na primeira entrada da Fase 2, a coruja se apresenta e pousa no canto.
+  // Na tela do monitor, a coruja se apresenta e pousa no canto (só na primeira vez).
   // Enquanto ela fala, a seta só a leva ao canto, sem trocar de cena.
   // Vídeos gravados: começam do início quando a peça aparece, param ao sair; clique pausa.
   document.querySelectorAll(".peca.video").forEach((peca) => {
     const cena = peca.closest(".cena"), video = peca.querySelector("video");
+    const aparece = +peca.dataset.passo;
     cena.addEventListener("passo", (e) => {
-      if (e.detail >= 1) { video.currentTime = 0; video.play().catch(() => {}); } else video.pause();
+      if (e.detail === aparece) { video.currentTime = 0; video.play().catch(() => {}); } else video.pause();
     });
     cena.addEventListener("saiu", () => video.pause());
     video.addEventListener("click", () => (video.paused ? video.play() : video.pause()));
@@ -481,13 +660,9 @@
       texto.animate([{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }], { duration: 900, delay: 2800, easing: curva, fill: "backwards" });
     });
   })();
-  document.querySelector("#instalar .abrir").addEventListener("click", () => window.PALCO.abrirAoVivo("instalar.html", "Instalar o Antigravity"));
-  document.getElementById("instalar").addEventListener("tecla", (e) => {
-    if (e.detail.key === "Enter") { window.PALCO.abrirAoVivo("instalar.html", "Instalar o Antigravity"); e.preventDefault(); }
-  });
 
   let corujaApresentou = false;
-  document.getElementById("ponte").addEventListener("entrou", () => {
+  document.getElementById("monitor").addEventListener("entrou", () => {
     if (corujaApresentou || !window.Coruja) return;
     corujaApresentou = true;
     window.Coruja.apresentar().catch(() => {});
@@ -496,6 +671,7 @@
     if (window.Coruja?.apresentando) { window.Coruja.pular(); e.preventDefault(); }
   }));
 </script>
+<script src="js/gratis.js" defer></script>
 <script src="js/coruja.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Confraternização - Divisão de Gastos</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- React & ReactDOM 18 UMD -->
+    <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- Babel Standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useMemo, useEffect } = React;
+
+        // Dados Pré-carregados
+        const INITIAL_PEOPLE = ["Ana", "Bruno", "Carla", "Diego", "Elisa", "Fábio"];
+
+        const INITIAL_EXPENSES = [
+            {
+                id: 'exp-1',
+                description: 'Almoço no restaurante',
+                amount: 780.00,
+                paidBy: 'Ana',
+                participants: ['Ana', 'Bruno', 'Carla', 'Diego', 'Fábio'],
+                icon: '🍽️'
+            },
+            {
+                id: 'exp-2',
+                description: 'Bolo e salgados',
+                amount: 246.00,
+                paidBy: 'Bruno',
+                participants: ['Ana', 'Bruno', 'Carla', 'Diego', 'Elisa', 'Fábio'],
+                icon: '🎂'
+            },
+            {
+                id: 'exp-3',
+                description: 'Refrigerantes e sucos',
+                amount: 89.40,
+                paidBy: 'Carla',
+                participants: ['Ana', 'Bruno', 'Carla', 'Diego', 'Elisa', 'Fábio'],
+                icon: '🥤'
+            },
+            {
+                id: 'exp-4',
+                description: 'Decoração da sala',
+                amount: 64.80,
+                paidBy: 'Diego',
+                participants: ['Ana', 'Bruno', 'Carla', 'Diego', 'Elisa', 'Fábio'],
+                icon: '🎈'
+            },
+            {
+                id: 'exp-5',
+                description: 'Presente de despedida da Lúcia',
+                amount: 210.00,
+                paidBy: 'Elisa',
+                participants: ['Ana', 'Bruno', 'Carla', 'Diego', 'Elisa', 'Fábio'],
+                icon: '🎁'
+            },
+            {
+                id: 'exp-6',
+                description: 'Sorvete da sobremesa do almoço',
+                amount: 72.00,
+                paidBy: 'Fábio',
+                participants: ['Ana', 'Bruno', 'Carla', 'Diego', 'Fábio'],
+                icon: '🍦'
+            },
+            {
+                id: 'exp-7',
+                description: 'Copos, pratos e guardanapos',
+                amount: 38.40,
+                paidBy: 'Elisa',
+                participants: ['Ana', 'Bruno', 'Carla', 'Diego', 'Elisa', 'Fábio'],
+                icon: '🍽️'
+            },
+            {
+                id: 'exp-8',
+                description: 'Amigo secreto: embrulhos e etiquetas',
+                amount: 27.60,
+                paidBy: 'Carla',
+                participants: ['Ana', 'Bruno', 'Carla', 'Diego', 'Elisa', 'Fábio'],
+                icon: '🏷️'
+            }
+        ];
+
+        // Formatador de Moeda
+        const formatBRL = (value) => {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value || 0);
+        };
+
+        // Paleta de Cores para os Avatares
+        const AVATAR_COLORS = [
+            'bg-emerald-500 text-white',
+            'bg-indigo-500 text-white',
+            'bg-amber-500 text-white',
+            'bg-rose-500 text-white',
+            'bg-cyan-500 text-white',
+            'bg-purple-500 text-white',
+            'bg-blue-500 text-white',
+            'bg-teal-500 text-white'
+        ];
+
+        const getAvatarColor = (index) => AVATAR_COLORS[index % AVATAR_COLORS.length];
+
+        function App() {
+            // Estados Principais
+            const [people, setPeople] = useState(() => {
+                const saved = localStorage.getItem('confra_people');
+                return saved ? JSON.parse(saved) : INITIAL_PEOPLE;
+            });
+
+            const [expenses, setExpenses] = useState(() => {
+                const saved = localStorage.getItem('confra_expenses');
+                return saved ? JSON.parse(saved) : INITIAL_EXPENSES;
+            });
+
+            const [activeTab, setActiveTab] = useState('expenses'); // 'expenses', 'balances', 'pix', 'audit'
+            const [toastMessage, setToastMessage] = useState('');
+
+            // Estado do Formulário de Despesa
+            const [editingExpenseId, setEditingExpenseId] = useState(null);
+            const [formData, setFormData] = useState({
+                description: '',
+                amount: '',
+                paidBy: '',
+                participants: [],
+                icon: '💸'
+            });
+
+            // Estado para Edição de Nome de Pessoa
+            const [newPersonName, setNewPersonName] = useState('');
+            const [editingPerson, setEditingPerson] = useState(null);
+            const [editPersonNameValue, setEditPersonNameValue] = useState('');
+            const [expandedBreakdown, setExpandedBreakdown] = useState(null);
+
+            // Persistência local
+            useEffect(() => {
+                localStorage.setItem('confra_people', JSON.stringify(people));
+            }, [people]);
+
+            useEffect(() => {
+                localStorage.setItem('confra_expenses', JSON.stringify(expenses));
+            }, [expenses]);
+
+            // Toast helper
+            const showToast = (msg) => {
+                setToastMessage(msg);
+                setTimeout(() => setToastMessage(''), 3500);
+            };
+
+            // Restaurar Dados Originais
+            const handleResetData = () => {
+                if (confirm("Deseja restaurar a lista inicial de pessoas e despesas?")) {
+                    setPeople(INITIAL_PEOPLE);
+                    setExpenses(INITIAL_EXPENSES);
+                    setEditingExpenseId(null);
+                    showToast("Dados restaurados para o padrão original!");
+                }
+            };
+
+            // Pessoas: Adicionar, Editar, Remover
+            const handleAddPerson = (e) => {
+                e.preventDefault();
+                const name = newPersonName.trim();
+                if (!name) return;
+                if (people.includes(name)) {
+                    showToast("Essa pessoa já está na lista!");
+                    return;
+                }
+                setPeople([...people, name]);
+                setNewPersonName('');
+                showToast(`Pessoa "${name}" adicionada!`);
+            };
+
+            const handleStartEditPerson = (name) => {
+                setEditingPerson(name);
+                setEditPersonNameValue(name);
+            };
+
+            const handleSavePersonName = (oldName) => {
+                const newName = editPersonNameValue.trim();
+                if (!newName || newName === oldName) {
+                    setEditingPerson(null);
+                    return;
+                }
+                if (people.includes(newName)) {
+                    showToast("Já existe uma pessoa com esse nome.");
+                    return;
+                }
+
+                setPeople(people.map(p => p === oldName ? newName : p));
+                setExpenses(expenses.map(exp => ({
+                    ...exp,
+                    paidBy: exp.paidBy === oldName ? newName : exp.paidBy,
+                    participants: exp.participants.map(part => part === oldName ? newName : part)
+                })));
+
+                if (formData.paidBy === oldName) setFormData(prev => ({ ...prev, paidBy: newName }));
+                if (formData.participants.includes(oldName)) {
+                    setFormData(prev => ({
+                        ...prev,
+                        participants: prev.participants.map(p => p === oldName ? newName : p)
+                    }));
+                }
+
+                setEditingPerson(null);
+                showToast(`Nome alterado de "${oldName}" para "${newName}"`);
+            };
+
+            const handleRemovePerson = (nameToRemove) => {
+                if (people.length <= 1) {
+                    showToast("Deve haver pelo menos uma pessoa cadastrada.");
+                    return;
+                }
+
+                const updatedPeople = people.filter(p => p !== nameToRemove);
+                setPeople(updatedPeople);
+
+                setExpenses(expenses.map(exp => ({
+                    ...exp,
+                    paidBy: exp.paidBy === nameToRemove ? (updatedPeople[0] || '') : exp.paidBy,
+                    participants: exp.participants.filter(p => p !== nameToRemove)
+                })));
+
+                showToast(`"${nameToRemove}" foi removido(a).`);
+            };
+
+            // Gerenciamento de Despesas
+            const handleOpenAddExpense = () => {
+                setEditingExpenseId(null);
+                setFormData({
+                    description: '',
+                    amount: '',
+                    paidBy: people[0] || '',
+                    participants: [...people],
+                    icon: '🛒'
+                });
+            };
+
+            const handleStartEditExpense = (exp) => {
+                setEditingExpenseId(exp.id);
+                setFormData({
+                    description: exp.description,
+                    amount: exp.amount.toString(),
+                    paidBy: exp.paidBy,
+                    participants: [...exp.participants],
+                    icon: exp.icon || '💸'
+                });
+            };
+
+            const handleToggleParticipant = (person) => {
+                setFormData(prev => {
+                    const isParticipating = prev.participants.includes(person);
+                    if (isParticipating) {
+                        return { ...prev, participants: prev.participants.filter(p => p !== person) };
+                    } else {
+                        return { ...prev, participants: [...prev.participants, person] };
+                    }
+                });
+            };
+
+            const handleSelectAllParticipants = () => {
+                setFormData(prev => ({ ...prev, participants: [...people] }));
+            };
+
+            const handleDeselectAllParticipants = () => {
+                setFormData(prev => ({ ...prev, participants: [] }));
+            };
+
+            const handleSaveExpense = (e) => {
+                e.preventDefault();
+                const numAmount = parseFloat(formData.amount.replace(',', '.'));
+
+                if (!formData.description.trim()) {
+                    showToast("Por favor, preencha a descrição da despesa.");
+                    return;
+                }
+                if (isNaN(numAmount) || numAmount <= 0) {
+                    showToast("Digite um valor válido maior que zero.");
+                    return;
+                }
+                if (!formData.paidBy) {
+                    showToast("Selecione quem pagou a despesa.");
+                    return;
+                }
+                if (formData.participants.length === 0) {
+                    showToast("Selecione pelo menos um participante.");
+                    return;
+                }
+
+                const newExpObj = {
+                    id: editingExpenseId || `exp-${Date.now()}`,
+                    description: formData.description.trim(),
+                    amount: Math.round(numAmount * 100) / 100,
+                    paidBy: formData.paidBy,
+                    participants: formData.participants,
+                    icon: formData.icon || '💸'
+                };
+
+                if (editingExpenseId) {
+                    setExpenses(expenses.map(e => e.id === editingExpenseId ? newExpObj : e));
+                    showToast("Despesa atualizada com sucesso!");
+                } else {
+                    setExpenses([...expenses, newExpObj]);
+                    showToast("Nova despesa adicionada!");
+                }
+
+                handleOpenAddExpense();
+            };
+
+            const handleDeleteExpense = (id) => {
+                setExpenses(expenses.filter(e => e.id !== id));
+                showToast("Despesa excluída.");
+            };
+
+            // --- Cálculos Financeiros e Estatísticas ---
+            const totalSpent = useMemo(() => {
+                return expenses.reduce((acc, exp) => acc + (parseFloat(exp.amount) || 0), 0);
+            }, [expenses]);
+
+            const averagePerPerson = useMemo(() => {
+                return people.length > 0 ? totalSpent / people.length : 0;
+            }, [totalSpent, people]);
+
+            // Estatísticas individuais (Total Pago, Devido e Saldo)
+            const personStats = useMemo(() => {
+                const stats = {};
+                people.forEach(p => {
+                    stats[p] = {
+                        name: p,
+                        paid: 0,
+                        owed: 0,
+                        balance: 0,
+                        breakdown: []
+                    };
+                });
+
+                expenses.forEach(exp => {
+                    const amount = parseFloat(exp.amount) || 0;
+                    if (stats[exp.paidBy]) {
+                        stats[exp.paidBy].paid += amount;
+                    }
+
+                    const count = exp.participants.length;
+                    if (count > 0) {
+                        const share = amount / count;
+                        exp.participants.forEach(p => {
+                            if (stats[p]) {
+                                stats[p].owed += share;
+                                stats[p].breakdown.push({
+                                    id: exp.id,
+                                    description: exp.description,
+                                    totalAmount: amount,
+                                    paidBy: exp.paidBy,
+                                    share: share,
+                                    participantsCount: count
+                                });
+                            }
+                        });
+                    }
+                });
+
+                // Ajustar decimais
+                Object.keys(stats).forEach(name => {
+                    stats[name].paid = Math.round(stats[name].paid * 100) / 100;
+                    stats[name].owed = Math.round(stats[name].owed * 100) / 100;
+                    stats[name].balance = Math.round((stats[name].paid - stats[name].owed) * 100) / 100;
+                });
+
+                return Object.values(stats);
+            }, [people, expenses]);
+
+            // Algoritmo de Minimização de Transferências PIX
+            const settlements = useMemo(() => {
+                let debtors = [];
+                let creditors = [];
+
+                personStats.forEach(p => {
+                    const cents = Math.round(p.balance * 100);
+                    if (cents < -1) {
+                        debtors.push({ name: p.name, amount: -cents });
+                    } else if (cents > 1) {
+                        creditors.push({ name: p.name, amount: cents });
+                    }
+                });
+
+                debtors.sort((a, b) => b.amount - a.amount);
+                creditors.sort((a, b) => b.amount - a.amount);
+
+                const result = [];
+                let i = 0;
+                let j = 0;
+
+                while (i < debtors.length && j < creditors.length) {
+                    const debtor = debtors[i];
+                    const creditor = creditors[j];
+
+                    const payment = Math.min(debtor.amount, creditor.amount);
+
+                    if (payment > 0) {
+                        result.push({
+                            from: debtor.name,
+                            to: creditor.name,
+                            amount: payment / 100
+                        });
+                    }
+
+                    debtor.amount -= payment;
+                    creditor.amount -= payment;
+
+                    if (debtor.amount <= 1) i++;
+                    if (creditor.amount <= 1) j++;
+                }
+
+                return result;
+            }, [personStats]);
+
+            // Verificação da Auditoria
+            const auditInfo = useMemo(() => {
+                const totalPaidSum = personStats.reduce((a, b) => a + b.paid, 0);
+                const totalOwedSum = personStats.reduce((a, b) => a + b.owed, 0);
+                const totalBalanceSum = personStats.reduce((a, b) => a + b.balance, 0);
+
+                const paidOwedDiff = Math.abs(totalPaidSum - totalOwedSum);
+                const isZeroBalance = Math.abs(totalBalanceSum) < 0.05;
+                const isMatch = paidOwedDiff < 0.05;
+                const hasValidParticipants = expenses.every(e => e.participants.length > 0);
+
+                const isBalanced = isZeroBalance && isMatch && hasValidParticipants;
+
+                return {
+                    totalPaidSum,
+                    totalOwedSum,
+                    totalBalanceSum,
+                    isBalanced,
+                    paidOwedDiff
+                };
+            }, [personStats, expenses]);
+
+            // Copiar Resumo para o WhatsApp
+            const handleCopyWhatsApp = () => {
+                let text = `🎉 *CONFRATERNIZAÇÃO DE FIM DE ANO - FECHAMENTO DE CONTAS* 🎉\n\n`;
+                text += `💰 *Total Geral:* ${formatBRL(totalSpent)}\n`;
+                text += `👥 *Participantes:* ${people.length} pessoas\n\n`;
+
+                text += `📊 *RESUMO INDIVIDUAL:*\n`;
+                personStats.forEach(p => {
+                    const statusText = p.balance > 0 
+                        ? `A receber ${formatBRL(p.balance)}`
+                        : p.balance < 0 
+                        ? `A pagar ${formatBRL(Math.abs(p.balance))}`
+                        : `Quitado R$ 0,00`;
+                    text += `• *${p.name}*: Consumiu ${formatBRL(p.owed)} | Pagou ${formatBRL(p.paid)} ➔ ${statusText}\n`;
+                });
+
+                text += `\n💸 *TRANSFERÊNCIAS PIX (Minimizadas):*\n`;
+                if (settlements.length === 0) {
+                    text += `✅ Nenhuma transferência necessária! Ninguém deve nada a ninguém.\n`;
+                } else {
+                    settlements.forEach(s => {
+                        text += `• *${s.from}* ➔ transfere *${formatBRL(s.amount)}* para *${s.to}*\n`;
+                    });
+                }
+
+                text += `\n✅ *Auditoria:* Conta 100% conferida e fechada sem divergências!`;
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text)
+                        .then(() => showToast("Lista copiada! Cole no grupo do WhatsApp."))
+                        .catch(() => fallbackCopy(text));
+                } else {
+                    fallbackCopy(text);
+                }
+            };
+
+            const fallbackCopy = (text) => {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast("Lista copiada para a área de transferência!");
+                } catch (err) {
+                    showToast("Erro ao copiar automaticamente.");
+                }
+                document.body.removeChild(textArea);
+            };
+
+            return (
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    
+                    {/* TOAST NOTIFICATION */}
+                    {toastMessage && (
+                        <div className="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl text-sm font-medium flex items-center gap-2 animate-bounce">
+                            <span>✨</span>
+                            <span>{toastMessage}</span>
+                        </div>
+                    )}
+
+                    {/* TOP HEADER */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+                        <div>
+                            <div className="flex items-center gap-2">
+                                <span className="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-emerald-200">
+                                    Setor de Operações / Fim de Ano 🎄
+                                </span>
+                            </div>
+                            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1 tracking-tight">
+                                Calculadora de Confraternização
+                            </h1>
+                            <p className="text-slate-500 text-sm mt-0.5">
+                                Divisão justa, transparente e auditada de despesas por participante.
+                            </p>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <button 
+                                onClick={handleResetData}
+                                className="px-3.5 py-2 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl text-xs font-semibold text-slate-700 shadow-sm transition-all duration-150 flex items-center gap-1.5"
+                                title="Resetar para a lista e valores originais"
+                            >
+                                🔄 Restaurar Dados
+                            </button>
+
+                            <button 
+                                onClick={handleCopyWhatsApp}
+                                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all duration-150 flex items-center gap-1.5"
+                            >
+                                <span>📲 Copiar para WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* METRICS DASHBOARD */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+                        
+                        {/* Card 1: Total */}
+                        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                            <div className="absolute top-3 right-3 bg-emerald-50 text-emerald-600 p-2 rounded-xl text-xl">
+                                💸
+                            </div>
+                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Total de Gastos</span>
+                            <div className="text-2xl font-bold text-slate-900 mt-1">
+                                {formatBRL(totalSpent)}
+                            </div>
+                            <span className="text-xs text-slate-500 mt-1 block">
+                                Soma das {expenses.length} despesas lançadas
+                            </span>
+                        </div>
+
+                        {/* Card 2: Média */}
+                        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                            <div className="absolute top-3 right-3 bg-blue-50 text-blue-600 p-2 rounded-xl text-xl">
+                                ⚖️
+                            </div>
+                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Média Teórica / Pessoa</span>
+                            <div className="text-2xl font-bold text-slate-900 mt-1">
+                                {formatBRL(averagePerPerson)}
+                            </div>
+                            <span className="text-xs text-slate-500 mt-1 block">
+                                Entre os {people.length} participantes
+                            </span>
+                        </div>
+
+                        {/* Card 3: Despesas */}
+                        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                            <div className="absolute top-3 right-3 bg-purple-50 text-purple-600 p-2 rounded-xl text-xl">
+                                📋
+                            </div>
+                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Despesas Lançadas</span>
+                            <div className="text-2xl font-bold text-slate-900 mt-1">
+                                {expenses.length} itens
+                            </div>
+                            <span className="text-xs text-slate-500 mt-1 block">
+                                Editáveis em tempo real
+                            </span>
+                        </div>
+
+                        {/* Card 4: Conferência / Auditoria */}
+                        <div className={`p-5 rounded-2xl border shadow-sm relative overflow-hidden ${
+                            auditInfo.isBalanced 
+                            ? 'bg-emerald-50 border-emerald-200 text-emerald-900' 
+                            : 'bg-amber-50 border-amber-200 text-amber-900'
+                        }`}>
+                            <div className="text-xs font-semibold uppercase tracking-wider opacity-80">
+                                Conferência da Conta
+                            </div>
+                            <div className="text-lg font-bold mt-1 flex items-center gap-1.5">
+                                {auditInfo.isBalanced ? (
+                                    <>
+                                        <span className="text-emerald-600 text-xl">✅</span> 
+                                        <span>Conta 100% Zerada</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span className="text-amber-600 text-xl">⚠️</span> 
+                                        <span>Atenção na Conta</span>
+                                    </>
+                                )}
+                            </div>
+                            <span className="text-xs opacity-75 mt-1 block">
+                                {auditInfo.isBalanced 
+                                    ? 'Soma dos saldos é R$ 0,00' 
+                                    : 'Existe diferença entre pagamentos e consumos'}
+                            </span>
+                        </div>
+
+                    </div>
+
+                    {/* NAVIGATION TABS */}
+                    <div className="flex border-b border-slate-200 mt-8 overflow-x-auto custom-scrollbar">
+                        <button
+                            onClick={() => setActiveTab('expenses')}
+                            className={`py-3 px-5 text-sm font-semibold border-b-2 whitespace-nowrap transition-colors flex items-center gap-2 ${
+                                activeTab === 'expenses'
+                                ? 'border-emerald-600 text-emerald-700 bg-emerald-50/50 rounded-t-lg'
+                                : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+                            }`}
+                        >
+                            📝 Lançamentos & Participantes
+                        </button>
+
+                        <button
+                            onClick={() => setActiveTab('balances')}
+                            className={`py-3 px-5 text-sm font-semibold border-b-2 whitespace-nowrap transition-colors flex items-center gap-2 ${
+                                activeTab === 'balances'
+                                ? 'border-emerald-600 text-emerald-700 bg-emerald-50/50 rounded-t-lg'
+                                : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+                            }`}
+                        >
+                            📊 Balanço Individual ({people.length})
+                        </button>
+
+                        <button
+                            onClick={() => setActiveTab('pix')}
+                            className={`py-3 px-5 text-sm font-semibold border-b-2 whitespace-nowrap transition-colors flex items-center gap-2 ${
+                                activeTab === 'pix'
+                                ? 'border-emerald-600 text-emerald-700 bg-emerald-50/50 rounded-t-lg'
+                                : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+                            }`}
+                        >
+                            💸 Liquidação PIX ({settlements.length})
+                        </button>
+
+                        <button
+                            onClick={() => setActiveTab('audit')}
+                            className={`py-3 px-5 text-sm font-semibold border-b-2 whitespace-nowrap transition-colors flex items-center gap-2 ${
+                                activeTab === 'audit'
+                                ? 'border-emerald-600 text-emerald-700 bg-emerald-50/50 rounded-t-lg'
+                                : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+                            }`}
+                        >
+                            🔍 Conferência & Auditoria
+                        </button>
+                    </div>
+
+                    {/* MAIN CONTENT AREA */}
+                    <div className="mt-6">
+
+                        {/* TAB 1: LANÇAMENTOS E PARTICIPANTES */}
+                        {activeTab === 'expenses' && (
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                                {/* COLUNA DA ESQUERDA: GERENCIADOR DE PESSOAS & FORMULÁRIO */}
+                                <div className="lg:col-span-5 space-y-6">
+
+                                    {/* PAINEL DE PARTICIPANTES */}
+                                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                                        <div className="flex items-center justify-between mb-3">
+                                            <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
+                                                <span>👥</span> Participantes ({people.length})
+                                            </h3>
+                                        </div>
+
+                                        {/* Adicionar Pessoa */}
+                                        <form onSubmit={handleAddPerson} className="flex gap-2 mb-4">
+                                            <input 
+                                                type="text"
+                                                placeholder="Nome da nova pessoa..."
+                                                value={newPersonName}
+                                                onChange={(e) => setNewPersonName(e.target.value)}
+                                                className="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                                            />
+                                            <button 
+                                                type="submit"
+                                                className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-4 py-2 rounded-xl transition-colors shadow-sm"
+                                            >
+                                                + Adicionar
+                                            </button>
+                                        </form>
+
+                                        {/* Lista de Pessoas */}
+                                        <div className="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+                                            {people.map((person, idx) => {
+                                                const isEditing = editingPerson === person;
+                                                const expCount = expenses.filter(e => e.participants.includes(person)).length;
+                                                return (
+                                                    <div 
+                                                        key={person} 
+                                                        className="flex items-center justify-between p-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200/60 transition-colors"
+                                                    >
+                                                        {isEditing ? (
+                                                            <div className="flex items-center gap-2 w-full">
+                                                                <input 
+                                                                    type="text"
+                                                                    value={editPersonNameValue}
+                                                                    onChange={(e) => setEditPersonNameValue(e.target.value)}
+                                                                    className="flex-1 bg-white border border-emerald-500 rounded-lg px-2 py-1 text-sm focus:outline-none"
+                                                                    autoFocus
+                                                                />
+                                                                <button 
+                                                                    onClick={() => handleSavePersonName(person)}
+                                                                    className="text-xs bg-emerald-600 text-white px-2.5 py-1 rounded-lg font-semibold"
+                                                                >
+                                                                    OK
+                                                                </button>
+                                                                <button 
+                                                                    onClick={() => setEditingPerson(null)}
+                                                                    className="text-xs bg-slate-200 text-slate-700 px-2 py-1 rounded-lg"
+                                                                >
+                                                                    Cancel
+                                                                </button>
+                                                            </div>
+                                                        ) : (
+                                                            <>
+                                                                <div className="flex items-center gap-2.5">
+                                                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs shadow-xs ${getAvatarColor(idx)}`}>
+                                                                        {person.charAt(0)}
+                                                                    </div>
+                                                                    <span className="font-semibold text-slate-800 text-sm">{person}</span>
+                                                                    <span className="text-[11px] bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full font-medium">
+                                                                        {expCount} {expCount === 1 ? 'item' : 'itens'}
+                                                                    </span>
+                                                                </div>
+
+                                                                <div className="flex items-center gap-1">
+                                                                    <button 
+                                                                        onClick={() => handleStartEditPerson(person)}
+                                                                        className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-white rounded-lg text-xs"
+                                                                        title="Editar nome"
+                                                                    >
+                                                                        ✏️
+                                                                    </button>
+                                                                    <button 
+                                                                        onClick={() => handleRemovePerson(person)}
+                                                                        className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-white rounded-lg text-xs"
+                                                                        title="Remover participante"
+                                                                    >
+                                                                        🗑️
+                                                                    </button>
+                                                                </div>
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+
+                                    {/* FORMULÁRIO DE CADASTRO/EDIÇÃO DE DESPESA */}
+                                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                                        <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+                                            <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
+                                                <span>{editingExpenseId ? '✏️ Editar Despesa' : '➕ Nova Despesa'}</span>
+                                            </h3>
+                                            {editingExpenseId && (
+                                                <button 
+                                                    onClick={handleOpenAddExpense}
+                                                    className="text-xs text-slate-500 hover:text-slate-800 font-semibold underline"
+                                                >
+                                                    + Criar Nova Em Vez de Editar
+                                                </button>
+                                            )}
+                                        </div>
+
+                                        <form onSubmit={handleSaveExpense} className="space-y-4">
+                                            
+                                            <div>
+                                                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                                    Descrição da Despesa
+                                                </label>
+                                                <input 
+                                                    type="text"
+                                                    placeholder="Ex: Bebidas, Carvão, Sobremesa..."
+                                                    value={formData.description}
+                                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                                                    required
+                                                />
+                                            </div>
+
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                <div>
+                                                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                                        Valor Total (R$)
+                                                    </label>
+                                                    <input 
+                                                        type="number"
+                                                        step="0.01"
+                                                        placeholder="0,00"
+                                                        value={formData.amount}
+                                                        onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                                                        className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white font-semibold text-slate-900 transition-all"
+                                                        required
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                                        Quem Pagou?
+                                                    </label>
+                                                    <select 
+                                                        value={formData.paidBy}
+                                                        onChange={(e) => setFormData({ ...formData, paidBy: e.target.value })}
+                                                        className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white font-semibold transition-all"
+                                                    >
+                                                        {people.map(p => (
+                                                            <option key={p} value={p}>{p}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            {/* SELEÇÃO DE PARTICIPANTES */}
+                                            <div>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                                        Quem Consumiu / Participou? ({formData.participants.length} de {people.length})
+                                                    </label>
+                                                    <div className="flex gap-2">
+                                                        <button 
+                                                            type="button" 
+                                                            onClick={handleSelectAllParticipants}
+                                                            className="text-[11px] font-semibold text-emerald-600 hover:underline"
+                                                        >
+                                                            Todos
+                                                        </button>
+                                                        <span className="text-slate-300">|</span>
+                                                        <button 
+                                                            type="button" 
+                                                            onClick={handleDeselectAllParticipants}
+                                                            className="text-[11px] font-semibold text-slate-500 hover:underline"
+                                                        >
+                                                            Ninguém
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div className="grid grid-cols-2 gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                                    {people.map((person) => {
+                                                        const isChecked = formData.participants.includes(person);
+                                                        return (
+                                                            <button
+                                                                type="button"
+                                                                key={person}
+                                                                onClick={() => handleToggleParticipant(person)}
+                                                                className={`flex items-center gap-2 p-2 rounded-lg text-xs font-semibold transition-all border ${
+                                                                    isChecked 
+                                                                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm' 
+                                                                    : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300'
+                                                                }`}
+                                                            >
+                                                                <span className={`w-4 h-4 rounded flex items-center justify-center text-[10px] ${
+                                                                    isChecked ? 'bg-white text-emerald-700 font-bold' : 'border border-slate-300'
+                                                                }`}>
+                                                                    {isChecked ? '✓' : ''}
+                                                                </span>
+                                                                <span className="truncate">{person}</span>
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+                                                {formData.participants.length > 0 && formData.amount > 0 && (
+                                                    <p className="text-xs text-slate-500 mt-2 text-right">
+                                                        Valor individual: <strong className="text-slate-800">{formatBRL(formData.amount / formData.participants.length)}</strong> por pessoa
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            <div className="pt-2 flex gap-2">
+                                                <button
+                                                    type="submit"
+                                                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm transition-colors shadow-md shadow-emerald-600/20"
+                                                >
+                                                    {editingExpenseId ? '💾 Salvar Alterações' : '✨ Cadastrar Despesa'}
+                                                </button>
+
+                                                {editingExpenseId && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={handleOpenAddExpense}
+                                                        className="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-4 py-2.5 rounded-xl text-sm transition-colors"
+                                                    >
+                                                        Cancelar
+                                                    </button>
+                                                )}
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                                {/* COLUNA DA DIREITA: LISTA DE DESPESAS */}
+                                <div className="lg:col-span-7">
+                                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                                        <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+                                            <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
+                                                <span>📜</span> Despesas Cadastradas ({expenses.length})
+                                            </h3>
+                                            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                                                Total: {formatBRL(totalSpent)}
+                                            </span>
+                                        </div>
+
+                                        {expenses.length === 0 ? (
+                                            <div className="text-center py-12 text-slate-400">
+                                                <p className="text-3xl mb-2">🛒</p>
+                                                <p className="text-sm font-medium">Nenhuma despesa cadastrada.</p>
+                                            </div>
+                                        ) : (
+                                            <div className="space-y-3">
+                                                {expenses.map((exp) => {
+                                                    const share = exp.participants.length > 0 ? exp.amount / exp.participants.length : 0;
+                                                    const isEditingThis = editingExpenseId === exp.id;
+                                                    return (
+                                                        <div 
+                                                            key={exp.id} 
+                                                            className={`p-4 rounded-xl border transition-all ${
+                                                                isEditingThis 
+                                                                ? 'border-emerald-500 bg-emerald-50/40 shadow-sm' 
+                                                                : 'border-slate-200 bg-white hover:border-slate-300'
+                                                            }`}
+                                                        >
+                                                            <div className="flex items-start justify-between gap-3">
+                                                                <div className="flex items-start gap-3">
+                                                                    <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-xl shrink-0 mt-0.5">
+                                                                        {exp.icon || '💸'}
+                                                                    </div>
+                                                                    <div>
+                                                                        <h4 className="font-bold text-slate-900 text-base leading-snug">
+                                                                            {exp.description}
+                                                                        </h4>
+                                                                        <div className="flex items-center gap-2 mt-0.5 text-xs text-slate-500">
+                                                                            <span>Pagador: <strong className="text-slate-800">{exp.paidBy}</strong></span>
+                                                                            <span>•</span>
+                                                                            <span>Rateio: <strong className="text-slate-800">{formatBRL(share)} / pessoa</strong></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="text-right shrink-0">
+                                                                    <div className="text-base font-extrabold text-slate-900">
+                                                                        {formatBRL(exp.amount)}
+                                                                    </div>
+                                                                    <div className="flex items-center justify-end gap-1 mt-1">
+                                                                        <button 
+                                                                            onClick={() => handleStartEditExpense(exp)}
+                                                                            className="p-1 text-slate-400 hover:text-emerald-600 rounded text-xs font-semibold"
+                                                                            title="Editar despesa"
+                                                                        >
+                                                                            ✏️ Editar
+                                                                        </button>
+                                                                        <button 
+                                                                            onClick={() => handleDeleteExpense(exp.id)}
+                                                                            className="p-1 text-slate-400 hover:text-red-600 rounded text-xs font-semibold"
+                                                                            title="Excluir despesa"
+                                                                        >
+                                                                            🗑️ Excluir
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            {/* PARTICIPANTES BADGES */}
+                                                            <div className="mt-3 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
+                                                                <span className="text-[11px] font-semibold text-slate-400 mr-1">
+                                                                    Quem participa ({exp.participants.length}):
+                                                                </span>
+                                                                {exp.participants.map(p => (
+                                                                    <span 
+                                                                        key={p} 
+                                                                        className="text-[11px] font-medium bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md"
+                                                                    >
+                                                                        {p}
+                                                                    </span>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                            </div>
+                        )}
+
+                        {/* TAB 2: BALANÇO INDIVIDUAL */}
+                        {activeTab === 'balances' && (
+                            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div>
+                                        <h3 className="font-bold text-slate-900 text-lg">📊 Balanço Individual por Participante</h3>
+                                        <p className="text-xs text-slate-500">Veja quanto cada pessoa pagou, quanto consumiu e o saldo final ajustado.</p>
+                                    </div>
+                                    <div className="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded-lg font-medium">
+                                        Clique na linha para expandir o extrato detalhado
+                                    </div>
+                                </div>
+
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-sm">
+                                        <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-semibold text-xs uppercase tracking-wider">
+                                            <tr>
+                                                <th className="py-3.5 px-4">Participante</th>
+                                                <th className="py-3.5 px-4 text-right">Total Pago</th>
+                                                <th className="py-3.5 px-4 text-right">Consumo Devido</th>
+                                                <th className="py-3.5 px-4 text-right">Saldo Líquido</th>
+                                                <th className="py-3.5 px-4 text-center">Status</th>
+                                                <th className="py-3.5 px-4 text-center">Detalhes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-200">
+                                            {personStats.map((p, idx) => {
+                                                const isExpanded = expandedBreakdown === p.name;
+                                                const isCreditor = p.balance > 0.01;
+                                                const isDebtor = p.balance < -0.01;
+
+                                                return (
+                                                    <React.Fragment key={p.name}>
+                                                        <tr 
+                                                            onClick={() => setExpandedBreakdown(isExpanded ? null : p.name)}
+                                                            className="hover:bg-slate-50/80 cursor-pointer transition-colors"
+                                                        >
+                                                            <td className="py-4 px-4 font-bold text-slate-900 flex items-center gap-3">
+                                                                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs shadow-xs font-bold ${getAvatarColor(idx)}`}>
+                                                                    {p.name.charAt(0)}
+                                                                </div>
+                                                                {p.name}
+                                                            </td>
+
+                                                            <td className="py-4 px-4 text-right font-semibold text-slate-700">
+                                                                {formatBRL(p.paid)}
+                                                            </td>
+
+                                                            <td className="py-4 px-4 text-right font-semibold text-slate-700">
+                                                                {formatBRL(p.owed)}
+                                                            </td>
+
+                                                            <td className={`py-4 px-4 text-right font-extrabold text-base ${
+                                                                isCreditor ? 'text-emerald-600' : isDebtor ? 'text-rose-600' : 'text-slate-500'
+                                                            }`}>
+                                                                {p.balance > 0 ? `+${formatBRL(p.balance)}` : formatBRL(p.balance)}
+                                                            </td>
+
+                                                            <td className="py-4 px-4 text-center">
+                                                                {isCreditor && (
+                                                                    <span className="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-200">
+                                                                        <span>📥</span> A Receber
+                                                                    </span>
+                                                                )}
+                                                                {isDebtor && (
+                                                                    <span className="inline-flex items-center gap-1 bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-full border border-rose-200">
+                                                                        <span>📤</span> A Pagar
+                                                                    </span>
+                                                                )}
+                                                                {!isCreditor && !isDebtor && (
+                                                                    <span className="inline-flex items-center gap-1 bg-slate-100 text-slate-700 text-xs font-bold px-2.5 py-1 rounded-full border border-slate-200">
+                                                                        <span>✅</span> Quitado
+                                                                    </span>
+                                                                )}
+                                                            </td>
+
+                                                            <td className="py-4 px-4 text-center text-slate-400 font-bold">
+                                                                {isExpanded ? '▲' : '▼'}
+                                                            </td>
+                                                        </tr>
+
+                                                        {/* LINHA EXPANDIDA COM O EXTRATO DETALHADO */}
+                                                        {isExpanded && (
+                                                            <tr className="bg-slate-50/90">
+                                                                <td colSpan="6" className="p-4">
+                                                                    <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                                                                        <h4 className="font-bold text-xs uppercase tracking-wider text-slate-500 border-b pb-2">
+                                                                            Extrato de participações de {p.name}:
+                                                                        </h4>
+
+                                                                        {p.breakdown.length === 0 ? (
+                                                                            <p className="text-xs text-slate-400 italic">Não participou de nenhuma despesa.</p>
+                                                                        ) : (
+                                                                            <div className="space-y-1.5">
+                                                                                {p.breakdown.map((item, i) => (
+                                                                                    <div key={i} className="flex items-center justify-between text-xs py-1 px-2 hover:bg-slate-50 rounded">
+                                                                                        <span className="text-slate-700 font-medium">
+                                                                                            {item.description} <span className="text-slate-400">(Pagador: {item.paidBy})</span>
+                                                                                        </span>
+                                                                                        <div className="text-right">
+                                                                                            <span className="text-slate-500">
+                                                                                                {formatBRL(item.totalAmount)} / {item.participantsCount} pessoas = 
+                                                                                            </span>
+                                                                                            <span className="font-bold text-slate-900 ml-1">
+                                                                                                {formatBRL(item.share)}
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                ))}
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        )}
+                                                    </React.Fragment>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* TAB 3: LIQUIDAÇÃO PIX */}
+                        {activeTab === 'pix' && (
+                            <div className="space-y-6">
+
+                                <div className="bg-emerald-900 text-white p-6 rounded-2xl shadow-md relative overflow-hidden">
+                                    <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                        <div>
+                                            <span className="bg-emerald-800 text-emerald-200 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                                                Algoritmo de Minimização
+                                            </span>
+                                            <h3 className="text-2xl font-extrabold mt-2">
+                                                Plano Acelerado de Transferências (PIX)
+                                            </h3>
+                                            <p className="text-emerald-100 text-sm mt-1 max-w-2xl">
+                                                Com apenas <strong className="text-white underline">{settlements.length} transferências</strong>, 
+                                                todas as contas do setor são 100% quitadas sem a necessidade de múltiplos pagamentos entre todos!
+                                            </p>
+                                        </div>
+
+                                        <button 
+                                            onClick={handleCopyWhatsApp}
+                                            className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-5 py-3 rounded-xl text-sm transition-colors shadow-lg flex items-center justify-center gap-2 shrink-0"
+                                        >
+                                            <span>📲 Copiar para WhatsApp</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {settlements.length === 0 ? (
+                                    <div className="bg-white p-12 rounded-2xl border border-slate-200 text-center">
+                                        <div className="text-4xl mb-3">🎉</div>
+                                        <h4 className="text-lg font-bold text-slate-800">Contas Perfeitamente Equilibradas!</h4>
+                                        <p className="text-sm text-slate-500 mt-1">Ninguém precisa fazer nenhuma transferência.</p>
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {settlements.map((item, idx) => (
+                                            <div 
+                                                key={idx}
+                                                className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between gap-4"
+                                            >
+                                                {/* DEVEDOR */}
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-10 h-10 rounded-full bg-rose-100 text-rose-700 font-bold flex items-center justify-center text-sm border border-rose-200">
+                                                        {item.from.charAt(0)}
+                                                    </div>
+                                                    <div>
+                                                        <span className="text-[11px] font-bold text-rose-600 uppercase tracking-wider block">Paga (PIX)</span>
+                                                        <span className="font-extrabold text-slate-900 text-base">{item.from}</span>
+                                                    </div>
+                                                </div>
+
+                                                {/* VALOR E SETA */}
+                                                <div className="flex flex-col items-center justify-center px-2">
+                                                    <span className="text-base font-extrabold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                                                        {formatBRL(item.amount)}
+                                                    </span>
+                                                    <span className="text-slate-300 text-lg mt-0.5">➔</span>
+                                                </div>
+
+                                                {/* CREDOR */}
+                                                <div className="flex items-center gap-3 text-right">
+                                                    <div>
+                                                        <span className="text-[11px] font-bold text-emerald-600 uppercase tracking-wider block">Recebe</span>
+                                                        <span className="font-extrabold text-slate-900 text-base">{item.to}</span>
+                                                    </div>
+                                                    <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-sm border border-emerald-200">
+                                                        {item.to.charAt(0)}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                            </div>
+                        )}
+
+                        {/* TAB 4: CONFERÊNCIA E AUDITORIA */}
+                        {activeTab === 'audit' && (
+                            <div className="space-y-6">
+
+                                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-1">🔍 Demostrativo de Auditabilidade e Fechamento</h3>
+                                    <p className="text-xs text-slate-500 mb-6">Validação matemática em tempo real garantindo que nenhum centavo seja perdido.</p>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                            <span className="text-xs font-semibold text-slate-500 uppercase">1. Total de Pagamentos</span>
+                                            <div className="text-xl font-bold text-slate-900 mt-1">{formatBRL(auditInfo.totalPaidSum)}</div>
+                                            <span className="text-[11px] text-slate-400">Soma dos desembolsos efetivos</span>
+                                        </div>
+
+                                        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                            <span className="text-xs font-semibold text-slate-500 uppercase">2. Total de Consumo</span>
+                                            <div className="text-xl font-bold text-slate-900 mt-1">{formatBRL(auditInfo.totalOwedSum)}</div>
+                                            <span className="text-[11px] text-slate-400">Soma das frações devidas</span>
+                                        </div>
+
+                                        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                            <span className="text-xs font-semibold text-slate-500 uppercase">3. Soma dos Saldos Líquidos</span>
+                                            <div className="text-xl font-bold text-slate-900 mt-1">{formatBRL(auditInfo.totalBalanceSum)}</div>
+                                            <span className="text-[11px] text-slate-400">Deve ser exatamente R$ 0,00</span>
+                                        </div>
+                                    </div>
+
+                                    {/* STATUS FINAL */}
+                                    <div className={`p-4 rounded-xl border ${
+                                        auditInfo.isBalanced 
+                                        ? 'bg-emerald-50 border-emerald-200 text-emerald-900' 
+                                        : 'bg-rose-50 border-rose-200 text-rose-900'
+                                    }`}>
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-2xl">{auditInfo.isBalanced ? '✅' : '❌'}</span>
+                                            <div>
+                                                <h4 className="font-bold text-sm">
+                                                    {auditInfo.isBalanced 
+                                                        ? 'CONFERÊNCIA APROVADA: A conta fecha com 100% de precisão!' 
+                                                        : 'DIVERGÊNCIA DETECTADA'}
+                                                </h4>
+                                                <p className="text-xs mt-0.5 opacity-90">
+                                                    {auditInfo.isBalanced 
+                                                        ? 'Todos os valores pagos equivalem ao consumo exato de cada participante. Não há sobra nem falta de dinheiro.'
+                                                        : `Existe uma variação de ${formatBRL(auditInfo.paidOwedDiff)} entre a soma dos pagamentos e os rateios.`}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* TABELA DE RESUMO POR DESPESA */}
+                                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                                    <h4 className="font-bold text-slate-900 text-sm mb-3">
+                                        📋 Conferência por Lançamento Individual:
+                                    </h4>
+                                    <div className="space-y-2">
+                                        {expenses.map(exp => {
+                                            const count = exp.participants.length;
+                                            const share = count > 0 ? exp.amount / count : 0;
+                                            return (
+                                                <div key={exp.id} className="flex items-center justify-between text-xs py-2 px-3 bg-slate-50 rounded-lg border border-slate-200">
+                                                    <div className="font-medium text-slate-800">
+                                                        <span className="mr-2">{exp.icon || '💸'}</span>
+                                                        <strong>{exp.description}</strong>
+                                                    </div>
+                                                    <div className="text-right font-mono">
+                                                        <span className="text-slate-500">{formatBRL(exp.amount)} ÷ {count} pessoas = </span>
+                                                        <span className="font-bold text-emerald-700">{formatBRL(share)}/pess.</span>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                            </div>
+                        )}
+
+                    </div>
+
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>

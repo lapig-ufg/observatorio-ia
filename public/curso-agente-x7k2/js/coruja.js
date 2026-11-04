@@ -260,12 +260,12 @@
         ${pagina ? "" : '<button class="coruja-fechar" type="button" aria-label="Fechar">×</button>'}
       </header>
       <ol class="coruja-conversa" aria-live="polite">
-        <li class="dela boas-vindas"><p>Oi! Eu sou o Observatório. Pergunte sobre o curso, a instalação ou as missões: respondo e levo você à página certa.</p></li>
+        <li class="dela boas-vindas"><p>Oi! Eu sou o Observatório. Pergunte sobre o curso, os exercícios ou a instalação: respondo e levo você à página certa.</p></li>
       </ol>
       <div class="coruja-sugestoes" aria-label="Perguntas comuns">
         <button type="button">Como instalo o Antigravity?</button>
         <button type="button">O Windows bloqueou o instalador</button>
-        <button type="button">Onde baixo os arquivos da Missão 1?</button>
+        <button type="button">A conta da universidade funciona?</button>
         <button type="button">O que a IA lê sai do meu computador?</button>
       </div>
       <form class="coruja-form">
@@ -658,7 +658,7 @@
       <div class="ca-texto">
         <p class="ca-1">Este é o Observatório.</p>
         <p class="ca-2">Travou? Pergunte a ele.</p>
-        <p class="ca-3">Ele responde sobre o curso, a instalação e as missões, e leva você à página certa. Fica aqui no canto da tela.</p>
+        <p class="ca-3">Ele responde sobre o curso e a instalação, e leva você à página certa. Fica aqui no canto da tela.</p>
       </div>`;
     document.body.append(palco);
     const grande = await criarCoruja(palco.querySelector(".ca-coruja"));
