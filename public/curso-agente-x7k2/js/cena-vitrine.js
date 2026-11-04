@@ -31,11 +31,14 @@
     });
     const virar = () => { if (P.revelado && peca.classList.contains("visto")) virarCarta(peca); };
     cena.querySelector(".virar")?.addEventListener("click", virar);
-    cena.querySelector(".abrir")?.addEventListener("click", () => P.abrirAoVivo(url, nome));
+    // Vídeo gravado: abre a tela cheia do player (js/player.js), com os mesmos controles da miniatura.
+    // Os outros (jogo, página, 3D): abrem ao vivo no quadro grande.
+    const abrir = () => (peca.telaCheia ? peca.telaCheia() : url && P.abrirAoVivo(url, nome));
+    cena.querySelector(".abrir")?.addEventListener("click", abrir);
     cena.addEventListener("tecla", (e) => {
       const k = e.detail.key;
       if ((k === "v" || k === "V") && P.revelado) { virar(); e.preventDefault(); }
-      if (k === "Enter" && url) { P.abrirAoVivo(url, nome); e.preventDefault(); }
+      if (k === "Enter" && (peca.telaCheia || url)) { abrir(); e.preventDefault(); }
     });
   });
 

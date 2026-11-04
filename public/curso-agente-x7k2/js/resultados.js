@@ -178,6 +178,141 @@ window.RESULTADOS = {
     esperado: "Certo: total de R$ 1.648,20. Só os 5 do almoço pagam R$ 24,00 a mais: a Ana passa a receber R$ 592,90, e a Elisa continua com R$ 135,70. Foi o que ele mostrou na gravação.",
     nota: "Do código dele, só fixamos as versões das bibliotecas que ele carrega, para não quebrar com o tempo.",
   },
+
+  // ----- Fase 3: o resultado ESPERADO, montado a partir dos gabaritos de material/fase3.
+  // A gravação do Antigravity ainda não foi feita; quando for, o que ele fez entra aqui. -----
+
+  viagens: {
+    rotulo: "O resultado esperado",
+    titulo: "O hotel entra uma vez só",
+    fonte: "Montado com o gabarito, antes da gravação no Antigravity",
+    rever: "◀ Voltar à gravação",
+    tipo: "viagens",
+    colunas: ["Data", "Estabelecimento", "Categoria", "Valor (R$)"],
+    viagens: [
+      { nome: "viagem-1", sub: "Campinas · out. 2024 · parte A",
+        linhas: [
+          { c: ["10/10/2024", "Hotel Portal das Águas", "Hospedagem", "1.240,00"], arq: "voucher-reserva-58213.pdf", img: ["voucher-reserva-58213"], estado: "ok",
+            nota: "Voucher da reserva 58213: 4 diárias, de 14 a 18/10, pagas por Pix. É a despesa do hotel." },
+          { c: ["10/10/2024", "Hotel Portal das Águas", "Hospedagem", "1.240,00"], arq: "comprovante_pix_20241010.pdf", img: ["voucher-reserva-58213", "comprovante_pix_20241010"], estado: "erro", fora: true,
+            nota: "<b>A armadilha.</b> O Pix pagou a mesma reserva 58213, no mesmo valor. Somar os dois cobra o hotel em dobro, e o total vai para <b>R$ 2.790,74</b>. O certo é uma linha só, citando os dois arquivos." },
+          { c: ["14/10/2024", "Viação Serra Azul", "Transporte", "89,90"], arq: "bilhete.pdf", img: ["bilhete"], estado: "ok",
+            nota: "Ônibus de ida, de Vila Nova do Campo para Campinas. Não há bilhete de volta na pasta." },
+          { c: ["14/10/2024", "Nico Panificadora", "Alimentação", "39,90"], arq: "IMG_20241014_161520.jpg", img: ["IMG_20241014_161520"], estado: "ok", nota: "Sem dificuldade de leitura." },
+          { c: ["15/10/2024", "Nico Panificadora", "Alimentação", "51,34"], arq: "IMG_20241015_105420.jpg", img: ["IMG_20241015_105420"], estado: "ok", nota: "Tem um item vendido por quilo (0,182 kg × 79,90)." },
+          { c: ["16/10/2024", "Nico Panificadora", "Alimentação", "40,90"], arq: "IMG_20241016_141118.jpg", img: ["IMG_20241016_141118"], estado: "ok", nota: "Almoço por quilo (0,286 kg × 104,90)." },
+          { c: ["17/10/2024", "Vila do Grão", "Alimentação", "73,70"], arq: "IMG_20241017_124625.jpg", img: ["IMG_20241017_124625"], estado: "atencao",
+            nota: "Subtotal de R$ 67,00 mais R$ 6,70 de serviço. O cupom escreve “serviço (0%)”, mas cobra 10%. Quem ler 0% chega a R$ 1.544,04." },
+          { c: ["18/10/2024", "Village Residence Hotelaria", "Hospedagem", "15,00"], arq: "Scan_20241018_105957.jpg", img: ["Scan_20241018_105957"], estado: "atencao",
+            nota: "Nota fiscal de serviço em folha A4, de um consumo no hotel. É outra despesa, diferente da diária do Portal das Águas. Se ficar de fora, o total cai para R$ 1.535,74." },
+        ],
+        total: "1.550,74", errado: { rotulo: "Com o Pix somado de novo", valor: "2.790,74" },
+        nota: "Depois da parte A, a viagem-1 tem subpastas por categoria, a planilha e a lista de pendências. Na raiz de 1-viagens fica o arquivo de instruções que a parte B vai seguir." },
+      { nome: "viagem-2", sub: "Rio de Janeiro e Mato Grosso · jun. e jul. 2025 · parte B",
+        linhas: [
+          { c: ["24/06/2025", "Valente e Califé", "Alimentação", "30,90"], arq: "IMG_20250624_152340.jpg", img: ["IMG_20250624_152340"], estado: "atencao",
+            nota: "A coluna da direita está cortada (0,0… e 30,8…). Vale o total impresso, R$ 30,90. Quem ler 30,80 chega a R$ 253,40." },
+          { c: ["24/06/2025", "Move Fácil", "Transporte", "38,90"], arq: "recibo-corrida-24062025.pdf", img: ["recibo-corrida-24062025"], estado: "ok", nota: "Corrida por aplicativo, do Galeão para Botafogo." },
+          { c: ["30/06/2025", "Dufry Duty Free Shop", "Compras", "65,70"], arq: "IMG_20250630_145320.jpg", img: ["IMG_20250630_145320"], estado: "atencao",
+            nota: "Os quatro itens de 16,43 somam 65,72, mas vale o total impresso, R$ 65,70." },
+          { c: ["30/06/2025", "Aero Vale, voo AV 4821", "Não é despesa", "—"], arq: "cartao-de-embarque.pdf", img: ["cartao-de-embarque"], estado: "erro", fora: true,
+            nota: "<b>O intruso.</b> Cartão de embarque não tem valor e não entra na prestação de contas. Se virar uma linha com valor, o total fica errado." },
+          { c: ["12/07/2025", "Espeto do Vizinho", "Alimentação", "30,00"], arq: "IMG_20250712_214502.jpg", img: ["IMG_20250712_214502"], estado: "atencao",
+            nota: "O papel diz “não é documento fiscal”: é a conferência da conta. A despesa foi paga, mas a observação precisa dizer o que ele é." },
+          { c: ["13/07/2025", "FL Empreendimentos Comerciais", "Alimentação", "88,00"], arq: "IMG_20250713_014530.jpg", img: ["IMG_20250713_014530"], estado: "atencao",
+            nota: "O topo está desbotado. O rodapé mostra 13/07/2025 01:41:30, então 13/07 é a data provável. A dúvida vai para a lista de pendências." },
+        ],
+        total: "253,50",
+        nota: "Na parte B o pedido é uma frase só: o agente segue o arquivo de instruções que ele mesmo escreveu na parte A." },
+    ],
+  },
+
+  certificados: {
+    rotulo: "O resultado esperado",
+    titulo: "Vinte linhas, dezesseis certificados",
+    fonte: "Montado com o gabarito, antes da gravação no Antigravity",
+    rever: "◀ Voltar à gravação",
+    tipo: "certificados",
+    modelo: "assets/img/fase3/previa-modelo.jpg",
+    oficina: "Oficina de Planilhas para o Dia a Dia", data: "23 de maio de 2026", carga: "8 horas",
+    linhas: [
+      [2, "02/04/2026", "Ana Júlia Conceição", "ana.conceicao@exemplo.com"],
+      [3, "02/04/2026", "Bruno Tavares Lima", "bruno.lima@exemplo.com"],
+      [4, "03/04/2026", "Camila Ferreira dos Santos", "camila.santos@exemplo.com"],
+      [5, "03/04/2026", "Diego Nogueira Alves", "diego.alves@exemplo.com"],
+      [6, "04/04/2026", "Elisa Martins Rocha", "elisa.rocha@exemplo.com"],
+      [7, "05/04/2026", "Fábio Ribeiro de Souza", "fabio.souza@exemplo.com"],
+      [8, "05/04/2026", "Gabriela Nunes Pereira", "gabriela.pereira@exemplo.com"],
+      [9, "06/04/2026", "Henrique Oliveira Castro", "henrique.castro@exemplo.com"],
+      [10, "07/04/2026", "Isabela Ramos Cardoso", "isabela.cardoso@exemplo.com"],
+      [11, "07/04/2026", "João Pedro Almeida", "joao.almeida@exemplo.com"],
+      [12, "08/04/2026", "Karina Lopes Mendes", "karina.mendes@exemplo.com"],
+      [13, "09/04/2026", "Leonardo Prado Vieira", "leonardo.vieira@exemplo.com"],
+      [14, "10/04/2026", "Mariana Costa Batista", "mariana.batista@exemplo.com"],
+      [15, "10/04/2026", "Natália Gomes Faria", "natalia.faria@exemplo.com"],
+      [16, "11/04/2026", "Otávio Siqueira Braga", "otavio.braga@exemplo.com"],
+      [17, "12/04/2026", "Patrícia Melo Andrade", "patricia.andrade@exemplo.com"],
+      [18, "14/04/2026", "ana júlia conceição", "ana.conceicao@exemplo.com"],
+      [19, "15/04/2026", "Fabio Ribeiro de Souza", "fabio.souza@exemplo.com"],
+      [20, "16/04/2026", "Mariana  Costa Batista", "mariana.batista@exemplo.com"],
+      [21, "17/04/2026", "Otávio Siqueira Braga", "otavio.braga@exemplo.com"],
+    ],
+    // Linha repetida → linha original, o que mudou e o que se vê se a IA errar.
+    repetidas: {
+      18: { de: 2, como: "nome todo em minúsculas", nota: "Se a IA não juntar as duas linhas, sai um 17º certificado, com o nome em minúsculas. Ou um arquivo sobrescreve o outro e fica a versão errada." },
+      19: { de: 7, como: "nome sem acento", nota: "O mesmo e-mail da linha 7. Se virar certificado, o Fábio recebe dois, e um deles sem acento." },
+      20: { de: 14, como: "espaço a mais", nota: "Há dois espaços entre “Mariana” e “Costa”. Para quem lê, parece igual; para a máquina, é outro nome." },
+      21: { de: 16, como: "mesmo nome, outra data", nota: "A mais difícil: o nome é idêntico. A pista é o e-mail repetido. Se passar, o Otávio ganha dois certificados." },
+    },
+    nota: "Também vale abrir um PDF e ler a frase inteira: se algum campo ficou entre colchetes, o agente esqueceu de trocar.",
+  },
+
+  mudanca: {
+    rotulo: "O resultado esperado",
+    titulo: "Quatro datas mudam, não uma",
+    fonte: "Montado com o gabarito, antes da gravação no Antigravity",
+    rever: "◀ Voltar à gravação",
+    tipo: "mudanca",
+    mudou: [
+      { tema: "Data do seminário", antes: "10 de maio", depois: "17 de maio", porque: "de 2027" },
+      { tema: "Local", antes: "Auditório 2", depois: "Auditório 1" },
+      { tema: "Trabalhos até", antes: "5 de maio", depois: "12 de maio", porque: "5 dias antes do evento", armadilha: true },
+      { tema: "Inscrições até", antes: "8 de maio", depois: "15 de maio", porque: "2 dias antes do evento", armadilha: true },
+    ],
+    arquivos: [
+      { arq: "regras-envio-trabalhos.docx", conta: "3 datas · 2 auditórios · 1 prazo", prazo: true,
+        trecho: "<p>O envio de trabalhos vai até <del>5 de maio</del> <ins>12 de maio</ins>, cinco dias antes do evento.</p><p>Os trabalhos aprovados serão apresentados no <del>Auditório 2</del> <ins>Auditório 1</ins>, em <del>10 de maio</del> <ins>17 de maio</ins>, dentro da programação.</p>",
+        armadilha: "“Até 5 de maio, cinco dias antes do evento”, num evento em 17 de maio. São 12 dias, não 5, e a contradição fica na mesma página." },
+      { arq: "convite.docx", conta: "1 data · 1 auditório · 1 prazo", prazo: true,
+        trecho: "<p><del>10 de maio</del> <ins>17 de maio</ins> de 2027, das 9h às 17h.</p><p><del>Auditório 2</del> <ins>Auditório 1</ins> do Instituto Horizonte.</p><p>As inscrições vão até <del>8 de maio</del> <ins>15 de maio</ins> e podem ser feitas pelo site do Instituto.</p>",
+        armadilha: "Inscrições até 8 de maio num evento em 17 de maio: terminariam 9 dias antes, e não 2." },
+      { arq: "email-aviso.txt", conta: "1 data · 1 auditório · 1 prazo", prazo: true,
+        trecho: "<p>O Seminário Horizonte 2027 acontece em <del>10 de maio</del> <ins>17 de maio</ins> de 2027, no <del>Auditório 2</del> <ins>Auditório 1</ins>.</p><p>Quem quiser apresentar um trabalho precisa enviar a proposta até <del>5 de maio</del> <ins>12 de maio</ins>.</p>",
+        armadilha: "Envio até 5 de maio num evento em 17 de maio: 12 dias antes, e não 5." },
+      { arq: "aviso-porta.docx", conta: "1 data · 1 auditório, em maiúsculas",
+        trecho: "<p class=\"caixa\"><del>10 DE MAIO DE 2027</del><br><ins>17 DE MAIO DE 2027</ins></p><p class=\"caixa\"><del>AUDITÓRIO 2</del> <ins>AUDITÓRIO 1</ins></p>",
+        cuidado: "O cartaz está em maiúsculas. Quem procurar só “10 de maio” deixa a porta com a data antiga." },
+      { arq: "programacao.docx", conta: "2 datas · 7 auditórios",
+        trecho: "<p><del>10 de maio</del> <ins>17 de maio</ins> de 2027 | <del>Auditório 2</del> <ins>Auditório 1</ins></p><p class=\"miudo\">09:00 Abertura · 09:30 Palestra · 11:00 Mesa-redonda · 16:00 Roda de conversa · 17:00 Encerramento: <del>Auditório 2</del> <ins>Auditório 1</ins></p>",
+        cuidado: "O auditório está no subtítulo, em 5 linhas da tabela e no rodapé. Trocar só o subtítulo deixa a tabela no lugar antigo." },
+      { arq: "roteiro-abertura.docx", conta: "2 datas · 4 auditórios",
+        trecho: "<p>Conferir som, microfone e projetor no <del>Auditório 2</del> <ins>Auditório 1</ins>.</p><p>Bom dia. Sejam bem-vindos ao Seminário Horizonte 2027. Estamos no <del>Auditório 2</del> <ins>Auditório 1</ins> do Instituto Horizonte.</p>" },
+      { arq: "checklist-montagem.md", conta: "1 data · 4 auditórios",
+        trecho: "<p><b>Data:</b> <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p><p>Sinalizar a entrada do <del>Auditório 2</del> <ins>Auditório 1</ins>.</p><p>Fechar o <del>Auditório 2</del> <ins>Auditório 1</ins> e devolver a chave na recepção.</p>" },
+      { arq: "comunicado-palestrantes.txt", conta: "1 data · 2 auditórios",
+        trecho: "<p>O Seminário Horizonte 2027 será realizado em <del>10 de maio</del> <ins>17 de maio</ins> de 2027, no <del>Auditório 2</del> <ins>Auditório 1</ins>.</p><p>Recursos disponíveis no <del>Auditório 2</del> <ins>Auditório 1</ins>: projetor, computador com HDMI e microfones.</p>" },
+      { arq: "politica-certificados.docx", conta: "2 datas · 1 auditório",
+        trecho: "<p>Seminário Horizonte 2027 | <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p><p class=\"miudo\">Rodapé: <del>Auditório 2</del> <ins>Auditório 1</ins> | <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p>",
+        cuidado: "O auditório só aparece no rodapé. Vale abrir o arquivo inteiro." },
+      { arq: "texto-site.md", conta: "1 data · 1 auditório",
+        trecho: "<p><b>Data:</b> <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p><p><b>Local:</b> <del>Auditório 2</del> <ins>Auditório 1</ins> do Instituto Horizonte</p>" },
+      { arq: "modelo-cracha.docx", conta: "1 data · 1 auditório",
+        trecho: "<p class=\"caixa\">SEMINÁRIO HORIZONTE 2027</p><p><del>10 de maio</del> <ins>17 de maio</ins> de 2027 | <del>Auditório 2</del> <ins>Auditório 1</ins></p>" },
+      { arq: "lista-presenca.txt", conta: "1 data · 1 auditório",
+        trecho: "<p>Data: <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p><p>Local: <del>Auditório 2</del> <ins>Auditório 1</ins></p>" },
+    ],
+    nota: "No fim, procure “10 de maio”, “Auditório 2”, “5 de maio” e “8 de maio” na pasta: não pode sobrar nenhum. E a lista do agente precisa citar os dois prazos.",
+  },
 };
 
 (() => {
@@ -187,9 +322,9 @@ window.RESULTADOS = {
 
   const cabeca = (d) => `
     <header class="res-cabeca">
-      <div><span class="rotulo">O resultado</span><h2 class="titulo">${esc(d.titulo)}</h2></div>
+      <div><span class="rotulo">${esc(d.rotulo || "O resultado")}</span><h2 class="titulo">${esc(d.titulo)}</h2></div>
       <div class="res-acoes">${d.fonte ? `<span class="res-fonte">${esc(d.fonte)}</span>` : ""}
-        <button type="button" class="res-rever">▶ Rever a gravação</button></div>
+        <button type="button" class="res-rever">${esc(d.rever || "▶ Rever a gravação")}</button></div>
     </header>`;
 
   const montar = {
@@ -249,13 +384,123 @@ window.RESULTADOS = {
         </div>
       </div>`,
 
+
+    // Viagens: uma aba por viagem; a tabela esperada; clicar numa linha mostra o documento.
+    viagens: (d) => `
+      <div class="res-corpo res-cupons res-viagens">
+        <div class="res-papel">
+          <div class="res-abas" role="tablist">${d.viagens.map((v, i) => `<button type="button" role="tab" data-v="${i}"><b>${esc(v.nome)}</b><small>${esc(v.sub)}</small></button>`).join("")}</div>
+          <div class="res-tabela-lugar"></div>
+        </div>
+        <div class="res-cupom" aria-live="polite"></div>
+      </div>`,
+
+    // Certificados: as 20 linhas da planilha; clicar numa linha preenche o modelo.
+    certificados: (d) => `
+      <div class="res-corpo res-certificados">
+        <div class="res-papel">
+          <table class="res-tabela clicavel compacta"><thead><tr><th></th><th>Linha</th><th>Nome na planilha</th><th>E-mail</th></tr></thead>
+          <tbody>${d.linhas.map(([n, , nome, mail], i) => {
+            const r = d.repetidas[n];
+            return `<tr class="${r ? "erro" : ""}" data-i="${i}" tabindex="0"><td class="marca ${r ? "erro" : "ok"}">${r ? "×" : "✓"}</td><td>${n}</td><td class="nome">${esc(nome).replace(/ {2}/g, '<span class="dois-espacos">&nbsp;&nbsp;</span>')}${r ? `<em>= linha ${r.de}</em>` : ""}</td><td>${esc(mail)}</td></tr>`;
+          }).join("")}</tbody></table>
+          <p class="res-placar-trio"><span><b>20</b> linhas</span><span><b>4</b> repetidas</span><span class="ok"><b>16</b> PDFs</span></p>
+        </div>
+        <div class="res-cert-lado">
+          <figure class="res-cert"><img src="${d.modelo}" alt="O modelo do certificado, com o timbre do Instituto Horizonte">
+            <div class="res-cert-texto"></div><span class="res-cert-selo"></span></figure>
+          <div class="res-cupom-nota" aria-live="polite"></div>
+        </div>
+      </div>`,
+
+    // Mudança de data: o que muda (com os dois prazos derivados) e, arquivo por arquivo, o antes e o depois.
+    mudanca: (d) => `
+      <div class="res-corpo res-mudanca">
+        <div class="res-mudou">${d.mudou.map((m) => `
+          <div class="res-mudou-item${m.armadilha ? " armadilha" : ""}"><span>${esc(m.tema)}${m.armadilha ? `<i>depende da data</i>` : ""}</span>
+            <p><del>${esc(m.antes)}</del> <ins>${esc(m.depois)}</ins></p>${m.porque ? `<small>${esc(m.porque)}</small>` : ""}</div>`).join("")}</div>
+        <div class="res-mudanca-baixo">
+          <div class="res-arquivos">${d.arquivos.map((a, i) => `
+            <button type="button" class="res-arq${a.prazo ? " prazo" : ""}" data-i="${i}"><i class="t-${a.arq.split(".").pop()}">${a.arq.split(".").pop()}</i>
+              <span><b>${esc(a.arq)}</b><small>${esc(a.conta)}</small></span></button>`).join("")}</div>
+          <div class="res-papel res-trecho" aria-live="polite"></div>
+        </div>
+      </div>`,
   };
 
   document.querySelectorAll(".resultado[data-resultado]").forEach((el) => {
     const d = R[el.dataset.resultado];
     const cena = el.closest(".cena");
     el.innerHTML = cabeca(d) + montar[d.tipo](d);
-    el.querySelector(".res-rever").addEventListener("click", () => window.PALCO.ir(window.PALCO.cenas.indexOf(cena), 2));
+    // O resultado aparece no passo dele; "rever" volta ao passo da gravação (a peça).
+    const passoRes = +el.dataset.passo, passoGravacao = +(cena.querySelector(".peca")?.dataset.passo ?? passoRes - 1);
+    el.querySelector(".res-rever").addEventListener("click", () => window.PALCO.ir(window.PALCO.cenas.indexOf(cena), passoGravacao));
+    const img3 = (n) => `assets/img/fase3/${n}.jpg`;
+
+    if (d.tipo === "viagens") {
+      const lugar = el.querySelector(".res-tabela-lugar"), alvo = el.querySelector(".res-cupom"), abas = [...el.querySelectorAll(".res-abas button")];
+      const mostrar = (v, i) => {
+        const l = d.viagens[v].linhas[i];
+        lugar.querySelectorAll("tbody tr").forEach((tr, k) => tr.classList.toggle("sel", k === i));
+        alvo.innerHTML = `<div class="res-cupom-img${l.img.length > 1 ? " par" : ""}">${l.img.map((n) => `<img src="${img3(n)}" alt="${esc(n)}">`).join("")}</div>
+          <div class="res-cupom-nota ${l.estado}"><span>${esc(l.arq)}</span><p>${l.nota}</p></div>`;
+      };
+      const aba = (v) => {
+        const via = d.viagens[v];
+        abas.forEach((b, k) => b.setAttribute("aria-selected", k === v));
+        lugar.innerHTML = `<table class="res-tabela clicavel"><thead><tr><th></th>${d.colunas.map((c) => `<th>${esc(c)}</th>`).join("")}</tr></thead>
+          <tbody>${via.linhas.map((l, i) => `<tr class="${l.estado}${l.fora ? " fora" : ""}" data-i="${i}" tabindex="0"><td class="marca ${l.estado}">${l.fora ? "×" : icone[l.estado]}</td>${l.c.map((c) => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody>
+          <tfoot><tr><td class="marca ok">✓</td><td>Total certo</td><td></td><td></td><td>${via.total}</td></tr>
+          ${via.errado ? `<tr class="total-errado"><td class="marca erro">×</td><td colspan="3">${esc(via.errado.rotulo)}</td><td>${via.errado.valor}</td></tr>` : ""}</tfoot></table>
+          <p class="res-nota">${esc(via.nota)}</p>`;
+        lugar.querySelectorAll("tbody tr").forEach((tr, i) => {
+          tr.addEventListener("click", () => mostrar(v, i));
+          tr.addEventListener("keydown", (e) => { if (e.key === "Enter") { mostrar(v, i); e.stopPropagation(); } });
+        });
+        // Abre na armadilha da viagem, que é o que vale mostrar primeiro.
+        mostrar(v, Math.max(0, via.linhas.findIndex((l) => l.estado === "erro")));
+      };
+      abas.forEach((b, v) => b.addEventListener("click", () => aba(v)));
+      aba(0);
+    }
+
+    if (d.tipo === "certificados") {
+      const linhas = [...el.querySelectorAll("tbody tr")], texto = el.querySelector(".res-cert-texto");
+      const selo = el.querySelector(".res-cert-selo"), nota = el.querySelector(".res-cupom-nota"), fig = el.querySelector(".res-cert");
+      const mostrar = (i) => {
+        const [n, , nome] = d.linhas[i], r = d.repetidas[n];
+        linhas.forEach((tr, k) => tr.classList.toggle("sel", k === i));
+        fig.classList.toggle("errado", !!r);
+        texto.innerHTML = `<span>Certificamos que</span><b class="nome">${esc(nome).replace(/ {2}/g, '<span class="dois-espacos">&nbsp;&nbsp;</span>')}</b>
+          <span>concluiu a <b>${esc(d.oficina)}</b>,</span><span>realizada em <b>${esc(d.data)}</b>, com carga horária de <b>${esc(d.carga)}</b>.</span>`;
+        selo.textContent = r ? `não deveria existir · ${r.como}` : "";
+        nota.className = `res-cupom-nota ${r ? "erro" : "ok"}`;
+        nota.innerHTML = r
+          ? `<span>Linha ${n} · repete a linha ${r.de}</span><p>${esc(r.nota)}</p>`
+          : `<span>Linha ${n} · um PDF por pessoa</span><p>O nome entra com maiúsculas e acentos. A data e a carga horária são as da oficina, e não a da inscrição.</p>`;
+      };
+      linhas.forEach((tr, i) => {
+        tr.addEventListener("click", () => mostrar(i));
+        tr.addEventListener("keydown", (e) => { if (e.key === "Enter") { mostrar(i); e.stopPropagation(); } });
+      });
+      mostrar(0);
+    }
+
+    if (d.tipo === "mudanca") {
+      const botoes = [...el.querySelectorAll(".res-arq")], alvo = el.querySelector(".res-trecho");
+      const mostrar = (i) => {
+        const a = d.arquivos[i];
+        botoes.forEach((b, k) => b.classList.toggle("sel", k === i));
+        alvo.innerHTML = `<span class="res-onde">${esc(a.arq)} · antes e depois</span>
+          <div class="res-trecho-grade"><div class="res-texto res-diff">${a.trecho}</div>
+            <figure class="res-pagina"><img src="${img3(a.arq.replace(/\.[^.]+$/, ""))}" alt="${esc(a.arq)} antes da mudança"><figcaption>o arquivo, antes</figcaption></figure></div>
+          ${a.armadilha ? `<p class="res-veredito erro"><b>Se trocar só a data do evento:</b> ${esc(a.armadilha)}</p>` : ""}
+          ${a.cuidado ? `<p class="res-veredito atencao">${esc(a.cuidado)}</p>` : ""}
+          ${!a.armadilha && !a.cuidado ? `<p class="res-veredito ok">✓ ${esc(a.conta)} para trocar.</p>` : ""}`;
+      };
+      botoes.forEach((b, i) => b.addEventListener("click", () => mostrar(i)));
+      mostrar(0);
+    }
 
     if (d.tipo === "contrato") {
       const alvo = el.querySelector(".res-clausula"), itens = [...el.querySelectorAll(".res-item")];
@@ -312,7 +557,7 @@ window.RESULTADOS = {
     }
 
     // R na cena leva ao resultado; o botão "Ver o resultado" do exemplo gravado faz o mesmo.
-    const ir = () => window.PALCO.ir(window.PALCO.cenas.indexOf(cena), 3);
+    const ir = () => window.PALCO.ir(window.PALCO.cenas.indexOf(cena), passoRes);
     cena.querySelector(".ver-resultado")?.addEventListener("click", ir);
     cena.addEventListener("tecla", (e) => { if (e.detail.key === "r" || e.detail.key === "R") { ir(); e.preventDefault(); } });
   });

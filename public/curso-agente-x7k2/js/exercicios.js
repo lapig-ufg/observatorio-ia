@@ -62,6 +62,35 @@ window.EXERCICIOS = [
     pedidos: ["Tenho 9 comprovantes de despesas de uma viagem. Quero uma tabela com data, estabelecimento, categoria e valor de cada um, e o total no final. Se algum nome ou valor estiver ilegível, escreva \"ilegível\" em vez de chutar."],
     conferir: ["Compare cada data e valor com o cupom, começando pelo desbotado.", "Some os valores e compare com o total da tabela."],
   },
+
+  // ----- Fase 3: no computador, com o Antigravity. A turma baixa a pasta inteira (zip). -----
+  {
+    id: "viagens", fase: 3, problema: "Uma pesquisadora voltou de duas viagens com fotos de cupons e PDFs baixados numa pasta. Precisa prestar contas das duas e não quer repetir o trabalho a cada viagem.",
+    nome: "A pasta das viagens", minutos: 20,
+    arquivos: [{ arq: "fase3/viagens.zip", tam: "1,5 MB", nota: "pasta 1-viagens, para descompactar" }],
+    previas: ["assets/img/fase3/voucher-reserva-58213.jpg", "assets/img/fase3/IMG_20241014_161520.jpg", "assets/img/fase3/comprovante_pix_20241010.jpg", "assets/img/fase3/IMG_20241017_124625.jpg"],
+    pedidos: [
+      "Tenho 8 arquivos em formatos .jpg e .pdf na pasta viagem-1, de uma viagem a Campinas feita de 14 a 18 de outubro de 2024.\nPreciso que você organize esses comprovantes para a minha prestação de contas.\nPrimeiro, veja cada comprovante e renomeie o arquivo com data, estabelecimento e valor.\nDepois, separe os arquivos em subpastas por categoria, como alimentação, hospedagem e transporte, criando outras se fizer sentido.\nMonte uma planilha com uma linha por despesa e o total no fim.\nColoque colunas para data, estabelecimento, categoria, valor, arquivo e observação.\nSe encontrar algum documento ilegível ou que deixe dúvida, anote em uma lista de pendências.\nGuarde a planilha e a lista de pendências dentro da pasta viagem-1.\nCrie também na raiz da pasta 1-viagens um arquivo de instruções em português com o passo a passo para repetir o processo em outras viagens.",
+      "Aplique as instruções da parte A na pasta viagem-2 para organizar os 6 arquivos dessa viagem.",
+    ],
+    conferir: ["O hotel entrou uma vez só na viagem-1?", "O cartão de embarque ficou fora do total da viagem-2?", "Cada arquivo tem data, estabelecimento e valor no nome?"],
+  },
+  {
+    id: "certificados", fase: 3, problema: "A coordenadora de uma oficina precisa mandar um certificado para cada participante, no papel timbrado da instituição. A planilha tem 20 inscrições, e algumas pessoas se inscreveram duas vezes.",
+    nome: "Os certificados", minutos: 15,
+    arquivos: [{ arq: "fase3/certificados.zip", tam: "0,9 MB", nota: "pasta 2-certificados, para descompactar" }],
+    previas: ["assets/img/fase3/previa-modelo.jpg"],
+    pedidos: ["Nesta pasta estão a planilha de inscrições da Oficina de Planilhas para o Dia a Dia e o modelo do certificado em Word, com papel timbrado.\nGere um certificado em PDF para cada participante, usando o modelo, com o nome da pessoa no nome do arquivo.\nA oficina teve carga horária de 8 horas e foi realizada em 23 de maio de 2026. Mantenha o layout do modelo."],
+    conferir: ["Conte os PDFs e compare com o número de pessoas, não de linhas.", "Os nomes estão com maiúsculas e acentos?", "Abra um PDF: timbre, assinaturas e os quatro campos preenchidos?"],
+  },
+  {
+    id: "mudanca", fase: 3, problema: "O seminário de maio mudou de data e de auditório. O organizador tem 12 arquivos para corrigir, e alguns prazos dependem da data do evento.",
+    nome: "A mudança de data", minutos: 15,
+    arquivos: [{ arq: "fase3/mudanca-de-data.zip", tam: "0,2 MB", nota: "pasta 3-mudanca-de-data, para descompactar" }],
+    previas: ["assets/img/fase3/aviso-porta.jpg", "assets/img/fase3/convite.jpg", "assets/img/fase3/programacao.jpg", "assets/img/fase3/regras-envio-trabalhos.jpg"],
+    pedidos: ["O nosso seminário mudou de data e de auditório.\nEle estava marcado para 10 de maio de 2027, no Auditório 2, e agora vai acontecer em 17 de maio de 2027, no Auditório 1.\nPreciso que você atualize todos os arquivos da pasta com essas informações.\nAjuste também os outros prazos que dependem do dia do evento.\nNão deixe nenhum arquivo com a data antiga ou com o auditório antigo.\nNo final, faça uma lista com tudo o que você alterou."],
+    conferir: ["Procure “10 de maio” e “Auditório 2” na pasta: não pode sobrar nenhum.", "Confira os prazos de envio de trabalhos e de inscrições.", "A lista final cita cada arquivo e o que mudou nele?"],
+  },
 ];
 
 (() => {
@@ -73,7 +102,7 @@ window.EXERCICIOS = [
   // Arquivo para baixar: ícone com a extensão, nome e tamanho.
   const chipArquivo = (a, base) =>
     `<a class="arquivo t-${tipo(a.arq)}" href="${base}pratica/${a.arq}" download>` +
-    `<i>${tipo(a.arq)}</i><span><b>${esc(a.arq)}</b><small>${a.tam}${a.nota ? " · " + esc(a.nota) : ""}</small></span></a>`;
+    `<i>${tipo(a.arq)}</i><span><b>${esc(a.arq.split("/").pop())}</b><small>${a.tam}${a.nota ? " · " + esc(a.nota) : ""}</small></span></a>`;
 
   async function copiar(botao, texto) {
     try { await navigator.clipboard.writeText(texto); }
@@ -93,15 +122,24 @@ window.EXERCICIOS = [
     `<blockquote>${esc(p).replace(/\n/g, "<br>")}</blockquote>` +
     `<button type="button" class="copiar" data-i="${i}">Copiar</button></div>`).join("");
 
-  // ----- Página da turma (pratica.html) -----
-  window.montarPratica = (raiz) => {
-    raiz.innerHTML = EX.map((e, n) => `
+  // Na Fase 3 a turma baixa uma pasta e pede ao Antigravity, com a pasta aberta.
+  const TEXTOS = {
+    2: { baixe: "Baixe", peca: "Peça", pecaLonga: "2. Peça no chat de IA que você usa", pagina: "pratica.html" },
+    3: { baixe: "Baixe a pasta", peca: "Peça ao Antigravity", pecaLonga: "2. Abra a pasta no Antigravity e peça", pagina: "pratica-3.html" },
+  };
+  const faseDe = (e) => e.fase || 2;
+  window.exerciciosDaFase = (fase) => EX.filter((e) => faseDe(e) === fase);
+
+  // ----- Página da turma (pratica.html, pratica-3.html) -----
+  window.montarPratica = (raiz, fase = 2) => {
+    const T = TEXTOS[fase];
+    raiz.innerHTML = window.exerciciosDaFase(fase).map((e, n) => `
       <article class="exercicio" id="${e.id}">
         <header><span class="num">${n + 1}</span><h2>${esc(e.nome)}</h2><span class="tempo">${e.minutos} min</span></header>
         <p class="problema-texto">${esc(e.problema)}</p>
-        <h3>1. Baixe</h3>
+        <h3>1. ${T.baixe}</h3>
         <div class="arquivos">${e.arquivos.length ? e.arquivos.map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div>
-        <h3>2. Peça no chat de IA que você usa</h3>
+        <h3>${T.pecaLonga}</h3>
         ${blocoPedidos(e)}
         <h3>3. Confira a resposta</h3>
         <ul class="conferir">${e.conferir.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>
@@ -119,8 +157,9 @@ window.EXERCICIOS = [
 
   document.querySelectorAll(".sua-vez[data-exercicio]").forEach((el) => {
     const e = porId[el.dataset.exercicio];
+    const T = TEXTOS[faseDe(e)];
     const cena = el.closest(".cena");
-    const destino = new URL(`pratica.html#${e.id}`, basePublica);
+    const destino = new URL(`${T.pagina}#${e.id}`, basePublica);
     el.innerHTML = `
       <div class="sv-lado">
         <span class="rotulo">Sua vez · no seu notebook</span>
@@ -132,10 +171,10 @@ window.EXERCICIOS = [
         <div class="sv-qr"><div class="qr-svg"></div><p>Arquivos e pedido no notebook:${[destino.host + "/", ...destino.pathname.slice(1).split(/(?<=\/)/)].map((t) => `<b>${esc(t)}</b>`).join("")}</p></div>
       </div>
       <div class="ficha">
-        <div class="ficha-passo"><span class="n">1</span><div><h3>Baixe</h3>
+        <div class="ficha-passo"><span class="n">1</span><div><h3>${T.baixe}</h3>
           <div class="arquivos">${e.arquivos.length ? e.arquivos.map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div></div>
           ${e.previas ? `<div class="previas n${e.previas.length}" aria-hidden="true">${e.previas.map((src) => `<img src="${src}" alt="">`).join("")}</div>` : ""}</div>
-        <div class="ficha-passo"><span class="n">2</span><div><h3>Peça</h3>${blocoPedidos(e)}</div></div>
+        <div class="ficha-passo"><span class="n">2</span><div><h3>${T.peca}</h3>${blocoPedidos(e)}</div></div>
         <div class="ficha-passo"><span class="n">3</span><div><h3>Confira</h3><ul class="conferir">${e.conferir.map((c) => `<li>${esc(c)}</li>`).join("")}</ul></div></div>
       </div>`;
 

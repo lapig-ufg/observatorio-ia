@@ -79,7 +79,7 @@
 <script src="js/exercicios.js"></script>
 <script>
   montarPratica(document.getElementById("exercicios"));
-  document.getElementById("indice").innerHTML = EXERCICIOS.map((e, i) => `<li><a href="#${e.id}">${i + 1}. ${e.nome}</a></li>`).join("");
+  document.getElementById("indice").innerHTML = exerciciosDaFase(2).map((e, i) => `<li><a href="#${e.id}">${i + 1}. ${e.nome}</a></li>`).join("");
   if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
 </script>
 </body>
