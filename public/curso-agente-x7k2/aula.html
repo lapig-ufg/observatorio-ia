@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/palco.css">
+<link rel="stylesheet" href="css/player.css">
 <script>
   // Endereço do Apps Script que guarda as respostas. Vazio = modo de demonstração (só neste navegador).
   window.LEVANTAMENTO_URL = "";
@@ -533,7 +534,7 @@
       <div class="area-de-trabalho">
         <div class="janela">
           <div class="janela-barra"><i></i><i></i><i></i><span>o chat de IA que você já usa</span></div>
-          <div class="janela-corpo"><p>um arquivo de cada vez</p></div>
+          <div class="janela-corpo"><p>sobe, baixa e organiza à mão</p></div>
         </div>
         <div class="pasta">
           <header><i class="icone-pasta"></i>despesas-2026</header>
@@ -592,6 +593,96 @@
     </div>
   </section>
 
+  <!-- Modo de aprovação: o problema (0), a escolha no Settings com os quatro presets (1)
+       e quando o Default não aparece (2). Fatos de antigravity.google/docs/permissions
+       e /docs/sandbox, conferidos em 05/11/2026. O desenho da janela não é captura:
+       a captura real da tela de Settings ainda vai ser feita. -->
+  <section class="cena" id="aprovar" data-fase="3" data-passos="2" data-titulo="O modo de aprovação">
+    <div class="vitrine aprova">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Antes do primeiro pedido</span>
+        <p>Um técnico vai deixar o agente arrumar a pasta do setor. Quer que ele trabalhe sem pedir licença a cada passo, mas <em>que pergunte antes de sair da pasta</em>.</p>
+      </div>
+      <div class="vitrine-texto" data-passo="1" data-ate="1">
+        <span class="rotulo">Uma escolha no Settings</span>
+        <h2 class="titulo">Quanto ele faz sem perguntar</h2>
+        <p class="linha-fina">No curso, deixe em <b>Default</b>: os comandos rodam numa área isolada e ele só pergunta quando precisa sair dela.</p>
+        <p class="aprova-trilha">Settings › General › Global Permissions › <b>Permission Preset</b></p>
+      </div>
+      <div class="vitrine-texto" data-passo="2">
+        <span class="rotulo">Se não aparecer assim</span>
+        <h2 class="titulo">Quando o Default some</h2>
+        <ul class="aprova-avisos">
+          <li><b>Pede aprovação de tudo?</b> O notebook não tem a área isolada (Windows 10, ou Windows 11 antes da 24H2 com a atualização de agosto de 2026). O Default vira Request Review.</li>
+          <li><b>Conta da instituição?</b> Não tem Auto e usa as permissões antigas, com outra tela.</li>
+        </ul>
+      </div>
+      <div class="aprova-janela" data-passo="1">
+        <span class="aprova-desenho">desenho · a captura da tela real entra aqui</span>
+        <header class="aprova-barra"><i></i><i></i><i></i><span>Settings</span></header>
+        <div class="aprova-corpo">
+          <p class="aprova-caminho">General <span>›</span> Global Permissions</p>
+          <div class="aprova-campo"><b>Permission Preset</b><span>Default <i>▾</i></span></div>
+          <ol class="aprova-lista">
+            <li style="--n:4"><div><b>Request Review</b><p>Pede aprovação para todo comando. Sem área isolada; arquivos só da pasta do projeto.</p></div><span class="medidor" aria-label="faz sozinho: quase nada"><i></i><i></i><i></i><i></i></span></li>
+            <li style="--n:3" class="escolhido"><div><b>Default</b><em>o curso usa este</em><p>Roda os comandos na área isolada, sem internet. Para sair dela, pede aprovação.</p></div><span class="medidor"><i class="on"></i><i></i><i></i><i></i></span></li>
+            <li style="--n:2"><div><b>Auto</b><p>Na área isolada, igual ao Default. Fora dela, decide sozinho: o que é seguro e reversível roda; o arriscado ainda pergunta.</p></div><span class="medidor"><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
+            <li style="--n:1"><div><b>Turbo</b><p>Libera tudo: qualquer comando, o disco inteiro, a internet. Não pergunta nada.</p></div><span class="medidor"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          </ol>
+          <p class="aprova-legenda"><span class="medidor"><i class="on"></i><i></i></span> o que ele faz sem perguntar</p>
+        </div>
+      </div>
+      <p class="aprova-fonte" data-passo="1">antigravity.google/docs/permissions · conferido em 5 nov. 2026</p>
+    </div>
+  </section>
+
+  <!-- PROVISÓRIO (05/11/2026): achado no PC do Victor, ainda sem a prova final.
+       Dentro do app, os comandos do agente rodam isolados (AppContainer do Windows) e só
+       executam programas de pastas que todos os aplicativos podem ler, como C:\Program Files.
+       O problema (0), o que funcionou e o que falhou (1), o que fazer antes de pedir (2).
+       Ver RELATORIO-instalar.md: o que falta testar antes de tirar o PROVISÓRIO. -->
+  <section class="cena" id="ferramentas" data-fase="3" data-passos="2" data-titulo="Dê ferramentas ao agente">
+    <div class="vitrine ferr">
+      <span class="ferr-provisorio">provisório · teste de 5 nov. ainda sem a prova final</span>
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Antes de pedir</span>
+        <p>Uma secretária pede ao agente a lista de inscritos em Excel e recebe um arquivo CSV. O Python estava no notebook, mas <em>o agente não conseguiu usá-lo</em>.</p>
+      </div>
+      <div class="vitrine-texto" data-passo="1" data-ate="1">
+        <span class="rotulo">Por que aconteceu</span>
+        <h2 class="titulo">Ele trabalha numa caixa</h2>
+        <p class="linha-fina">Os comandos do agente rodam isolados. De dentro da caixa, ele só abre programas instalados em pastas como C:\Program Files.</p>
+      </div>
+      <div class="vitrine-texto" data-passo="2">
+        <span class="rotulo">Antes do primeiro pedido</span>
+        <h2 class="titulo">Dê ferramentas ao agente</h2>
+        <ul class="ferr-fazer">
+          <li><b>Node</b> pelo instalador de nodejs.org: vai para C:\Program Files.</li>
+          <li><b>Python</b> pelo instalador de python.org, marcando “for all users”. <span>a testar</span></li>
+          <li>Sem nenhum dos dois, peça o resultado em CSV: o Excel abre.</li>
+        </ul>
+      </div>
+      <div class="ferr-mapa" data-passo="1">
+        <div class="ferr-caixa">
+          <span class="ferr-caixa-nome">a caixa do agente</span>
+          <div class="ferr-projeto"><i class="icone-pasta"></i><div><b>a pasta do projeto</b><small>lê e escreve</small></div></div>
+          <ul class="ferr-ve">
+            <li class="ve"><span>C:\Program Files</span><small>lê e executa</small></li>
+            <li class="nao"><span>o resto da sua pasta de usuário, com o AppData</span><small>fica escondido</small></li>
+          </ul>
+          <p class="ferr-caixa-nota">sem internet · TEMP e LOCALAPPDATA trocados a cada comando</p>
+        </div>
+        <ol class="ferr-programas">
+          <li class="ok"><div><b>Node</b><code>C:\Program Files\nodejs</code></div><span class="ferr-status">funcionou</span></li>
+          <li class="falhou"><div><b>Python do Python Install Manager</b><code>AppData\Local\Python</code><q>Não é possível o acesso ao arquivo pelo sistema</q></div><span class="ferr-status">falhou</span></li>
+          <li class="falhou"><div><b>Excel, aberto pelo agente</b><code>Office, por COM</code></div><span class="ferr-status">falhou</span></li>
+          <li class="testar" data-passo="2"><div><b>Python para todos os usuários</b><code>C:\Program Files\Python3…</code></div><span class="ferr-status">a testar</span></li>
+        </ol>
+        <p class="ferr-resultado"><b>No teste:</b> CSV no lugar do .xlsx, ou o .xlsx montado à mão, mais devagar.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Exemplos da Fase 3: o problema (0), a pasta com os arquivos (1), a vez da turma (2),
        o lugar da gravação no Antigravity (3) e o resultado esperado, com a armadilha (4).
        A pasta vem de js/pasta.js; "Sua vez", de js/exercicios.js (pratica-3.html);
@@ -605,10 +696,10 @@
       </div>
       <div class="f3-entrada" data-passo="1" data-ate="1">
         <div class="f3-texto">
-          <span class="rotulo">A pasta · 1-viagens</span>
+          <span class="rotulo">O zip · viagem-1 e viagem-2</span>
           <h2 class="titulo">Duas viagens, catorze arquivos</h2>
           <p class="linha-fina">Na viagem-1, cinco fotos de cupons, o bilhete do ônibus, o voucher do hotel e o comprovante do Pix. Na viagem-2, quatro fotos, o recibo de uma corrida e um cartão de embarque.</p>
-          <p class="f3-plano"><b>Parte A</b> organiza a viagem-1 e escreve a receita.<br><b>Parte B</b> aplica a receita na viagem-2.</p>
+          <p class="f3-plano"><b>Parte A</b>: o projeto é a viagem-1. O agente organiza e escreve o passo a passo.<br><b>Parte B</b>: a viagem-2 entra no mesmo projeto, e o pedido é “do mesmo jeito”.</p>
         </div>
         <div class="f3-pasta" data-pasta="viagens"></div>
       </div>
@@ -625,16 +716,16 @@
             <div class="f3-reserva">
               <span class="f3-reserva-selo">espaço reservado</span>
               <b>Vídeo da gravação entra aqui</b>
-              <p>O Antigravity com a pasta 1-viagens aberta: parte A na viagem-1, depois a parte B na viagem-2.</p>
+              <p>O Antigravity no projeto viagem-1: a parte A, depois a viagem-2 arrastada para dentro e a parte B na mesma conversa.</p>
               <small>A gravar no computador do Victor · esperas aceleradas</small>
             </div>
           </div>
           <div class="verso verso-pedidos">
             <span class="rotulo">Parte A</span>
-            <blockquote>Tenho 8 arquivos em formatos .jpg e .pdf na pasta viagem-1, de uma viagem a Campinas feita de 14 a 18 de outubro de 2024. Preciso que você organize esses comprovantes para a minha prestação de contas. […] Monte uma planilha com uma linha por despesa e o total no fim. […] Crie também na raiz da pasta 1-viagens um arquivo de instruções em português com o passo a passo para repetir o processo em outras viagens.</blockquote>
+            <blockquote>Organize estes comprovantes para a minha prestação de contas: renomeie cada arquivo com data, lugar e valor, separe em pastas por tipo de gasto e faça uma planilha com o total. Se algo deixar dúvida, me avise numa lista. No fim, escreva um passo a passo para eu repetir isso nas próximas viagens.</blockquote>
             <span class="rotulo rotulo-2">Parte B</span>
-            <blockquote>Aplique as instruções da parte A na pasta viagem-2 para organizar os 6 arquivos dessa viagem.</blockquote>
-            <p class="quem">A digitar no Antigravity, com a pasta 1-viagens aberta</p>
+            <blockquote>Coloquei aqui os comprovantes de outra viagem. Organize do mesmo jeito.</blockquote>
+            <p class="quem">No Antigravity, no projeto viagem-1. A parte B vem depois de arrastar a viagem-2 para dentro dele.</p>
             <dl>
               <dt>Quem fez</dt><dd>Antigravity instalado (a gravar)</dd>
               <dt>O que fez</dt><dd data-resumo="Antigravity: organizou a pasta das viagens (a gravar).">A preencher depois da gravação</dd>
@@ -658,7 +749,7 @@
           <span class="rotulo">A pasta · 2-certificados</span>
           <h2 class="titulo">Uma planilha e um modelo</h2>
           <p class="linha-fina">A planilha tem 20 linhas de inscrição. O modelo do Word tem o timbre, duas assinaturas e quatro campos entre colchetes: nome, oficina, carga horária e data.</p>
-          <p class="f3-plano">Um PDF por pessoa, com o nome no arquivo.</p>
+          <p class="f3-plano">Um PDF por pessoa, no papel timbrado.</p>
         </div>
         <div class="f3-pasta" data-pasta="certificados"></div>
       </div>
@@ -675,14 +766,14 @@
             <div class="f3-reserva">
               <span class="f3-reserva-selo">espaço reservado</span>
               <b>Vídeo da gravação entra aqui</b>
-              <p>O Antigravity com a pasta 2-certificados aberta, gerando os PDFs a partir do modelo do Word.</p>
+              <p>O Antigravity no projeto 2-certificados, gerando os PDFs a partir do modelo do Word.</p>
               <small>A gravar no computador do Victor · falta saber se ele usa o Word ou o Edge</small>
             </div>
           </div>
           <div class="verso verso-pedidos">
             <span class="rotulo">O pedido</span>
-            <blockquote>Nesta pasta estão a planilha de inscrições da Oficina de Planilhas para o Dia a Dia e o modelo do certificado em Word, com papel timbrado. Gere um certificado em PDF para cada participante, usando o modelo, com o nome da pessoa no nome do arquivo. A oficina teve carga horária de 8 horas e foi realizada em 23 de maio de 2026. Mantenha o layout do modelo.</blockquote>
-            <p class="quem">A digitar no Antigravity, com a pasta 2-certificados aberta</p>
+            <blockquote class="curto">Faça um certificado em PDF para cada pessoa da planilha, usando o modelo do Word. A oficina foi em 23 de maio de 2026 e teve 8 horas.</blockquote>
+            <p class="quem">No Antigravity, no projeto 2-certificados</p>
             <dl>
               <dt>Quem fez</dt><dd>Antigravity instalado (a gravar)</dd>
               <dt>O que fez</dt><dd data-resumo="Antigravity: gerou os certificados (a gravar).">A preencher depois da gravação</dd>
@@ -714,7 +805,7 @@
       <div class="vitrine-texto" data-passo="3" data-ate="3">
         <span class="rotulo">No Antigravity · ao vivo ou gravado</span>
         <h2 class="titulo">Doze arquivos, um pedido</h2>
-        <p class="linha-fina">Na gravação, vale abrir as regras de envio de trabalhos e o convite: os prazos de 5 e de 8 de maio também precisam andar.</p>
+        <p class="linha-fina">O pedido não fala dos prazos. Na gravação, vale abrir as regras de envio de trabalhos e o convite: os prazos de 5 e de 8 de maio também precisam andar.</p>
         <div class="botoes"><button class="ver-resultado" type="button">Ver o resultado esperado <kbd>R</kbd></button></div>
       </div>
       <div class="peca f3-gravar" data-passo="3" data-ate="3">
@@ -723,14 +814,14 @@
             <div class="f3-reserva">
               <span class="f3-reserva-selo">espaço reservado</span>
               <b>Vídeo da gravação entra aqui</b>
-              <p>O Antigravity com a pasta 3-mudanca-de-data aberta, trocando a data, o auditório e os dois prazos nos 12 arquivos.</p>
+              <p>O Antigravity no projeto 3-mudanca-de-data, com um pedido que só cita a data e o auditório.</p>
               <small>Exemplo de reserva para fazer ao vivo · a gravar como garantia</small>
             </div>
           </div>
           <div class="verso verso-pedidos">
             <span class="rotulo">O pedido</span>
-            <blockquote>O nosso seminário mudou de data e de auditório. Ele estava marcado para 10 de maio de 2027, no Auditório 2, e agora vai acontecer em 17 de maio de 2027, no Auditório 1. Preciso que você atualize todos os arquivos da pasta com essas informações. Ajuste também os outros prazos que dependem do dia do evento. Não deixe nenhum arquivo com a data antiga ou com o auditório antigo. No final, faça uma lista com tudo o que você alterou.</blockquote>
-            <p class="quem">A digitar no Antigravity, com a pasta 3-mudanca-de-data aberta</p>
+            <blockquote class="curto">O seminário mudou de 10 para 17 de maio de 2027, e do Auditório 2 para o Auditório 1. Atualize todos os arquivos e me diga o que mudou.</blockquote>
+            <p class="quem">No Antigravity, no projeto 3-mudanca-de-data. O pedido não cita os prazos de propósito.</p>
             <dl>
               <dt>Quem fez</dt><dd>Antigravity instalado (a gravar)</dd>
               <dt>O que fez</dt><dd data-resumo="Antigravity: atualizou os 12 arquivos do seminário (a gravar).">A preencher depois da gravação</dd>

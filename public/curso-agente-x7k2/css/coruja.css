@@ -201,6 +201,7 @@ body.aula .coruja-painel { bottom: 146px; height: min(600px, calc(100vh - 220px)
   border: 1px solid var(--c-linha); border-radius: 10px;
   resize: none;
 }
+.coruja-linha textarea::placeholder { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .coruja-linha textarea:focus, .coruja-linha input:focus { outline: 2px solid var(--c-verde); outline-offset: 0; background: #fff; }
 .coruja-enviar {
   flex: none; display: grid; place-items: center;

@@ -67,29 +67,33 @@ window.EXERCICIOS = [
   {
     id: "viagens", fase: 3, problema: "Uma pesquisadora voltou de duas viagens com fotos de cupons e PDFs baixados numa pasta. Precisa prestar contas das duas e não quer repetir o trabalho a cada viagem.",
     nome: "A pasta das viagens", minutos: 20,
-    arquivos: [{ arq: "fase3/viagens.zip", tam: "1,5 MB", nota: "pasta 1-viagens, para descompactar" }],
+    arquivos: [{ arq: "fase3/viagens.zip", tam: "1,5 MB", nota: "pastas viagem-1 e viagem-2" }],
+    preparo: "Do zip, arraste só a viagem-1 para a sua pasta de projetos e abra-a como projeto no Antigravity. A viagem-2 fica para depois.",
     previas: ["assets/img/fase3/voucher-reserva-58213.jpg", "assets/img/fase3/IMG_20241014_161520.jpg", "assets/img/fase3/comprovante_pix_20241010.jpg", "assets/img/fase3/IMG_20241017_124625.jpg"],
     pedidos: [
-      "Tenho 8 arquivos em formatos .jpg e .pdf na pasta viagem-1, de uma viagem a Campinas feita de 14 a 18 de outubro de 2024.\nPreciso que você organize esses comprovantes para a minha prestação de contas.\nPrimeiro, veja cada comprovante e renomeie o arquivo com data, estabelecimento e valor.\nDepois, separe os arquivos em subpastas por categoria, como alimentação, hospedagem e transporte, criando outras se fizer sentido.\nMonte uma planilha com uma linha por despesa e o total no fim.\nColoque colunas para data, estabelecimento, categoria, valor, arquivo e observação.\nSe encontrar algum documento ilegível ou que deixe dúvida, anote em uma lista de pendências.\nGuarde a planilha e a lista de pendências dentro da pasta viagem-1.\nCrie também na raiz da pasta 1-viagens um arquivo de instruções em português com o passo a passo para repetir o processo em outras viagens.",
-      "Aplique as instruções da parte A na pasta viagem-2 para organizar os 6 arquivos dessa viagem.",
+      "Organize estes comprovantes para a minha prestação de contas: renomeie cada arquivo com data, lugar e valor, separe em pastas por tipo de gasto e faça uma planilha com o total. Se algo deixar dúvida, me avise numa lista. No fim, escreva um passo a passo para eu repetir isso nas próximas viagens.",
+      "Coloquei aqui os comprovantes de outra viagem. Organize do mesmo jeito.",
     ],
-    conferir: ["O hotel entrou uma vez só na viagem-1?", "O cartão de embarque ficou fora do total da viagem-2?", "Cada arquivo tem data, estabelecimento e valor no nome?"],
+    antes: [null, "Depois, arraste a viagem-2 para o projeto e peça na mesma conversa"],
+    conferir: ["O hotel entrou uma vez só na viagem-1?", "O cartão de embarque ficou fora do total da viagem-2?", "A lista de dúvidas cita a data apagada do cupom da viagem-2?"],
   },
   {
     id: "certificados", fase: 3, problema: "A coordenadora de uma oficina precisa mandar um certificado para cada participante, no papel timbrado da instituição. A planilha tem 20 inscrições, e algumas pessoas se inscreveram duas vezes.",
     nome: "Os certificados", minutos: 15,
-    arquivos: [{ arq: "fase3/certificados.zip", tam: "0,9 MB", nota: "pasta 2-certificados, para descompactar" }],
+    arquivos: [{ arq: "fase3/certificados.zip", tam: "0,9 MB", nota: "pasta 2-certificados" }],
+    preparo: "Do zip, arraste a pasta 2-certificados para a sua pasta de projetos e abra-a como projeto no Antigravity.",
     previas: ["assets/img/fase3/previa-modelo.jpg"],
-    pedidos: ["Nesta pasta estão a planilha de inscrições da Oficina de Planilhas para o Dia a Dia e o modelo do certificado em Word, com papel timbrado.\nGere um certificado em PDF para cada participante, usando o modelo, com o nome da pessoa no nome do arquivo.\nA oficina teve carga horária de 8 horas e foi realizada em 23 de maio de 2026. Mantenha o layout do modelo."],
+    pedidos: ["Faça um certificado em PDF para cada pessoa da planilha, usando o modelo do Word. A oficina foi em 23 de maio de 2026 e teve 8 horas."],
     conferir: ["Conte os PDFs e compare com o número de pessoas, não de linhas.", "Os nomes estão com maiúsculas e acentos?", "Abra um PDF: timbre, assinaturas e os quatro campos preenchidos?"],
   },
   {
     id: "mudanca", fase: 3, problema: "O seminário de maio mudou de data e de auditório. O organizador tem 12 arquivos para corrigir, e alguns prazos dependem da data do evento.",
     nome: "A mudança de data", minutos: 15,
-    arquivos: [{ arq: "fase3/mudanca-de-data.zip", tam: "0,2 MB", nota: "pasta 3-mudanca-de-data, para descompactar" }],
+    arquivos: [{ arq: "fase3/mudanca-de-data.zip", tam: "0,2 MB", nota: "pasta 3-mudanca-de-data" }],
+    preparo: "Do zip, arraste a pasta 3-mudanca-de-data para a sua pasta de projetos e abra-a como projeto no Antigravity.",
     previas: ["assets/img/fase3/aviso-porta.jpg", "assets/img/fase3/convite.jpg", "assets/img/fase3/programacao.jpg", "assets/img/fase3/regras-envio-trabalhos.jpg"],
-    pedidos: ["O nosso seminário mudou de data e de auditório.\nEle estava marcado para 10 de maio de 2027, no Auditório 2, e agora vai acontecer em 17 de maio de 2027, no Auditório 1.\nPreciso que você atualize todos os arquivos da pasta com essas informações.\nAjuste também os outros prazos que dependem do dia do evento.\nNão deixe nenhum arquivo com a data antiga ou com o auditório antigo.\nNo final, faça uma lista com tudo o que você alterou."],
-    conferir: ["Procure “10 de maio” e “Auditório 2” na pasta: não pode sobrar nenhum.", "Confira os prazos de envio de trabalhos e de inscrições.", "A lista final cita cada arquivo e o que mudou nele?"],
+    pedidos: ["O seminário mudou de 10 para 17 de maio de 2027, e do Auditório 2 para o Auditório 1. Atualize todos os arquivos e me diga o que mudou."],
+    conferir: ["Procure “10 de maio” e “Auditório 2” na pasta: não pode sobrar nenhum.", "O pedido não fala dos prazos. Abra o convite e as regras de envio: as datas-limite ainda fazem sentido?", "A lista final cita cada arquivo e o que mudou nele?"],
   },
 ];
 
@@ -118,14 +122,14 @@ window.EXERCICIOS = [
   // Bloco do pedido: o primeiro inteiro; os seguintes como "depois, peça".
   const blocoPedidos = (e) => e.pedidos.map((p, i) =>
     `<div class="pedido${i ? " depois" : ""}">` +
-    (i ? `<span class="depois-rotulo">Depois, peça</span>` : "") +
+    (i ? `<span class="depois-rotulo">${esc(e.antes?.[i] || "Depois, peça")}</span>` : "") +
     `<blockquote>${esc(p).replace(/\n/g, "<br>")}</blockquote>` +
     `<button type="button" class="copiar" data-i="${i}">Copiar</button></div>`).join("");
 
   // Na Fase 3 a turma baixa uma pasta e pede ao Antigravity, com a pasta aberta.
   const TEXTOS = {
     2: { baixe: "Baixe", peca: "Peça", pecaLonga: "2. Peça no chat de IA que você usa", pagina: "pratica.html" },
-    3: { baixe: "Baixe a pasta", peca: "Peça ao Antigravity", pecaLonga: "2. Abra a pasta no Antigravity e peça", pagina: "pratica-3.html" },
+    3: { baixe: "Baixe a pasta", peca: "Peça ao Antigravity", pecaLonga: "2. Abra a pasta como projeto no Antigravity e peça", pagina: "pratica-3.html" },
   };
   const faseDe = (e) => e.fase || 2;
   window.exerciciosDaFase = (fase) => EX.filter((e) => faseDe(e) === fase);
@@ -139,6 +143,7 @@ window.EXERCICIOS = [
         <p class="problema-texto">${esc(e.problema)}</p>
         <h3>1. ${T.baixe}</h3>
         <div class="arquivos">${e.arquivos.length ? e.arquivos.map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div>
+        ${e.preparo ? `<p class="preparo">${esc(e.preparo)}</p>` : ""}
         <h3>${T.pecaLonga}</h3>
         ${blocoPedidos(e)}
         <h3>3. Confira a resposta</h3>
@@ -172,7 +177,8 @@ window.EXERCICIOS = [
       </div>
       <div class="ficha">
         <div class="ficha-passo"><span class="n">1</span><div><h3>${T.baixe}</h3>
-          <div class="arquivos">${e.arquivos.length ? e.arquivos.map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div></div>
+          <div class="arquivos">${e.arquivos.length ? e.arquivos.map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div>
+          ${e.preparo ? `<p class="preparo">${esc(e.preparo)}</p>` : ""}</div>
           ${e.previas ? `<div class="previas n${e.previas.length}" aria-hidden="true">${e.previas.map((src) => `<img src="${src}" alt="">`).join("")}</div>` : ""}</div>
         <div class="ficha-passo"><span class="n">2</span><div><h3>${T.peca}</h3>${blocoPedidos(e)}</div></div>
         <div class="ficha-passo"><span class="n">3</span><div><h3>Confira</h3><ul class="conferir">${e.conferir.map((c) => `<li>${esc(c)}</li>`).join("")}</ul></div></div>

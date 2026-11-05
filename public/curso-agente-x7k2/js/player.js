@@ -23,7 +23,8 @@
   };
 
   document.querySelectorAll(".peca.video").forEach((peca) => {
-    const cena = peca.closest(".cena"), frente = peca.querySelector(".frente"), video = frente.querySelector("video");
+    // Fora do palco (páginas de leitura) não há cena: os eventos dela ficam na própria peça.
+    const cena = peca.closest(".cena") || peca, frente = peca.querySelector(".frente"), video = frente.querySelector("video");
     const aparece = +peca.dataset.passo;
     peca.classList.add("com-player");
 

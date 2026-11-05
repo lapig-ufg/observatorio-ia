@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do chat ao agente</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Curso prático: IA trabalhando no seu computador. Observatório UFG-IA, LAPIG/IESA/UFG.">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/curso.css">
+<script>
+  // Endereço do Apps Script que guarda as respostas. Vazio = modo de demonstração (só neste navegador).
+  window.LEVANTAMENTO_URL = "";
+  // Endereço público do curso: o QR code aponta para cá mesmo quando a apresentação roda no computador local.
+  window.CURSO_PUBLICO = "https://lapig-ufg.github.io/observatorio-ia/curso-agente-x7k2/";
+</script>
+</head>
+<body>
+
+<header class="topo">
+  <a class="marca" href="https://lapig-ufg.github.io/observatorio-ia/">
+    <img src="assets/brand/observatorio-coruja.svg" alt="">
+    <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
+  </a>
+  <span class="espaco"></span>
+  <button class="botao cheio" data-acao="aula" type="button">Apresentar</button>
+</header>
+
+<nav class="trilha" aria-hidden="true"></nav>
+
+<main>
+
+  <!-- 1 · Capa -->
+  <section class="tela" id="capa" data-bloco="Abertura" data-min="35" data-titulo="Capa">
+    <div class="capa">
+      <div class="capa-texto">
+        <p class="curso">Curso prático de 8 horas</p>
+        <h1>Do chat ao agente</h1>
+        <p class="sub">IA trabalhando no seu computador</p>
+        <div class="assinatura">
+          <span><b>Victor Amaral</b></span>
+          <span>LAPIG, IESA, UFG</span>
+          <span class="turma-capa" hidden></span>
+        </div>
+      </div>
+      <div class="mesa" aria-hidden="true">
+        <div class="pasta"><span class="nome">meu-projeto</span></div>
+        <span class="arquivo" data-ext="docx" style="--x:8%;--y:46%;--x0:-12%;--y0:4%;--r0:-24deg;--d:.05s">relatorio-final.docx</span>
+        <span class="arquivo" data-ext="pdf" style="--x:8%;--y:58%;--x0:2%;--y0:98%;--r0:-14deg;--d:.18s">edital-2026.pdf</span>
+        <span class="arquivo" data-ext="docx" style="--x:8%;--y:70%;--x0:60%;--y0:96%;--r0:22deg;--d:.31s">ata-12-03.docx</span>
+        <span class="arquivo" data-ext="txt" style="--x:8%;--y:82%;--x0:-16%;--y0:62%;--r0:-30deg;--d:.44s">anotacoes.txt</span>
+        <span class="arquivo" data-ext="xlsx" style="--x:53%;--y:46%;--x0:72%;--y0:-8%;--r0:18deg;--d:.12s">dados-2025.xlsx</span>
+        <span class="arquivo" data-ext="csv" style="--x:53%;--y:58%;--x0:96%;--y0:30%;--r0:12deg;--d:.25s">tabela-ibge.csv</span>
+        <span class="arquivo" data-ext="jpg" style="--x:53%;--y:70%;--x0:34%;--y0:-14%;--r0:-8deg;--d:.38s">foto-campo-031.jpg</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Levantamento -->
+  <section class="tela" id="levantamento" data-bloco="Abertura" data-titulo="Antes de começar, quatro toques">
+    <div class="cabeca">
+      <h2>Antes de começar, quatro toques</h2>
+      <p class="lead">Aponte a câmera do celular. Quatro perguntas de tocar, sem nome e sem digitar.</p>
+    </div>
+    <div class="levantar">
+      <div class="qr">
+        <div class="qr-codigo"></div>
+        <div class="endereco"></div>
+      </div>
+      <div class="sala chegada">
+        <div class="sala-palco"><canvas aria-label="Cada ponto é uma resposta que chegou"></canvas></div>
+        <p class="contador"><strong>0</strong> <span>respostas</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · Este site -->
+  <section class="tela" id="este-site" data-bloco="Abertura" data-titulo="Este site foi feito conversando com uma IA">
+    <div class="cabeca">
+      <h2>Este site foi feito conversando com uma IA</h2>
+      <p class="lead">Três pedidos em português comum e o que a IA fez com cada um.</p>
+    </div>
+    <ol class="conversa">
+      <li data-passo="1">
+        <blockquote class="pedido">Vamos pensar numa apresentação que seja um site. Dá para ousar nas animações.</blockquote>
+        <ul class="registro">
+          <li>leu a qualificação e o visual do Observatório</li>
+          <li>pediu crítica do roteiro a duas outras IAs</li>
+          <li>criou as páginas e conferiu no navegador</li>
+        </ul>
+        <button type="button" class="ir" data-ir="capa">Ver a capa</button>
+      </li>
+      <li data-passo="2">
+        <blockquote class="pedido">Os resultados têm que aparecer de forma bem chamativa na tela, só daquela turma ou de todas.</blockquote>
+        <ul class="registro">
+          <li>escreveu quatro perguntas de opções fixas</li>
+          <li>desenhou um ponto por pessoa</li>
+          <li>simulou respostas para testar</li>
+        </ul>
+        <button type="button" class="ir" data-ir="sala">Ver a sala em pontos</button>
+      </li>
+      <li data-passo="3">
+        <blockquote class="pedido">Mostrar o Mau-Mau funcionando: a pessoa assiste à partida e joga contra os bots.</blockquote>
+        <ul class="registro">
+          <li>leu as regras e os bots do jogo original</li>
+          <li>reescreveu os bots para explicar cada jogada</li>
+          <li>simulou 500 partidas para achar travas</li>
+        </ul>
+        <button type="button" class="ir" data-ir="maumau">Ver o Mau-Mau</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 4 · A pesquisa -->
+  <section class="tela" id="pesquisa" data-bloco="Abertura" data-titulo="A pesquisa virou material de aula">
+    <div class="cabeca">
+      <h2>A pesquisa virou material de aula</h2>
+      <p class="lead">Dois recursos da minha qualificação de mestrado, sobre pastagens em Goiás, transformados em páginas interativas com a IA.</p>
+    </div>
+    <div class="vitrines">
+      <figure class="vitrine" data-src="https://victorgit10.github.io/mestrado-lulc-goias/Visualizacao/apresentacao.html#11.0">
+        <button type="button" class="vitrine-abrir">
+          <img src="assets/img/balanca.jpg" alt="Tela da balança: o centro de massa da pastagem se desloca 77,6 km ao norte" loading="lazy">
+          <span class="vitrine-acao">Abrir a balança</span>
+        </button>
+        <figcaption><b>A balança.</b> O centro de massa explicado com um halter que tomba, em sete passos. Abre em tela cheia; as setas avançam os passos.</figcaption>
+      </figure>
+      <figure class="vitrine" data-src="https://victorgit10.github.io/mestrado-lulc-goias/Visualizacao/diorama-encerramento/cena.html">
+        <button type="button" class="vitrine-abrir">
+          <img src="assets/img/diorama.jpg" alt="Diorama em 3D de Goiás, com lavoura, pasto e mata" loading="lazy">
+          <span class="vitrine-acao">Abrir o diorama</span>
+        </button>
+        <figcaption><b>O diorama.</b> O fecho da apresentação: a paisagem de Goiás em 3D, em movimento.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 5 · Documentos -->
+  <section class="tela" id="relatorio" data-bloco="Abertura" data-titulo="O relatório volta com as mudanças marcadas">
+    <div class="cabeca">
+      <h2>O relatório volta com as mudanças marcadas</h2>
+      <p class="lead">A IA preenche os números a partir das planilhas da pasta e marca cada alteração para você aceitar ou recusar no Word. Os documentos são fictícios.</p>
+    </div>
+    <div class="docs">
+      <article class="folha" aria-label="Relatório com alterações marcadas">
+        <p class="folha-titulo">Relatório parcial: projeto Água no Cerrado</p>
+        <p class="folha-secao">2. Atividades realizadas</p>
+        <p>No período, a equipe realizou <del>duas</del> <ins>três</ins> campanhas de campo, em março, maio <ins>e agosto</ins>. Foram coletadas <ins data-nota="1">142</ins> amostras de água em <ins>11</ins> pontos.</p>
+        <p class="folha-secao">3. Execução financeira</p>
+        <p>Até agosto, foram executados <ins data-nota="2">R$ 48.320,00 (61% do previsto)</ins>.</p>
+        <p>Bolsista substituto: <span class="vazio" data-nota="3">__________</span></p>
+        <aside class="notas">
+          <p data-nota="1">Contado na planilha <code>amostras-2026.xlsx</code>, aba Campo.</p>
+          <p data-nota="2">Somado no extrato da conta do projeto. Conferir com a coordenação.</p>
+          <p data-nota="3">Deixado em branco: o nome não está em nenhum arquivo da pasta.</p>
+        </aside>
+      </article>
+      <div class="ata" data-passo="1">
+        <span class="arquivo" data-ext="docx">ata-12-03.docx</span>
+        <p class="ata-rotulo">vira três tarefas</p>
+        <ul class="tarefas">
+          <li><b>Ana</b> envia a planilha de amostras até 20/03</li>
+          <li><b>Bruno</b> reserva o carro para a campanha de agosto</li>
+          <li><b>Carla</b> revisa o relatório parcial</li>
+        </ul>
+        <p class="ata-rotulo">e um rascunho de e-mail</p>
+        <div class="email">
+          <p><b>Assunto:</b> Encaminhamentos da reunião de 12/03</p>
+          <p>Olá, equipe. Seguem os três encaminhamentos combinados, com responsáveis e prazos…</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Sob medida -->
+  <section class="tela" id="sob-medida" data-bloco="Abertura" data-titulo="Um programa feito para uma pessoa só">
+    <div class="cabeca">
+      <h2>Um programa feito para uma pessoa só</h2>
+      <p class="lead">Um app de tarefas que entende o jeito de escrever de quem usa, e que a IA também lê e preenche. Não há mercado para ele: serve a uma pessoa.</p>
+    </div>
+    <div class="app">
+      <div class="app-janela">
+        <label class="app-campo">
+          <span class="app-rotulo">Nova tarefa</span>
+          <input type="text" autocomplete="off" spellcheck="false" placeholder="Escreva como falaria: reunião sexta 14h #projeto">
+        </label>
+        <div class="app-leitura" aria-live="polite"></div>
+        <ol class="app-lista"></ol>
+      </div>
+      <dl class="app-regras">
+        <dt>sexta, amanhã, 20/11</dt><dd>vira data</dd>
+        <dt>14h, 9h30</dt><dd>vira hora</dd>
+        <dt>#projeto</dt><dd>vira caixa</dd>
+        <dt>!</dt><dd>vira urgente</dd>
+      </dl>
+    </div>
+  </section>
+  <section class="tela" id="maumau" data-bloco="Abertura" data-titulo="Uma IA que não gera texto, escrita por uma que gera">
+    <div class="mm" data-modo="assistir">
+      <div class="mm-cabeca">
+        <div>
+          <h2>Uma IA que não gera texto, escrita por uma que gera</h2>
+          <p class="lead">Os bots seguem regras fixas que uma IA generativa escreveu. Durante a partida, nenhum modelo é chamado.</p>
+        </div>
+        <div class="mm-controles">
+          <div class="chave" role="group" aria-label="Modo">
+            <button type="button" data-modo="assistir" aria-pressed="true">Assistir</button>
+            <button type="button" data-modo="jogar" aria-pressed="false">Jogar</button>
+          </div>
+          <div class="chave" role="group" aria-label="Velocidade">
+            <button type="button" data-vel="1" aria-pressed="true">1×</button>
+            <button type="button" data-vel="2.5" aria-pressed="false">3×</button>
+          </div>
+          <button type="button" class="botao mm-pausa">Pausar</button>
+        </div>
+      </div>
+      <div class="mm-corpo">
+        <div class="mm-mesa">
+          <div class="mm-lugar mm-l0"><div class="mm-id"><span class="mm-nome"></span><span class="mm-qtd"></span></div><div class="mm-mao"></div>
+            <div class="mm-acoes" hidden>
+              <button type="button" class="botao mm-comprar">Comprar</button>
+              <button type="button" class="botao cheio mm-gritar">Mau-Mau!</button>
+            </div>
+          </div>
+          <div class="mm-lugar mm-l1"><div class="mm-id"><span class="mm-nome"></span><span class="mm-qtd"></span></div><div class="mm-mao"></div></div>
+          <div class="mm-lugar mm-l2"><div class="mm-id"><span class="mm-nome"></span><span class="mm-qtd"></span></div><div class="mm-mao"></div></div>
+          <div class="mm-lugar mm-l3"><div class="mm-id"><span class="mm-nome"></span><span class="mm-qtd"></span></div><div class="mm-mao"></div></div>
+          <div class="mm-centro">
+            <span class="mm-sentido" aria-hidden="true"></span>
+            <div class="mm-topo"></div>
+            <span class="mm-cor-rotulo">cor da mesa</span>
+            <span class="mm-cor"></span>
+            <span class="mm-acum"></span>
+            <span class="mm-placar" aria-live="polite"></span>
+          </div>
+          <div class="mm-escolha" hidden>
+            <span>Escolha a cor</span>
+            <button type="button" data-cor="vermelho" class="mm-carta mm-vermelho" aria-label="vermelho"></button>
+            <button type="button" data-cor="azul" class="mm-carta mm-azul" aria-label="azul"></button>
+            <button type="button" data-cor="verde" class="mm-carta mm-verde" aria-label="verde"></button>
+            <button type="button" data-cor="amarelo" class="mm-carta mm-amarelo" aria-label="amarelo"></button>
+          </div>
+        </div>
+        <aside class="mm-registro" aria-label="Registro das jogadas">
+          <h3>Por que cada jogada</h3>
+          <ol></ol>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <section class="tela" id="observatorio" data-bloco="Abertura" data-titulo="Um portal inteiro, feito do mesmo jeito">
+    <div class="portal">
+      <div class="portal-texto">
+        <h2>Um portal inteiro, feito do mesmo jeito</h2>
+        <ul class="portal-fatos">
+          <li><strong>Mais de 1.600</strong> materiais no acervo, com busca em português e inglês</li>
+          <li>As notícias de IA na imprensa, <strong>todo dia</strong></li>
+          <li><strong>Um panorama</strong> dos modelos e das IAs gratuitas</li>
+          <li><strong>Uma aula interativa</strong> sobre como a IA escolhe a próxima palavra</li>
+        </ul>
+        <p class="portal-fecho">A IA escreveu o código do portal; a equipe do LAPIG escolhe e revisa cada conteúdo.</p>
+        <a class="botao cheio" href="https://lapig-ufg.github.io/observatorio-ia/" target="_blank" rel="noopener">Abrir o Observatório</a>
+      </div>
+      <figure class="portal-tela">
+        <img src="assets/img/observatorio.jpg" alt="Página inicial do Observatório UFG-IA" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <!-- 9 · A sala em pontos -->
+  <section class="tela" id="sala" data-bloco="Abertura" data-titulo="A sala em pontos" data-passo-max="0">
+    <div class="sala analise">
+      <div class="sala-cabeca">
+        <h2 class="pergunta-titulo">Com que frequência você usa IA?</h2>
+        <div class="chave" role="group" aria-label="Quais respostas mostrar">
+          <button type="button" data-escopo="turma" aria-pressed="true">Esta turma</button>
+          <button type="button" data-escopo="todas" aria-pressed="false">Todas as turmas</button>
+        </div>
+      </div>
+      <div class="sala-palco"><canvas aria-label="Cada ponto é uma pessoa, agrupada pela resposta"></canvas></div>
+      <div class="sala-rodape">
+        <div class="abas-perguntas" role="group" aria-label="Pergunta"></div>
+        <div class="legenda"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · Chat × agente -->
+  <section class="tela" id="dois-caminhos" data-bloco="Do chat ao agente" data-min="10" data-titulo="A mesma tarefa, dois caminhos">
+    <div class="cabeca">
+      <h2>A mesma tarefa, dois caminhos</h2>
+      <p class="lead">Juntar 12 planilhas mensais de despesas, somar cada mês e fazer um gráfico.</p>
+    </div>
+    <i data-passo="1" hidden></i><i data-passo="2" hidden></i><i data-passo="3" hidden></i>
+    <div class="caminhos">
+      <div class="caminho chat-lado">
+        <div class="caminho-rotulo"><b>No chat do navegador</b><span>passos típicos</span></div>
+        <ol class="acoes"></ol>
+        <div class="contador-acoes"><strong>0</strong><span>ações manuais</span></div>
+      </div>
+      <div class="caminho agente-lado">
+        <div class="caminho-rotulo"><b>Com o agente no computador</b><span>gravação real, 28/10/2026</span></div>
+        <div class="agente-corpo">
+          <div class="agente-log">
+            <p class="pedido pedido-mini">Junte as 12 planilhas numa só, some cada mês e faça um gráfico. Não altere os originais.</p>
+            <ul class="registro registro-vivo" aria-live="off"></ul>
+          </div>
+          <figure class="agente-resultado">
+            <img src="assets/img/agente-grafico-totais.png" alt="Gráfico de barras das despesas por mês feito pelo agente; total do ano R$ 79.466,18" loading="lazy">
+            <figcaption>Total do ano: <b>R$ 79.466,18</b>. Igual ao gabarito, centavo por centavo.</figcaption>
+          </figure>
+        </div>
+        <div class="contador-acoes" data-so-passo2><strong>1</strong><span>pedido seu</span><em class="relogio">0:00</em></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · Antes de instalar -->
+  <section class="tela" id="antes-de-instalar" data-bloco="Instalação" data-min="45" data-titulo="Antes de instalar">
+    <div class="cabeca">
+      <h2>Antes de instalar, cinco conferências</h2>
+      <p class="lead">Marque o que já está certo. Fica salvo neste navegador.</p>
+    </div>
+    <div class="conferir-grade">
+    <ul class="conferir">
+      <li><label><input type="checkbox" data-chave="so"><span><b>Windows 10 ou 11 (64 bits), macOS 12 ou mais novo, ou Linux recente.</b> Celular e tablet não servem.</span></label></li>
+      <li><label><input type="checkbox" data-chave="conta"><span><b>Uma conta Google que entre no Antigravity.</b> Conta pessoal (como @gmail.com) funciona no plano gratuito. Conta institucional só entra se o administrador tiver liberado o acesso.</span></label></li>
+      <li><label><input type="checkbox" data-chave="senha"><span><b>A senha dessa conta e o celular da verificação em duas etapas</b>, à mão.</span></label></li>
+      <li><label><input type="checkbox" data-chave="admin"><span><b>Permissão para instalar programas</b> neste computador. Em máquina da instituição, às vezes só o suporte instala.</span></label></li>
+      <li><label><input type="checkbox" data-chave="idade"><span><b>Ter 18 anos ou mais</b>, exigência do próprio Antigravity.</span></label></li>
+    </ul>
+    <aside class="abrir-aqui">
+      <div class="qr-pequeno"></div>
+      <p><b>Abra esta apresentação no seu computador.</b> Os pedidos prontos, os links e o monitor ficam à mão.</p>
+      <p class="endereco-curso"></p>
+    </aside>
+    </div>
+  </section>
+
+  <!-- 12 · Instalar -->
+  <section class="tela" id="instalar" data-bloco="Instalação" data-titulo="Instalar o Antigravity">
+    <div class="cabeca">
+      <p class="faca-comigo">Faça comigo</p>
+      <h2>Instalar o Antigravity</h2>
+    </div>
+    <ol class="foco">
+      <li data-passo="0" data-rotulo="Abrir o site">
+        <div class="foco-texto">
+          <p class="foco-acao">No navegador, digite este endereço</p>
+          <p class="foco-grande endereco">antigravity.google/download</p>
+          <p class="foco-dica">Baixe só daqui. Site parecido com outro nome pode ser golpe.</p>
+        </div>
+      </li>
+      <li data-passo="1" data-rotulo="Baixar">
+        <div class="foco-texto">
+          <p class="foco-acao">Clique em <b>Baixar para x64</b></p>
+          <p class="foco-dica">Quase todo notebook é x64. O site já escolhe o seu sistema (Windows ou Mac).</p>
+        </div>
+        <figure class="foco-figura captura">
+          <img src="assets/img/download-antigravity.jpg" alt="Página oficial de download do Antigravity, com o botão Baixar para x64" loading="lazy">
+          <span class="marca-clique" style="left:3.6%;top:73.6%;width:31%;height:12%"></span>
+        </figure>
+      </li>
+      <li data-passo="2" data-rotulo="Instalar">
+        <div class="foco-texto">
+          <p class="foco-acao">Abra o arquivo baixado e instale</p>
+          <p class="foco-dica">Ele fica na pasta <b>Downloads</b>. Clique em “Avançar” até terminar, como em qualquer programa.</p>
+        </div>
+        <figure class="foco-figura pasta-mini">
+          <figcaption>Downloads</figcaption>
+          <span class="arquivo" data-ext="exe">Antigravity-Setup.exe</span>
+        </figure>
+      </li>
+      <li data-passo="3" data-rotulo="Entrar">
+        <div class="foco-texto">
+          <p class="foco-acao">Entre com sua conta Google pessoal</p>
+          <p class="foco-dica">A que termina em <b>@gmail.com</b>. A conta da universidade só funciona se a instituição tiver liberado.</p>
+        </div>
+      </li>
+      <li data-passo="4" data-rotulo="Privacidade">
+        <div class="foco-texto">
+          <p class="foco-acao">Decida se o Google pode usar suas conversas</p>
+          <p class="foco-dica">Vem ligado. Para desligar: <b>Settings</b> (Configurações), na opção sobre melhorar os produtos. O programa é em inglês; vamos juntos.</p>
+        </div>
+      </li>
+    </ol>
+    <aside class="para-casa so-leitura">
+      <h3>Para casa: o opencode</h3>
+      <p>O mesmo jeito de trabalhar, pelo terminal, com modelos gratuitos. Precisa do Node.js, que o guia ensina a instalar. Depois:</p>
+      <div class="comando"><code>npm install -g opencode-ai</code><button type="button" class="copiar" data-copiar="npm install -g opencode-ai">Copiar</button></div>
+      <p class="nota">No Windows, o próprio opencode recomenda usar o WSL. Guia completo em <a href="https://opencode.ai/docs/" target="_blank" rel="noopener">opencode.ai/docs</a>.</p>
+    </aside>
+  </section>
+
+  <!-- 13 · Deu erro -->
+  <section class="tela" id="deu-erro" data-bloco="Instalação" data-titulo="Deu erro? Pergunte ao monitor">
+    <div class="cabeca">
+      <h2>Deu erro? Pergunte ao monitor</h2>
+      <p class="lead">Enquanto a IA não estiver instalada, o monitor ajuda. Depois, cole a mensagem de erro inteira na própria IA e pergunte o que fazer.</p>
+    </div>
+    <div class="monitor">
+      <label class="monitor-campo">
+        <span>Escreva o que aconteceu. Por enquanto, o monitor busca só nas perguntas frequentes do curso; ainda não usa IA.</span>
+        <input type="search" placeholder="ex.: o Windows bloqueou o instalador" autocomplete="off">
+      </label>
+      <ol class="monitor-respostas" aria-live="polite"></ol>
+    </div>
+  </section>
+
+  <!-- Intervalo -->
+  <section class="tela tela-intervalo" id="intervalo-1" data-bloco="Intervalo" data-titulo="Intervalo">
+    <div class="intervalo">
+      <p class="intervalo-rotulo">Intervalo de 15 minutos</p>
+      <p class="intervalo-hora">Voltamos às <strong>--:--</strong></p>
+      <p class="intervalo-dica">Quem ainda está instalando continua; o monitor do curso fica aberto.</p>
+    </div>
+  </section>
+
+  <!-- 14 · Abra uma pasta -->
+  <section class="tela" id="abra-uma-pasta" data-bloco="Primeiro contato" data-min="20" data-titulo="Abra uma pasta, não o computador inteiro">
+    <div class="cabeca">
+      <h2>Abra uma pasta, não o computador inteiro</h2>
+      <p class="lead">O agente trabalha a partir da pasta que você abre. Abrir Documentos inteiro deixa tudo ao alcance dele.</p>
+    </div>
+    <div class="janela-esquema" aria-label="Esquema de uma janela de agente">
+      <div class="je-pasta"><span class="je-n">1</span><b>A pasta aberta</b>
+        <span class="arquivo" data-ext="xlsx">jan.xlsx</span><span class="arquivo" data-ext="csv">julho.csv</span><span class="arquivo" data-ext="xlsx">nov.xlsx</span>
+        <span class="je-novos" data-passo="3"><span class="je-n">4</span><b>O resultado aparece aqui</b><span class="arquivo" data-ext="xlsx">despesas-2026-completo.xlsx</span><span class="arquivo" data-ext="png">grafico-totais.png</span></span>
+      </div>
+      <div class="je-conversa">
+        <div class="je-pedir" data-passo="1"><span class="je-n">2</span><b>Onde você pede</b><span class="je-caixa">Junte as 12 planilhas numa só, some cada mês e faça um gráfico.</span></div>
+        <div class="je-mudou" data-passo="2"><span class="je-n">3</span><b>O que ele fez</b><ul class="registro"><li>leu 12 arquivos</li><li>criou despesas-2026-completo.xlsx</li><li>criou grafico-totais.png</li></ul></div>
+      </div>
+    </div>
+    <p class="nota">Esquema. A tela muda de um programa para outro, mas estes quatro lugares existem em todos.</p>
+  </section>
+
+  <!-- 15 · Quatro partes -->
+  <section class="tela" id="quatro-partes" data-bloco="Primeiro contato" data-titulo="Um pedido que funciona tem quatro partes">
+    <div class="cabeca">
+      <h2>Um pedido completo tem quatro partes</h2>
+      <p class="lead">Escreva cada parte e copie o pedido pronto.</p>
+    </div>
+    <div class="montador">
+      <div class="montador-campos">
+        <label class="parte p-ler"><span>Onde ler</span><input type="text" value="as 12 planilhas desta pasta"></label>
+        <label class="parte p-fazer"><span>O que fazer</span><input type="text" value="junte numa planilha só, some cada mês e faça um gráfico"></label>
+        <label class="parte p-salvar"><span>Onde salvar</span><input type="text" value="uma pasta nova chamada resultado"></label>
+        <label class="parte p-naomexer"><span>No que não mexer</span><input type="text" value="não altere nem apague os arquivos originais"></label>
+      </div>
+      <div class="montador-saida">
+        <p class="pedido montado" aria-live="polite"></p>
+        <button type="button" class="botao cheio copiar-pedido">Copiar pedido</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · Aprovar -->
+  <section class="tela" id="aprovar" data-bloco="Primeiro contato" data-titulo="Ele propõe, você aprova">
+    <div class="cabeca">
+      <h2>Ele propõe, você aprova</h2>
+      <p class="lead">Quando precisa fazer algo fora do comum, o agente pergunta antes. Leia o que ele pede.</p>
+    </div>
+    <div class="aprovar">
+      <div class="pedido-permissao">
+        <p class="pp-quem">O agente quer executar um comando</p>
+        <code class="pp-comando">pip install pdfplumber</code>
+        <p class="pp-porque">Para ler as tabelas dos PDFs, preciso de uma biblioteca que ainda não está instalada.</p>
+        <p class="nota">O <code>pip</code> é o instalador de bibliotecas do Python. No programa, estes botões aparecem em inglês.</p>
+        <div class="pp-botoes"><button type="button" class="botao" data-resposta="recusar">Recusar</button><button type="button" class="botao cheio" data-resposta="permitir">Permitir</button></div>
+        <p class="pp-explica" aria-live="polite"></p>
+      </div>
+      <div class="niveis">
+        <h3>Quanto ele faz sem perguntar</h3>
+        <ol>
+          <li><b>Request Review</b><span>(pedir revisão) pergunta antes de qualquer comando</span></li>
+          <li class="recomendado"><b>Default</b><span>(padrão) pergunta antes do que é sensível. É o que usamos no curso.</span></li>
+          <li><b>Auto</b><span>(automático) decide sozinho o que pode executar</span></li>
+          <li class="perigo"><b>Turbo</b><span>roda qualquer comando, sem pedir confirmação. Não use.</span></li>
+        </ol>
+        <p class="nota">No Antigravity: Settings › General › Global Permissions › Permission Preset. O Auto ainda está em teste (Preview).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · Quando sai errado -->
+  <section class="tela" id="sai-errado" data-bloco="Primeiro contato" data-titulo="Quando sai errado">
+    <div class="cabeca">
+      <h2>Quando sai errado</h2>
+    </div>
+    <ol class="foco foco-situacao">
+      <li data-passo="0" data-rotulo="Fazendo outra coisa">
+        <div class="foco-texto">
+          <p class="foco-situ">Ele começou a fazer outra coisa</p>
+          <p class="foco-acao">Pare e explique de novo</p>
+          <p class="foco-dica">O botão de parar fica onde você escreve o pedido. Parar não estraga nada.</p>
+        </div>
+      </li>
+      <li data-passo="1" data-rotulo="Quase certo">
+        <div class="foco-texto">
+          <p class="foco-situ">Ficou quase certo</p>
+          <p class="foco-acao">Corrija na mesma conversa</p>
+          <p class="foco-dica">Diga o que manter e o que mudar:</p>
+          <p class="foco-pedido">Mantenha o gráfico, mas some só a categoria Análises.</p>
+        </div>
+      </li>
+      <li data-passo="2" data-rotulo="Conversa confusa">
+        <div class="foco-texto">
+          <p class="foco-situ">A conversa ficou longa e confusa</p>
+          <p class="foco-acao">Comece uma conversa nova</p>
+          <p class="foco-dica">Os arquivos continuam na pasta. Conte em uma frase o que já está pronto.</p>
+        </div>
+      </li>
+      <li data-passo="3" data-rotulo="Limite acabou">
+        <div class="foco-texto">
+          <p class="foco-situ">Apareceu um aviso de limite</p>
+          <p class="foco-acao">Continue em dupla</p>
+          <p class="foco-dica">O uso gratuito tem um limite por semana. Na aula, trabalhe no computador do colega até o fim da atividade.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 18 · O que sai do computador (tela escura) -->
+  <section class="tela tela-escura" id="o-que-sai" data-bloco="Segurança" data-min="15" data-titulo="O que a IA lê sai do seu computador">
+    <div class="cabeca">
+      <h2>O que a IA lê sai do seu computador</h2>
+      <p class="lead">O programa roda aqui, mas a IA pensa num servidor: o que o agente mostra a ela, arquivo inteiro ou só um resumo, sai pela internet. Decida antes.</p>
+    </div>
+    <div class="triagem"></div>
+    <p class="tri-motivo" aria-live="polite">Escolha uma opção para cada arquivo.</p>
+    <p class="nota triagem-nota">Conta pessoal gratuita do Antigravity: o Google pode usar as conversas para melhorar produtos, a menos que você desligue em Settings. No opencode, a regra muda de modelo para modelo.</p>
+  </section>
+
+  <!-- 19 · Originais -->
+  <section class="tela" id="originais" data-bloco="Segurança" data-titulo="Você guarda o original, a IA trabalha na cópia">
+    <div class="cabeca">
+      <h2>Você guarda o original, a IA trabalha na cópia</h2>
+      <p class="lead">O Antigravity tem um botão de desfazer (Undo). Mesmo assim, a proteção que não depende do programa é a cópia que você mesmo faz, pelo Explorador de Arquivos.</p>
+    </div>
+    <ol class="passos-copia">
+      <li><span class="ps-pasta ps-originais"><b>meus-dados</b><span>os originais, só seus</span></span><span class="ps-texto">Deixe os arquivos de verdade numa pasta.</span></li>
+      <li data-passo="1"><span class="ps-pasta ps-trabalho"><b>meus-dados - Cópia</b><span>onde a IA vai trabalhar</span></span><span class="ps-texto">Copie a pasta inteira (Ctrl+C, Ctrl+V) e dê um nome claro.</span></li>
+      <li data-passo="2"><span class="ps-pasta ps-aberta"><b>meus-dados - Cópia</b><span>aberta no agente</span></span><span class="ps-texto">No agente, abra só a cópia. A pasta original fica fora do alcance dele.</span></li>
+      <li data-passo="3"><span class="ps-pasta ps-versao"><b>meus-dados - Cópia (2)</b><span>antes de um passo grande</span></span><span class="ps-texto">Antes de um passo grande, copie de novo. Deu errado? Volte para essa cópia.</span></li>
+    </ol>
+    <p class="nota">No opencode existe o comando /undo, que desfaz a última mudança. A cópia vale para os dois.</p>
+  </section>
+
+</main>
+
+<footer class="rodape-leitura">
+  Observatório UFG-IA · LAPIG/IESA/UFG. Para apresentar: botão <b>Apresentar</b>, setas para avançar, Esc para o índice, F para tela cheia, L para voltar à leitura.
+</footer>
+
+<div class="indice" role="dialog" aria-label="Índice das telas"><ol></ol></div>
+
+<script src="assets/vendor/qrcode.min.js"></script>
+<script src="js/questionario.js"></script>
+<script src="js/sala.js"></script>
+<script src="js/motor.js"></script>
+<script src="js/maumau.js"></script>
+<script src="js/telas-abertura.js"></script>
+<script src="js/telas-exemplos.js"></script>
+<script src="js/dois-caminhos.js"></script>
+<script src="js/telas-pratica.js"></script>
+</body>
+</html>

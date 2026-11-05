@@ -4,7 +4,7 @@
 
 window.PASTAS = {
   viagens: {
-    caminho: "1-viagens",
+    caminho: "viagens.zip",
     grupos: [
       { nome: "viagem-1", arquivos: ["IMG_20241014_161520.jpg", "IMG_20241015_105420.jpg", "IMG_20241016_141118.jpg", "IMG_20241017_124625.jpg",
         "Scan_20241018_105957.jpg", "bilhete.pdf", "comprovante_pix_20241010.pdf", "voucher-reserva-58213.pdf"] },

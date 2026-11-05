@@ -191,7 +191,7 @@
           bateu.add(origem);
           if (!GENERICAS.has(t) && !GENERICAS.has(origem) && v >= 1) especifica = true;
         }
-        // A apresentação antiga (index.html) repete o que as páginas novas dizem melhor.
+        // A apresentação antiga (index-antigo.html) repete o que as páginas novas dizem melhor.
         if (e.id.startsWith("index-")) nota *= 0.8;
         if (nota >= NOTA_MINIMA && bateu.size >= precisa && especifica) achados.push({ e, nota });
       }

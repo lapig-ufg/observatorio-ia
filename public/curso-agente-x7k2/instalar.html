@@ -5,138 +5,254 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Instalar o Antigravity</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Do chat ao agente: como instalar o Google Antigravity antes do curso, passo a passo.">
+<meta name="description" content="Do chat ao agente: como instalar o Antigravity no Windows, entrar com a conta Google, escolher o modo de aprovação e preparar o notebook para a Fase 3.">
 <link rel="icon" href="assets/brand/observatorio-coruja.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/curso.css">
+<link rel="stylesheet" href="css/player.css">
+<style>
+  :root { --fundo: #eef3f0; --papel: #fff; --tinta: #10211b; --tinta-2: #4d5f58; --verde: #114d3b; --menta-2: #e1efe8; --terracota: #d76832; --linha: #ccd9d2;
+    --ouro: #a37b1c; --ouro-2: #fbf3dc; --creme: #f3efe6;
+    --serifa: Georgia, "Times New Roman", serif; --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; --mono: "JetBrains Mono", ui-monospace, Consolas, monospace; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--tinta); font: 400 17px/1.55 var(--sans); }
+  .topo { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 16px; padding: 10px max(16px, calc(50vw - 430px));
+    background: color-mix(in srgb, var(--fundo) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--linha); }
+  .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--verde); }
+  .marca img { width: 34px; height: auto; }
+  .marca strong { font: 700 19px/1.05 var(--serifa); letter-spacing: -.02em; }
+  .marca small { display: block; font: 600 11px/1.2 var(--sans); color: var(--tinta-2); letter-spacing: .02em; }
+  .sobretitulo { margin: 0; font: 600 13px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--terracota); }
+  .pratica { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  .pratica > h1 { font: 400 clamp(34px, 6vw, 52px)/1.05 var(--serifa); letter-spacing: -.02em; margin: 8px 0 12px; }
+  .pratica > .lead { color: var(--tinta-2); margin: 0 0 28px; max-width: 640px; }
+  .indice { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; padding: 0; list-style: none; }
+  .indice a { display: inline-block; padding: 7px 14px; border-radius: 999px; background: var(--papel); border: 1px solid var(--linha); color: var(--tinta); text-decoration: none; font-size: 15px; }
+  .indice a:hover { border-color: var(--terracota); }
+  .exercicio { background: var(--papel); border: 1px solid var(--linha); border-radius: 18px; padding: 24px clamp(18px, 4vw, 34px) 28px; margin: 0 0 22px; scroll-margin-top: 76px; }
+  .exercicio:target { border-color: var(--terracota); box-shadow: 0 0 0 3px rgba(215, 104, 50, .18); }
+  .exercicio header { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .exercicio .num { width: 36px; height: 36px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--verde); color: #fff; font-weight: 700; }
+  .exercicio h2 { margin: 0; flex: 1; min-width: 200px; font: 400 28px/1.1 var(--serifa); }
+  .exercicio .tempo { font: 600 13px/1 var(--sans); color: var(--tinta-2); background: var(--menta-2); padding: 6px 10px; border-radius: 999px; }
+  .problema-texto { margin: 14px 0 6px; color: var(--tinta-2); }
+  .exercicio h3 { margin: 22px 0 10px; font: 600 13px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--terracota); }
+  .exercicio p { margin: 10px 0; }
+  .exercicio a { color: var(--verde); }
+  code, .tecla { font: 500 .9em/1 var(--mono); background: var(--fundo); border: 1px solid var(--linha); border-radius: 6px; padding: 2px 6px; white-space: nowrap; }
+  .tecla { font-family: var(--sans); font-weight: 600; }
+
+  /* Passos numerados, como o "faça comigo" */
+  .passos { margin: 14px 0 0; padding: 0; list-style: none; counter-reset: p; display: grid; gap: 12px; }
+  .passos > li { position: relative; padding: 2px 0 0 40px; counter-increment: p; }
+  .passos > li::before { content: counter(p); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+    font: 700 14px/1 var(--sans); color: var(--verde); background: var(--menta-2); }
+  .nota { margin: 16px 0 0; padding: 12px 16px; border-radius: 12px; background: var(--fundo); color: var(--tinta-2); font-size: 15.5px; }
+  .nota b { color: var(--tinta); }
+
+  /* O vídeo, com o player da aula */
+  .video-caixa { margin: 18px 0 0; }
+  .peca.video { position: relative; aspect-ratio: 1366 / 720; width: 100%; }
+  .peca.video .frente { position: absolute; inset: 0; border-radius: 14px; overflow: hidden; background: #0c0c0c; box-shadow: 0 24px 50px -28px rgba(16, 33, 27, .6); }
+  .peca.video video { width: 100%; height: 100%; object-fit: contain; display: block; cursor: pointer; }
+  .selo-video { position: absolute; left: 12px; top: 11px; z-index: 4; pointer-events: none; font: 600 11px/1 var(--mono); letter-spacing: .04em; color: rgba(255, 255, 255, .85); background: rgba(0, 0, 0, .55); border-radius: 999px; padding: 6px 10px; }
+  .progresso { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255, 255, 255, .1); z-index: 4; }
+  .progresso b { display: block; height: 100%; width: 0; background: var(--terracota); transition: width .3s linear; }
+  @media (max-width: 560px) {
+    .pl-faixa { padding: 24px 8px 4px; }
+    .pl-botoes { gap: 2px; margin-top: 0; }
+    .pl-botoes .pl-volta, .pl-botoes .pl-frente { display: none; }
+    .pl-tempo { font-size: 12px; margin-left: 4px; }
+    .pl-botoes button { width: 32px; height: 32px; padding: 7px; }
+    .pl-botoes .pl-vel { min-width: 38px; font-size: 13px; }
+    .pl-grande { width: 56px !important; height: 56px !important; padding: 16px 14px 16px 18px !important; translate: -50% -70% !important; }
+    .selo-video { font-size: 10px; padding: 5px 8px; }
+  }
+
+  /* Contas */
+  .contas { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin: 14px 0 0; }
+  .conta { border-radius: 14px; padding: 14px 16px; border: 1px solid var(--linha); background: var(--fundo); }
+  .conta b { display: block; font-weight: 600; margin-bottom: 4px; }
+  .conta span { font-size: 15.5px; color: var(--tinta-2); }
+  .conta.sim { border-color: #9cc9b3; background: var(--menta-2); }
+
+  /* O modo de aprovação */
+  .trilha { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 12px 0 0; font: 500 14.5px/1 var(--mono); }
+  .trilha span { padding: 7px 10px; border-radius: 8px; background: var(--fundo); border: 1px solid var(--linha); }
+  .trilha i { font-style: normal; color: var(--tinta-2); }
+  .trilha span:last-child { background: var(--terracota); border-color: var(--terracota); color: #fff; }
+  .presets { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; }
+  .presets li { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: center; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--linha); }
+  .presets b { font-size: 17.5px; }
+  .presets p { grid-column: 1 / -1; margin: 0; font-size: 15.5px; color: var(--tinta-2); }
+  .presets .escolhido { border: 2px solid var(--terracota); background: #fdf3ed; }
+  .presets .escolhido p { color: var(--tinta); }
+  .presets em { margin-left: 8px; font: 700 11px/1 var(--sans); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--terracota); border-radius: 999px; padding: 5px 8px; vertical-align: 2px; white-space: nowrap; }
+  .medidor { display: inline-flex; gap: 3px; }
+  .medidor i { width: 15px; height: 7px; border-radius: 3px; background: #dbe4df; }
+  .medidor i.on { background: #2f8a63; }
+  .presets li:last-child .medidor i.on { background: var(--terracota); }
+  .legenda { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font-size: 14px; color: var(--tinta-2); }
+  .legenda .medidor i { width: 10px; height: 5px; }
+  .fonte { font-size: 14px; color: var(--tinta-2); }
+
+  /* Dê ferramentas ao agente (provisório) */
+  .provisorio { font: 700 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: #5b430b; background: #f3d98f; border-radius: 999px; padding: 6px 10px; white-space: nowrap; }
+  .exercicio.em-teste { border: 2px dashed #d8b65a; }
+  .achados { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+  .achados li { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: center; padding: 12px 14px; border-radius: 12px; background: var(--fundo); }
+  .achados code { grid-column: 1; justify-self: start; font-size: 13px; white-space: normal; word-break: break-all; }
+  .achados q { grid-column: 1 / -1; font: italic 15px/1.35 var(--serifa); color: #9c3f17; }
+  .achados .st { grid-row: 1 / span 2; grid-column: 2; font: 700 11px/1 var(--sans); letter-spacing: .07em; text-transform: uppercase; border-radius: 999px; padding: 6px 9px; }
+  .ok .st { background: var(--menta-2); color: var(--verde); }
+  .falhou .st { background: #fbe4d8; color: #9c3f17; }
+  .testar { border: 1px dashed #d8b65a; background: var(--ouro-2) !important; }
+  .testar .st { background: #f3d98f; color: #5b430b; }
+  .pendente { margin: 12px 0 0; padding-left: 20px; color: var(--tinta-2); font-size: 15.5px; }
+
+  /* Deu errado? */
+  .duvidas { margin: 8px 0 0; }
+  .duvidas details { border-top: 1px solid var(--linha); padding: 12px 0; }
+  .duvidas details:last-child { border-bottom: 1px solid var(--linha); }
+  .duvidas summary { cursor: pointer; font-weight: 600; list-style: none; position: relative; padding-right: 28px; }
+  .duvidas summary::-webkit-details-marker { display: none; }
+  .duvidas summary::after { content: "+"; position: absolute; right: 4px; top: -2px; font: 400 22px/1 var(--sans); color: var(--terracota); }
+  .duvidas details[open] summary::after { content: "−"; }
+  .duvidas details p, .duvidas details ol { margin: 8px 0 0; color: var(--tinta-2); }
+  .nota-fim { color: var(--tinta-2); font-size: 15px; }
+</style>
 </head>
-<body class="pagina-missao">
+<body>
 
 <header class="topo">
   <a class="marca" href="https://lapig-ufg.github.io/observatorio-ia/">
     <img src="assets/brand/observatorio-coruja.svg" alt="">
     <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
   </a>
-  <span class="espaco"></span>
-  <button class="botao" data-acao="aula" type="button" title="Mostra uma tela por vez, para o professor projetar na sala. Para voltar, aperte L.">Modo apresentação (professor)</button>
 </header>
 
-<nav class="trilha" aria-hidden="true"></nav>
-<button class="sair-aula" data-acao="leitura" type="button">Sair da projeção (L)</button>
+<main class="pratica">
+  <p class="sobretitulo">Do chat ao agente · Fase 3</p>
+  <h1>Instalar o Antigravity</h1>
+  <p class="lead">Para os exercícios da Fase 3, o Antigravity precisa estar no seu notebook e conectado a uma conta Google. Veja a gravação, siga os passos e, antes do primeiro pedido, confira o modo de aprovação.</p>
+  <ul class="indice">
+    <li><a href="#gravacao">A gravação</a></li>
+    <li><a href="#baixar">1. Baixar</a></li>
+    <li><a href="#entrar">2. Entrar</a></li>
+    <li><a href="#aprovar">3. Modo de aprovação</a></li>
+    <li><a href="#ferramentas">4. Ferramentas</a></li>
+    <li><a href="#deu-errado">Deu errado?</a></li>
+  </ul>
 
-<main>
-
-  <section class="tela" id="antes" data-bloco="Instalar" data-min="20" data-titulo="Antes do curso: instalar">
-    <div class="cabeca">
-      <p class="faca-comigo">Antes do curso</p>
-      <h2>Instalar o Antigravity</h2>
-      <p class="lead">Uns 20 minutos, antes do primeiro encontro. Se travar, há um plantão para ajudar.</p>
-    </div>
-    <div class="antes-de-comecar">
-      <h3>Você vai precisar de</h3>
-      <ol>
-        <li>Um <b>notebook ou computador</b> com Windows 10 ou 11, ou Mac com macOS 12 ou mais novo. Celular e tablet não servem.</li>
-        <li>Uma <b>conta Google pessoal</b>, a que termina em @gmail.com, com a senha e o celular da verificação à mão. A conta da universidade só funciona se a instituição tiver liberado o Antigravity.</li>
-        <li><b>Permissão para instalar programas.</b> Em computador da instituição, às vezes só o suporte de TI instala.</li>
-        <li>Ter <b>18 anos ou mais</b>, exigência do próprio Antigravity.</li>
-      </ol>
+  <section class="exercicio" id="gravacao" data-titulo="A gravação da instalação">
+    <header><h2>Do download ao app aberto</h2><span class="tempo">83 s · gravado no Windows</span></header>
+    <p class="problema-texto">A instalação inteira, gravada em 4 de novembro de 2026 com uma conta Google gratuita. A instalação em si levou 40 segundos.</p>
+    <div class="video-caixa">
+      <div class="peca video" data-passo="0">
+        <div class="frente"><span class="selo-video">gravação real · 4 nov. 2026</span><video src="assets/video/antigravity-instalar.mp4" poster="assets/video/antigravity-instalar.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+      </div>
     </div>
   </section>
 
-  <section class="tela" id="passos" data-bloco="Instalar" data-titulo="Passo a passo">
-    <div class="cabeca">
-      <p class="faca-comigo">Passo a passo</p>
-      <h2>Instalar o Antigravity</h2>
-    </div>
-    <ol class="foco">
-      <li data-passo="0" data-rotulo="Site">
-        <div class="foco-texto">
-          <p class="foco-acao">No notebook, digite este endereço</p>
-          <p class="foco-grande endereco">antigravity.google/download</p>
-          <p class="foco-dica">Na barra de endereço do navegador, no alto, não na busca do Google. Baixe só daqui.</p>
-        </div>
-      </li>
-      <li data-passo="1" data-rotulo="Baixar">
-        <div class="foco-texto">
-          <p class="foco-acao">Clique em <b>Baixar para x64</b></p>
-          <p class="foco-dica">Quase todo notebook é x64. O site já escolhe o seu sistema. Não é o “Antigravity CLI”, mais abaixo.</p>
-        </div>
-        <figure class="foco-figura captura">
-          <img src="assets/img/download-antigravity.jpg" alt="Página oficial de download do Antigravity, com o botão Baixar para x64" loading="lazy">
-          <span class="marca-clique" style="left:3.6%;top:73.6%;width:31%;height:12%"></span>
-        </figure>
-      </li>
-      <li data-passo="2" data-rotulo="Instalador">
-        <div class="foco-texto">
-          <p class="foco-acao">Abra o arquivo baixado</p>
-          <p class="foco-dica">Ele vai para a pasta <b>Downloads</b>. No navegador, <b>Ctrl+J</b> mostra a lista do que você baixou; clique no arquivo.</p>
-        </div>
-        <figure class="foco-figura pasta-mini">
-          <figcaption>Downloads</figcaption>
-          <span class="arquivo" data-ext="exe">Antigravity-Setup.exe</span>
-        </figure>
-      </li>
-      <li data-passo="3" data-rotulo="Aviso">
-        <div class="foco-texto">
-          <p class="foco-acao">Se o Windows avisar, confira e siga</p>
-          <p class="foco-dica">Se aparecer “O Windows protegeu o computador”, clique em <b>Mais informações</b> e depois em <b>Executar assim mesmo</b>. Só faça isso com o arquivo que veio de antigravity.google.</p>
-        </div>
-      </li>
-      <li data-passo="4" data-rotulo="Entrar">
-        <div class="foco-texto">
-          <p class="foco-acao">Entre com a conta Google pessoal</p>
-          <p class="foco-dica">Ao abrir, o programa pede para entrar. Use a conta @gmail.com.</p>
-        </div>
-      </li>
-      <li data-passo="5" data-rotulo="Privacidade">
-        <div class="foco-texto">
-          <p class="foco-acao">Decida se o Google pode usar suas conversas</p>
-          <p class="foco-dica">Na conta pessoal, isso vem ligado. Para desligar, abra <b>Settings</b> (Configurações) e procure a opção sobre usar suas interações para melhorar os produtos.</p>
-        </div>
-      </li>
-      <li data-passo="6" data-rotulo="Testar">
-        <div class="foco-texto">
-          <p class="foco-acao">Teste com uma pasta vazia</p>
-          <p class="foco-dica">Abra uma pasta vazia com <b>Open Folder</b> e escreva:</p>
-          <p class="foco-pedido">Quais arquivos existem nesta pasta?</p>
-          <p class="foco-dica">Respondeu que está vazia? Tudo pronto.</p>
-        </div>
-      </li>
+  <section class="exercicio" id="baixar" data-titulo="Baixar e instalar o Antigravity">
+    <header><span class="num">1</span><h2>Baixar e instalar</h2></header>
+    <ol class="passos">
+      <li>Entre em <a href="https://antigravity.google" target="_blank" rel="noopener"><b>antigravity.google</b></a> (ou busque “antigravity” no Google) e clique em <b>Download</b>.</li>
+      <li>Escolha <b>Windows</b> e, no quadro <b>Antigravity App</b>, clique em <b>Baixar para x64</b>.</li>
+      <li>Abra o arquivo baixado (fica na pasta Downloads) e espere a instalação terminar. O app abre sozinho.</li>
     </ol>
+    <p class="nota"><b>App ou CLI?</b> Na mesma página aparece o Antigravity CLI, que é outro programa, feito para o terminal. No curso, baixe o <b>App</b>.</p>
   </section>
 
-  <section class="tela-extra so-leitura" id="deu-errado" data-titulo="Deu errado?">
-    <div class="cabeca"><h2>Deu errado?</h2></div>
-    <dl class="deu-errado">
-      <dt>Entrar com a conta da universidade não funciona</dt>
-      <dd>O Antigravity só aceita conta de instituição quando ela libera o programa. Use uma conta Google pessoal, como @gmail.com.</dd>
-      <dt>Não tenho permissão para instalar</dt>
-      <dd>Em computador da instituição, quem instala costuma ser o suporte de TI. Peça a instalação com antecedência, ou traga um notebook pessoal.</dd>
-      <dt>Não acho o arquivo baixado</dt>
-      <dd>No navegador, aperte Ctrl+J. A lista mostra o arquivo; clique em “Mostrar na pasta”.</dd>
-      <dt>Ele diz que preciso ter 18 anos ou verificar a idade</dt>
-      <dd>O Google pede a verificação de idade da conta. A FAQ oficial explica como fazer: <a href="https://antigravity.google/docs/faq/" target="_blank" rel="noopener">antigravity.google/docs/faq</a>.</dd>
-      <dt>Apareceu uma mensagem de erro em inglês</dt>
-      <dd>Tire uma foto da tela ou copie o texto da mensagem e traga ao plantão. Com o programa já funcionando, você pode colar a mensagem na própria conversa e perguntar o que fazer.</dd>
-    </dl>
-    <p class="nota">Endereços e requisitos conferidos nas páginas oficiais em 1º de novembro de 2026.</p>
+  <section class="exercicio" id="entrar" data-titulo="Entrar com a conta Google">
+    <header><span class="num">2</span><h2>Entrar com a conta Google</h2></header>
+    <ol class="passos">
+      <li>Na tela <b>Welcome to Antigravity</b>, clique em <b>Continue with Google</b>.</li>
+      <li>O navegador abre: escolha a conta e autorize. Depois, volte ao app.</li>
+      <li>Na tela <b>Security Notice &amp; Data Use</b>, a caixa de ceder seus dados ao Google é opcional. Na gravação, ela ficou desmarcada. Clique em <b>Get started</b>.</li>
+    </ol>
+    <h3>Qual conta usar</h3>
+    <div class="contas">
+      <div class="conta sim"><b>Conta pessoal (Gmail)</b><span>Funciona no plano gratuito, com uma cota que renova toda semana.</span></div>
+      <div class="conta"><b>Conta da instituição</b><span>Só entra se o administrador da instituição tiver liberado o Antigravity. Se não entrar, use a pessoal.</span></div>
+    </div>
+    <p class="nota">É preciso ter 18 anos ou mais para usar o Antigravity.</p>
   </section>
 
-  <nav class="proxima so-leitura"><a class="botao cheio" href="missao-1.html">Tudo pronto: Missão 1 →</a></nav>
+  <section class="exercicio" id="aprovar" data-titulo="O modo de aprovação do Antigravity">
+    <header><span class="num">3</span><h2>Escolha o modo de aprovação</h2></header>
+    <p class="problema-texto">Um técnico vai deixar o agente arrumar a pasta do setor. Quer que ele trabalhe sem pedir licença a cada passo, mas que pergunte antes de sair da pasta. Isso se escolhe antes do primeiro pedido, em:</p>
+    <div class="trilha"><span>Settings</span><i>›</i><span>General</span><i>›</i><span>Global Permissions</span><i>›</i><span>Permission Preset</span></div>
+    <ol class="presets">
+      <li><b>Request Review</b><span class="medidor" aria-hidden="true"><i></i><i></i><i></i><i></i></span><p>Pede aprovação para todo comando. Não usa a área isolada, e os arquivos ficam restritos à pasta do projeto.</p></li>
+      <li class="escolhido"><b>Default <em>o curso usa este</em></b><span class="medidor" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span><p>Roda os comandos numa área isolada (sandbox), sem internet, com acesso à pasta do projeto e às pastas temporárias. Quando precisa sair dela, pede aprovação.</p></li>
+      <li><b>Auto</b><span class="medidor" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span><p>Na área isolada, igual ao Default. Fora dela, decide sozinho: o que é seguro e reversível roda sem perguntar, e o que é arriscado ou não tem volta ainda pede aprovação. Até a versão 2.29.0 aparecia como “Auto (Preview)”.</p></li>
+      <li><b>Turbo</b><span class="medidor" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><p>Libera tudo: qualquer comando, o disco inteiro, a internet e as ferramentas externas, sem perguntar.</p></li>
+    </ol>
+    <p class="legenda"><span class="medidor" aria-hidden="true"><i class="on"></i><i></i></span> o que ele faz sem perguntar</p>
+    <h3>Se não aparecer assim</h3>
+    <p><b>Ele pede aprovação de tudo, mesmo em Default?</b> O notebook não tem a área isolada. No Windows, ela exige o Windows 11 24H2 ou mais novo, com a atualização de agosto de 2026. Sem ela (Windows 10, por exemplo), o Default passa a funcionar como Request Review. Dá para usar assim: só é preciso aprovar cada comando.</p>
+    <p><b>Entrou com a conta da instituição?</b> Contas empresariais não têm o Auto e usam as permissões antigas, com outra tela.</p>
+    <p class="nota">Também dá para trocar o modo na própria caixa de mensagem, no seletor de permissões, ou só para um projeto, em Settings › Projects.</p>
+    <p class="fonte">Fonte: <a href="https://antigravity.google/docs/permissions" target="_blank" rel="noopener">antigravity.google/docs/permissions</a> e <a href="https://antigravity.google/docs/sandbox" target="_blank" rel="noopener">/docs/sandbox</a>, conferidos em 5 nov. 2026.</p>
+  </section>
 
+  <!-- PROVISÓRIO (05/11/2026): achado no PC do Victor, ainda sem a prova final.
+       Ver RELATORIO-instalar.md para o que falta testar antes de tirar a marca. -->
+  <section class="exercicio em-teste" id="ferramentas" data-titulo="Antes de pedir: dê ferramentas ao agente">
+    <header><span class="num">4</span><h2>Antes de pedir: dê ferramentas ao agente</h2><span class="provisorio">provisório</span></header>
+    <p class="problema-texto">Uma secretária pede ao agente a lista de inscritos em Excel e recebe um arquivo CSV. O Python estava instalado no notebook, mas o agente não conseguiu usá-lo.</p>
+    <p>No modo Default, os comandos do agente rodam numa caixa isolada do Windows (AppContainer). Pela documentação, de dentro dela as pastas fora da sua pasta de usuário ficam visíveis, e o resto da sua pasta de usuário fica escondido. No teste, o agente só conseguiu rodar programas instalados em pastas como <code>C:\Program Files</code>.</p>
+    <h3>O que aconteceu no teste (5 nov. 2026, Windows 11)</h3>
+    <ul class="achados">
+      <li class="ok"><b>Node</b><code>C:\Program Files\nodejs</code><span class="st">funcionou</span></li>
+      <li class="falhou"><b>Python do Python Install Manager</b><code>AppData\Local\Python</code><q>Não é possível o acesso ao arquivo pelo sistema</q><span class="st">falhou</span></li>
+      <li class="falhou"><b>Excel, aberto pelo agente</b><code>Office, por COM</code><span class="st">falhou</span></li>
+    </ul>
+    <p>Sem um programa que fizesse o .xlsx, o agente entregou CSV, ou montou o .xlsx à mão, mais devagar.</p>
+    <h3>O que fazer antes do primeiro pedido</h3>
+    <ol class="passos">
+      <li><b>Node:</b> instale pelo instalador de <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a>. Ele vai para <code>C:\Program Files\nodejs</code>, que funcionou no teste.</li>
+      <li><b>Python:</b> no instalador de <a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener">python.org</a>, escolha a instalação personalizada e marque “Install Python for all users”, que instala em <code>C:\Program Files</code>. <span class="provisorio">a testar</span></li>
+      <li>Sem nenhum dos dois, peça o resultado em CSV: o Excel abre.</li>
+    </ol>
+    <p class="nota"><b>Ainda falta testar:</b> o Python instalado para todos os usuários; se o agente, no Default, pede para rodar o Python fora da caixa e se isso resolve; e o mesmo exercício num notebook sem Office.</p>
+  </section>
+
+  <section class="exercicio" id="deu-errado" data-titulo="Deu errado na instalação?">
+    <header><h2>Deu errado?</h2></header>
+    <div class="duvidas">
+      <details open>
+        <summary>Apareceu uma tela azul: “O Windows protegeu o computador”</summary>
+        <p>É o SmartScreen, que aparece com programas que ele ainda não conhece. Se o arquivo veio de <b>antigravity.google</b>, clique em <span class="tecla">Mais informações</span> e depois em <span class="tecla">Executar assim mesmo</span>. Se você baixou de outro site, não execute: apague o arquivo e baixe de novo em antigravity.google.</p>
+      </details>
+      <details>
+        <summary>O Windows pede senha de administrador para instalar</summary>
+        <p>Em computador da instituição, quem instala costuma ser o suporte de TI. Para a aula, use outro notebook ou faça em dupla.</p>
+      </details>
+      <details>
+        <summary>A conta da universidade não entra</summary>
+        <p>A conta institucional só funciona se o administrador tiver liberado o Antigravity. Saia e entre com uma conta Google pessoal: no plano gratuito ela funciona.</p>
+      </details>
+      <details>
+        <summary>Ele pede aprovação para cada comando</summary>
+        <p>Confira em Settings › General › Global Permissions se o Permission Preset está em Default. Se estiver e ele continuar pedindo, o notebook não tem a área isolada (veja <a href="#aprovar">o modo de aprovação</a>). Leia cada pedido antes de aprovar.</p>
+      </details>
+      <details>
+        <summary>Pedi uma planilha do Excel e veio um CSV</summary>
+        <p>O agente provavelmente não achou um programa que ele consiga usar para fazer o .xlsx. Veja <a href="#ferramentas">dê ferramentas ao agente</a>. O CSV abre no Excel.</p>
+      </details>
+    </div>
+  </section>
+
+  <p class="nota-fim">Depois de instalar, os exercícios estão em <a href="pratica-3.html">Prática no computador</a>.</p>
 </main>
 
-<footer class="rodape-leitura">
-  <p><a href="missoes.html">Todas as missões</a> · <b>Instalar</b> · <a href="missao-1.html">Missão 1</a> · <a href="missao-2.html">Missão 2</a> · <a href="missao-3.html">Missão 3</a> · <a href="missao-4.html">Missão 4</a> · <a href="missao-5.html">Missão 5</a></p>
-  <p>Do chat ao agente · Observatório UFG-IA · LAPIG/IESA/UFG.</p>
-</footer>
-
-<div class="indice" role="dialog" aria-label="Índice das telas"><ol></ol></div>
-
-<script src="js/motor.js"></script>
-<script src="js/telas-pratica.js"></script>
-<script src="js/coruja.js" defer></script>
+<script src="js/player.js"></script>
+<script>
+  // Fora do palco, a peça faz o papel da cena: o "entrou" confere se o servidor aceita pular no vídeo.
+  document.querySelectorAll(".peca.video").forEach((p) => p.dispatchEvent(new Event("entrou")));
+</script>
 </body>
 </html>

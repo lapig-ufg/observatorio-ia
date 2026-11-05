@@ -207,7 +207,7 @@ window.RESULTADOS = {
             nota: "Nota fiscal de serviço em folha A4, de um consumo no hotel. É outra despesa, diferente da diária do Portal das Águas. Se ficar de fora, o total cai para R$ 1.535,74." },
         ],
         total: "1.550,74", errado: { rotulo: "Com o Pix somado de novo", valor: "2.790,74" },
-        nota: "Depois da parte A, a viagem-1 tem subpastas por categoria, a planilha e a lista de pendências. Na raiz de 1-viagens fica o arquivo de instruções que a parte B vai seguir." },
+        nota: "Depois da parte A, o projeto viagem-1 tem pastas por tipo de gasto, a planilha com o total, a lista de dúvidas e o passo a passo que a parte B vai seguir." },
       { nome: "viagem-2", sub: "Rio de Janeiro e Mato Grosso · jun. e jul. 2025 · parte B",
         linhas: [
           { c: ["24/06/2025", "Valente e Califé", "Alimentação", "30,90"], arq: "IMG_20250624_152340.jpg", img: ["IMG_20250624_152340"], estado: "atencao",
@@ -220,10 +220,10 @@ window.RESULTADOS = {
           { c: ["12/07/2025", "Espeto do Vizinho", "Alimentação", "30,00"], arq: "IMG_20250712_214502.jpg", img: ["IMG_20250712_214502"], estado: "atencao",
             nota: "O papel diz “não é documento fiscal”: é a conferência da conta. A despesa foi paga, mas a observação precisa dizer o que ele é." },
           { c: ["13/07/2025", "FL Empreendimentos Comerciais", "Alimentação", "88,00"], arq: "IMG_20250713_014530.jpg", img: ["IMG_20250713_014530"], estado: "atencao",
-            nota: "O topo está desbotado. O rodapé mostra 13/07/2025 01:41:30, então 13/07 é a data provável. A dúvida vai para a lista de pendências." },
+            nota: "O topo está desbotado. O rodapé mostra 13/07/2025 01:41:30, então 13/07 é a data provável. A dúvida vai para a lista de dúvidas que o pedido manda fazer." },
         ],
         total: "253,50",
-        nota: "Na parte B o pedido é uma frase só: o agente segue o arquivo de instruções que ele mesmo escreveu na parte A." },
+        nota: "Na parte B o pedido é “organize do mesmo jeito”: o agente segue o passo a passo que ele mesmo escreveu na parte A, agora na viagem-2, dentro do mesmo projeto." },
     ],
   },
 
@@ -311,7 +311,7 @@ window.RESULTADOS = {
       { arq: "lista-presenca.txt", conta: "1 data · 1 auditório",
         trecho: "<p>Data: <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p><p>Local: <del>Auditório 2</del> <ins>Auditório 1</ins></p>" },
     ],
-    nota: "No fim, procure “10 de maio”, “Auditório 2”, “5 de maio” e “8 de maio” na pasta: não pode sobrar nenhum. E a lista do agente precisa citar os dois prazos.",
+    nota: "No fim, procure “10 de maio”, “Auditório 2”, “5 de maio” e “8 de maio” na pasta: não pode sobrar nenhum. O pedido não citou os prazos: se o agente os mudou, a lista dele tem de dizer isso.",
   },
 };
 

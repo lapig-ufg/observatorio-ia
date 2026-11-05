@@ -35,17 +35,18 @@
   .exercicio h2 { margin: 0; flex: 1; font: 400 28px/1.1 var(--serifa); }
   .exercicio .tempo { font: 600 13px/1 var(--sans); color: var(--tinta-2); background: var(--menta-2); padding: 6px 10px; border-radius: 999px; }
   .problema-texto { margin: 14px 0 6px; color: var(--tinta-2); }
-  .exercicio h3 { margin: 22px 0 10px; font: 600 13px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--terracota); }
+  .exercicio h3 { margin: 22px 0 10px; font: 600 13px/1.35 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--terracota); }
   .arquivos { display: flex; flex-wrap: wrap; gap: 10px; }
   .arquivo { display: inline-flex; align-items: center; gap: 12px; padding: 8px 16px 8px 8px; border-radius: 12px; background: var(--fundo); border: 1px solid var(--linha); color: inherit; text-decoration: none; }
   .arquivo:hover { border-color: var(--terracota); }
   .arquivo i { width: 36px; height: 44px; border-radius: 5px; display: grid; place-items: end center; padding-bottom: 6px; font: 700 9px/1 var(--mono); font-style: normal; text-transform: uppercase; color: #fff; background: #5a6b64; clip-path: polygon(0 0, 70% 0, 100% 22%, 100% 100%, 0 100%); }
   .arquivo.t-pdf i { background: #b8432f; } .arquivo.t-docx i { background: #2b5797; } .arquivo.t-xlsx i { background: #1d6f42; }
   .arquivo.t-png i { background: #2f7d6b; } .arquivo.t-zip i { background: #a37b1c; }
-  .arquivo b { display: block; font: 600 15px/1.2 var(--mono); word-break: break-all; }
+  .arquivo b { display: block; font: 600 15px/1.2 var(--mono); overflow-wrap: anywhere; }
   .arquivo span { min-width: 0; }
   .arquivo small { display: block; font-size: 13px; color: var(--tinta-2); }
   .sem-arquivo { margin: 0; color: var(--tinta-2); }
+  .preparo { margin: 12px 0 0; color: var(--tinta-2); }
   .pedido { position: relative; background: var(--fundo); border-radius: 12px; padding: 14px 16px 14px 18px; margin: 0 0 10px; }
   .pedido blockquote { margin: 0 0 10px; font: 400 18px/1.45 var(--serifa); max-height: 15em; overflow: auto; }
   .depois-rotulo { display: block; font: 600 12px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-2); margin-bottom: 8px; }
@@ -56,6 +57,9 @@
   .conferir li { position: relative; padding-left: 30px; }
   .conferir li::before { content: ""; position: absolute; left: 0; top: .28em; width: 17px; height: 17px; border-radius: 5px; border: 2px solid var(--terracota); }
   .nota-fim { color: var(--tinta-2); font-size: 15px; }
+  @media (max-width: 600px) { .pedido blockquote { max-height: none; } }
+  .volta-inicio { margin-left: auto; font: 600 14px/1 var(--sans); color: var(--verde); text-decoration: none; padding: 8px 14px; border: 1px solid var(--linha); border-radius: 999px; background: var(--papel); }
+  .volta-inicio:hover { border-color: var(--terracota); }
 </style>
 </head>
 <body>
@@ -65,12 +69,13 @@
     <img src="assets/brand/observatorio-coruja.svg" alt="">
     <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
   </a>
+  <a class="volta-inicio" href="index.html">Início do curso</a>
 </header>
 
 <main class="pratica">
   <p class="sobretitulo">Do chat ao agente · Fase 3</p>
   <h1>Prática no computador</h1>
-  <p class="lead">Para cada exercício: baixe o zip, descompacte numa pasta sua, abra essa pasta no Antigravity, cole o pedido e confira o que mudou nos arquivos. Guarde uma cópia do zip: se algo der errado, é só descompactar de novo.</p>
+  <p class="lead">Cada exercício é um projeto no Antigravity. Baixe o zip, abra e arraste a pasta de dentro dele para uma pasta sua de projetos. No Antigravity, abra essa pasta como projeto, cole o pedido e confira o que mudou nos arquivos. Guarde o zip: se algo der errado, é só arrastar a pasta de novo.</p>
   <ul class="indice" id="indice"></ul>
   <div id="exercicios"></div>
   <p class="nota-fim">Os arquivos são de exemplo, com pessoas, empresas e instituições fictícias. As fotos de cupons são reais, com os dados pessoais cobertos por tarjas.</p>

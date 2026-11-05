@@ -67,7 +67,7 @@
     if (!semHistorico && location.hash !== h) history.replaceState(null, "", h + "");
     atualizarTrilho();
   }
-  const avancar = () => passo < passosDe(cenas[atual]) ? ir(atual, passo + 1) : ir(atual + 1, 0);
+  const avancar = () => passo < passosDe(cenas[atual]) ? ir(atual, passo + 1) : atual < cenas.length - 1 && ir(atual + 1, 0);
   const voltar = () => passo > 0 ? ir(atual, passo - 1) : (atual > 0 && ir(atual - 1, passosDe(cenas[atual - 1])));
   PALCO.ir = ir; PALCO.avancar = avancar; PALCO.voltar = voltar;
   PALCO.atual = () => cenas[atual];
