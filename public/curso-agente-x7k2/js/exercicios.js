@@ -75,10 +75,10 @@ window.EXERCICIOS = [
     previas: ["assets/img/fase3/voucher-reserva-58213.jpg", "assets/img/fase3/IMG_20241014_161520.jpg", "assets/img/fase3/comprovante_pix_20241010.jpg", "assets/img/fase3/IMG_20241017_124625.jpg"],
     pedidos: [
       "Estes são os comprovantes da minha viagem a Campinas. Organize tudo para a minha prestação de contas: renomeie cada arquivo com a data, o nome do estabelecimento e o valor, separe em pastas por tipo de gasto e faça uma planilha com o total. Se algo deixar dúvida, me avise numa lista. No fim, escreva um passo a passo para eu repetir isso nas próximas viagens.",
-      "Juntei aqui os comprovantes de uma nova viagem. Organize do mesmo jeito, separado da viagem de Campinas.",
+      "Juntei aqui os comprovantes de uma nova viagem. Siga o passo a passo que você escreveu e deixe tudo separado da viagem de Campinas.",
     ],
     antes: [null, "Parte B · baixe o segundo zip e arraste os arquivos para dentro da pasta"],
-    preparos: [null, "Baixe o segundo zip, abra a pasta Novos comprovantes, selecione os arquivos (Ctrl+A) e arraste-os soltos para dentro de Viagens a trabalho."],
+    preparos: [null, "Baixe o segundo zip, abra a pasta Novos comprovantes, selecione os arquivos (Ctrl+A) e, no Explorador, arraste-os soltos para dentro da pasta Viagens a trabalho. Não arraste para a janela do ChatGPT: lá eles viram anexos da conversa e ficam fora da pasta."],
     conferir: [
       "O hotel entrou uma vez só, com o voucher e o Pix na mesma linha?",
       "A viagem nova ficou numa pasta separada, com a mesma organização?",

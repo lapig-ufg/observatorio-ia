@@ -506,11 +506,11 @@ body.preto .tela-preta { display: block; }
   display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;
 }
 /* Ficha com dois pedidos (viagens, partes A e B): um pouco mais justa para caber no quadro. */
-.ficha:has(.pedido.depois) { gap: 12px; padding: 26px 40px; }
+.ficha:has(.pedido.depois) { gap: 10px; padding: 24px 40px; }
 .ficha:has(.pedido.depois) .ficha-passo + .ficha-passo { padding-top: 12px; }
-.ficha:has(.pedido.depois) .pedido:not(.depois) blockquote { font-size: 23px; -webkit-line-clamp: 6; }
+.ficha:has(.pedido.depois) .pedido:not(.depois) blockquote { font-size: 21px; -webkit-line-clamp: 6; }
 .ficha .pedido.depois { margin-top: 14px; padding-top: 12px; border-top: 1px dashed #d8d2c4; }
-.ficha .pedido.depois blockquote { font-size: 22px; -webkit-line-clamp: 2; }
+.ficha .pedido.depois blockquote { font-size: 21px; -webkit-line-clamp: 3; }
 .depois-rotulo { display: block; font: 600 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #6b7a73; margin-bottom: 8px; }
 .ficha .depois-rotulo { font-size: 15px; letter-spacing: .08em; line-height: 1.25; }
 .copiar {
