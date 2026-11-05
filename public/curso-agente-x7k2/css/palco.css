@@ -942,99 +942,155 @@ body.preto .tela-preta { display: block; }
 .res-pagina img { width: 100%; aspect-ratio: 210 / 250; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid #d8d2c4; background: #fff; box-shadow: 0 16px 30px -16px rgba(16, 33, 27, .5); }
 .res-pagina figcaption { font: 600 12px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #6b7a73; text-align: center; }
 
-/* ---------- Fase 3: o modo de aprovação (cena "aprovar") ---------- */
-.aprova .vitrine-texto .titulo { font-size: 58px; }
-.aprova .vitrine-texto .linha-fina { font-size: 25px; }
-.aprova-trilha { margin: 30px 0 0; padding: 14px 18px; border-radius: 12px; background: rgba(243, 239, 230, .06); border: 1px solid var(--linha); font: 500 17px/1.5 var(--mono); color: var(--creme-2); }
-.aprova-trilha b { color: var(--terracota); font-weight: 600; }
-.aprova-avisos { margin: 30px 0 0; padding: 0; list-style: none; display: grid; gap: 18px; font-size: 21px; line-height: 1.42; color: var(--creme-2); }
-.aprova-avisos li { padding-left: 18px; border-left: 3px solid var(--ouro); }
-.aprova-avisos b { display: block; color: var(--creme); font-weight: 600; margin-bottom: 4px; }
-.aprova-janela {
-  position: absolute; left: 600px; right: 110px; top: 130px; bottom: 120px; z-index: 1;
-  border-radius: 18px; overflow: hidden; background: #1b1d1f; color: #e9ece9;
+/* ---------- Fase 3: cada app protege de um jeito (cena "protecoes") ---------- */
+.prot .vitrine-texto .titulo { font-size: 58px; }
+.prot .vitrine-texto .linha-fina { font-size: 25px; }
+
+/* Passo 1: os dois tipos de proteção, em dois cartões lado a lado. */
+.prot-cartoes {
+  position: absolute; left: 600px; right: 110px; top: 50%; translate: 0 -50%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; z-index: 1;
+}
+.prot-cartao {
+  display: flex; flex-direction: column; min-height: 500px; padding: 24px 24px 22px;
+  border-radius: 22px; background: rgba(4, 18, 14, .42); border: 1px solid var(--linha);
+  box-shadow: 0 46px 90px -55px rgba(0, 0, 0, .95);
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .6s var(--curva), transform .8s var(--curva);
+}
+.prot-cartoes.visto .prot-cartao { opacity: 1; transform: none; }
+.prot-cartoes.visto .prot-cartao:nth-child(2) { transition-delay: .38s; }
+.prot-desenho { height: 206px; display: flex; align-items: center; justify-content: center; }
+
+/* O desenho do pedido de aprovação. */
+.prot-pedido {
+  width: 100%; padding: 17px 18px 16px; border-radius: 16px; background: #1b1d1f;
+  border: 1px solid rgba(255, 255, 255, .08); box-shadow: 0 26px 50px -30px #000;
+}
+.prot-pedido-topo { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font: 600 15px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #aeb4af; }
+.prot-cadeado { position: relative; width: 16px; height: 12px; margin-top: 5px; border-radius: 3px; background: var(--ouro); flex: none; }
+.prot-cadeado::before { content: ""; position: absolute; left: 3px; top: -7px; width: 10px; height: 9px; border: 2px solid var(--ouro); border-bottom: 0; border-radius: 6px 6px 0 0; }
+.prot-pedido code {
+  display: block; padding: 11px 13px; border-radius: 10px; background: #101214; border: 1px solid rgba(255, 255, 255, .07);
+  font: 500 15px/1.5 var(--mono); color: #dfe3df; overflow-wrap: anywhere;
+}
+.prot-botoes { display: flex; justify-content: flex-end; gap: 10px; margin-top: 13px; }
+.prot-botoes span { padding: 9px 16px; border-radius: 9px; font: 600 15px/1 var(--sans); }
+.prot-permitir { background: var(--terracota-escura); color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12); }
+.prot-recusar { background: transparent; border: 1px solid rgba(255, 255, 255, .25); color: #c7ccc7; }
+
+/* O desenho da parede: a pasta dentro da área fechada, a seta e a barreira. */
+.prot-parede { position: relative; width: 100%; display: flex; align-items: center; }
+.prot-area {
+  position: relative; flex: 1; height: 172px; border-radius: 18px;
+  border: 2px dashed rgba(127, 196, 162, .55);
+  background: repeating-linear-gradient(135deg, rgba(127, 196, 162, .05) 0 14px, transparent 14px 28px);
+}
+.prot-area-nome { position: absolute; left: 18px; top: 13px; font: 600 15px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--menta); }
+.prot-pasta {
+  position: absolute; left: 50%; top: 58%; translate: -50% -50%;
+  display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px;
+  background: rgba(243, 239, 230, .09); border: 1px solid var(--linha); white-space: nowrap;
+}
+.prot-pasta .icone-pasta { width: 28px; height: 21px; flex: none; }
+.prot-pasta b { font: 600 17px/1.2 var(--sans); }
+.prot-flecha { position: absolute; right: -64px; top: 50%; width: 64px; height: 3px; background: var(--ouro); }
+.prot-flecha::after { content: ""; position: absolute; right: -1px; top: -7px; border-left: 12px solid var(--ouro); border-top: 8px solid transparent; border-bottom: 8px solid transparent; }
+.prot-barreira {
+  position: relative; flex: none; width: 16px; height: 172px; margin-left: 64px; border-radius: 6px;
+  background: repeating-linear-gradient(45deg, var(--terracota) 0 9px, #a94d26 9px 18px);
+  box-shadow: 0 0 26px rgba(224, 122, 69, .28);
+}
+.prot-barreira::before {
+  content: "✕"; position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--noite); border: 2px solid var(--terracota); color: var(--terracota); font: 700 18px/1 var(--sans);
+}
+
+.prot-texto { display: flex; flex-direction: column; flex: 1; padding-top: 12px; }
+.prot-nome { margin: 0; font: 400 36px/1.1 var(--serifa); }
+.prot-frase { margin: 13px 0 0; font-size: 20px; line-height: 1.4; color: var(--creme-2); }
+.prot-limite { margin: auto 0 0; padding-top: 14px; border-top: 1px solid var(--linha); font-size: 17px; line-height: 1.42; color: var(--creme-2); }
+
+/* Passo 2: a tabela dos apps, com os selos de pergunta e parede. */
+.prot-tabela { position: absolute; left: 600px; right: 110px; top: 50%; translate: 0 -50%; z-index: 1; }
+.prot-cabecalho { display: grid; grid-template-columns: 1fr 150px 150px; gap: 12px; padding: 0 18px 10px; font: 600 15px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--creme-3); }
+.prot-cabecalho span:not(:first-child) { text-align: center; }
+.prot-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.prot-lista li {
+  display: grid; grid-template-columns: 1fr 150px 150px; gap: 12px; align-items: center; padding: 14px 18px;
+  border-radius: 16px; background: rgba(4, 18, 14, .42); border: 1px solid var(--linha);
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .5s var(--curva), transform .6s var(--curva);
+}
+.prot-tabela.visto .prot-lista li { opacity: 1; transform: none; }
+.prot-tabela.visto .prot-lista li:nth-child(2) { transition-delay: .08s; }
+.prot-tabela.visto .prot-lista li:nth-child(3) { transition-delay: .16s; }
+.prot-tabela.visto .prot-lista li:nth-child(4) { transition-delay: .24s; }
+.prot-app b { display: block; font: 600 20px/1.2 var(--sans); }
+.prot-app p { margin: 5px 0 0; font-size: 16px; line-height: 1.38; color: var(--creme-2); }
+.prot-app small { display: block; margin-top: 6px; font-size: 15px; line-height: 1.3; color: var(--ouro); }
+.prot-selo {
+  justify-self: stretch; padding: 8px 10px; border-radius: 999px; text-align: center;
+  font: 600 15px/1.2 var(--sans); color: var(--creme-3);
+  background: rgba(243, 239, 230, .04); border: 1px solid rgba(243, 239, 230, .18);
+}
+.prot-selo.aceso { color: var(--menta); background: rgba(127, 196, 162, .12); border-color: rgba(127, 196, 162, .45); }
+.prot-selo.depende { color: var(--ouro); background: rgba(232, 194, 106, .1); border-color: rgba(232, 194, 106, .45); }
+
+.prot-caso {
+  margin: 0; padding: 14px 18px; border-left: 4px solid var(--terracota); border-radius: 0 12px 12px 0;
+  background: rgba(243, 239, 230, .05); font-size: 16.5px; line-height: 1.45; color: var(--creme-2);
+}
+.prot-tabela .prot-caso { margin-top: 16px; }
+.prot-caso-rotulo { display: block; margin-bottom: 4px; font: 700 15px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--terracota); }
+
+/* Passo 3: o menu de aprovação do Codex que o curso usa. */
+.prot-coluna { position: absolute; left: 600px; right: 110px; top: 92px; bottom: 54px; z-index: 1; display: flex; flex-direction: column; gap: 20px; }
+.prot-menu {
+  position: relative; flex: none; border-radius: 18px; overflow: hidden; background: #1b1d1f; color: #e9ece9;
   box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .85), 0 0 0 1px rgba(255, 255, 255, .07);
 }
-.aprova-desenho { position: absolute; right: 16px; top: 13px; z-index: 2; font: 600 12px/1 var(--mono); letter-spacing: .03em; color: var(--ouro); border: 1px dashed rgba(232, 194, 106, .7); border-radius: 999px; padding: 6px 11px; }
-.aprova-barra { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; background: #252729; border-bottom: 1px solid rgba(255, 255, 255, .06); }
-.aprova-barra i { width: 12px; height: 12px; border-radius: 50%; background: #45484b; }
-.aprova-barra span { margin-left: 12px; font: 600 15px/1 var(--sans); color: #b9bdb9; }
-.aprova-corpo { padding: 24px 34px 0; }
-.aprova-caminho { margin: 0 0 16px; font: 500 15px/1 var(--sans); color: #8d938e; }
-.aprova-caminho span { margin: 0 6px; }
-.aprova-campo { display: flex; align-items: center; justify-content: space-between; padding: 0 0 14px; border-bottom: 1px solid rgba(255, 255, 255, .08); }
-.aprova-campo b { font: 600 21px/1 var(--sans); }
-.aprova-campo span { font: 600 17px/1 var(--sans); padding: 10px 14px; border-radius: 10px; background: #2c2f31; border: 1px solid rgba(255, 255, 255, .12); }
-.aprova-campo span i { font-style: normal; color: #8d938e; margin-left: 10px; }
-.aprova-lista { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
-.aprova-lista li {
-  display: flex; align-items: center; gap: 22px; padding: 13px 18px; border-radius: 12px; border: 1px solid transparent;
-  opacity: 0; transform: translateX(24px); transition: opacity .5s var(--curva), transform .6s var(--curva), background .4s, border-color .4s;
-  transition-delay: calc(.25s + (4 - var(--n)) * .12s);
+.prot-desenho-selo {
+  position: absolute; right: 14px; top: 8px; z-index: 3;
+  font: 600 15px/1 var(--mono); letter-spacing: .02em; color: var(--ouro);
+  border: 1px dashed rgba(232, 194, 106, .7); border-radius: 999px; padding: 7px 12px; background: #252729;
 }
-.aprova-janela.visto .aprova-lista li { opacity: 1; transform: none; }
-.aprova-lista li > div { flex: 1; }
-.aprova-lista b { font: 600 20px/1.2 var(--sans); }
-.aprova-lista em { margin-left: 12px; font: 700 12px/1 var(--sans); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--terracota-escura); border-radius: 999px; padding: 5px 9px; vertical-align: 3px; }
-.aprova-lista p { margin: 5px 0 0; font: 400 16.5px/1.4 var(--sans); color: #aeb4af; }
-.aprova-lista li.escolhido { background: rgba(224, 122, 69, .12); border-color: rgba(224, 122, 69, .65); }
-.aprova-lista li.escolhido p { color: #dfe3df; }
+.prot-menu-barra { display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 18px; background: #252729; border-bottom: 1px solid rgba(255, 255, 255, .06); }
+.prot-menu-barra i { width: 12px; height: 12px; border-radius: 50%; background: #45484b; }
+.prot-menu-barra span { margin-left: 12px; font: 600 15px/1 var(--sans); color: #b9bdb9; }
+.prot-menu-corpo { padding: 26px 34px 28px; }
+.prot-menu-titulo { margin: 0 0 20px; font: 600 26px/1.25 var(--sans); }
+.prot-opcoes { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.prot-opcoes li {
+  display: flex; align-items: center; gap: 20px; padding: 17px 20px; border-radius: 12px; border: 1px solid transparent;
+  opacity: 0; transform: translateX(20px);
+  transition: opacity .5s var(--curva), transform .6s var(--curva), background .4s, border-color .4s;
+  transition-delay: calc(.2s + (3 - var(--n)) * .12s);
+}
+.prot-menu.visto .prot-opcoes li { opacity: 1; transform: none; }
+.prot-opcoes li > div { flex: 1; }
+.prot-opcoes b { font: 600 20px/1.2 var(--sans); }
+.prot-opcoes em { margin-left: 12px; font: 700 15px/1 var(--sans); font-style: normal; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: var(--terracota-escura); border-radius: 999px; padding: 5px 10px; vertical-align: 2px; }
+.prot-opcoes p { margin: 5px 0 0; font: 400 16px/1.4 var(--sans); color: #aeb4af; }
+.prot-opcoes li.escolhido { background: rgba(224, 122, 69, .12); border-color: rgba(224, 122, 69, .65); }
+.prot-opcoes li.escolhido p { color: #dfe3df; }
+
+.prot-caso-menu { flex: none; padding: 13px 18px; font-size: 16.5px; }
+.prot-caso-menu .prot-caso-rotulo { display: inline; margin: 0; font: 600 16.5px/1.45 var(--sans); letter-spacing: 0; text-transform: none; }
+
+.prot-fecho { margin: auto 0 0; padding-top: 16px; border-top: 1px solid var(--linha); font: italic 400 26px/1.3 var(--serifa); color: var(--creme-2); text-align: right; }
+
+/* O que acontece no modo que o curso usa. */
+.prot-acontece { margin: 28px 0 0; padding: 0; list-style: none; display: grid; gap: 14px; font-size: 20px; line-height: 1.4; color: var(--creme-2); counter-reset: prot; }
+.prot-acontece li { position: relative; padding-left: 44px; counter-increment: prot; }
+.prot-acontece li::before {
+  content: counter(prot); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center; font: 700 15px/1 var(--sans); background: var(--verde); color: var(--creme);
+  box-shadow: 0 0 0 1px var(--menta) inset;
+}
+
+/* Regras usadas por outras páginas do curso. */
 .medidor { display: inline-flex; gap: 4px; flex: none; }
 .medidor i { width: 18px; height: 8px; border-radius: 3px; background: rgba(255, 255, 255, .12); }
 .medidor i.on { background: var(--menta); }
-.aprova-lista li:last-child .medidor i.on { background: var(--terracota); }
-.aprova-legenda { margin: 12px 0 0 18px; display: flex; align-items: center; gap: 10px; font: 500 14px/1 var(--sans); color: #8d938e; }
-.aprova-legenda .medidor i { width: 12px; height: 6px; }
-.aprova-fonte { position: absolute; right: 110px; bottom: 74px; margin: 0; font: 500 14px/1 var(--mono); color: var(--creme-3); }
-
-/* ---------- Fase 3: dê ferramentas ao agente (cena "ferramentas"; PROVISÓRIO) ---------- */
-.ferr .vitrine-texto .titulo { font-size: 58px; }
-.ferr .vitrine-texto .linha-fina { font-size: 25px; }
-.ferr-provisorio {
-  position: absolute; right: 110px; top: 58px; z-index: 4; font: 700 13px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase;
-  color: var(--noite); background: var(--ouro); border-radius: 999px; padding: 9px 14px;
-}
-.ferr-fazer { margin: 30px 0 0; padding: 0; list-style: none; display: grid; gap: 16px; font-size: 21px; line-height: 1.42; color: var(--creme-2); counter-reset: f; }
-.ferr-fazer li { position: relative; padding-left: 46px; counter-increment: f; }
-.ferr-fazer li::before { content: counter(f); position: absolute; left: 0; top: 0; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font: 700 16px/1 var(--sans); background: var(--verde); color: var(--creme); box-shadow: 0 0 0 1px var(--menta) inset; }
-.ferr-fazer b { color: var(--creme); }
-.ferr-fazer span { display: inline-block; margin-left: 6px; font: 700 12px/1 var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--ouro); border: 1px dashed var(--ouro); border-radius: 999px; padding: 5px 8px; vertical-align: 2px; }
-.ferr-mapa { position: absolute; left: 600px; right: 110px; top: 130px; bottom: 100px; z-index: 1; display: grid; grid-template-columns: 330px 1fr; grid-template-rows: 1fr auto; gap: 22px 34px; }
-.ferr-caixa {
-  position: relative; border-radius: 22px; padding: 56px 24px 24px; display: flex; flex-direction: column; gap: 18px;
-  border: 2px dashed rgba(127, 196, 162, .55); background: repeating-linear-gradient(135deg, rgba(127, 196, 162, .05) 0 14px, transparent 14px 28px);
-}
-.ferr-caixa-nome { position: absolute; left: 22px; top: 20px; font: 600 13px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--menta); }
-.ferr-projeto { display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: 14px; background: rgba(243, 239, 230, .08); border: 1px solid var(--linha); }
-.ferr-projeto .icone-pasta { width: 34px; height: 25px; flex: none; }
-.ferr-projeto b { display: block; font: 600 21px/1.2 var(--sans); }
-.ferr-projeto small { font-size: 16px; color: var(--creme-2); }
-.ferr-caixa-nota { margin: auto 0 0; font: 500 14px/1.45 var(--mono); color: var(--creme-3); }
-.ferr-programas { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
-.ferr-programas li {
-  position: relative; display: flex; align-items: center; gap: 18px; padding: 16px 20px; border-radius: 14px;
-  background: rgba(4, 18, 14, .45); border: 1px solid var(--linha);
-}
-.ferr-programas li::before { content: ""; position: absolute; left: -36px; top: 50%; width: 36px; border-top: 2px solid var(--menta); }
-.ferr-programas li.falhou::before { border-top: 2px dashed rgba(224, 122, 69, .8); }
-.ferr-programas li.testar { border-style: dashed; border-color: rgba(232, 194, 106, .6); }
-.ferr-programas li.testar::before { border-top: 2px dashed rgba(232, 194, 106, .7); }
-.ferr-programas li > div { flex: 1; min-width: 0; }
-.ferr-programas b { display: block; font: 600 20px/1.25 var(--sans); }
-.ferr-programas code { display: block; margin-top: 4px; font: 500 15px/1.3 var(--mono); color: var(--creme-2); }
-.ferr-programas q { display: block; margin-top: 8px; font: italic 400 17px/1.3 var(--serifa); color: #f1b28f; quotes: "“" "”"; }
-.ferr-status { flex: none; font: 700 13px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; padding: 7px 11px; }
-.ok .ferr-status { background: rgba(127, 196, 162, .18); color: var(--menta); }
-.falhou .ferr-status { background: rgba(224, 122, 69, .18); color: var(--terracota); }
-.testar .ferr-status { background: rgba(232, 194, 106, .14); color: var(--ouro); }
-.ferr-resultado { grid-column: 1 / -1; margin: 0; font-size: 20px; color: var(--creme-2); }
-.ferr-resultado b { color: var(--creme); }
-.ferr-ve { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.ferr-ve li { padding: 12px 16px; border-radius: 12px; border: 1px solid var(--linha); }
-.ferr-ve span { display: block; font: 500 16px/1.35 var(--mono); }
-.ferr-ve small { font-size: 15px; color: var(--creme-2); }
-.ferr-ve .ve { background: rgba(127, 196, 162, .1); border-color: rgba(127, 196, 162, .4); }
-.ferr-ve .ve small { color: var(--menta); }
-.ferr-ve .nao { border-style: dashed; color: var(--creme-3); }
-.ferr-ve .nao span { filter: blur(.6px); text-decoration: line-through; text-decoration-color: rgba(224, 122, 69, .7); }
-.ferr-ve .nao small { color: var(--terracota); }

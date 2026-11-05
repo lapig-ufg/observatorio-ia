@@ -593,92 +593,131 @@
     </div>
   </section>
 
-  <!-- Modo de aprovação: o problema (0), a escolha no Settings com os quatro presets (1)
-       e quando o Default não aparece (2). Fatos de antigravity.google/docs/permissions
-       e /docs/sandbox, conferidos em 05/11/2026. O desenho da janela não é captura:
-       a captura real da tela de Settings ainda vai ser feita. -->
-  <section class="cena" id="aprovar" data-fase="3" data-passos="2" data-titulo="O modo de aprovação">
-    <div class="vitrine aprova">
+  <!-- Cada app protege de um jeito: o problema (0), os dois tipos de proteção (1),
+       a tabela de como cada app protege (2) e o menu do Codex que o curso usa (3).
+       Fatos de curso-ia/PROTECOES-DOS-AGENTES.md (testes de 05/11/2026).
+       O menu é um desenho: a captura real da tela entra no lugar. -->
+  <section class="cena" id="protecoes" data-fase="3" data-passos="3" data-titulo="Cada app protege de um jeito">
+    <div class="vitrine prot">
       <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Antes do primeiro pedido</span>
-        <p>Um técnico vai deixar o agente arrumar a pasta do setor. Quer que ele trabalhe sem pedir licença a cada passo, mas <em>que pergunte antes de sair da pasta</em>.</p>
+        <span class="rotulo">Aprovar no escuro</span>
+        <p>Ao organizar a pasta do setor, o agente pede para rodar uma linha de código. Você não entende e clica em “Permitir”. <em>Teria clicado igual se a linha apagasse tudo.</em></p>
       </div>
-      <div class="vitrine-texto" data-passo="1" data-ate="1">
-        <span class="rotulo">Uma escolha no Settings</span>
-        <h2 class="titulo">Quanto ele faz sem perguntar</h2>
-        <p class="linha-fina">No curso, deixe em <b>Default</b>: os comandos rodam numa área isolada e ele só pergunta quando precisa sair dela.</p>
-        <p class="aprova-trilha">Settings › General › Global Permissions › <b>Permission Preset</b></p>
-      </div>
-      <div class="vitrine-texto" data-passo="2">
-        <span class="rotulo">Se não aparecer assim</span>
-        <h2 class="titulo">Quando o Default some</h2>
-        <ul class="aprova-avisos">
-          <li><b>Pede aprovação de tudo?</b> O notebook não tem a área isolada (Windows 10, ou Windows 11 antes da 24H2 com a atualização de agosto de 2026). O Default vira Request Review.</li>
-          <li><b>Conta da instituição?</b> Não tem Auto e usa as permissões antigas, com outra tela.</li>
-        </ul>
-      </div>
-      <div class="aprova-janela" data-passo="1">
-        <span class="aprova-desenho">desenho · a captura da tela real entra aqui</span>
-        <header class="aprova-barra"><i></i><i></i><i></i><span>Settings</span></header>
-        <div class="aprova-corpo">
-          <p class="aprova-caminho">General <span>›</span> Global Permissions</p>
-          <div class="aprova-campo"><b>Permission Preset</b><span>Default <i>▾</i></span></div>
-          <ol class="aprova-lista">
-            <li style="--n:4"><div><b>Request Review</b><p>Pede aprovação para todo comando. Sem área isolada; arquivos só da pasta do projeto.</p></div><span class="medidor" aria-label="faz sozinho: quase nada"><i></i><i></i><i></i><i></i></span></li>
-            <li style="--n:3" class="escolhido"><div><b>Default</b><em>o curso usa este</em><p>Roda os comandos na área isolada, sem internet. Para sair dela, pede aprovação.</p></div><span class="medidor"><i class="on"></i><i></i><i></i><i></i></span></li>
-            <li style="--n:2"><div><b>Auto</b><p>Na área isolada, igual ao Default. Fora dela, decide sozinho: o que é seguro e reversível roda; o arriscado ainda pergunta.</p></div><span class="medidor"><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
-            <li style="--n:1"><div><b>Turbo</b><p>Libera tudo: qualquer comando, o disco inteiro, a internet. Não pergunta nada.</p></div><span class="medidor"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
-          </ol>
-          <p class="aprova-legenda"><span class="medidor"><i class="on"></i><i></i></span> o que ele faz sem perguntar</p>
-        </div>
-      </div>
-      <p class="aprova-fonte" data-passo="1">antigravity.google/docs/permissions · conferido em 5 nov. 2026</p>
-    </div>
-  </section>
 
-  <!-- PROVISÓRIO (05/11/2026): achado no PC do Victor, ainda sem a prova final.
-       Dentro do app, os comandos do agente rodam isolados (AppContainer do Windows) e só
-       executam programas de pastas que todos os aplicativos podem ler, como C:\Program Files.
-       O problema (0), o que funcionou e o que falhou (1), o que fazer antes de pedir (2).
-       Ver RELATORIO-instalar.md: o que falta testar antes de tirar o PROVISÓRIO. -->
-  <section class="cena" id="ferramentas" data-fase="3" data-passos="2" data-titulo="Dê ferramentas ao agente">
-    <div class="vitrine ferr">
-      <span class="ferr-provisorio">provisório · teste de 5 nov. ainda sem a prova final</span>
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Antes de pedir</span>
-        <p>Uma secretária pede ao agente a lista de inscritos em Excel e recebe um arquivo CSV. O Python estava no notebook, mas <em>o agente não conseguiu usá-lo</em>.</p>
-      </div>
       <div class="vitrine-texto" data-passo="1" data-ate="1">
-        <span class="rotulo">Por que aconteceu</span>
-        <h2 class="titulo">Ele trabalha numa caixa</h2>
-        <p class="linha-fina">Os comandos do agente rodam isolados. De dentro da caixa, ele só abre programas instalados em pastas como C:\Program Files.</p>
+        <span class="rotulo">Dois tipos de proteção</span>
+        <h2 class="titulo">A parede protege mais que a pergunta</h2>
+        <p class="linha-fina">A pergunta depende do seu julgamento a cada ação. A parede é o próprio sistema do computador trancando o agente numa área fechada.</p>
       </div>
-      <div class="vitrine-texto" data-passo="2">
-        <span class="rotulo">Antes do primeiro pedido</span>
-        <h2 class="titulo">Dê ferramentas ao agente</h2>
-        <ul class="ferr-fazer">
-          <li><b>Node</b> pelo instalador de nodejs.org: vai para C:\Program Files.</li>
-          <li><b>Python</b> pelo instalador de python.org, marcando “for all users”. <span>a testar</span></li>
-          <li>Sem nenhum dos dois, peça o resultado em CSV: o Excel abre.</li>
-        </ul>
+
+      <div class="prot-cartoes" data-passo="1" data-ate="1">
+        <article class="prot-cartao">
+          <div class="prot-desenho">
+            <div class="prot-pedido" aria-hidden="true">
+              <div class="prot-pedido-topo"><i class="prot-cadeado"></i><span>pedido de aprovação</span></div>
+              <code>Get-ChildItem -Recurse -File | Select-Object Name, Length</code>
+              <div class="prot-botoes"><span class="prot-permitir">Permitir</span><span class="prot-recusar">Recusar</span></div>
+            </div>
+          </div>
+          <div class="prot-texto">
+            <h3 class="prot-nome">A pergunta</h3>
+            <p class="prot-frase">O agente pede licença antes de agir, e a segurança depende de quem responde.</p>
+            <p class="prot-limite">Se você não entende o comando, aprova no escuro. No teste do curso, foram 11 pedidos.</p>
+          </div>
+        </article>
+
+        <article class="prot-cartao">
+          <div class="prot-desenho">
+            <div class="prot-parede" aria-hidden="true">
+              <div class="prot-area">
+                <span class="prot-area-nome">área fechada</span>
+                <div class="prot-pasta"><i class="icone-pasta"></i><b>a pasta do projeto</b></div>
+                <i class="prot-flecha"></i>
+              </div>
+              <div class="prot-barreira"></div>
+            </div>
+          </div>
+          <div class="prot-texto">
+            <h3 class="prot-nome">A parede</h3>
+            <p class="prot-frase">O próprio sistema do computador impede o agente de sair de uma área fechada.</p>
+            <p class="prot-limite">É a mais forte: não depende do modelo nem do que você clica.</p>
+          </div>
+        </article>
       </div>
-      <div class="ferr-mapa" data-passo="1">
-        <div class="ferr-caixa">
-          <span class="ferr-caixa-nome">a caixa do agente</span>
-          <div class="ferr-projeto"><i class="icone-pasta"></i><div><b>a pasta do projeto</b><small>lê e escreve</small></div></div>
-          <ul class="ferr-ve">
-            <li class="ve"><span>C:\Program Files</span><small>lê e executa</small></li>
-            <li class="nao"><span>o resto da sua pasta de usuário, com o AppData</span><small>fica escondido</small></li>
-          </ul>
-          <p class="ferr-caixa-nota">sem internet · TEMP e LOCALAPPDATA trocados a cada comando</p>
-        </div>
-        <ol class="ferr-programas">
-          <li class="ok"><div><b>Node</b><code>C:\Program Files\nodejs</code></div><span class="ferr-status">funcionou</span></li>
-          <li class="falhou"><div><b>Python do Python Install Manager</b><code>AppData\Local\Python</code><q>Não é possível o acesso ao arquivo pelo sistema</q></div><span class="ferr-status">falhou</span></li>
-          <li class="falhou"><div><b>Excel, aberto pelo agente</b><code>Office, por COM</code></div><span class="ferr-status">falhou</span></li>
-          <li class="testar" data-passo="2"><div><b>Python para todos os usuários</b><code>C:\Program Files\Python3…</code></div><span class="ferr-status">a testar</span></li>
+
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Como cada app protege</span>
+        <h2 class="titulo">O nome do modo não diz tudo</h2>
+      </div>
+
+      <div class="prot-tabela" data-passo="2" data-ate="2">
+        <div class="prot-cabecalho" aria-hidden="true"><span>app</span><span>pergunta</span><span>parede</span></div>
+        <ol class="prot-lista">
+          <li>
+            <div class="prot-app">
+              <b>Antigravity (Google)</b>
+              <p>Tem quatro modos: “Request Review” pergunta tudo sem parede, “Default” e “Auto” usam parede, e “Turbo” libera tudo.</p>
+              <small>O “Auto” está em prévia e não funcionou como deveria em 05/11/2026.</small>
+            </div>
+            <span class="prot-selo depende" aria-label="pergunta: depende do modo">depende do modo</span>
+            <span class="prot-selo depende" aria-label="parede: depende do modo">depende do modo</span>
+          </li>
+          <li>
+            <div class="prot-app">
+              <b>Codex (OpenAI)</b>
+              <p>No “Aprovar por mim”, trabalha atrás da parede. Para sair dela, um segundo modelo avalia e só pergunta se houver risco.</p>
+            </div>
+            <span class="prot-selo aceso" aria-label="pergunta: só se houver risco">se houver risco</span>
+            <span class="prot-selo aceso" aria-label="parede: sim">sim</span>
+          </li>
+          <li>
+            <div class="prot-app">
+              <b>Claude (Anthropic)</b>
+              <p>No “modo automático”, um verificador barra ações arriscadas antes de rodarem. É julgamento de um modelo, sem parede.</p>
+            </div>
+            <span class="prot-selo aceso" aria-label="pergunta: às vezes">às vezes</span>
+            <span class="prot-selo" aria-label="parede: não">não</span>
+          </li>
+          <li>
+            <div class="prot-app">
+              <b>Linha de comando (opencode e agy)</b>
+              <p>Na configuração padrão, não perguntam quase nada e não têm parede.</p>
+            </div>
+            <span class="prot-selo" aria-label="pergunta: quase nunca">quase nunca</span>
+            <span class="prot-selo" aria-label="parede: não">não</span>
+          </li>
         </ol>
-        <p class="ferr-resultado"><b>No teste:</b> CSV no lugar do .xlsx, ou o .xlsx montado à mão, mais devagar.</p>
+        <p class="prot-caso"><span class="prot-caso-rotulo">No teste do curso · 5 nov. 2026</span> Com 8 comprovantes no “Default”, a parede do Antigravity escondeu o Python. O agente procurou outro caminho sem avisar e levou 8 minutos para entregar uma planilha pior. Sem a parede, o mesmo pedido levou 4 minutos.</p>
+      </div>
+
+      <div class="vitrine-texto" data-passo="3">
+        <span class="rotulo">A escolha do curso</span>
+        <h2 class="titulo">Use o Codex em “Aprovar por mim”</h2>
+        <p class="linha-fina">No menu embaixo da caixa do pedido, escolha “Aprovar por mim”. Ele trabalha numa área fechada e quase não pergunta nada.</p>
+        <ol class="prot-acontece">
+          <li>O agente escreve só na pasta do projeto e fica sem internet.</li>
+          <li>Quando ele precisa sair disso, um segundo modelo confere e decide.</li>
+          <li>Só pergunta a você nos casos de risco. Aí, leia com calma.</li>
+        </ol>
+      </div>
+
+      <div class="prot-coluna">
+        <div class="prot-menu" data-passo="3">
+          <span class="prot-desenho-selo">desenho · a captura da tela real entra aqui</span>
+          <header class="prot-menu-barra"><i></i><i></i><i></i><span>Codex</span></header>
+          <div class="prot-menu-corpo">
+            <h3 class="prot-menu-titulo">Como as ações do Codex devem ser aprovadas?</h3>
+            <ol class="prot-opcoes">
+              <li style="--n:3"><div><b>Solicitar aprovação</b><p>Sempre pedir aprovação para editar arquivos externos e usar a internet</p></div></li>
+              <li style="--n:2" class="escolhido"><div><b>Aprovar por mim</b><em>o curso usa este</em><p>Solicitar aprovação apenas para ações detectadas como potencialmente inseguras</p></div></li>
+              <li style="--n:1"><div><b>Acesso completo</b><p>Acesso irrestrito à internet e a qualquer arquivo no seu computador</p></div></li>
+            </ol>
+          </div>
+        </div>
+
+        <p class="prot-caso prot-caso-menu" data-passo="3"><span class="prot-caso-rotulo">No teste do curso</span>, o segundo modelo foi chamado duas vezes, para apagar arquivos temporários que o próprio agente tinha criado. Liberou as duas, com a justificativa por escrito.</p>
+
+        <p class="prot-fecho" data-passo="3">Aprovar o que você não entende não é proteção.</p>
       </div>
     </div>
   </section>
