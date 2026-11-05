@@ -94,10 +94,10 @@ window.EXERCICIOS = [
   {
     id: "certificados", fase: 3, problema: "A coordenadora de uma oficina precisa mandar um certificado para cada participante, no papel timbrado da instituição. A planilha tem 20 inscrições, e algumas pessoas se inscreveram duas vezes.",
     nome: "Os certificados", minutos: 15,
-    arquivos: [{ arq: "fase3/certificados.zip", tam: "0,9 MB", nota: "pasta 2-certificados" }],
+    arquivos: [{ arq: "fase3/certificados.zip", tam: "0,8 MB", nota: "pasta 2-certificados" }],
     preparo: "Do zip, arraste a pasta 2-certificados para a sua pasta de projetos e abra-a como projeto no app ChatGPT.",
     previas: ["assets/img/fase3/previa-modelo.jpg"],
-    pedidos: ["Faça um certificado em PDF para cada pessoa da planilha, usando o modelo do Word. A oficina foi em 23 de maio de 2026 e teve 8 horas."],
+    pedidos: ["Faça um certificado em PDF para cada pessoa da planilha, usando o modelo do Word. A Oficina de Planilhas para o Dia a Dia foi em 23 de maio de 2026 e teve 8 horas."],
     conferir: ["Conte os PDFs e compare com o número de pessoas, não de linhas.", "Os nomes estão com maiúsculas e acentos?", "Abra um PDF: timbre, assinaturas e os quatro campos preenchidos?"],
   },
   {
