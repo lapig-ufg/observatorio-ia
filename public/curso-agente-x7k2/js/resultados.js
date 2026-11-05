@@ -180,17 +180,17 @@ window.RESULTADOS = {
   },
 
   // ----- Fase 3: o resultado ESPERADO, montado a partir dos gabaritos de material/fase3.
-  // A gravação do Antigravity ainda não foi feita; quando for, o que ele fez entra aqui. -----
+  // A gravação no app ChatGPT ainda não foi feita; quando for, o que ele fez entra aqui. -----
 
   viagens: {
     rotulo: "O resultado esperado",
     titulo: "O hotel entra uma vez só",
-    fonte: "Montado com o gabarito, antes da gravação no Antigravity",
+    fonte: "Montado com o gabarito, antes da gravação no app ChatGPT",
     rever: "◀ Voltar à gravação",
     tipo: "viagens",
     colunas: ["Data", "Estabelecimento", "Categoria", "Valor (R$)"],
     viagens: [
-      { nome: "viagem-1", sub: "Campinas · out. 2024 · parte A",
+      { nome: "Viagens a trabalho", sub: "Campinas · out. 2024 · parte A",
         linhas: [
           { c: ["10/10/2024", "Hotel Portal das Águas", "Hospedagem", "1.240,00"], arq: "voucher-reserva-58213.pdf", img: ["voucher-reserva-58213"], estado: "ok",
             nota: "Voucher da reserva 58213: 4 diárias, de 14 a 18/10, pagas por Pix. É a despesa do hotel." },
@@ -207,8 +207,8 @@ window.RESULTADOS = {
             nota: "Nota fiscal de serviço em folha A4, de um consumo no hotel. É outra despesa, diferente da diária do Portal das Águas. Se ficar de fora, o total cai para R$ 1.535,74." },
         ],
         total: "1.550,74", errado: { rotulo: "Com o Pix somado de novo", valor: "2.790,74" },
-        nota: "Depois da parte A, o projeto viagem-1 tem pastas por tipo de gasto, a planilha com o total, a lista de dúvidas e o passo a passo que a parte B vai seguir." },
-      { nome: "viagem-2", sub: "Rio de Janeiro e Mato Grosso · jun. e jul. 2025 · parte B",
+        nota: "Depois da parte A, a pasta Viagens a trabalho tem pastas por tipo de gasto, a planilha com o total, a lista de dúvidas e o passo a passo que a parte B vai seguir." },
+      { nome: "Nova viagem", sub: "Rio de Janeiro e Mato Grosso · jun. e jul. 2025 · parte B",
         linhas: [
           { c: ["24/06/2025", "Valente e Califé", "Alimentação", "30,90"], arq: "IMG_20250624_152340.jpg", img: ["IMG_20250624_152340"], estado: "atencao",
             nota: "A coluna da direita está cortada (0,0… e 30,8…). Vale o total impresso, R$ 30,90. Quem ler 30,80 chega a R$ 253,40." },
@@ -223,14 +223,14 @@ window.RESULTADOS = {
             nota: "O topo está desbotado. O rodapé mostra 13/07/2025 01:41:30, então 13/07 é a data provável. A dúvida vai para a lista de dúvidas que o pedido manda fazer." },
         ],
         total: "253,50",
-        nota: "Na parte B o pedido é “organize do mesmo jeito”: o agente segue o passo a passo que ele mesmo escreveu na parte A, agora na viagem-2, dentro do mesmo projeto." },
+        nota: "Na parte B o pedido é “organize do mesmo jeito”: o agente segue o passo a passo que ele mesmo escreveu na parte A, agora na viagem nova, numa pasta separada dentro do mesmo projeto." },
     ],
   },
 
   certificados: {
     rotulo: "O resultado esperado",
     titulo: "Vinte linhas, dezesseis certificados",
-    fonte: "Montado com o gabarito, antes da gravação no Antigravity",
+    fonte: "Montado com o gabarito, antes da gravação no app ChatGPT",
     rever: "◀ Voltar à gravação",
     tipo: "certificados",
     modelo: "assets/img/fase3/previa-modelo.jpg",
@@ -270,7 +270,7 @@ window.RESULTADOS = {
   mudanca: {
     rotulo: "O resultado esperado",
     titulo: "Quatro datas mudam, não uma",
-    fonte: "Montado com o gabarito, antes da gravação no Antigravity",
+    fonte: "Montado com o gabarito, antes da gravação no app ChatGPT",
     rever: "◀ Voltar à gravação",
     tipo: "mudanca",
     mudou: [

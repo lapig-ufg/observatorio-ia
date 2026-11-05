@@ -263,8 +263,8 @@
         <li class="dela boas-vindas"><p>Oi! Eu sou o Observatório. Pergunte sobre o curso, os exercícios ou a instalação: respondo e levo você à página certa.</p></li>
       </ol>
       <div class="coruja-sugestoes" aria-label="Perguntas comuns">
-        <button type="button">Como instalo o Antigravity?</button>
-        <button type="button">O Windows bloqueou o instalador</button>
+        <button type="button">Como instalo o ChatGPT?</button>
+        <button type="button">A configuração do Windows está demorando</button>
         <button type="button">A conta da universidade funciona?</button>
         <button type="button">O que a IA lê sai do meu computador?</button>
       </div>

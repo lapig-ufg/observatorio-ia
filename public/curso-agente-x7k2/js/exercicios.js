@@ -1,6 +1,6 @@
-// Exercícios da Fase 2: uma fonte só para a tela "Sua vez" da aula e para a
-// página pratica.html, que a turma abre no notebook. Cada exercício tem os
-// arquivos para baixar, o pedido para copiar e o que conferir na resposta.
+// Exercícios das Fases 2 e 3: uma fonte só para a tela "Sua vez" da aula e para
+// as páginas pratica.html e pratica-3.html, que a turma abre no notebook. Cada
+// exercício tem os arquivos para baixar, o pedido para copiar e o que conferir.
 
 window.EXERCICIOS = [
   {
@@ -63,25 +63,39 @@ window.EXERCICIOS = [
     conferir: ["Compare cada data e valor com o cupom, começando pelo desbotado.", "Some os valores e compare com o total da tabela."],
   },
 
-  // ----- Fase 3: no computador, com o Antigravity. A turma baixa a pasta inteira (zip). -----
+  // ----- Fase 3: no computador, com o app ChatGPT. A turma baixa as pastas em zip. -----
   {
-    id: "viagens", fase: 3, problema: "Uma pesquisadora voltou de duas viagens com fotos de cupons e PDFs baixados numa pasta. Precisa prestar contas das duas e não quer repetir o trabalho a cada viagem.",
+    id: "viagens", fase: 3, problema: "Uma pesquisadora voltou de duas viagens com fotos de cupons e PDFs baixados em pastas diferentes. Precisa prestar contas das duas e não quer repetir o trabalho a cada viagem.",
     nome: "A pasta das viagens", minutos: 20,
-    arquivos: [{ arq: "fase3/viagens.zip", tam: "1,5 MB", nota: "pastas viagem-1 e viagem-2" }],
-    preparo: "Do zip, arraste só a viagem-1 para a sua pasta de projetos e abra-a como projeto no Antigravity. A viagem-2 fica para depois.",
+    arquivos: [
+      { arq: "fase3/comprovantes-campinas.zip", tam: "0,8 MB", nota: "pasta Viagens a trabalho" },
+      { arq: "fase3/novos-comprovantes.zip", tam: "0,7 MB", nota: "pasta Novos comprovantes", parte: 2 },
+    ],
+    preparo: "Baixe o primeiro zip e arraste a pasta Viagens a trabalho para a sua pasta de projetos. Abra-a como projeto no app ChatGPT. O segundo zip fica para a parte B.",
     previas: ["assets/img/fase3/voucher-reserva-58213.jpg", "assets/img/fase3/IMG_20241014_161520.jpg", "assets/img/fase3/comprovante_pix_20241010.jpg", "assets/img/fase3/IMG_20241017_124625.jpg"],
     pedidos: [
-      "Organize estes comprovantes para a minha prestação de contas: renomeie cada arquivo com data, lugar e valor, separe em pastas por tipo de gasto e faça uma planilha com o total. Se algo deixar dúvida, me avise numa lista. No fim, escreva um passo a passo para eu repetir isso nas próximas viagens.",
-      "Coloquei aqui os comprovantes de outra viagem. Organize do mesmo jeito.",
+      "Estes são os comprovantes da minha viagem a Campinas. Organize tudo para a minha prestação de contas: renomeie cada arquivo com a data, o nome do estabelecimento e o valor, separe em pastas por tipo de gasto e faça uma planilha com o total. Se algo deixar dúvida, me avise numa lista. No fim, escreva um passo a passo para eu repetir isso nas próximas viagens.",
+      "Juntei aqui os comprovantes de uma nova viagem. Organize do mesmo jeito, separado da viagem de Campinas.",
     ],
-    antes: [null, "Depois, arraste a viagem-2 para o projeto e peça na mesma conversa"],
-    conferir: ["O hotel entrou uma vez só na viagem-1?", "O cartão de embarque ficou fora do total da viagem-2?", "A lista de dúvidas cita a data apagada do cupom da viagem-2?"],
+    antes: [null, "Parte B · baixe o segundo zip e arraste os arquivos para dentro da pasta"],
+    preparos: [null, "Baixe o segundo zip, abra a pasta Novos comprovantes, selecione os arquivos (Ctrl+A) e arraste-os soltos para dentro de Viagens a trabalho."],
+    conferir: [
+      "O hotel entrou uma vez só, com o voucher e o Pix na mesma linha?",
+      "A viagem nova ficou numa pasta separada, com a mesma organização?",
+      "O cartão de embarque ficou fora do total?",
+      "A data apagada do cupom da viagem nova virou dúvida, em vez de data inventada?",
+    ],
+    conferirAula: [
+      "Hotel uma vez só, com voucher e Pix na mesma linha?",
+      "Viagem nova numa pasta separada, com a mesma organização?",
+      "Cartão de embarque fora do total; data apagada virou dúvida?",
+    ],
   },
   {
     id: "certificados", fase: 3, problema: "A coordenadora de uma oficina precisa mandar um certificado para cada participante, no papel timbrado da instituição. A planilha tem 20 inscrições, e algumas pessoas se inscreveram duas vezes.",
     nome: "Os certificados", minutos: 15,
     arquivos: [{ arq: "fase3/certificados.zip", tam: "0,9 MB", nota: "pasta 2-certificados" }],
-    preparo: "Do zip, arraste a pasta 2-certificados para a sua pasta de projetos e abra-a como projeto no Antigravity.",
+    preparo: "Do zip, arraste a pasta 2-certificados para a sua pasta de projetos e abra-a como projeto no app ChatGPT.",
     previas: ["assets/img/fase3/previa-modelo.jpg"],
     pedidos: ["Faça um certificado em PDF para cada pessoa da planilha, usando o modelo do Word. A oficina foi em 23 de maio de 2026 e teve 8 horas."],
     conferir: ["Conte os PDFs e compare com o número de pessoas, não de linhas.", "Os nomes estão com maiúsculas e acentos?", "Abra um PDF: timbre, assinaturas e os quatro campos preenchidos?"],
@@ -90,7 +104,7 @@ window.EXERCICIOS = [
     id: "mudanca", fase: 3, problema: "O seminário de maio mudou de data e de auditório. O organizador tem 12 arquivos para corrigir, e alguns prazos dependem da data do evento.",
     nome: "A mudança de data", minutos: 15,
     arquivos: [{ arq: "fase3/mudanca-de-data.zip", tam: "0,2 MB", nota: "pasta 3-mudanca-de-data" }],
-    preparo: "Do zip, arraste a pasta 3-mudanca-de-data para a sua pasta de projetos e abra-a como projeto no Antigravity.",
+    preparo: "Do zip, arraste a pasta 3-mudanca-de-data para a sua pasta de projetos e abra-a como projeto no app ChatGPT.",
     previas: ["assets/img/fase3/aviso-porta.jpg", "assets/img/fase3/convite.jpg", "assets/img/fase3/programacao.jpg", "assets/img/fase3/regras-envio-trabalhos.jpg"],
     pedidos: ["O seminário mudou de 10 para 17 de maio de 2027, e do Auditório 2 para o Auditório 1. Atualize todos os arquivos e me diga o que mudou."],
     conferir: ["Procure “10 de maio” e “Auditório 2” na pasta: não pode sobrar nenhum.", "O pedido não fala dos prazos. Abra o convite e as regras de envio: as datas-limite ainda fazem sentido?", "A lista final cita cada arquivo e o que mudou nele?"],
@@ -119,17 +133,25 @@ window.EXERCICIOS = [
     setTimeout(() => { botao.textContent = antes; botao.classList.remove("ok"); }, 1600);
   }
 
-  // Bloco do pedido: o primeiro inteiro; os seguintes como "depois, peça".
-  const blocoPedidos = (e) => e.pedidos.map((p, i) =>
-    `<div class="pedido${i ? " depois" : ""}">` +
-    (i ? `<span class="depois-rotulo">${esc(e.antes?.[i] || "Depois, peça")}</span>` : "") +
-    `<blockquote>${esc(p).replace(/\n/g, "<br>")}</blockquote>` +
-    `<button type="button" class="copiar" data-i="${i}">Copiar</button></div>`).join("");
+  // Arquivos de uma parte: a parte B pode ter o seu próprio zip, mostrado junto do pedido 2.
+  const arquivosDaParte = (e, parte) => (e.arquivos || []).filter((a) => (a.parte || 1) === parte);
 
-  // Na Fase 3 a turma baixa uma pasta e pede ao Antigravity, com a pasta aberta.
+  // Bloco do pedido: o primeiro inteiro; os seguintes como "depois, peça".
+  // No quadro da aula, a versão compacta deixa o segundo zip só na página da prática.
+  const blocoPedidos = (e, compacto = false) => e.pedidos.map((p, i) => {
+    const extras = i && !compacto ? arquivosDaParte(e, i + 1) : [];
+    return `<div class="pedido${i ? " depois" : ""}">` +
+      (i ? `<span class="depois-rotulo">${esc(e.antes?.[i] || "Depois, peça")}</span>` : "") +
+      (extras.length ? `<div class="arquivos">${extras.map((a) => chipArquivo(a, "")).join("")}</div>` : "") +
+      (i && !compacto && e.preparos?.[i] ? `<p class="preparo">${esc(e.preparos[i])}</p>` : "") +
+      `<blockquote>${esc(p).replace(/\n/g, "<br>")}</blockquote>` +
+      `<button type="button" class="copiar" data-i="${i}">Copiar</button></div>`;
+  }).join("");
+
+  // Na Fase 3 a turma baixa uma pasta e pede ao app ChatGPT, com a pasta aberta.
   const TEXTOS = {
     2: { baixe: "Baixe", peca: "Peça", pecaLonga: "2. Peça no chat de IA que você usa", pagina: "pratica.html" },
-    3: { baixe: "Baixe a pasta", peca: "Peça ao Antigravity", pecaLonga: "2. Abra a pasta como projeto no Antigravity e peça", pagina: "pratica-3.html" },
+    3: { baixe: "Baixe a pasta", peca: "Peça ao app ChatGPT", pecaLonga: "2. Abra a pasta como projeto no app ChatGPT e peça", pagina: "pratica-3.html" },
   };
   const faseDe = (e) => e.fase || 2;
   window.exerciciosDaFase = (fase) => EX.filter((e) => faseDe(e) === fase);
@@ -142,7 +164,7 @@ window.EXERCICIOS = [
         <header><span class="num">${n + 1}</span><h2>${esc(e.nome)}</h2><span class="tempo">${e.minutos} min</span></header>
         <p class="problema-texto">${esc(e.problema)}</p>
         <h3>1. ${T.baixe}</h3>
-        <div class="arquivos">${e.arquivos.length ? e.arquivos.map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div>
+        <div class="arquivos">${arquivosDaParte(e, 1).length ? arquivosDaParte(e, 1).map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div>
         ${e.preparo ? `<p class="preparo">${esc(e.preparo)}</p>` : ""}
         <h3>${T.pecaLonga}</h3>
         ${blocoPedidos(e)}
@@ -177,11 +199,11 @@ window.EXERCICIOS = [
       </div>
       <div class="ficha">
         <div class="ficha-passo"><span class="n">1</span><div><h3>${T.baixe}</h3>
-          <div class="arquivos">${e.arquivos.length ? e.arquivos.map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div>
+          <div class="arquivos">${arquivosDaParte(e, 1).length ? arquivosDaParte(e, 1).map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div>
           ${e.preparo ? `<p class="preparo">${esc(e.preparo)}</p>` : ""}</div>
           ${e.previas ? `<div class="previas n${e.previas.length}" aria-hidden="true">${e.previas.map((src) => `<img src="${src}" alt="">`).join("")}</div>` : ""}</div>
-        <div class="ficha-passo"><span class="n">2</span><div><h3>${T.peca}</h3>${blocoPedidos(e)}</div></div>
-        <div class="ficha-passo"><span class="n">3</span><div><h3>Confira</h3><ul class="conferir">${e.conferir.map((c) => `<li>${esc(c)}</li>`).join("")}</ul></div></div>
+        <div class="ficha-passo"><span class="n">2</span><div><h3>${T.peca}</h3>${blocoPedidos(e, true)}</div></div>
+        <div class="ficha-passo"><span class="n">3</span><div><h3>Confira</h3><ul class="conferir">${(e.conferirAula || e.conferir).map((c) => `<li>${esc(c)}</li>`).join("")}</ul></div></div>
       </div>`;
 
     if (window.qrcode) {

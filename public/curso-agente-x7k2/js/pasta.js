@@ -4,11 +4,11 @@
 
 window.PASTAS = {
   viagens: {
-    caminho: "viagens.zip",
+    caminho: "Downloads",
     grupos: [
-      { nome: "viagem-1", arquivos: ["IMG_20241014_161520.jpg", "IMG_20241015_105420.jpg", "IMG_20241016_141118.jpg", "IMG_20241017_124625.jpg",
+      { nome: "Viagens a trabalho", arquivos: ["IMG_20241014_161520.jpg", "IMG_20241015_105420.jpg", "IMG_20241016_141118.jpg", "IMG_20241017_124625.jpg",
         "Scan_20241018_105957.jpg", "bilhete.pdf", "comprovante_pix_20241010.pdf", "voucher-reserva-58213.pdf"] },
-      { nome: "viagem-2", arquivos: ["IMG_20250624_152340.jpg", "IMG_20250630_145320.jpg", "IMG_20250712_214502.jpg", "IMG_20250713_014530.jpg",
+      { nome: "Novos comprovantes", arquivos: ["IMG_20250624_152340.jpg", "IMG_20250630_145320.jpg", "IMG_20250712_214502.jpg", "IMG_20250713_014530.jpg",
         "cartao-de-embarque.pdf", "recibo-corrida-24062025.pdf"] },
     ],
     rodape: "14 itens em 2 pastas",

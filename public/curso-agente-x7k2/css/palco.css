@@ -354,6 +354,7 @@ body.preto .tela-preta { display: block; }
 .peca.video.maquina .frente { background: #0c0c0c; }
 .peca.video.instala-video { aspect-ratio: 1366 / 720; width: min(calc(100% - 710px), 1000px); }
 .peca.video.instala-video .frente { background: #0c0c0c; }
+.peca.video.instala-video .selo-video { font-size: 15px; padding: 8px 12px; }
 .passos-instalar { margin: 4px 0 18px; padding-left: 28px; display: grid; gap: 12px; font-size: 20px; line-height: 1.4; }
 .selo-video {
   position: absolute; left: 16px; top: 14px; z-index: 4; pointer-events: none;
@@ -505,12 +506,13 @@ body.preto .tela-preta { display: block; }
   display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;
 }
 /* Ficha com dois pedidos (viagens, partes A e B): um pouco mais justa para caber no quadro. */
-.ficha:has(.pedido.depois) { gap: 16px; }
-.ficha:has(.pedido.depois) .ficha-passo + .ficha-passo { padding-top: 16px; }
-.ficha:has(.pedido.depois) .pedido:not(.depois) blockquote { font-size: 23px; }
+.ficha:has(.pedido.depois) { gap: 12px; padding: 26px 40px; }
+.ficha:has(.pedido.depois) .ficha-passo + .ficha-passo { padding-top: 12px; }
+.ficha:has(.pedido.depois) .pedido:not(.depois) blockquote { font-size: 23px; -webkit-line-clamp: 6; }
 .ficha .pedido.depois { margin-top: 14px; padding-top: 12px; border-top: 1px dashed #d8d2c4; }
 .ficha .pedido.depois blockquote { font-size: 22px; -webkit-line-clamp: 2; }
 .depois-rotulo { display: block; font: 600 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #6b7a73; margin-bottom: 8px; }
+.ficha .depois-rotulo { font-size: 15px; letter-spacing: .08em; line-height: 1.25; }
 .copiar {
   position: absolute; right: 0; top: 0; cursor: pointer; padding: 9px 16px; border-radius: 999px;
   border: 1px solid #cfc9bb; background: #fff; color: #10211b; font: 600 15px/1 var(--sans);

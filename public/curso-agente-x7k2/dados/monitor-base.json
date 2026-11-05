@@ -5,43 +5,43 @@
   {
    "id": "instalar-gravacao",
    "tipo": "curso",
-   "titulo": "Instalar o Antigravity · A gravação da instalação",
-   "texto": "Do download ao app aberto83 s · gravado no Windows A instalação inteira, gravada em 4 de novembro de 2026 com uma conta Google gratuita. A instalação em si levou 40 segundos. gravação real · 4 nov. 2026",
+   "titulo": "Instalar o ChatGPT · A gravação da instalação",
+   "texto": "Do download ao app aberto42 s · gravado no Windows A instalação inteira, gravada no Windows com uma conta gratuita do ChatGPT. As esperas da Microsoft Store e da configuração do Windows aparecem aceleradas. gravação real · Windows",
    "href": "instalar.html#gravacao"
   },
   {
    "id": "instalar-baixar",
    "tipo": "curso",
-   "titulo": "Instalar o Antigravity · Baixar e instalar o Antigravity",
-   "texto": "1 Baixar e instalar Entre em antigravity.google (ou busque “antigravity” no Google) e clique em Download. Escolha Windows e, no quadro Antigravity App, clique em Baixar para x64. Abra o arquivo baixado (fica na pasta Downloads) e espere a instalação terminar. O app abre sozinho. App ou CLI? Na mesma página aparece o Antigravity CLI, que é outro programa, feito para o terminal. No curso, baixe o App.",
+   "titulo": "Instalar o ChatGPT · Baixar e instalar o app ChatGPT",
+   "texto": "1 Baixar e instalar No Google, busque chatgpt download. O resultado leva ao site da OpenAI, em chatgpt.com, na página Baixe o ChatGPT para desktop. Clique em Baixar para Windows. O instalador abre a Microsoft Store, que baixa o app. São cerca de 1 GB. No vídeo, a espera de 74 segundos aparece acelerada. Depois, a tela mostra Abrindo ChatGPT…. O nome do app é ChatGPT. No menu Iniciar, procure ChatGPT. O ChatGPT do navegador é outra janela, e não abre as pastas do seu computador.",
    "href": "instalar.html#baixar"
   },
   {
    "id": "instalar-entrar",
    "tipo": "curso",
-   "titulo": "Instalar o Antigravity · Entrar com a conta Google",
-   "texto": "2 Entrar com a conta Google Na tela Welcome to Antigravity, clique em Continue with Google. O navegador abre: escolha a conta e autorize. Depois, volte ao app. Na tela Security Notice & Data Use, a caixa de ceder seus dados ao Google é opcional. Na gravação, ela ficou desmarcada. Clique em Get started. Qual conta usar Conta pessoal (Gmail)Funciona no plano gratuito, com uma cota que renova toda semana. Conta da instituiçãoSó entra se o administrador da instituição tiver liberado o Antigravity. Se não entrar, use a pessoal. É preciso ter 18 anos ou mais para usar o Antigravity.",
+   "titulo": "Instalar o ChatGPT · Entrar na conta do ChatGPT",
+   "texto": "2 Entrar na conta O app abre na tela Entrar no ChatGPT. O login abre no navegador, na página da OpenAI. Escolha a conta. No vídeo, foi uma conta Google. Volte ao app. Ele já está conectado. Qual conta usar Conta gratuitaServe para o curso. Você pode entrar com uma conta Google, Microsoft ou Apple, ou com e-mail. Conta da instituiçãoSó funciona se a instituição tiver liberado o acesso. Se não entrar, use uma conta pessoal. Boas-vindas: depois do login, pode aparecer uma conversa que muda de pessoa para pessoa. Você pode pular.",
    "href": "instalar.html#entrar"
+  },
+  {
+   "id": "instalar-windows",
+   "tipo": "curso",
+   "titulo": "Instalar o ChatGPT · Preparar o Windows",
+   "texto": "3 Preparar o Windows Na primeira vez, o app pede permissão para preparar o Windows. Isso monta a área fechada onde o agente trabalha. O app avisa que vai preparar o Windows. Clique em Continuar. O Windows abre a janela Deseja permitir que este aplicativo faça alterações no seu dispositivo?. Responda Sim. Essa janela não aparece no vídeo porque o Windows não deixa gravá-la. A tela mostra Concluindo a configuração do Windows. No vídeo, são 15 segundos, acelerados. Em notebooks com muitos arquivos, pode levar alguns minutos. No fim, aparece A configuração do Windows foi concluída. Isso só acontece na primeira vez. Por que preparar o Windows O app monta uma área fechada, a “parede” da cena de proteções da aula. Nela, o agente lê os arquivos, mas só escreve na pasta do projeto e fica sem internet. Por isso o app pede a permissão do Windows uma vez. Mac: o app existe para Mac com chip Apple (M1 ou mais novo). No Mac, a área fechada já vem do próprio sistema, então não há a etapa de preparar o Windows. O curso só testou no Windows.",
+   "href": "instalar.html#windows"
   },
   {
    "id": "instalar-aprovar",
    "tipo": "curso",
-   "titulo": "Instalar o Antigravity · O modo de aprovação do Antigravity",
-   "texto": "3 Escolha o modo de aprovação Um técnico vai deixar o agente arrumar a pasta do setor. Quer que ele trabalhe sem pedir licença a cada passo, mas que pergunte antes de sair da pasta. Isso se escolhe antes do primeiro pedido, em: Settings›General›Global Permissions›Permission Preset Request Review Pede aprovação para todo comando. Não usa a área isolada, e os arquivos ficam restritos à pasta do projeto. Default o curso usa este Roda os comandos numa área isolada (sandbox), sem internet, com acesso à pasta do projeto e às pastas temporárias. Quando precisa sair dela, pede aprovação. Auto Na área isolada, igual ao Default. Fora dela, decide sozinho: o que é seguro e reversível roda sem perguntar, e o que é arriscado ou não tem volta ainda pede aprovação. Até a versão 2.29.0 aparecia como “Auto (Preview)”. Turbo Libera tudo: qualquer comando, o disco inteiro, a internet e as ferramentas externas, sem perguntar. o que ele faz sem perguntar Se não aparecer assim Ele pede aprovação de tudo, mesmo em Default? O notebook não tem a área isolada. No Windows, ela exige o Windows 11 24H2 ou mais novo, com a atualização de agosto de 2026. Sem ela (Windows 10, por exemplo), o Default passa a funcionar como Request Review. Dá para usar assim: só é preciso aprovar cada comando. Entrou com a conta da instituição? Contas empresariais não têm o Auto e usam as permissões antigas, com outra tela. Tam",
+   "titulo": "Instalar o ChatGPT · O modo de aprovação do app ChatGPT",
+   "texto": "4 Escolha o modo de aprovação Antes do primeiro pedido, abra a pasta do exercício como projeto. No menu de permissões, embaixo da caixa do pedido, escolha Aprovar por mim. Solicitar aprovação Sempre pedir aprovação para editar arquivos externos e usar a internet. Aprovar por mim o curso usa este Solicitar aprovação apenas para ações detectadas como potencialmente inseguras. Acesso completo Acesso irrestrito à internet e a qualquer arquivo no seu computador. quanto ele libera sem perguntar Não use o Acesso completo no curso. Ele dá acesso irrestrito à internet e a qualquer arquivo do computador. Créditos: o app avisa que “Aprovar por mim” pode consumir mais créditos. Conta gratuita: o modelo disponível é o Luna. A cota vale por uma janela de 30 dias. Fonte: a tela de permissões do app ChatGPT, conferida em 5 nov. 2026.",
    "href": "instalar.html#aprovar"
-  },
-  {
-   "id": "instalar-ferramentas",
-   "tipo": "curso",
-   "titulo": "Instalar o Antigravity · Antes de pedir: dê ferramentas ao agente",
-   "texto": "4 Antes de pedir: dê ferramentas ao agenteprovisório Uma secretária pede ao agente a lista de inscritos em Excel e recebe um arquivo CSV. O Python estava instalado no notebook, mas o agente não conseguiu usá-lo. No modo Default, os comandos do agente rodam numa caixa isolada do Windows (AppContainer). Pela documentação, de dentro dela as pastas fora da sua pasta de usuário ficam visíveis, e o resto da sua pasta de usuário fica escondido. No teste, o agente só conseguiu rodar programas instalados em pastas como C:\\Program Files. O que aconteceu no teste (5 nov. 2026, Windows 11) NodeC:\\Program Files\\nodejsfuncionou Python do Python Install ManagerAppData\\Local\\PythonNão é possível o acesso ao arquivo pelo sistemafalhou Excel, aberto pelo agenteOffice, por COMfalhou Sem um programa que fizesse o .xlsx, o agente entregou CSV, ou montou o .xlsx à mão, mais devagar. O que fazer antes do primeiro pedido Node: instale pelo instalador de nodejs.org. Ele vai para C:\\Program Files\\nodejs, que funcionou no teste. Python: no instalador de python.org, escolha a instalação personalizada e marque “Install Python for all users”, que instala em C:\\Program Files. a testar Sem nenhum dos dois, peça o resultado em CSV: o Excel abre. Ainda falta testar: o Python instalado para todos os usuários; se o agente, no Default, pede para rodar o Python fora da caixa e se isso resolve; e o mesmo exercício n",
-   "href": "instalar.html#ferramentas"
   },
   {
    "id": "instalar-deu-errado",
    "tipo": "curso",
-   "titulo": "Instalar o Antigravity · Deu errado na instalação?",
-   "texto": "Deu errado? Apareceu uma tela azul: “O Windows protegeu o computador” É o SmartScreen, que aparece com programas que ele ainda não conhece. Se o arquivo veio de antigravity.google, clique em Mais informações e depois em Executar assim mesmo. Se você baixou de outro site, não execute: apague o arquivo e baixe de novo em antigravity.google. O Windows pede senha de administrador para instalar Em computador da instituição, quem instala costuma ser o suporte de TI. Para a aula, use outro notebook ou faça em dupla. A conta da universidade não entra A conta institucional só funciona se o administrador tiver liberado o Antigravity. Saia e entre com uma conta Google pessoal: no plano gratuito ela funciona. Ele pede aprovação para cada comando Confira em Settings › General › Global Permissions se o Permission Preset está em Default. Se estiver e ele continuar pedindo, o notebook não tem a área isolada (veja o modo de aprovação). Leia cada pedido antes de aprovar. Pedi uma planilha do Excel e veio um CSV O agente provavelmente não achou um programa que ele consiga usar para fazer o .xlsx. Veja dê ferramentas ao agente. O CSV abre no Excel.",
+   "titulo": "Instalar o ChatGPT · Deu errado na instalação?",
+   "texto": "Deu errado? A conta da instituição não entra A conta institucional só funciona se a instituição tiver liberado o acesso. Saia e entre com uma conta pessoal. A gratuita serve, e dá para entrar com uma conta Google, Microsoft ou Apple, ou com e-mail. A conversa de boas-vindas aparece Ela muda de pessoa para pessoa. Você pode pular. A configuração do Windows está demorando Em notebooks com muitos arquivos, pode levar alguns minutos. Ela só acontece na primeira vez. Espere até A configuração do Windows foi concluída. Ele pede aprovação o tempo todo Confira a permissão escolhida. O curso usa Aprovar por mim, que pede aprovação só para ações detectadas como potencialmente inseguras. Se estiver em Solicitar aprovação, o app pede sempre. Uso Mac O app existe para Mac com chip Apple (M1 ou mais novo). No Mac, a área fechada já vem do próprio sistema, então não há a etapa de preparar o Windows. O curso só testou no Windows. É o mesmo ChatGPT do navegador? É o app ChatGPT instalado no notebook. É ele que abre as pastas e trabalha nos arquivos. O ChatGPT do navegador não faz isso. A cota da conta gratuita acabou A cota vale por uma janela de 30 dias. O modelo disponível é o Luna.",
    "href": "instalar.html#deu-errado"
   },
   {
@@ -97,14 +97,14 @@
    "id": "pratica-3",
    "tipo": "curso",
    "titulo": "Prática no computador",
-   "texto": "Cada exercício é um projeto no Antigravity. Baixe o zip, abra e arraste a pasta de dentro dele para uma pasta sua de projetos. No Antigravity, abra essa pasta como projeto, cole o pedido e confira o que mudou nos arquivos. Guarde o zip: se algo der errado, é só arrastar a pasta de novo.",
+   "texto": "Cada exercício é um projeto no app ChatGPT. Baixe o zip, abra e arraste a pasta de dentro dele para uma pasta sua de projetos. No app ChatGPT, abra essa pasta como projeto, cole o pedido e confira o que mudou nos arquivos. Guarde o zip: se algo der errado, é só arrastar a pasta de novo. No exercício das viagens são dois zips: o segundo entra depois, na mesma conversa.",
    "href": "pratica-3.html"
   },
   {
    "id": "pratica-3-viagens",
    "tipo": "curso",
    "titulo": "Prática no computador · A pasta das viagens",
-   "texto": "Uma pesquisadora voltou de duas viagens com fotos de cupons e PDFs baixados numa pasta. Precisa prestar contas das duas e não quer repetir o trabalho a cada viagem. Arquivo para baixar: viagens.zip. Pedido: Organize estes comprovantes para a minha prestação de contas: renomeie cada arquivo com data, lugar e valor, separe em pastas por tipo de gasto e faça uma planilha com o total. Se algo deixar dúvida, me avise numa lista. No fim, escreva um passo a passo para eu repetir isso nas próximas viagens. Depois: Coloquei aqui os comprovantes de outra viagem. Organize do mesmo jeito. O que conferir: O hotel entrou uma vez só na viagem-1? O cartão de embarque ficou fora do total da viagem-2? A lista de dúvidas cita a data apagada do cupom da viagem-2?",
+   "texto": "Uma pesquisadora voltou de duas viagens com fotos de cupons e PDFs baixados em pastas diferentes. Precisa prestar contas das duas e não quer repetir o trabalho a cada viagem. Arquivo para baixar: comprovantes-campinas.zip, novos-comprovantes.zip. Pedido: Estes são os comprovantes da minha viagem a Campinas. Organize tudo para a minha prestação de contas: renomeie cada arquivo com a data, o nome do estabelecimento e o valor, separe em pastas por tipo de gasto e faça uma planilha com o total. Se algo deixar dúvida, me avise numa lista. No fim, escreva um passo a passo para eu repetir isso nas próximas viagens. Depois: Juntei aqui os comprovantes de uma nova viagem. Organize do mesmo jeito, separado da viagem de Campinas. O que conferir: O hotel entrou uma vez só, com o voucher e o Pix na mesma linha? A viagem nova ficou numa pasta separada, com a mesma organização? O cartão de embarque ficou fora do total? A data apagada do cupom da viagem nova virou dúvida, em vez de data inventada?",
    "href": "pratica-3.html#viagens"
   },
   {
@@ -120,24 +120,6 @@
    "titulo": "Prática no computador · A mudança de data",
    "texto": "O seminário de maio mudou de data e de auditório. O organizador tem 12 arquivos para corrigir, e alguns prazos dependem da data do evento. Arquivo para baixar: mudanca-de-data.zip. Pedido: O seminário mudou de 10 para 17 de maio de 2027, e do Auditório 2 para o Auditório 1. Atualize todos os arquivos e me diga o que mudou. O que conferir: Procure “10 de maio” e “Auditório 2” na pasta: não pode sobrar nenhum. O pedido não fala dos prazos. Abra o convite e as regras de envio: as datas-limite ainda fazem sentido? A lista final cita cada arquivo e o que mudou nele?",
    "href": "pratica-3.html#mudanca"
-  },
-  {
-   "id": "faq-01",
-   "tipo": "faq",
-   "titulo": "Baixei o Antigravity, mas não sei qual arquivo escolher: x64 ou ARM64.",
-   "texto": "Na página de download, clique em \"Baixar para x64\" para a maioria dos PCs com Windows 10 ou 11. Use \"Download for ARM64\" só se o seu computador tiver processador ARM (alguns notebooks Snapdragon). Se não souber, comece pelo x64.",
-   "palavras": "download instalador x64 arm64 qual baixar windows",
-   "href": "instalar.html#baixar",
-   "fonte": "https://antigravity.google/download/"
-  },
-  {
-   "id": "faq-02",
-   "tipo": "faq",
-   "titulo": "Meu Windows é o 10. O Antigravity funciona nele?",
-   "texto": "Sim. O Antigravity pede Windows 10 de 64 bits ou mais novo, então serve tanto o Windows 10 quanto o Windows 11. Baixe o instalador x64 e execute.",
-   "palavras": "windows 10 requisitos versao 64 bits instalar",
-   "href": "instalar.html#baixar",
-   "fonte": "https://antigravity.google/download/"
   },
   {
    "id": "faq-03",
@@ -167,39 +149,12 @@
    "fonte": "https://support.microsoft.com/en-us/windows/create-a-local-user-or-administrator-account-in-windows-20de74e0-ac7f-3502-a866-32915af2a34d"
   },
   {
-   "id": "faq-06",
-   "tipo": "faq",
-   "titulo": "Cliquei no instalador e não acontece nada.",
-   "texto": "Confira se o download terminou e procure o arquivo na pasta Downloads, onde o navegador salva os programas por padrão. Ache o arquivo Antigravity-x64.exe, clique nele com o botão direito e escolha \"Abrir\".",
-   "palavras": "nao abre nada acontece instalador cliquei baixado",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://support.microsoft.com/en-us/windows/apps/how-to-install-programs-from-online-sources-on-windows"
-  },
-  {
-   "id": "faq-07",
-   "tipo": "faq",
-   "titulo": "Baixei um .zip junto. Preciso abrir esse arquivo?",
-   "texto": "No Windows, o Antigravity é instalado pelo arquivo .exe; o .zip não é necessário. Se precisar abrir um .zip, clique nele com o botão direito e escolha \"Extrair tudo\" e depois \"Extrair\".",
-   "palavras": "zip compactado extrair descompactar",
-   "href": "instalar.html#baixar",
-   "fonte": "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/zip-and-unzip-files"
-  },
-  {
    "id": "faq-08",
    "tipo": "faq",
    "titulo": "O arquivo que baixei não aparece na pasta Downloads.",
    "texto": "Abra o Explorador de Arquivos e clique em \"Downloads\" na barra lateral; é onde o navegador salva os downloads por padrão. Se não estiver lá, abra a lista de downloads do navegador (Ctrl+J) para ver onde o arquivo foi parar.",
    "palavras": "nao aparece download pasta arquivo sumiu",
    "href": "instalar.html#baixar",
-   "fonte": "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/find-your-files-and-apps-in-windows"
-  },
-  {
-   "id": "faq-09",
-   "tipo": "faq",
-   "titulo": "Instalei, mas não acho o Antigravity para abrir.",
-   "texto": "Clique em Iniciar e digite \"Antigravity\": o app deve aparecer na lista. Se não aparecer, abra \"Todos os aplicativos\" e role a lista até encontrá-lo.",
-   "palavras": "nao acho atalho menu iniciar abrir app",
-   "href": "instalar.html#deu-errado",
    "fonte": "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/find-your-files-and-apps-in-windows"
   },
   {
@@ -212,33 +167,6 @@
    "fonte": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/why-is-my-internet-connection-so-slow"
   },
   {
-   "id": "faq-11",
-   "tipo": "faq",
-   "titulo": "Tentei entrar com minha conta @ufg.br e não deu.",
-   "texto": "Contas de trabalho ou escola (Google Workspace) só entram se o administrador da UFG liberar o Antigravity para elas. Se a sua conta @ufg.br falha, peça essa liberação ao setor de TI ou entre com uma conta Google pessoal.",
-   "palavras": "ufg institucional workspace conta da universidade login",
-   "href": "instalar.html#entrar",
-   "fonte": "https://antigravity.google/docs/faq/"
-  },
-  {
-   "id": "faq-12",
-   "tipo": "faq",
-   "titulo": "Minha conta pessoal do Gmail não entra e aparece um erro.",
-   "texto": "Contas pessoais podem usar o Antigravity em qualquer plano, inclusive no gratuito. Se o login falhar, confira se a conta está em um país onde o serviço existe e se a sua idade já foi verificada.",
-   "palavras": "gmail conta pessoal erro pais indisponivel",
-   "href": "instalar.html#entrar",
-   "fonte": "https://antigravity.google/docs/faq/"
-  },
-  {
-   "id": "faq-13",
-   "tipo": "faq",
-   "titulo": "Ele diz que minha idade não foi verificada.",
-   "texto": "O Antigravity não está disponível para menores de 18 anos. Se você tem 18 ou mais, faça a verificação de idade na sua Conta Google e tente entrar de novo.",
-   "palavras": "idade 18 anos verificacao menor",
-   "href": "instalar.html#entrar",
-   "fonte": "https://antigravity.google/docs/faq/"
-  },
-  {
    "id": "faq-14",
    "tipo": "faq",
    "titulo": "Na hora de entrar apareceu \"Business account\". Qual opção escolho?",
@@ -246,41 +174,6 @@
    "palavras": "business account conta corporativa escolher conta login",
    "href": "instalar.html#entrar",
    "fonte": "https://antigravity.google/docs/install/"
-  },
-  {
-   "id": "faq-15",
-   "tipo": "faq",
-   "titulo": "Abriu uma janela do navegador para entrar, ela sumiu e o app continua pedindo login.",
-   "texto": "O login começa no navegador e, ao terminar, a página volta sozinha para o Antigravity. Se a janela fechar antes de você concluir, clique em \"Sign in\" de novo e refaça o login do começo.",
-   "palavras": "login navegador janela nao volta entrar",
-   "href": "instalar.html#entrar",
-   "fonte": "https://antigravity.google/docs/install/"
-  },
-  {
-   "id": "faq-16",
-   "tipo": "faq",
-   "titulo": "Entrei com a conta errada. Como troco?",
-   "texto": "Saia da conta no Antigravity e entre de novo, escolhendo a conta certa na janela do navegador.",
-   "palavras": "trocar conta conta errada sair logout",
-   "href": "instalar.html#entrar",
-   "fonte": "https://antigravity.google/docs/install/"
-  },
-  {
-   "id": "faq-17",
-   "tipo": "faq",
-   "titulo": "Posso usar a conta do meu trabalho ou da minha escola?",
-   "texto": "Só se o administrador da sua organização liberar o Antigravity para a sua conta. Sem essa liberação o login falha; nesse caso, use uma conta Google pessoal.",
-   "palavras": "conta institucional trabalho escola workspace empresa",
-   "href": "instalar.html#entrar",
-   "fonte": "https://antigravity.google/docs/faq/"
-  },
-  {
-   "id": "faq-18",
-   "tipo": "faq",
-   "titulo": "O Antigravity está todo em inglês. Tem como mudar para português?",
-   "texto": "A interface do Antigravity é em inglês e a documentação oficial não mostra uma opção para trocar o idioma do aplicativo. Combine com o monitor uma lista dos menus principais em português para consultar durante a aula.",
-   "palavras": "ingles idioma portugues traduzir menu",
-   "href": "instalar.html#deu-errado"
   },
   {
    "id": "faq-19",
@@ -292,24 +185,6 @@
    "fonte": "https://antigravity.google/docs/plans/"
   },
   {
-   "id": "faq-20",
-   "tipo": "faq",
-   "titulo": "Quero usar um modelo que só aparece nos planos pagos.",
-   "texto": "Alguns modelos exigem uma assinatura Google AI Pro ou Google AI Ultra e não entram no teste gratuito. Para liberar, assine um desses planos na página do Google One e entre de novo no Antigravity.",
-   "palavras": "modelo plano pago pro ultra assinatura",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://antigravity.google/docs/faq/"
-  },
-  {
-   "id": "faq-21",
-   "tipo": "faq",
-   "titulo": "O Antigravity pede permissão para tudo. Dá para parar com isso?",
-   "texto": "Dá: cada ação sensível (ler arquivo, rodar comando, abrir site) pode ser liberada ou bloqueada nas configurações de permissões. No modo \"Default\", os comandos rodam numa área isolada e só pedem aprovação quando precisam sair dela. Evite o modo \"Turbo\", que libera tudo sem perguntar.",
-   "palavras": "permissao autorizar allow ask toda hora",
-   "href": "instalar.html#aprovar",
-   "fonte": "https://antigravity.google/docs/permissions/"
-  },
-  {
    "id": "faq-22",
    "tipo": "faq",
    "titulo": "Mandei rodar um comando e ele ficou pedindo aprovação ou disse que não pode.",
@@ -317,33 +192,6 @@
    "palavras": "comando terminal bloqueado permissao de comando sandbox",
    "href": "instalar.html#aprovar",
    "fonte": "https://antigravity.google/docs/sandbox/"
-  },
-  {
-   "id": "faq-23",
-   "tipo": "faq",
-   "titulo": "O Antigravity é grátis? Preciso pagar?",
-   "texto": "Dá para usar com uma conta Google pessoal em qualquer plano, inclusive no gratuito. O plano gratuito tem uma cota semanal; os planos pagos (Google AI Pro e Ultra) têm cotas maiores.",
-   "palavras": "gratis preco pagar plano assinatura",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://antigravity.google/docs/plans/"
-  },
-  {
-   "id": "faq-24",
-   "tipo": "faq",
-   "titulo": "Abri o Antigravity e ele não vê a pasta dos meus arquivos.",
-   "texto": "O agente só acessa as pastas que você adicionou ao projeto. Clique em \"New Project\", depois em \"Add Folder\", escolha a pasta certa e só então comece a conversa.",
-   "palavras": "pasta errada nao ve arquivos projeto adicionar pasta",
-   "href": "pratica-3.html",
-   "fonte": "https://antigravity.google/docs/getting-started/"
-  },
-  {
-   "id": "faq-25",
-   "tipo": "faq",
-   "titulo": "Salvei um arquivo, mas ele não aparece no Antigravity.",
-   "texto": "Confirme se o arquivo está dentro de uma das pastas do projeto, porque o Antigravity mostra só o que está nessas pastas. Se você salvou em outro lugar, mova o arquivo para a pasta do projeto ou adicione essa pasta ao projeto.",
-   "palavras": "arquivo nao aparece sumiu pasta atualizar",
-   "href": "pratica-3.html",
-   "fonte": "https://antigravity.google/docs/projects/"
   },
   {
    "id": "faq-26",
@@ -362,24 +210,6 @@
    "palavras": "worktree copia pasta nova local mode",
    "href": "pratica-3.html",
    "fonte": "https://antigravity.google/docs/projects/"
-  },
-  {
-   "id": "faq-28",
-   "tipo": "faq",
-   "titulo": "Posso fechar o notebook enquanto ele trabalha?",
-   "texto": "Com um agente rodando, o Antigravity impede o computador de dormir. Mesmo assim, evite fechar a tampa ou desligar o PC no meio da tarefa; espere o agente terminar.",
-   "palavras": "dormir fechar suspender sleep travou",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://antigravity.google/docs/faq/"
-  },
-  {
-   "id": "faq-29",
-   "tipo": "faq",
-   "titulo": "Como desinstalo o Antigravity?",
-   "texto": "Abra Configurações > Aplicativos > Aplicativos instalados, procure \"Antigravity\", clique nos três pontos e escolha \"Desinstalar\" (no Windows 10: Configurações > Aplicativos > Aplicativos e recursos). Depois apague o instalador da pasta Downloads, se quiser liberar espaço.",
-   "palavras": "desinstalar remover apagar",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://support.microsoft.com/en-us/windows/uninstall-or-remove-apps-and-programs-in-windows-4b55f974-2cc6-2d2b-d092-5905080eaf98"
   },
   {
    "id": "faq-30",
