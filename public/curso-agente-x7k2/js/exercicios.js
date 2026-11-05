@@ -83,12 +83,12 @@ window.EXERCICIOS = [
       "O hotel entrou uma vez só, com o voucher e o Pix na mesma linha?",
       "A viagem nova ficou numa pasta separada, com a mesma organização?",
       "O cartão de embarque ficou fora do total?",
-      "A data apagada do cupom da viagem nova virou dúvida, em vez de data inventada?",
+      "O cupom desbotado de 13/07 ficou com a data certa e com o nome do estabelecimento marcado como incompleto?",
     ],
     conferirAula: [
       "Hotel uma vez só, com voucher e Pix na mesma linha?",
       "Viagem nova numa pasta separada, com a mesma organização?",
-      "Cartão de embarque fora do total; data apagada virou dúvida?",
+      "Cartão de embarque fora do total; cupom desbotado com data certa?",
     ],
   },
   {
