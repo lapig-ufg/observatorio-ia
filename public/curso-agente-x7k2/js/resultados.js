@@ -179,13 +179,13 @@ window.RESULTADOS = {
     nota: "Do código dele, só fixamos as versões das bibliotecas que ele carrega, para não quebrar com o tempo.",
   },
 
-  // ----- Fase 3: o resultado ESPERADO, montado a partir dos gabaritos de material/fase3.
-  // A gravação no app ChatGPT ainda não foi feita; quando for, o que ele fez entra aqui. -----
+  // ----- Fase 3: o resultado, montado a partir dos gabaritos de material/fase3
+  // e conferido nas gravações de 5 e 6 nov. 2026, no app ChatGPT. -----
 
   viagens: {
-    rotulo: "O resultado esperado",
+    rotulo: "O resultado",
     titulo: "O hotel entra uma vez só",
-    fonte: "Montado com o gabarito, antes da gravação no app ChatGPT",
+    fonte: "Conferido nas gravações de 5 nov. 2026, no app ChatGPT",
     rever: "◀ Voltar à gravação",
     tipo: "viagens",
     colunas: ["Data", "Estabelecimento", "Categoria", "Valor (R$)"],
@@ -223,18 +223,36 @@ window.RESULTADOS = {
             nota: "<b>Certo:</b> a data é <b>13/07/2025</b>, lida no rodapé da NFC-e (13/07/2025 01:41:30). O topo está desbotado e o nome pode sair incompleto. Se sair, marque no próprio nome: o certo é FL Empreendimentos Comerciais Ltda." },
         ],
         total: "253,50",
-        nota: "Na parte B o pedido é “organize do mesmo jeito”: o agente segue o passo a passo que ele mesmo escreveu na parte A, agora na viagem nova, numa pasta separada dentro do mesmo projeto." },
+        nota: "Na parte B, o agente segue o passo a passo que ele mesmo escreveu na parte A, agora na viagem nova, numa pasta separada dentro do mesmo projeto." },
     ],
   },
 
   certificados: {
-    rotulo: "O resultado esperado",
+    rotulo: "O resultado",
     titulo: "Vinte linhas, dezesseis certificados",
-    fonte: "Montado com o gabarito, antes da gravação no app ChatGPT",
+    fonte: "Os 16 PDFs que o app ChatGPT gerou em 06/11/2026 (Luna, raciocínio Alto)",
     rever: "◀ Voltar à gravação",
     tipo: "certificados",
-    modelo: "assets/img/fase3/previa-modelo.jpg",
-    oficina: "Oficina de Planilhas para o Dia a Dia", data: "23 de maio de 2026", carga: "8 horas",
+    pasta: "assets/img/fase3/certificados/",
+    // Um arquivo por pessoa, pelo nome correto do gabarito (não pelo texto da planilha).
+    pessoas: {
+      "Ana Júlia Conceição": "ana-julia-conceicao.jpg",
+      "Bruno Tavares Lima": "bruno-tavares-lima.jpg",
+      "Camila Ferreira dos Santos": "camila-ferreira-dos-santos.jpg",
+      "Diego Nogueira Alves": "diego-nogueira-alves.jpg",
+      "Elisa Martins Rocha": "elisa-martins-rocha.jpg",
+      "Fábio Ribeiro de Souza": "fabio-ribeiro-de-souza.jpg",
+      "Gabriela Nunes Pereira": "gabriela-nunes-pereira.jpg",
+      "Henrique Oliveira Castro": "henrique-oliveira-castro.jpg",
+      "Isabela Ramos Cardoso": "isabela-ramos-cardoso.jpg",
+      "João Pedro Almeida": "joao-pedro-almeida.jpg",
+      "Karina Lopes Mendes": "karina-lopes-mendes.jpg",
+      "Leonardo Prado Vieira": "leonardo-prado-vieira.jpg",
+      "Mariana Costa Batista": "mariana-costa-batista.jpg",
+      "Natália Gomes Faria": "natalia-gomes-faria.jpg",
+      "Otávio Siqueira Braga": "otavio-siqueira-braga.jpg",
+      "Patrícia Melo Andrade": "patricia-melo-andrade.jpg",
+    },
     linhas: [
       [2, "02/04/2026", "Ana Júlia Conceição", "ana.conceicao@exemplo.com"],
       [3, "02/04/2026", "Bruno Tavares Lima", "bruno.lima@exemplo.com"],
@@ -395,7 +413,7 @@ window.RESULTADOS = {
         <div class="res-cupom" aria-live="polite"></div>
       </div>`,
 
-    // Certificados: as 20 linhas da planilha; clicar numa linha preenche o modelo.
+    // Certificados: as 20 linhas da planilha; clicar numa linha mostra o PDF real da pessoa.
     certificados: (d) => `
       <div class="res-corpo res-certificados">
         <div class="res-papel">
@@ -407,8 +425,7 @@ window.RESULTADOS = {
           <p class="res-placar-trio"><span><b>20</b> linhas</span><span><b>4</b> repetidas</span><span class="ok"><b>16</b> PDFs</span></p>
         </div>
         <div class="res-cert-lado">
-          <figure class="res-cert"><img src="${d.modelo}" alt="O modelo do certificado, com o timbre do Instituto Horizonte">
-            <div class="res-cert-texto"></div><span class="res-cert-selo"></span></figure>
+          <figure class="res-cert"><img src="${d.pasta}${d.pessoas["Ana Júlia Conceição"]}" alt="Certificado de Ana Júlia Conceição"></figure>
           <div class="res-cupom-nota" aria-live="polite"></div>
         </div>
       </div>`,
@@ -432,8 +449,10 @@ window.RESULTADOS = {
     const d = R[el.dataset.resultado];
     const cena = el.closest(".cena");
     el.innerHTML = cabeca(d) + montar[d.tipo](d);
-    // O resultado aparece no passo dele; "rever" volta ao passo da gravação (a peça).
-    const passoRes = +el.dataset.passo, passoGravacao = +(cena.querySelector(".peca")?.dataset.passo ?? passoRes - 1);
+    // O resultado aparece no passo dele; "rever" volta ao passo da última gravação (a peça).
+    const passoRes = +el.dataset.passo;
+    const pecas = cena.querySelectorAll(".peca");
+    const passoGravacao = +(pecas[pecas.length - 1]?.dataset.passo ?? passoRes - 1);
     el.querySelector(".res-rever").addEventListener("click", () => window.PALCO.ir(window.PALCO.cenas.indexOf(cena), passoGravacao));
     const img3 = (n) => `assets/img/fase3/${n}.jpg`;
 
@@ -465,18 +484,16 @@ window.RESULTADOS = {
     }
 
     if (d.tipo === "certificados") {
-      const linhas = [...el.querySelectorAll("tbody tr")], texto = el.querySelector(".res-cert-texto");
-      const selo = el.querySelector(".res-cert-selo"), nota = el.querySelector(".res-cupom-nota"), fig = el.querySelector(".res-cert");
+      const linhas = [...el.querySelectorAll("tbody tr")], imagem = el.querySelector(".res-cert img"), nota = el.querySelector(".res-cupom-nota");
+      const nomeDe = (n) => d.linhas.find((l) => l[0] === n)[2];
       const mostrar = (i) => {
-        const [n, , nome] = d.linhas[i], r = d.repetidas[n];
+        const [n] = d.linhas[i], r = d.repetidas[n], linhaCert = r ? r.de : n, pessoa = nomeDe(linhaCert);
         linhas.forEach((tr, k) => tr.classList.toggle("sel", k === i));
-        fig.classList.toggle("errado", !!r);
-        texto.innerHTML = `<span>Certificamos que</span><b class="nome">${esc(nome).replace(/ {2}/g, '<span class="dois-espacos">&nbsp;&nbsp;</span>')}</b>
-          <span>concluiu a <b>${esc(d.oficina)}</b>,</span><span>realizada em <b>${esc(d.data)}</b>, com carga horária de <b>${esc(d.carga)}</b>.</span>`;
-        selo.textContent = r ? `não deveria existir · ${r.como}` : "";
+        imagem.src = d.pasta + d.pessoas[pessoa];
+        imagem.alt = `Certificado de ${pessoa}`;
         nota.className = `res-cupom-nota ${r ? "erro" : "ok"}`;
         nota.innerHTML = r
-          ? `<span>Linha ${n} · repete a linha ${r.de}</span><p>${esc(r.nota)}</p>`
+          ? `<span>Linha ${n} · repete a linha ${r.de} · o certificado é o da linha ${r.de}</span><p>${esc(r.nota)}</p>`
           : `<span>Linha ${n} · um PDF por pessoa</span><p>O nome entra com maiúsculas e acentos. A data e a carga horária são as da oficina, e não a da inscrição.</p>`;
       };
       linhas.forEach((tr, i) => {
@@ -484,6 +501,8 @@ window.RESULTADOS = {
         tr.addEventListener("keydown", (e) => { if (e.key === "Enter") { mostrar(i); e.stopPropagation(); } });
       });
       mostrar(0);
+      // Pré-carrega os 16 certificados para a troca ser instantânea.
+      Object.values(d.pessoas).forEach((a) => { const im = new Image(); im.src = d.pasta + a; });
     }
 
     if (d.tipo === "mudanca") {
@@ -558,7 +577,7 @@ window.RESULTADOS = {
 
     // R na cena leva ao resultado; o botão "Ver o resultado" do exemplo gravado faz o mesmo.
     const ir = () => window.PALCO.ir(window.PALCO.cenas.indexOf(cena), passoRes);
-    cena.querySelector(".ver-resultado")?.addEventListener("click", ir);
+    cena.querySelectorAll(".ver-resultado").forEach((b) => b.addEventListener("click", ir));
     cena.addEventListener("tecla", (e) => { if (e.detail.key === "r" || e.detail.key === "R") { ir(); e.preventDefault(); } });
   });
 })();

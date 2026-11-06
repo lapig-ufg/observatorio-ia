@@ -301,8 +301,8 @@
       <div class="monitor-painel" aria-hidden="true">
         <header><img src="assets/brand/observatorio-coruja.svg" alt=""><div><b>Pergunte ao Observatório</b><small>responde com IA</small></div></header>
         <ol>
-          <li class="eu"><p>O Windows bloqueou o instalador. E agora?</p></li>
-          <li class="dela"><p>Se aparecer “O Windows protegeu o computador”, clique em <b>Mais informações</b> e depois em <b>Executar assim mesmo</b>. Faça isso só com o arquivo baixado de antigravity.google.</p><span class="link">Instalar o Antigravity · Deu errado? →</span></li>
+          <li class="eu"><p>Por que o Windows pediu permissão para o app fazer alterações?</p></li>
+          <li class="dela"><p>É a preparação da área fechada, onde o agente lê os arquivos, e só acontece na primeira vez. Clique em <b>Sim</b> para o app ChatGPT concluir a configuração.</p><span class="link">Instalar o ChatGPT · Preparar o Windows →</span></li>
         </ol>
         <div class="campo">Escreva sua dúvida ou cole o erro<span>→</span></div>
       </div>
@@ -723,11 +723,11 @@
   </section>
 
   <!-- Exemplos da Fase 3: o problema (0), a pasta com os arquivos (1), a vez da turma (2),
-       o lugar da gravação no app ChatGPT (3) e o resultado esperado, com a armadilha (4).
+       as gravações das partes A (3) e B (4) e o resultado, com a armadilha (5).
        A pasta vem de js/pasta.js; "Sua vez", de js/exercicios.js (pratica-3.html);
-       o resultado esperado, de js/resultados.js (contas dos GABARITO-*.md). -->
+       o resultado, de js/resultados.js (contas dos GABARITO-*.md). -->
 
-  <section class="cena" id="viagens" data-fase="3" data-passos="4" data-titulo="A pasta das viagens">
+  <section class="cena" id="viagens" data-fase="3" data-passos="5" data-titulo="A pasta das viagens">
     <div class="vitrine">
       <div class="problema" data-passo="0" data-ate="0">
         <span class="rotulo">Um problema</span>
@@ -744,36 +744,51 @@
       </div>
       <div class="sua-vez" data-exercicio="viagens" data-passo="2" data-ate="2"></div>
       <div class="vitrine-texto" data-passo="3" data-ate="3">
-        <span class="rotulo">No app ChatGPT · a gravar</span>
-        <h2 class="titulo">A pasta organizada pelo agente</h2>
-        <p class="linha-fina">Na gravação, vale olhar três coisas: se o voucher e o Pix do hotel viram uma linha só, se a viagem nova ficou numa pasta separada e se o cartão de embarque ficou fora do total.</p>
-        <div class="botoes"><button class="ver-resultado" type="button">Ver o resultado esperado <kbd>R</kbd></button></div>
+        <span class="rotulo">Parte A · gravado no app ChatGPT</span>
+        <h2 class="titulo">A viagem de Campinas organizada</h2>
+        <p class="linha-fina">Em cerca de 11 minutos, o agente organizou os 8 arquivos em Alimentação, Hospedagem e Transporte e fechou o total em R$ 1.550,74. O voucher e o Pix do hotel entraram uma vez só.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
       </div>
-      <div class="peca f3-gravar" data-passo="3" data-ate="3">
+      <div class="peca video" data-passo="3" data-ate="3" data-ao-vivo="assets/video/chatgpt-viagens-a.mp4">
         <div class="peca-giro">
-          <div class="frente">
-            <div class="f3-reserva">
-              <span class="f3-reserva-selo">espaço reservado</span>
-              <b>Vídeo da gravação entra aqui</b>
-              <p>O app ChatGPT na pasta Viagens a trabalho: a parte A; depois os arquivos de Novos comprovantes soltos dentro dela e a parte B na mesma conversa.</p>
-              <small>A gravar no computador do Victor · esperas aceleradas</small>
-            </div>
-          </div>
-          <div class="verso verso-pedidos">
-            <span class="rotulo">Parte A</span>
+          <div class="frente"><span class="selo-video">gravação real · 5 nov. 2026</span><video src="assets/video/chatgpt-viagens-a.mp4" poster="assets/video/chatgpt-viagens-a.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos verso-viagens">
+            <span class="rotulo">O pedido · parte A</span>
             <blockquote>Estes são os comprovantes da minha viagem a Campinas. Organize tudo para a minha prestação de contas: renomeie cada arquivo com a data, o nome do estabelecimento e o valor, separe em pastas por tipo de gasto e faça uma planilha com o total. Se algo deixar dúvida, me avise numa lista. No fim, escreva um passo a passo para eu repetir isso nas próximas viagens.</blockquote>
-            <span class="rotulo rotulo-2">Parte B</span>
-            <blockquote>Juntei aqui os comprovantes de uma nova viagem. Siga o passo a passo que você escreveu e deixe tudo separado da viagem de Campinas.</blockquote>
-            <p class="quem">No app ChatGPT, na pasta Viagens a trabalho. A parte B vem depois de arrastar os arquivos de Novos comprovantes para dentro dela.</p>
+            <p class="quem">Digitado no app ChatGPT, na pasta Viagens a trabalho · 5 nov. 2026</p>
             <dl>
-              <dt>Quem fez</dt><dd>App ChatGPT instalado (a gravar)</dd>
-              <dt>O que fez</dt><dd data-resumo="ChatGPT: organizou a pasta das viagens (a gravar).">A preencher depois da gravação</dd>
+              <dt>Quem fez</dt><dd>App ChatGPT, modelo Luna, raciocínio Alto, no “Aprovar por mim”</dd>
+              <dt>O que fez</dt><dd data-resumo="ChatGPT: organizou os 8 comprovantes de Campinas e fechou o total em R$ 1.550,74.">Organizou os 8 arquivos em Alimentação, Hospedagem e Transporte, com data, estabelecimento e valor no nome, e fez a planilha com o total e a aba do passo a passo</dd>
+              <dt>Dúvidas</dt><dd>Três: a nota de R$ 15,00 só com “consumo”, o bilhete rodoviário sem valor fiscal e o hotel com dois comprovantes do mesmo valor</dd>
+              <dt>Tempo e cota</dt><dd>Cerca de 11 min e 3 pontos da cota gratuita; nenhum pedido de aprovação</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="vitrine-texto" data-passo="4" data-ate="4">
+        <span class="rotulo">Parte B · gravado no app ChatGPT</span>
+        <h2 class="titulo">A viagem nova, na mesma receita</h2>
+        <p class="linha-fina">Na mesma conversa, o agente seguiu o passo a passo da parte A, criou uma pasta separada para a viagem nova e deixou o cartão de embarque fora do total. Total R$ 253,50.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="4" data-ate="4" data-ao-vivo="assets/video/chatgpt-viagens-b.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 5 nov. 2026</span><video src="assets/video/chatgpt-viagens-b.mp4" poster="assets/video/chatgpt-viagens-b.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos verso-viagens">
+            <span class="rotulo">O pedido · parte B</span>
+            <blockquote>Juntei aqui os comprovantes de uma nova viagem. Siga o passo a passo que você escreveu e deixe tudo separado da viagem de Campinas.</blockquote>
+            <p class="quem">Digitado no app ChatGPT, na mesma conversa, com os arquivos de Novos comprovantes dentro da pasta · 5 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>App ChatGPT, modelo Luna, raciocínio Alto, no “Aprovar por mim”</dd>
+              <dt>O que fez</dt><dd data-resumo="ChatGPT: repetiu a organização na viagem nova, em pasta separada, com o total de R$ 253,50.">Seguiu o passo a passo da parte A, criou uma pasta separada para a viagem nova e deixou o cartão de embarque fora do total</dd>
+              <dt>Tempo e cota</dt><dd>Cerca de 9 min e 3 pontos da cota gratuita</dd>
+              <dt>Planilha</dt><dd>Abas Resumo, Dúvidas e Como repetir</dd>
             </dl>
           </div>
         </div>
       </div>
       <button class="virar" type="button">Virar <kbd>V</kbd></button>
-      <div class="resultado" data-resultado="viagens" data-passo="4"></div>
+      <div class="resultado" data-resultado="viagens" data-passo="5"></div>
     </div>
   </section>
 
@@ -794,28 +809,23 @@
       </div>
       <div class="sua-vez" data-exercicio="certificados" data-passo="2" data-ate="2"></div>
       <div class="vitrine-texto" data-passo="3" data-ate="3">
-        <span class="rotulo">No app ChatGPT · a gravar</span>
+        <span class="rotulo">No app ChatGPT · 6 nov. 2026</span>
         <h2 class="titulo">Um certificado por pessoa</h2>
-        <p class="linha-fina">Na gravação, vale contar os PDFs que aparecem na pasta e abrir os das quatro pessoas que se inscreveram duas vezes.</p>
-        <div class="botoes"><button class="ver-resultado" type="button">Ver o resultado esperado <kbd>R</kbd></button></div>
+        <p class="linha-fina">Em cerca de 10 minutos, o agente leu a planilha, juntou as 4 inscrições repetidas pelo e-mail e gerou 16 PDFs pelo modelo do Word. Vale contar os arquivos na pasta.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
       </div>
-      <div class="peca f3-gravar" data-passo="3" data-ate="3">
+      <div class="peca video" data-passo="3" data-ate="3" data-ao-vivo="assets/video/chatgpt-certificados.mp4">
         <div class="peca-giro">
-          <div class="frente">
-            <div class="f3-reserva">
-              <span class="f3-reserva-selo">espaço reservado</span>
-              <b>Vídeo da gravação entra aqui</b>
-              <p>O app ChatGPT no projeto 2-certificados, gerando os PDFs a partir do modelo do Word.</p>
-              <small>A gravar no computador do Victor · falta saber se ele usa o Word ou o Edge</small>
-            </div>
-          </div>
-          <div class="verso verso-pedidos">
+          <div class="frente"><span class="selo-video">gravação real · 6 nov. 2026</span><video src="assets/video/chatgpt-certificados.mp4" poster="assets/video/chatgpt-certificados.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos verso-certificados">
             <span class="rotulo">O pedido</span>
             <blockquote class="curto">Faça um certificado em PDF para cada pessoa da planilha, usando o modelo do Word. A Oficina de Planilhas para o Dia a Dia foi em 23 de maio de 2026 e teve 8 horas.</blockquote>
-            <p class="quem">No app ChatGPT, no projeto 2-certificados</p>
+            <p class="quem">No app ChatGPT, no projeto 2-certificados · 6 nov. 2026</p>
             <dl>
-              <dt>Quem fez</dt><dd>App ChatGPT instalado (a gravar)</dd>
-              <dt>O que fez</dt><dd data-resumo="ChatGPT: gerou os certificados (a gravar).">A preencher depois da gravação</dd>
+              <dt>Quem fez</dt><dd>App ChatGPT, modelo Luna, raciocínio Alto, no “Aprovar por mim”</dd>
+              <dt>O que fez</dt><dd data-resumo="ChatGPT: juntou as 4 inscrições repetidas pelo e-mail e gerou 16 PDFs pelo modelo do Word, conferindo cada página.">Leu a planilha, juntou as 4 inscrições repetidas pelo e-mail e gerou 16 PDFs pelo modelo do Word, conferindo cada página</dd>
+              <dt>Tempo e cota</dt><dd>Cerca de 10 min e 3 pontos da cota gratuita</dd>
+              <dt>Detalhe</dt><dd>No fim, tentou apagar os próprios arquivos de trabalho. O revisor automático não deixou: o pedido era fazer PDFs.</dd>
             </dl>
           </div>
         </div>

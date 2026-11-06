@@ -254,6 +254,16 @@ button { font: inherit; color: inherit; }
 .verso-pedidos .quem { margin-top: 12px; font-size: 18px; }
 .verso-pedidos dl { font-size: 19px; grid-template-columns: 170px 1fr; gap: 8px 16px; padding-top: 14px; }
 .verso-pedidos dt { font-size: 14px; }
+/* O verso dos certificados tem quatro linhas de informação; um pouco mais compacto para caber no cartão. */
+.verso-certificados { padding: 34px 46px 28px; }
+.verso-certificados blockquote.curto { font-size: 30px; line-height: 1.25; }
+.verso-certificados dl { gap: 6px 16px; font-size: 18px; }
+/* O verso das viagens tem o pedido longo da parte A e quatro linhas de dados em cada parte. */
+.verso-viagens { padding: 28px 44px 22px; }
+.verso-viagens blockquote { font-size: 18.5px; line-height: 1.26; }
+.verso-viagens .quem { margin-top: 10px; font-size: 17px; }
+.verso-viagens dl { gap: 6px 16px; padding-top: 12px; font-size: 17.5px; }
+.verso-viagens dt { font-size: 13px; }
 
 .virar {
   position: absolute; right: 100px; bottom: 112px; z-index: 4; cursor: pointer;
@@ -359,7 +369,7 @@ body.preto .tela-preta { display: block; }
 .selo-video {
   position: absolute; left: 16px; top: 14px; z-index: 4; pointer-events: none;
   font: 600 12px/1 var(--mono); letter-spacing: .04em; color: rgba(255, 255, 255, .85);
-  background: rgba(0, 0, 0, .55); border-radius: 999px; padding: 7px 11px;
+  background: rgba(0, 0, 0, .82); border-radius: 999px; padding: 7px 11px;
 }
 .progresso { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: rgba(255, 255, 255, .1); z-index: 4; }
 .progresso b { display: block; height: 100%; width: 0; background: var(--terracota); transition: width .3s linear; }
@@ -551,7 +561,7 @@ body.preto .tela-preta { display: block; }
 }
 .ver-resultado:hover { background: var(--terracota-escura); }
 .ver-resultado kbd { font: 600 14px/1 var(--mono); padding: 5px 8px; border-radius: 6px; background: rgba(255, 255, 255, .22); }
-.peca.passou ~ .virar { display: none !important; }
+.peca.passou + .virar { display: none !important; }
 
 .resultado { position: absolute; left: 110px; right: 110px; top: 64px; bottom: 84px; z-index: 3; display: grid; grid-template-rows: auto 1fr; gap: 26px; }
 .res-cabeca { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; }
@@ -878,7 +888,7 @@ body.preto .tela-preta { display: block; }
 .res-cupom-nota.ok { border-left-color: var(--menta); }
 .res-cupom-nota span { text-transform: none; letter-spacing: 0; font: 600 14px/1.2 var(--mono); }
 
-/* Resultado dos certificados: as 20 linhas e o modelo preenchido com a linha escolhida. */
+/* Resultado dos certificados: as 20 linhas e o PDF real da linha escolhida. */
 .res-certificados { grid-template-columns: 1fr 1fr; }
 .res-certificados .res-papel { padding: 16px 22px 14px; }
 .res-tabela.compacta { font-size: 15px; }
@@ -894,17 +904,8 @@ body.preto .tela-preta { display: block; }
 .res-placar-trio b { font: 400 40px/1 var(--serifa); color: #10211b; margin-right: 6px; }
 .res-placar-trio .ok b, .res-placar-trio .ok { color: #1d6f42; }
 .res-cert-lado { min-height: 0; display: flex; flex-direction: column; gap: 14px; }
-.res-cert { position: relative; margin: 0; flex: none; container-type: inline-size; border-radius: 10px; overflow: hidden; box-shadow: 0 50px 120px -40px rgba(0, 0, 0, .85); background: #fff; }
-.res-cert > img { width: 100%; display: block; }
-.res-cert-texto {
-  position: absolute; left: 16%; right: 16%; top: 35.4%; height: 17.4%; background: #fff;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  font: 400 1.72cqw/1.42 Georgia, var(--serifa); color: #222;
-}
-.res-cert-texto b { color: #1f3864; }
-.res-cert-texto .nome { font-size: 3.3cqw; line-height: 1.25; white-space: pre; }
-.res-cert.errado .res-cert-texto .nome { color: #b8432f; }
-.res-cert-selo:not(:empty) { position: absolute; right: 7%; top: 76%; rotate: -4deg; padding: .6cqw 1.2cqw; border: .35cqw solid #b8432f; border-radius: .8cqw; color: #b8432f; background: rgba(255, 255, 255, .9); font: 700 1.5cqw/1.1 var(--mono); text-transform: uppercase; animation: entra-lupa .4s var(--curva) both; }
+.res-cert { margin: 0; flex: 1 1 0; min-height: 0; display: grid; place-items: center; }
+.res-cert > img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; border-radius: 10px; box-shadow: 0 50px 120px -40px rgba(0, 0, 0, .85); }
 .res-cert-lado .res-cupom-nota p { font-size: 18px; }
 
 /* Resultado da mudança de data: o que muda e o antes e depois de cada arquivo. */

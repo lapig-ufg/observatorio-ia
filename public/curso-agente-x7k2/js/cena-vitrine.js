@@ -23,22 +23,25 @@
   document.querySelectorAll(".cena .peca").forEach((peca) => {
     const cena = peca.closest(".cena");
     const quadro = peca.querySelector("iframe[data-src]");
-    const url = peca.dataset.aoVivo, nome = cena.dataset.titulo;
+    const url = peca.dataset.aoVivo, nome = cena.dataset.titulo, passo = +peca.dataset.passo;
+    // Numa cena com duas peças (as duas partes das viagens), só a do passo atual responde.
+    const naVez = () => peca.classList.contains("visto") && !peca.classList.contains("passou");
     cena.addEventListener("entrou", () => { if (quadro && quadro.src !== new URL(quadro.dataset.src, location.href).href) quadro.src = quadro.dataset.src; });
     cena.addEventListener("saiu", () => {
       if (quadro) quadro.src = "about:blank"; // jogo e 3D não ficam rodando escondidos
       peca.classList.remove("virada");
     });
-    const virar = () => { if (P.revelado && peca.classList.contains("visto")) virarCarta(peca); };
+    const virar = () => { if (P.revelado && naVez()) virarCarta(peca); };
     cena.querySelector(".virar")?.addEventListener("click", virar);
     // Vídeo gravado: abre a tela cheia do player (js/player.js), com os mesmos controles da miniatura.
     // Os outros (jogo, página, 3D): abrem ao vivo no quadro grande.
     const abrir = () => (peca.telaCheia ? peca.telaCheia() : url && P.abrirAoVivo(url, nome));
-    cena.querySelector(".abrir")?.addEventListener("click", abrir);
+    // O botão do texto que acompanha esta peça (cada passo pode ter o seu).
+    cena.querySelector(`.vitrine-texto[data-passo="${passo}"] .abrir`)?.addEventListener("click", abrir);
     cena.addEventListener("tecla", (e) => {
       const k = e.detail.key;
-      if ((k === "v" || k === "V") && P.revelado) { virar(); e.preventDefault(); }
-      if (k === "Enter" && (peca.telaCheia || url)) { abrir(); e.preventDefault(); }
+      if ((k === "v" || k === "V") && P.revelado && naVez()) { virarCarta(peca); e.preventDefault(); }
+      if (k === "Enter" && naVez() && (peca.telaCheia || url)) { abrir(); e.preventDefault(); }
     });
   });
 

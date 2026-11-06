@@ -1,5 +1,5 @@
 {
- "gerada": "2026-11-05",
+ "gerada": "2026-11-06",
  "curso": "Do chat ao agente (curso prático de IA do Observatório UFG-IA)",
  "entradas": [
   {
@@ -122,103 +122,100 @@
    "href": "pratica-3.html#mudanca"
   },
   {
+   "id": "faq-01",
+   "tipo": "faq",
+   "titulo": "Preciso pagar para usar o app ChatGPT no curso?",
+   "texto": "Não. A conta gratuita serve para o curso. Você pode entrar com uma conta Google, Microsoft ou Apple, ou com e-mail.",
+   "palavras": "pagar gratuita conta entrar",
+   "href": "instalar.html#entrar"
+  },
+  {
+   "id": "faq-02",
+   "tipo": "faq",
+   "titulo": "Posso entrar com a conta da instituição?",
+   "texto": "Só se a instituição tiver liberado o acesso. Se a conta não entrar, saia e use uma conta pessoal gratuita.",
+   "palavras": "institucional instituicao conta entrar faculdade",
+   "href": "instalar.html#entrar"
+  },
+  {
    "id": "faq-03",
    "tipo": "faq",
-   "titulo": "Apareceu \"O Windows protegeu o seu PC\" e não consigo instalar.",
-   "texto": "Esse aviso é do SmartScreen, que desconfia de arquivos novos baixados da internet. Se o instalador veio mesmo de antigravity.google, clique em \"Mais informações\" e depois em \"Executar assim mesmo\". Se veio de outro site, apague e baixe de novo no site oficial.",
-   "palavras": "smartscreen windows protegeu aviso executar assim mesmo bloqueado",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://support.microsoft.com/en-us/windows/security/windows-security/app-browser-control-in-the-windows-security-app"
+   "titulo": "O Windows pediu permissão para o app fazer alterações. Devo clicar em Sim?",
+   "texto": "Sim. Essa permissão prepara o Windows para o app, e o pedido só aparece na primeira vez. A janela não foi gravada no vídeo porque o Windows não deixa.",
+   "palavras": "windows permissao sim alteracoes instalar",
+   "href": "instalar.html#windows"
   },
   {
    "id": "faq-04",
    "tipo": "faq",
-   "titulo": "Meu antivírus disse que o instalador tem vírus e apagou o arquivo.",
-   "texto": "Antivírus às vezes bloqueiam programas novos por engano; confira se o arquivo veio de antigravity.google antes de liberar. No app Segurança do Windows, abra \"Proteção contra vírus e ameaças\" e adicione uma exclusão para o arquivo, se você confiar nele. Na dúvida, chame o monitor em vez de desligar o antivírus.",
-   "palavras": "antivirus defender virus quarentena falso positivo",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app"
+   "titulo": "Quanto tempo demora a configuração do Windows?",
+   "texto": "No vídeo, os 15 segundos aparecem acelerados. Em notebooks com muitos arquivos, pode levar alguns minutos. Espere até aparecer “A configuração do Windows foi concluída”.",
+   "palavras": "demora configuracao windows tempo minutos",
+   "href": "instalar.html#windows"
   },
   {
    "id": "faq-05",
    "tipo": "faq",
-   "titulo": "O instalador pede permissão de administrador e eu não tenho essa senha.",
-   "texto": "O Windows pode pedir a confirmação de um administrador para instalar programas. Se a sua conta não for de administrador, peça a um técnico do laboratório para liberar a instalação ou use um computador em que você seja administrador.",
-   "palavras": "administrador permissao senha uac conta",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://support.microsoft.com/en-us/windows/create-a-local-user-or-administrator-account-in-windows-20de74e0-ac7f-3502-a866-32915af2a34d"
+   "titulo": "Não acho a opção “Aprovar por mim”.",
+   "texto": "Abra a pasta do exercício como projeto no app. O menu de permissões fica embaixo da caixa do pedido. Escolha “Aprovar por mim”, que pede aprovação só para ações detectadas como potencialmente inseguras.",
+   "palavras": "aprovar permissao menu opcao projeto",
+   "href": "instalar.html#aprovar"
+  },
+  {
+   "id": "faq-06",
+   "tipo": "faq",
+   "titulo": "Preciso usar o Acesso completo?",
+   "texto": "Não use o Acesso completo no curso. Ele dá acesso irrestrito à internet e a qualquer arquivo do computador. O curso usa “Aprovar por mim”.",
+   "palavras": "acesso completo permissao irrestrito",
+   "href": "instalar.html#aprovar"
+  },
+  {
+   "id": "faq-07",
+   "tipo": "faq",
+   "titulo": "O app pede aprovação o tempo todo. O que faço?",
+   "texto": "Confira o modo escolhido. Em “Solicitar aprovação”, o app pede sempre para editar arquivos externos e usar a internet. O curso usa “Aprovar por mim”, que pede só para ações detectadas como potencialmente inseguras.",
+   "palavras": "aprovacao sempre permissao modo aprovar",
+   "href": "instalar.html#deu-errado"
   },
   {
    "id": "faq-08",
    "tipo": "faq",
-   "titulo": "O arquivo que baixei não aparece na pasta Downloads.",
-   "texto": "Abra o Explorador de Arquivos e clique em \"Downloads\" na barra lateral; é onde o navegador salva os downloads por padrão. Se não estiver lá, abra a lista de downloads do navegador (Ctrl+J) para ver onde o arquivo foi parar.",
-   "palavras": "nao aparece download pasta arquivo sumiu",
-   "href": "instalar.html#baixar",
-   "fonte": "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/find-your-files-and-apps-in-windows"
+   "titulo": "Atingi o limite de uso. Como funciona a cota gratuita?",
+   "texto": "Na conta gratuita, a cota vale por uma janela de 30 dias. O modelo disponível é o Luna. O app também avisa que “Aprovar por mim” pode consumir mais créditos.",
+   "palavras": "limite cota acabou uso 30 dias luna",
+   "href": "instalar.html#deu-errado"
+  },
+  {
+   "id": "faq-09",
+   "tipo": "faq",
+   "titulo": "O agente pediu para rodar algo fora da área fechada. Devo aprovar?",
+   "texto": "No “Aprovar por mim”, o agente trabalha numa área fechada. Quando precisa sair, um revisor automático avalia se é seguro e só em casos extremos pergunta para você.",
+   "palavras": "fora area fechada revisor aprovar rodar",
+   "href": "instalar.html#aprovar"
   },
   {
    "id": "faq-10",
    "tipo": "faq",
-   "titulo": "A internet daqui é lenta e o download não termina.",
-   "texto": "Downloads grandes demoram mais em conexões lentas, então deixe o arquivo baixando sem fechar o navegador. Se a conexão oscila, aproxime-se do roteador ou use o cabo de rede e evite baixar em horário de pico.",
-   "palavras": "internet lenta download devagar conexao cai",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/why-is-my-internet-connection-so-slow"
+   "titulo": "Arrastei os arquivos para a janela do ChatGPT e eles viraram anexo.",
+   "texto": "No Explorador, arraste os arquivos para dentro da pasta do projeto, não para a janela do ChatGPT. Na janela, eles viram anexos e ficam fora da pasta que o agente abriu.",
+   "palavras": "arrastei arquivos janela anexo explorador pasta",
+   "href": "pratica-3.html"
   },
   {
-   "id": "faq-14",
+   "id": "faq-11",
    "tipo": "faq",
-   "titulo": "Na hora de entrar apareceu \"Business account\". Qual opção escolho?",
-   "texto": "Se você usa um Gmail comum, escolha a entrada com a conta pessoal do Google. \"Business account\" serve para quem tem licença Gemini Enterprise da empresa ou da universidade.",
-   "palavras": "business account conta corporativa escolher conta login",
-   "href": "instalar.html#entrar",
-   "fonte": "https://antigravity.google/docs/install/"
+   "titulo": "Não acho a planilha que ele fez.",
+   "texto": "Olhe a resposta do agente. Às vezes a planilha fica numa subpasta, e a resposta traz um link para abrir. Se não estiver na pasta do projeto, abra pelo link.",
+   "palavras": "planilha sumiu pasta link nao acho",
+   "href": "pratica-3.html"
   },
   {
-   "id": "faq-19",
+   "id": "faq-12",
    "tipo": "faq",
-   "titulo": "Apareceu que eu atingi o limite de uso. Quando ele volta?",
-   "texto": "Cada plano tem uma cota, que é a quantidade de uso disponível: no plano gratuito ela é renovada toda semana. Nos planos pagos a cota se renova a cada cinco horas, até o limite semanal. Você acompanha o consumo na página Settings do app.",
-   "palavras": "limite cota acabou uso esperar",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://antigravity.google/docs/plans/"
-  },
-  {
-   "id": "faq-22",
-   "tipo": "faq",
-   "titulo": "Mandei rodar um comando e ele ficou pedindo aprovação ou disse que não pode.",
-   "texto": "Por padrão, os comandos rodam numa área isolada (sandbox) sem internet, e o que precisa de rede pede a sua aprovação. No Windows, esse isolamento exige Windows 11 24H2 com a atualização de agosto de 2026 ou mais novo. Aprove o comando quando ele for seguro ou ajuste as permissões nas configurações.",
-   "palavras": "comando terminal bloqueado permissao de comando sandbox",
-   "href": "instalar.html#aprovar",
-   "fonte": "https://antigravity.google/docs/sandbox/"
-  },
-  {
-   "id": "faq-26",
-   "tipo": "faq",
-   "titulo": "O agente mudou ou apagou um arquivo meu. Dá para recuperar?",
-   "texto": "Antes de aceitar mudanças, use o painel \"Review\" para ver o que o agente alterou, arquivo por arquivo. Atenção: \"Discard unstaged changes\" desfaz na hora e apaga arquivos novos que ainda não estavam no Git. Se o arquivo estava no Git (o programa que guarda o histórico dos arquivos), dá para recuperar pelo histórico.",
-   "palavras": "apagou mudou perdi desfazer review",
-   "href": "pratica-3.html",
-   "fonte": "https://antigravity.google/docs/review-changes/"
-  },
-  {
-   "id": "faq-27",
-   "tipo": "faq",
-   "titulo": "Ele criou uma cópia da minha pasta em outro lugar.",
-   "texto": "Isso acontece quando a conversa começa no modo \"New worktree\", que cria uma cópia separada para o agente trabalhar. Para editar direto na sua pasta, escolha o modo \"Local\" ao iniciar a conversa.",
-   "palavras": "worktree copia pasta nova local mode",
-   "href": "pratica-3.html",
-   "fonte": "https://antigravity.google/docs/projects/"
-  },
-  {
-   "id": "faq-30",
-   "tipo": "faq",
-   "titulo": "Como atualizo para a versão nova?",
-   "texto": "Baixe o instalador novo na página oficial e execute por cima da versão atual, seguindo o assistente. O número da versão atual aparece na própria página de download.",
-   "palavras": "atualizar versao nova upgrade reinstalar",
-   "href": "instalar.html#deu-errado",
-   "fonte": "https://antigravity.google/download/"
+   "titulo": "Uso Mac. Dá para fazer o curso?",
+   "texto": "O app existe para Mac com chip Apple (M1 ou mais novo). No Mac, a área fechada já vem do próprio sistema, então não há a etapa de preparar o Windows. O curso só testou no Windows.",
+   "palavras": "mac apple m1 curso windows",
+   "href": "instalar.html#windows"
   },
   {
    "id": "obs-inicio",
