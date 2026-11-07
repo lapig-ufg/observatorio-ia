@@ -25,9 +25,11 @@ test('livro de códigos distingue revisão parcial da última referência integr
   assert.match(reference,/Partial review: 2026-10-31; 148\/149/);
   assert.doesNotMatch(reference,/Full review: 2026-10-31/);
   assert.match(pt.metodo[1][1],/referência inicial em 16\/10/);
-  assert.match(pt.metodo[1][1],/última revisão integral.*24\/10/);
+  const ptReference = pt.meta.referencia.split('-').reverse().slice(0,2).join('/');
+  assert(pt.metodo[1][1].includes('última revisão integral') && pt.metodo[1][1].includes(ptReference));
   assert.match(en.metodo[1][1],/initial reference date of 16 October/);
-  assert.match(en.metodo[1][1],/latest full review.*24 October/);
+  const enReference = new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'long',timeZone:'UTC'}).format(new Date(pt.meta.referencia));
+  assert(en.metodo[1][1].includes('latest full review') && en.metodo[1][1].includes(enReference));
 });
 
 test('tradução integral preserva identidades, códigos, URLs, datas e números do inventário',()=>{

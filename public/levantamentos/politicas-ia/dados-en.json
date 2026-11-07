@@ -868,7 +868,7 @@
       "img": "Não trata",
       "verif": "P",
       "url": "https://pubsonline.informs.org/authorportal/publication-ethics",
-      "nota": "The institutional portal allows AI under human responsibility and requires disclosure in Acknowledgements, stating the tool and nature of assistance. The general review rule allows assistance only if the system does not retain, share or train on content and fully complies with confidentiality. The prohibition cited in the 2023 forum concerned IJOC and should not be generalised to all titles; also consult the specific journal rule. Data fabrication is prohibited. The general source prescribes no specific image rule; the version year is not stated."
+      "nota": "The institutional portal allows AI under human responsibility and requires disclosure in Acknowledgments, identifying the tool and nature of the assistance. The institutional peer review template requires that the tool neither share manuscript content nor use inputs for training and that it fully comply with confidentiality requirements. The wording reviewed does not contain a separate retention clause. Check the journal-specific policy. Fabricating data is prohibited. The general sources reviewed do not specify an image rule or version year."
     },
     {
       "nome": "Engenharia Sanitária e Ambiental (ABES)",
@@ -1449,11 +1449,11 @@
       "ano": null,
       "gen": "Vedada",
       "loc": "Múltiplos",
-      "rev": "Não trata",
+      "rev": "Condicionado",
       "img": "Restritas",
       "verif": "P",
-      "url": "https://www.e-elgar.com/author-hub/as-you-write-your-book-or-chapter/",
-      "nota": "Rule for books/chapters: GenAI must not write, rewrite or paraphrase text; limited language checkers are allowed. Use beyond minor support must be disclosed in the proposal, checklist and manuscript where required, with tool/version/provider and purpose. Fabricating, altering or manipulating original research data, results or images, or violating confidentiality or rights, is prohibited. The examined page establishes neither a specific reviewer AI rule nor an explicit policy date."
+      "url": "https://www.e-elgar.com/author-hub/before-you-start-writingediting-2/",
+      "nota": "Policy for books and chapters. Generative AI may not draft, rewrite or paraphrase text. Limited language checkers are allowed. Use beyond minor assistance must be disclosed in the proposal, the submission checklist and, when required, the manuscript, identifying the tool, version, provider and purpose. Fabricating, altering or manipulating original research data, results or images, or infringing confidentiality and rights, is prohibited. Book editors may not upload draft chapters during review. Reviewers may not upload text, images or information from proposals or unpublished manuscripts to help produce a report. No explicit policy date is given."
     },
     {
       "nome": "RAC (ANPAD)",
@@ -2023,7 +2023,7 @@
       "img": "Restritas",
       "verif": "P",
       "url": "https://www.science.org/content/page/science-journals-editorial-policies",
-      "nota": "The September 2026 table distinguishes tasks: writing or translating content requires Acknowledgements with model and version; code that changes functionality and data generation or analysis are described in Methods. Literature search, language editing and formatting without functional changes are exempt. The general policy requests a cover letter and the relevant section. AI-generated or altered illustrative figures are prohibited without an editor's exception; editing results visualisations requires disclosure. Reviewers may refine their wording in a system without retention/training and disclose tool and use, never uploading the manuscript. The table also prohibits uploading a review to generate a response and uploading the manuscript to AI during revision; language refinement of the response has its own conditions."
+      "nota": "The September 2026 table distinguishes tasks: writing or translating content requires Acknowledgements with model and version; code that changes functionality and data generation or analysis are described in Methods. Literature search, language editing and formatting without functional changes are exempt. The general policy requests a cover letter and the relevant section. AI-generated or altered illustrative figures are prohibited without an editor's exception; editing results visualisations requires disclosure. Reviewers may refine their wording in a system without retention/training and disclose tool and use, never uploading the manuscript. The table also prohibits uploading a review to generate a response and uploading the manuscript to AI during revision; language refinement of the response has its own conditions. For editorial offices, the matrix permits closed tools that maintain confidentiality and requires posting the tool name and its use on the journal website."
     },
     {
       "nome": "PNAS",
@@ -2038,7 +2038,7 @@
       "img": "Restritas",
       "verif": "P",
       "url": "https://www.pnas.org/author-center/editorial-and-journal-policies",
-      "nota": "Research use: disclose tool and version in Methods or, if that section is absent, in Acknowledgements. AI images only when they are the study subject or authorised by the editorial office; not accepted for covers. The section describes assisted editorial screening but gives no general permission to external reviewers."
+      "nota": "AI use in research requires disclosure of the tool and model or version in Methods, or in Acknowledgments if there is no Methods section. AI cannot be an author and authors remain responsible for checking outputs. The journal may accept limited AI use in conceptual or explanatory illustrations with the tool and process described in the caption. Generating or materially altering images that represent evidence, including photographs, microscopy and diagnostic images, is barred. For covers, AI may generate or edit individual elements of original artwork, subject to disclosure and rights, but may not create or substantially determine the principal visual content or composition. AI-assisted editorial screening is described separately and does not establish an AI rule for external reviewers. No explicit policy date is given."
     },
     {
       "nome": "Royal Society (periódicos)",
@@ -2510,13 +2510,13 @@
     ],
     [
       "Coverage and limits",
-      "On 7 November 2026, 128/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 37 retain the previous information and remain unresolved. The last full reference is 2026-10-24."
+      "On 7 November 2026, all 165 records were reconciled across the four policy fields. The review added 16 policies and updated 5 existing records."
     ]
   ],
   "cross": [
     [
       "Scope of comparison",
-      "Purposive inventory of 165 identities. On 7 November 2026, 128/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 37 retain the previous information and remain unresolved. The last full reference is 2026-10-24. Proportions describe the inventory and do not estimate all journals."
+      "Purposive inventory of 165 identities. On 7 November 2026, all 165 records were reconciled across the four policy fields. The review added 16 policies and updated 5 existing records. Proportions describe the inventory."
     ],
     [
       "Text generation",
@@ -2524,7 +2524,7 @@
     ],
     [
       "Peer review",
-      "98 records make use conditional, 13 prohibit it and 54 have no coded provision. The counts include previous information in unresolved records."
+      "99 records make use conditional, 13 prohibit it and 53 have no coded provision. The notes describe the scope and conditions."
     ],
     [
       "Images",
@@ -2547,11 +2547,11 @@
         "**Coded dataset in this area:** 27 Allowed; 1 Restricted; 2 Prohibited; 3 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 24 records with conditional use, 3 with prohibition and 6 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 20 of 33 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Reconfirmation on 7 November 2026:** 30 of 34 area records. Reconciled sources include Seismological Society of America (SSA), Journal of Open Source Software (JOSS), Transactions on Machine Learning Research (TMLR), American Chemical Society (ACS), American Physical Society (APS)."
+        "**Reconfirmation on 7 November 2026:** 34 of 34 area records. Reconciled sources include Seismological Society of America (SSA), Journal of Open Source Software (JOSS), Transactions on Machine Learning Research (TMLR), American Chemical Society (ACS), American Physical Society (APS)."
       ],
       "brasil": "3 of 4 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 30/34 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 34/34 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "BIO": {
       "sub": "General Biology, Genetics, Botany, Zoology, Ecology, Morphology, Physiology, Biochemistry, Biophysics, Pharmacology, Immunology, Microbiology, Parasitology",
@@ -2560,11 +2560,11 @@
         "**Coded dataset in this area:** 6 Allowed; 7 Restricted; 0 Prohibited; 0 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 6 records with conditional use, 0 with prohibition and 7 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 10 of 13 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Reconfirmation on 7 November 2026:** 7 of 13 area records. Reconciled sources include Ecological Society of America (ESA), EMBO Press, ASBMB (JBC, MCP, JLR)."
+        "**Reconfirmation on 7 November 2026:** 13 of 13 area records. Reconciled sources include Ecological Society of America (ESA), EMBO Press, ASBMB (JBC, MCP, JLR)."
       ],
       "brasil": "4 of 4 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 7/13 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 13/13 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "ENG": {
       "sub": "Civil, mining, materials, chemical, nuclear, sanitary, production, mechanical, electrical, biomedical, naval, aerospace and transport engineering",
@@ -2573,11 +2573,11 @@
         "**Coded dataset in this area:** 7 Allowed; 0 Restricted; 1 Prohibited; 1 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 3 records with conditional use, 1 with prohibition and 5 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 2 of 9 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Reconfirmation on 7 November 2026:** 6 of 9 area records. Reconciled sources include Society of Petroleum Engineers (SPE), IEEE, ASME, IET (livros), Rev. Brasileira de Recursos Hídricos (ABRHidro)."
+        "**Reconfirmation on 7 November 2026:** 9 of 9 area records. Reconciled sources include Society of Petroleum Engineers (SPE), IEEE, ASME, IET (livros), Rev. Brasileira de Recursos Hídricos (ABRHidro)."
       ],
       "brasil": "2 of 3 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 6/9 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 9/9 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "SAU": {
       "sub": "Medicine, Dentistry, Pharmacy, Nursing, Nutrition, Public Health, Speech-Language Pathology, Physiotherapy and Occupational Therapy, Physical Education",
@@ -2586,11 +2586,11 @@
         "**Coded dataset in this area:** 16 Allowed; 1 Restricted; 0 Prohibited; 0 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 10 records with conditional use, 3 with prohibition and 4 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 14 of 17 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Reconfirmation on 7 November 2026:** 10 of 20 area records. Reconciled sources include ICMJE, WAME, JAMA Network (AMA), BMJ, Thieme."
+        "**Reconfirmation on 7 November 2026:** 20 of 20 area records. Reconciled sources include ICMJE, WAME, JAMA Network (AMA), BMJ, Thieme."
       ],
       "brasil": "5 of 5 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 10/20 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 20/20 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "AGR": {
       "sub": "Agronomy, Forest Resources and Forestry, Agricultural Engineering, Animal Science, Veterinary Medicine, Fisheries, Food Science and Technology",
@@ -2599,24 +2599,24 @@
         "**Coded dataset in this area:** 3 Allowed; 5 Restricted; 0 Prohibited; 3 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 3 records with conditional use, 1 with prohibition and 7 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 6 of 11 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Reconfirmation on 7 November 2026:** 9 of 11 area records. Reconciled sources include ADSA (J. Dairy Science), Rev. Brasileira de Zootecnia (SBZ), Scientia Agricola (USP/ESALQ), Revista Árvore, Ciência Rural (UFSM)."
+        "**Reconfirmation on 7 November 2026:** 11 of 11 area records. Reconciled sources include ADSA (J. Dairy Science), Rev. Brasileira de Zootecnia (SBZ), Scientia Agricola (USP/ESALQ), Revista Árvore, Ciência Rural (UFSM)."
       ],
       "brasil": "5 of 8 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 9/11 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 11/11 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "SOC": {
       "sub": "Law, Management, Tourism, Economics, Architecture and Urbanism, Urban and Regional Planning, Demography, Information Science, Museology, Communication, Social Work, Industrial Design",
       "headline": "Societies, journals and publishers do not necessarily have the same rule",
       "trends": [
         "**Coded dataset in this area:** 7 Allowed; 0 Restricted; 3 Prohibited; 1 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
-        "**Reviewing:** 5 records with conditional use, 2 with prohibition and 4 with no coded provision. Read the conditions in each note and source.",
+        "**Reviewing:** 6 records with conditional use, 2 with prohibition and 3 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 5 of 11 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Reconfirmation on 7 November 2026:** 10 of 11 area records. Reconciled sources include AEA / American Economic Review, Econometric Society, Academy of Management (AOM), National Communication Association, CSWE (Serviço Social)."
+        "**Reconfirmation on 7 November 2026:** 11 of 11 area records. Reconciled sources include AEA / American Economic Review, Econometric Society, Academy of Management (AOM), National Communication Association, CSWE (Serviço Social)."
       ],
       "brasil": "3 of 3 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 10/11 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 11/11 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "HUM": {
       "sub": "Philosophy, Sociology, Anthropology, Archaeology, History, Geography, Psychology, Education, Political Science, Theology",
@@ -2625,11 +2625,11 @@
         "**Coded dataset in this area:** 8 Allowed; 3 Restricted; 3 Prohibited; 5 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 10 records with conditional use, 0 with prohibition and 9 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 11 of 19 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Reconfirmation on 7 November 2026:** 16 of 20 area records. Reconciled sources include Duke University Press (periódicos), Current History, Critical AI, American Psychological Association, American Association of Geographers."
+        "**Reconfirmation on 7 November 2026:** 20 of 20 area records. Reconciled sources include Duke University Press (periódicos), Current History, Critical AI, American Psychological Association, American Association of Geographers."
       ],
       "brasil": "4 of 5 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 16/20 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 20/20 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "LLA": {
       "sub": "Linguistics, Literature, Arts",
@@ -2651,11 +2651,11 @@
         "**Coded dataset in this area:** 17 Allowed; 2 Restricted; 1 Prohibited; 2 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 17 records with conditional use, 1 with prohibition and 4 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 16 of 22 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Reconfirmation on 7 November 2026:** 29 of 36 area records. Reconciled sources include MIT Press (livros), University of California Press, Edusp (livros), Elementa: Science of the Anthropocene, COPE."
+        "**Reconfirmation on 7 November 2026:** 36 of 36 area records. Reconciled sources include MIT Press (livros), University of California Press, Edusp (livros), Elementa: Science of the Anthropocene, COPE."
       ],
       "brasil": "0 of 1 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 29/36 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 36/36 records reconciled across all four fields on 7 November 2026, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     }
   },
   "brasil": [
@@ -2665,7 +2665,7 @@
     "**Disclosure:** Scientia Agricola requires Methods for AI use plus a statement before References; the manuscript-format section requires that statement even when AI was not used. The previous description was corrected. In Educação & Sociedade, auxiliary use is mentioned at the end without a mandatory section heading.",
     "**SciELO:** the preliminary guide of 14 September 2023 advises transparency in the Abstract and Methods or equivalent. Adoption and exceptions must be confirmed in journal instructions; the guide does not establish an identical rule throughout the network.",
     "**CNPq and other agencies:** CNPq's official March 2026 rule was read: assistive use requires responsibility and transparency; confidential third-party proposals must not be submitted to external tools. This is not a prohibition of every form of reviewer assistance. The FAPESP/CAPES/FAPEG aggregate remains separate and does not inherit CNPq's rule.",
-    "**Coverage.** 34/39 Brazilian journals reconciled in the 7 November review. A/NL describe the corpus and searches recorded in the history."
+    "**Coverage.** 39/39 Brazilian journals reconciled on 7 November. A/NL describe the corpus and searches recorded in the history."
   ],
   "checks": [
     "**Target and role:** read the journal/event rules for the article type and your role. The publisher's general policy alone does not establish every title's operational rule.",
@@ -2846,11 +2846,11 @@
     ],
     [
       "Historical baseline",
-      "Purposive survey compiled on 14–16 October 2026, with an initial reference date of 16 October. The latest full review, after compilation, is dated 24 October and documented in the history. Maintenance does not retroactively certify the compilation’s reading or methodological independence. This is neither a PRISMA review nor a worldwide census."
+      "Purposive survey compiled on 14–16 October 2026, with an initial reference date of 16 October. The latest full review, after compilation, is dated 7 November 2026 and documented in the history. Maintenance does not retroactively certify the compilation’s reading or methodological independence. This is neither a PRISMA review nor a worldwide census."
     ],
     [
       "Review of 7 November 2026",
-      "On 7 November 2026, 128/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 37 retain the previous information and remain unresolved. The last full reference is 2026-10-24. The history preserves actual times, sources and outstanding work. Additions are discoveries by the Observatory and may cover earlier policies."
+      "On 7 November 2026, all 165 records were reconciled across the four policy fields. The review added 16 policies and updated 5 existing records. The history preserves sources, actual consultation times, discovery results and decisions by entity."
     ],
     [
       "Sample",
@@ -2870,7 +2870,7 @@
     ],
     [
       "Limits",
-      "128 of 165 records reconciled. 37 retain the previous rule pending completion of the comparison. Candidates lacking evidence remain in the prospecting history. The sample is purposive and coding is AI-assisted."
+      "165 of 165 records reconciled. Candidates lacking evidence remain in the discovery history. The sample is purposive and coding was AI-assisted."
     ],
     [
       "Policy and practice",
@@ -2886,24 +2886,24 @@
     ]
   ],
   "meta": {
-    "referencia": "2026-10-24",
+    "referencia": "2026-11-07",
     "revisao": {
       "data": "2026-11-07",
-      "status": "parcial",
+      "status": "integral",
       "inventory": 165,
-      "verified": 128,
-      "changed": 1,
+      "verified": 165,
+      "changed": 5,
       "added": 16,
-      "unresolved": 37,
+      "unresolved": 0,
       "history": "levantamentos/politicas-ia/revisao-2026-11-07.json",
-      "finishedAt": "2026-11-07T14:17:19.650874+00:00"
+      "finishedAt": "2026-11-07T18:59:47.996972+00:00"
     }
   },
   "translation": {
     "language": "en",
     "sourceLanguage": "pt-BR",
-    "sourceSha256": "bbf3700d3c9b7b7669da433def129972be95e739e94128d450607e56271beef7",
-    "sourceReference": "2026-10-24",
+    "sourceSha256": "7a8a9580d08bb0aa55eb4f28a2b686dc7178dbc9cdb2b966da3059598cf354b7",
+    "sourceReference": "2026-11-07",
     "kind": "editorial-not-official",
     "preserved": [
       "identities",
