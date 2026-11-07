@@ -2,7 +2,7 @@
   "version": 1,
   "cycle": "2026-11-07",
   "startedAt": "2026-11-07T13:43:51.205Z",
-  "finishedAt": "2026-11-07T14:12:16.520680+00:00",
+  "finishedAt": "2026-11-07T14:17:19.650874+00:00",
   "baseCommit": "654967d64fb823f04c1cd50ad7dc37066c4c350d",
   "status": "partial",
   "comparisonReference": "2026-10-24",
@@ -1437,10 +1437,20 @@
     },
     {
       "key": "[\"Periódico\",\"Remote Sensing of Environment / ISPRS J. / JAG\",\"EXA\",\"Internacional\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-07T13:58:25.049Z",
-      "reason": "A leitura atual não confirmou integralmente as seções aplicáveis do conjunto normativo. As tentativas e as fontes já reconciliadas constam abaixo. A linha publicada foi preservada. Saldo: rse-attempt, jag.",
+      "reason": "Textos normativos atuais confrontados com o conjunto aplicável da auditoria anterior. Mantidos os códigos, a autoridade e os limites de escopo registrados. Os três guias oficiais foram lidos separadamente e identificam expressamente a norma Elsevier. Todos mantêm apoio sob supervisão humana, declaração própria antes das referências, autoria humana e sigilo na revisão. RSE/JAG detalham ilustrações e visualizações reprodutíveis, legendas e proibição de fabricar imagens primárias; ISPRS remete à norma geral sem detalhar isoladamente a seção de arte. Mantidas as diferenças de escopo, dispensas e ausência de data normativa nos guias.",
       "sources": [
+        {
+          "url": "https://www.sciencedirect.com/journal/remote-sensing-of-environment/publish/guide-for-authors",
+          "owner": "Remote Sensing of Environment",
+          "official": true,
+          "access": "read",
+          "section": "Current official page",
+          "sha256": "7eab579b995ccb9c222d5614cdebb9a7e0206e1867b0a1e2dabdcf9a98dd8267",
+          "queriedAt": "2026-11-07T13:53:31.164Z",
+          "hashBasis": "Bloco normativo visível relido e normalizado no navegador; códigos confrontados por escopo."
+        },
         {
           "url": "https://www.sciencedirect.com/journal/isprs-journal-of-photogrammetry-and-remote-sensing/publish/guide-for-authors",
           "owner": "ISPRS Journal of Photogrammetry and Remote Sensing",
@@ -1452,6 +1462,16 @@
           "hashBasis": "Texto visível do navegador; igualdade da sequência de linhas normalizadas com a consulta anterior."
         },
         {
+          "url": "https://www.sciencedirect.com/journal/international-journal-of-applied-earth-observation-and-geoinformation/publish/guide-for-authors",
+          "owner": "International Journal of Applied Earth Observation and Geoinformation",
+          "official": true,
+          "access": "read",
+          "section": "Current official page",
+          "sha256": "7eab579b995ccb9c222d5614cdebb9a7e0206e1867b0a1e2dabdcf9a98dd8267",
+          "queriedAt": "2026-11-07T13:52:59.552Z",
+          "hashBasis": "Bloco normativo visível relido e normalizado no navegador; códigos confrontados por escopo."
+        },
+        {
           "url": "https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals",
           "owner": "Elsevier",
           "official": true,
@@ -1460,33 +1480,14 @@
           "sha256": "b7b36ad8d15b31e32704f801079ec4c79014ef2ea2c0d8d3adb090f2600aefb8",
           "queriedAt": "2026-11-07T13:58:25.049Z",
           "hashBasis": "Texto normativo atual normalizado, comparado integralmente nos intervalos registrados com a evidência do ciclo anterior."
-        },
-        {
-          "url": "https://www.sciencedirect.com/journal/remote-sensing-of-environment/publish/guide-for-authors",
-          "owner": "Remote Sensing of Environment / ISPRS J. / JAG",
-          "official": true,
-          "access": "unavailable",
-          "section": "Evidência atual insuficiente para reconciliar a seção aplicável",
-          "queriedAt": "2026-11-07T13:53:31.164Z",
-          "attempts": [
-            "e04.json",
-            "browser-fingerprints.tsv#rse-attempt"
-          ]
-        },
-        {
-          "url": "https://www.sciencedirect.com/journal/international-journal-of-applied-earth-observation-and-geoinformation/publish/guide-for-authors",
-          "owner": "Remote Sensing of Environment / ISPRS J. / JAG",
-          "official": true,
-          "access": "unavailable",
-          "section": "Evidência atual insuficiente para reconciliar a seção aplicável",
-          "queriedAt": "2026-11-07T13:52:59.552Z",
-          "attempts": [
-            "e04.json",
-            "browser-fingerprints.tsv#jag"
-          ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -2143,36 +2144,27 @@
     },
     {
       "key": "[\"Periódico\",\"Brazilian Journal of Biology\",\"BIO\",\"Brasil\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-07T13:52:22.863Z",
-      "reason": "A leitura atual não confirmou integralmente as seções aplicáveis do conjunto normativo. As tentativas e as fontes já reconciliadas constam abaixo. A linha publicada foi preservada. Saldo: bjb.",
+      "reason": "Textos normativos atuais confrontados com o conjunto aplicável da auditoria anterior. Mantidos os códigos, a autoridade e os limites de escopo registrados. Instruções atuais BJB confirmam uso cauteloso, autoria humana e supervisão; IA para qualquer componente, incluindo gráficos e dados, deve ser descrita em Materiais e Métodos. A escrita é limitada a legibilidade/qualidade linguística. Não foi localizada regra específica de GenAI para pareceristas na política examinada.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/bjb/about/",
           "owner": "Brazilian Journal of Biology",
           "official": true,
-          "access": "unavailable",
-          "section": "Evidência atual insuficiente para reconciliar a seção aplicável",
+          "access": "read",
+          "section": "Current official page",
+          "sha256": "02b8a252d7eb22adf55b86a6bae6b5bce37adfc5208180b8277933d4ff6bb8b4",
           "queriedAt": "2026-11-07T13:52:22.863Z",
-          "attempts": [
-            "c09.json",
-            "e07.json",
-            "browser-fingerprints.tsv#bjb"
-          ]
-        },
-        {
-          "url": "https://www.scielo.br/journal/bjb/about/#instructions",
-          "owner": "Brazilian Journal of Biology",
-          "official": true,
-          "access": "unavailable",
-          "section": "Evidência atual insuficiente para reconciliar a seção aplicável",
-          "queriedAt": "2026-11-07T13:46:52.619Z",
-          "attempts": [
-            "c09.json"
-          ]
+          "hashBasis": "Bloco normativo visível relido e normalizado no navegador; códigos confrontados por escopo."
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -2199,36 +2191,27 @@
     },
     {
       "key": "[\"Periódico\",\"Biota Neotropica\",\"BIO\",\"Brasil\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-07T13:52:22.282Z",
-      "reason": "A leitura atual não confirmou integralmente as seções aplicáveis do conjunto normativo. As tentativas e as fontes já reconciliadas constam abaixo. A linha publicada foi preservada. Saldo: biota.",
+      "reason": "Textos normativos atuais confrontados com o conjunto aplicável da auditoria anterior. Mantidos os códigos, a autoridade e os limites de escopo registrados. Duas seções atuais da Biota Neotropica concordam: assistência linguística com supervisão, sem autoria de IA, declaração em Ethics e dispensas básicas. O modelo no final das instruções foi conferido; não amplia autorização para criação de conteúdo ou estabelece norma própria para revisores/imagens.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/bn/about/",
           "owner": "Biota Neotropica",
           "official": true,
-          "access": "unavailable",
-          "section": "Evidência atual insuficiente para reconciliar a seção aplicável",
+          "access": "read",
+          "section": "Current official page",
+          "sha256": "8aa15d78766df996017aee790bf8d895aee4b9c6d2c2979c32bcdf88a5da2c1f",
           "queriedAt": "2026-11-07T13:52:22.282Z",
-          "attempts": [
-            "c09.json",
-            "e07.json",
-            "browser-fingerprints.tsv#biota"
-          ]
-        },
-        {
-          "url": "https://www.scielo.br/journal/bn/about/#instructions",
-          "owner": "Biota Neotropica",
-          "official": true,
-          "access": "unavailable",
-          "section": "Evidência atual insuficiente para reconciliar a seção aplicável",
-          "queriedAt": "2026-11-07T13:46:52.619Z",
-          "attempts": [
-            "c09.json"
-          ]
+          "hashBasis": "Bloco normativo visível relido e normalizado no navegador; códigos confrontados por escopo."
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -2419,24 +2402,27 @@
     },
     {
       "key": "[\"Periódico\",\"Gestão & Produção\",\"ENG\",\"Brasil\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-07T13:52:56.086Z",
-      "reason": "A leitura atual não confirmou integralmente as seções aplicáveis do conjunto normativo. As tentativas e as fontes já reconciliadas constam abaixo. A linha publicada foi preservada. Saldo: gp.",
+      "reason": "Textos normativos atuais confrontados com o conjunto aplicável da auditoria anterior. Mantidos os códigos, a autoridade e os limites de escopo registrados. Texto completo atual confirma Resumo e Métodos, autoria humana, revisão de traduções e cláusula explícita de avaliadores que admite só gramática/tradução declarada ao editor, sem gerar parecer. Mantém Condicionado e não confunde o não uso institucional na avaliação com vedação de toda assistência individual.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/gp/about/",
           "owner": "Gestão & Produção",
           "official": true,
-          "access": "unavailable",
-          "section": "Evidência atual insuficiente para reconciliar a seção aplicável",
+          "access": "read",
+          "section": "Current official page",
+          "sha256": "97437b4590d19b7e270aa67631c188a5dc1f031c3a02f9051623293dc7122b3c",
           "queriedAt": "2026-11-07T13:52:56.086Z",
-          "attempts": [
-            "c11.json",
-            "browser-fingerprints.tsv#gp"
-          ]
+          "hashBasis": "Bloco normativo visível relido e normalizado no navegador; códigos confrontados por escopo."
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -3891,24 +3877,27 @@
     },
     {
       "key": "[\"Periódico\",\"Rev. Brasileira de Ciências Sociais (ANPOCS)\",\"HUM\",\"Brasil\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-07T13:53:27.101Z",
-      "reason": "A leitura atual não confirmou integralmente as seções aplicáveis do conjunto normativo. As tentativas e as fontes já reconciliadas constam abaixo. A linha publicada foi preservada. Saldo: rbcsoc.",
+      "reason": "Textos normativos atuais confrontados com o conjunto aplicável da auditoria anterior. Mantidos os códigos, a autoridade e os limites de escopo registrados. Política atual RBCS integralmente reexaminada: apoio generativo com responsabilidade humana, carta e declaração antes das referências, imagens/audiovisual vedados salvo objeto de estudo, recomendação forte de não upload por avaliadores. Correção de 24/10 já incorporada; não duplicada nem apresentada como novidade de 31/10.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/rbcsoc/about/#instructions",
-          "owner": "Rev. Brasileira de Ciências Sociais (ANPOCS)",
+          "owner": "ANPOCS / RBCS",
           "official": true,
-          "access": "unavailable",
-          "section": "Evidência atual insuficiente para reconciliar a seção aplicável",
+          "access": "read",
+          "section": "Current official page",
+          "sha256": "2ab15208e198c5d3b952127a3df2ab2eaa20c90abc749faa38db69714c00c54b",
           "queriedAt": "2026-11-07T13:53:27.101Z",
-          "attempts": [
-            "c21.json",
-            "browser-fingerprints.tsv#rbcsoc"
-          ]
+          "hashBasis": "Bloco normativo visível relido e normalizado no navegador; códigos confrontados por escopo."
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -7753,11 +7742,11 @@
   "summary": {
     "inventory": 165,
     "initialInventory": 149,
-    "verified": 123,
+    "verified": 128,
     "changed": 1,
     "added": 16,
-    "unchanged": 106,
-    "unresolved": 42,
+    "unchanged": 111,
+    "unresolved": 37,
     "canClose": false
   }
 }

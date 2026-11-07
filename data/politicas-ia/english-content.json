@@ -1,5 +1,5 @@
 {
-  "sourceSha256": "e57c2093b18fa3ef2f28dc9b33f45f59e12ad667570c170b44e015a3c304183a",
+  "sourceSha256": "bbf3700d3c9b7b7669da433def129972be95e739e94128d450607e56271beef7",
   "messages": [
     [
       "Human responsibility, different rules",
@@ -23,13 +23,13 @@
     ],
     [
       "Coverage and limits",
-      "On 7 November 2026, 123/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 42 retain the previous information and remain unresolved. The last full reference is 2026-10-24."
+      "On 7 November 2026, 128/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 37 retain the previous information and remain unresolved. The last full reference is 2026-10-24."
     ]
   ],
   "cross": [
     [
       "Scope of comparison",
-      "Purposive inventory of 165 identities. On 7 November 2026, 123/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 42 retain the previous information and remain unresolved. The last full reference is 2026-10-24. Proportions describe the inventory and do not estimate all journals."
+      "Purposive inventory of 165 identities. On 7 November 2026, 128/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 37 retain the previous information and remain unresolved. The last full reference is 2026-10-24. Proportions describe the inventory and do not estimate all journals."
     ],
     [
       "Text generation",
@@ -97,7 +97,7 @@
     "**Disclosure:** Scientia Agricola requires Methods for AI use plus a statement before References; the manuscript-format section requires that statement even when AI was not used. The previous description was corrected. In Educação & Sociedade, auxiliary use is mentioned at the end without a mandatory section heading.",
     "**SciELO:** the preliminary guide of 14 September 2023 advises transparency in the Abstract and Methods or equivalent. Adoption and exceptions must be confirmed in journal instructions; the guide does not establish an identical rule throughout the network.",
     "**CNPq and other agencies:** CNPq's official March 2026 rule was read: assistive use requires responsibility and transparency; confidential third-party proposals must not be submitted to external tools. This is not a prohibition of every form of reviewer assistance. The FAPESP/CAPES/FAPEG aggregate remains separate and does not inherit CNPq's rule.",
-    "**Coverage.** 30/39 Brazilian journals reconciled in the 7 November review. A/NL describe the corpus and searches recorded in the history."
+    "**Coverage.** 34/39 Brazilian journals reconciled in the 7 November review. A/NL describe the corpus and searches recorded in the history."
   ],
   "checks": [
     "**Target and role:** read the journal/event rules for the article type and your role. The publisher's general policy alone does not establish every title's operational rule.",
@@ -129,7 +129,7 @@
     ],
     [
       "Review of 7 November 2026",
-      "On 7 November 2026, 123/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 42 retain the previous information and remain unresolved. The last full reference is 2026-10-24. The history preserves actual times, sources and outstanding work. Additions are discoveries by the Observatory and may cover earlier policies."
+      "On 7 November 2026, 128/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 37 retain the previous information and remain unresolved. The last full reference is 2026-10-24. The history preserves actual times, sources and outstanding work. Additions are discoveries by the Observatory and may cover earlier policies."
     ],
     [
       "Sample",
@@ -149,7 +149,7 @@
     ],
     [
       "Limits",
-      "123 of 165 records reconciled. 42 retain the previous rule pending completion of the comparison. Candidates lacking evidence remain in the prospecting history. The sample is purposive and coding is AI-assisted."
+      "128 of 165 records reconciled. 37 retain the previous rule pending completion of the comparison. Candidates lacking evidence remain in the prospecting history. The sample is purposive and coding is AI-assisted."
     ],
     [
       "Policy and practice",
