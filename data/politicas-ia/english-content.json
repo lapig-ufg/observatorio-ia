@@ -1,5 +1,5 @@
 {
-  "sourceSha256": "7eb4d2d52bf68d2435084a9c506a0b76d1cf6206d430ee98d2d001224b7f1cb4",
+  "sourceSha256": "e57c2093b18fa3ef2f28dc9b33f45f59e12ad667570c170b44e015a3c304183a",
   "messages": [
     [
       "Human responsibility, different rules",
@@ -23,21 +23,21 @@
     ],
     [
       "Coverage and limits",
-      "On 31 October 2026, 148/149 records were reconciled across all four policy fields; 17 received coding, metadata or description corrections. Science/AAAS remains unresolved because current access failed; its previous record is preserved and the last full reference remains 24 October. Corrections do not in themselves establish policy changes during this week. A/NL are bounded findings, never implicit permission."
+      "On 7 November 2026, 123/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 42 retain the previous information and remain unresolved. The last full reference is 2026-10-24."
     ]
   ],
   "cross": [
     [
       "Scope of comparison",
-      "Counts describe the purposive inventory of 149 identities. Reconciliation on 31 October: 148/149; 1 unresolved. Unresolved records retain the valid 24 October data. Aggregates and A/NL codes have explicit limits; proportions do not represent all journals."
+      "Purposive inventory of 165 identities. On 7 November 2026, 123/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 42 retain the previous information and remain unresolved. The last full reference is 2026-10-24. Proportions describe the inventory and do not estimate all journals."
     ],
     [
       "Text generation",
-      "103 Allowed; 18 Restricted; 8 Prohibited; 17 No rule located; 3 Not applicable. Codes summarise writing policy; they do not replace its exceptions or the rule for AI as a research method."
+      "112 Allowed, 22 Restricted, 11 Prohibited, 17 No rule located and 3 Not applicable. Codes summarise writing policy. The notes describe exceptions and AI as a research method."
     ],
     [
       "Peer review",
-      "86 records make use conditional, 12 prohibit it and 51 have no coded provision. Language assistance and scientific judgement are distinct tasks. Counts cover the full dataset, including previous information in unresolved records."
+      "98 records make use conditional, 13 prohibit it and 54 have no coded provision. The counts include previous information in unresolved records."
     ],
     [
       "Images",
@@ -49,7 +49,7 @@
     ],
     [
       "Brazil",
-      "29/36 journals with a clause (81% of the sample); 13/36 with a coded reviewer provision. Denominators refer to the identified sample, not a national estimate."
+      "32/39 journals have a coded rule (82% of the sample). 15/39 have a coded reviewer provision. The denominators describe the sample."
     ]
   ],
   "trendText": {
@@ -91,13 +91,13 @@
     }
   },
   "brasil": [
-    "**Brazilian sample:** 29 of 36 journals have a coded rule (81%). Among them: 19 allow, 8 restrict and 2 prohibit text generation. These figures describe the combined dataset, not a national rate.",
-    "**Verified corrections:** RBCS-ANPOCS allows assistance with disclosure in the cover letter and before References, retaining human responsibility and image restrictions. RAE continues to prohibit content generation, with assistive exceptions. Do not transfer rules across journals, societies and platforms.",
+    "**Brazilian sample.** 32 of 39 journals have a coded rule (82%). Among them, 21 allow, 8 restrict and 3 prohibit text generation.",
+    "**New entries.** Revista da Abralin, Cadernos de Linguística and Trabalhos em Linguística Aplicada each have their own rules. Edusp is included as a book publisher and is excluded from the journal denominator.",
     "**Reviewers:** RBG allows improving the language of a human review within limits; Gestão & Produção and RBLA allow auxiliary assistance with safeguards. RAE prohibits reviewing use. Conditional does not mean automatic assessment is allowed.",
     "**Disclosure:** Scientia Agricola requires Methods for AI use plus a statement before References; the manuscript-format section requires that statement even when AI was not used. The previous description was corrected. In Educação & Sociedade, auxiliary use is mentioned at the end without a mandatory section heading.",
     "**SciELO:** the preliminary guide of 14 September 2023 advises transparency in the Abstract and Methods or equivalent. Adoption and exceptions must be confirmed in journal instructions; the guide does not establish an identical rule throughout the network.",
     "**CNPq and other agencies:** CNPq's official March 2026 rule was read: assistive use requires responsibility and transparency; confidential third-party proposals must not be submitted to external tools. This is not a prohibition of every form of reviewer assistance. The FAPESP/CAPES/FAPEG aggregate remains separate and does not inherit CNPq's rule.",
-    "**Coverage:** 36/36 Brazilian journals reconciled in this review. A/NL describe only the indicated corpus and searches; they do not prove the absence of a rule in other documents or activities."
+    "**Coverage.** 30/39 Brazilian journals reconciled in the 7 November review. A/NL describe the corpus and searches recorded in the history."
   ],
   "checks": [
     "**Target and role:** read the journal/event rules for the article type and your role. The publisher's general policy alone does not establish every title's operational rule.",
@@ -128,12 +128,12 @@
       "Purposive survey compiled on 14–16 October 2026, with an initial reference date of 16 October. The latest full review, after compilation, is dated 24 October and documented in the history. Maintenance does not retroactively certify the compilation’s reading or methodological independence. This is neither a PRISMA review nor a worldwide census."
     ],
     [
-      "Review of 31 October 2026",
-      "On 31 October 2026, 148/149 records were reconciled across all four policy fields; 17 received coding, metadata or description corrections. Science/AAAS remains unresolved because current access failed; its previous record is preserved and the last full reference remains 24 October. Corrections do not in themselves establish policy changes during this week. A/NL are bounded findings, never implicit permission. Compared with the valid full 24 October review, without inventing historical versions. Consultation began at 13:03:52 UTC, with individual timestamps in the history. A located source, HTTP 200 or a search result is not equivalent to a verified rule."
+      "Review of 7 November 2026",
+      "On 7 November 2026, 123/165 records were reconciled across all four policy fields, including 16 new policies. 1 previous record was updated. 42 retain the previous information and remain unresolved. The last full reference is 2026-10-24. The history preserves actual times, sources and outstanding work. Additions are discoveries by the Observatory and may cover earlier policies."
     ],
     [
       "Sample",
-      "149 identities preserved, without additions or mergers; 36 Brazilian journals. Societies, publishers and journals are different units. Counts reflect the historical dataset plus verified corrections, not only a reconfirmed subset."
+      "149 identities preserved and 16 added after Portuguese and English searches for societies, publishers and journals. The final inventory has 165 identities and 39 Brazilian journals. Deduplication uses identity and scope."
     ],
     [
       "Coding",
@@ -145,11 +145,11 @@
     ],
     [
       "Evidence and dates",
-      "History by identity with URL, owner, section, actual consultation time, consulted normative-text hash and field-level decisions. Comparison starts from the valid 24 October dataset. A coding or description difference does not establish an institutional change during this week. Explicit source dates are separate from consultation dates. Browser readings and optional downloads used only previously configured persistent permissions; some SBL norms were fully collated in the viewer without download. Science/AAAS remains unresolved until current reading is possible."
+      "The history records owner, section, actual consultation time, normative-text hash and field-level decisions. Comparison uses the full 24 October review and the partial 31 October update. Consultation dates and policy dates are independent."
     ],
     [
       "Limits",
-      "148 of 149 identities reconciled; 1 unresolved because of access, without expansion or merger. AAR/SBL and FAPESP/CAPES/FAPEG remain heterogeneous, with separate scopes. A/NL cannot certify absence of rules in other calls, internal guidance or activities. Non-random sample; AI-assisted coding, without independent duplicate extraction."
+      "123 of 165 records reconciled. 42 retain the previous rule pending completion of the comparison. Candidates lacking evidence remain in the prospecting history. The sample is purposive and coding is AI-assisted."
     ],
     [
       "Policy and practice",
@@ -157,11 +157,11 @@
     ],
     [
       "AI-use disclosure",
-      "Initial compilation with Claude (Anthropic); reviews on 17, 24 and 31 October with Codex (OpenAI) for reading/comparing sources, coding, editorial translation, exports and testing. Editorial responsibility rests with the Observatory; no new independent human audit or independent duplicate extraction took place."
+      "Initial compilation with Claude (Anthropic). Reviews with Codex (OpenAI) for source comparison, coding, editorial translation, exports and testing. Editorial responsibility rests with the Observatory. No independent duplicate extraction."
     ],
     [
       "Dataset and traceability",
-      "JSON, CSV and XLSX derive from the same dataset. The workbook preserves its codebook and historical v4 to v5 column. Public histories for 17, 24 and 31 October document sources, decisions and unresolved records without reproducing full policies. Portuguese/English exports preserve identities, codes, years and official URLs. This is an editorial translation, not an official translation of institutional policies. Partial review and last full reference are stated separately."
+      "JSON, CSV and XLSX derive from the same dataset. The historical v4 to v5 column and the codebook are preserved. The dated history records sources, decisions, prospecting and outstanding work. All four exports preserve identities, codes, years and URLs. The English translation is editorial and unofficial."
     ]
   ]
 }

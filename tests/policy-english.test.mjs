@@ -30,7 +30,7 @@ test('livro de códigos distingue revisão parcial da última referência integr
   assert.match(en.metodo[1][1],/latest full review.*24 October/);
 });
 
-test('tradução integral preserva identidades, códigos, URLs, datas e números dos 149 registros',()=>{
+test('tradução integral preserva identidades, códigos, URLs, datas e números do inventário',()=>{
   assert.deepEqual(en,currentPolicyEnglish());
   assert.equal(en.rows.length,pt.rows.length);
   assert.equal(new Set(en.rows.map(r=>r.nome)).size,pt.rows.length);
@@ -62,8 +62,9 @@ test('a tradução preserva ressalvas críticas e não transforma ausência ou u
   assert.match(note('The Lancet'),/Comments and Correspondence allow only grammar\/spelling/);
   assert.match(note('CNPq (Portaria 2.664/2026)'),/full Official Gazette text was not retrieved/);
   assert.match(note('MOST (China)'),/does not remove the specific proposal prohibition/);
-  assert.match(en.metodo.map(x=>x.join(' ')).join(' '),/editorial translation, not an official translation/);
-  assert.equal(en.rows.filter(r=>r.geo.startsWith('Brasil')&&r.tipo==='Periódico').length,36);
+  assert.match(en.metodo.map(x=>x.join(' ')).join(' '),/English translation is editorial and unofficial/);
+  const brazilianJournals = rows => rows.filter(r=>r.geo.startsWith('Brasil')&&r.tipo==='Periódico').map(r=>r.nome);
+  assert.deepEqual(brazilianJournals(en.rows),brazilianJournals(pt.rows));
   assert.equal(vocabulary['Brasil/AL'],'Brazil/Latin America');
 });
 

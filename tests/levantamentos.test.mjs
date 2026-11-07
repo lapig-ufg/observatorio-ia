@@ -12,7 +12,7 @@ const { portalPage } = await moduleFrom("src/portalStructure.ts");
 const data = JSON.parse(fs.readFileSync("public/levantamentos/politicas-ia/dados.json", "utf8"));
 
 test("os dados publicados batem com a base do levantamento", () => {
-  assert.equal(data.rows.length, 149);
+  assert.equal(data.rows.length, data.meta.revisao.inventory);
   const csv = fs.readFileSync("public/levantamentos/politicas-ia/base-politicas-ia-2026-10.csv", "utf8").replace(/^\uFEFF/, "");
   const table = []; let line = [], cell = "", quoted = false;
   for (let i = 0; i < csv.length; i++) {
@@ -77,9 +77,9 @@ test("revisão inventaria todas as identidades e só avança a referência com c
   assert.deepEqual(new Set(history.entries.map(entry => entry.key)), new Set(data.rows.map(key)));
   for (const entry of history.entries) {
     const row = data.rows.find(row => key(row) === entry.key);
-    if (entry.outcome === "changed") {
+    if (entry.outcome === "changed" || entry.outcome === "added") {
       assert.deepEqual(row, entry.after);
-      assert.deepEqual(Object.keys(row).filter(field => JSON.stringify(entry.before[field]) !== JSON.stringify(row[field])).sort(), [...entry.changedFields].sort());
+      assert.deepEqual(Object.keys(row).filter(field => JSON.stringify(entry.before?.[field]) !== JSON.stringify(row[field])).sort(), [...entry.changedFields].sort());
       assert.equal(entry.decisions.length, entry.changedFields.length);
     }
     if (entry.outcome === "unresolved") assert.deepEqual(entry.changedFields, []);
@@ -89,8 +89,13 @@ test("revisão inventaria todas as identidades e só avança a referência com c
     }
   }
   const counts = outcome => history.entries.filter(entry => entry.outcome === outcome).length;
-  assert.equal(data.meta.revisao.verified, counts("changed") + counts("unchanged"));
+  assert.equal(data.meta.revisao.verified, counts("changed") + counts("unchanged") + counts("added"));
   assert.equal(data.meta.revisao.changed, counts("changed"));
+  assert.equal(data.meta.revisao.added ?? 0, counts("added"));
+  if (history.discovery) {
+    assert.equal(history.discovery.inventoryAfter, data.rows.length);
+    assert.equal(history.discovery.inventoryBefore + counts("added"), data.rows.length);
+  }
   assert.equal(data.meta.revisao.unresolved, counts("unresolved"));
   assert.equal(data.meta.revisao.inventory, data.rows.length);
   if (counts("unresolved")) assert.ok(data.meta.referencia < history.cycle);
