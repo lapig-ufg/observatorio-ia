@@ -1,0 +1,198 @@
+{
+  "collection": "folha",
+  "start": "2026-11-01",
+  "end": "2026-11-07",
+  "reviewedAt": "2026-11-07",
+  "expectedCount": 69,
+  "title": {
+    "pt": "A expansão da IA encontra limites: energia, capital e direitos",
+    "en": "AI expansion meets constraints: energy, capital and rights"
+  },
+  "summary": {
+    "pt": "Nas 69 matérias de 1º a 7 de novembro, a expansão da IA encontrou resistência política e local nos Estados Unidos, dúvidas de investidores e restrições no acesso a chips. As reportagens distinguem as decisões já tomadas em algumas comunidades das promessas de campanha e dos compromissos anunciados por empresas. No Brasil, uma liminar limitou a coleta e o uso de conteúdo jornalístico pela Meta, e a empresa suspendeu separadamente a revisão de seus termos comerciais. Outras pautas mostram a necessidade de supervisão em vigilância urbana, escolas e atendimento ao consumidor. Na ciência e na saúde, os relatos de aplicação e as promessas de descoberta reforçam a necessidade de verificar resultados e medir benefícios. Esses temas descrevem a seleção desta semana, sem medir sua incidência na sociedade.",
+    "en": "Across the 69 articles from 1 to 7 November, AI expansion faced local and political resistance in the United States, investor doubts and restrictions on chip access. The reporting distinguishes decisions already made by some communities from campaign pledges and commitments announced by companies. In Brazil, an interim court order limited Meta’s collection and use of news content, while the company separately paused its planned update to commercial terms. Other stories show why oversight matters in urban surveillance, schools and customer service. In science and healthcare, reported applications and promises of discovery underscore the need to verify results and measure benefits. These themes describe the week’s selection without measuring their prevalence in society."
+  },
+  "method": {
+    "pt": "O corpus reúne 69 matérias de 01–07/11/2026. O corte real foi às 08:53:30 de 07/11 (America/Sao_Paulo, UTC−3). A busca autenticada na Folha por “inteligência artificial” em 31/10–07/11, com sobreposição de 31/10, retornou 121 resultados em cinco páginas (4×25 + 21). Foram incluídos 74 registros no cumulativo, dos quais cinco de 31/10, fora desta síntese. Houve 42 exclusões e cinco deduplicações. Foram examinados títulos e trechos de todos os resultados e aberturas e passagens pertinentes de 104 originais. Não houve leitura integral sistemática, busca de sinônimos ou validação independente das alegações. A primeira página e o total foram reconferidos às 09:08 BRT, sem alteração; a publicação mais recente observada era das 06h. Não se cobre o período posterior ao corte. Os nove assuntos são agrupamentos editoriais, sem representatividade estatística. A versão inglesa é uma tradução editorial; os títulos e links preservam os originais, que podem exigir assinatura.",
+    "en": "The corpus contains 69 articles from 1–7 November 2026. The actual cutoff was 08:53:30 on 7 November (America/Sao_Paulo, UTC−3). The authenticated Folha search for “inteligência artificial” covered 31 October–7 November, with an overlap on 31 October, and returned 121 results across five pages (4×25 + 21). The cumulative archive gained 74 records, including five from 31 October that are outside this briefing. There were 42 exclusions and five deduplications. Headlines and excerpts for all results and the openings and relevant passages of 104 original articles were examined. There was no systematic full-text reading, synonym search or independent verification of claims. The first page and total were rechecked at 09:08 local time and were unchanged; the latest observed article was published at 06:00. The briefing does not cover the period after the cutoff. The nine topics are editorial groupings without statistical representativeness. The English version is an editorial translation; titles and links preserve the originals, which may require a subscription."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Centros de dados, energia e disputa por chips",
+        "en": "Data centers, energy and competition for chips"
+      },
+      "summary": {
+        "pt": "Oposição de comunidades e promessas eleitorais desafiam a expansão dos centros de dados nos Estados Unidos. O caso de Piqua mostra o alcance de uma decisão local; no Texas, propostas de campanha ainda não equivalem a proibições em vigor. A OpenAI anunciou diretrizes para seus projetos, sem evidência de que os compromissos já tenham sido executados. O reaproveitamento de motores de aviões para gerar eletricidade mostra a busca por alternativas de abastecimento, sem provar vantagem ambiental. Estoques de chips à espera de autorização na China, restrições a parceiros e o cancelamento de um acordo Oracle–Tencent exemplificam gargalos diferentes no acesso à computação.",
+        "en": "Community opposition and campaign pledges challenge data-center expansion in the United States. Piqua illustrates the reach of a local decision; in Texas, campaign proposals do not yet amount to bans in force. OpenAI announced guidelines for its projects, with no evidence here that its commitments have been implemented. Repurposing aircraft engines to generate electricity illustrates the search for power supplies without establishing an environmental benefit. Chip inventories awaiting Chinese authorization, restrictions on partners and the cancellation of an Oracle–Tencent agreement illustrate distinct constraints on access to computing capacity."
+      },
+      "sourceIds": [
+        "13f62970a0ed23",
+        "507d1b45262a4e",
+        "7825390c1b6fbc",
+        "1376e73b6802d0",
+        "ba979650226812",
+        "174d337ef021c0",
+        "870667ed188058",
+        "9749a1aa03cce1",
+        "dd5e6696a77b2b",
+        "8120afcebae8c3",
+        "09b60fe08757d2",
+        "0f726c2f7b936d",
+        "6969921e93a50c"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Mercados, financiamento e abertura de capital",
+        "en": "Markets, financing and initial public offerings"
+      },
+      "summary": {
+        "pt": "A queda e a recuperação parcial em Wall Street mostram a mudança de expectativas sobre a expansão da IA. A variação de valor de mercado não mede dinheiro desembolsado, e recortes sobrepostos de bolsas e empresas não devem ser somados. As matérias sobre a Anthropic distinguem receita e prejuízo divulgados em documento de abertura de capital da avaliação e do cronograma pretendidos segundo investidores. As colunas discutem o risco de dívida e obsolescência, sem demonstrar que um colapso seja inevitável.",
+        "en": "The decline and partial rebound on Wall Street show changing expectations about AI expansion. Changes in market capitalization do not measure cash spent, and overlapping figures for markets and companies should not be added. Reporting on Anthropic distinguishes revenue and losses disclosed in an IPO filing from the proposed valuation and timing reported by investors. Columns discuss debt and obsolescence risks without establishing that a collapse is inevitable."
+      },
+      "sourceIds": [
+        "5e2d5ba2b1d783",
+        "18290a09aff52b",
+        "9a268c6ed8381f",
+        "a64643c62cb7d5",
+        "909636085c3c85",
+        "9abc674bcb18fe",
+        "ec8b7656a1c63a",
+        "e235d3759c9409",
+        "607140dc974a2e",
+        "40d6b9b2474f72",
+        "499d3b5f3f8f0e",
+        "8233958326be09",
+        "b757c85c54bd94",
+        "47501585d5ee11",
+        "ce1c0810842f72"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Direitos autorais, plataformas e atendimento",
+        "en": "Copyright, platforms and customer service"
+      },
+      "summary": {
+        "pt": "No Brasil, a liminar sobre conteúdos de veículos filiados a três associações de imprensa e a suspensão anunciada pela Meta são acontecimentos distintos. A primeira tem alcance processual específico; a segunda mantém, segundo a empresa, os termos existentes enquanto prossegue o diálogo. Na educação, uma ação de família contra o Google contém alegações, sem decisão sobre responsabilidade nesta cobertura. As regras brasileiras do SAC admitem automação com acesso a atendimento humano; o debate eleitoral, por sua vez, reúne testes pontuais e opiniões, sem provar favorecimento algorítmico sistemático.",
+        "en": "In Brazil, an interim order covering material from outlets affiliated with three press associations and Meta’s announced pause are distinct events. The order has a specific legal scope; the company says its existing terms remain in force while discussions continue. In education, a family’s lawsuit against Google contains allegations, with no ruling on liability in this coverage. Brazil’s customer-service rules allow automation while requiring access to a human agent. Election coverage includes targeted tests and opinions without establishing systematic algorithmic favoritism."
+      },
+      "sourceIds": [
+        "0db2b0c032fe70",
+        "1f83dcf361a228",
+        "82c0db7d9fce1f",
+        "a3e41c192e70c0",
+        "9ae6b67b2644a2",
+        "8a7b1dbd9021c0",
+        "1660451c09bbc8",
+        "1dbdb7cd7e6d53"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Segurança, vigilância e fraudes",
+        "en": "Security, surveillance and fraud"
+      },
+      "summary": {
+        "pt": "O Smart Sampa aparece tanto pela vulnerabilidade reportada quanto pela mudança de coordenação. A prefeitura contestou a exposição pública mencionada na reportagem, e possibilidade de acesso não equivale a intrusão comprovada. O Ministério Público investiga anúncios de saúde com suspeita de manipulação de imagem e voz. Em cibersegurança, o NCSC britânico projeta maior uso ofensivo de IA; projeções, atribuições de espionagem e relatos de ataques a sistemas de refrigeração têm bases diferentes. A presença de IA no contexto de um incidente não prova que tenha sido o mecanismo do ataque.",
+        "en": "Smart Sampa features in coverage of both a reported vulnerability and a change in management. The city contested the reported public exposure, and possible access does not establish an intrusion. Prosecutors are investigating health advertisements involving suspected manipulation of images and voices. In cybersecurity, the UK NCSC expects more offensive use of AI; forecasts, espionage attributions and attacks on refrigeration systems have different evidentiary bases. AI being part of an incident’s context does not prove it was the attack mechanism."
+      },
+      "sourceIds": [
+        "14da022542da41",
+        "0da63a7ea5a7ac",
+        "1dea6014d48791",
+        "55119f460bce52",
+        "ed80b123856168",
+        "47c092f5e2ada2",
+        "b936b0e1aa6284",
+        "390710a14e1371",
+        "88fd4a06ccd30f",
+        "4d10c2b0a0efba",
+        "8b56ce44cb72a5"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Emprego, gestão e automação",
+        "en": "Jobs, management and automation"
+      },
+      "summary": {
+        "pt": "A cobertura do Nubank relaciona a reorganização de uma equipe à automação de queixas de fraude, com a redução da fila atribuída a fontes ouvidas pela Folha; o relato não mede a precisão das decisões nem estabelece um efeito geral no emprego. A coluna sobre a China descreve orientação para avaliar impactos da IA sobre vagas, ainda sem força de lei. Outros textos discutem competências da gerência média e do atendimento humano diante da automação.",
+        "en": "Coverage of Nubank links a team reorganization to the automation of fraud complaints, with the shorter backlog attributed to sources interviewed by Folha. It does not measure decision accuracy or establish a general effect on employment. A column on China describes guidance on assessing AI’s employment impacts that does not carry the force of law. Other pieces discuss the skills middle managers and customer-service staff need as automation expands."
+      },
+      "sourceIds": [
+        "a4e4021bdf665d",
+        "950e1dbda0a71a",
+        "9ea1e2e36cb308",
+        "3f074f532ee231"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Escolas, universidades e validação científica",
+        "en": "Schools, universities and scientific validation"
+      },
+      "summary": {
+        "pt": "O Google anunciou que a ativação de recursos de IA por escolas passará a depender de opção explícita, com implementação futura. No ensino superior, a avaliação presencial e a defesa oral aparecem como respostas relatadas, sem teste de eficácia comparativa. A cobertura de ciência e matemática discute como examinar demonstrações e alegações automatizadas, preservando a diferença entre anunciar uma solução e conseguir verificá-la. A formação de jornalistas e o uso de uma imagem sintética em prova mostram outros modos de a tecnologia entrar na educação.",
+        "en": "Google announced that schools will have to opt in explicitly to AI features when the change takes effect. In higher education, in-person assessments and oral defenses are reported responses, without evidence comparing their effectiveness. Science and mathematics coverage discusses how to examine automated proofs and claims, distinguishing announcing a solution from verifying it. Training for journalists and a synthetic image used in an entrance exam show other ways the technology enters education."
+      },
+      "sourceIds": [
+        "9f1ddce56712d7",
+        "89c21db5dbef2f",
+        "d95d684c4567dc",
+        "c7e5fca0cd77ed",
+        "16ecfa2b04cd28",
+        "7cdfe4b2424cf7",
+        "95707cc40b8f99"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Imagem sintética, jogos e jornalismo",
+        "en": "Synthetic images, games and journalism"
+      },
+      "summary": {
+        "pt": "Imagens geradas aparecem numa homenagem musical e no uso eleitoral de um personagem de ficção; em ambos os casos, o contexto de circulação importa para interpretar o material. A cobertura dos jogos aponta disputas sobre criação e propriedade intelectual. O regulamento de um prêmio de jornalismo distingue texto integralmente gerado de usos condicionais em imagens. Trata-se de uma regra específica da premiação, sem generalização para o setor.",
+        "en": "Generated imagery appears in a musical tribute and in the electoral use of a fictional character; the context of circulation matters in interpreting both. Games coverage highlights disputes about creation and intellectual property. One journalism award’s rules distinguish fully generated text from conditional use in images. These requirements apply to that award and do not establish an industry-wide rule."
+      },
+      "sourceIds": [
+        "1df4457c868ee9",
+        "bd749bb92b4282",
+        "713e41b8322da4",
+        "1644503bb6d4d1"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Apoio à saúde e limites de validação",
+        "en": "Healthcare support and limits of validation"
+      },
+      "summary": {
+        "pt": "Uma entrevista em Roraima descreve alertas automatizados sobre prescrições no trabalho da farmácia pública. O depoimento esclarece o uso operacional, sem estimar redução de danos ou benefício clínico. Especialistas chamam atenção para a confiabilidade de aplicativos de saúde; um texto de opinião sobre aconselhamento por chatbot destaca o risco de confundir uma resposta acolhedora com avaliação profissional.",
+        "en": "An interview from Roraima describes automated prescription alerts in a public pharmacy. The account clarifies how the tool is used without estimating reductions in harm or clinical benefits. Specialists call attention to the reliability of health apps, while an opinion piece on chatbot advice highlights the risk of confusing an affirming answer with professional assessment."
+      },
+      "sourceIds": [
+        "b00c84d401814f",
+        "539100ed548778",
+        "cfcbb607e60145"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Veículos autônomos, fiscalização e produtos",
+        "en": "Autonomous vehicles, enforcement and products"
+      },
+      "summary": {
+        "pt": "A Uber anunciou planos de ampliar sua frota de robotáxis e a reportagem sobre a Tesla situa a mudança de produção na aposta em veículos autônomos. Nenhum desses planos comprova implantação na escala prometida. Na rodovia dos Tamoios, câmeras sinalizam possíveis infrações a serem avaliadas pela polícia rodoviária. Os testes da Apple na China registram uma implantação parcial, sujeita a condições regulatórias locais.",
+        "en": "Uber announced plans to expand its robotaxi fleet, and reporting on Tesla connects a production change to its autonomous-vehicle strategy. Neither plan establishes deployment at the scale promised. On the Tamoios highway, cameras flag possible infractions for highway police to assess. Apple’s tests in China represent a partial rollout subject to local regulatory conditions."
+      },
+      "sourceIds": [
+        "d4aefd9f21ee21",
+        "0ac094c8db4dbf",
+        "71005411abb2c0",
+        "97db86b475ec54"
+      ]
+    }
+  ]
+}

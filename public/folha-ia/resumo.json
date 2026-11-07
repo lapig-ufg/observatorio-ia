@@ -1,11 +1,7 @@
 {
-  "total": 6986,
-  "lastDate": "2026-10-31",
+  "total": 7060,
+  "lastDate": "2026-11-07",
   "monthlyCounts": [
-    {
-      "month": "2025-11",
-      "count": 259
-    },
     {
       "month": "2025-12",
       "count": 250
@@ -48,24 +44,28 @@
     },
     {
       "month": "2026-10",
-      "count": 370
+      "count": 375
+    },
+    {
+      "month": "2026-11",
+      "count": 69
     }
   ],
   "articles": [
     {
-      "date": "2026-10-31",
-      "title": "Precarização dos artistas vem de muito antes da IA, diz escritor Odorico Leal — entrevista sobre trabalho artístico e ficção; avaliações do escritor não são previsões demonstradas",
-      "url": "https://www1.folha.uol.com.br/ilustrada/2026/10/precarizacao-dos-artistas-vem-de-muito-antes-da-ia-diz-escritor-odorico-leal.shtml"
+      "date": "2026-11-07",
+      "title": "A bolha das ações de inteligência artificial está prestes a estourar? — Coluna examina sinais de fragilidade das ações de IA e o efeito de licenças e alavancagem, sem prever com certeza o fim da alta.",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/11/a-bolha-das-acoes-de-inteligencia-artificial-esta-prestes-a-estourar.shtml"
     },
     {
-      "date": "2026-10-30",
-      "title": "Ações de tecnologia desabam nos EUA com novas dúvidas sobre gastos em IA — queda das ações evidencia receios com investimentos; desvalorização não equivale a desembolso",
-      "url": "https://www1.folha.uol.com.br/mercado/2026/10/nasdaq-cai-ao-menor-nivel-em-tres-meses-com-duvidas-sobre-gastos-com-ia.shtml"
+      "date": "2026-11-07",
+      "title": "Anthropic avança com IPO mirando avaliação de US$ 1,5 trilhão — Financial Times relata planos de abertura de capital e estimativas de investidores; preço e data da operação seguem incertos.",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/11/anthropic-avanca-com-ipo-mirando-avaliacao-de-us-15-trilhao.shtml"
     },
     {
-      "date": "2026-10-30",
-      "title": "Blackstone vê risco de Anthropic ficar sem grau de investimento após IPO — avaliação de risco de crédito é prospectiva, não classificação definitiva após abertura de capital",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/10/blackstone-ve-risco-de-anthropic-ficar-sem-grau-de-investimento-apos-ipo.shtml"
+      "date": "2026-11-06",
+      "title": "Ações dos EUA ensaiam recuperação tímida após derrocada de US$ 3,2 tri por temores com a IA — Reportagem registra recuperação parcial após a queda de capitalização em Wall Street e descreve expectativas sobre centros de dados.",
+      "url": "https://c-level.folha.uol.com.br/negocios/2026/11/acoes-dos-eua-ensaiam-recuperacao-timida-apos-derrocada-de-us-32-tri-por-temores-com-a-ia.shtml"
     }
   ]
 }
