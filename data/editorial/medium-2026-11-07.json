@@ -1,0 +1,158 @@
+{
+  "collection": "medium",
+  "dateBasis": "included",
+  "start": "2026-11-07",
+  "end": "2026-11-07",
+  "reviewedAt": "2026-11-07",
+  "expectedCount": 64,
+  "title": {
+    "pt": "Agentes em operação e o trabalho de verificar",
+    "en": "Agents in operation and the work of verification"
+  },
+  "summary": {
+    "pt": "Nesta edição, 64 leituras discutem como medir o que a IA faz depois da demonstração. Agentes e aplicações são o maior grupo, com 25 textos. Estratégia e mercado reúnem 17, aprendizagem 11, modelos sete, Transformers três e gestão do conhecimento um. Ensaios sobre orquestração e guias de segurança mostram onde verificar o resultado, enquanto comparações de modelos e relatos de computação local esclarecem como hardware, tarefa e política de retenção mudam a avaliação. Textos sobre matemática, astronomia e edição de pesos mostram a diferença entre um resultado anunciado, uma demonstração delimitada e confirmação independente. Os números da edição descrevem o corpus, e não a frequência desses fenômenos no setor.",
+    "en": "In this edition, 64 readings discuss how to measure what AI does after the demo. Agents and applications form the largest group with 25 texts. Strategy and markets account for 17, learning for 11, models for seven, Transformers for three and knowledge management for one. Essays on orchestration and security guides show where to verify outcomes, while model comparisons and local computing accounts clarify how hardware, task and retention policy change the assessment. Articles on mathematics, astronomy and weight editing illustrate the distinction between an announced result, a bounded demonstration and independent confirmation. The edition’s counts describe the corpus rather than the prevalence of these phenomena in the industry."
+  },
+  "method": {
+    "pt": "Esta edição reúne inclusões do Medium Digest em 07/11/2026. A fila tinha 69 candidatos capturados entre 31/10 e 07/11 e observados até 09:59:46 BRT de 07/11 (12:59:46 UTC). A coleta informa apenas o dia. Capturas que chegarem depois do corte pertencem ao ciclo seguinte. Um registro já concluído foi identificado por ID e URL. O texto renderizado dos outros 68 originais foi lido em sessão autenticada. Uma segunda duplicata foi detectada pelo conteúdo e três textos foram descartados pelos critérios editoriais. As 64 fichas preservam as datas de publicação de 16/09 a 06/11 e o título do original. A data de inclusão delimita o lote desta edição, separado das entradas avulsas da coleção. Cada texto tem um tema principal. Relatos, opiniões, anúncios, preprints e resultados de experimentos são tratados conforme sua fonte. O levantamento não reproduziu os testes nem verificou independentemente todos os estudos, gráficos ou preços mencionados.",
+    "en": "This edition covers Medium Digest additions on 7 November 2026. The queue contained 69 candidates collected from 31 October through 7 November and observed by 09:59:46 Brasília time on 7 November (12:59:46 UTC). The collection records show dates only. Captures arriving after the cutoff belong to the next cycle. One previously completed record was identified by ID and URL. The full rendered text of the other 68 originals was read in the authenticated session. Content review identified a second duplicate, and three texts were rejected under the editorial criteria. The 64 entries retain original titles and publication dates from 16 September through 6 November. The addition date defines this edition’s batch, separately from individual editorial submissions to the collection. Each text has one primary topic. Accounts, opinions, announcements, preprints and experiments are treated according to their source. The survey did not reproduce the trials or independently verify every cited study, chart or price."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Agentes, RAG e aplicações",
+        "en": "Agents, RAG and applications"
+      },
+      "summary": {
+        "pt": "As 25 leituras tratam de permissões, limites de retentativa, contexto, conectores e critérios de sucesso. O estudo de injeção discutido no corpus distingue recusa de falha mecânica e ilustra por que a taxa de ataque precisa ser lida ao lado da conclusão da tarefa. A máquina de estados para disputas de pagamento é um exemplo hipotético, e o cluster Slurm para agentes é uma proposta de arquitetura. Ambos ajudam a formular testes de idempotência, alocação e verificação do resultado. Guias de SKILL.md, MCP e Claude Code explicam mecanismos, com exemplos que dependem da versão e dos limites de acesso.",
+        "en": "The 25 readings cover permissions, retry bounds, context, connectors and success criteria. The injection study discussed in the corpus distinguishes refusal from mechanical failure and illustrates why attack rates belong alongside task-completion rates. The payment-dispute state machine is a hypothetical example, and the Slurm cluster for agents is an architectural proposal. Both help frame tests of idempotency, resource allocation and outcome verification. Guides to SKILL.md, MCP and Claude Code explain mechanisms through examples that depend on version and access boundaries."
+      },
+      "sourceIds": [
+        "medium-e57c6275efe0",
+        "medium-277f41f50ce3",
+        "medium-1b0bd9b2c05b",
+        "medium-f3d1b2ca8465",
+        "medium-9738697352d6",
+        "medium-13749320ad3a",
+        "medium-bbb46a9c1383",
+        "medium-6e18fb4ae539",
+        "medium-00c0b7aa7678",
+        "medium-6df413dd548a",
+        "medium-6dacc961edd5",
+        "medium-e8bd0ca0400f",
+        "medium-14753023e334",
+        "medium-6025497cb0c4",
+        "medium-1cd4993130da",
+        "medium-14fd4ebeaad7",
+        "medium-54c98991fa32",
+        "medium-b4e25a26f6d8",
+        "medium-aa960eea2b1a",
+        "medium-782b92740740",
+        "medium-54da30a81549",
+        "medium-3133a3bccc87",
+        "medium-86942723f850",
+        "medium-ec769ff63c26",
+        "medium-e286483930ef"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Estratégia, mercado e impactos",
+        "en": "Strategy, market and impacts"
+      },
+      "summary": {
+        "pt": "As 17 leituras examinam o custo de inferência, comparações de modelos e mudanças no trabalho. Um levantamento de commits com assinaturas visíveis distingue participação agregada e mediana por repositório. As proporções dependem da seleção de projetos e das formas de atribuição. Comparações de GPUs locais, ofertas gratuitas e assinaturas usam hipóteses diferentes sobre memória, uso e retenção. Análises de investimentos e abertura de capital oferecem cenários e interpretações, enquanto as entrevistas sobre sistemas de design mostram como a revisão pode virar gargalo. Nenhuma dessas fontes, isoladamente, estima o efeito médio sobre custo ou produtividade.",
+        "en": "The 17 readings examine inference costs, model comparisons and changes in work. A survey of commits with visible signatures distinguishes aggregate participation from the median by repository. The proportions depend on project selection and attribution methods. Comparisons of local GPUs, free offers and subscriptions use different assumptions about memory, usage and retention. Analyses of investment and public listings offer scenarios and interpretations, while interviews about design systems show how review can become a bottleneck. None of these sources alone estimates an average effect on cost or productivity."
+      },
+      "sourceIds": [
+        "medium-512444108d41",
+        "medium-fbd13ecb311e",
+        "medium-4c6a784ff990",
+        "medium-3ac051efe88d",
+        "medium-26c76998c367",
+        "medium-deb6191c3f65",
+        "medium-959617069358",
+        "medium-1fa5bcdf6089",
+        "medium-5f32cda76d02",
+        "medium-2f009af603a3",
+        "medium-c406b328ca9d",
+        "medium-1f58938e8d10",
+        "medium-5a2d8ddf727f",
+        "medium-d4e8e8f4ceb2",
+        "medium-ce9c0c56cf72",
+        "medium-bacf7d1e226d",
+        "medium-a45453ed34a4"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aprendizado, pesquisa e produtividade",
+        "en": "Learning, research and productivity"
+      },
+      "summary": {
+        "pt": "As 11 leituras vão da montagem de cadernos com fontes ao estudo ativo, à documentação de código e à divulgação científica. Os guias do Gemini Notebook separam organização de material, prática de recuperação e formulação de perguntas. As citações permitem voltar ao trecho de origem, mas a seleção do corpus e a qualidade da leitura ainda importam. Os relatos sobre um candidato a planeta e algoritmos para satisfatibilidade exemplificam estágios distintos da investigação. Identificar um candidato, conferir uma prova formal e obter avaliação independente são etapas com exigências diferentes.",
+        "en": "The 11 readings range from building source-based notebooks to active study, code documentation and science reporting. The Gemini Notebook guides separate organizing material, practicing recall and formulating questions. Citations support a return to the original passage, while corpus selection and reading quality still matter. Accounts of a planet candidate and satisfiability algorithms illustrate different stages of inquiry. Identifying a candidate, checking a formal proof and obtaining independent assessment have distinct requirements."
+      },
+      "sourceIds": [
+        "medium-b07fa351caa9",
+        "medium-7a2dea395403",
+        "medium-0b3bafbec5f5",
+        "medium-5c88752ee694",
+        "medium-1ac935ed822e",
+        "medium-6ea3b0672932",
+        "medium-9665e93ca2ba",
+        "medium-d0c00731837d",
+        "medium-5bbbd7ead2d6",
+        "medium-d3980ea2cc7c",
+        "medium-fdb7b15f631b"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos de linguagem e IA generativa",
+        "en": "Language models and generative AI"
+      },
+      "summary": {
+        "pt": "As sete leituras cobrem edição de pesos, modalidades de geração, abertura e riscos de interpretação. O relato sobre um Qwen pequeno descreve uma edição que mitigou repetição no experimento citado, com outro modelo sem melhora comparável. Na produção de áudio e vídeo, demonstrações ajudam a explicar o controle gerativo, mas deixam questões de fidelidade e validação independente. Artigos sobre comportamento de chatbots e consciência distinguem alegações, precauções e interpretações. O acesso aos pesos amplia opções de operação e inspeção, sujeito a licenças e aos materiais disponíveis para auditoria.",
+        "en": "The seven readings cover weight editing, generative modalities, openness and interpretive risks. The account of a small Qwen model describes an edit that reduced repetition in the cited experiment, with no comparable gain on another model. In audio and video production, demonstrations explain generative control while leaving questions of fidelity and independent validation. Articles on chatbot behavior and consciousness distinguish allegations, precautions and interpretations. Access to weights expands operational and inspection options, subject to licensing and the material available for auditing."
+      },
+      "sourceIds": [
+        "medium-ec2c6caf9986",
+        "medium-3a6c3b267a1c",
+        "medium-55f2267c3903",
+        "medium-a9eadc2ab19f",
+        "medium-cc4fcde803a0",
+        "medium-86bd54dede17",
+        "medium-e84aabffa4e6"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Transformers e mecanismos de atenção",
+        "en": "Transformers and attention mechanisms"
+      },
+      "summary": {
+        "pt": "Três leituras examinam recorrência em profundidade, previsão de múltiplos tokens e integração de imagens. O ensaio com Huginn em uma A100 reutiliza parâmetros ao longo das iterações, o que ainda custa computação. A análise de Soft-MTP distingue o ganho incremental relatado em preprint da aceleração total por decodificação especulativa. O percurso de CLIP, ViT e LLaVA mostra por que transcrever uma imagem, interpretar suas relações e explicar uma causa são tarefas separadas. Cada resultado depende da configuração avaliada.",
+        "en": "Three readings examine depth recurrence, multi-token prediction and image integration. The Huginn trial on an A100 reuses parameters across iterations, which still cost computation. The Soft-MTP analysis distinguishes the incremental gain reported in a preprint from the total speedup from speculative decoding. The path through CLIP, ViT and LLaVA shows why transcribing an image, interpreting its relationships and explaining a cause are separate tasks. Each result depends on the evaluated setup."
+      },
+      "sourceIds": [
+        "medium-3f199ec2f3fb",
+        "medium-6789450a8310",
+        "medium-0dff60f866ae"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Dados, vetores e gestão do conhecimento",
+        "en": "Data, vectors and knowledge management"
+      },
+      "summary": {
+        "pt": "Uma leitura propõe um acervo local em Markdown com originais protegidos contra escrita, páginas derivadas com referências e histórico de alterações. O desenho separa ingestão, curadoria e consulta, tornando possível examinar a origem de uma resposta e registrar contradições. Trata-se de um roteiro técnico e comercial do autor. A receita do título é uma simulação de vendas, sem demonstração de ganhos.",
+        "en": "One reading proposes a local Markdown archive with write-protected originals, source-linked derivative pages and a change history. Its design separates ingestion, curation and retrieval, making it possible to inspect where an answer came from and record contradictions. This is the author’s technical and commercial workflow. The headline revenue is a sales simulation without demonstrated earnings."
+      },
+      "sourceIds": [
+        "medium-abb75fcb8e2e"
+      ]
+    }
+  ]
+}
