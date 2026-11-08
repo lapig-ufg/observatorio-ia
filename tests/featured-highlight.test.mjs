@@ -2,18 +2,28 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 
-test("destaque bilíngue liga a aula e o levantamento e preserva as edições anteriores", () => {
+test("destaque bilíngue reúne relatório, explorador e podcast e preserva as edições anteriores", () => {
   const feature = fs.readFileSync("src/FeaturedDebate.tsx", "utf8");
   const pt = fs.readFileSync("src/App.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8");
   const en = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8");
 
-  assert.match(feature, /Do neurônio ao campus: entender para decidir/);
-  assert.match(feature, /From neuron to campus: understand, then decide/);
-  assert.match(feature, /1 a 7 nov 2026/);
-  assert.match(feature, /não um orçamento ou uma decisão de compra/);
-  assert.match(feature, /available in Portuguese/);
-  assert.doesNotMatch(feature, /observatorio-ia\/en\/#levantamentos\/ia-propria/);
-  for (const link of ["https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/", "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"]) assert.equal(feature.split(link).length - 1, 4);
+  assert.match(feature, /8 a 14 nov 2026/);
+  assert.match(feature, /Nov 8–14, 2026/);
+  assert.match(feature, /244 lâminas/);
+  assert.match(feature, /244 slides/);
+  assert.match(feature, /Listen to the podcast \(Portuguese\)/);
+  assert.match(feature, /https:\/\/www\.stateof\.ai\/State-of-AI-Report-2026\.pdf/);
+  assert.match(feature, /https:\/\/www\.stateof\.ai\/2026-explore\//);
+  assert.match(feature, /https:\/\/drive\.google\.com\/file\/d\/1t6HZOeQTxRr_Jp6CIVfmQUJPDdZaiY-K\/view/);
+  assert.match(feature, /nove capítulos/);
+  assert.match(feature, /nine chapters/);
+  for (const file of ["infraestrutura-ia-2026-11-08.png", "infraestrutura-ia-2026-11-08-640.webp", "infraestrutura-ia-2026-11-08-1280.webp"]) assert.ok(fs.existsSync(`public/covers/${file}`));
+  assert.match(pt, /Do neurônio ao campus: entender para decidir/);
+  assert.match(en, /From neuron to campus: understand, then decide/);
+  for (const link of ["https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/", "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"]) {
+    assert.ok(pt.includes(link));
+    assert.ok(en.includes(link));
+  }
   for (const file of ["do-neuronio-ao-campus-2026-11-01.png", "do-neuronio-ao-campus-2026-11-01-640.webp", "do-neuronio-ao-campus-2026-11-01-1280.webp"]) assert.ok(fs.existsSync(`public/covers/${file}`));
   assert.match(pt, /Magnifica Humanitas: a dignidade humana na era da IA/);
   assert.match(en, /Magnifica Humanitas: human dignity in the age of AI/);

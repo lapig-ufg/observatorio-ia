@@ -77,6 +77,23 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    "date": "1 a 7 de novembro de 2026",
+    "source": "Observatório UFG-IA · aula interativa e levantamento",
+    "title": "Do neurônio ao campus: entender para decidir",
+    "summary": "Uma rede pequena e treinável torna visível o aprendizado, da passagem direta à atualização dos pesos. O levantamento compara estimativas de operação de IA própria no campus com a contratação por uso.",
+    "links": [
+      {
+        "label": "Explorar a rede neural",
+        "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/"
+      },
+      {
+        "label": "Quanto custa uma IA própria?",
+        "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
+      }
+    ],
+    "eventLabel": "do-neuronio-ao-campus-20261101"
+  },
+  {
     "date": "25 a 31 de outubro de 2026",
     "source": "Leão XIV / Santa Sé · curadoria do Observatório UFG-IA",
     "title": "Magnifica Humanitas: a dignidade humana na era da IA",

@@ -10,11 +10,14 @@ test('published manifest includes every current material with its actual kind an
   const m = featuredManifest(source);
   assert.equal(m.schemaVersion, 1);
   assert.match(m.startsOn, /^\d{4}-\d{2}-\d{2}$/);
-  assert.equal(m.materials.length, 2);
-  assert.deepEqual(m.materials.map(x => x.kind), ['lesson', 'survey']);
-  assert.equal(m.materials[0].href, 'https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/');
-  assert.equal(m.materials[1].href, 'https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria');
-  assert.throws(() => featuredManifest(source.replaceAll('"kind": "lesson"', '"kind": "unknown"')), /Invalid featured/);
+  assert.equal(m.materials.length, 3);
+  assert.deepEqual(m.materials.map(x => x.kind), ['presentation', 'document', 'audio']);
+  assert.deepEqual(m.materials.map(x => x.href), [
+    'https://www.stateof.ai/State-of-AI-Report-2026.pdf',
+    'https://www.stateof.ai/2026-explore/',
+    'https://drive.google.com/file/d/1t6HZOeQTxRr_Jp6CIVfmQUJPDdZaiY-K/view',
+  ]);
+  assert.throws(() => featuredManifest(source.replaceAll('"kind": "presentation"', '"kind": "unknown"')), /Invalid featured/);
   assert.throws(() => featuredManifest(source.replaceAll('"href":', '"missingHref":')), /Missing featured/);
 });
 

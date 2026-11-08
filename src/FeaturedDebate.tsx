@@ -6,54 +6,77 @@ import { assetUrl } from "./catalog";
 type Language = "pt" | "en";
 type MaterialKind = "audio" | "presentation" | "document" | "survey" | "lesson";
 
+const reportLinks = {
+  pdf: "https://www.stateof.ai/State-of-AI-Report-2026.pdf",
+  explorer: "https://www.stateof.ai/2026-explore/",
+  podcast: "https://drive.google.com/file/d/1t6HZOeQTxRr_Jp6CIVfmQUJPDdZaiY-K/view",
+} as const;
+
 const editions = {
   "pt": {
-    "startsOn": "2026-10-31",
+    "startsOn": "2026-11-08",
     "kicker": "Em destaque...",
-    "period": "1 a 7 nov 2026 · redes neurais e IA na universidade",
-    "eyebrow": "Aprender por dentro, decidir com fundamento",
-    "title": "Do neurônio ao campus: entender para decidir",
-    "lead": "Como uma rede neural aprende — e o que é preciso para manter uma IA na universidade? Explore uma rede pequena, treinável e totalmente visível; depois, examine os custos e as escolhas de infraestrutura de uma IA própria no campus.",
-    "first": "Na aula interativa, uma rede com duas entradas, três neurônios ocultos e uma saída permite acompanhar o ciclo de aprendizado: passagem direta, cálculo do erro, retropropagação e atualização dos pesos. Os cinco playgrounds rodam no navegador, com números e operações à vista.",
-    "second": "O levantamento compara a compra e a operação de um modelo de pesos abertos por cinco anos com a contratação por uso. Equipamentos, equipe, energia, manutenção, demanda e redundância entram na discussão. São estimativas para orientar o debate, não um orçamento ou uma decisão de compra; operar esse modelo institucional é uma questão distinta de treinar a pequena rede didática.",
-    "imageAlt": "Gravura em verde e cobre sobre papel claro: uma rede de neurônios desenhada em um caderno aberto se conecta a um gabinete de servidores, com edifícios universitários ao fundo.",
-    "imageCredit": "Gravura editorial: Observatório UFG-IA · gerada com IA; composição simbólica",
-    "explore": "Dois caminhos complementares",
-    "note": "Dois conteúdos do Observatório UFG-IA.",
+    "period": "8 a 14 nov 2026 · o panorama anual da IA",
+    "eyebrow": "Modelos, aplicações e infraestrutura",
+    "title": "State of AI Report 2026",
+    "lead": "De agentes e robótica à energia que sustenta os centros de dados. Conheça o panorama anual de Nathan Benaich e da Air Street Capital pelo relatório completo, pelo Explorador Web ou pelo podcast em português.",
+    "first": "O relatório tem 244 lâminas. Depois da introdução, organiza-se em cinco seções: pesquisa, indústria, política e regulação, segurança e previsões. A última seção avalia as previsões da edição anterior e apresenta as dos autores para 2027.",
+    "second": "O Explorador reorganiza o relatório em nove capítulos, com texto, gráficos interativos e links para lâminas específicas. Ao comparar as fontes, vale distinguir resultados de estudos e benchmarks, métricas divulgadas por empresas e previsões dos autores.",
+    "imageAlt": "Gravura de um centro de dados em corte, com fileiras de servidores entre uma subestação elétrica e o sistema de refrigeração.",
+    "imageCredit": "Gravura editorial do Observatório UFG-IA · gerada com IA",
+    "explore": "Três formas de acompanhar a edição",
+    "note": "Relatório e Explorador em inglês. Podcast em português, com 21 min.",
     "quick": [
       {
-        "kind": "lesson",
-        "label": "Explorar a rede neural",
-        "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/"
+        "kind": "presentation",
+        "label": "Abrir o PDF · 244 lâminas",
+        "href": reportLinks.pdf
       },
       {
-        "kind": "survey",
-        "label": "Quanto custa uma IA própria?",
-        "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
+        "kind": "document",
+        "label": "Explorar a edição de 2026",
+        "href": reportLinks.explorer
+      },
+      {
+        "kind": "audio",
+        "label": "Ouvir o podcast",
+        "href": reportLinks.podcast
       }
     ],
     "cards": [
       {
-        "meta": "Aula interativa · Por dentro da IA",
-        "title": "Como construir uma rede neural pequena, treinável e totalmente visível",
-        "description": "Do neurônio à atualização dos pesos: 26 capítulos e cinco playgrounds para construir, inspecionar e treinar uma rede no navegador.",
+        "meta": "Relatório original · PDF em inglês",
+        "title": "As 244 lâminas do State of AI Report 2026",
+        "description": "Pesquisa, indústria, política e regulação, segurança e previsões. Para ver como o Explorador remete às fontes, abra a lâmina numerada 14 sobre agentes, que é a página 15 do PDF.",
         "links": [
           {
-            "kind": "lesson",
-            "label": "Abrir a aula de redes neurais",
-            "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/"
+            "kind": "presentation",
+            "label": "Abrir relatório completo",
+            "href": reportLinks.pdf
           }
         ]
       },
       {
-        "meta": "Levantamento · infraestrutura e custos",
-        "title": "Quanto custa ter uma IA própria rodando dentro da universidade?",
-        "description": "Compare cenários de público e redundância, custos de compra e operação por cinco anos e a alternativa de pagar por uso. Consulte as hipóteses e os limites de cada estimativa.",
+        "meta": "Explorador Web · nove capítulos em inglês",
+        "title": "Explore the 2026 report",
+        "description": "Progresso da IA, agentes, computação e infraestrutura, negócios, robótica, ciência, política e geopolítica, segurança e previsões.",
         "links": [
           {
-            "kind": "survey",
-            "label": "Explorar o levantamento",
-            "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
+            "kind": "document",
+            "label": "Abrir o Explorador Web",
+            "href": reportLinks.explorer
+          }
+        ]
+      },
+      {
+        "meta": "Podcast complementar · M4A em português · 21 min",
+        "title": "O gargalo da IA é físico",
+        "description": "Síntese em áudio do Explorador Web, com o tema da infraestrutura em primeiro plano.",
+        "links": [
+          {
+            "kind": "audio",
+            "label": "Ouvir no Google Drive",
+            "href": reportLinks.podcast
           }
         ]
       }
@@ -61,50 +84,67 @@ const editions = {
   },
   "en": {
     "kicker": "Featured",
-    "period": "Nov 1–7, 2026 · neural networks and AI at university",
-    "eyebrow": "Understand the workings, make informed choices",
-    "title": "From neuron to campus: understand, then decide",
-    "lead": "How does a neural network learn — and what does it take to run AI at a university? Explore a small, trainable, fully visible network, then examine the costs and infrastructure choices involved in running AI on campus.",
-    "first": "In the interactive class, a network with two inputs, three hidden neurons and one output reveals the learning cycle: forward propagation, error calculation, backpropagation and weight updates. Five playgrounds run in the browser, keeping numbers and operations visible.",
-    "second": "The survey compares purchasing and operating an open-weight model over five years with paying for usage. Equipment, staffing, energy, maintenance, demand and redundancy all enter the discussion. These estimates inform debate; they are not a budget or procurement decision. Operating that institutional model is a different task from training the small teaching network.",
-    "imageAlt": "An engraving in green and copper on light paper: a neural network drawn in an open notebook connects to a server cabinet, with university buildings in the background.",
-    "imageCredit": "Editorial engraving: UFG-AI Observatory · AI-generated symbolic composition",
-    "explore": "Two complementary paths",
-    "note": "Two Observatory resources, available in Portuguese.",
+    "period": "Nov 8–14, 2026 · the annual AI report",
+    "eyebrow": "Models, applications and infrastructure",
+    "title": "State of AI Report 2026",
+    "lead": "From agents and robotics to the electricity that powers data centres. Explore Nathan Benaich and Air Street Capital’s annual survey through the full report, the web explorer or a companion podcast in Portuguese.",
+    "first": "The report contains 244 slides. After the introduction, it has five sections: research, industry, politics and regulation, safety, and predictions. The final section grades last year’s predictions and presents the authors’ forecasts for 2027.",
+    "second": "The web explorer reorganises the report into nine chapters, with text, interactive charts and links to specific slides. The sources range from studies and benchmarks to figures reported by companies and the authors’ own forecasts.",
+    "imageAlt": "An engraving of a data centre in cutaway, with rows of servers between an electrical substation and the cooling system.",
+    "imageCredit": "Editorial engraving by the UFG-AI Observatory · AI-generated",
+    "explore": "Three ways to explore the report",
+    "note": "Report and web explorer in English. Podcast in Portuguese, 21 min.",
     "quick": [
       {
-        "kind": "lesson",
-        "label": "Explore the neural network (Portuguese)",
-        "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/"
+        "kind": "presentation",
+        "label": "Open the PDF · 244 slides",
+        "href": reportLinks.pdf
       },
       {
-        "kind": "survey",
-        "label": "The cost of on-campus AI (Portuguese)",
-        "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
+        "kind": "document",
+        "label": "Explore the 2026 report",
+        "href": reportLinks.explorer
+      },
+      {
+        "kind": "audio",
+        "label": "Listen to the podcast (Portuguese)",
+        "href": reportLinks.podcast
       }
     ],
     "cards": [
       {
-        "meta": "Interactive class · Inside AI · Portuguese",
-        "title": "Build a small, trainable, fully visible neural network",
-        "description": "From a neuron to weight updates: 26 chapters and five playgrounds for building, inspecting and training a network in your browser.",
+        "meta": "Original report · PDF in English",
+        "title": "All 244 slides of the State of AI Report 2026",
+        "description": "Research, industry, politics and regulation, safety, and predictions. To see how the explorer links back to the source, open the agent slide numbered 14, which is page 15 of the PDF.",
         "links": [
           {
-            "kind": "lesson",
-            "label": "Open the neural network class (Portuguese)",
-            "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/"
+            "kind": "presentation",
+            "label": "Open the full report",
+            "href": reportLinks.pdf
           }
         ]
       },
       {
-        "meta": "Survey · infrastructure and costs · Portuguese",
-        "title": "What does it cost to run AI within a university?",
-        "description": "Compare audience sizes and redundancy, five-year purchase and operating costs, and the pay-per-use alternative. Check the assumptions and limits behind each estimate.",
+        "meta": "Web explorer · nine chapters in English",
+        "title": "Explore the 2026 report",
+        "description": "AI progress, agents, compute and infrastructure, business, robotics, science, policy and geopolitics, safety, and predictions.",
         "links": [
           {
-            "kind": "survey",
-            "label": "Explore the survey (Portuguese)",
-            "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
+            "kind": "document",
+            "label": "Open the web explorer",
+            "href": reportLinks.explorer
+          }
+        ]
+      },
+      {
+        "meta": "Companion podcast · M4A in Portuguese · 21 min",
+        "title": "O gargalo da IA é físico",
+        "description": "An audio summary of the web explorer with an emphasis on the physical infrastructure behind AI.",
+        "links": [
+          {
+            "kind": "audio",
+            "label": "Listen on Google Drive (Portuguese)",
+            "href": reportLinks.podcast
           }
         ]
       }
@@ -161,8 +201,8 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
       </div>
       <figure className="featured-debate-art">
         <picture>
-        <source type="image/webp" srcSet={`${assetUrl("covers/do-neuronio-ao-campus-2026-11-01-640.webp")} 640w, ${assetUrl("covers/do-neuronio-ao-campus-2026-11-01-1280.webp")} 1280w`} sizes="(max-width: 700px) calc(100vw - 64px), 550px" />
-        <img src={assetUrl("covers/do-neuronio-ao-campus-2026-11-01.png")} alt={edition.imageAlt} width="1536" height="1024" decoding="async" />
+          <source type="image/webp" srcSet={`${assetUrl("covers/infraestrutura-ia-2026-11-08-640.webp")} 640w, ${assetUrl("covers/infraestrutura-ia-2026-11-08-1280.webp")} 1280w`} sizes="(max-width: 700px) calc(100vw - 64px), 550px" />
+          <img src={assetUrl("covers/infraestrutura-ia-2026-11-08.png")} alt={edition.imageAlt} width="1536" height="1024" decoding="async" />
         </picture>
         <figcaption>{edition.imageCredit}</figcaption>
       </figure>

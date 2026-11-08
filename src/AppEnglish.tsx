@@ -131,6 +131,23 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 
 const featuredHistoryEnglish = [
   {
+    "date": "Nov 1–7, 2026",
+    "source": "UFG-AI Observatory · interactive lesson and survey",
+    "title": "From neuron to campus: understand, then decide",
+    "summary": "A small, trainable neural network makes learning visible, from the forward pass to weight updates. The survey compares estimated on-campus AI operating costs with pay-per-use services.",
+    "links": [
+      {
+        "label": "Explore the neural network (Portuguese)",
+        "href": "https://lapig-ufg.github.io/observatorio-ia/por-dentro-da-ia/redes-neurais/"
+      },
+      {
+        "label": "The cost of on-campus AI (Portuguese)",
+        "href": "https://lapig-ufg.github.io/observatorio-ia/#levantamentos/ia-propria"
+      }
+    ],
+    "eventLabel": "do-neuronio-ao-campus-20261101"
+  },
+  {
     "date": "Oct 25, 2026 – Oct 31, 2026",
     "source": "Leo XIV / Holy See · UFG-AI Observatory curation",
     "title": "Magnifica Humanitas: human dignity in the age of AI",
