@@ -872,33 +872,127 @@
     </div>
   </section>
 
-  <section class="cena" id="maquina" data-fase="3" data-passos="1" data-titulo="A pasta inteira">
-    <div class="vitrine">
+  <section class="cena" id="dois-pedidos" data-fase="3" data-passos="2" data-titulo="O mesmo assunto, dois pedidos">
+    <div class="vitrine dois-p">
       <div class="problema" data-passo="0" data-ate="0">
         <span class="rotulo">Um problema</span>
-        <p>Um servidor recebeu as despesas do ano em 12 planilhas mensais, <em>cada uma feita por uma pessoa de um jeito</em>. Precisa juntar tudo e ver o total de cada mês.</p>
+        <p>Alguém quer ver como as cidades de Goiás mudaram ao longo dos anos: população, PIB e IDH.</p>
       </div>
-      <div class="vitrine-texto" data-passo="1">
-        <span class="rotulo">No computador, com o Antigravity</span>
-        <h2 class="titulo">Doze planilhas: juntar, conferir e corrigir</h2>
-        <p class="linha-fina">A IA juntou as planilhas de despesas e gerou o gráfico. A conferência achou acentos quebrados nas abas, no resumo e no gráfico, corrigidos num segundo pedido.</p>
-        <button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button>
+      <div class="pedido dois-p-esq" data-passo="1">
+        <span class="rotulo">Pedido 1</span>
+        <blockquote>Faça uma página sobre Goiânia com um mapa e a evolução da população, do PIB e do IDH ao longo dos anos, com dados do IBGE.</blockquote>
+        <button class="quadro-foto foto-pagina" type="button" data-src="assets/img/fase3/goiania-vago.jpg" data-nome="goiania-vago.jpg" title="Clique para ampliar">
+          <img src="assets/img/fase3/goiania-vago.jpg" alt="Página sobre Goiânia com os três gráficos vazios e um mapa esquemático">
+        </button>
+        <p class="quadro-nota">Saiu uma página bonita, mas os três gráficos ficaram vazios e o mapa foi desenhado de cabeça (ele mesmo escreveu “mapa esquemático”).</p>
       </div>
-      <div class="peca video maquina" data-passo="1" data-ao-vivo="assets/video/maquina-despesas.mp4">
-        <div class="peca-giro">
-          <div class="frente"><span class="selo-video">gravado · esperas aceleradas</span><video src="assets/video/maquina-despesas.mp4" poster="assets/video/maquina-despesas.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
-          <div class="verso">
-            <span class="rotulo">O pedido</span>
-            <blockquote>Nesta pasta estão as planilhas de despesas de 2026, uma por mês, cada uma feita de um jeito. Junte tudo numa planilha só […], com uma aba por mês e uma aba Resumo com o total de cada mês e do ano. Faça também um gráfico dos totais por mês […]. Não altere os arquivos originais.</blockquote>
-            <p class="quem">Digitado no Antigravity · 3 nov. 2026</p>
-            <dl>
-              <dt>Quem fez</dt><dd>Gemini 3.8 Flash, no Antigravity instalado</dd>
-              <dt>O que fez</dt><dd data-resumo="Antigravity: abriu as 12 planilhas da pasta, juntou tudo e fez o gráfico.">Abriu as 12 planilhas da pasta, juntou tudo numa planilha nova e fez o gráfico</dd>
-            </dl>
+      <div class="pedido dois-p-dir" data-passo="2">
+        <span class="rotulo">Pedido 2</span>
+        <blockquote>Faça um mapa de Goiás com todos os municípios, coloridos pela população, em que eu possa clicar num município e ver a população, o PIB e o IDH dele ao longo dos anos. Use dados do IBGE.</blockquote>
+        <button class="quadro-foto foto-mapa" type="button" data-src="assets/img/fase3/mapa-agente.jpg" data-nome="mapa-agente.jpg" title="Clique para ampliar">
+          <img src="assets/img/fase3/mapa-agente.jpg" alt="Mapa de Goiás com os 246 municípios coloridos pela população e as séries de Goiânia ao lado">
+        </button>
+        <p class="quadro-nota">Saiu um mapa com os 246 municípios, coloridos pela população. Clicando em Goiânia, aparecem as três séries.</p>
+      </div>
+      <p class="dois-p-fecho linha-fina" data-passo="2">O segundo pedido diz o que aparece na tela e o que acontece quando você clica. Quanto mais claro o resultado que você quer ver, menos a IA precisa adivinhar.</p>
+      <p class="dois-p-nota" data-passo="2">Os dois no app ChatGPT, conta gratuita, modelo Luna, no mesmo computador, em 9 nov. 2026.</p>
+    </div>
+  </section>
+
+  <section class="cena" id="olhou" data-fase="3" data-passos="3" data-titulo="Ele olhou antes de entregar">
+    <div class="vitrine">
+      <h2 class="titulo olhou-titulo" data-passo="1">Ele olhou antes de entregar</h2>
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Uma página feita pelo agente pode sair com um defeito que só aparece quando alguém abre.</p>
+      </div>
+      <div class="olhou-sem" data-passo="1" data-ate="1">
+        <div class="olhou-caso">
+          <span class="rotulo">Sem olhar</span>
+          <p>Numa rodada de teste, o navegador do app não abriu o arquivo do computador. O agente entregou sem olhar, e a grade de quadrados não aparecia na página.</p>
+        </div>
+        <div class="olhou-vazio" aria-hidden="true"><header><i></i><i></i><i></i></header><div></div></div>
+      </div>
+      <div class="olhou-preparo" data-passo="2" data-ate="2">
+        <span class="rotulo">Com a orientação do preparo</span>
+        <blockquote class="olhou-orientacao">Tire uma foto da página e olhe; se não rodar na área protegida, rode fora dela. Se a foto não mostrar o que foi pedido, corrija antes de entregar.</blockquote>
+        <div class="olhou-fotos">
+          <figure>
+            <button class="quadro-foto olhou-foto" type="button" data-src="assets/img/fase3/olhou-antes.jpg" data-nome="olhou-antes.jpg" title="Clique para ampliar">
+              <img src="assets/img/fase3/olhou-antes.jpg" alt="Primeira foto da página, com espaços vazios na borda do mapa de Goiânia">
+              <i class="olhou-marca" aria-hidden="true"></i>
+              <i class="olhou-marca olhou-marca-braco" aria-hidden="true"></i>
+            </button>
+            <figcaption>1ª foto: 185 quadrados</figcaption>
+          </figure>
+          <figure>
+            <button class="quadro-foto olhou-foto" type="button" data-src="assets/img/fase3/olhou-depois.jpg" data-nome="olhou-depois.jpg" title="Clique para ampliar">
+              <img src="assets/img/fase3/olhou-depois.jpg" alt="Segunda foto da mesma página, com a borda do mapa preenchida">
+            </button>
+            <figcaption>Depois de corrigir: 228 quadrados</figcaption>
+          </figure>
+        </div>
+        <p class="olhou-fala">A conferência visual está certa, mas vi espaços vazios em algumas bordas: células parcialmente dentro do município não tinham o centro dentro do limite. Vou incluí-las também.</p>
+      </div>
+      <div class="olhou-confere" data-passo="3">
+        <span class="rotulo">Ele olha. Você também confere</span>
+        <p>A foto mostra se a página abre e se o desenho está lá. Não mostra se os números estão certos. No mapa de Goiás, a população de Goiânia cai de 1.555.626 em 2021 para 1.494.599 em 2024. Não é erro do agente: o Censo 2022 corrigiu estimativas antigas. Isso só aparece para quem compara com a fonte.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="balanco-3" data-fase="3" data-passos="4" data-titulo="O que vimos na Fase 3">
+    <div class="balanco">
+      <h2 class="titulo">O agente trabalha numa pasta inteira, e você continua conferindo</h2>
+      <div class="cartoes">
+        <div class="cartao funciona" data-passo="1">
+          <figure class="mapa"><img src="assets/img/fase3/mapa-agente.jpg" alt="Mapa de Goiás com os 246 municípios coloridos pela população"></figure>
+          <b>Funciona</b>
+          <p>Ele renomeou e separou os comprovantes da viagem a Campinas e fez a planilha com o total, R$ 1.550,74. Fez um certificado em PDF para cada uma das 16 pessoas, a partir da planilha e do modelo do Word. Montou o mapa dos 246 municípios de Goiás com dados do IBGE.</p>
+        </div>
+        <div class="cartao confira" data-passo="2">
+          <figure class="conta viagem" aria-label="Viagem a Campinas: o hotel contado duas vezes daria R$ 2.790,74; o certo é R$ 1.550,74">
+            <span class="qual">Viagem a Campinas</span>
+            <span class="linha ele">hotel duas vezes <b>R$ 2.790,74</b></span>
+            <span class="linha">certo <b>R$ 1.550,74</b></span>
+          </figure>
+          <b>Confira sempre</b>
+          <p>O voucher e o Pix do hotel são o mesmo gasto. Somados duas vezes, o total iria a R$ 2.790,74. Na planilha dos certificados, 4 pessoas se inscreveram duas vezes. Compare o total e a lista com os arquivos.</p>
+        </div>
+        <div class="cartao olha" data-passo="3">
+          <figure class="mapa baixo"><img src="assets/img/fase3/olhou-depois.jpg" alt="A página conferida, com a grade de quadrados preenchida até a borda do mapa"></figure>
+          <b>Peça que ele olhe</b>
+          <p>O preparo deixa gravada a orientação de testar antes de entregar. Com ela, o agente abriu a página, viu os buracos na borda e corrigiu sozinho.</p>
+        </div>
+        <div class="cartao escolha" data-passo="4">
+          <figure class="marcas" aria-hidden="true"><i></i><i class="meio"></i><i></i></figure>
+          <b>A permissão é sua</b>
+          <p>Em Aprovar por mim, um segundo modelo lê o que o agente vai fazer e só chama você quando vê risco, explicando em português. Não existe modo certo para todo mundo. No curso, usamos esse.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="fim" data-fase="3" data-passos="1" data-titulo="Fim do curso">
+    <div class="fim-cena">
+      <div class="fim-abre" data-passo="0" data-ate="0">
+        <h2 class="titulo">A IA traduz <em>nas duas direções</em></h2>
+        <p class="linha-fina">A sua ideia vira código, e o que o código vai fazer volta em português. Não é preciso dominar nenhuma linguagem de programação. É preciso saber o que pedir e conferir o que voltou.</p>
+      </div>
+      <div class="fim-fecha" data-passo="1">
+        <h2 class="titulo">A IA traduz <em>nas duas direções</em></h2>
+        <div class="fim-corpo">
+          <ul class="fim-itens">
+            <li>Tudo o que vimos fica no site do curso: os pedidos, os arquivos e os exemplos gravados.</li>
+            <li>Travou num exercício? Pergunte à coruja, no canto de cada página.</li>
+            <li>Comece por um problema seu, pequeno, em cópias dos seus arquivos.</li>
+          </ul>
+          <div class="fim-qr">
+            <div class="qr-codigo"></div>
+            <span class="fim-qr-legenda">Site do curso</span>
           </div>
         </div>
       </div>
-      <button class="virar" type="button">Virar <kbd>V</kbd></button>
     </div>
   </section>
 
@@ -975,6 +1069,45 @@
   document.querySelectorAll(".cena").forEach((c) => c.addEventListener("tecla", (e) => {
     if (window.Coruja?.apresentando) { window.Coruja.pular(); e.preventDefault(); }
   }));
+
+  // Fim do curso: o QR aponta para o endereço público, mesmo com a aula rodando no PC.
+  (() => {
+    const alvo = document.querySelector("#fim .qr-codigo");
+    if (!alvo || !window.qrcode || !window.CURSO_PUBLICO) return;
+    const qr = qrcode(0, "M");
+    qr.addData(window.CURSO_PUBLICO);
+    qr.make();
+    alvo.innerHTML = qr.createSvgTag({ cellSize: 8, margin: 0, scalable: true });
+    alvo.querySelector("svg").setAttribute("aria-label", "QR code para o site do curso");
+  })();
+
+  // Os quadros de foto abrem a imagem inteira na lupa da Fase 3.
+  (() => {
+    document.querySelectorAll(".cena").forEach((cena) => {
+      const fotos = cena.querySelectorAll(".quadro-foto[data-src]");
+      if (!fotos.length) return;
+      const lupa = document.createElement("button");
+      lupa.type = "button"; lupa.className = "f3-lupa"; lupa.hidden = true;
+      lupa.innerHTML = '<figure><img alt=""><figcaption></figcaption></figure>';
+      cena.append(lupa);
+      const fechar = () => { lupa.hidden = true; };
+      lupa.addEventListener("click", fechar);
+      fotos.forEach((foto) => foto.addEventListener("click", () => {
+        const origem = foto.querySelector("img");
+        lupa.querySelector("img").src = foto.dataset.src;
+        lupa.querySelector("img").alt = origem ? origem.alt : "";
+        lupa.querySelector("figcaption").innerHTML = `<b>${foto.dataset.nome || ""}</b>Esc ou clique para fechar`;
+        lupa.hidden = false;
+      }));
+      cena.addEventListener("tecla", (e) => {
+        if (lupa.hidden) return;
+        if (e.detail.key === "Escape") fechar();
+        e.preventDefault();
+      });
+      cena.addEventListener("passo", fechar);
+      cena.addEventListener("saiu", fechar);
+    });
+  })();
 </script>
 <script src="js/gratis.js" defer></script>
 <script src="js/coruja.js" defer></script>

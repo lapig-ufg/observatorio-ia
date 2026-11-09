@@ -225,13 +225,6 @@
   .reservado b { font: 600 12px/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--terracota-escura); }
   .pasta-ex .links a { font: 600 15px/1.2 var(--sans); color: var(--verde); text-decoration: none; border-bottom: 1.5px solid rgba(17, 77, 59, .3); }
   .pasta-ex .links a:hover { border-color: var(--terracota-escura); color: var(--terracota-escura); }
-  .maquina { margin-top: 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 36px; align-items: center; }
-  .maquina .tela { position: relative; padding: 0; border: 0; border-radius: 14px; overflow: hidden; cursor: pointer; background: #000; }
-  .maquina .tela img { width: 100%; aspect-ratio: 1142 / 720; object-fit: cover; transition: filter .4s; }
-  .maquina .tela:hover img { filter: brightness(.82); }
-  .maquina .tela:hover .play { transform: scale(1.1); background: var(--terracota-escura); }
-  .maquina h3 { margin: 10px 0 10px; font: 400 clamp(26px, 3vw, 34px)/1.12 var(--serifa); }
-  .maquina p { margin: 0 0 12px; color: var(--creme-2); }
 
   /* ---------- Fim ---------- */
   .fim { padding: 80px var(--margem) 56px; text-align: center; background: var(--fundo-fora); border-top: 1px solid var(--linha); }
@@ -266,7 +259,7 @@
     .pilha { height: 380px; max-width: 560px; }
     .pilha .p2 { top: 96px; } .pilha .p3 { top: 220px; }
     .topo nav a:not(.cheio) { display: none; }
-    .instala, .maquina { grid-template-columns: 1fr; }
+    .instala { grid-template-columns: 1fr; }
     .fases { grid-template-columns: 1fr; gap: 28px; }
     .fases::before { left: 27px; right: auto; top: 28px; bottom: 28px; width: 2px; height: auto; background: linear-gradient(180deg, var(--ouro), var(--menta), var(--terracota)); }
     .fases li { padding: 0 0 0 80px; }
@@ -582,17 +575,6 @@
     </article>
   </div>
 
-  <div class="maquina surge">
-    <div>
-      <span class="rotulo">Gravado no computador</span>
-      <h3>Doze planilhas: juntar, conferir e corrigir</h3>
-      <p>Um servidor recebeu as despesas do ano em 12 planilhas mensais, cada uma feita por uma pessoa de um jeito, e precisa do total de cada mês.</p>
-      <p>A IA juntou as planilhas e gerou o gráfico. A conferência achou acentos quebrados nas abas, no resumo e no gráfico, corrigidos num segundo pedido.</p>
-    </div>
-    <button class="tela" type="button" data-video="assets/video/maquina-despesas.mp4" data-titulo="Doze planilhas: juntar, conferir e corrigir">
-      <img src="assets/video/maquina-despesas.jpg" alt="O agente trabalhando nas 12 planilhas de despesas" loading="lazy"><span class="play"><svg viewBox="0 0 24 24"><path d="M7 5v14l12-7z"/></svg></span><span class="duracao">2:50</span><span class="selo-real">esperas aceleradas</span>
-    </button>
-  </div>
 </section>
 
 <section class="fim">
