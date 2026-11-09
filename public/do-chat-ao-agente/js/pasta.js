@@ -22,11 +22,10 @@ window.PASTAS = {
     ] }],
     rodape: "3 itens",
   },
-  mudanca: {
-    caminho: "3-mudanca-de-data", paginas: true,
-    grupos: [{ arquivos: ["aviso-porta.docx", "checklist-montagem.md", "comunicado-palestrantes.txt", "convite.docx", "email-aviso.txt", "lista-presenca.txt",
-      "modelo-cracha.docx", "politica-certificados.docx", "programacao.docx", "regras-envio-trabalhos.docx", "roteiro-abertura.docx", "texto-site.md"] }],
-    rodape: "12 itens",
+  cidades: {
+    caminho: "Cidades", vazia: true,
+    grupos: [],
+    rodape: "0 itens",
   },
 };
 
@@ -42,9 +41,11 @@ window.PASTAS = {
     const cena = el.closest(".cena");
     let n = 0;
     el.innerHTML = `
-      <div class="explorador${p.grande ? " grande" : ""}${p.paginas ? " paginas" : ""}">
+      <div class="explorador${p.grande ? " grande" : ""}${p.paginas ? " paginas" : ""}${p.vazia ? " vazia" : ""}">
         <header class="exp-barra"><i></i><i></i><i></i><span class="exp-caminho"><i class="icone-pasta"></i>${esc(p.caminho)}</span></header>
-        <div class="exp-corpo">${p.grupos.map((g) => `
+        <div class="exp-corpo">${p.vazia
+          ? `<div class="exp-vazio"><i class="icone-pasta"></i><b>pasta vazia</b></div>`
+          : p.grupos.map((g) => `
           <section class="exp-grupo">
             ${g.nome ? `<h4><i class="icone-pasta"></i>${esc(g.nome)}<small>${g.arquivos.length} arquivos</small></h4>` : ""}
             <div class="exp-grade">${g.arquivos.map((x) => {
@@ -55,7 +56,7 @@ window.PASTAS = {
                 <span class="exp-nome">${quebra(a.arq)}</span></button>`;
             }).join("")}</div>
           </section>`).join("")}</div>
-        <footer class="exp-rodape">${esc(p.rodape)}<span>clique num arquivo para ampliar</span></footer>
+        <footer class="exp-rodape">${esc(p.rodape)}${p.vazia ? "" : "<span>clique num arquivo para ampliar</span>"}</footer>
       </div>`;
 
     // A lupa mora na cena, por cima de tudo, e é um botão: o clique não vira "avançar".

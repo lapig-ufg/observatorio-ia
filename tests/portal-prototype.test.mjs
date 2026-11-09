@@ -56,7 +56,7 @@ test("initiative count uses the same editorial combination as the page and previ
 test("PT menu and sitemap share five sections with explicit product routes", () => {
   assert.deepEqual(portalNavigation.map(section => section.label), ["Panorama", "Levantamentos", "Acervo", "Atualidade", "IA na UFG", "Sobre"]);
   assert.deepEqual(portalNavigation[0].links.map(link => link.href), ["#panorama", "#panorama/guia", "#panorama/gratuitos", "#panorama/como-usar"]);
-  assert.deepEqual(portalNavigation[2].links.map(link => link.href), ["#acervo", "#leituras-em-ia", "por-dentro-da-ia/"]);
+  assert.deepEqual(portalNavigation[2].links.map(link => link.href), ["#acervo", "#leituras-em-ia", "por-dentro-da-ia/", "do-chat-ao-agente/"]);
   assert.deepEqual(portalNavigation[1].links.map(link => link.href), ["#levantamentos/politicas-ia", "#levantamentos/ia-propria"]);
   assert.deepEqual(portalNavigation[3].links.map(link => link.href), ["#em-destaque", "#ia-como-noticia-diaria"]);
   for (const section of portalNavigation) for (const link of section.links || []) assert.ok(link.description && link.event);

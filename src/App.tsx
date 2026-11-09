@@ -73,6 +73,19 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
     // O serviço de favicons retorna 404 para este curso; o ícone padrão já o representa.
     useFavicon: false,
   },
+  {
+    id: "curso-do-chat-ao-agente",
+    acronym: "CHAT→AGENTE",
+    name: "Do chat ao agente: IA trabalhando no seu computador",
+    summary: "Curso prático do Observatório UFG-IA para quem já usa chat de IA e quer deixá-la trabalhar nos próprios arquivos, com segurança e conferindo o resultado. Usa só ferramentas gratuitas.",
+    areas: ["Curso prático", "Agentes de IA", "Ferramentas gratuitas", "Sem programação"],
+    url: "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/",
+    sourceUrl: "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/",
+    color: "verde",
+    order: -1,
+    actionLabel: "Conhecer curso",
+    useFavicon: false,
+  },
 ];
 
 const featuredHistory = [

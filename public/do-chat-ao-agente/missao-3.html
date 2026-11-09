@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missão 3: ache o erro</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Do chat ao agente, Missão 3: conferir um relatório que a IA preencheu e achar o número errado.">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/curso.css">
+</head>
+<body class="pagina-missao">
+
+<header class="topo">
+  <a class="marca" href="https://lapig-ufg.github.io/observatorio-ia/">
+    <img src="assets/brand/observatorio-coruja.svg" alt="">
+    <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
+  </a>
+  <span class="espaco"></span>
+  <button class="botao" data-acao="aula" type="button" title="Mostra uma tela por vez, para o professor projetar na sala. Para voltar, aperte L.">Modo apresentação (professor)</button>
+</header>
+
+<nav class="trilha" aria-hidden="true"></nav>
+<button class="sair-aula" data-acao="leitura" type="button">Sair da projeção (L)</button>
+
+<main>
+
+  <section class="tela" id="missao" data-bloco="Missão 3" data-min="35" data-titulo="Missão 3: ache o erro">
+    <div class="cabeca">
+      <p class="faca-comigo">Missão 3 de 5</p>
+      <h2>Ache o erro</h2>
+      <p class="lead">A IA preencheu este relatório com os números das planilhas da Missão 1. Uma coisa está errada. O total está certo.</p>
+    </div>
+    <figure class="relatorio-mini">
+      <figcaption>Relatório parcial · Execução financeira <small>(resumida aqui; o total inclui junho a agosto)</small></figcaption>
+      <table>
+        <tr><td>Janeiro</td><td>R$ 3.460,67</td></tr>
+        <tr><td>Fevereiro</td><td>R$ 9.613,07</td></tr>
+        <tr><td>Março</td><td>R$ 3.687,19</td></tr>
+        <tr><td>Abril</td><td>R$ 13.986,91</td></tr>
+        <tr><td>Maio</td><td>R$ 5.005,10</td></tr>
+        <tr><td>…</td><td>…</td></tr>
+        <tr class="total"><td>Total</td><td>R$ 59.818,50</td></tr>
+      </table>
+      <p>“O maior gasto foi em março, mês da primeira campanha de campo.”</p>
+    </figure>
+    <p class="so-leitura missao-kit">O relatório é fictício. <a class="botao cheio" href="kit/missao-3.zip" download>Baixar o kit da Missão 3</a></p>
+    <div class="so-leitura antes-de-comecar">
+      <h3>Antes de começar</h3>
+      <ol>
+        <li>Faça no notebook ou computador, não no celular: o kit e o app ChatGPT precisam estar na mesma máquina.</li>
+        <li>O app ChatGPT precisa estar instalado (<a href="instalar.html">como instalar</a>).</li>
+        <li>Clique em <b>Baixar o kit</b>. O arquivo .zip vai para a pasta <b>Downloads</b>. Abra o Explorador de Arquivos, vá em Downloads, clique com o botão direito no .zip e escolha <b>Extrair tudo</b> (no Windows 11, às vezes está em <b>Mostrar mais opções</b>). Trabalhe na pasta extraída: se o endereço no alto da janela termina em .zip, você ainda está dentro do arquivo.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="tela" id="passos" data-bloco="Missão 3" data-titulo="Faça comigo">
+    <div class="cabeca">
+      <p class="faca-comigo">Faça comigo</p>
+      <h2>Ache o erro</h2>
+    </div>
+    <ol class="foco">
+      <li data-passo="0" data-rotulo="Lado a lado">
+        <div class="foco-texto">
+          <p class="foco-acao">Abra os dois lado a lado</p>
+          <p class="foco-dica">O relatório no Word e a planilha que você juntou na Missão 1. Primeiro, confira você mesmo, sem IA.</p>
+        </div>
+      </li>
+      <li data-passo="1" data-rotulo="Mês a mês">
+        <div class="foco-texto">
+          <p class="foco-acao">Compare mês a mês</p>
+          <p class="foco-dica">Somar o total não adianta: ele está certo. O erro está numa linha.</p>
+        </div>
+      </li>
+      <li data-passo="2" data-rotulo="Ler o texto">
+        <div class="foco-texto">
+          <p class="foco-acao">Leia o texto do relatório</p>
+          <p class="foco-dica">Ele diz que março foi o mês de maior gasto. A tabela concorda?</p>
+        </div>
+      </li>
+      <li data-passo="3" data-rotulo="Segunda conferência">
+        <div class="foco-texto">
+          <p class="foco-acao">Agora peça a uma conversa nova</p>
+          <p class="foco-dica so-leitura">Copie a pasta missao-3, abra a cópia no app ChatGPT como projeto e comece uma conversa nova. Cole o pedido na caixa de mensagem e aperte Enter.</p>
+          <p class="pedido-cores">
+            <span class="p1">Leia o relatório e as planilhas da pasta despesas-2026.</span>
+            <span class="p2">Confira se cada número do relatório bate com as planilhas.</span>
+            <span class="p3">Salve a conferência em conferencia.md.</span>
+            <span class="p4">Não altere o relatório nem as planilhas.</span>
+          </p>
+          <button type="button" class="copiar so-leitura" data-copiar="Leia o relatório e as planilhas da pasta despesas-2026. Confira se cada número do relatório bate com as planilhas. Salve a conferência em conferencia.md. Não altere o relatório nem as planilhas.">Copiar o pedido</button>
+        </div>
+      </li>
+      <li data-passo="4" data-rotulo="Comparar">
+        <div class="foco-texto">
+          <p class="foco-acao">Você e a IA acharam o mesmo?</p>
+          <p class="foco-dica">Uma conversa nova não sabe o que a outra fez. Por isso ela serve para conferir.</p>
+        </div>
+      </li>
+    </ol>
+    <details class="so-leitura gabarito">
+      <summary>Ver a resposta (só depois de comparar)</summary>
+      <p>Os valores de <b>março</b> (R$ 13.986,91) e <b>abril</b> (R$ 3.687,19) estão trocados. Como a soma não muda, só acha quem confere linha por linha, ou quem nota que o texto diz “maior gasto em março”.</p>
+    </details>
+  </section>
+
+  <section class="tela so-aula" id="resposta" data-bloco="Missão 3" data-titulo="A resposta">
+    <div class="cabeca">
+      <h2>Março e abril trocados</h2>
+      <p class="lead">Março gastou R$ 13.986,91 e abril R$ 3.687,19. O relatório pôs um no lugar do outro. Como a soma não muda, só acha quem confere linha por linha.</p>
+    </div>
+  </section>
+
+  <section class="tela-extra so-leitura" id="gravacao" data-titulo="A gravação e os problemas comuns">
+    <div class="cabeca"><h2>Deu errado?</h2></div>
+    <dl class="deu-errado">
+      <dt>Ela disse que está tudo certo</dt>
+      <dd>Peça de novo, mais exato: “Compare cada mês do relatório com o total da planilha daquele mês.”</dd>
+      <dt>Ela leu arquivos de fora da pasta</dt>
+      <dd>Acontece: um agente pode procurar em pastas vizinhas. É por isso que se abre só a pasta da missão, e que os seus arquivos de verdade não ficam ao lado.</dd>
+      <dt>Ela corrigiu o relatório sem pedir</dt>
+      <dd>Você trabalhou na cópia. Extraia o .zip de novo e diga: “Só confira. Não altere o relatório.”</dd>
+    </dl>
+  </section>
+
+  <nav class="proxima so-leitura"><a class="botao cheio" href="missao-4.html">Próxima: Missão 4 →</a></nav>
+
+</main>
+
+<footer class="rodape-leitura">
+  <p><a href="missoes.html">Todas as missões</a> · <a href="instalar.html">Instalar</a> · <a href="missao-1.html">Missão 1</a> · <a href="missao-2.html">Missão 2</a> · <b>Missão 3</b> · <a href="missao-4.html">Missão 4</a> · <a href="missao-5.html">Missão 5</a></p>
+  <p>Do chat ao agente · Observatório UFG-IA · LAPIG/IESA/UFG. Os arquivos das missões são fictícios.</p>
+</footer>
+
+<div class="indice" role="dialog" aria-label="Índice das telas"><ol></ol></div>
+
+<script src="js/motor.js"></script>
+<script src="js/telas-pratica.js"></script>
+<script src="js/coruja.js" defer></script>
+</body>
+</html>

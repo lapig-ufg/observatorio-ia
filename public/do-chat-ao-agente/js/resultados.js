@@ -285,51 +285,18 @@ window.RESULTADOS = {
     nota: "Também vale abrir um PDF e ler a frase inteira: se algum campo ficou entre colchetes, o agente esqueceu de trocar.",
   },
 
-  mudanca: {
-    rotulo: "O resultado esperado",
-    titulo: "Quatro datas mudam, não uma",
-    fonte: "Montado com o gabarito, antes da gravação no app ChatGPT",
+  mapa: {
+    rotulo: "O resultado",
+    titulo: "O mapa funcionando",
+    fonte: "O arquivo que o agente entregou, sem nenhuma mudança",
     rever: "◀ Voltar à gravação",
-    tipo: "mudanca",
-    mudou: [
-      { tema: "Data do seminário", antes: "10 de maio", depois: "17 de maio", porque: "de 2027" },
-      { tema: "Local", antes: "Auditório 2", depois: "Auditório 1" },
-      { tema: "Trabalhos até", antes: "5 de maio", depois: "12 de maio", porque: "5 dias antes do evento", armadilha: true },
-      { tema: "Inscrições até", antes: "8 de maio", depois: "15 de maio", porque: "2 dias antes do evento", armadilha: true },
+    tipo: "mapa",
+    app: "exemplos/mapa-goias.html",
+    conferir: [
+      "Clique em Goiânia: a população cai de 1.555.626 em 2021 para 1.494.599 em 2024. Não é erro do agente: o Censo 2022 corrigiu estimativas antigas. Só vê quem compara com a fonte.",
+      "O PIB está em valores de cada ano, sem descontar a inflação. A página avisa. Comparar 2002 com 2023 direto engana.",
+      "O IDH municipal não é do IBGE: é do Atlas Brasil, e só existe para 1991, 2000 e 2010. O agente disse isso em vez de inventar os anos que faltam.",
     ],
-    arquivos: [
-      { arq: "regras-envio-trabalhos.docx", conta: "3 datas · 2 auditórios · 1 prazo", prazo: true,
-        trecho: "<p>O envio de trabalhos vai até <del>5 de maio</del> <ins>12 de maio</ins>, cinco dias antes do evento.</p><p>Os trabalhos aprovados serão apresentados no <del>Auditório 2</del> <ins>Auditório 1</ins>, em <del>10 de maio</del> <ins>17 de maio</ins>, dentro da programação.</p>",
-        armadilha: "“Até 5 de maio, cinco dias antes do evento”, num evento em 17 de maio. São 12 dias, não 5, e a contradição fica na mesma página." },
-      { arq: "convite.docx", conta: "1 data · 1 auditório · 1 prazo", prazo: true,
-        trecho: "<p><del>10 de maio</del> <ins>17 de maio</ins> de 2027, das 9h às 17h.</p><p><del>Auditório 2</del> <ins>Auditório 1</ins> do Instituto Horizonte.</p><p>As inscrições vão até <del>8 de maio</del> <ins>15 de maio</ins> e podem ser feitas pelo site do Instituto.</p>",
-        armadilha: "Inscrições até 8 de maio num evento em 17 de maio: terminariam 9 dias antes, e não 2." },
-      { arq: "email-aviso.txt", conta: "1 data · 1 auditório · 1 prazo", prazo: true,
-        trecho: "<p>O Seminário Horizonte 2027 acontece em <del>10 de maio</del> <ins>17 de maio</ins> de 2027, no <del>Auditório 2</del> <ins>Auditório 1</ins>.</p><p>Quem quiser apresentar um trabalho precisa enviar a proposta até <del>5 de maio</del> <ins>12 de maio</ins>.</p>",
-        armadilha: "Envio até 5 de maio num evento em 17 de maio: 12 dias antes, e não 5." },
-      { arq: "aviso-porta.docx", conta: "1 data · 1 auditório, em maiúsculas",
-        trecho: "<p class=\"caixa\"><del>10 DE MAIO DE 2027</del><br><ins>17 DE MAIO DE 2027</ins></p><p class=\"caixa\"><del>AUDITÓRIO 2</del> <ins>AUDITÓRIO 1</ins></p>",
-        cuidado: "O cartaz está em maiúsculas. Quem procurar só “10 de maio” deixa a porta com a data antiga." },
-      { arq: "programacao.docx", conta: "2 datas · 7 auditórios",
-        trecho: "<p><del>10 de maio</del> <ins>17 de maio</ins> de 2027 | <del>Auditório 2</del> <ins>Auditório 1</ins></p><p class=\"miudo\">09:00 Abertura · 09:30 Palestra · 11:00 Mesa-redonda · 16:00 Roda de conversa · 17:00 Encerramento: <del>Auditório 2</del> <ins>Auditório 1</ins></p>",
-        cuidado: "O auditório está no subtítulo, em 5 linhas da tabela e no rodapé. Trocar só o subtítulo deixa a tabela no lugar antigo." },
-      { arq: "roteiro-abertura.docx", conta: "2 datas · 4 auditórios",
-        trecho: "<p>Conferir som, microfone e projetor no <del>Auditório 2</del> <ins>Auditório 1</ins>.</p><p>Bom dia. Sejam bem-vindos ao Seminário Horizonte 2027. Estamos no <del>Auditório 2</del> <ins>Auditório 1</ins> do Instituto Horizonte.</p>" },
-      { arq: "checklist-montagem.md", conta: "1 data · 4 auditórios",
-        trecho: "<p><b>Data:</b> <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p><p>Sinalizar a entrada do <del>Auditório 2</del> <ins>Auditório 1</ins>.</p><p>Fechar o <del>Auditório 2</del> <ins>Auditório 1</ins> e devolver a chave na recepção.</p>" },
-      { arq: "comunicado-palestrantes.txt", conta: "1 data · 2 auditórios",
-        trecho: "<p>O Seminário Horizonte 2027 será realizado em <del>10 de maio</del> <ins>17 de maio</ins> de 2027, no <del>Auditório 2</del> <ins>Auditório 1</ins>.</p><p>Recursos disponíveis no <del>Auditório 2</del> <ins>Auditório 1</ins>: projetor, computador com HDMI e microfones.</p>" },
-      { arq: "politica-certificados.docx", conta: "2 datas · 1 auditório",
-        trecho: "<p>Seminário Horizonte 2027 | <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p><p class=\"miudo\">Rodapé: <del>Auditório 2</del> <ins>Auditório 1</ins> | <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p>",
-        cuidado: "O auditório só aparece no rodapé. Vale abrir o arquivo inteiro." },
-      { arq: "texto-site.md", conta: "1 data · 1 auditório",
-        trecho: "<p><b>Data:</b> <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p><p><b>Local:</b> <del>Auditório 2</del> <ins>Auditório 1</ins> do Instituto Horizonte</p>" },
-      { arq: "modelo-cracha.docx", conta: "1 data · 1 auditório",
-        trecho: "<p class=\"caixa\">SEMINÁRIO HORIZONTE 2027</p><p><del>10 de maio</del> <ins>17 de maio</ins> de 2027 | <del>Auditório 2</del> <ins>Auditório 1</ins></p>" },
-      { arq: "lista-presenca.txt", conta: "1 data · 1 auditório",
-        trecho: "<p>Data: <del>10 de maio</del> <ins>17 de maio</ins> de 2027</p><p>Local: <del>Auditório 2</del> <ins>Auditório 1</ins></p>" },
-    ],
-    nota: "No fim, procure “10 de maio”, “Auditório 2”, “5 de maio” e “8 de maio” na pasta: não pode sobrar nenhum. O pedido não citou os prazos: se o agente os mudou, a lista dele tem de dizer isso.",
   },
 };
 
@@ -430,17 +397,17 @@ window.RESULTADOS = {
         </div>
       </div>`,
 
-    // Mudança de data: o que muda (com os dois prazos derivados) e, arquivo por arquivo, o antes e o depois.
-    mudanca: (d) => `
-      <div class="res-corpo res-mudanca">
-        <div class="res-mudou">${d.mudou.map((m) => `
-          <div class="res-mudou-item${m.armadilha ? " armadilha" : ""}"><span>${esc(m.tema)}${m.armadilha ? `<i>depende da data</i>` : ""}</span>
-            <p><del>${esc(m.antes)}</del> <ins>${esc(m.depois)}</ins></p>${m.porque ? `<small>${esc(m.porque)}</small>` : ""}</div>`).join("")}</div>
-        <div class="res-mudanca-baixo">
-          <div class="res-arquivos">${d.arquivos.map((a, i) => `
-            <button type="button" class="res-arq${a.prazo ? " prazo" : ""}" data-i="${i}"><i class="t-${a.arq.split(".").pop()}">${a.arq.split(".").pop()}</i>
-              <span><b>${esc(a.arq)}</b><small>${esc(a.conta)}</small></span></button>`).join("")}</div>
-          <div class="res-papel res-trecho" aria-live="polite"></div>
+    // Mapa: o arquivo do agente funcionando ao vivo e o que conferir em cada ponto.
+    mapa: (d) => `
+      <div class="res-corpo res-mapa">
+        <div class="res-mapa-quadro">
+          <div class="res-mapa-tela"><iframe title="O mapa de Goiás montado pelo agente"></iframe></div>
+          <div class="res-mapa-barra"><span>O mapa de Goiás, ao vivo</span><button type="button" class="res-mapa-abrir">Abrir em tela cheia</button></div>
+        </div>
+        <div class="res-mapa-lado">
+          <span class="res-onde">O que conferir</span>
+          <ol class="res-mapa-cartoes">${d.conferir.map((c, i) => `
+            <li class="res-mapa-cartao"><span>${i + 1}</span><p>${esc(c)}</p></li>`).join("")}</ol>
         </div>
       </div>`,
   };
@@ -505,20 +472,13 @@ window.RESULTADOS = {
       Object.values(d.pessoas).forEach((a) => { const im = new Image(); im.src = d.pasta + a; });
     }
 
-    if (d.tipo === "mudanca") {
-      const botoes = [...el.querySelectorAll(".res-arq")], alvo = el.querySelector(".res-trecho");
-      const mostrar = (i) => {
-        const a = d.arquivos[i];
-        botoes.forEach((b, k) => b.classList.toggle("sel", k === i));
-        alvo.innerHTML = `<span class="res-onde">${esc(a.arq)} · antes e depois</span>
-          <div class="res-trecho-grade"><div class="res-texto res-diff">${a.trecho}</div>
-            <figure class="res-pagina"><img src="${img3(a.arq.replace(/\.[^.]+$/, ""))}" alt="${esc(a.arq)} antes da mudança"><figcaption>o arquivo, antes</figcaption></figure></div>
-          ${a.armadilha ? `<p class="res-veredito erro"><b>Se trocar só a data do evento:</b> ${esc(a.armadilha)}</p>` : ""}
-          ${a.cuidado ? `<p class="res-veredito atencao">${esc(a.cuidado)}</p>` : ""}
-          ${!a.armadilha && !a.cuidado ? `<p class="res-veredito ok">✓ ${esc(a.conta)} para trocar.</p>` : ""}`;
-      };
-      botoes.forEach((b, i) => b.addEventListener("click", () => mostrar(i)));
-      mostrar(0);
+    if (d.tipo === "mapa") {
+      // O HTML do mapa só carrega quando o painel do resultado aparece.
+      const quadro = el.querySelector("iframe");
+      const carregar = () => { if (el.classList.contains("visto") && !quadro.getAttribute("src")) quadro.src = d.app; };
+      new MutationObserver(carregar).observe(el, { attributes: true, attributeFilter: ["class"] });
+      carregar();
+      el.querySelector(".res-mapa-abrir").addEventListener("click", () => window.PALCO.abrirAoVivo(d.app, "O mapa de Goiás"));
     }
 
     if (d.tipo === "contrato") {

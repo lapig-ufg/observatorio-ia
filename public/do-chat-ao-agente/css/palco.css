@@ -258,6 +258,12 @@ button { font: inherit; color: inherit; }
 .verso-certificados { padding: 34px 46px 28px; }
 .verso-certificados blockquote.curto { font-size: 30px; line-height: 1.25; }
 .verso-certificados dl { gap: 6px 16px; font-size: 18px; }
+/* O verso do mapa: pedido longo e três linhas de dados no cartão de 16:9. */
+.verso-mapa { padding: 28px 44px 24px; }
+.verso-mapa blockquote.curto { margin-top: 10px; font-size: 28px; line-height: 1.24; }
+.verso-mapa .quem { margin-top: 10px; font-size: 16.5px; }
+.verso-mapa dl { gap: 6px 16px; padding-top: 12px; font-size: 17px; }
+.verso-mapa dt { font-size: 15px; }
 /* O verso das viagens tem o pedido longo da parte A e quatro linhas de dados em cada parte. */
 .verso-viagens { padding: 28px 44px 22px; }
 .verso-viagens blockquote { font-size: 18.5px; line-height: 1.26; }
@@ -783,15 +789,7 @@ body.preto .tela-preta { display: block; }
 
 /* ---------- Fase 3: exemplos no computador ----------
    Passos: problema → a pasta (explorador com os arquivos reais) → sua vez →
-   lugar da gravação → resultado esperado (contas dos gabaritos). */
-
-/* Cor do tipo de arquivo, a mesma dos chips de download. */
-.res-arq i.t-pdf { background: #b8432f; }
-.res-arq i.t-docx { background: #2b5797; }
-.res-arq i {
-  flex: none; display: grid; place-items: end center; font: 700 9px/1 var(--mono); font-style: normal; text-transform: uppercase; color: #fff;
-  background: #5a6b64; clip-path: polygon(0 0, 70% 0, 100% 22%, 100% 100%, 0 100%);
-}
+   lugar da gravação → resultado. */
 
 /* O passo da pasta: texto à esquerda, a janela do explorador à direita. */
 .f3-entrada { position: absolute; inset: 0; display: grid; grid-template-columns: 400px 1fr; gap: 64px; align-items: center; padding: 0 110px; z-index: 2; }
@@ -837,6 +835,12 @@ body.preto .tela-preta { display: block; }
 .paginas .exp-mini img { transform: scale(1.35); transform-origin: 14% 0; }
 .exp-rodape { display: flex; justify-content: space-between; padding: 10px 22px 12px; border-top: 1px solid #e3ded2; font: 500 14px/1 var(--sans); color: #6b7a73; }
 .exp-rodape span { color: #a37b1c; }
+.explorador.vazia { min-height: 470px; }
+.explorador.vazia .exp-corpo { flex: 1; display: grid; place-items: center; padding: 24px; }
+.exp-vazio { display: flex; flex-direction: column; align-items: center; gap: 18px; color: #6b7a73; }
+.exp-vazio .icone-pasta { width: 72px; height: 54px; opacity: .55; }
+.exp-vazio .icone-pasta::before { width: 30px; height: 13px; top: -7px; }
+.exp-vazio b { font: 600 25px/1.2 var(--sans); }
 .cena.ativa .f3-entrada.visto:not(.passou) .exp-arq { animation: entra-arq .55s var(--curva) both; animation-delay: calc(.35s + var(--n) * 55ms); }
 @keyframes entra-arq { from { opacity: 0; translate: 0 22px; scale: .92; } to { opacity: 1; translate: 0 0; scale: 1; } }
 
@@ -906,42 +910,21 @@ body.preto .tela-preta { display: block; }
 .res-cert > img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; border-radius: 10px; box-shadow: 0 50px 120px -40px rgba(0, 0, 0, .85); }
 .res-cert-lado .res-cupom-nota p { font-size: 18px; }
 
-/* Resultado da mudança de data: o que muda e o antes e depois de cada arquivo. */
-.res-mudanca { grid-template-rows: auto 1fr; gap: 20px; }
-.res-mudou { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.res-mudou-item { padding: 14px 18px; border-radius: 14px; background: rgba(243, 239, 230, .06); border: 1px solid var(--linha); }
-.res-mudou-item > span { display: flex; justify-content: space-between; gap: 8px; font: 600 13px/1.2 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--creme-3); }
-.res-mudou-item i { font: 700 11px/1 var(--sans); font-style: normal; letter-spacing: .06em; color: #10211b; background: var(--ouro); padding: 3px 8px; border-radius: 999px; }
-.res-mudou-item p { margin: 8px 0 0; font: 400 26px/1.15 var(--serifa); }
-.res-mudou-item del { color: var(--creme-3); text-decoration-color: var(--terracota); font-size: .8em; margin-right: 6px; }
-.res-mudou-item ins { text-decoration: none; color: var(--creme); }
-.res-mudou-item small { display: block; margin-top: 4px; font-size: 15px; color: var(--creme-2); }
-.res-mudou-item.armadilha { border-color: rgba(232, 194, 106, .6); background: rgba(232, 194, 106, .08); }
-.res-mudanca-baixo { min-height: 0; display: grid; grid-template-columns: 1fr 1.2fr; gap: 28px; }
-.res-arquivos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start; }
-.res-arq { cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 7px 12px; border-radius: 12px; background: rgba(243, 239, 230, .05); border: 1px solid var(--linha); color: var(--creme); text-align: left; min-width: 0; }
-.res-arq i { width: 26px; height: 32px; padding-bottom: 5px; font-size: 7px; }
-.res-arq span { min-width: 0; }
-.res-arq b { display: block; font: 600 14px/1.25 var(--mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.res-arq small { display: block; font-size: 13px; color: var(--creme-3); }
-.res-arq.prazo { box-shadow: inset 4px 0 0 var(--ouro); }
-.res-arq.prazo small { color: var(--ouro); }
-.res-arq:hover { border-color: rgba(243, 239, 230, .4); }
-.res-arq.sel { background: rgba(243, 239, 230, .14); border-color: var(--creme); }
-.res-trecho { padding: 26px 32px; gap: 14px; }
-.res-diff p { margin: 0 0 12px; font-size: 24px; line-height: 1.5; }
-.res-diff del { color: #8a8f8c; text-decoration-color: #b8432f; text-decoration-thickness: 2px; }
-.res-diff ins { text-decoration: none; background: #cfe8d9; color: #0f3d2a; padding: 0 5px; border-radius: 4px; font-weight: 600; }
-.res-diff .caixa { font: 700 26px/1.4 var(--sans); color: #1f3864; letter-spacing: .02em; }
-.res-diff .miudo { font-size: 19px; color: #4d5f58; }
-.res-veredito.erro { color: #b8432f; }
-.res-veredito + .res-veredito { margin-top: 0; }
-.res-trecho .res-veredito { font-size: 19px; line-height: 1.4; font-weight: 500; }
-.res-trecho .res-veredito b { font-weight: 700; }
-.res-trecho-grade { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 200px; gap: 28px; align-items: start; }
-.res-pagina { margin: 0; display: flex; flex-direction: column; gap: 8px; }
-.res-pagina img { width: 100%; aspect-ratio: 210 / 250; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid #d8d2c4; background: #fff; box-shadow: 0 16px 30px -16px rgba(16, 33, 27, .5); }
-.res-pagina figcaption { font: 600 12px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #6b7a73; text-align: center; }
+/* Resultado do mapa: o arquivo do agente ao vivo e o que conferir em três cartões. */
+.res-mapa { grid-template-columns: minmax(0, 2.3fr) minmax(300px, .8fr); }
+.res-mapa-quadro { min-height: 0; border-radius: 20px; overflow: hidden; background: #f5f6f2; box-shadow: 0 50px 120px -40px rgba(0, 0, 0, .85); display: flex; flex-direction: column; }
+/* O mapa é desenhado como numa tela de notebook (150% do quadro) e reduzido: cabe a página inteira, com o mapa e o painel lado a lado. */
+.res-mapa-tela { flex: 1; min-height: 0; position: relative; overflow: hidden; }
+.res-mapa-tela iframe { position: absolute; inset: 0 auto auto 0; width: 150%; height: 150%; transform: scale(.6667); transform-origin: 0 0; border: 0; display: block; background: #f5f6f2; }
+.res-mapa-barra { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 9px 12px 9px 18px; background: #10211b; color: var(--creme-2); font: 500 15px/1.2 var(--sans); }
+.res-mapa-abrir { cursor: pointer; padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(243, 239, 230, .35); background: transparent; color: var(--creme); font: 600 15px/1 var(--sans); }
+.res-mapa-abrir:hover { border-color: var(--creme); background: rgba(243, 239, 230, .08); }
+.res-mapa-lado { min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+.res-mapa-lado > .res-onde { color: var(--terracota); font-size: 15px; }
+.res-mapa-cartoes { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.res-mapa-cartao { display: grid; grid-template-columns: 30px 1fr; gap: 12px; padding: 14px 16px; border-radius: 14px; background: rgba(243, 239, 230, .06); border: 1px solid var(--linha); }
+.res-mapa-cartao > span { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--terracota); color: #fff; font: 700 15px/1 var(--sans); }
+.res-mapa-cartao p { margin: 0; font-size: 19px; line-height: 1.4; color: var(--creme-2); }
 
 /* ---------- Fase 3: a pergunta em outra língua (cena "protecoes") ---------- */
 .prot .vitrine-texto .titulo { font-size: 58px; }

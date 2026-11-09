@@ -104,7 +104,7 @@
    "id": "pratica-3",
    "tipo": "curso",
    "titulo": "Prática no computador",
-   "texto": "Cada exercício é um projeto no app ChatGPT. Baixe o zip, abra e arraste a pasta de dentro dele para uma pasta sua de projetos. No app ChatGPT, abra essa pasta como projeto, cole o pedido e confira o que mudou nos arquivos. Guarde o zip: se algo der errado, é só arrastar a pasta de novo. No exercício das viagens são dois zips: o segundo entra depois, na mesma conversa.",
+   "texto": "Cada exercício é um projeto no app ChatGPT. Nos dois primeiros, baixe o zip, abra e arraste a pasta de dentro dele para uma pasta sua de projetos. No terceiro, crie uma pasta vazia chamada Cidades. Em todos, abra a pasta como projeto no app ChatGPT, cole o pedido e confira o que ele entregou. Guarde o zip: se algo der errado, é só arrastar a pasta de novo. No exercício das viagens são dois zips: o segundo entra depois, na mesma conversa.",
    "href": "pratica-3.html"
   },
   {
@@ -122,11 +122,11 @@
    "href": "pratica-3.html#certificados"
   },
   {
-   "id": "pratica-3-mudanca",
+   "id": "pratica-3-mapa",
    "tipo": "curso",
-   "titulo": "Prática no computador · A mudança de data",
-   "texto": "O seminário de maio mudou de data e de auditório. O organizador tem 12 arquivos para corrigir, e alguns prazos dependem da data do evento. Arquivo para baixar: mudanca-de-data.zip. Pedido: O seminário mudou de 10 para 17 de maio de 2027, e do Auditório 2 para o Auditório 1. Atualize todos os arquivos e me diga o que mudou. O que conferir: Procure “10 de maio” e “Auditório 2” na pasta: não pode sobrar nenhum. O pedido não fala dos prazos. Abra o convite e as regras de envio: as datas-limite ainda fazem sentido? A lista final cita cada arquivo e o que mudou nele?",
-   "href": "pratica-3.html#mudanca"
+   "titulo": "Prática no computador · O mapa de Goiás",
+   "texto": "Alguém quer ver como os municípios de Goiás mudaram ao longo dos anos: população, PIB e IDH. Não tem os dados em mãos e não sabe programar. Arquivo para baixar: Nada para baixar: a pasta começa vazia.. Pedido: Faça um mapa de Goiás com todos os municípios, coloridos pela população, em que eu possa clicar num município e ver a população, o PIB e o IDH dele ao longo dos anos. Use dados do IBGE. O que conferir: Abra o arquivo que ele criou: os 246 municípios aparecem coloridos? Clique em Goiânia: aparecem população, PIB e IDH? A área branca no meio é o Distrito Federal, que não é de Goiás. Ela está identificada? Anos sem dado ficam em branco, sem linha inventada? O PIB avisa que está em valores de cada ano?",
+   "href": "pratica-3.html#mapa"
   },
   {
    "id": "faq-01",

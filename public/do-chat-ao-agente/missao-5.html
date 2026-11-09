@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missão 5: a sua tarefa</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Do chat ao agente, Missão 5: resolver um problema real do seu trabalho, sem dados sensíveis.">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/curso.css">
+</head>
+<body class="pagina-missao">
+
+<header class="topo">
+  <a class="marca" href="https://lapig-ufg.github.io/observatorio-ia/">
+    <img src="assets/brand/observatorio-coruja.svg" alt="">
+    <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
+  </a>
+  <span class="espaco"></span>
+  <button class="botao" data-acao="aula" type="button" title="Mostra uma tela por vez, para o professor projetar na sala. Para voltar, aperte L.">Modo apresentação (professor)</button>
+</header>
+
+<nav class="trilha" aria-hidden="true"></nav>
+<button class="sair-aula" data-acao="leitura" type="button">Sair da projeção (L)</button>
+
+<main>
+
+  <section class="tela" id="missao" data-bloco="Missão 5" data-min="90" data-titulo="Missão 5: a sua tarefa">
+    <div class="cabeca">
+      <p class="faca-comigo">Missão 5 de 5</p>
+      <h2>A sua tarefa</h2>
+      <p class="lead">Um problema de verdade do seu trabalho, resolvido com o mesmo jeito das outras missões.</p>
+    </div>
+    <div class="cartao-tarefa">
+      <p class="cartao-rotulo">Cartão da tarefa</p>
+      <p class="cartao-linha"><span>O arquivo:</span> a planilha de frequência da turma</p>
+      <p class="cartao-linha"><span>O problema:</span> todo mês eu calculo à mão quem passou de 25% de faltas</p>
+    </div>
+    <div class="so-leitura antes-de-comecar">
+      <h3>Antes do encontro</h3>
+      <ol>
+        <li>Escolha <b>um</b> arquivo e escreva o cartão da tarefa: qual arquivo, qual problema, numa frase cada.</li>
+        <li>A regra: <b>se você não mostraria esse arquivo no projetor, ele não entra.</b> Nada de nome de aluno com nota, CPF, matrícula, salário, dado de saúde ou processo.</li>
+        <li>Sem tarefa? Use uma das tarefas reserva: um ofício para padronizar, um edital para resumir, uma planilha de notas, notas fiscais para uma prestação de contas ou e-mails de alunos para responder.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="tela" id="passos" data-bloco="Missão 5" data-titulo="Passo a passo">
+    <div class="cabeca">
+      <p class="faca-comigo">Passo a passo</p>
+      <h2>A sua tarefa</h2>
+    </div>
+    <ol class="foco">
+      <li data-passo="0" data-rotulo="Tirar os nomes">
+        <div class="foco-texto">
+          <p class="foco-acao">Tire os dados pessoais antes</p>
+          <p class="foco-dica">Numa cópia, troque nomes por A, B, C e apague o que identifica alguém. Faça isso você, no Word ou no Excel: pedir à IA já mandaria os dados para ela.</p>
+        </div>
+      </li>
+      <li data-passo="1" data-rotulo="Pasta própria">
+        <div class="foco-texto">
+          <p class="foco-acao">Uma pasta só para esta tarefa</p>
+          <p class="foco-dica">Crie uma pasta, ponha nela só a cópia sem nomes, e abra essa pasta no app ChatGPT.</p>
+        </div>
+      </li>
+      <li data-passo="2" data-rotulo="Pedido">
+        <div class="foco-texto">
+          <p class="foco-acao">Escreva o pedido em quatro partes</p>
+          <p class="pedido-cores">
+            <span class="p1">Onde ler.</span>
+            <span class="p2">O que fazer.</span>
+            <span class="p3">Onde salvar.</span>
+            <span class="p4">No que não mexer.</span>
+          </p>
+          <p class="foco-dica so-leitura">Para montar com ajuda, use o <a href="index-antigo.html#quatro-partes">montador de pedido</a>.</p>
+        </div>
+      </li>
+      <li data-passo="3" data-rotulo="Conferir em dupla">
+        <div class="foco-texto">
+          <p class="foco-acao">Peça ao colega para conferir</p>
+          <p class="foco-dica">Ele pega duas ou três linhas do resultado e compara com o arquivo de origem. Depois vocês trocam.</p>
+        </div>
+      </li>
+      <li data-passo="4" data-rotulo="Guardar o pedido">
+        <div class="foco-texto">
+          <p class="foco-acao">Guarde o pedido que funcionou</p>
+          <p class="foco-dica">Copie para um arquivo seu, o caderno de pedidos. No mês que vem, é só colar de novo, com o arquivo novo.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="tela-extra so-leitura" id="deu-errado" data-titulo="Deu errado?">
+    <div class="cabeca"><h2>Deu errado?</h2></div>
+    <dl class="deu-errado">
+      <dt>O resultado veio pela metade</dt>
+      <dd>Tarefas grandes saem melhor em partes. Peça a primeira parte, confira, e só então peça a próxima.</dd>
+      <dt>Ele entendeu outra coisa</dt>
+      <dd>Pare e reescreva o “o que fazer” com um exemplo: “Por exemplo, na linha 3, o aluno B tem 9 faltas em 30 aulas: 30%, então reprovado por falta.”</dd>
+      <dt>Ficou bom, mas não do seu jeito</dt>
+      <dd>Corrija na mesma conversa, dizendo o que manter: “Mantenha a tabela, mas ordene por nome.”</dd>
+      <dt>Percebi que um dado pessoal ficou no arquivo</dt>
+      <dd>Pare a conversa. Não repita o pedido com o arquivo; tire o dado e comece de novo numa pasta nova. Se o arquivo tinha dados de outras pessoas, avise quem cuida disso no seu setor.</dd>
+      <dt>Apareceu um aviso de limite</dt>
+      <dd>Na sala, continue no computador do colega. Em casa, o limite volta na semana seguinte; o que já foi feito fica salvo na pasta.</dd>
+    </dl>
+  </section>
+
+</main>
+
+<footer class="rodape-leitura">
+  <p><a href="missoes.html">Todas as missões</a> · <a href="instalar.html">Instalar</a> · <a href="missao-1.html">Missão 1</a> · <a href="missao-2.html">Missão 2</a> · <a href="missao-3.html">Missão 3</a> · <a href="missao-4.html">Missão 4</a> · <b>Missão 5</b></p>
+  <p>Do chat ao agente · Observatório UFG-IA · LAPIG/IESA/UFG.</p>
+</footer>
+
+<div class="indice" role="dialog" aria-label="Índice das telas"><ol></ol></div>
+
+<script src="js/motor.js"></script>
+<script src="js/telas-pratica.js"></script>
+<script src="js/coruja.js" defer></script>
+</body>
+</html>

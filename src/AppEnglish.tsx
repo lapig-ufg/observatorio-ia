@@ -79,6 +79,19 @@ const ecosystemFeaturedInitiativesEnglish: Initiative[] = [
     // O serviço de favicons retorna 404 para este curso; o ícone padrão já o representa.
     useFavicon: false,
   },
+  {
+    id: "curso-do-chat-ao-agente",
+    acronym: "CHAT→AGENTE",
+    name: "From chat to agent: AI working on your computer (in Portuguese)",
+    summary: "A hands-on course by the UFG AI Observatory for people who already use AI chat and want it to work on their own files, safely and checking the result. Free tools only.",
+    areas: ["Hands-on course", "AI agents", "Free tools", "No programming"],
+    url: "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/",
+    sourceUrl: "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/",
+    color: "verde",
+    order: -1,
+    actionLabel: "Explore the course",
+    useFavicon: false,
+  },
 ];
 
 const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "name" | "summary" | "areas">> = {

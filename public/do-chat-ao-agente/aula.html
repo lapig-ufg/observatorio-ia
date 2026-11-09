@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do chat ao agente</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Curso prático: IA trabalhando no seu computador. Observatório UFG-IA, LAPIG/IESA/UFG.">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/palco.css">
+<link rel="stylesheet" href="css/player.css">
+<script>
+  // Endereço do Apps Script que guarda as respostas. Vazio = modo de demonstração (só neste navegador).
+  window.LEVANTAMENTO_URL = "https://script.google.com/macros/s/AKfycbykx59-gRea9xsZLjSue73r9mfk-paHeXRoiRjbtQmsUaV7C5fjvDx9A_FwEsT4_ujlhw/exec";
+  // O QR code aponta para o endereço público mesmo quando a aula roda no computador local.
+  window.CURSO_PUBLICO = "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/";
+</script>
+</head>
+<body>
+
+<div class="palco">
+
+  <!-- ===================== FASE 1 ===================== -->
+
+  <section class="cena" id="capa" data-fase="1" data-titulo="Capa e levantamento">
+    <canvas class="fundo" aria-hidden="true"></canvas>
+    <div class="capa-texto">
+      <span class="rotulo">Curso prático · Observatório UFG-IA</span>
+      <h1><span>Do chat</span><span>ao <em>agente</em></span></h1>
+      <p class="linha-fina">IA trabalhando no seu computador</p>
+    </div>
+    <div class="convite">
+      <span class="rotulo">Antes de começar</span>
+      <h2>Responda pelo celular</h2>
+      <div class="qr"><div></div><i class="canto c1"></i><i class="canto c2"></i><i class="canto c3"></i><i class="canto c4"></i></div>
+      <ol class="passos-qr">
+        <li><b>1</b>Abra a câmera e aponte para o código</li>
+        <li><b>2</b>Toque nas respostas: cinco perguntas, sem nome</li>
+        <li><b>3</b>Seu ponto aparece nesta tela</li>
+      </ol>
+      <div class="contagem"><b>0</b><small>pessoas responderam</small></div>
+    </div>
+    <div class="capa-assina">
+      <span><b>Victor Amaral</b></span><span class="turma"></span>
+      <span class="demo" hidden>demonstração: S simula respostas, 0 apaga, T alterna turma e todas</span>
+    </div>
+    <div class="verso-fonte" hidden>
+      <div class="verso">
+        <blockquote>Precisamos fazer esse curso ser uma experiência.</blockquote>
+        <p class="quem">Victor, ao pedir esta apresentação · 2 nov. 2026</p>
+        <span data-resumo="Claude Code: leu as conversas anteriores, propôs as três fases e escreveu o código."></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="sala" data-fase="1" data-passos="4" data-titulo="A sala em pontos">
+    <canvas class="fundo" aria-hidden="true"></canvas>
+    <div class="sala-destaque" hidden>
+      <span class="rotulo">O que mais toma o tempo</span>
+      <strong></strong>
+    </div>
+    <div class="sala-cabeca">
+      <div>
+        <span class="rotulo num"></span>
+        <h2 class="titulo"></h2>
+      </div>
+      <div class="legenda-freq" aria-label="Brilho do ponto: frequência de uso">
+        <span>cada ponto é uma pessoa · <b class="contagem-sala"></b></span>
+        <i style="background:#3f6455"></i>nunca usou
+        <i style="background:#fff6e3;box-shadow:0 0 10px #fff6e3"></i>todo dia
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="busca" data-fase="1" data-passos="4" data-titulo="O jornal e a busca">
+    <canvas class="fundo interativo" aria-label="Duas faixas de nov/2022 a out/2026: em cima, quantos textos da Folha citam inteligência artificial por mês; embaixo, a procura no Google Trends, no Brasil"></canvas>
+    <div class="folha-cabeca"><span class="rotulo">A IA no jornal e na busca</span></div>
+    <div class="folha-frase">
+      <h2 class="titulo" data-passo="0" data-ate="0">Em 2022, 48 textos por mês da Folha citavam “inteligência artificial”. Em 2026, dez vezes mais.</h2>
+      <h2 class="titulo" data-passo="1" data-ate="1">No Google, a procura por “inteligência artificial” parou de crescer em 2023.</h2>
+      <h2 class="titulo estreito" data-passo="2" data-ate="2">O Brasil não procura “inteligência artificial”. Procura o <em>ChatGPT</em>.</h2>
+      <h2 class="titulo estreito" data-passo="3" data-ate="3">O jornal e o público nem sempre olham para o mesmo lugar.</h2>
+      <h2 class="titulo estreito" data-passo="4">Os <em>agentes</em> já estão no jornal. Quase ninguém os procura.</h2>
+    </div>
+    <div class="busca-notas" aria-live="polite"></div>
+    <div class="folha-contador busca-contador" data-ate="0"><span class="numero">0</span><small>textos</small></div>
+    <p class="folha-fonte">Jornal: busca do site da Folha de S.Paulo, sem curadoria · Busca: Google Trends, Brasil · coletados em 2 nov. 2026</p>
+    <div class="dica-ponto"></div>
+    <div class="verso-fonte" hidden>
+      <div class="verso">
+        <blockquote>Mostrar esse cenário a partir do observatório, utilizando o observatório como um “meta” exemplo.</blockquote>
+        <p class="quem">Victor, nas anotações para o curso · 2 nov. 2026</p>
+        <span data-resumo="Claude Code: contou as citações na busca da Folha, cruzou com o Google Trends e desenhou o gráfico."></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="gangorra" data-fase="1" data-passos="1" data-titulo="A gangorra">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Uma professora de Física quer que a turma <em>veja</em>, e não só decore, como se calcula o centro de massa.</p>
+      </div>
+      <div class="vitrine-texto" data-passo="1">
+        <span class="rotulo">Uma conversa depois</span>
+        <h2 class="titulo">A gangorra que faz a conta</h2>
+        <p class="linha-fina">Arraste os pesos: a gangorra tomba e a fórmula se refaz com os números da tela.</p>
+        <button class="abrir" type="button">Abrir em tela cheia <kbd>Enter</kbd></button>
+      </div>
+      <div class="peca" data-passo="1" data-ao-vivo="centro-de-massa.html">
+        <div class="peca-giro">
+          <div class="frente"><iframe data-src="centro-de-massa.html" title="Gangorra do centro de massa"></iframe></div>
+          <div class="verso">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Um professor quer criar uma visualização para explicar para os seus alunos como funciona o cálculo de centro de massa.</blockquote>
+            <p class="quem">Victor, pedindo este exemplo · 2 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Claude Code</dd>
+              <dt>O que fez</dt><dd data-resumo="Claude Code: montou a gangorra, o balanço e a fórmula que se refaz a cada movimento.">Montou a gangorra, o balanço e a fórmula que se refaz a cada movimento</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="reflexo"></div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <section class="cena" id="mesa" data-fase="1" data-passos="1" data-titulo="A mesa de cartas">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Falta gente para o Uno de domingo. Dá para ter adversários que pensam cada jogada <em>sem nenhuma IA ligada</em>?</p>
+      </div>
+      <div class="vitrine-texto" data-passo="1">
+        <span class="rotulo">Uma conversa depois</span>
+        <h2 class="titulo">Quatro robôs numa mesa de Uno</h2>
+        <p class="linha-fina">A partida acontece agora, no navegador: não é um vídeo gravado, e as cartas mudam a cada jogo. Os robôs não são IAs. Cada um tem uma ficha com três regras e confere de cima para baixo; o balão mostra a regra que ele usou.</p>
+        <button class="abrir" type="button">Abrir em tela cheia <kbd>Enter</kbd></button>
+      </div>
+      <div class="peca" data-passo="1" data-ao-vivo="mesa.html">
+        <div class="peca-giro">
+          <div class="frente"><iframe data-src="mesa.html" title="Mesa de Uno com quatro robôs"></iframe></div>
+          <div class="verso">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Fazer algo bem mais impressionante, como se fosse uma mesa e tendo algum tipo de representação para cada bot.</blockquote>
+            <p class="quem">Victor, sobre a versão anterior · 2 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Claude Code (mesa e fichas) e Gemini no Antigravity (os robôs)</dd>
+              <dt>O que fez</dt><dd data-resumo="O Claude escreveu as fichas dos robôs uma vez; na partida, nenhuma IA é chamada.">Escreveu uma vez a ficha de regras de cada robô e montou a mesa; pediu ao Gemini os retratos. Na partida, nenhuma IA é chamada</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <section class="cena" id="robos" data-fase="1" data-passos="1" data-titulo="Os robôs">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Por trás da mesa</span>
+        <p>Os robôs não foram desenhados por ninguém. <em>Uma IA pediu a outra.</em></p>
+      </div>
+      <div class="vitrine-texto" data-passo="1">
+        <span class="rotulo">Uma IA pedindo a outra</span>
+        <h2 class="titulo">Quatro jeitos de jogar</h2>
+        <p class="linha-fina">A atacante, o cuidadoso, a colorida e o guardador: o jeito de cada um está no rosto e na ficha de regras.</p>
+      </div>
+      <div class="peca" data-passo="1">
+        <div class="peca-giro">
+          <div class="frente robos-frente"><img src="assets/img/bots/bia.png" alt="Bia, a confiante"><img src="assets/img/bots/caio.png" alt="Caio, o pensativo"><img src="assets/img/bots/dani.png" alt="Dani, a alegre"><img src="assets/img/bots/edu.png" alt="Edu, o desconfiado"></div>
+          <div class="verso">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Quatro bustos de robôs simpáticos, lado a lado […] cada um com uma personalidade visível no rosto: um confiante, um pensativo, um alegre, um desconfiado.</blockquote>
+            <p class="quem">Claude Code, pedindo ao Gemini (Antigravity) · 2 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, pela ferramenta de imagens do Antigravity</dd>
+              <dt>O que fez</dt><dd data-resumo="O Gemini desenhou os quatro robôs; o Claude recortou cada um e pôs na mesa.">Desenhou os quatro numa imagem só; o Claude recortou cada um e pôs na mesa</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="reflexo"></div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <section class="cena" id="observatorio" data-fase="1" data-passos="1" data-titulo="O Observatório">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Um laboratório quer acompanhar tudo o que sai sobre IA, em português, <em>sem ter uma equipe de programadores</em>.</p>
+      </div>
+      <div class="vitrine-texto" data-passo="1">
+        <span class="rotulo">Um portal</span>
+        <h2 class="titulo">Um observatório inteiro sobre IA</h2>
+        <p class="linha-fina">Mais de 1.600 materiais, as notícias de IA todo dia e aulas interativas. De onde vieram os dados que vocês acabaram de ver.</p>
+        <button class="abrir" type="button">Abrir ao vivo <kbd>Enter</kbd></button>
+      </div>
+      <div class="peca" data-passo="1" data-ao-vivo="https://lapig-ufg.github.io/observatorio-ia/">
+        <div class="peca-giro">
+          <div class="frente"><img src="assets/img/observatorio.jpg" alt="Página inicial do Observatório UFG-IA"></div>
+          <div class="verso">
+            <span class="rotulo">Os pedidos</span>
+            <blockquote>Não houve um pedido só. O portal cresceu aos poucos, um pedido de cada vez: primeiro o catálogo, depois a nuvem de palavras, as notícias do dia, as aulas.</blockquote>
+            <p class="quem">Equipe do Observatório · de julho a novembro de 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Codex, Claude Code e outras IAs de código</dd>
+              <dt>O que fez</dt><dd data-resumo="Mais de 250 versões em quatro meses, cada uma pedida em português; a equipe do LAPIG escolhe e revisa cada conteúdo.">Escreveu o código, uma versão de cada vez (mais de 250 em quatro meses); a equipe do LAPIG escolhe e revisa cada conteúdo</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="reflexo"></div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <section class="cena" id="revelacao" data-fase="1" data-passos="2" data-titulo="A revelação">
+    <div class="revela-cabeca">
+      <h2 class="titulo" data-passo="0" data-ate="0">Antes de seguir, uma pergunta: <em>quem fez tudo isso?</em></h2>
+      <h2 class="titulo" data-passo="1" data-ate="1">Tudo foi feito conversando com uma IA, em português comum.</h2>
+      <h2 class="titulo" data-passo="2">Inclusive <em>esta apresentação</em>. Hoje vocês aprendem o caminho.</h2>
+    </div>
+    <div class="cartas">
+      <div class="carta" data-de="capa"><div class="peca-giro">
+        <div class="frente"><div class="mini-capa"><b>Do chat<br>ao <em>agente</em></b></div><span>Esta apresentação</span></div>
+        <div class="verso"></div>
+      </div></div>
+      <div class="carta" data-de="busca"><div class="peca-giro">
+        <div class="frente"><div class="miniatura mini-folha"><canvas></canvas></div><span>O jornal e a busca</span></div>
+        <div class="verso"></div>
+      </div></div>
+      <div class="carta" data-de="gangorra"><div class="peca-giro">
+        <div class="frente"><img src="assets/img/gangorra.jpg" alt=""><span>A gangorra</span></div>
+        <div class="verso"></div>
+      </div></div>
+      <div class="carta" data-de="mesa"><div class="peca-giro">
+        <div class="frente"><img src="assets/img/mesa.jpg" alt=""><span>A mesa de cartas</span></div>
+        <div class="verso"></div>
+      </div></div>
+      <div class="carta" data-de="robos"><div class="peca-giro">
+        <div class="frente robos-frente"><img src="assets/img/bots/bia.png" alt=""><img src="assets/img/bots/caio.png" alt=""><img src="assets/img/bots/dani.png" alt=""><img src="assets/img/bots/edu.png" alt=""><span>Os robôs</span></div>
+        <div class="verso"></div>
+      </div></div>
+      <div class="carta" data-de="observatorio"><div class="peca-giro">
+        <div class="frente"><img src="assets/img/observatorio.jpg" alt=""><span>O Observatório</span></div>
+        <div class="verso"></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ===================== PONTE PARA A FASE 2 (em construção) ===================== -->
+
+  <section class="cena" id="ponte" data-fase="2" data-titulo="Fase 2: no navegador">
+    <div class="ponte">
+      <div class="janela">
+        <div class="janela-barra"><i></i><i></i><i></i><span>o chat de IA que você já usa</span></div>
+        <div class="janela-corpo">
+          <span class="rotulo">Fase 2 · No navegador</span>
+          <h2 class="titulo">Um problema por vez</h2>
+          <p class="comeca-por">Resolvido aqui mesmo, sem instalar nada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- IA grátis no navegador: os cartões vêm da página "IAs gratuitas" do Observatório
+       (gratuitos.json publicado; dados/gratuitos.json é a cópia de reserva, sem internet). -->
+  <section class="cena" id="gratis-navegador" data-fase="2" data-titulo="De graça no navegador">
+    <div class="gratis" data-secao="navegador">
+      <header class="gratis-cabeca">
+        <div>
+          <span class="rotulo">Antes de começar</span>
+          <h2 class="titulo">IA de graça no navegador: o que cada uma dá</h2>
+        </div>
+        <button class="abrir" type="button">Página completa <kbd>Enter</kbd></button>
+      </header>
+      <ul class="gratis-grade"></ul>
+      <p class="gratis-rodape"></p>
+    </div>
+  </section>
+
+  <section class="cena" id="monitor" data-fase="2" data-titulo="O monitor">
+    <div class="monitor">
+      <div class="monitor-texto">
+        <span class="rotulo">Durante a prática</span>
+        <h2 class="titulo">Travou? Pergunte à <em>coruja</em></h2>
+        <p class="linha-fina">O monitor do curso fica no canto de todas as páginas. Ele responde com IA e leva você à página certa.</p>
+        <ul class="monitor-pontos">
+          <li><b>Pergunte do seu jeito.</b> Pode colar a mensagem de erro que apareceu.</li>
+          <li><b>A resposta traz o link</b> para o trecho do curso que resolve.</li>
+          <li><b>Não escreva</b> nome, e-mail, CPF ou senha.</li>
+        </ul>
+      </div>
+      <div class="monitor-painel" aria-hidden="true">
+        <header><img src="assets/brand/observatorio-coruja.svg" alt=""><div><b>Pergunte ao Observatório</b><small>responde com IA</small></div></header>
+        <ol>
+          <li class="eu"><p>Por que o Windows pediu permissão para o app fazer alterações?</p></li>
+          <li class="dela"><p>É a preparação da área fechada, onde o agente lê os arquivos, e só acontece na primeira vez. Clique em <b>Sim</b> para o app ChatGPT concluir a configuração.</p><span class="link">Instalar o ChatGPT · Preparar o Windows →</span></li>
+        </ol>
+        <div class="campo">Escreva sua dúvida ou cole o erro<span>→</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cada exemplo: o problema (passo 0), a vez da turma (passo 1) e o exemplo gravado (passo 2).
+       A tela "Sua vez" vem de js/exercicios.js, a mesma fonte da página pratica.html. -->
+
+  <section class="cena" id="lousa" data-fase="2" data-passos="3" data-titulo="A lousa">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>No fim da reunião, você fotografou a lousa com as tarefas da semana. Precisa mandar a tabela para a equipe, e <em>ninguém quer digitar</em>.</p>
+      </div>
+      <div class="sua-vez" data-exercicio="lousa" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini</span>
+        <h2 class="titulo">As 7 tarefas numa tabela</h2>
+        <p class="linha-fina">Em cerca de 10 segundos, o Gemini transformou a foto da lousa escrita a giz numa tabela com tarefa, responsável e prazo. As 7 tarefas ficaram iguais às da foto.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-lousa.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-lousa.mp4" poster="assets/video/gemini-lousa.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Transforma essa foto do quadro numa tabela com as colunas tarefa, responsável e prazo.</blockquote>
+            <p class="quem">Digitado no Gemini, com a foto anexada · 3 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, no navegador</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: devolveu a tabela com as 7 tarefas da foto em menos de um minuto.">Leu a foto e devolveu a tabela com as 7 tarefas, responsáveis e prazos</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="lousa" data-passo="3"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="contrato" data-fase="2" data-passos="3" data-titulo="O contrato">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Você vai assinar o contrato de limpeza da sua padaria, de 5 páginas, e precisa entender valor, pagamento, multa e cancelamento <em>antes de assinar</em>.</p>
+      </div>
+      <div class="sua-vez" data-exercicio="contrato" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini</span>
+        <h2 class="titulo">O contrato, cláusula por cláusula</h2>
+        <p class="linha-fina">No PDF de 5 páginas, o Gemini explicou valor, pagamento, atraso e cancelamento citando as cláusulas certas. Perguntado se a empresa usa produtos ecológicos, disse que o contrato não fala disso, em vez de inventar.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-contrato.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-contrato.mp4" poster="assets/video/gemini-contrato.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos">
+            <span class="rotulo">1º pedido</span>
+            <blockquote>Vou assinar esse contrato de limpeza. Me explica em linguagem simples o que ele diz sobre o valor, o pagamento, a multa e o cancelamento, citando a cláusula de cada coisa.</blockquote>
+            <span class="rotulo rotulo-2">2º pedido</span>
+            <blockquote>A empresa usa produtos ecológicos?</blockquote>
+            <p class="quem">Digitado no Gemini, com o PDF anexado · 3 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, no navegador</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: respondeu com a cláusula de cada item e avisou que o contrato não fala de produtos ecológicos.">Explicou citando as cláusulas e admitiu o que o contrato não diz</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="contrato" data-passo="3"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="relatorio" data-fase="2" data-passos="3" data-titulo="O relatório">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>A coordenadora de um programa de oficinas precisa mandar amanhã o relatório anual para a direção, e <em>ninguém revisou o texto</em>.</p>
+      </div>
+      <div class="sua-vez" data-exercicio="relatorio" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini</span>
+        <h2 class="titulo">Dez problemas achados</h2>
+        <p class="linha-fina">O Gemini achou os 10 problemas do relatório. Na primeira resposta, entregou o texto corrigido e escolheu sozinho qual número valia, sem marcar. No Word do segundo pedido, deixou as 3 divergências entre colchetes, em vermelho, como pedido.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-relatorio.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-relatorio.mp4" poster="assets/video/gemini-relatorio.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos">
+            <span class="rotulo">1º pedido</span>
+            <blockquote>Coordeno este programa e preciso mandar este relatório para a direção amanhã. Revise o texto: corrija os erros de português e me mostre numa tabela o que mudou (trecho original, correção e motivo). Depois, aponte qualquer informação que não bate entre uma parte e outra do relatório.</blockquote>
+            <span class="rotulo rotulo-2">2º pedido</span>
+            <blockquote>Agora me devolva o relatório inteiro já corrigido, num arquivo do Word para eu baixar. Onde houver informação que não bate, deixe destacado entre colchetes para eu conferir antes de enviar.</blockquote>
+            <p class="quem">Digitado no Gemini, com o Word anexado · 3 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, no navegador</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: achou os 10 problemas do relatório e devolveu um Word corrigido.">Achou os 7 erros e as 3 informações que não batem; depois gerou o Word corrigido</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="relatorio" data-passo="3"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="planilha" data-fase="2" data-passos="3" data-titulo="A planilha">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>A organizadora de um evento online recebeu a planilha do formulário com cidades escritas de vários jeitos e <em>gente inscrita duas vezes</em>. Precisa saber quantas pessoas vêm de cada cidade.</p>
+      </div>
+      <div class="sua-vez" data-exercicio="planilha" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini</span>
+        <h2 class="titulo">A planilha contada e arrumada</h2>
+        <p class="linha-fina">Nas 159 linhas, o Gemini juntou as grafias das cidades, achou as 9 pessoas repetidas e devolveu a planilha com resumo. Por canal e por oficina, porém, contou inscrições (159) em vez de pessoas (150), sem avisar.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-planilha.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-planilha.mp4" poster="assets/video/gemini-planilha.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos">
+            <span class="rotulo">1º pedido</span>
+            <blockquote>Quero saber: quantas pessoas se inscreveram de cada cidade, por onde souberam do evento e em cada oficina? Tem alguém inscrito duas vezes? Faça um gráfico com as cidades. E me ensine a fórmula para eu fazer essa contagem sozinho no Excel da próxima vez.</blockquote>
+            <span class="rotulo rotulo-2">2º pedido</span>
+            <blockquote>Ótimo. Agora me devolva a planilha arrumada para eu baixar: com as cidades padronizadas, sem as inscrições repetidas e com uma aba de resumo com as contagens de pessoas únicas.</blockquote>
+            <p class="quem">Digitado no Gemini, com a planilha anexada · 3 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, no navegador</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: contou, achou os 9 repetidos, ensinou o CONT.SE e devolveu a planilha arrumada.">Contou por cidade, canal e oficina, achou os 9 repetidos, ensinou o CONT.SE e devolveu a planilha arrumada</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="planilha" data-passo="3"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="canvas" data-fase="2" data-passos="3" data-titulo="A calculadora">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Seis colegas dividiram as despesas da confraternização de fim de ano do setor. A Elisa não foi ao almoço, e <em>ninguém sabe quem deve quanto a quem</em>.</p>
+      </div>
+      <div class="sua-vez" data-exercicio="canvas" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini · Canvas</span>
+        <h2 class="titulo">Calculadora sob medida</h2>
+        <p class="linha-fina">Para 6 pessoas e 8 despesas, o Gemini montou uma calculadora no Canvas com total de R$ 1.528,20, igual à conta feita à mão. Com o almoço trocado de R$ 780 para R$ 900, recalculou tudo (R$ 1.648,20).</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-canvas.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-canvas.mp4" poster="assets/video/gemini-canvas.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Quero uma calculadora interativa no Canvas pra dividir os gastos da confraternização de fim de ano do nosso setor. Já deixa preenchida com a lista abaixo, mas com os valores e as pessoas editáveis. […] Cada despesa deve ser dividida em partes iguais só entre quem participou dela.</blockquote>
+            <p class="quem">Digitado no Gemini, com as 8 despesas no texto · 3 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, no navegador (Canvas)</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: criou no Canvas a calculadora que divide as 8 despesas e recalcula quando um valor muda.">Criou a calculadora, com as transferências e a conferência da conta; recalculou quando o almoço mudou</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="canvas" data-passo="3"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="cupons" data-fase="2" data-passos="3" data-titulo="Os comprovantes">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Você precisa prestar contas de 9 comprovantes de viagem fotografados com o celular, e <em>um dos cupons está desbotado</em>.</p>
+      </div>
+      <div class="sua-vez" data-exercicio="cupons" data-passo="1" data-ate="1"></div>
+      <div class="vitrine-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">Gravado no Gemini</span>
+        <h2 class="titulo">Nove comprovantes, total certo</h2>
+        <p class="linha-fina">O Gemini leu as 9 fotos de comprovantes e montou a tabela com o total certo, R$ 435,44. Acertou a data desbotada (13/07/2025), mas, num teste anterior, a mesma foto virou 19/07, sem aviso.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/gemini-cupons.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 3 nov. 2026</span><video src="assets/video/gemini-cupons.mp4" poster="assets/video/gemini-cupons.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos">
+            <span class="rotulo">O pedido</span>
+            <blockquote>Tenho 9 comprovantes de despesas de uma viagem. Quero uma tabela com data, estabelecimento, categoria e valor de cada um, e o total no final. Se algum nome ou valor estiver ilegível, escreva "ilegível" em vez de chutar.</blockquote>
+            <p class="quem">Digitado no Gemini, com as 9 fotos anexadas · 3 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>Gemini, no navegador</dd>
+              <dt>O que fez</dt><dd data-resumo="Gemini: fez a tabela dos 9 comprovantes com o total certo, R$ 435,44.">Fez a tabela dos 9 comprovantes com o total certo, inclusive a data do cupom desbotado</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="cupons" data-passo="3"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="balanco" data-fase="2" data-passos="4" data-titulo="O que vimos">
+    <div class="balanco">
+      <h2 class="titulo">O Gemini resolve tarefas no navegador, mas toda resposta precisa ser conferida</h2>
+      <div class="cartoes">
+        <div class="cartao funciona" data-passo="1"><figure><img src="assets/img/fase2/lousa-tabela.jpg" alt="A foto da lousa ao lado da tabela com as 7 tarefas feita pelo Gemini"></figure><b>Funciona</b><p>A lousa virou tabela com as 7 tarefas certas, e ele achou os 10 problemas do relatório. No contrato, citou as cláusulas certas e disse quando o contrato não falava do assunto. A calculadora fechou com a conta feita à mão, e o total dos comprovantes bateu.</p></div>
+        <div class="cartao confira" data-passo="2"><figure class="conta" aria-label="Oficina de projetos: ele contou 50; eram 46 pessoas"><span class="qual">Oficina de projetos</span><span class="linha ele">ele contou <b>50</b></span><span class="linha">pessoas <b>46</b></span></figure><b>Confira sempre</b><p>Na planilha, contou inscrições em vez de pessoas por canal e por oficina (50 na oficina de projetos, quando eram 46), sem avisar. No relatório, escolheu sozinho os números do texto corrigido. A resposta errada tem a mesma cara da certa.</p></div>
+        <div class="cartao recusa" data-passo="3"><figure><img src="assets/img/fase2/recusa-cupons.jpg" alt="Resposta do Gemini: Sou uma IA com base em texto. Isso está além das minhas capacidades."></figure><b>Se recusar, peça de novo</b><p>Nos testes, a primeira resposta às vezes foi uma recusa (“Sou uma IA com base em texto”, diante das fotos dos comprovantes). Não era verdade: o mesmo pedido, de novo, funcionou. Nas gravações finais, não recusou.</p></div>
+        <div class="cartao para" data-passo="4"><figure class="vaivem" aria-hidden="true"><span class="lado">seu computador</span><span class="trilha"><i class="doc sobe"></i><i class="doc sobe d2"></i><i class="doc desce"></i></span><span class="lado site">o site</span></figure><b>Onde ele para</b><p>No navegador, cada arquivo sobe ao site e cada resultado volta como download. Com uma pasta de dezenas de comprovantes todo mês, isso vira subir, baixar e organizar tudo à mão.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FASE 3 ===================== -->
+
+  <section class="cena" id="ponte-3" data-fase="3" data-titulo="Fase 3: no seu computador">
+    <div class="ponte-3">
+      <div class="texto">
+        <span class="rotulo">Fase 3 · No seu computador</span>
+        <h2 class="titulo">E numa pasta inteira? A IA trabalha onde os arquivos já estão</h2>
+        <p class="linha-fina">Na Fase 3, a IA instalada no seu computador lê e cria arquivos na pasta que você abrir, e você acompanha cada passo.</p>
+      </div>
+      <div class="area-de-trabalho">
+        <div class="janela">
+          <div class="janela-barra"><i></i><i></i><i></i><span>o chat de IA que você já usa</span></div>
+          <div class="janela-corpo"><p>sobe, baixa e organiza à mão</p></div>
+        </div>
+        <div class="pasta">
+          <header><i class="icone-pasta"></i>despesas-2026</header>
+          <ul><li>jan.xlsx</li><li>Fevereiro 2026.xlsx</li><li>despesas_mar.xlsx</li><li>abril-final.xlsx</li><li>maio (1).xlsx</li><li>JUN 2026.xlsx</li><li>julho.csv</li><li>ago_despesas_v2.xlsx</li><li>Setembro.xlsx</li><li>out - revisado.xlsx</li><li>nov.xlsx</li><li>dezembro 2026 FINAL.xlsx</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="gratis-instalada" data-fase="3" data-titulo="De graça no computador">
+    <div class="gratis" data-secao="instalada">
+      <header class="gratis-cabeca">
+        <div>
+          <span class="rotulo">Fase 3 · Antes de instalar</span>
+          <h2 class="titulo">IA instalada de graça: três caminhos</h2>
+        </div>
+        <button class="abrir" type="button">Página completa <kbd>Enter</kbd></button>
+      </header>
+      <ul class="gratis-grade"></ul>
+      <p class="gratis-fora"></p>
+      <p class="gratis-rodape"></p>
+    </div>
+  </section>
+
+  <!-- Instalação: o que vai acontecer (0) e a gravação da instalação, do download ao app aberto (1).
+       Vídeo: assets/video/chatgpt-instalar.mp4. -->
+  <section class="cena" id="instalar" data-fase="3" data-passos="1" data-titulo="Instalar o ChatGPT">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Antes dos exemplos</span>
+        <p>Para os exemplos desta fase, cada pessoa precisa do <em>app ChatGPT instalado no notebook</em> e conectado a uma conta.</p>
+      </div>
+      <div class="vitrine-texto" data-passo="1">
+        <span class="rotulo">Gravado no Windows</span>
+        <h2 class="titulo">Do download ao app aberto</h2>
+        <p class="linha-fina">No site chatgpt.com, baixe o ChatGPT para desktop. O instalador abre a Microsoft Store e, na primeira vez, o app prepara o Windows. As esperas aparecem aceleradas. Depois, o app abre o navegador para você entrar com a conta e volta pronto para o primeiro pedido.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button></div>
+      </div>
+      <div class="peca video instala-video" data-passo="1" data-ao-vivo="assets/video/chatgpt-instalar.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · Windows</span><video src="assets/video/chatgpt-instalar.mp4" poster="assets/video/chatgpt-instalar.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso">
+            <span class="rotulo">O passo a passo</span>
+            <ol class="passos-instalar">
+              <li>No Google, busque <b>chatgpt download</b>. O resultado leva a <b>chatgpt.com</b>, na página <b>Baixe o ChatGPT para desktop</b>. Clique em <b>Baixar para Windows</b>.</li>
+              <li>A Microsoft Store abre e baixa o app (cerca de 1 GB). Depois aparece <b>Abrindo ChatGPT…</b>.</li>
+              <li>O app abre em <b>Entrar no ChatGPT</b>. O login abre no navegador: escolha a conta e volte ao app.</li>
+              <li>O app avisa que vai preparar o Windows. Clique em <b>Continuar</b> e responda <b>Sim</b> na janela de permissão do Windows.</li>
+              <li><b>Concluindo a configuração do Windows</b> termina em <b>A configuração do Windows foi concluída</b>. Isso só acontece na primeira vez.</li>
+            </ol>
+            <p class="quem">Gravado com uma conta gratuita · Windows</p>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+    </div>
+  </section>
+
+  <!-- A pergunta em outra língua: o problema (0), os três modos de permissão do
+       app ChatGPT no mesmo teste (1), a escolha do curso (2) e o fecho (3).
+       Linhas e textos reais do teste de 07/11/2026 (mapa de Goiânia), no app
+       ChatGPT, modelo Luna, raciocínio Alto. -->
+  <section class="cena" id="protecoes" data-fase="3" data-passos="3" data-titulo="A pergunta em outra língua">
+    <div class="vitrine prot">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Aprovar no escuro</span>
+        <p>O agente pede licença para fazer algo e mostra uma linha que parece outra língua. Você clica em “Permitir” porque precisa terminar o trabalho. <em>Teria clicado igual se a linha apagasse tudo.</em></p>
+      </div>
+
+      <div class="vitrine-texto prot-intro" data-passo="1" data-ate="1">
+        <span class="rotulo">A mesma saída, três modos</span>
+        <h2 class="titulo">Três modos de deixar o agente agir</h2>
+        <p class="linha-fina">Os três mostram o mesmo momento do teste do curso: o agente precisa da internet para buscar dados públicos do IBGE e a previsão do tempo (Open-Meteo) e montar um mapa de Goiânia.</p>
+      </div>
+
+      <div class="prot-modos" data-passo="1" data-ate="1">
+        <article class="prot-cartao">
+          <header class="prot-cartao-topo">
+            <span class="prot-modo-num">1</span>
+            <h3 class="prot-nome">Solicitar aprovação</h3>
+          </header>
+          <div class="prot-desenho">
+            <div class="prot-pedido" aria-hidden="true">
+              <div class="prot-pedido-topo"><i class="prot-cadeado"></i><span>pedido de aprovação</span></div>
+              <code title="$u='https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5208707?formato=application/vnd.geo+json&amp;qualidade=intermediaria'; $r=Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 60"><span>$u='https://servicodados.ibge.gov.br/api/v3/</span><span>malhas/municipios/5208707?formato=</span><span>application/vnd.geo+json&amp;qualidade=</span><span>intermediaria'; $r=Invoke-WebRequest</span><span>-Uri $u -UseBasicParsing -TimeoutSec 60</span></code>
+              <div class="prot-botoes"><span class="prot-permitir">Permitir</span><span class="prot-recusar">Recusar</span></div>
+            </div>
+          </div>
+          <p class="prot-frase">Você decide cada passo, mas a pergunta vem na língua do computador.</p>
+          <div class="prot-balanca">
+            <p class="prot-vantagem"><b>Vantagem</b>nada acontece sem você.</p>
+            <p class="prot-risco"><b>Risco</b>se você não entende a linha, aprova no escuro.</p>
+          </div>
+        </article>
+
+        <article class="prot-cartao">
+          <header class="prot-cartao-topo">
+            <span class="prot-modo-num">2</span>
+            <h3 class="prot-nome">Aprovar por mim</h3>
+          </header>
+          <div class="prot-desenho">
+            <div class="prot-pedido" aria-hidden="true">
+              <div class="prot-pedido-topo"><i class="prot-cadeado"></i><span>pedido traduzido</span></div>
+              <p class="prot-pergunta">Posso consultar a API do Open-Meteo para obter as altitudes nos centros da grade e terminar o HTML solicitado?</p>
+              <div class="prot-revisor">
+                <span class="prot-revisor-rotulo">revisor automático</span>
+                <p>Aprovado: faz as consultas públicas que a pessoa pediu, gera um mapa no próprio computador e não apaga nada, não usa senhas nem envia dados sensíveis.</p>
+              </div>
+            </div>
+          </div>
+          <p class="prot-frase">Um segundo modelo lê o código e só chama você se houver risco; a pergunta chega traduzida.</p>
+          <div class="prot-balanca">
+            <p class="prot-vantagem"><b>Vantagem</b>você não precisa ler código; o trabalho anda.</p>
+            <p class="prot-risco"><b>Risco</b>a tradução também pode errar; uma explicação bem escrita não garante que o resultado esteja certo.</p>
+          </div>
+        </article>
+
+        <article class="prot-cartao">
+          <header class="prot-cartao-topo">
+            <span class="prot-modo-num">3</span>
+            <h3 class="prot-nome">Acesso completo</h3>
+          </header>
+          <div class="prot-desenho">
+            <div class="prot-pedido" aria-hidden="true">
+              <div class="prot-pedido-topo"><i class="prot-visto">✓</i><span>Já feito</span></div>
+              <div class="prot-registro">
+                <span>Consultou <b>servicodados.ibge.gov.br</b></span>
+                <span>Consultou <b>api.open-meteo.com</b></span>
+              </div>
+              <p class="prot-ninguem">Ninguém foi consultado.</p>
+            </div>
+          </div>
+          <p class="prot-frase">O agente age direto no seu computador, sem perguntar.</p>
+          <div class="prot-balanca">
+            <p class="prot-vantagem"><b>Vantagem</b>é o modo dos trabalhos grandes; nada trava no caminho.</p>
+            <p class="prot-risco"><b>Risco</b>a proteção tem de vir de fora: usar um computador ou um usuário do Windows separado, sem contas importantes abertas, e ter cópia dos arquivos.</p>
+          </div>
+        </article>
+      </div>
+
+      <p class="prot-escolha" data-passo="1" data-ate="1">Não existe modo certo para todo mundo. <b>É uma escolha sua</b>, pesando o que você ganha e o que arrisca.</p>
+      <p class="prot-legenda" data-passo="1" data-ate="1">Linhas e textos reais do teste do curso de 07/11/2026 (mapa de Goiânia), no app ChatGPT, modelo Luna, raciocínio Alto.</p>
+
+      <div class="vitrine-texto prot-escolha-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">O modo do curso</span>
+        <h2 class="titulo">A escolha deste curso</h2>
+        <p class="linha-fina">Neste curso usamos o ChatGPT no modo <b>Aprovar por mim</b>, depois de um pedido curto de preparo feito uma vez.</p>
+        <p class="prot-ressalva">Com uma assinatura paga, que dá acesso a modelos mais capazes, o preparo pode ser menos necessário. Ele não atrapalha.</p>
+        <p class="prot-link">O preparo está na página <a href="instalar.html" target="_blank" rel="noopener">Instalar</a>.</p>
+      </div>
+
+      <div class="prot-quadro" data-passo="2" data-ate="2">
+        <div class="prot-quadro-topo">
+          <span class="prot-quadro-rotulo">No app ChatGPT</span>
+          <em class="prot-quadro-selo">o curso usa este</em>
+        </div>
+        <b class="prot-quadro-nome">Aprovar por mim</b>
+        <p class="prot-quadro-desc">“Solicitar aprovação apenas para ações detectadas como potencialmente inseguras”</p>
+        <p class="prot-quadro-fonte">Descrição do próprio app</p>
+        <div class="prot-quadro-preparo">
+          <span class="prot-quadro-rotulo">O preparo, uma vez no começo</span>
+          <ul>
+            <li>Instala o que falta para gerar PDFs.</li>
+            <li>Grava orientações para o agente: conferir o resultado antes de entregar e não instalar nada sem avisar.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="prot-fim" data-passo="3">
+        <p class="prot-fim-frase">A IA traduz <em>nas duas direções</em>: a sua ideia em código, e o que o código vai fazer em português.</p>
+        <p class="linha-fina">Você não precisa dominar a linguagem para ter acesso à solução. Precisa saber o que pediu e conferir o que voltou.</p>
+        <p class="prot-fim-nota">O T de ChatGPT vem de Transformer, uma técnica criada em 2017 para tradução automática.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exemplos da Fase 3: o problema (0), a pasta com os arquivos (1), a vez da turma (2),
+       as gravações das partes A (3) e B (4) e o resultado, com a armadilha (5).
+       A pasta vem de js/pasta.js; "Sua vez", de js/exercicios.js (pratica-3.html);
+       o resultado, de js/resultados.js (contas dos GABARITO-*.md). -->
+
+  <section class="cena" id="viagens" data-fase="3" data-passos="5" data-titulo="A pasta das viagens">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Uma pesquisadora voltou de duas viagens com fotos de cupons e PDFs baixados numa pasta. Precisa prestar contas das duas e <em>não quer repetir o trabalho a cada viagem</em>.</p>
+      </div>
+      <div class="f3-entrada" data-passo="1" data-ate="1">
+        <div class="f3-texto">
+          <span class="rotulo">Os zips · Viagens a trabalho e Novos comprovantes</span>
+          <h2 class="titulo">Duas viagens, dois zips</h2>
+          <p class="linha-fina">No primeiro zip, a pasta Viagens a trabalho: cinco fotos, o bilhete do ônibus, o voucher do hotel e o comprovante do Pix. No segundo, a pasta Novos comprovantes: quatro fotos, o recibo de uma corrida e um cartão de embarque.</p>
+          <p class="f3-plano"><b>Parte A</b>: arraste Viagens a trabalho para a pasta de projetos e abra no app ChatGPT.<br><b>Parte B</b>: no Explorador, selecione os arquivos de Novos comprovantes (Ctrl+A) e arraste soltos para dentro de Viagens a trabalho. O agente deve criar uma pasta separada para a viagem nova.</p>
+        </div>
+        <div class="f3-pasta" data-pasta="viagens"></div>
+      </div>
+      <div class="sua-vez" data-exercicio="viagens" data-passo="2" data-ate="2"></div>
+      <div class="vitrine-texto" data-passo="3" data-ate="3">
+        <span class="rotulo">Parte A · gravado no app ChatGPT</span>
+        <h2 class="titulo">A viagem de Campinas organizada</h2>
+        <p class="linha-fina">Em cerca de 11 minutos, o agente organizou os 8 arquivos em Alimentação, Hospedagem e Transporte e fechou o total em R$ 1.550,74. O voucher e o Pix do hotel entraram uma vez só.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="3" data-ate="3" data-ao-vivo="assets/video/chatgpt-viagens-a.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 5 nov. 2026</span><video src="assets/video/chatgpt-viagens-a.mp4" poster="assets/video/chatgpt-viagens-a.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos verso-viagens">
+            <span class="rotulo">O pedido · parte A</span>
+            <blockquote>Estes são os comprovantes da minha viagem a Campinas. Organize tudo para a minha prestação de contas: renomeie cada arquivo com a data, o nome do estabelecimento e o valor, separe em pastas por tipo de gasto e faça uma planilha com o total. Se algo deixar dúvida, me avise numa lista. No fim, escreva um passo a passo para eu repetir isso nas próximas viagens.</blockquote>
+            <p class="quem">Digitado no app ChatGPT, na pasta Viagens a trabalho · 5 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>App ChatGPT, modelo Luna, raciocínio Alto, no “Aprovar por mim”</dd>
+              <dt>O que fez</dt><dd data-resumo="ChatGPT: organizou os 8 comprovantes de Campinas e fechou o total em R$ 1.550,74.">Organizou os 8 arquivos em Alimentação, Hospedagem e Transporte, com data, estabelecimento e valor no nome, e fez a planilha com o total e a aba do passo a passo</dd>
+              <dt>Dúvidas</dt><dd>Três: a nota de R$ 15,00 só com “consumo”, o bilhete rodoviário sem valor fiscal e o hotel com dois comprovantes do mesmo valor</dd>
+              <dt>Tempo e cota</dt><dd>Cerca de 11 min e 3 pontos da cota gratuita; nenhum pedido de aprovação</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="vitrine-texto" data-passo="4" data-ate="4">
+        <span class="rotulo">Parte B · gravado no app ChatGPT</span>
+        <h2 class="titulo">A viagem nova, na mesma receita</h2>
+        <p class="linha-fina">Na mesma conversa, o agente seguiu o passo a passo da parte A, criou uma pasta separada para a viagem nova e deixou o cartão de embarque fora do total. Total R$ 253,50.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="4" data-ate="4" data-ao-vivo="assets/video/chatgpt-viagens-b.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 5 nov. 2026</span><video src="assets/video/chatgpt-viagens-b.mp4" poster="assets/video/chatgpt-viagens-b.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos verso-viagens">
+            <span class="rotulo">O pedido · parte B</span>
+            <blockquote>Juntei aqui os comprovantes de uma nova viagem. Siga o passo a passo que você escreveu e deixe tudo separado da viagem de Campinas.</blockquote>
+            <p class="quem">Digitado no app ChatGPT, na mesma conversa, com os arquivos de Novos comprovantes dentro da pasta · 5 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>App ChatGPT, modelo Luna, raciocínio Alto, no “Aprovar por mim”</dd>
+              <dt>O que fez</dt><dd data-resumo="ChatGPT: repetiu a organização na viagem nova, em pasta separada, com o total de R$ 253,50.">Seguiu o passo a passo da parte A, criou uma pasta separada para a viagem nova e deixou o cartão de embarque fora do total</dd>
+              <dt>Tempo e cota</dt><dd>Cerca de 9 min e 3 pontos da cota gratuita</dd>
+              <dt>Planilha</dt><dd>Abas Resumo, Dúvidas e Como repetir</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="viagens" data-passo="5"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="certificados" data-fase="3" data-passos="4" data-titulo="Os certificados">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>A coordenadora de uma oficina precisa mandar um certificado para cada participante, no papel timbrado da instituição. A planilha tem 20 inscrições, e <em>algumas pessoas se inscreveram duas vezes</em>.</p>
+      </div>
+      <div class="f3-entrada" data-passo="1" data-ate="1">
+        <div class="f3-texto">
+          <span class="rotulo">A pasta · 2-certificados</span>
+          <h2 class="titulo">Uma planilha e um modelo</h2>
+          <p class="linha-fina">A planilha tem 20 linhas de inscrição. O modelo do Word tem o timbre, duas assinaturas e quatro campos entre colchetes: nome, oficina, carga horária e data.</p>
+          <p class="f3-plano">Um PDF por pessoa, no papel timbrado.</p>
+        </div>
+        <div class="f3-pasta" data-pasta="certificados"></div>
+      </div>
+      <div class="sua-vez" data-exercicio="certificados" data-passo="2" data-ate="2"></div>
+      <div class="vitrine-texto" data-passo="3" data-ate="3">
+        <span class="rotulo">No app ChatGPT · 6 nov. 2026</span>
+        <h2 class="titulo">Um certificado por pessoa</h2>
+        <p class="linha-fina">Em cerca de 10 minutos, o agente leu a planilha, juntou as 4 inscrições repetidas pelo e-mail e gerou 16 PDFs pelo modelo do Word. Vale contar os arquivos na pasta.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="3" data-ate="3" data-ao-vivo="assets/video/chatgpt-certificados.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 6 nov. 2026</span><video src="assets/video/chatgpt-certificados.mp4" poster="assets/video/chatgpt-certificados.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos verso-certificados">
+            <span class="rotulo">O pedido</span>
+            <blockquote class="curto">Faça um certificado em PDF para cada pessoa da planilha, usando o modelo do Word. A Oficina de Planilhas para o Dia a Dia foi em 23 de maio de 2026 e teve 8 horas.</blockquote>
+            <p class="quem">No app ChatGPT, no projeto 2-certificados · 6 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>App ChatGPT, modelo Luna, raciocínio Alto, no “Aprovar por mim”</dd>
+              <dt>O que fez</dt><dd data-resumo="ChatGPT: juntou as 4 inscrições repetidas pelo e-mail e gerou 16 PDFs pelo modelo do Word, conferindo cada página.">Leu a planilha, juntou as 4 inscrições repetidas pelo e-mail e gerou 16 PDFs pelo modelo do Word, conferindo cada página</dd>
+              <dt>Tempo e cota</dt><dd>Cerca de 10 min e 3 pontos da cota gratuita</dd>
+              <dt>Detalhe</dt><dd>No fim, tentou apagar os próprios arquivos de trabalho. O revisor automático não deixou: o pedido era fazer PDFs.</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="certificados" data-passo="4"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="mapa" data-fase="3" data-passos="4" data-titulo="O mapa de Goiás">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Alguém quer ver como os municípios de Goiás mudaram ao longo dos anos: população, PIB e IDH. Não tem os dados em mãos e <em>não sabe programar</em>.</p>
+      </div>
+      <div class="f3-entrada" data-passo="1" data-ate="1">
+        <div class="f3-texto">
+          <span class="rotulo">A pasta · Cidades</span>
+          <h2 class="titulo">Uma pasta vazia</h2>
+          <p class="linha-fina">Os dados não estão no computador. O agente vai buscá-los nas fontes públicas: a malha dos municípios e as tabelas do IBGE, e o IDHM do Atlas Brasil.</p>
+          <p class="f3-plano">Um mapa para clicar, num arquivo só.</p>
+        </div>
+        <div class="f3-pasta" data-pasta="cidades"></div>
+      </div>
+      <div class="sua-vez" data-exercicio="mapa" data-passo="2" data-ate="2"></div>
+      <div class="vitrine-texto" data-passo="3" data-ate="3">
+        <span class="rotulo">No app ChatGPT · 9 nov. 2026</span>
+        <h2 class="titulo">Um mapa a partir de um pedido curto</h2>
+        <p class="linha-fina">Em cerca de 15 minutos, o agente buscou os dados, montou o mapa e olhou a página antes de entregar: viu que a área sem cor no meio era o Distrito Federal, que não é de Goiás, e marcou. Na última conferência, achou um erro que impedia a página de abrir e corrigiu.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="ver-resultado" type="button">Ver o resultado <kbd>R</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="3" data-ate="3" data-ao-vivo="assets/video/chatgpt-mapa.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 9 nov. 2026</span><video src="assets/video/chatgpt-mapa.mp4" poster="assets/video/chatgpt-mapa.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos verso-mapa">
+            <span class="rotulo">O pedido</span>
+            <blockquote class="curto">Faça um mapa de Goiás com todos os municípios, coloridos pela população, em que eu possa clicar num município e ver a população, o PIB e o IDH dele ao longo dos anos. Use dados do IBGE.</blockquote>
+            <p class="quem">No app ChatGPT, no projeto Cidades · 9 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>App ChatGPT, modelo Luna, raciocínio Alto, no “Aprovar por mim”</dd>
+              <dt>O que fez</dt><dd data-resumo="ChatGPT: buscou os dados do IBGE e do Atlas Brasil e montou um mapa dos 246 municípios, conferindo a página antes de entregar.">Buscou a malha e as séries do IBGE e o IDHM do Atlas Brasil, montou o mapa num arquivo só e conferiu a página com fotos antes de entregar</dd>
+              <dt>Tempo</dt><dd>Cerca de 15 min</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+      <div class="resultado" data-resultado="mapa" data-passo="4"></div>
+    </div>
+  </section>
+
+  <section class="cena" id="dois-pedidos" data-fase="3" data-passos="2" data-titulo="O mesmo assunto, dois pedidos">
+    <div class="vitrine dois-p">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Alguém quer ver como as cidades de Goiás mudaram ao longo dos anos: população, PIB e IDH.</p>
+      </div>
+      <div class="pedido dois-p-esq" data-passo="1">
+        <span class="rotulo">Pedido 1</span>
+        <blockquote>Faça uma página sobre Goiânia com um mapa e a evolução da população, do PIB e do IDH ao longo dos anos, com dados do IBGE.</blockquote>
+        <button class="quadro-foto foto-pagina" type="button" data-src="assets/img/fase3/goiania-vago.jpg" data-nome="goiania-vago.jpg" title="Clique para ampliar">
+          <img src="assets/img/fase3/goiania-vago.jpg" alt="Página sobre Goiânia com os três gráficos vazios e um mapa esquemático">
+        </button>
+        <p class="quadro-nota">Saiu uma página bonita, mas os três gráficos ficaram vazios e o mapa foi desenhado de cabeça (ele mesmo escreveu “mapa esquemático”).</p>
+      </div>
+      <div class="pedido dois-p-dir" data-passo="2">
+        <span class="rotulo">Pedido 2</span>
+        <blockquote>Faça um mapa de Goiás com todos os municípios, coloridos pela população, em que eu possa clicar num município e ver a população, o PIB e o IDH dele ao longo dos anos. Use dados do IBGE.</blockquote>
+        <button class="quadro-foto foto-mapa" type="button" data-src="assets/img/fase3/mapa-agente.jpg" data-nome="mapa-agente.jpg" title="Clique para ampliar">
+          <img src="assets/img/fase3/mapa-agente.jpg" alt="Mapa de Goiás com os 246 municípios coloridos pela população e as séries de Goiânia ao lado">
+        </button>
+        <p class="quadro-nota">Saiu um mapa com os 246 municípios, coloridos pela população. Clicando em Goiânia, aparecem as três séries.</p>
+      </div>
+      <p class="dois-p-fecho linha-fina" data-passo="2">O segundo pedido diz o que aparece na tela e o que acontece quando você clica. Quanto mais claro o resultado que você quer ver, menos a IA precisa adivinhar.</p>
+      <p class="dois-p-nota" data-passo="2">Os dois no app ChatGPT, conta gratuita, modelo Luna, no mesmo computador, em 9 nov. 2026.</p>
+    </div>
+  </section>
+
+  <section class="cena" id="olhou" data-fase="3" data-passos="3" data-titulo="Ele olhou antes de entregar">
+    <div class="vitrine">
+      <h2 class="titulo olhou-titulo" data-passo="1">Ele olhou antes de entregar</h2>
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>Uma página feita pelo agente pode sair com um defeito que só aparece quando alguém abre.</p>
+      </div>
+      <div class="olhou-sem" data-passo="1" data-ate="1">
+        <div class="olhou-caso">
+          <span class="rotulo">Sem olhar</span>
+          <p>Numa rodada de teste, o navegador do app não abriu o arquivo do computador. O agente entregou sem olhar, e a grade de quadrados não aparecia na página.</p>
+        </div>
+        <div class="olhou-vazio" aria-hidden="true"><header><i></i><i></i><i></i></header><div></div></div>
+      </div>
+      <div class="olhou-preparo" data-passo="2" data-ate="2">
+        <span class="rotulo">Com a orientação do preparo</span>
+        <blockquote class="olhou-orientacao">Tire uma foto da página e olhe; se não rodar na área protegida, rode fora dela. Se a foto não mostrar o que foi pedido, corrija antes de entregar.</blockquote>
+        <div class="olhou-fotos">
+          <figure>
+            <button class="quadro-foto olhou-foto" type="button" data-src="assets/img/fase3/olhou-antes.jpg" data-nome="olhou-antes.jpg" title="Clique para ampliar">
+              <img src="assets/img/fase3/olhou-antes.jpg" alt="Primeira foto da página, com espaços vazios na borda do mapa de Goiânia">
+              <i class="olhou-marca" aria-hidden="true"></i>
+              <i class="olhou-marca olhou-marca-braco" aria-hidden="true"></i>
+            </button>
+            <figcaption>1ª foto: 185 quadrados</figcaption>
+          </figure>
+          <figure>
+            <button class="quadro-foto olhou-foto" type="button" data-src="assets/img/fase3/olhou-depois.jpg" data-nome="olhou-depois.jpg" title="Clique para ampliar">
+              <img src="assets/img/fase3/olhou-depois.jpg" alt="Segunda foto da mesma página, com a borda do mapa preenchida">
+            </button>
+            <figcaption>Depois de corrigir: 228 quadrados</figcaption>
+          </figure>
+        </div>
+        <p class="olhou-fala">A conferência visual está certa, mas vi espaços vazios em algumas bordas: células parcialmente dentro do município não tinham o centro dentro do limite. Vou incluí-las também.</p>
+      </div>
+      <div class="olhou-confere" data-passo="3">
+        <span class="rotulo">Ele olha. Você também confere</span>
+        <p>A foto mostra se a página abre e se o desenho está lá. Não mostra se os números estão certos. No mapa de Goiás, a população de Goiânia cai de 1.555.626 em 2021 para 1.494.599 em 2024. Não é erro do agente: o Censo 2022 corrigiu estimativas antigas. Isso só aparece para quem compara com a fonte.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="balanco-3" data-fase="3" data-passos="4" data-titulo="O que vimos na Fase 3">
+    <div class="balanco">
+      <h2 class="titulo">O agente trabalha numa pasta inteira, e você continua conferindo</h2>
+      <div class="cartoes">
+        <div class="cartao funciona" data-passo="1">
+          <figure class="mapa"><img src="assets/img/fase3/mapa-agente.jpg" alt="Mapa de Goiás com os 246 municípios coloridos pela população"></figure>
+          <b>Funciona</b>
+          <p>Ele renomeou e separou os comprovantes da viagem a Campinas e fez a planilha com o total, R$ 1.550,74. Fez um certificado em PDF para cada uma das 16 pessoas, a partir da planilha e do modelo do Word. Montou o mapa dos 246 municípios de Goiás com dados do IBGE.</p>
+        </div>
+        <div class="cartao confira" data-passo="2">
+          <figure class="conta viagem" aria-label="Viagem a Campinas: o hotel contado duas vezes daria R$ 2.790,74; o certo é R$ 1.550,74">
+            <span class="qual">Viagem a Campinas</span>
+            <span class="linha ele">hotel duas vezes <b>R$ 2.790,74</b></span>
+            <span class="linha">certo <b>R$ 1.550,74</b></span>
+          </figure>
+          <b>Confira sempre</b>
+          <p>O voucher e o Pix do hotel são o mesmo gasto. Somados duas vezes, o total iria a R$ 2.790,74. Na planilha dos certificados, 4 pessoas se inscreveram duas vezes. Compare o total e a lista com os arquivos.</p>
+        </div>
+        <div class="cartao olha" data-passo="3">
+          <figure class="mapa baixo"><img src="assets/img/fase3/olhou-depois.jpg" alt="A página conferida, com a grade de quadrados preenchida até a borda do mapa"></figure>
+          <b>Peça que ele olhe</b>
+          <p>O preparo deixa gravada a orientação de testar antes de entregar. Com ela, o agente abriu a página, viu os buracos na borda e corrigiu sozinho.</p>
+        </div>
+        <div class="cartao escolha" data-passo="4">
+          <figure class="marcas" aria-hidden="true"><i></i><i class="meio"></i><i></i></figure>
+          <b>A permissão é sua</b>
+          <p>Em Aprovar por mim, um segundo modelo lê o que o agente vai fazer e só chama você quando vê risco, explicando em português. Não existe modo certo para todo mundo. No curso, usamos esse.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cena" id="fim" data-fase="3" data-passos="1" data-titulo="Fim do curso">
+    <div class="fim-cena">
+      <div class="fim-abre" data-passo="0" data-ate="0">
+        <h2 class="titulo">A IA traduz <em>nas duas direções</em></h2>
+        <p class="linha-fina">A sua ideia vira código, e o que o código vai fazer volta em português. Não é preciso dominar nenhuma linguagem de programação. É preciso saber o que pedir e conferir o que voltou.</p>
+      </div>
+      <div class="fim-fecha" data-passo="1">
+        <h2 class="titulo">A IA traduz <em>nas duas direções</em></h2>
+        <div class="fim-corpo">
+          <ul class="fim-itens">
+            <li>Tudo o que vimos fica no site do curso: os pedidos, os arquivos e os exemplos gravados.</li>
+            <li>Travou num exercício? Pergunte à coruja, no canto de cada página.</li>
+            <li>Comece por um problema seu, pequeno, em cópias dos seus arquivos.</li>
+          </ul>
+          <div class="fim-qr">
+            <div class="qr-codigo"></div>
+            <span class="fim-qr-legenda">Site do curso</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<nav class="trilho" aria-label="Navegação da aula">
+  <button type="button" data-acao="voltar" aria-label="Voltar">←</button>
+  <div class="fases"></div>
+  <button type="button" data-acao="avancar" aria-label="Avançar">→</button>
+  <button type="button" data-acao="tela-cheia">Tela cheia (F)</button>
+</nav>
+
+<div class="ao-vivo" hidden>
+  <header><strong></strong><span>ao vivo</span><button type="button">Fechar e voltar à aula (Esc)</button></header>
+  <iframe title="Trabalho aberto ao vivo"></iframe>
+</div>
+<div class="tela-preta" aria-hidden="true"></div>
+
+<script src="assets/vendor/qrcode.min.js"></script>
+<script src="js/questionario.js"></script>
+<script src="js/palco.js"></script>
+<script src="js/cena-sala.js"></script>
+<script src="js/cena-busca.js"></script>
+<script src="js/cena-vitrine.js"></script>
+<script src="js/exercicios.js"></script>
+<script src="js/resultados.js"></script>
+<script src="js/pasta.js"></script>
+<script src="js/player.js"></script>
+<script>
+  // A ponte mostra o que mais toma o tempo da turma, sem prometer que a aula começa por ali.
+  document.getElementById("ponte").addEventListener("entrou", () => {
+    const guardado = document.body.dataset.comecaPor;
+    if (guardado === undefined) return;
+    const p = window.QUESTIONARIO.PERGUNTAS[4];
+    const indices = JSON.parse(guardado);
+    const nomes = indices.map((i) => p.curtas?.[i] || p.opcoes[i].toLowerCase());
+    const lista = nomes.length === 1 ? nomes[0] : `${nomes.slice(0, -1).join(", ")} e ${nomes[nomes.length - 1]}`;
+    const frase = indices.length === 1
+      ? "O que mais toma o tempo desta turma: {lista}."
+      : "O que mais toma o tempo desta turma: {lista}, empatados.";
+    document.querySelector("#ponte .comeca-por").textContent = frase.replace("{lista}", lista);
+  });
+
+  // Na tela do monitor, a coruja se apresenta e pousa no canto (só na primeira vez).
+  // Enquanto ela fala, a seta só a leva ao canto, sem trocar de cena.
+  // Vídeos gravados: o player (tocar, pausar, arrastar, velocidade, tela cheia) está em js/player.js.
+
+  // Passagem para a Fase 3: a janela do navegador começa do tamanho e lugar que tinha
+  // na ponte da Fase 2 e encolhe até o canto da área de trabalho; depois chega a pasta.
+  (() => {
+    const cena = document.getElementById("ponte-3");
+    const janela = cena.querySelector(".janela"), area = cena.querySelector(".area-de-trabalho");
+    const pasta = cena.querySelector(".pasta"), texto = cena.querySelector(".texto");
+    const curva = "cubic-bezier(.65, 0, .25, 1)";
+    cena.addEventListener("entrou", () => {
+      const k = cena.getBoundingClientRect().width / 1600; // a cena tem 1600 px lógicos
+      const r = janela.getBoundingClientRect(), c = cena.getBoundingClientRect();
+      const x = (r.left - c.left) / k, y = (r.top - c.top) / k;
+      const inicio = `translate(${250 - x}px, ${170 - y}px) scale(${1100 / 520})`; // a janela da ponte: 1100×560, centrada
+      janela.animate([{ transform: inicio }, { transform: inicio, offset: .3 }, { transform: "none" }], { duration: 2000, easing: curva, fill: "backwards" });
+      area.animate([{ background: "transparent", boxShadow: "none" }, { background: "transparent", boxShadow: "none", offset: .35 }, {}], { duration: 2000, easing: "ease-out", fill: "backwards" });
+      pasta.animate([{ opacity: 0, transform: "translateY(60px)" }, { opacity: 1, transform: "none" }], { duration: 900, delay: 1700, easing: curva, fill: "backwards" });
+      pasta.querySelectorAll("li").forEach((li, i) => li.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 2100 + 70 * i, fill: "backwards" }));
+      texto.animate([{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }], { duration: 900, delay: 2800, easing: curva, fill: "backwards" });
+    });
+  })();
+
+  let corujaApresentou = false;
+  document.getElementById("monitor").addEventListener("entrou", () => {
+    if (corujaApresentou || !window.Coruja) return;
+    corujaApresentou = true;
+    window.Coruja.apresentar().catch(() => {});
+  });
+  document.querySelectorAll(".cena").forEach((c) => c.addEventListener("tecla", (e) => {
+    if (window.Coruja?.apresentando) { window.Coruja.pular(); e.preventDefault(); }
+  }));
+
+  // Fim do curso: o QR aponta para o endereço público, mesmo com a aula rodando no PC.
+  (() => {
+    const alvo = document.querySelector("#fim .qr-codigo");
+    if (!alvo || !window.qrcode || !window.CURSO_PUBLICO) return;
+    const qr = qrcode(0, "M");
+    qr.addData(window.CURSO_PUBLICO);
+    qr.make();
+    alvo.innerHTML = qr.createSvgTag({ cellSize: 8, margin: 0, scalable: true });
+    alvo.querySelector("svg").setAttribute("aria-label", "QR code para o site do curso");
+  })();
+
+  // Os quadros de foto abrem a imagem inteira na lupa da Fase 3.
+  (() => {
+    document.querySelectorAll(".cena").forEach((cena) => {
+      const fotos = cena.querySelectorAll(".quadro-foto[data-src]");
+      if (!fotos.length) return;
+      const lupa = document.createElement("button");
+      lupa.type = "button"; lupa.className = "f3-lupa"; lupa.hidden = true;
+      lupa.innerHTML = '<figure><img alt=""><figcaption></figcaption></figure>';
+      cena.append(lupa);
+      const fechar = () => { lupa.hidden = true; };
+      lupa.addEventListener("click", fechar);
+      fotos.forEach((foto) => foto.addEventListener("click", () => {
+        const origem = foto.querySelector("img");
+        lupa.querySelector("img").src = foto.dataset.src;
+        lupa.querySelector("img").alt = origem ? origem.alt : "";
+        lupa.querySelector("figcaption").innerHTML = `<b>${foto.dataset.nome || ""}</b>Esc ou clique para fechar`;
+        lupa.hidden = false;
+      }));
+      cena.addEventListener("tecla", (e) => {
+        if (lupa.hidden) return;
+        if (e.detail.key === "Escape") fechar();
+        e.preventDefault();
+      });
+      cena.addEventListener("passo", fechar);
+      cena.addEventListener("saiu", fechar);
+    });
+  })();
+</script>
+<script src="js/gratis.js" defer></script>
+<script src="js/coruja.js" defer></script>
+</body>
+</html>

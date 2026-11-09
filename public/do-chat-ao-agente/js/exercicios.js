@@ -101,13 +101,23 @@ window.EXERCICIOS = [
     conferir: ["Conte os PDFs e compare com o número de pessoas, não de linhas.", "Os nomes estão com maiúsculas e acentos?", "Abra um PDF: timbre, assinaturas e os quatro campos preenchidos?"],
   },
   {
-    id: "mudanca", fase: 3, problema: "O seminário de maio mudou de data e de auditório. O organizador tem 12 arquivos para corrigir, e alguns prazos dependem da data do evento.",
-    nome: "A mudança de data", minutos: 15,
-    arquivos: [{ arq: "fase3/mudanca-de-data.zip", tam: "0,2 MB", nota: "pasta 3-mudanca-de-data" }],
-    preparo: "Do zip, arraste a pasta 3-mudanca-de-data para a sua pasta de projetos e abra-a como projeto no app ChatGPT.",
-    previas: ["assets/img/fase3/aviso-porta.jpg", "assets/img/fase3/convite.jpg", "assets/img/fase3/programacao.jpg", "assets/img/fase3/regras-envio-trabalhos.jpg"],
-    pedidos: ["O seminário mudou de 10 para 17 de maio de 2027, e do Auditório 2 para o Auditório 1. Atualize todos os arquivos e me diga o que mudou."],
-    conferir: ["Procure “10 de maio” e “Auditório 2” na pasta: não pode sobrar nenhum.", "O pedido não fala dos prazos. Abra o convite e as regras de envio: as datas-limite ainda fazem sentido?", "A lista final cita cada arquivo e o que mudou nele?"],
+    id: "mapa", fase: 3, problema: "Alguém quer ver como os municípios de Goiás mudaram ao longo dos anos: população, PIB e IDH. Não tem os dados em mãos e não sabe programar.",
+    nome: "O mapa de Goiás", minutos: 20,
+    etapa1: "Prepare a pasta",
+    arquivos: [],
+    semArquivo: "Nada para baixar: a pasta começa vazia.",
+    preparo: "Crie uma pasta vazia chamada Cidades na sua pasta de projetos e abra-a como projeto no app ChatGPT.",
+    pedidos: ["Faça um mapa de Goiás com todos os municípios, coloridos pela população, em que eu possa clicar num município e ver a população, o PIB e o IDH dele ao longo dos anos. Use dados do IBGE."],
+    conferir: [
+      "Abra o arquivo que ele criou: os 246 municípios aparecem coloridos? Clique em Goiânia: aparecem população, PIB e IDH?",
+      "A área branca no meio é o Distrito Federal, que não é de Goiás. Ela está identificada?",
+      "Anos sem dado ficam em branco, sem linha inventada? O PIB avisa que está em valores de cada ano?",
+    ],
+    conferirAula: [
+      "246 municípios e clique em Goiânia funcionando?",
+      "Distrito Federal identificado?",
+      "Anos sem dado em branco; PIB avisado?",
+    ],
   },
 ];
 
@@ -163,7 +173,7 @@ window.EXERCICIOS = [
       <article class="exercicio" id="${e.id}">
         <header><span class="num">${n + 1}</span><h2>${esc(e.nome)}</h2><span class="tempo">${e.minutos} min</span></header>
         <p class="problema-texto">${esc(e.problema)}</p>
-        <h3>1. ${T.baixe}</h3>
+        <h3>1. ${e.etapa1 || T.baixe}</h3>
         <div class="arquivos">${arquivosDaParte(e, 1).length ? arquivosDaParte(e, 1).map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div>
         ${e.preparo ? `<p class="preparo">${esc(e.preparo)}</p>` : ""}
         <h3>${T.pecaLonga}</h3>
@@ -198,7 +208,7 @@ window.EXERCICIOS = [
         <div class="sv-qr"><div class="qr-svg"></div><p>Arquivos e pedido no notebook:${[destino.host + "/", ...destino.pathname.slice(1).split(/(?<=\/)/)].map((t) => `<b>${esc(t)}</b>`).join("")}</p></div>
       </div>
       <div class="ficha">
-        <div class="ficha-passo"><span class="n">1</span><div><h3>${T.baixe}</h3>
+        <div class="ficha-passo"><span class="n">1</span><div><h3>${e.etapa1 || T.baixe}</h3>
           <div class="arquivos">${arquivosDaParte(e, 1).length ? arquivosDaParte(e, 1).map((a) => chipArquivo(a, "")).join("") : `<p class="sem-arquivo">${esc(e.semArquivo)}</p>`}</div>
           ${e.preparo ? `<p class="preparo">${esc(e.preparo)}</p>` : ""}</div>
           ${e.previas ? `<div class="previas n${e.previas.length}" aria-hidden="true">${e.previas.map((src) => `<img src="${src}" alt="">`).join("")}</div>` : ""}</div>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Centro de massa na gangorra</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Material de aula: arraste os pesos e o apoio; a gangorra mostra o que a conta diz. */
+  :root { --tinta: #10211b; --tinta-2: #4d5f58; --papel: #fbf8f2; --linha: #ddd5c6; --terracota: #d76832; --verde: #114d3b; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: var(--papel); color: var(--tinta); font-family: Inter, system-ui, sans-serif; }
+  .quadro { position: absolute; left: 50%; top: 50%; width: 1600px; height: 900px; transform: translate(-50%, -50%) scale(var(--e, 1)); }
+  header { position: absolute; left: 70px; top: 46px; right: 70px; display: flex; justify-content: space-between; align-items: flex-start; }
+  h1 { font: 400 52px/1 Georgia, serif; margin: 0; letter-spacing: -.01em; }
+  header p { margin: 10px 0 0; font-size: 22px; color: var(--tinta-2); }
+  .acoes { display: flex; gap: 10px; }
+  .acoes button { cursor: pointer; padding: 12px 20px; border-radius: 999px; border: 1px solid var(--linha); background: #fff; font: 600 18px Inter, sans-serif; }
+  .acoes button:hover { border-color: var(--tinta); }
+  svg { position: absolute; left: 0; top: 150px; width: 1600px; height: 470px; touch-action: none; }
+  .peso { cursor: grab; }
+  .peso:active { cursor: grabbing; }
+  .peso text { pointer-events: none; }
+  .apoio { cursor: ew-resize; }
+  .conta {
+    position: absolute; left: 70px; right: 70px; bottom: 50px; height: 230px; border-radius: 24px; background: #fff;
+    box-shadow: 0 20px 60px -30px rgba(16,33,27,.35); border: 1px solid var(--linha);
+    display: grid; grid-template-columns: 1fr 360px; align-items: center; padding: 26px 40px; gap: 30px;
+  }
+  .formula { font: 400 34px/1.35 Georgia, serif; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 22px; }
+  .formula .x { font-style: italic; font-size: 44px; }
+  .fracao { display: grid; gap: 6px; text-align: center; }
+  .fracao .cima { padding-bottom: 8px; border-bottom: 2px solid var(--tinta); }
+  .fracao span { white-space: nowrap; }
+  .termo { font-weight: 700; font-family: Inter, sans-serif; font-size: 28px; }
+  .resultado { text-align: center; border-left: 1px solid var(--linha); padding-left: 30px; }
+  .resultado small { display: block; font-size: 18px; color: var(--tinta-2); text-transform: uppercase; letter-spacing: .08em; }
+  .resultado strong { display: block; font: 400 72px/1.1 Georgia, serif; color: var(--terracota); }
+  .resultado p { margin: 6px 0 0; font-size: 20px; color: var(--tinta-2); min-height: 1.4em; }
+  .resultado p.ok { color: var(--verde); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="quadro">
+  <header>
+    <div>
+      <h1>Onde a gangorra equilibra?</h1>
+      <p>Arraste os pesos e o apoio. O ponto laranja é o centro de massa, calculado a cada movimento.</p>
+    </div>
+    <div class="acoes">
+      <button type="button" data-acao="novo">+ peso</button>
+      <button type="button" data-acao="apoio">Pôr o apoio no centro de massa</button>
+    </div>
+  </header>
+  <svg viewBox="0 0 1600 470" aria-label="Gangorra com pesos"></svg>
+  <div class="conta">
+    <div class="formula"><span class="x">x̄ =</span><div class="fracao"><span class="cima"></span><span class="baixo"></span></div></div>
+    <div class="resultado"><small>Centro de massa</small><strong></strong><p></p></div>
+  </div>
+</div>
+<script>
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = document.querySelector("svg");
+  const quadro = document.querySelector(".quadro");
+  const CORES = ["#d76832", "#1d3f5f", "#2b7055", "#c9971a", "#7a4b8c", "#b03a48"];
+  const X0 = 200, X1 = 1400, M = (X1 - X0) / 10;   // régua de 0 a 10 m
+  const FY = 330;                                   // altura do topo do apoio (pivô)
+  let pesos = [{ x: 1.5, m: 4 }, { x: 6, m: 2 }, { x: 8.5, m: 3 }];
+  let apoio = 5, angulo = 0, vang = 0;
+
+  const escalar = () => quadro.style.setProperty("--e", Math.min(innerWidth / 1600, innerHeight / 900));
+  addEventListener("resize", escalar); escalar();
+
+  const el = (tag, at = {}, pai = svg) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); pai.append(e); return e; };
+  const fmt = (n) => n.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
+  const cm = () => pesos.reduce((s, p) => s + p.m * p.x, 0) / pesos.reduce((s, p) => s + p.m, 0);
+
+  // ----- Cena -----
+  el("rect", { x: 0, y: 430, width: 1600, height: 40, fill: "#efe8da" });
+  el("line", { x1: 0, y1: 430, x2: 1600, y2: 430, stroke: "#ddd5c6", "stroke-width": 2 });
+  const sombra = el("ellipse", { cx: 800, cy: 432, rx: 120, ry: 8, fill: "rgba(16,33,27,.12)" });
+  const apoioG = el("g", { class: "apoio" });
+  el("path", { d: "M0 0 L-55 100 L55 100 Z", fill: "#114d3b" }, apoioG);
+  el("circle", { cx: 0, cy: 0, r: 9, fill: "#fbf8f2", stroke: "#114d3b", "stroke-width": 4 }, apoioG);
+  const gira = el("g");                                   // a régua e os pesos giram juntos em volta do apoio
+  const regua = el("g", {}, gira);
+  el("rect", { x: X0 - 20, y: -18, width: X1 - X0 + 40, height: 18, rx: 6, fill: "#e9dcc3", stroke: "#b89f74", "stroke-width": 2 }, regua);
+  for (let k = 0; k <= 10; k++) {
+    el("line", { x1: X0 + k * M, y1: -18, x2: X0 + k * M, y2: k % 5 ? -8 : -2, stroke: "#8a7350", "stroke-width": 2 }, regua);
+    const t = el("text", { x: X0 + k * M, y: 26, "text-anchor": "middle", "font-size": 18, fill: "#8a7350", "font-family": "Inter" }, regua);
+    t.textContent = `${k} m`;
+  }
+  const camadaPesos = el("g", {}, gira);
+  const marcaCM = el("g", {}, gira);
+  el("line", { x1: 0, y1: -230, x2: 0, y2: -20, stroke: "#d76832", "stroke-width": 3, "stroke-dasharray": "6 6" }, marcaCM);
+  el("circle", { cx: 0, cy: -240, r: 14, fill: "#d76832" }, marcaCM);
+  const rotCM = el("text", { x: 22, y: -232, "font-size": 22, "font-weight": 700, fill: "#d76832", "font-family": "Inter" }, marcaCM);
+
+  function desenharPesos() {
+    camadaPesos.innerHTML = "";
+    pesos.forEach((p, i) => {
+      const lado = 46 + p.m * 9;
+      const g = el("g", { class: "peso", transform: `translate(${X0 + p.x * M} 0)` }, camadaPesos);
+      el("rect", { x: -lado / 2, y: -18 - lado, width: lado, height: lado, rx: 10, fill: CORES[i % CORES.length] }, g);
+      el("rect", { x: -lado / 2 + 8, y: -18 - lado + 8, width: lado - 16, height: 6, rx: 3, fill: "rgba(255,255,255,.25)" }, g);
+      const t = el("text", { x: 0, y: -18 - lado / 2 + 9, "text-anchor": "middle", "font-size": 26, "font-weight": 700, fill: "#fff", "font-family": "Inter" }, g);
+      t.textContent = `${p.m} kg`;
+      // Botões para mudar a massa, acima do bloco
+      [["−", -1, -22], ["+", 1, 22]].forEach(([s, d, dx]) => {
+        const b = el("g", { transform: `translate(${dx} ${-34 - lado})`, style: "cursor:pointer" }, g);
+        el("circle", { r: 16, fill: "#fff", stroke: "#ddd5c6", "stroke-width": 2 }, b);
+        const tt = el("text", { y: 7, "text-anchor": "middle", "font-size": 22, "font-weight": 700, fill: "#10211b", "font-family": "Inter" }, b);
+        tt.textContent = s;
+        b.addEventListener("pointerdown", (e) => { e.stopPropagation(); p.m = Math.max(1, Math.min(9, p.m + d)); atualizar(); });
+      });
+      g.addEventListener("pointerdown", (e) => arrastar(e, (x) => { p.x = x; g.setAttribute("transform", `translate(${X0 + p.x * M} 0)`); conta(); }));
+    });
+  }
+
+  // Arrastar: a posição vira metros na régua, de meio em meio metro (a conta fica legível).
+  function arrastar(e, mover) {
+    e.preventDefault();
+    const alvo = e.currentTarget; alvo.setPointerCapture(e.pointerId);
+    const m = (ev) => {
+      const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+      const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+      mover(Math.max(0, Math.min(10, Math.round((p.x - X0) / M * 2) / 2)));
+    };
+    const fim = () => { alvo.removeEventListener("pointermove", m); alvo.removeEventListener("pointerup", fim); };
+    alvo.addEventListener("pointermove", m); alvo.addEventListener("pointerup", fim);
+  }
+  apoioG.addEventListener("pointerdown", (e) => arrastar(e, (x) => { apoio = x; conta(); }));
+
+  // ----- A conta, com as cores de cada peso -----
+  function conta() {
+    const c = cm();
+    const termo = (p, i, txt) => `<span class="termo" style="color:${CORES[i % CORES.length]}">${txt}</span>`;
+    document.querySelector(".cima").innerHTML = pesos.map((p, i) => termo(p, i, `${p.m}·${fmt(p.x)}`)).join(" + ");
+    document.querySelector(".baixo").innerHTML = pesos.map((p, i) => termo(p, i, `${p.m}`)).join(" + ");
+    document.querySelector(".resultado strong").textContent = `${fmt(c)} m`;
+    const msg = document.querySelector(".resultado p");
+    const dif = c - apoio;
+    msg.className = Math.abs(dif) < .05 ? "ok" : "";
+    msg.textContent = Math.abs(dif) < .05 ? "Equilibrou!" : `O apoio está a ${fmt(Math.abs(dif))} m: tomba para a ${dif > 0 ? "direita" : "esquerda"}`;
+    rotCM.textContent = `x̄ = ${fmt(c)} m`;
+    marcaCM.setAttribute("transform", `translate(${X0 + c * M} 0)`);
+  }
+  const atualizar = () => { desenharPesos(); conta(); };
+
+  // ----- Física da gangorra: tomba para o lado do centro de massa, com balanço -----
+  function quadroAnim() {
+    const dif = cm() - apoio;
+    const alvo = Math.abs(dif) < .05 ? 0 : Math.sign(dif) * Math.min(13, 4 + Math.abs(dif) * 6);
+    vang += (alvo - angulo) * .02; vang *= .9; angulo += vang;
+    const px = X0 + apoio * M;
+    apoioG.setAttribute("transform", `translate(${px} ${FY})`);
+    sombra.setAttribute("cx", px);
+    gira.setAttribute("transform", `translate(${px} ${FY}) rotate(${angulo}) translate(${-px} 0)`);
+    requestAnimationFrame(quadroAnim);
+  }
+
+  document.querySelector("[data-acao=novo]").addEventListener("click", () => {
+    if (pesos.length >= 6) return;
+    pesos.push({ x: Math.round(Math.random() * 20) / 2, m: 1 + Math.floor(Math.random() * 5) });
+    atualizar();
+  });
+  document.querySelector("[data-acao=apoio]").addEventListener("click", () => { apoio = Math.round(cm() * 100) / 100; conta(); });
+
+  atualizar();
+  requestAnimationFrame(quadroAnim);
+})();
+</script>
+</body>
+</html>

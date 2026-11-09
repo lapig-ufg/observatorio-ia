@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missão 4: minha cidade em dados</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Do chat ao agente, Missão 4: um retrato da sua cidade com dados públicos e o tempo no dia em que você nasceu.">
+<link rel="icon" href="assets/brand/observatorio-coruja.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/curso.css">
+</head>
+<body class="pagina-missao">
+
+<header class="topo">
+  <a class="marca" href="https://lapig-ufg.github.io/observatorio-ia/">
+    <img src="assets/brand/observatorio-coruja.svg" alt="">
+    <span><strong>Observatório</strong><small>UFG · Inteligência Artificial</small></span>
+  </a>
+  <span class="espaco"></span>
+  <button class="botao" data-acao="aula" type="button" title="Mostra uma tela por vez, para o professor projetar na sala. Para voltar, aperte L.">Modo apresentação (professor)</button>
+</header>
+
+<nav class="trilha" aria-hidden="true"></nav>
+<button class="sair-aula" data-acao="leitura" type="button">Sair da projeção (L)</button>
+
+<main>
+
+  <section class="tela" id="missao" data-bloco="Missão 4" data-min="70" data-titulo="Missão 4: minha cidade em dados">
+    <div class="cabeca">
+      <p class="faca-comigo">Missão 4 de 5</p>
+      <h2>Minha cidade em dados</h2>
+      <p class="lead">Uma página com os números da sua cidade, cada um com a fonte, e o tempo no dia em que você nasceu.</p>
+    </div>
+    <figure class="foco-figura captura exemplo-retrato">
+      <img src="assets/img/retrato-anapolis.jpg" alt="Página feita pelo agente: retrato de Anápolis com população, área, PIB, IDHM e densidade, cada número com a fonte" loading="lazy">
+    </figure>
+    <div class="so-leitura antes-de-comecar">
+      <h3>Antes de começar</h3>
+      <ol>
+        <li>Faça no notebook ou computador. O app ChatGPT precisa estar instalado (<a href="instalar.html">como instalar</a>) e a internet, funcionando.</li>
+        <li>Nesta missão não há kit: o agente busca os dados em sites públicos, como o IBGE.</li>
+        <li>Crie uma pasta vazia chamada <b>minha-cidade</b> em Documentos.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="tela" id="passos" data-bloco="Missão 4" data-titulo="Faça comigo">
+    <div class="cabeca">
+      <p class="faca-comigo">Faça comigo</p>
+      <h2>Minha cidade em dados</h2>
+    </div>
+    <ol class="foco">
+      <li data-passo="0" data-rotulo="Pasta vazia">
+        <div class="foco-texto">
+          <p class="foco-acao">Abra uma pasta vazia</p>
+          <p class="foco-dica">Crie <b>minha-cidade</b> em Documentos e abra no app ChatGPT como projeto. Confira o nome da pasta no alto da janela.</p>
+        </div>
+      </li>
+      <li data-passo="1" data-rotulo="Pedir" class="passo-largo">
+        <div class="foco-texto">
+          <p class="foco-acao">Troque a cidade e a data, e envie</p>
+          <p class="pedido-cores pedido-longo">
+            <span class="p1">Use dados públicos, como os do IBGE.</span>
+            <span class="p2">Faça um retrato de <mark class="troque">Anápolis (GO)</mark>: população no Censo 2022, área, PIB, IDHM e densidade, cada número com o ano, a fonte e o link. Diga como estava o tempo na cidade em <mark class="troque">15 de agosto de 1988</mark>, com a estação usada e a distância até a cidade.</span>
+            <span class="p3">Salve como retrato.html nesta pasta.</span>
+            <span class="p4">Não invente números: se não achar um dado, ou se ele não foi medido, diga isso.</span>
+          </p>
+          <p class="foco-dica so-leitura">Cole na caixa de mensagem do app ChatGPT. Troque as duas partes marcadas: a cidade com a sigla do estado, e a data inteira (a do seu nascimento, por exemplo). Depois aperte Enter.</p>
+          <button type="button" class="copiar so-leitura" data-copiar="Use dados públicos, como os do IBGE. Faça um retrato de Anápolis (GO): população no Censo 2022, área, PIB, IDHM e densidade, cada número com o ano, a fonte e o link. Diga como estava o tempo na cidade em 15 de agosto de 1988, com a estação usada e a distância até a cidade. Salve como retrato.html nesta pasta. Não invente números: se não achar um dado, ou se ele não foi medido, diga isso.">Copiar o pedido</button>
+        </div>
+      </li>
+      <li data-passo="2" data-rotulo="Esperar">
+        <div class="foco-texto">
+          <p class="foco-acao">Deixe ele procurar</p>
+          <p class="foco-grande">5 a 15 minutos</p>
+          <p class="foco-dica">Fique na tela: ele vai pedir para abrir sites e baixar dados. Sites oficiais, como IBGE, INMET e NOAA: aprove.</p>
+        </div>
+      </li>
+      <li data-passo="3" data-rotulo="Abrir">
+        <div class="foco-texto">
+          <p class="foco-acao">Abra o retrato.html</p>
+          <p class="foco-dica">Na pasta <b>minha-cidade</b>, botão direito em <b>retrato</b> (ou retrato.html), <b>Abrir com</b>, e escolha o navegador.</p>
+        </div>
+      </li>
+      <li data-passo="4" data-rotulo="Conferir">
+        <div class="foco-texto">
+          <p class="foco-acao">Confira um número na fonte</p>
+          <p class="foco-dica">Clique no link ao lado da população. O número do IBGE para o Censo 2022 é o mesmo da sua página? Confira o ano.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="tela" id="dois-numeros" data-bloco="Missão 4" data-titulo="O mesmo dia, dois números">
+    <div class="cabeca">
+      <p class="faca-comigo">O que aconteceu no teste</p>
+      <h2>O mesmo dia, dois números</h2>
+      <p class="lead">Pedimos o tempo de 15 de agosto de 1988 duas vezes. Uma resposta deu mínima de 13 °C e “0 mm de chuva”. A outra deu 12 °C e avisou que a chuva não foi medida naquele dia.</p>
+    </div>
+    <p class="foco-dica">As duas usaram a mesma estação, com cálculos diferentes. A primeira tratou a falta de medição como zero; a segunda avisou que o dado faltava. Por isso o pedido exige a estação e “se não foi medido, diga”.</p>
+  </section>
+
+  <section class="tela" id="sozinho" data-bloco="Missão 4" data-titulo="Agora sozinho">
+    <div class="cabeca">
+      <p class="faca-comigo">Agora sozinho</p>
+      <h2>Compare com outra cidade</h2>
+      <p class="lead">Na mesma conversa (sem abrir uma nova), peça os mesmos cinco números da capital do seu estado, lado a lado com os da sua cidade.</p>
+    </div>
+  </section>
+
+  <section class="tela-extra so-leitura" id="deu-errado" data-titulo="Deu errado?">
+    <div class="cabeca"><h2>Deu errado?</h2></div>
+    <dl class="deu-errado">
+      <dt>Ele não achou o tempo do dia</dt>
+      <dd>Nem toda cidade tem estação meteorológica, e os registros antigos têm falhas. Peça: “Use a estação mais próxima e diga a distância até a cidade.”</dd>
+      <dt>Um número parece estranho</dt>
+      <dd>Clique no link da fonte. Se não bater, diga: “A população no site do IBGE é outra. Confira e corrija.”</dd>
+      <dt>Está demorando muito</dt>
+      <dd>Com internet lenta, ou com a sala inteira na mesma rede, pode passar de 15 minutos. Se travar, pare e peça só a primeira parte: os números da cidade, sem o tempo.</dd>
+      <dt>A página não abre</dt>
+      <dd>Confira se o arquivo termina em .html. Clique nele com o botão direito, <b>Abrir com</b>, e escolha o navegador.</dd>
+      <dt>Apareceu um aviso de limite</dt>
+      <dd>Na sala, continue no computador do colega. Em casa, o limite volta na semana seguinte; o que já foi feito fica salvo na pasta.</dd>
+    </dl>
+  </section>
+
+  <nav class="proxima so-leitura"><a class="botao cheio" href="missao-5.html">Próxima: Missão 5 →</a></nav>
+
+</main>
+
+<footer class="rodape-leitura">
+  <p><a href="missoes.html">Todas as missões</a> · <a href="instalar.html">Instalar</a> · <a href="missao-1.html">Missão 1</a> · <a href="missao-2.html">Missão 2</a> · <a href="missao-3.html">Missão 3</a> · <b>Missão 4</b> · <a href="missao-5.html">Missão 5</a></p>
+  <p>Do chat ao agente · Observatório UFG-IA · LAPIG/IESA/UFG. O retrato de Anápolis desta página foi feito por um agente num teste de 01/11/2026.</p>
+</footer>
+
+<div class="indice" role="dialog" aria-label="Índice das telas"><ol></ol></div>
+
+<script src="js/motor.js"></script>
+<script src="js/telas-pratica.js"></script>
+<script src="js/coruja.js" defer></script>
+</body>
+</html>
