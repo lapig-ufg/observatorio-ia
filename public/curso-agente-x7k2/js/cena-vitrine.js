@@ -55,8 +55,9 @@
     const origem = document.querySelector(`#${c.dataset.de} .verso`);
     if (!origem) return;
     const v = c.querySelector(".verso");
+    const rotulo = origem.querySelector(".rotulo")?.textContent || "O pedido";
     const q = origem.querySelector("blockquote"), quem = origem.querySelector(".quem"), feito = origem.querySelector("[data-resumo]");
-    v.innerHTML = `<span class="rotulo">O pedido</span>${q ? q.outerHTML : ""}${quem ? quem.outerHTML : ""}${feito ? `<p class="feito">${feito.dataset.resumo}</p>` : ""}`;
+    v.innerHTML = `<span class="rotulo">${rotulo}</span>${q ? q.outerHTML : ""}${quem ? quem.outerHTML : ""}${feito ? `<p class="feito">${feito.dataset.resumo}</p>` : ""}`;
   });
 
   let cascata = [];
