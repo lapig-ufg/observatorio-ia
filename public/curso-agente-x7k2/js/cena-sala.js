@@ -7,7 +7,8 @@
 //
 // Quem respondeu "Nunca usei" pulou as perguntas 2 e 3 (valor -1): nelas, esses
 // pontos ficam num monte à parte, apagado, em vez de entrar numa opção.
-// A tela mostra só a turma do endereço (?turma=); T alterna para todas as turmas.
+// Desde 09/11/2026 não há código de turma: a tela escolhe as respostas pelo
+// período. Abre em "hoje" (o dia da aula); T alterna hoje / últimos 7 dias / todas.
 
 (() => {
   const Q = window.QUESTIONARIO;
@@ -15,9 +16,14 @@
   const BRILHO = ["#4b6e60", "#6f9e87", "#8fd0b0", "#c9eedb", "#fff6e3"];
   const pontos = new Map(); // id -> {x, y, vx, vy, f, r, nasceu, etiqueta, casa, monte}
   let linhas = [];
-  let escopo = "turma";
+  const PERIODOS = [
+    { nome: "hoje", desde: () => new Date().setHours(0, 0, 0, 0) },
+    { nome: "últimos 7 dias", desde: () => new Date().setHours(0, 0, 0, 0) - 6 * 864e5 },
+    { nome: "todas as respostas", desde: () => 0 },
+  ];
+  let periodo = 0;
 
-  const visiveis = () => linhas.filter((l) => l.turma !== "VISITANTE" && (escopo === "todas" || !P.turma || l.turma === P.turma));
+  const visiveis = () => { const d = PERIODOS[periodo].desde(); return linhas.filter((l) => l.t >= d); };
 
   // ----- Canvas nítido apesar da escala do palco -----
   function preparar(canvas) {
@@ -78,14 +84,13 @@
   // No computador local o QR aponta para o endereço público (o celular não alcança o localhost).
   const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   const destino = new URL("responder.html", local && window.CURSO_PUBLICO ? window.CURSO_PUBLICO : location.href);
-  if (P.turma) destino.searchParams.set("turma", P.turma);
   const qr = capa.querySelector(".qr");
   const codigo = qrcode(0, "M");
   codigo.addData(destino.href); codigo.make();
   qr.querySelector("div").innerHTML = codigo.createSvgTag({ cellSize: 8, margin: 0, scalable: true });
   qr.querySelector("svg").setAttribute("aria-label", "QR code para responder ao levantamento");
   qr.title = destino.href;
-  if (P.turma) capa.querySelector(".turma").textContent = `Turma ${P.turma}`;
+  const mostrarPeriodo = () => { capa.querySelector(".turma").textContent = periodo ? `Respostas: ${PERIODOS[periodo].nome}` : ""; };
 
   let rafCapa = 0, ultimoSinal = 0;
   function quadroCapa(agora) {
@@ -159,7 +164,7 @@
     capa.querySelector(".contagem small").textContent = n === 1 ? "pessoa respondeu" : "pessoas responderam";
     if (n > totalAnterior) { el.classList.remove("pulo"); void el.offsetWidth; el.classList.add("pulo"); }
     totalAnterior = n;
-    sala.querySelector(".contagem-sala").textContent = `${n} ${n === 1 ? "pessoa" : "pessoas"} · ${escopo === "todas" ? "todas as turmas" : "esta turma"}`;
+    sala.querySelector(".contagem-sala").textContent = `${n} ${n === 1 ? "pessoa" : "pessoas"} · ${PERIODOS[periodo].nome}`;
     if (sala.classList.contains("ativa")) montes();
   });
 
@@ -270,10 +275,10 @@
   sala.addEventListener("saiu", () => { cancelAnimationFrame(rafSala); rafSala = 0; });
   sala.addEventListener("passo", (e) => { if (e.detail !== pergunta) { pergunta = e.detail; montes(); saltar(); } });
 
-  // ----- Teclas: T alterna esta turma / todas; no ensaio, S simula 5 respostas e 0 apaga -----
+  // ----- Teclas: T alterna o período (hoje / 7 dias / todas); no ensaio, S simula 5 respostas e 0 apaga -----
   [capa, sala].forEach((c) => c.addEventListener("tecla", (e) => {
     const k = e.detail.key;
-    if (k === "t" || k === "T") { escopo = escopo === "turma" ? "todas" : "turma"; pontos.clear(); atualizar(); e.preventDefault(); return; }
+    if (k === "t" || k === "T") { periodo = (periodo + 1) % PERIODOS.length; mostrarPeriodo(); pontos.clear(); atualizar(); e.preventDefault(); return; }
     if (!Q.demo()) return;
     if (k === "s" || k === "S") { Q.simular(P.turma, 5); atualizar(); e.preventDefault(); }
     if (k === "0") { Q.limparDemo(); pontos.clear(); atualizar(); e.preventDefault(); }
