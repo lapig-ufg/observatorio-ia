@@ -81,6 +81,7 @@
 </main>
 
 <script src="js/exercicios.js"></script>
+<script src="js/coruja.js" defer></script>
 <script>
   montarPratica(document.getElementById("exercicios"));
   document.getElementById("indice").innerHTML = exerciciosDaFase(2).map((e, i) => `<li><a href="#${e.id}">${i + 1}. ${e.nome}</a></li>`).join("");
