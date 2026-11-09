@@ -12,7 +12,7 @@
 //
 // Duas coisas respondem. A busca nas entradas da base (dados/monitor-base.json)
 // sempre roda, não usa IA e não inventa: mostra as próprias entradas, com o
-// link. A IA, quando há um endereço em ENDERECO_IA e um código de turma, escreve
+// link. A IA, quando há um endereço em ENDERECO_IA, escreve
 // a resposta a partir da mesma base. Se a IA recusar ou cair, a busca responde
 // e a resposta diz isso. A IA nunca escreve um link: termina com
 // "FONTES: id, id", e os ids viram botões a partir da base. Id inventado não vira nada.
@@ -118,9 +118,10 @@
 
   // ===================== Turma, aparelho, base =====================
 
-  const normalizarTurma = (t) => String(t ?? "").trim().toUpperCase().replace(/[^A-Z0-9-]/g, "").slice(0, 24);
-  let turma = normalizarTurma(new URLSearchParams(location.search).get("turma")) || local.ler("coruja-turma", "");
-  local.guardar("coruja-turma", turma);
+  // Desde 09/11/2026 a coruja é aberta a todos, sem código de turma: quem faz o
+  // curso pelo site, sem estar na aula, também pergunta. Os limites por aparelho
+  // e o teto do dia continuam no servidor (monitor/turmas.json, "ABERTA").
+  const turma = "ABERTA";
 
   /** Um número sorteado por navegador: o limite por pessoa sem saber quem é a pessoa. */
   const aparelho = (() => {
@@ -278,14 +279,6 @@
           </button>
         </div>
         <p class="coruja-aviso">Não escreva nome, e-mail, CPF ou senha. Com a IA ligada, a pergunta vai para um serviço fora da UFG, que não guarda o texto.</p>
-        <details class="coruja-turma">
-          <summary>Código da turma</summary>
-          <div class="coruja-linha">
-            <input id="coruja-codigo" aria-label="Código da turma" autocomplete="off" spellcheck="false" maxlength="24">
-            <button class="coruja-usar" type="button">Usar</button>
-          </div>
-          <small>Quem dá a aula informa o código. Sem ele, eu só busco nas páginas, sem IA.</small>
-        </details>
       </form>
     </div>
     ${pagina ? "" : `
@@ -323,20 +316,10 @@
   let restam = null;
   const mostrarEstado = () => {
     if (!ENDERECO_IA) estadoEl.textContent = "Busco nas páginas do curso (IA desligada).";
-    else if (!turma) estadoEl.textContent = "Sem código de turma: busco nas páginas, sem IA.";
-    else estadoEl.textContent = `Turma ${turma}` + (restam === null ? "" : ` · restam ${restam} perguntas hoje`);
+    else estadoEl.textContent = restam === null ? "" : `Restam ${restam} perguntas hoje neste aparelho`;
   };
   mostrarEstado();
 
-  $("#coruja-codigo").value = turma;
-  $(".coruja-usar").addEventListener("click", () => {
-    turma = normalizarTurma($("#coruja-codigo").value);
-    $("#coruja-codigo").value = turma;
-    local.guardar("coruja-turma", turma);
-    restam = null;
-    mostrarEstado();
-    $(".coruja-turma").open = false;
-  });
 
   // Projeção: a aula (aula.html, com .palco) ou uma página do curso no modo apresentação (body.aula).
   const projecao = () => document.body.classList.contains("aula") || !!document.querySelector(".palco");

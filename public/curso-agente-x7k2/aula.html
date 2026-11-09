@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="css/player.css">
 <script>
   // Endereço do Apps Script que guarda as respostas. Vazio = modo de demonstração (só neste navegador).
-  window.LEVANTAMENTO_URL = "";
+  window.LEVANTAMENTO_URL = "https://script.google.com/macros/s/AKfycbykx59-gRea9xsZLjSue73r9mfk-paHeXRoiRjbtQmsUaV7C5fjvDx9A_FwEsT4_ujlhw/exec";
   // O QR code aponta para o endereço público mesmo quando a aula roda no computador local.
   window.CURSO_PUBLICO = "https://lapig-ufg.github.io/observatorio-ia/curso-agente-x7k2/";
 </script>
@@ -593,131 +593,120 @@
     </div>
   </section>
 
-  <!-- Cada app protege de um jeito: o problema (0), os dois tipos de proteção (1),
-       a tabela de como cada app protege (2) e o menu de aprovação do app ChatGPT (3).
-       Fatos de curso-ia/PROTECOES-DOS-AGENTES.md (testes de 05/11/2026).
-       O menu é um desenho: a captura real da tela entra no lugar. -->
-  <section class="cena" id="protecoes" data-fase="3" data-passos="3" data-titulo="Cada app protege de um jeito">
+  <!-- A pergunta em outra língua: o problema (0), os três modos de permissão do
+       app ChatGPT no mesmo teste (1), a escolha do curso (2) e o fecho (3).
+       Linhas e textos reais do teste de 07/11/2026 (mapa de Goiânia), no app
+       ChatGPT, modelo Luna, raciocínio Alto. -->
+  <section class="cena" id="protecoes" data-fase="3" data-passos="3" data-titulo="A pergunta em outra língua">
     <div class="vitrine prot">
       <div class="problema" data-passo="0" data-ate="0">
         <span class="rotulo">Aprovar no escuro</span>
-        <p>Ao organizar a pasta do setor, o agente pede para rodar uma linha de código. Você não entende e clica em “Permitir”. <em>Teria clicado igual se a linha apagasse tudo.</em></p>
+        <p>O agente pede licença para fazer algo e mostra uma linha que parece outra língua. Você clica em “Permitir” porque precisa terminar o trabalho. <em>Teria clicado igual se a linha apagasse tudo.</em></p>
       </div>
 
-      <div class="vitrine-texto" data-passo="1" data-ate="1">
-        <span class="rotulo">Dois tipos de proteção</span>
-        <h2 class="titulo">A parede protege mais que a pergunta</h2>
-        <p class="linha-fina">A pergunta depende do seu julgamento a cada ação. A parede é o próprio sistema do computador trancando o agente numa área fechada.</p>
+      <div class="vitrine-texto prot-intro" data-passo="1" data-ate="1">
+        <span class="rotulo">A mesma saída, três modos</span>
+        <h2 class="titulo">Três modos de deixar o agente agir</h2>
+        <p class="linha-fina">Os três mostram o mesmo momento do teste do curso: o agente precisa da internet para buscar dados públicos do IBGE e a previsão do tempo (Open-Meteo) e montar um mapa de Goiânia.</p>
       </div>
 
-      <div class="prot-cartoes" data-passo="1" data-ate="1">
+      <div class="prot-modos" data-passo="1" data-ate="1">
         <article class="prot-cartao">
+          <header class="prot-cartao-topo">
+            <span class="prot-modo-num">1</span>
+            <h3 class="prot-nome">Solicitar aprovação</h3>
+          </header>
           <div class="prot-desenho">
             <div class="prot-pedido" aria-hidden="true">
               <div class="prot-pedido-topo"><i class="prot-cadeado"></i><span>pedido de aprovação</span></div>
-              <code>Get-ChildItem -Recurse -File | Select-Object Name, Length</code>
+              <code title="$u='https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5208707?formato=application/vnd.geo+json&amp;qualidade=intermediaria'; $r=Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 60"><span>$u='https://servicodados.ibge.gov.br/api/v3/</span><span>malhas/municipios/5208707?formato=</span><span>application/vnd.geo+json&amp;qualidade=</span><span>intermediaria'; $r=Invoke-WebRequest</span><span>-Uri $u -UseBasicParsing -TimeoutSec 60</span></code>
               <div class="prot-botoes"><span class="prot-permitir">Permitir</span><span class="prot-recusar">Recusar</span></div>
             </div>
           </div>
-          <div class="prot-texto">
-            <h3 class="prot-nome">A pergunta</h3>
-            <p class="prot-frase">O agente pede licença antes de agir, e a segurança depende de quem responde.</p>
-            <p class="prot-limite">Se você não entende o comando, aprova no escuro. No teste do curso, foram 11 pedidos.</p>
+          <p class="prot-frase">Você decide cada passo, mas a pergunta vem na língua do computador.</p>
+          <div class="prot-balanca">
+            <p class="prot-vantagem"><b>Vantagem</b>nada acontece sem você.</p>
+            <p class="prot-risco"><b>Risco</b>se você não entende a linha, aprova no escuro.</p>
           </div>
         </article>
 
         <article class="prot-cartao">
+          <header class="prot-cartao-topo">
+            <span class="prot-modo-num">2</span>
+            <h3 class="prot-nome">Aprovar por mim</h3>
+          </header>
           <div class="prot-desenho">
-            <div class="prot-parede" aria-hidden="true">
-              <div class="prot-area">
-                <span class="prot-area-nome">área fechada</span>
-                <div class="prot-pasta"><i class="icone-pasta"></i><b>a pasta do projeto</b></div>
-                <i class="prot-flecha"></i>
+            <div class="prot-pedido" aria-hidden="true">
+              <div class="prot-pedido-topo"><i class="prot-cadeado"></i><span>pedido traduzido</span></div>
+              <p class="prot-pergunta">Posso consultar a API do Open-Meteo para obter as altitudes nos centros da grade e terminar o HTML solicitado?</p>
+              <div class="prot-revisor">
+                <span class="prot-revisor-rotulo">revisor automático</span>
+                <p>Aprovado: faz as consultas públicas que a pessoa pediu, gera um mapa no próprio computador e não apaga nada, não usa senhas nem envia dados sensíveis.</p>
               </div>
-              <div class="prot-barreira"></div>
             </div>
           </div>
-          <div class="prot-texto">
-            <h3 class="prot-nome">A parede</h3>
-            <p class="prot-frase">O próprio sistema do computador impede o agente de sair de uma área fechada.</p>
-            <p class="prot-limite">É a mais forte: não depende do modelo nem do que você clica.</p>
+          <p class="prot-frase">Um segundo modelo lê o código e só chama você se houver risco; a pergunta chega traduzida.</p>
+          <div class="prot-balanca">
+            <p class="prot-vantagem"><b>Vantagem</b>você não precisa ler código; o trabalho anda.</p>
+            <p class="prot-risco"><b>Risco</b>a tradução também pode errar; uma explicação bem escrita não garante que o resultado esteja certo.</p>
+          </div>
+        </article>
+
+        <article class="prot-cartao">
+          <header class="prot-cartao-topo">
+            <span class="prot-modo-num">3</span>
+            <h3 class="prot-nome">Acesso completo</h3>
+          </header>
+          <div class="prot-desenho">
+            <div class="prot-pedido" aria-hidden="true">
+              <div class="prot-pedido-topo"><i class="prot-visto">✓</i><span>Já feito</span></div>
+              <div class="prot-registro">
+                <span>Consultou <b>servicodados.ibge.gov.br</b></span>
+                <span>Consultou <b>api.open-meteo.com</b></span>
+              </div>
+              <p class="prot-ninguem">Ninguém foi consultado.</p>
+            </div>
+          </div>
+          <p class="prot-frase">O agente age direto no seu computador, sem perguntar.</p>
+          <div class="prot-balanca">
+            <p class="prot-vantagem"><b>Vantagem</b>é o modo dos trabalhos grandes; nada trava no caminho.</p>
+            <p class="prot-risco"><b>Risco</b>a proteção tem de vir de fora: usar um computador ou um usuário do Windows separado, sem contas importantes abertas, e ter cópia dos arquivos.</p>
           </div>
         </article>
       </div>
 
-      <div class="vitrine-texto" data-passo="2" data-ate="2">
-        <span class="rotulo">Como cada app protege</span>
-        <h2 class="titulo">O nome do modo não diz tudo</h2>
+      <p class="prot-escolha" data-passo="1" data-ate="1">Não existe modo certo para todo mundo. <b>É uma escolha sua</b>, pesando o que você ganha e o que arrisca.</p>
+      <p class="prot-legenda" data-passo="1" data-ate="1">Linhas e textos reais do teste do curso de 07/11/2026 (mapa de Goiânia), no app ChatGPT, modelo Luna, raciocínio Alto.</p>
+
+      <div class="vitrine-texto prot-escolha-texto" data-passo="2" data-ate="2">
+        <span class="rotulo">O modo do curso</span>
+        <h2 class="titulo">A escolha deste curso</h2>
+        <p class="linha-fina">Neste curso usamos o ChatGPT no modo <b>Aprovar por mim</b>, depois de um pedido curto de preparo feito uma vez.</p>
+        <p class="prot-ressalva">Com uma assinatura paga, que dá acesso a modelos mais capazes, o preparo pode ser menos necessário. Ele não atrapalha.</p>
+        <p class="prot-link">O preparo está na página <a href="instalar.html" target="_blank" rel="noopener">Instalar</a>.</p>
       </div>
 
-      <div class="prot-tabela" data-passo="2" data-ate="2">
-        <div class="prot-cabecalho" aria-hidden="true"><span>app</span><span>pergunta</span><span>parede</span></div>
-        <ol class="prot-lista">
-          <li>
-            <div class="prot-app">
-              <b>Antigravity (Google)</b>
-              <p>Tem quatro modos: “Request Review” pergunta tudo sem parede, “Default” e “Auto” usam parede, e “Turbo” libera tudo.</p>
-              <small>O “Auto” está em prévia e não funcionou como deveria em 05/11/2026.</small>
-            </div>
-            <span class="prot-selo depende" aria-label="pergunta: depende do modo">depende do modo</span>
-            <span class="prot-selo depende" aria-label="parede: depende do modo">depende do modo</span>
-          </li>
-          <li>
-            <div class="prot-app">
-              <b>ChatGPT (OpenAI)</b>
-              <p>No “Aprovar por mim”, trabalha atrás da parede. Para sair dela, um segundo modelo avalia e só pergunta se houver risco.</p>
-            </div>
-            <span class="prot-selo aceso" aria-label="pergunta: só se houver risco">se houver risco</span>
-            <span class="prot-selo aceso" aria-label="parede: sim">sim</span>
-          </li>
-          <li>
-            <div class="prot-app">
-              <b>Claude (Anthropic)</b>
-              <p>No “modo automático”, um verificador barra ações arriscadas antes de rodarem. É julgamento de um modelo, sem parede.</p>
-            </div>
-            <span class="prot-selo aceso" aria-label="pergunta: às vezes">às vezes</span>
-            <span class="prot-selo" aria-label="parede: não">não</span>
-          </li>
-          <li>
-            <div class="prot-app">
-              <b>Linha de comando (opencode e agy)</b>
-              <p>Na configuração padrão, não perguntam quase nada e não têm parede.</p>
-            </div>
-            <span class="prot-selo" aria-label="pergunta: quase nunca">quase nunca</span>
-            <span class="prot-selo" aria-label="parede: não">não</span>
-          </li>
-        </ol>
-        <p class="prot-caso"><span class="prot-caso-rotulo">No teste do curso · 5 nov. 2026</span> Com 8 comprovantes no “Default”, a parede do Antigravity escondeu o Python. O agente procurou outro caminho sem avisar e levou 8 minutos para entregar uma planilha pior. Sem a parede, o mesmo pedido levou 4 minutos.</p>
-      </div>
-
-      <div class="vitrine-texto" data-passo="3">
-        <span class="rotulo">A escolha do curso</span>
-        <h2 class="titulo">Use o app ChatGPT em “Aprovar por mim”</h2>
-        <p class="linha-fina">No menu embaixo da caixa do pedido, escolha “Aprovar por mim”. Ele trabalha numa área fechada e quase não pergunta nada.</p>
-        <ol class="prot-acontece">
-          <li>O agente escreve só na pasta do projeto e fica sem internet.</li>
-          <li>Quando ele precisa sair disso, um segundo modelo confere e decide.</li>
-          <li>Só pergunta a você nos casos de risco. Aí, leia com calma.</li>
-        </ol>
-      </div>
-
-      <div class="prot-coluna">
-        <div class="prot-menu" data-passo="3">
-          <span class="prot-desenho-selo">desenho · a captura da tela real entra aqui</span>
-          <header class="prot-menu-barra"><i></i><i></i><i></i><span>Codex</span></header>
-          <div class="prot-menu-corpo">
-            <h3 class="prot-menu-titulo">Como as ações do Codex devem ser aprovadas?</h3>
-            <ol class="prot-opcoes">
-              <li style="--n:3"><div><b>Solicitar aprovação</b><p>Sempre pedir aprovação para editar arquivos externos e usar a internet</p></div></li>
-              <li style="--n:2" class="escolhido"><div><b>Aprovar por mim</b><em>o curso usa este</em><p>Solicitar aprovação apenas para ações detectadas como potencialmente inseguras</p></div></li>
-              <li style="--n:1"><div><b>Acesso completo</b><p>Acesso irrestrito à internet e a qualquer arquivo no seu computador</p></div></li>
-            </ol>
-          </div>
+      <div class="prot-quadro" data-passo="2" data-ate="2">
+        <div class="prot-quadro-topo">
+          <span class="prot-quadro-rotulo">No app ChatGPT</span>
+          <em class="prot-quadro-selo">o curso usa este</em>
         </div>
+        <b class="prot-quadro-nome">Aprovar por mim</b>
+        <p class="prot-quadro-desc">“Solicitar aprovação apenas para ações detectadas como potencialmente inseguras”</p>
+        <p class="prot-quadro-fonte">Descrição do próprio app</p>
+        <div class="prot-quadro-preparo">
+          <span class="prot-quadro-rotulo">O preparo, uma vez no começo</span>
+          <ul>
+            <li>Instala o que falta para gerar PDFs.</li>
+            <li>Grava orientações para o agente: conferir o resultado antes de entregar e não instalar nada sem avisar.</li>
+          </ul>
+        </div>
+      </div>
 
-        <p class="prot-caso prot-caso-menu" data-passo="3"><span class="prot-caso-rotulo">No teste do curso</span>, o segundo modelo foi chamado duas vezes, para apagar arquivos temporários que o próprio agente tinha criado. Liberou as duas, com a justificativa por escrito.</p>
-
-        <p class="prot-fecho" data-passo="3">Aprovar o que você não entende não é proteção.</p>
+      <div class="prot-fim" data-passo="3">
+        <p class="prot-fim-frase">A IA traduz <em>nas duas direções</em>: a sua ideia em código, e o que o código vai fazer em português.</p>
+        <p class="linha-fina">Você não precisa dominar a linguagem para ter acesso à solução. Precisa saber o que pediu e conferir o que voltou.</p>
+        <p class="prot-fim-nota">O T de ChatGPT vem de Transformer, uma técnica criada em 2017 para tradução automática.</p>
       </div>
     </div>
   </section>

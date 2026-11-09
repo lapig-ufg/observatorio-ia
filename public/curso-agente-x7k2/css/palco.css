@@ -945,153 +945,115 @@ body.preto .tela-preta { display: block; }
 .res-pagina img { width: 100%; aspect-ratio: 210 / 250; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid #d8d2c4; background: #fff; box-shadow: 0 16px 30px -16px rgba(16, 33, 27, .5); }
 .res-pagina figcaption { font: 600 12px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #6b7a73; text-align: center; }
 
-/* ---------- Fase 3: cada app protege de um jeito (cena "protecoes") ---------- */
+/* ---------- Fase 3: a pergunta em outra língua (cena "protecoes") ---------- */
 .prot .vitrine-texto .titulo { font-size: 58px; }
 .prot .vitrine-texto .linha-fina { font-size: 25px; }
+.vitrine-texto.prot-intro { width: 390px; }
+.vitrine-texto.prot-intro .titulo { font-size: 50px; }
+.vitrine-texto.prot-intro .linha-fina { font-size: 22px; }
 
-/* Passo 1: os dois tipos de proteção, em dois cartões lado a lado. */
-.prot-cartoes {
-  position: absolute; left: 600px; right: 110px; top: 50%; translate: 0 -50%;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; z-index: 1;
+/* Passo 1: os três modos de permissão, lado a lado. */
+.prot-modos {
+  position: absolute; left: 546px; right: 110px; top: 42px; bottom: 132px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; z-index: 1;
 }
 .prot-cartao {
-  display: flex; flex-direction: column; min-height: 500px; padding: 24px 24px 22px;
-  border-radius: 22px; background: rgba(4, 18, 14, .42); border: 1px solid var(--linha);
+  display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: 18px 18px 16px;
+  border-radius: 20px; background: rgba(4, 18, 14, .42); border: 1px solid var(--linha);
   box-shadow: 0 46px 90px -55px rgba(0, 0, 0, .95);
   opacity: 0; transform: translateY(28px);
   transition: opacity .6s var(--curva), transform .8s var(--curva);
 }
-.prot-cartoes.visto .prot-cartao { opacity: 1; transform: none; }
-.prot-cartoes.visto .prot-cartao:nth-child(2) { transition-delay: .38s; }
-.prot-desenho { height: 206px; display: flex; align-items: center; justify-content: center; }
-
-/* O desenho do pedido de aprovação. */
-.prot-pedido {
-  width: 100%; padding: 17px 18px 16px; border-radius: 16px; background: #1b1d1f;
-  border: 1px solid rgba(255, 255, 255, .08); box-shadow: 0 26px 50px -30px #000;
+.prot-modos.visto .prot-cartao { opacity: 1; transform: none; }
+.prot-modos.visto .prot-cartao:nth-child(2) { transition-delay: .12s; }
+.prot-modos.visto .prot-cartao:nth-child(3) { transition-delay: .24s; }
+.prot-cartao-topo { display: flex; align-items: flex-start; gap: 10px; min-height: 68px; }
+.prot-modo-num {
+  display: grid; place-items: center; width: 28px; height: 28px; margin-top: 2px; flex: none;
+  border-radius: 50%; border: 1px solid rgba(243, 239, 230, .3); color: var(--ouro);
+  font: 700 15px/1 var(--mono);
 }
-.prot-pedido-topo { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font: 600 15px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #aeb4af; }
+.prot-nome { margin: 0; font: 400 28px/1.08 var(--serifa); }
+.prot-desenho { height: 320px; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+.prot-frase { margin: 14px 0 0; min-height: 98px; font-size: 18px; line-height: 1.36; color: var(--creme); }
+.prot-balanca { margin: 0; padding-top: 14px; display: grid; gap: 9px; }
+.prot-balanca p { margin: 0; font-size: 15px; line-height: 1.35; color: var(--creme-2); }
+.prot-balanca b { display: block; margin-bottom: 3px; font: 700 15px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; }
+.prot-vantagem b { color: var(--menta); }
+.prot-risco b { color: var(--terracota); }
+
+/* O pedido de aprovação, com a linha real ou a pergunta traduzida. */
+.prot-pedido {
+  width: 100%; height: 338px; padding: 14px; border-radius: 14px; background: #1b1d1f;
+  border: 1px solid rgba(255, 255, 255, .08); box-shadow: 0 26px 50px -30px #000;
+  display: flex; flex-direction: column; flex: none;
+}
+.prot-pedido-topo { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; font: 600 15px/1 var(--sans); letter-spacing: .09em; text-transform: uppercase; color: #aeb4af; }
 .prot-cadeado { position: relative; width: 16px; height: 12px; margin-top: 5px; border-radius: 3px; background: var(--ouro); flex: none; }
 .prot-cadeado::before { content: ""; position: absolute; left: 3px; top: -7px; width: 10px; height: 9px; border: 2px solid var(--ouro); border-bottom: 0; border-radius: 6px 6px 0 0; }
 .prot-pedido code {
-  display: block; padding: 11px 13px; border-radius: 10px; background: #101214; border: 1px solid rgba(255, 255, 255, .07);
-  font: 500 15px/1.5 var(--mono); color: #dfe3df; overflow-wrap: anywhere;
+  display: block; padding: 10px 11px; border-radius: 9px; background: #101214; border: 1px solid rgba(255, 255, 255, .07);
+  font: 500 15px/1.42 var(--mono); color: #dfe3df;
+  margin-top: 0;
 }
-.prot-botoes { display: flex; justify-content: flex-end; gap: 10px; margin-top: 13px; }
-.prot-botoes span { padding: 9px 16px; border-radius: 9px; font: 600 15px/1 var(--sans); }
+.prot-pedido code span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.prot-botoes { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; padding-top: 0; }
+.prot-botoes span { padding: 8px 14px; border-radius: 8px; font: 600 15px/1 var(--sans); }
 .prot-permitir { background: var(--terracota-escura); color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12); }
 .prot-recusar { background: transparent; border: 1px solid rgba(255, 255, 255, .25); color: #c7ccc7; }
+.prot-pergunta {
+  margin: 0; padding: 10px 11px; border-radius: 9px; background: #101214; border: 1px solid rgba(255, 255, 255, .07);
+  font: 400 15px/1.28 var(--sans); color: #dfe3df;
+}
+.prot-revisor { margin-top: 9px; padding: 9px 11px; border-radius: 9px; background: rgba(127, 196, 162, .1); border: 1px solid rgba(127, 196, 162, .38); }
+.prot-revisor-rotulo { display: block; margin-bottom: 4px; font: 700 15px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--menta); }
+.prot-revisor p { margin: 0; font-size: 15px; line-height: 1.28; color: #dfe3df; }
 
-/* O desenho da parede: a pasta dentro da área fechada, a seta e a barreira. */
-.prot-parede { position: relative; width: 100%; display: flex; align-items: center; }
-.prot-area {
-  position: relative; flex: 1; height: 172px; border-radius: 18px;
-  border: 2px dashed rgba(127, 196, 162, .55);
-  background: repeating-linear-gradient(135deg, rgba(127, 196, 162, .05) 0 14px, transparent 14px 28px);
-}
-.prot-area-nome { position: absolute; left: 18px; top: 13px; font: 600 15px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--menta); }
-.prot-pasta {
-  position: absolute; left: 50%; top: 58%; translate: -50% -50%;
-  display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px;
-  background: rgba(243, 239, 230, .09); border: 1px solid var(--linha); white-space: nowrap;
-}
-.prot-pasta .icone-pasta { width: 28px; height: 21px; flex: none; }
-.prot-pasta b { font: 600 17px/1.2 var(--sans); }
-.prot-flecha { position: absolute; right: -64px; top: 50%; width: 64px; height: 3px; background: var(--ouro); }
-.prot-flecha::after { content: ""; position: absolute; right: -1px; top: -7px; border-left: 12px solid var(--ouro); border-top: 8px solid transparent; border-bottom: 8px solid transparent; }
-.prot-barreira {
-  position: relative; flex: none; width: 16px; height: 172px; margin-left: 64px; border-radius: 6px;
-  background: repeating-linear-gradient(45deg, var(--terracota) 0 9px, #a94d26 9px 18px);
-  box-shadow: 0 0 26px rgba(224, 122, 69, .28);
-}
-.prot-barreira::before {
-  content: "✕"; position: absolute; left: 50%; top: 50%; translate: -50% -50%;
-  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
-  background: var(--noite); border: 2px solid var(--terracota); color: var(--terracota); font: 700 18px/1 var(--sans);
-}
+/* O acesso completo: o registro do que o agente fez, sem ninguém ser consultado. */
+.prot-visto { color: var(--menta); font: 700 16px/1 var(--sans); font-style: normal; flex: none; }
+.prot-registro { display: grid; gap: 10px; margin-top: 0; font: 500 15px/1.3 var(--mono); color: #dfe3df; }
+.prot-registro span { padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, .07); }
+.prot-registro b { font-weight: 500; white-space: nowrap; }
+.prot-registro span:last-child { padding-bottom: 0; border-bottom: 0; }
+.prot-ninguem { margin: 12px 0 0; padding-top: 0; font: 400 15px/1.3 var(--sans); color: var(--creme-3); text-align: right; }
 
-.prot-texto { display: flex; flex-direction: column; flex: 1; padding-top: 12px; }
-.prot-nome { margin: 0; font: 400 36px/1.1 var(--serifa); }
-.prot-frase { margin: 13px 0 0; font-size: 20px; line-height: 1.4; color: var(--creme-2); }
-.prot-limite { margin: auto 0 0; padding-top: 14px; border-top: 1px solid var(--linha); font-size: 17px; line-height: 1.42; color: var(--creme-2); }
+/* Passo 1: a escolha e a fonte dos textos reais. */
+.prot-escolha {
+  position: absolute; left: 546px; right: 110px; bottom: 62px; margin: 0; padding-top: 12px;
+  border-top: 1px solid var(--linha); font: 400 19px/1.35 var(--sans); color: var(--creme);
+}
+.prot-escolha b { color: var(--ouro); font-weight: 600; }
+.prot-legenda { position: absolute; left: 546px; right: 110px; bottom: 108px; margin: 0; font-size: 15px; line-height: 1.25; color: var(--creme-2); }
 
-/* Passo 2: a tabela dos apps, com os selos de pergunta e parede. */
-.prot-tabela { position: absolute; left: 600px; right: 110px; top: 50%; translate: 0 -50%; z-index: 1; }
-.prot-cabecalho { display: grid; grid-template-columns: 1fr 150px 150px; gap: 12px; padding: 0 18px 10px; font: 600 15px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--creme-3); }
-.prot-cabecalho span:not(:first-child) { text-align: center; }
-.prot-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.prot-lista li {
-  display: grid; grid-template-columns: 1fr 150px 150px; gap: 12px; align-items: center; padding: 14px 18px;
-  border-radius: 16px; background: rgba(4, 18, 14, .42); border: 1px solid var(--linha);
-  opacity: 0; transform: translateY(16px);
-  transition: opacity .5s var(--curva), transform .6s var(--curva);
+/* Passo 2: a escolha do curso. */
+.vitrine-texto.prot-escolha-texto .titulo { font-size: 48px; }
+.vitrine-texto.prot-escolha-texto .linha-fina { font-size: 21px; }
+.prot-ressalva { margin: 20px 0 0; font-size: 18px; line-height: 1.45; color: var(--creme-3); }
+.prot-link { margin: 14px 0 0; font-size: 18px; color: var(--creme-2); }
+.prot-link a { color: var(--ouro); text-decoration: none; border-bottom: 1px solid rgba(232, 194, 106, .55); }
+.prot-quadro {
+  position: absolute; left: 600px; right: 110px; top: 50%; translate: 0 -50%; z-index: 1;
+  padding: 34px 42px 32px; border-radius: 22px; background: rgba(4, 18, 14, .42);
+  border: 1px solid var(--linha); box-shadow: 0 46px 90px -55px rgba(0, 0, 0, .95);
 }
-.prot-tabela.visto .prot-lista li { opacity: 1; transform: none; }
-.prot-tabela.visto .prot-lista li:nth-child(2) { transition-delay: .08s; }
-.prot-tabela.visto .prot-lista li:nth-child(3) { transition-delay: .16s; }
-.prot-tabela.visto .prot-lista li:nth-child(4) { transition-delay: .24s; }
-.prot-app b { display: block; font: 600 20px/1.2 var(--sans); }
-.prot-app p { margin: 5px 0 0; font-size: 16px; line-height: 1.38; color: var(--creme-2); }
-.prot-app small { display: block; margin-top: 6px; font-size: 15px; line-height: 1.3; color: var(--ouro); }
-.prot-selo {
-  justify-self: stretch; padding: 8px 10px; border-radius: 999px; text-align: center;
-  font: 600 15px/1.2 var(--sans); color: var(--creme-3);
-  background: rgba(243, 239, 230, .04); border: 1px solid rgba(243, 239, 230, .18);
-}
-.prot-selo.aceso { color: var(--menta); background: rgba(127, 196, 162, .12); border-color: rgba(127, 196, 162, .45); }
-.prot-selo.depende { color: var(--ouro); background: rgba(232, 194, 106, .1); border-color: rgba(232, 194, 106, .45); }
+.prot-quadro-topo { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.prot-quadro-rotulo { font: 600 15px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--terracota); }
+.prot-quadro-selo { padding: 6px 10px; border-radius: 999px; background: var(--terracota-escura); color: #fff; font: 700 15px/1 var(--sans); font-style: normal; letter-spacing: .06em; text-transform: uppercase; }
+.prot-quadro-nome { display: block; margin-top: 14px; font: 400 54px/1.05 var(--serifa); }
+.prot-quadro-desc { margin: 16px 0 0; max-width: 720px; font: 400 21px/1.4 var(--sans); color: var(--creme); }
+.prot-quadro-fonte { margin: 7px 0 0; font-size: 15px; color: var(--creme-3); }
+.prot-quadro-preparo { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--linha); display: grid; grid-template-columns: 210px 1fr; gap: 24px; align-items: start; }
+.prot-quadro-preparo .prot-quadro-rotulo { line-height: 1.35; }
+.prot-quadro-preparo ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; font-size: 18px; line-height: 1.4; color: var(--creme-2); }
+.prot-quadro-preparo li { position: relative; padding-left: 20px; }
+.prot-quadro-preparo li::before { content: ""; position: absolute; left: 0; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--menta); }
 
-.prot-caso {
-  margin: 0; padding: 14px 18px; border-left: 4px solid var(--terracota); border-radius: 0 12px 12px 0;
-  background: rgba(243, 239, 230, .05); font-size: 16.5px; line-height: 1.45; color: var(--creme-2);
-}
-.prot-tabela .prot-caso { margin-top: 16px; }
-.prot-caso-rotulo { display: block; margin-bottom: 4px; font: 700 15px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--terracota); }
-
-/* Passo 3: o menu de aprovação do Codex que o curso usa. */
-.prot-coluna { position: absolute; left: 600px; right: 110px; top: 92px; bottom: 54px; z-index: 1; display: flex; flex-direction: column; gap: 20px; }
-.prot-menu {
-  position: relative; flex: none; border-radius: 18px; overflow: hidden; background: #1b1d1f; color: #e9ece9;
-  box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .85), 0 0 0 1px rgba(255, 255, 255, .07);
-}
-.prot-desenho-selo {
-  position: absolute; right: 14px; top: 8px; z-index: 3;
-  font: 600 15px/1 var(--mono); letter-spacing: .02em; color: var(--ouro);
-  border: 1px dashed rgba(232, 194, 106, .7); border-radius: 999px; padding: 7px 12px; background: #252729;
-}
-.prot-menu-barra { display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 18px; background: #252729; border-bottom: 1px solid rgba(255, 255, 255, .06); }
-.prot-menu-barra i { width: 12px; height: 12px; border-radius: 50%; background: #45484b; }
-.prot-menu-barra span { margin-left: 12px; font: 600 15px/1 var(--sans); color: #b9bdb9; }
-.prot-menu-corpo { padding: 26px 34px 28px; }
-.prot-menu-titulo { margin: 0 0 20px; font: 600 26px/1.25 var(--sans); }
-.prot-opcoes { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.prot-opcoes li {
-  display: flex; align-items: center; gap: 20px; padding: 17px 20px; border-radius: 12px; border: 1px solid transparent;
-  opacity: 0; transform: translateX(20px);
-  transition: opacity .5s var(--curva), transform .6s var(--curva), background .4s, border-color .4s;
-  transition-delay: calc(.2s + (3 - var(--n)) * .12s);
-}
-.prot-menu.visto .prot-opcoes li { opacity: 1; transform: none; }
-.prot-opcoes li > div { flex: 1; }
-.prot-opcoes b { font: 600 20px/1.2 var(--sans); }
-.prot-opcoes em { margin-left: 12px; font: 700 15px/1 var(--sans); font-style: normal; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: var(--terracota-escura); border-radius: 999px; padding: 5px 10px; vertical-align: 2px; }
-.prot-opcoes p { margin: 5px 0 0; font: 400 16px/1.4 var(--sans); color: #aeb4af; }
-.prot-opcoes li.escolhido { background: rgba(224, 122, 69, .12); border-color: rgba(224, 122, 69, .65); }
-.prot-opcoes li.escolhido p { color: #dfe3df; }
-
-.prot-caso-menu { flex: none; padding: 13px 18px; font-size: 16.5px; }
-.prot-caso-menu .prot-caso-rotulo { display: inline; margin: 0; font: 600 16.5px/1.45 var(--sans); letter-spacing: 0; text-transform: none; }
-
-.prot-fecho { margin: auto 0 0; padding-top: 16px; border-top: 1px solid var(--linha); font: italic 400 26px/1.3 var(--serifa); color: var(--creme-2); text-align: right; }
-
-/* O que acontece no modo que o curso usa. */
-.prot-acontece { margin: 28px 0 0; padding: 0; list-style: none; display: grid; gap: 14px; font-size: 20px; line-height: 1.4; color: var(--creme-2); counter-reset: prot; }
-.prot-acontece li { position: relative; padding-left: 44px; counter-increment: prot; }
-.prot-acontece li::before {
-  content: counter(prot); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%;
-  display: grid; place-items: center; font: 700 15px/1 var(--sans); background: var(--verde); color: var(--creme);
-  box-shadow: 0 0 0 1px var(--menta) inset;
-}
+/* Passo 3: o fecho. */
+.prot-fim { position: absolute; left: 110px; right: 110px; top: 50%; translate: 0 -50%; z-index: 2; max-width: 1380px; }
+.prot-fim-frase { margin: 0; font: 400 64px/1.12 var(--serifa); letter-spacing: -.02em; text-wrap: balance; }
+.prot-fim-frase em { font-style: italic; color: var(--terracota); }
+.prot-fim .linha-fina { margin-top: 32px; max-width: 1100px; font-size: 27px; }
+.prot-fim-nota { margin-top: 40px; padding-top: 15px; border-top: 1px solid var(--linha); max-width: 900px; font-size: 16px; line-height: 1.35; color: var(--creme-3); }
 
 /* Regras usadas por outras páginas do curso. */
 .medidor { display: inline-flex; gap: 4px; flex: none; }
