@@ -13,6 +13,8 @@
     rede: '<path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.7 16a5 5 0 0 1 6.6 0"/><circle cx="12" cy="19.2" r="1"/>',
     aberto: '<circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.4c-.6.3-1 .8-1 1.5v.6"/><circle cx="12" cy="17" r=".6"/>',
   };
+  // Na aula, o cartão "Codex" do Observatório aparece com o nome do app que a Fase 3 usa.
+  const NOME_NA_AULA = { codex: "ChatGPT para desktop" };
   const icone = (tipo) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONES[tipo] || ""}</svg>`;
   const esc = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const data = (iso) => {
@@ -37,7 +39,7 @@
     const grande = secao === "instalada";
     tela.querySelector(".gratis-grade").innerHTML = itens.map((i, n) => `
       <li class="gratis-cartao lim-${esc(i.limitType)}" style="--n:${n}">
-        <div class="gratis-nome"><b>${esc(i.name)}</b><small>${esc(i.company)}</small></div>
+        <div class="gratis-nome"><b>${esc(NOME_NA_AULA[i.id] || i.name)}</b><small>${esc(i.company)}</small></div>
         <span class="gratis-selo">${icone(i.limitType)}${esc(tipos[i.limitType] || i.limitType)}</span>
         ${grande ? `<p class="gratis-modelo">${esc(i.model.pt)}</p><p class="gratis-cota">${esc(i.quota.pt)}</p>` : ""}
         <p class="gratis-porem"><span>O porém</span>${esc(i.catch.pt)}</p>

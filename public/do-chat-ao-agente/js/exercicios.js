@@ -127,10 +127,11 @@ window.EXERCICIOS = [
   const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const tipo = (arq) => arq.split(".").pop().toLowerCase();
 
-  // Arquivo para baixar: ícone com a extensão, nome e tamanho.
+  // Arquivo para baixar: ícone com a extensão, nome, tamanho e a seta de baixar.
   const chipArquivo = (a, base) =>
     `<a class="arquivo t-${tipo(a.arq)}" href="${base}pratica/${a.arq}" download>` +
-    `<i>${tipo(a.arq)}</i><span><b>${esc(a.arq.split("/").pop())}</b><small>${a.tam}${a.nota ? " · " + esc(a.nota) : ""}</small></span></a>`;
+    `<i>${tipo(a.arq)}</i><span class="arquivo-nome"><b>${esc(a.arq.split("/").pop())}</b><small>${a.tam}${a.nota ? " · " + esc(a.nota) : ""}</small><em class="arquivo-baixar">Clique para baixar</em></span>` +
+    `<span class="arquivo-seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v13m0 0l-6-6m6 6l6-6M4 21h16"/></svg></span></a>`;
 
   async function copiar(botao, texto) {
     try { await navigator.clipboard.writeText(texto); }
@@ -221,6 +222,19 @@ window.EXERCICIOS = [
       el.querySelector(".qr-svg").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
     }
     el.querySelectorAll(".copiar").forEach((b) => b.addEventListener("click", () => copiar(b, e.pedidos[+b.dataset.i])));
+
+    // O cartão de baixar pulsa uma vez, na primeira vez que o passo aparece.
+    let pulsou = false;
+    const pulsar = () => {
+      if (pulsou) return;
+      const cartoes = el.querySelectorAll(".arquivo");
+      if (!cartoes.length) return;
+      pulsou = true;
+      cartoes.forEach((c) => c.classList.add("pulsa"));
+      setTimeout(() => cartoes.forEach((c) => c.classList.remove("pulsa")), 1100);
+    };
+    cena.addEventListener("passo", (ev) => { if (ev.detail >= +el.dataset.passo) pulsar(); });
+    if (el.classList.contains("visto")) pulsar();
 
     // Cronômetro: clique (ou T) começa e pausa; dois cliques zeram. O arco esvazia até o fim.
     const relogio = el.querySelector(".relogio"), leitura = relogio.querySelector("b"), dica = relogio.querySelector("small");

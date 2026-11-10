@@ -90,7 +90,7 @@
   qr.querySelector("div").innerHTML = codigo.createSvgTag({ cellSize: 8, margin: 0, scalable: true });
   qr.querySelector("svg").setAttribute("aria-label", "QR code para responder ao levantamento");
   qr.title = destino.href;
-  const mostrarPeriodo = () => { capa.querySelector(".turma").textContent = periodo ? `Respostas: ${PERIODOS[periodo].nome}` : ""; };
+  const mostrarPeriodo = () => { document.querySelectorAll("#capa .turma, #sala .turma").forEach((el) => { el.textContent = PERIODOS[periodo].nome; }); };
 
   let rafCapa = 0, ultimoSinal = 0;
   function quadroCapa(agora) {
@@ -190,19 +190,7 @@
       g.cx = x0 + passo * (i + .5); g.larg = passo * .86;
       g.itens.forEach((l) => { const pt = pontos.get(l._id); if (pt) { pt.monte = g; pt.apagado = !!g.aparte; } });
     });
-    // Na pergunta 5, o monte mais alto ganha destaque. Empates mostram todos os lados,
-    // e a ponte usa a mesma lista sem prometer que a aula começa por aqui.
-    const destaque = sala.querySelector(".sala-destaque");
-    if (pergunta === 4 && respondeu.length) {
-      const maior = Math.max(...grupos.filter((g) => !g.aparte).map((g) => g.itens.length));
-      const empatados = grupos.map((g, i) => ({ g, i })).filter(({ g }) => !g.aparte && g.itens.length === maior).map(({ i }) => i);
-      if (maior > 0 && empatados.length) {
-        destaque.querySelector("strong").textContent = empatados.map((i) => p.curtas?.[i] || p.opcoes[i]).join(" · ");
-        destaque.hidden = false;
-        realce = empatados.map((i) => grupos[i]);
-        document.body.dataset.comecaPor = JSON.stringify(empatados);
-      } else { destaque.hidden = true; realce = []; delete document.body.dataset.comecaPor; }
-    } else { destaque.hidden = true; realce = []; }
+    realce = []; // sem destaque: a ordem da aula não depende das respostas
     sala.querySelector(".titulo").textContent = p.texto.replace(" Marque o ponto mais distante.", "");
     sala.querySelector(".rotulo.num").textContent = `Pergunta ${pergunta + 1} de ${Q.PERGUNTAS.length}`;
   }
@@ -284,4 +272,42 @@
     if (k === "0") { Q.limparDemo(); pontos.clear(); atualizar(); e.preventDefault(); }
   }));
   if (Q.demo()) capa.querySelector(".demo").hidden = false;
+  // O céu de pontos da capa, sem as pessoas: a poeira e as linhas fracas,
+  // reaproveitadas no obrigado do fim do curso.
+  window.criarCeuDePontos = function (canvas) {
+    const ctx = preparar(canvas);
+    const poeira = Array.from({ length: 90 }, () => ({
+      x: Math.random() * P.W, y: Math.random() * P.H,
+      vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22,
+    }));
+    let raf = 0;
+    function quadro(agora) {
+      const W = P.W, H = P.H, t = agora / 1000;
+      ctx.clearRect(0, 0, W, H);
+      for (const p of poeira) {
+        p.x = (p.x + p.vx + W) % W;
+        p.y = (p.y + p.vy + H) % H;
+      }
+      const LIG = 190;
+      for (let i = 0; i < poeira.length; i++) {
+        for (let j = i + 1; j < poeira.length; j++) {
+          const a = poeira[i], b = poeira[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d > LIG) continue;
+          ctx.strokeStyle = `rgba(143, 208, 176, ${((1 - d / LIG) * .12).toFixed(3)})`;
+          ctx.lineWidth = .8;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      for (const p of poeira) {
+        const brilho = .28 + .12 * Math.sin(t * .8 + p.x * .01 + p.y * .013);
+        bola(ctx, p.x, p.y, 1.7, `rgba(243, 239, 230, ${brilho.toFixed(3)})`);
+      }
+      raf = requestAnimationFrame(quadro);
+    }
+    return {
+      ligar() { if (!raf) raf = requestAnimationFrame(quadro); },
+      desligar() { cancelAnimationFrame(raf); raf = 0; },
+    };
+  };
 })();

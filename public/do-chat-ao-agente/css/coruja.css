@@ -59,9 +59,9 @@
 .coruja.aberta .coruja-rotulo { opacity: 0 !important; }
 .coruja.aberta .coruja-poleiro { background: var(--c-menta-2); }
 
-/* Na projeção das missões, o canto de baixo é do botão "Sair da projeção": a coruja sobe. */
-body.aula .coruja-botao { bottom: 64px; }
-body.aula .coruja-painel { bottom: 146px; height: min(600px, calc(100vh - 220px)); }
+/* Na aula (e na projeção), o canto de baixo é do trilho e do botão "Tela cheia": a coruja sobe. */
+body.aula .coruja-botao, body:has(> .trilho) .coruja-botao { bottom: 72px; }
+body.aula .coruja-painel, body:has(> .trilho) .coruja-painel { bottom: 146px; height: min(600px, calc(100vh - 220px)); }
 
 /* Na projeção: some sem pressa e volta quando o mouse mexe. */
 .coruja.escondida .coruja-botao { opacity: 0; transform: translateY(14px); pointer-events: none; }

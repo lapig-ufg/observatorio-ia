@@ -43,7 +43,7 @@
       <div class="contagem"><b>0</b><small>pessoas responderam</small></div>
     </div>
     <div class="capa-assina">
-      <span><b>Victor Amaral</b></span><span class="turma"></span>
+      <span class="teclas-dica"><span><kbd>T</kbd>respostas de <b class="turma">hoje</b></span><span><kbd>→</kbd>ver as respostas</span></span>
       <span class="demo" hidden>demonstração: S simula respostas, 0 apaga, T alterna turma e todas</span>
     </div>
     <div class="verso-fonte" hidden>
@@ -57,10 +57,6 @@
 
   <section class="cena" id="sala" data-fase="1" data-passos="4" data-titulo="A sala em pontos">
     <canvas class="fundo" aria-hidden="true"></canvas>
-    <div class="sala-destaque" hidden>
-      <span class="rotulo">O que mais toma o tempo</span>
-      <strong></strong>
-    </div>
     <div class="sala-cabeca">
       <div>
         <span class="rotulo num"></span>
@@ -72,17 +68,17 @@
         <i style="background:#fff6e3;box-shadow:0 0 10px #fff6e3"></i>todo dia
       </div>
     </div>
+    <div class="teclas-dica sala-teclas"><span><kbd>←</kbd><kbd>→</kbd>pergunta anterior e próxima</span><span><kbd>T</kbd>respostas de <b class="turma">hoje</b></span></div>
   </section>
 
-  <section class="cena" id="busca" data-fase="1" data-passos="4" data-titulo="O jornal e a busca">
+  <section class="cena" id="busca" data-fase="1" data-passos="3" data-titulo="O jornal e a busca">
     <canvas class="fundo interativo" aria-label="Duas faixas de nov/2022 a out/2026: em cima, quantos textos da Folha citam inteligência artificial por mês; embaixo, a procura no Google Trends, no Brasil"></canvas>
     <div class="folha-cabeca"><span class="rotulo">A IA no jornal e na busca</span></div>
     <div class="folha-frase">
       <h2 class="titulo" data-passo="0" data-ate="0">Em 2022, 48 textos por mês da Folha citavam “inteligência artificial”. Em 2026, dez vezes mais.</h2>
       <h2 class="titulo" data-passo="1" data-ate="1">No Google, a procura por “inteligência artificial” parou de crescer em 2023.</h2>
       <h2 class="titulo estreito" data-passo="2" data-ate="2">O Brasil não procura “inteligência artificial”. Procura o <em>ChatGPT</em>.</h2>
-      <h2 class="titulo estreito" data-passo="3" data-ate="3">O jornal e o público nem sempre olham para o mesmo lugar.</h2>
-      <h2 class="titulo estreito" data-passo="4">Os <em>agentes</em> já estão no jornal. Quase ninguém os procura.</h2>
+      <h2 class="titulo estreito" data-passo="3">O jornal e o público nem sempre olham para o mesmo lugar.</h2>
     </div>
     <div class="busca-notas" aria-live="polite"></div>
     <div class="folha-contador busca-contador" data-ate="0"><span class="numero">0</span><small>textos</small></div>
@@ -308,14 +304,34 @@
     </div>
   </section>
 
+  <!-- O caminho de todo exemplo, antes do primeiro exemplo da Fase 2.
+       As etapas das duas instâncias vêm do script no fim da página. -->
+  <section class="cena" id="etapas-2" data-fase="2" data-passos="4" data-titulo="Como cada exemplo funciona">
+    <div class="etapas" data-lista="2">
+      <header class="etapas-cabeca">
+        <h2 class="titulo">Como cada exemplo funciona</h2>
+        <p class="linha-fina">Todo exemplo segue o mesmo caminho. Primeiro o problema, depois a solução.</p>
+      </header>
+      <ol class="etapas-lista" aria-label="As etapas de cada exemplo"></ol>
+    </div>
+  </section>
+
   <!-- Cada exemplo: o problema (passo 0), a vez da turma (passo 1) e o exemplo gravado (passo 2).
        A tela "Sua vez" vem de js/exercicios.js, a mesma fonte da página pratica.html. -->
 
   <section class="cena" id="lousa" data-fase="2" data-passos="3" data-titulo="A lousa">
     <div class="vitrine">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>No fim da reunião, você fotografou a lousa com as tarefas da semana. Precisa mandar a tabela para a equipe, e <em>ninguém quer digitar</em>.</p>
+      <div class="problema problema-vivo pv-lousa" data-passo="0" data-ate="0">
+        <div class="pv-texto">
+          <span class="rotulo">Um problema</span>
+          <p>No fim da reunião, você fotografou a lousa com as tarefas da semana. Precisa mandar a tabela para a equipe, e <em>ninguém quer digitar</em>.</p>
+        </div>
+        <div class="problema-material">
+          <figure class="pv-lousa-foto">
+            <img src="pratica/foto-lousa.png" alt="Foto da lousa com as sete tarefas da semana escritas a giz">
+          </figure>
+          <p class="pv-chip">Este é o arquivo do exemplo. Você baixa no próximo passo.</p>
+        </div>
       </div>
       <div class="sua-vez" data-exercicio="lousa" data-passo="1" data-ate="1"></div>
       <div class="vitrine-texto" data-passo="2" data-ate="2">
@@ -345,9 +361,26 @@
 
   <section class="cena" id="contrato" data-fase="2" data-passos="3" data-titulo="O contrato">
     <div class="vitrine">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>Você vai assinar o contrato de limpeza da sua padaria, de 5 páginas, e precisa entender valor, pagamento, multa e cancelamento <em>antes de assinar</em>.</p>
+      <div class="problema problema-vivo pv-contrato-cena" data-passo="0" data-ate="0">
+        <div class="pv-texto">
+          <span class="rotulo">Um problema</span>
+          <p>Você vai assinar o contrato de limpeza da sua padaria, de 5 páginas, e precisa entender valor, pagamento, multa e cancelamento <em>antes de assinar</em>.</p>
+        </div>
+        <div class="problema-material">
+          <div class="pv-contrato" aria-label="As cinco páginas do contrato, em leque">
+            <figure class="pv-folha pv-c5"><img src="assets/img/problemas/contrato-p5.png" alt=""></figure>
+            <figure class="pv-folha pv-c4"><img src="assets/img/problemas/contrato-p4.png" alt=""></figure>
+            <figure class="pv-folha pv-c3"><img src="assets/img/problemas/contrato-p3.png" alt=""></figure>
+            <figure class="pv-folha pv-c2"><img src="assets/img/problemas/contrato-p2.png" alt=""></figure>
+            <figure class="pv-folha pv-c1"><img src="assets/img/problemas/contrato-p1.png" alt="Primeira página do contrato de limpeza"></figure>
+            <span class="pv-selo">5 páginas</span>
+            <span class="pv-et pv-et1">Valor?</span>
+            <span class="pv-et pv-et2">Pagamento?</span>
+            <span class="pv-et pv-et3">Multa?</span>
+            <span class="pv-et pv-et4">Cancelamento?</span>
+          </div>
+          <p class="pv-chip">Este é o arquivo do exemplo. Você baixa no próximo passo.</p>
+        </div>
       </div>
       <div class="sua-vez" data-exercicio="contrato" data-passo="1" data-ate="1"></div>
       <div class="vitrine-texto" data-passo="2" data-ate="2">
@@ -379,9 +412,22 @@
 
   <section class="cena" id="relatorio" data-fase="2" data-passos="3" data-titulo="O relatório">
     <div class="vitrine">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>A coordenadora de um programa de oficinas precisa mandar amanhã o relatório anual para a direção, e <em>ninguém revisou o texto</em>.</p>
+      <div class="problema problema-vivo pv-relatorio-cena" data-passo="0" data-ate="0">
+        <div class="pv-texto">
+          <span class="rotulo">Um problema</span>
+          <p>A coordenadora de um programa de oficinas precisa mandar amanhã o relatório anual para a direção, e <em>ninguém revisou o texto</em>.</p>
+        </div>
+        <div class="problema-material">
+          <div class="pv-relatorio" aria-label="As duas páginas do relatório, com o carimbo não revisado">
+            <figure class="pv-folha pv-r2"><img src="assets/img/problemas/relatorio-p2.png" alt=""></figure>
+            <figure class="pv-folha pv-r1">
+              <img src="assets/img/problemas/relatorio-p1.png" alt="Primeira página do relatório anual">
+              <span class="pv-carimbo">não revisado</span>
+            </figure>
+            <span class="pv-envio">envio: amanhã</span>
+          </div>
+          <p class="pv-chip">Este é o arquivo do exemplo. Você baixa no próximo passo.</p>
+        </div>
       </div>
       <div class="sua-vez" data-exercicio="relatorio" data-passo="1" data-ate="1"></div>
       <div class="vitrine-texto" data-passo="2" data-ate="2">
@@ -413,9 +459,38 @@
 
   <section class="cena" id="planilha" data-fase="2" data-passos="3" data-titulo="A planilha">
     <div class="vitrine">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>A organizadora de um evento online recebeu a planilha do formulário com cidades escritas de vários jeitos e <em>gente inscrita duas vezes</em>. Precisa saber quantas pessoas vêm de cada cidade.</p>
+      <div class="problema problema-vivo pv-planilha-cena" data-passo="0" data-ate="0">
+        <div class="pv-texto">
+          <span class="rotulo">Um problema</span>
+          <p>A organizadora de um evento online recebeu a planilha do formulário com cidades escritas de vários jeitos e <em>gente inscrita duas vezes</em>. Precisa saber quantas pessoas vêm de cada cidade.</p>
+        </div>
+        <div class="problema-material">
+          <div class="pv-planilha">
+            <div class="pv-plan-janela">
+              <header class="pv-plan-topo"><i></i><i></i><i></i><span>inscricoes-evento.xlsx</span></header>
+              <div class="pv-plan-letras"><span></span><span>A</span><span>B</span><span>C</span></div>
+              <div class="pv-plan-cab"><span></span><span>Nome completo</span><span>Cidade</span><span>Oficina</span></div>
+              <div class="pv-plan-linhas">
+                <div class="pv-plan-linha"><span class="pv-plan-n">1</span><span>Natália Pereira Lima</span><span class="pv-hl">Sampa</span><span>Escrita de projetos</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">2</span><span>Wesley Cardoso Costa</span><span class="pv-hl">Sao Paulo</span><span>IA no dia a dia</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">3</span><span>Samuel Ferreira Oliveira</span><span class="pv-hl">São Paulo<span class="pv-vazio" title="espaço no fim"> </span></span><span>Escrita de projetos</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">4</span><span>Gabriela Ribeiro Dias</span><span class="pv-hl">SÃO PAULO</span><span>Planilhas sem medo</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">5</span><span>Felipe Cardoso Martins</span><span>Brasilia</span><span>Mapas no celular</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">6</span><span>Débora Barbosa Ferreira</span><span>BH</span><span>IA no dia a dia</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">7</span><span>Diego Souza Almeida</span><span>Curitiba</span><span>Mapas no celular</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">8</span><span>Rafael Lima Ferreira</span><span>DF</span><span>Planilhas sem medo</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">9</span><span>Isabela Santos Nunes</span><span>belo horizonte</span><span>IA no dia a dia</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">10</span><span class="pv-hl">Amanda Rocha Silva</span><span>SÃO PAULO</span><span>Escrita de projetos</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">11</span><span class="pv-hl">Amanda Rocha Silva</span><span>SÃO PAULO</span><span>Escrita de projetos</span></div>
+                <div class="pv-plan-linha"><span class="pv-plan-n">12</span><span>Paula Silva Santos</span><span>Sampa</span><span>Planilhas sem medo</span></div>
+              </div>
+              <footer class="pv-plan-pe"><span>160 linhas</span><span>Planilha 1</span></footer>
+            </div>
+            <span class="pv-anota pv-anota-cidade">a mesma cidade, 4 jeitos</span>
+            <span class="pv-anota pv-anota-dupla">inscrita duas vezes</span>
+          </div>
+          <p class="pv-chip">Este é o arquivo do exemplo. Você baixa no próximo passo.</p>
+        </div>
       </div>
       <div class="sua-vez" data-exercicio="planilha" data-passo="1" data-ate="1"></div>
       <div class="vitrine-texto" data-passo="2" data-ate="2">
@@ -447,9 +522,66 @@
 
   <section class="cena" id="canvas" data-fase="2" data-passos="3" data-titulo="A calculadora">
     <div class="vitrine">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>Seis colegas dividiram as despesas da confraternização de fim de ano do setor. A Elisa não foi ao almoço, e <em>ninguém sabe quem deve quanto a quem</em>.</p>
+      <div class="problema problema-vivo pv-canvas-cena" data-passo="0" data-ate="0">
+        <div class="pv-texto">
+          <span class="rotulo">Um problema</span>
+          <p>Seis colegas dividiram as despesas da confraternização de fim de ano do setor. A Elisa não foi ao almoço, e <em>ninguém sabe quem deve quanto a quem</em>.</p>
+        </div>
+        <div class="problema-material">
+          <div class="pv-canvas">
+            <article class="pv-nota pv-n1">
+              <b>Almoço no restaurante</b>
+              <span>pagou Ana</span>
+              <strong>R$ 780,00</strong>
+              <i class="pv-sem">sem a Elisa</i>
+            </article>
+            <article class="pv-nota pv-n2">
+              <b>Bolo e salgados</b>
+              <span>pagou Bruno</span>
+              <strong>R$ 246,00</strong>
+            </article>
+            <article class="pv-nota pv-n3">
+              <b>Refrigerantes e sucos</b>
+              <span>pagou Carla</span>
+              <strong>R$ 89,40</strong>
+            </article>
+            <article class="pv-nota pv-n4">
+              <b>Decoração da sala</b>
+              <span>pagou Diego</span>
+              <strong>R$ 64,80</strong>
+            </article>
+            <article class="pv-nota pv-n5">
+              <b>Presente de despedida da Lúcia</b>
+              <span>pagou Elisa</span>
+              <strong>R$ 210,00</strong>
+            </article>
+            <article class="pv-nota pv-n6">
+              <b>Sorvete da sobremesa do almoço</b>
+              <span>pagou Fábio</span>
+              <strong>R$ 72,00</strong>
+              <i class="pv-sem">sem a Elisa</i>
+            </article>
+            <article class="pv-nota pv-n7">
+              <b>Copos, pratos e guardanapos</b>
+              <span>pagou Elisa</span>
+              <strong>R$ 38,40</strong>
+            </article>
+            <article class="pv-nota pv-n8">
+              <b>Amigo secreto: embrulhos e etiquetas</b>
+              <span>pagou Carla</span>
+              <strong>R$ 27,60</strong>
+            </article>
+            <p class="pv-pergunta"><b>?</b>quem deve quanto a quem?</p>
+            <div class="pv-fichas" aria-label="As seis pessoas">
+              <span class="pv-ficha"><b>A</b>Ana</span>
+              <span class="pv-ficha"><b>B</b>Bruno</span>
+              <span class="pv-ficha"><b>C</b>Carla</span>
+              <span class="pv-ficha"><b>D</b>Diego</span>
+              <span class="pv-ficha"><b>E</b>Elisa</span>
+              <span class="pv-ficha"><b>F</b>Fábio</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="sua-vez" data-exercicio="canvas" data-passo="1" data-ate="1"></div>
       <div class="vitrine-texto" data-passo="2" data-ate="2">
@@ -479,9 +611,29 @@
 
   <section class="cena" id="cupons" data-fase="2" data-passos="3" data-titulo="Os comprovantes">
     <div class="vitrine">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>Você precisa prestar contas de 9 comprovantes de viagem fotografados com o celular, e <em>um dos cupons está desbotado</em>.</p>
+      <div class="problema problema-vivo pv-cupons-cena" data-passo="0" data-ate="0">
+        <div class="pv-texto">
+          <span class="rotulo">Um problema</span>
+          <p>Você precisa prestar contas de 9 comprovantes de viagem fotografados com o celular, e <em>um dos cupons está desbotado</em>.</p>
+        </div>
+        <div class="problema-material">
+          <div class="pv-cupons">
+            <figure class="pv-cupom pv-cp1">
+              <img src="assets/img/resultado/cupom-01.jpg" alt="Cupom desbotado da FL Empreendimentos Comerciais">
+              <svg class="pv-circulo" viewBox="0 0 100 220" preserveAspectRatio="none" aria-hidden="true"><path d="M52,6 C80,4 96,55 95,110 C94,165 78,214 50,214 C22,214 5,166 5,110 C5,54 23,7 52,6 Z"/><path class="pv-circulo-2" d="M54,9 C82,8 93,58 92,112 C91,166 76,211 48,210 C20,209 8,164 8,109 C8,55 26,10 54,9 Z"/></svg>
+              <span class="pv-cupom-nome">desbotado</span>
+            </figure>
+            <figure class="pv-cupom pv-cp2"><img src="assets/img/resultado/cupom-02.jpg" alt="Comprovante 2"></figure>
+            <figure class="pv-cupom pv-cp3"><img src="assets/img/resultado/cupom-03.jpg" alt="Comprovante 3"></figure>
+            <figure class="pv-cupom pv-cp4"><img src="assets/img/resultado/cupom-04.jpg" alt="Comprovante 4"></figure>
+            <figure class="pv-cupom pv-cp5"><img src="assets/img/resultado/cupom-05.jpg" alt="Comprovante 5"></figure>
+            <figure class="pv-cupom pv-cp6"><img src="assets/img/resultado/cupom-06.jpg" alt="Comprovante 6"></figure>
+            <figure class="pv-cupom pv-cp7"><img src="assets/img/resultado/cupom-07.jpg" alt="Comprovante 7"></figure>
+            <figure class="pv-cupom pv-cp8"><img src="assets/img/resultado/cupom-08.jpg" alt="Comprovante 8"></figure>
+            <figure class="pv-cupom pv-cp9"><img src="assets/img/resultado/cupom-09.jpg" alt="Comprovante 9"></figure>
+          </div>
+          <p class="pv-chip">Este é o arquivo do exemplo. Você baixa no próximo passo.</p>
+        </div>
       </div>
       <div class="sua-vez" data-exercicio="cupons" data-passo="1" data-ate="1"></div>
       <div class="vitrine-texto" data-passo="2" data-ate="2">
@@ -570,7 +722,7 @@
         <span class="rotulo">Gravado no Windows</span>
         <h2 class="titulo">Do download ao app aberto</h2>
         <p class="linha-fina">No site chatgpt.com, baixe o ChatGPT para desktop. O instalador abre a Microsoft Store e, na primeira vez, o app prepara o Windows. As esperas aparecem aceleradas. Depois, o app abre o navegador para você entrar com a conta e volta pronto para o primeiro pedido.</p>
-        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button></div>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="abrir outro-app" type="button">Ver a instalação do Antigravity <kbd>A</kbd></button></div>
       </div>
       <div class="peca video instala-video" data-passo="1" data-ao-vivo="assets/video/chatgpt-instalar.mp4">
         <div class="peca-giro">
@@ -592,24 +744,87 @@
     </div>
   </section>
 
-  <!-- A pergunta em outra língua: o problema (0), os três modos de permissão do
-       app ChatGPT no mesmo teste (1), a escolha do curso (2) e o fecho (3).
+  <!-- A pergunta em outra língua: o agente pedindo licença (0), a brincadeira
+       "Você aprovaria?" com os dois pedidos em chinês (1), os três modos de
+       permissão do app ChatGPT no mesmo teste (2) e a escolha do curso (3).
        Linhas e textos reais do teste de 07/11/2026 (mapa de Goiânia), no app
        ChatGPT, modelo Luna, raciocínio Alto. -->
   <section class="cena" id="protecoes" data-fase="3" data-passos="3" data-titulo="A pergunta em outra língua">
     <div class="vitrine prot">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Aprovar no escuro</span>
-        <p>O agente pede licença para fazer algo e mostra uma linha que parece outra língua. Você clica em “Permitir” porque precisa terminar o trabalho. <em>Teria clicado igual se a linha apagasse tudo.</em></p>
+      <div class="prot-comeco" data-passo="0" data-ate="0">
+        <span class="rotulo">Antes dos três modos</span>
+        <h2 class="titulo">O agente pede licença</h2>
+        <p class="linha-fina">O agente trabalha numa área protegida do seu computador, dentro da pasta do projeto. Para usar a internet ou mexer fora da pasta, ele para e pede a sua licença.</p>
       </div>
 
-      <div class="vitrine-texto prot-intro" data-passo="1" data-ate="1">
+      <div class="prot-agente" data-passo="0" data-ate="0">
+        <header class="prot-agente-topo"><i></i><i></i><i></i><span>ChatGPT</span></header>
+        <div class="prot-chat">
+          <p class="prot-balao">Faça um mapa de Goiânia com dados do IBGE.</p>
+          <div class="prot-fala prot-fala-1"><span class="prot-fala-i" aria-hidden="true">C</span><p>Vou ver os arquivos da pasta.</p></div>
+          <div class="prot-fala prot-fala-2"><span class="prot-fala-i" aria-hidden="true">C</span><p>A pasta está vazia. Vou buscar o contorno de Goiânia no IBGE.</p></div>
+          <p class="prot-trabalhando"><i class="prot-ponto" aria-hidden="true"></i>trabalhando</p>
+          <div class="prot-aprova">
+            <div class="prot-aprova-topo"><i class="prot-cadeado" aria-hidden="true"></i><span>pedido de aprovação</span></div>
+            <code><span>$u='https://servicodados.ibge.gov.br/api/v3/</span><span>malhas/municipios/5208707?formato=</span><span>application/vnd.geo+json&amp;qualidade=</span><span>intermediaria'; $r=Invoke-WebRequest </span><span>-Uri $u -UseBasicParsing -TimeoutSec 60</span></code>
+            <div class="prot-botoes"><span class="prot-permitir">Permitir</span><span class="prot-recusar">Recusar</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prot-jogo" data-passo="1" data-ate="1">
+        <header class="prot-jogo-cabeca">
+          <h2 class="titulo">Você aprovaria?</h2>
+          <p class="linha-fina">Para quem não programa, a linha do agente é tão clara quanto esta.</p>
+        </header>
+        <div class="prot-jogo-palco">
+          <div class="prot-brinca">
+            <div class="prot-brinca-cartoes">
+              <article class="prot-brinca-cartao" data-rodada="1">
+                <header class="prot-brinca-topo"><i class="prot-cadeado" aria-hidden="true"></i><span>pedido de aprovação</span></header>
+                <p class="prot-chines">我可以从巴西地理统计局（IBGE）下载戈亚尼亚市的边界吗？</p>
+                <div class="prot-brinca-acoes">
+                  <button type="button" class="prot-jogo-botao prot-jogo-permitir" data-escolha="permitir">Permitir <kbd>P</kbd></button>
+                  <button type="button" class="prot-jogo-botao prot-jogo-recusar" data-escolha="recusar">Recusar <kbd>R</kbd></button>
+                </div>
+                <div class="prot-brinca-resposta" hidden>
+                  <p class="prot-traducao"><b>Tradução:</b> posso baixar do IBGE o contorno de Goiânia?</p>
+                  <span class="prot-selo prot-selo-ok">inofensivo: era o que você pediu</span>
+                  <button type="button" class="prot-outro">Outro pedido <kbd>O</kbd></button>
+                </div>
+                <div class="prot-codigo" hidden>
+                  <code><span>$u='https://servicodados.ibge.gov.br/api/v3/</span><span>malhas/municipios/5208707?formato=</span><span>application/vnd.geo+json&amp;qualidade=</span><span>intermediaria'; $r=Invoke-WebRequest </span><span>-Uri $u -UseBasicParsing -TimeoutSec 60</span></code>
+                </div>
+              </article>
+              <article class="prot-brinca-cartao" data-rodada="2" hidden>
+                <header class="prot-brinca-topo"><i class="prot-cadeado" aria-hidden="true"></i><span>pedido de aprovação</span></header>
+                <p class="prot-chines">我可以删除"文档"文件夹里的所有文件吗？</p>
+                <div class="prot-brinca-acoes">
+                  <button type="button" class="prot-jogo-botao prot-jogo-permitir" data-escolha="permitir">Permitir <kbd>P</kbd></button>
+                  <button type="button" class="prot-jogo-botao prot-jogo-recusar" data-escolha="recusar">Recusar <kbd>R</kbd></button>
+                </div>
+                <div class="prot-brinca-resposta" hidden>
+                  <p class="prot-traducao"><b>Tradução:</b> posso apagar todos os arquivos da pasta Documentos?</p>
+                  <span class="prot-selo prot-selo-perigo">perigoso</span>
+                </div>
+                <div class="prot-codigo" hidden>
+                  <code>Remove-Item -Recurse -Force "$HOME\Documents\*"</code>
+                  <p class="prot-codigo-nota">exemplo escrito para a aula; não rode</p>
+                </div>
+              </article>
+            </div>
+            <p class="prot-jogo-fecho" hidden>Os dois pareciam iguais. <span>Você teria clicado do mesmo jeito.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="vitrine-texto prot-intro" data-passo="2" data-ate="2">
         <span class="rotulo">A mesma saída, três modos</span>
         <h2 class="titulo">Três modos de deixar o agente agir</h2>
         <p class="linha-fina">Os três mostram o mesmo momento do teste do curso: o agente precisa da internet para buscar dados públicos do IBGE e a previsão do tempo (Open-Meteo) e montar um mapa de Goiânia.</p>
       </div>
 
-      <div class="prot-modos" data-passo="1" data-ate="1">
+      <div class="prot-modos" data-passo="2" data-ate="2">
         <article class="prot-cartao">
           <header class="prot-cartao-topo">
             <span class="prot-modo-num">1</span>
@@ -618,7 +833,7 @@
           <div class="prot-desenho">
             <div class="prot-pedido" aria-hidden="true">
               <div class="prot-pedido-topo"><i class="prot-cadeado"></i><span>pedido de aprovação</span></div>
-              <code title="$u='https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5208707?formato=application/vnd.geo+json&amp;qualidade=intermediaria'; $r=Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 60"><span>$u='https://servicodados.ibge.gov.br/api/v3/</span><span>malhas/municipios/5208707?formato=</span><span>application/vnd.geo+json&amp;qualidade=</span><span>intermediaria'; $r=Invoke-WebRequest</span><span>-Uri $u -UseBasicParsing -TimeoutSec 60</span></code>
+              <code title="$u='https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5208707?formato=application/vnd.geo+json&amp;qualidade=intermediaria'; $r=Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 60"><span>$u='https://servicodados.ibge.gov.br/api/v3/</span><span>malhas/municipios/5208707?formato=</span><span>application/vnd.geo+json&amp;qualidade=</span><span>intermediaria'; $r=Invoke-WebRequest </span><span>-Uri $u -UseBasicParsing -TimeoutSec 60</span></code>
               <div class="prot-botoes"><span class="prot-permitir">Permitir</span><span class="prot-recusar">Recusar</span></div>
             </div>
           </div>
@@ -674,18 +889,18 @@
         </article>
       </div>
 
-      <p class="prot-escolha" data-passo="1" data-ate="1">Não existe modo certo para todo mundo. <b>É uma escolha sua</b>, pesando o que você ganha e o que arrisca.</p>
-      <p class="prot-legenda" data-passo="1" data-ate="1">Linhas e textos reais do teste do curso de 07/11/2026 (mapa de Goiânia), no app ChatGPT, modelo Luna, raciocínio Alto.</p>
+      <p class="prot-escolha" data-passo="2" data-ate="2">Não existe modo certo para todo mundo. <b>É uma escolha sua</b>, pesando o que você ganha e o que arrisca.</p>
+      <p class="prot-legenda" data-passo="2" data-ate="2">Linhas e textos reais do teste do curso de 07/11/2026 (mapa de Goiânia), no app ChatGPT, modelo Luna, raciocínio Alto.</p>
 
-      <div class="vitrine-texto prot-escolha-texto" data-passo="2" data-ate="2">
+      <div class="vitrine-texto prot-escolha-texto" data-passo="3" data-ate="3">
         <span class="rotulo">O modo do curso</span>
         <h2 class="titulo">A escolha deste curso</h2>
         <p class="linha-fina">Neste curso usamos o ChatGPT no modo <b>Aprovar por mim</b>, depois de um pedido curto de preparo feito uma vez.</p>
         <p class="prot-ressalva">Com uma assinatura paga, que dá acesso a modelos mais capazes, o preparo pode ser menos necessário. Ele não atrapalha.</p>
-        <p class="prot-link">O preparo está na página <a href="instalar.html" target="_blank" rel="noopener">Instalar</a>.</p>
+        <p class="prot-proxima">O preparo vem na próxima tela.</p>
       </div>
 
-      <div class="prot-quadro" data-passo="2" data-ate="2">
+      <div class="prot-quadro" data-passo="3" data-ate="3">
         <div class="prot-quadro-topo">
           <span class="prot-quadro-rotulo">No app ChatGPT</span>
           <em class="prot-quadro-selo">o curso usa este</em>
@@ -701,12 +916,117 @@
           </ul>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="prot-fim" data-passo="3">
-        <p class="prot-fim-frase">A IA traduz <em>nas duas direções</em>: a sua ideia em código, e o que o código vai fazer em português.</p>
-        <p class="linha-fina">Você não precisa dominar a linguagem para ter acesso à solução. Precisa saber o que pediu e conferir o que voltou.</p>
-        <p class="prot-fim-nota">O T de ChatGPT vem de Transformer, uma técnica criada em 2017 para tradução automática.</p>
+  <!-- Preparar o computador: o problema (0), o pedido de preparo em três cartões
+       (1), a gravação real de 9 nov. 2026 (2) e a vez da pessoa (3).
+       O texto completo do pedido vem de dados/preparo.txt. -->
+  <section class="cena" id="preparo" data-fase="3" data-passos="3" data-titulo="Preparar o computador">
+    <div class="vitrine">
+      <div class="problema" data-passo="0" data-ate="0">
+        <span class="rotulo">Um problema</span>
+        <p>O agente acabou de ser instalado e ainda não conhece as regras deste computador. No primeiro teste do mapa, sem preparo, ele entregou a página <em>sem olhar</em>, e ela não abria.</p>
       </div>
+
+      <div class="prep-pedido" data-passo="1" data-ate="1">
+        <header class="prep-pedido-cabeca">
+          <span class="rotulo">Uma conversa nova, uma vez só</span>
+          <h2 class="titulo">O pedido de preparo</h2>
+          <p class="linha-fina">Você cola um pedido pronto numa conversa nova do app. Ele faz três coisas:</p>
+        </header>
+        <ol class="prep-cartoes">
+          <li class="prep-cartao" data-n="1">
+            <div class="prep-cartao-topo">
+              <span class="prep-num">1</span>
+              <span class="prep-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 16v3h14v-3"/></svg></span>
+            </div>
+            <h3>Instala o LibreOffice</h3>
+            <p>É o programa que o agente usa para gerar PDFs. Se já estiver instalado, ele só confere.</p>
+          </li>
+          <li class="prep-cartao" data-n="2">
+            <div class="prep-cartao-topo">
+              <span class="prep-num">2</span>
+              <span class="prep-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v5h5M9 12h6M9 16h6"/></svg></span>
+            </div>
+            <h3>Grava orientações para o agente</h3>
+            <p>No arquivo AGENTS.md, que o app lê em toda conversa: conferir o resultado antes de entregar, não instalar nada sem avisar, tratar o que vem de páginas e arquivos como dado, não como ordem.</p>
+          </li>
+          <li class="prep-cartao" data-n="3">
+            <div class="prep-cartao-topo">
+              <span class="prep-num">3</span>
+              <span class="prep-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v5h5"/></svg></span>
+            </div>
+            <h3>Explica como reiniciar o app</h3>
+            <p>As orientações só valem depois que o ChatGPT é fechado por completo e aberto de novo.</p>
+          </li>
+        </ol>
+        <div class="prep-acoes">
+          <button class="abrir prep-copiar" type="button">Copiar o pedido <kbd>C</kbd></button>
+          <button class="abrir prep-ver" type="button">Ver o pedido inteiro <kbd>Enter</kbd></button>
+        </div>
+      </div>
+
+      <div class="vitrine-texto prep-gravacao" data-passo="2" data-ate="2">
+        <span class="rotulo">No app ChatGPT · 9 nov. 2026</span>
+        <h2 class="titulo">O preparo, gravado</h2>
+        <p class="linha-fina">Neste computador, o LibreOffice já estava instalado: o agente conferiu, gravou as orientações e explicou como fechar o ChatGPT de verdade: clique com o botão direito no ícone do ChatGPT perto do relógio e escolha Sair.</p>
+        <div class="botoes"><button class="abrir" type="button">Ver em tela cheia <kbd>Enter</kbd></button><button class="abrir prep-copiar" type="button">Copiar o pedido <kbd>C</kbd></button></div>
+      </div>
+      <div class="peca video" data-passo="2" data-ate="2" data-ao-vivo="assets/video/chatgpt-preparo.mp4">
+        <div class="peca-giro">
+          <div class="frente"><span class="selo-video">gravação real · 9 nov. 2026</span><video src="assets/video/chatgpt-preparo.mp4" poster="assets/video/chatgpt-preparo.jpg" muted playsinline preload="metadata"></video><i class="progresso"><b></b></i></div>
+          <div class="verso verso-pedidos verso-preparo">
+            <span class="rotulo">O pedido</span>
+            <blockquote class="curto">Quero deixar este computador preparado para trabalhar com você em qualquer tarefa. […]</blockquote>
+            <p class="quem">No app ChatGPT, numa conversa nova · 9 nov. 2026</p>
+            <dl>
+              <dt>Quem fez</dt><dd>App ChatGPT, modelo Luna, no “Aprovar por mim”</dd>
+              <dt>O que fez</dt><dd data-resumo="ChatGPT: conferiu o LibreOffice, gravou as orientações no AGENTS.md e explicou como reiniciar o app.">Conferiu que o LibreOffice já estava instalado, gravou as orientações no AGENTS.md e explicou como fechar o app por completo</dd>
+              <dt>Tempo</dt><dd>Cerca de 1 min 30 s</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <button class="virar" type="button">Virar <kbd>V</kbd></button>
+
+      <div class="prep-sua" data-passo="3">
+        <header class="prep-sua-cabeca">
+          <span class="rotulo">Sua vez</span>
+          <h2 class="titulo">Prepare o seu computador</h2>
+        </header>
+        <ol class="prep-lista">
+          <li>Abra uma conversa nova no app ChatGPT, no modo Aprovar por mim.</li>
+          <li>Copie o pedido (botão abaixo) e cole na conversa. Envie.</li>
+          <li>Se o app pedir aprovação para instalar o LibreOffice, aprove: é o que o pedido manda.</li>
+          <li>No fim, feche o ChatGPT por completo, do jeito que ele explicar, e abra de novo.</li>
+        </ol>
+        <div class="prep-sua-rodape">
+          <button class="abrir prep-copiar" type="button">Copiar o pedido <kbd>C</kbd></button>
+          <p class="prep-nota">Com uma assinatura paga, que dá acesso a modelos mais capazes, o preparo pode ser menos necessário. Ele não atrapalha.</p>
+        </div>
+      </div>
+
+      <div class="prep-camada" hidden>
+        <div class="prep-camada-painel" role="dialog" aria-modal="true" aria-label="O pedido de preparo">
+          <header class="prep-camada-topo">
+            <span class="rotulo">O pedido</span>
+            <button class="abrir prep-fechar" type="button">Fechar (Esc)</button>
+          </header>
+          <pre class="prep-texto"></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O mesmo caminho, agora na Fase 3, antes do primeiro exemplo com o agente. -->
+  <section class="cena" id="etapas-3" data-fase="3" data-passos="5" data-titulo="Como cada exemplo funciona">
+    <div class="etapas" data-lista="3">
+      <header class="etapas-cabeca">
+        <h2 class="titulo">Como cada exemplo funciona</h2>
+        <p class="linha-fina">Todo exemplo segue o mesmo caminho. Primeiro o problema, depois a solução.</p>
+      </header>
+      <ol class="etapas-lista" aria-label="As etapas de cada exemplo"></ol>
     </div>
   </section>
 
@@ -717,9 +1037,54 @@
 
   <section class="cena" id="viagens" data-fase="3" data-passos="5" data-titulo="A pasta das viagens">
     <div class="vitrine">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>Uma pesquisadora voltou de duas viagens com fotos de cupons e PDFs baixados numa pasta. Precisa prestar contas das duas e <em>não quer repetir o trabalho a cada viagem</em>.</p>
+      <div class="problema problema-vivo pv-viagens-cena" data-passo="0" data-ate="0">
+        <div class="pv-texto">
+          <span class="rotulo">Um problema</span>
+          <p>Uma pesquisadora voltou de duas viagens com fotos de cupons e PDFs baixados numa pasta. Precisa prestar contas das duas e <em>não quer repetir o trabalho a cada viagem</em>.</p>
+        </div>
+        <div class="problema-material">
+          <div class="pv-viagens">
+            <span class="pv-grupo pv-g-campinas">viagem a Campinas</span>
+            <span class="pv-grupo pv-g-nova">viagem nova</span>
+            <figure class="pv-arq pv-v1">
+              <span class="pv-arq-mini"><img src="assets/img/fase3/IMG_20241014_161520.jpg" alt=""><i>jpg</i></span>
+              <figcaption>IMG_20241014_<wbr>161520.jpg</figcaption>
+            </figure>
+            <figure class="pv-arq pv-v2">
+              <span class="pv-arq-mini"><img src="assets/img/fase3/IMG_20241015_105420.jpg" alt=""><i>jpg</i></span>
+              <figcaption>IMG_20241015_<wbr>105420.jpg</figcaption>
+            </figure>
+            <figure class="pv-arq pv-v3">
+              <span class="pv-arq-mini"><img src="assets/img/fase3/IMG_20241017_124625.jpg" alt=""><i>jpg</i></span>
+              <figcaption>IMG_20241017_<wbr>124625.jpg</figcaption>
+            </figure>
+            <figure class="pv-arq pv-v4">
+              <span class="pv-arq-mini"><img src="assets/img/fase3/Scan_20241018_105957.jpg" alt=""><i>jpg</i></span>
+              <figcaption>Scan_20241018_<wbr>105957.jpg</figcaption>
+            </figure>
+            <figure class="pv-arq pv-pdf pv-v5">
+              <span class="pv-arq-mini"><img src="assets/img/fase3/bilhete.jpg" alt=""><i>pdf</i></span>
+              <figcaption>bilhete.pdf</figcaption>
+            </figure>
+            <figure class="pv-arq pv-v6">
+              <span class="pv-arq-mini"><img src="assets/img/fase3/IMG_20250624_152340.jpg" alt=""><i>jpg</i></span>
+              <figcaption>IMG_20250624_<wbr>152340.jpg</figcaption>
+            </figure>
+            <figure class="pv-arq pv-v7">
+              <span class="pv-arq-mini"><img src="assets/img/fase3/IMG_20250712_214502.jpg" alt=""><i>jpg</i></span>
+              <figcaption>IMG_20250712_<wbr>214502.jpg</figcaption>
+            </figure>
+            <figure class="pv-arq pv-v8">
+              <span class="pv-arq-mini"><img src="assets/img/fase3/IMG_20250713_014530.jpg" alt=""><i>jpg</i></span>
+              <figcaption>IMG_20250713_<wbr>014530.jpg</figcaption>
+            </figure>
+            <figure class="pv-arq pv-pdf pv-v9">
+              <span class="pv-arq-mini"><img src="assets/img/fase3/cartao-de-embarque.jpg" alt=""><i>pdf</i></span>
+              <figcaption>cartao-de-<wbr>embarque.pdf</figcaption>
+            </figure>
+          </div>
+          <p class="pv-chip">Este é o arquivo do exemplo. Você baixa no próximo passo.</p>
+        </div>
       </div>
       <div class="f3-entrada" data-passo="1" data-ate="1">
         <div class="f3-texto">
@@ -782,9 +1147,27 @@
 
   <section class="cena" id="certificados" data-fase="3" data-passos="4" data-titulo="Os certificados">
     <div class="vitrine">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>A coordenadora de uma oficina precisa mandar um certificado para cada participante, no papel timbrado da instituição. A planilha tem 20 inscrições, e <em>algumas pessoas se inscreveram duas vezes</em>.</p>
+      <div class="problema problema-vivo pv-certificados-cena" data-passo="0" data-ate="0">
+        <div class="pv-texto">
+          <span class="rotulo">Um problema</span>
+          <p>A coordenadora de uma oficina precisa mandar um certificado para cada participante, no papel timbrado da instituição. A planilha tem 20 inscrições, e <em>algumas pessoas se inscreveram duas vezes</em>.</p>
+        </div>
+        <div class="problema-material">
+          <div class="pv-certificados">
+            <figure class="pv-cert-planilha">
+              <img src="assets/img/fase3/inscricoes-oficina.jpg" alt="Prévia da planilha com as 20 inscrições da oficina">
+            </figure>
+            <span class="pv-et-cert pv-et-planilha">20 inscrições</span>
+            <div class="pv-cert-modelo">
+              <i class="pv-folha-branca pb1"></i>
+              <i class="pv-folha-branca pb2"></i>
+              <i class="pv-folha-branca pb3"></i>
+              <figure><img src="assets/img/fase3/previa-modelo.jpg" alt="Modelo do certificado, com o timbre e os campos entre colchetes"></figure>
+            </div>
+            <span class="pv-et-cert pv-et-modelo">um certificado para cada pessoa</span>
+          </div>
+          <p class="pv-chip">Este é o arquivo do exemplo. Você baixa no próximo passo.</p>
+        </div>
       </div>
       <div class="f3-entrada" data-passo="1" data-ate="1">
         <div class="f3-texto">
@@ -825,9 +1208,25 @@
 
   <section class="cena" id="mapa" data-fase="3" data-passos="4" data-titulo="O mapa de Goiás">
     <div class="vitrine">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>Alguém quer ver como os municípios de Goiás mudaram ao longo dos anos: população, PIB e IDH. Não tem os dados em mãos e <em>não sabe programar</em>.</p>
+      <div class="problema problema-vivo pv-mapa-cena" data-passo="0" data-ate="0">
+        <div class="pv-texto">
+          <span class="rotulo">Um problema</span>
+          <p>Alguém quer ver como os municípios de Goiás mudaram ao longo dos anos: população, PIB e IDH. Não tem os dados em mãos e <em>não sabe programar</em>.</p>
+        </div>
+        <div class="problema-material">
+          <div class="pv-mapa">
+            <div class="pv-pasta">
+              <header><i></i><i></i><i></i><span>Cidades</span></header>
+              <div class="pv-pasta-vazia"><i class="icone-pasta"></i><b>pasta vazia</b></div>
+            </div>
+            <div class="pv-graficos">
+              <figure class="pv-graf"><figcaption>População</figcaption><div class="pv-graf-area"><b>?</b></div></figure>
+              <figure class="pv-graf"><figcaption>PIB</figcaption><div class="pv-graf-area"><b>?</b></div></figure>
+              <figure class="pv-graf"><figcaption>IDH</figcaption><div class="pv-graf-area"><b>?</b></div></figure>
+            </div>
+            <p class="pv-mapa-frase">Os dados estão em sites públicos diferentes, e ninguém aqui programa.</p>
+          </div>
+        </div>
       </div>
       <div class="f3-entrada" data-passo="1" data-ate="1">
         <div class="f3-texto">
@@ -966,24 +1365,103 @@
     </div>
   </section>
 
-  <section class="cena" id="fim" data-fase="3" data-passos="1" data-titulo="Fim do curso">
-    <div class="fim-cena">
-      <div class="fim-abre" data-passo="0" data-ate="0">
-        <h2 class="titulo">A IA traduz <em>nas duas direções</em></h2>
-        <p class="linha-fina">A sua ideia vira código, e o que o código vai fazer volta em português. Não é preciso dominar nenhuma linguagem de programação. É preciso saber o que pedir e conferir o que voltou.</p>
+  <!-- A IA traduz nas duas direções: a ideia vira código (0), o código volta em
+       português (1) e o T do GPT (2). O código real vem de exemplos/mapa-goias.html. -->
+  <section class="cena" id="traducao" data-fase="3" data-passos="3" data-titulo="A IA traduz nas duas direções">
+    <div class="trad trad-0" data-passo="0" data-ate="0">
+      <div class="trad-esq">
+        <span class="rotulo">Uma direção</span>
+        <blockquote>Faça um mapa de Goiás com todos os municípios, coloridos pela população, em que eu possa clicar num município e ver a população, o PIB e o IDH dele ao longo dos anos. Use dados do IBGE.</blockquote>
+        <p class="trad-conta">37 palavras, em português</p>
       </div>
-      <div class="fim-fecha" data-passo="1">
-        <h2 class="titulo">A IA traduz <em>nas duas direções</em></h2>
-        <div class="fim-corpo">
-          <ul class="fim-itens">
-            <li>Tudo o que vimos fica no site do curso: os pedidos, os arquivos e os exemplos gravados.</li>
-            <li>Travou num exercício? Pergunte à coruja, no canto de cada página.</li>
-            <li>Comece por um problema seu, pequeno, em cópias dos seus arquivos.</li>
-          </ul>
-          <div class="fim-qr">
-            <div class="qr-codigo"></div>
-            <span class="fim-qr-legenda">Site do curso</span>
-          </div>
+      <figure class="trad-editor">
+        <header class="trad-topo">
+          <span class="trad-bolas" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="trad-arquivo">mapa-goias.html</span>
+          <span class="trad-selos" aria-label="As linguagens do arquivo"><b>HTML</b><b>CSS</b><b>JavaScript</b></span>
+        </header>
+        <div class="trad-janela">
+          <div class="trad-codigo" role="img" aria-label="O código do mapa de Goiás, rolando"></div>
+          <div class="trad-esqueleto" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </figure>
+      <p class="trad-fecho">Virou um arquivo com cerca de 17 mil caracteres de código em três linguagens, e você não escreveu nenhum.</p>
+    </div>
+
+    <div class="trad trad-1" data-passo="1" data-ate="1">
+      <span class="rotulo">A outra direção</span>
+      <div class="trad-volta">
+        <div class="trad-comando"><code>$u='https://<wbr>servicodados.ibge.gov.br/<wbr>api/<wbr>v3/<wbr>malhas/<wbr>municipios/<wbr>5208707?<wbr>formato=<wbr>application/<wbr>vnd.geo+json&amp;<wbr>qualidade=<wbr>intermediaria'; <span class="trad-arg">$r=Invoke-WebRequest</span> <span class="trad-arg">-Uri $u</span> <wbr><span class="trad-arg">-UseBasicParsing</span> <wbr><span class="trad-arg">-TimeoutSec 60</span></code></div>
+        <svg class="trad-seta" viewBox="0 0 104 60" aria-hidden="true"><path d="M4 30h88M77 14l15 16-15 16"/></svg>
+        <div class="trad-explica">
+          <p class="trad-texto"><span class="trad-cursor" aria-hidden="true"></span></p>
+          <p class="trad-fantasma" aria-hidden="true">Aprovado: faz as consultas públicas que a pessoa pediu, gera um mapa no próprio computador e não apaga nada, não usa senhas nem envia dados sensíveis.</p>
+        </div>
+      </div>
+      <p class="trad-legenda">Texto real do teste do curso de 7 nov. 2026, no modo Aprovar por mim.</p>
+    </div>
+
+    <div class="trad trad-2" data-passo="2">
+      <h2 class="titulo">A IA traduz <em>nas duas direções</em></h2>
+      <p class="linha-fina">A sua ideia vira código, e o que o código vai fazer volta em português. Você não precisa dominar a linguagem para ter acesso à solução. Precisa saber o que pediu e conferir o que voltou.</p>
+      <div class="trad-gpt">
+        <div class="trad-letras" aria-label="G, P, T"><span>G</span><span>P</span><span class="acesa">T</span></div>
+        <p>GPT quer dizer Generative Pre-trained Transformer. O Transformer é uma técnica publicada por pesquisadores do Google em 2017, no artigo “Attention Is All You Need”. Ela foi criada e testada para <b>tradução automática</b>: de inglês para alemão e de inglês para francês.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fechamento: o que vimos (0), para continuar (1) e obrigado (2).
+       O QR é gerado no script no fim da página, como antes. -->
+  <section class="cena" id="fim" data-fase="3" data-passos="2" data-titulo="Fim do curso">
+    <div class="fim-cena">
+      <div class="fim-vimos" data-passo="0" data-ate="0">
+        <h2 class="titulo">Do chat ao agente</h2>
+        <div class="fim3">
+          <article class="fim3-col" data-n="1">
+            <span class="fim3-marca" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="17" r="1.4"/><circle cx="12" cy="7" r="1.4"/><circle cx="19" cy="14" r="1.4"/><path d="M7.2 16.1 10.8 8.2M13.2 8.1l4.6 4.7M7.3 16.8l9.6-2.2"/></svg></span>
+            <span class="rotulo">Fase 1 · O que a IA já faz</span>
+            <p>Tudo o que vimos na abertura, da gangorra ao Observatório, foi feito com IA, a partir de pedidos.</p>
+          </article>
+          <article class="fim3-col" data-n="2">
+            <span class="fim3-marca" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 8.5h18M6.2 6.5h.01M8.8 6.5h.01"/></svg></span>
+            <span class="rotulo">Fase 2 · No navegador</span>
+            <p>Um problema por vez: você anexa o arquivo, pede e confere.</p>
+          </article>
+          <article class="fim3-col" data-n="3">
+            <span class="fim3-marca" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></svg></span>
+            <span class="rotulo">Fase 3 · No seu computador</span>
+            <p>O agente trabalha numa pasta inteira, e você decide o quanto ele pode fazer sozinho.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="fim-continua" data-passo="1" data-ate="1">
+        <div>
+          <span class="rotulo">Para continuar</span>
+          <h2 class="titulo">Comece por um problema seu</h2>
+          <ol class="fim-continua-lista">
+            <li>Escolha uma tarefa pequena, que se repete e toma o seu tempo.</li>
+            <li>Trabalhe em cópias dos seus arquivos e confira o resultado com o original.</li>
+            <li>Travou? Pergunte à coruja, no canto de cada página do site.</li>
+          </ol>
+        </div>
+        <div class="fim-qr">
+          <div class="qr-codigo"></div>
+          <span class="fim-qr-legenda">Site do curso</span>
+          <span class="fim-endereco">lapig-ufg.github.io/<wbr>observatorio-ia/<wbr>do-chat-ao-agente</span>
+        </div>
+      </div>
+
+      <div class="fim-obrigado" data-passo="2">
+        <canvas class="fundo fim-ceu" aria-hidden="true"></canvas>
+        <div class="fim-obrigado-conteudo">
+          <h2>Obrigado</h2>
+          <p>Do chat ao agente · Observatório UFG-IA</p>
+        </div>
+        <div class="fim-qr fim-qr-mini">
+          <div class="qr-codigo"></div>
+          <span class="fim-qr-legenda">Site do curso</span>
         </div>
       </div>
     </div>
@@ -1015,19 +1493,13 @@
 <script src="js/pasta.js"></script>
 <script src="js/player.js"></script>
 <script>
-  // A ponte mostra o que mais toma o tempo da turma, sem prometer que a aula começa por ali.
-  document.getElementById("ponte").addEventListener("entrou", () => {
-    const guardado = document.body.dataset.comecaPor;
-    if (guardado === undefined) return;
-    const p = window.QUESTIONARIO.PERGUNTAS[4];
-    const indices = JSON.parse(guardado);
-    const nomes = indices.map((i) => p.curtas?.[i] || p.opcoes[i].toLowerCase());
-    const lista = nomes.length === 1 ? nomes[0] : `${nomes.slice(0, -1).join(", ")} e ${nomes[nomes.length - 1]}`;
-    const frase = indices.length === 1
-      ? "O que mais toma o tempo desta turma: {lista}."
-      : "O que mais toma o tempo desta turma: {lista}, empatados.";
-    document.querySelector("#ponte .comeca-por").textContent = frase.replace("{lista}", lista);
-  });
+  // Instalar: quem preferir o Antigravity vê a gravação da instalação dele (4 nov. 2026).
+  (() => {
+    const cena = document.getElementById("instalar");
+    const abrir = () => window.PALCO.abrirAoVivo("assets/video/antigravity-instalar.mp4", "Instalar o Antigravity · gravação real · 4 nov. 2026");
+    cena.querySelector(".outro-app").addEventListener("click", abrir);
+    cena.addEventListener("tecla", (e) => { if (e.detail.key === "a" || e.detail.key === "A") { abrir(); e.preventDefault(); } });
+  })();
 
   // Na tela do monitor, a coruja se apresenta e pousa no canto (só na primeira vez).
   // Enquanto ela fala, a seta só a leva ao canto, sem trocar de cena.
@@ -1063,15 +1535,18 @@
     if (window.Coruja?.apresentando) { window.Coruja.pular(); e.preventDefault(); }
   }));
 
-  // Fim do curso: o QR aponta para o endereço público, mesmo com a aula rodando no PC.
+  // Fim do curso: os dois QR (o do passo 1 e o pequeno do obrigado) apontam para
+  // o endereço público, mesmo com a aula rodando no PC. O jeito de gerar é o mesmo.
   (() => {
-    const alvo = document.querySelector("#fim .qr-codigo");
-    if (!alvo || !window.qrcode || !window.CURSO_PUBLICO) return;
-    const qr = qrcode(0, "M");
-    qr.addData(window.CURSO_PUBLICO);
-    qr.make();
-    alvo.innerHTML = qr.createSvgTag({ cellSize: 8, margin: 0, scalable: true });
-    alvo.querySelector("svg").setAttribute("aria-label", "QR code para o site do curso");
+    const alvos = document.querySelectorAll("#fim .qr-codigo");
+    if (!alvos.length || !window.qrcode || !window.CURSO_PUBLICO) return;
+    alvos.forEach((alvo) => {
+      const qr = qrcode(0, "M");
+      qr.addData(window.CURSO_PUBLICO);
+      qr.make();
+      alvo.innerHTML = qr.createSvgTag({ cellSize: 8, margin: 0, scalable: true });
+      alvo.querySelector("svg").setAttribute("aria-label", "QR code para o site do curso");
+    });
   })();
 
   // Os quadros de foto abrem a imagem inteira na lupa da Fase 3.
@@ -1100,6 +1575,506 @@
       cena.addEventListener("passo", fechar);
       cena.addEventListener("saiu", fechar);
     });
+  })();
+
+  // Proteções: a janela do agente (passo 0) e a brincadeira dos dois pedidos (passo 1).
+  (() => {
+    const cena = document.getElementById("protecoes");
+    if (!cena) return;
+    const agente = cena.querySelector(".prot-agente");
+    const jogo = cena.querySelector(".prot-jogo");
+    const brinca = cena.querySelector(".prot-brinca");
+    const cartao1 = brinca.querySelector('[data-rodada="1"]');
+    const cartao2 = brinca.querySelector('[data-rodada="2"]');
+    const resposta1 = cartao1.querySelector(".prot-brinca-resposta");
+    const resposta2 = cartao2.querySelector(".prot-brinca-resposta");
+    const acoes1 = cartao1.querySelector(".prot-brinca-acoes");
+    const acoes2 = cartao2.querySelector(".prot-brinca-acoes");
+    const codigo1 = cartao1.querySelector(".prot-codigo");
+    const codigo2 = cartao2.querySelector(".prot-codigo");
+    const fecho = brinca.querySelector(".prot-jogo-fecho");
+
+    const comecarAgente = () => {
+      agente.classList.remove("rodando");
+      void agente.offsetWidth;
+      agente.classList.add("rodando");
+    };
+
+    const reiniciarJogo = () => {
+      brinca.classList.remove("final");
+      cartao1.hidden = false;
+      cartao2.hidden = true;
+      resposta1.hidden = true;
+      resposta2.hidden = true;
+      acoes1.hidden = false;
+      acoes2.hidden = false;
+      codigo1.hidden = true;
+      codigo2.hidden = true;
+      fecho.hidden = true;
+    };
+
+    const abrirRodada2 = () => {
+      cartao1.hidden = true;
+      cartao2.hidden = false;
+      resposta2.hidden = true;
+      acoes2.hidden = false;
+      codigo2.hidden = true;
+      fecho.hidden = true;
+    };
+
+    const responder = (cartao) => {
+      cartao.querySelector(".prot-brinca-acoes").hidden = true;
+      cartao.querySelector(".prot-brinca-resposta").hidden = false;
+      if (cartao === cartao2) {
+        cartao1.hidden = false;
+        cartao2.hidden = false;
+        codigo1.hidden = false;
+        codigo2.hidden = false;
+        fecho.hidden = false;
+        brinca.classList.add("final");
+      }
+    };
+
+    brinca.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const botao = e.target.closest("[data-escolha]");
+      if (botao) {
+        const cartao = botao.closest(".prot-brinca-cartao");
+        if (!cartao.querySelector(".prot-brinca-resposta").hidden) return;
+        responder(cartao);
+        return;
+      }
+      if (e.target.closest(".prot-outro")) abrirRodada2();
+    });
+
+    cena.addEventListener("passo", (e) => {
+      const n = e.detail;
+      if (n === 0) comecarAgente();
+      else agente.classList.remove("rodando");
+      if (n === 1) reiniciarJogo();
+    });
+    cena.addEventListener("saiu", () => {
+      agente.classList.remove("rodando");
+      reiniciarJogo();
+    });
+
+    cena.addEventListener("tecla", (e) => {
+      if (!jogo.classList.contains("visto") || jogo.classList.contains("passou")) return;
+      const k = e.detail.key;
+      if (k === "p" || k === "P" || k === "r" || k === "R") {
+        if (!cartao1.hidden && resposta1.hidden) { responder(cartao1); e.preventDefault(); return; }
+        if (!cartao2.hidden && resposta2.hidden && !brinca.classList.contains("final")) { responder(cartao2); e.preventDefault(); }
+        return;
+      }
+      if ((k === "o" || k === "O") && !cartao1.hidden && !resposta1.hidden && cartao2.hidden) {
+        abrirRodada2();
+        e.preventDefault();
+        return;
+      }
+      if (k === "ArrowRight" && !cartao1.hidden && !resposta1.hidden && cartao2.hidden) {
+        abrirRodada2();
+        e.preventDefault();
+      }
+    });
+  })();
+
+  // Preparo: o texto do pedido (passo 1), o botão de copiar e a camada de leitura.
+  (() => {
+    const cena = document.getElementById("preparo");
+    if (!cena) return;
+    const pedido = cena.querySelector(".prep-pedido");
+    const camada = cena.querySelector(".prep-camada");
+    const texto = cena.querySelector(".prep-texto");
+    const fechar = cena.querySelector(".prep-fechar");
+    const botoes = [...cena.querySelectorAll(".prep-copiar")];
+    let guardado = null, buscando = null;
+
+    function carregar() {
+      if (guardado !== null) return Promise.resolve(guardado);
+      if (!buscando) {
+        buscando = fetch("dados/preparo.txt", { cache: "no-store" })
+          .then((r) => { if (!r.ok) throw new Error("sem arquivo"); return r.text(); })
+          .then((t) => {
+            guardado = t.replace(/\r\n/g, "\n").replace(/\n$/, "");
+            return guardado;
+          })
+          .catch(() => null)
+          .finally(() => { buscando = null; });
+      }
+      return buscando;
+    }
+
+    const visivel = (el) => el.classList.contains("visto") && !el.classList.contains("passou");
+
+    async function copiar(botao) {
+      const t = await carregar();
+      if (!t) return;
+      try {
+        await navigator.clipboard.writeText(t);
+      } catch (_) {
+        const area = document.createElement("textarea");
+        area.value = t;
+        area.style.position = "fixed"; area.style.opacity = "0";
+        document.body.append(area);
+        area.select();
+        try { document.execCommand("copy"); } catch (_) {}
+        area.remove();
+      }
+      if (!botao.dataset.rotulo) botao.dataset.rotulo = botao.innerHTML;
+      botao.classList.add("copiado");
+      botao.innerHTML = "Copiado";
+      clearTimeout(botao._volta);
+      botao._volta = setTimeout(() => {
+        botao.innerHTML = botao.dataset.rotulo;
+        botao.classList.remove("copiado");
+      }, 2000);
+    }
+
+    function abrirCamada() {
+      camada.hidden = false;
+      texto.textContent = "";
+      carregar().then((t) => {
+        texto.textContent = t || "Sem internet agora: o pedido está na página Instalar do site.";
+      });
+      fechar.focus();
+    }
+
+    function fecharCamada() {
+      camada.hidden = true;
+    }
+
+    botoes.forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); copiar(b); }));
+    cena.querySelector(".prep-cartoes").addEventListener("click", (e) => e.stopPropagation());
+    cena.querySelector(".prep-lista").addEventListener("click", (e) => e.stopPropagation());
+    cena.querySelector(".prep-ver").addEventListener("click", (e) => { e.stopPropagation(); abrirCamada(); });
+    fechar.addEventListener("click", fecharCamada);
+    camada.addEventListener("click", (e) => { e.stopPropagation(); if (e.target === camada) fecharCamada(); });
+
+    cena.addEventListener("entrou", carregar);
+    cena.addEventListener("passo", (e) => { if (e.detail !== 1) fecharCamada(); });
+    cena.addEventListener("saiu", fecharCamada);
+
+    cena.addEventListener("tecla", (e) => {
+      const k = e.detail.key;
+      if (!camada.hidden) {
+        const pagina = Math.round(texto.clientHeight * .85);
+        if (k === "Escape") fecharCamada();
+        else if (k === "ArrowDown") texto.scrollBy({ top: 48, behavior: "smooth" });
+        else if (k === "ArrowUp") texto.scrollBy({ top: -48, behavior: "smooth" });
+        else if (k === "PageDown" || k === " ") texto.scrollBy({ top: pagina, behavior: "smooth" });
+        else if (k === "PageUp") texto.scrollBy({ top: -pagina, behavior: "smooth" });
+        else if (k === "Home") texto.scrollTo({ top: 0, behavior: "smooth" });
+        else if (k === "End") texto.scrollTo({ top: texto.scrollHeight, behavior: "smooth" });
+        e.preventDefault();
+        return;
+      }
+      if (visivel(pedido)) {
+        if (k === "Enter") { abrirCamada(); e.preventDefault(); return; }
+        if (k === "c" || k === "C") {
+          const b = pedido.querySelector(".prep-copiar");
+          if (b) { copiar(b); e.preventDefault(); }
+          return;
+        }
+      }
+      if (k === "c" || k === "C") {
+        const alvo = botoes.find((b) => {
+          const passo = b.closest("[data-passo]");
+          return passo ? visivel(passo) : false;
+        });
+        if (alvo) { copiar(alvo); e.preventDefault(); }
+      }
+    });
+  })();
+
+  // Etapas: as duas instâncias da cena "Como cada exemplo funciona".
+  (() => {
+    const icones = {
+      problema: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/>',
+      suaVez: '<path d="M12 3v11m0 0 4-4m-4 4-4-4M4 19h16"/>',
+      gravacao: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/>',
+      resultado: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9.5 14.5l2 2 4-4.5"/>',
+      conferencia: '<path d="M6 3h8l4 4v9"/><path d="M14 3v5h5"/><circle cx="13" cy="15.5" r="3.6"/><path d="M15.6 18.1 19 21.5"/>',
+      pasta: '<path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>',
+      arquivos: '<path d="M8 3h7l4 4v12H8z"/><path d="M15 3v5h5"/><path d="M5 7v14h11"/>',
+      janela: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8h18"/><path d="M11 12l5 2-2 .8-.8 2z"/>',
+    };
+    const listas = {
+      2: [
+        ["problema", "O problema", "De alguém como você: uma foto, um contrato, uma planilha."],
+        ["suaVez", "Sua vez", "Baixe o arquivo do exemplo e tente resolver com a IA, do seu jeito."],
+        ["gravacao", "Como fizemos", "A gravação real, com o pedido que usamos no verso."],
+        ["resultado", "O resultado", "O que saiu e o que você precisa conferir."],
+        ["conferencia", "A conferência", "A IA erra. Comparar com o arquivo original faz parte do trabalho."],
+      ],
+      3: [
+        ["pasta", "O problema", "Uma pasta de trabalho, como as do seu computador."],
+        ["arquivos", "A pasta", "Os arquivos que o agente vai receber. Baixe e abra."],
+        ["janela", "Sua vez", "Abra a pasta como projeto no app ChatGPT e faça o pedido."],
+        ["gravacao", "Como fizemos", "A gravação real, com o pedido no verso."],
+        ["resultado", "O resultado", "O que o agente entregou."],
+        ["conferencia", "A conferência", "O que conferir antes de usar."],
+      ],
+    };
+    document.querySelectorAll(".etapas").forEach((el) => {
+      const cena = el.closest(".cena");
+      const lista = listas[el.dataset.lista];
+      if (!cena || !lista) return;
+      el.style.setProperty("--colunas", lista.length);
+      const ol = el.querySelector(".etapas-lista");
+      ol.innerHTML = lista.map(([icone, nome, frase], i) => `<li class="etapa"><span class="etapa-num">${i + 1}</span><span class="etapa-icone" aria-hidden="true"><svg viewBox="0 0 24 24">${icones[icone]}</svg></span><h3 class="etapa-nome">${nome}</h3><p class="etapa-frase">${frase}</p></li>`).join("");
+      const etapas = [...ol.children];
+      const pintar = (n) => {
+        etapas.forEach((li, i) => {
+          li.classList.toggle("feita", i < n);
+          li.classList.toggle("agora", i === n);
+          li.classList.toggle("acesa", i > 0 && i <= n);
+        });
+      };
+      cena.addEventListener("passo", (e) => pintar(e.detail));
+      cena.addEventListener("saiu", () => pintar(-1));
+      pintar(-1);
+    });
+  })();
+
+  // Tradução: o código real do mapa rola na janela e a explicação é escrita.
+  (() => {
+    const cena = document.getElementById("traducao");
+    if (!cena) return;
+    const host = cena.querySelector(".trad-codigo");
+    const janela = cena.querySelector(".trad-janela");
+    const selos = [...cena.querySelectorAll(".trad-selos b")];
+    const texto = cena.querySelector(".trad-texto");
+    const fantasma = cena.querySelector(".trad-fantasma");
+    const cursor = cena.querySelector(".trad-cursor");
+    if (!host || !janela || !texto || !fantasma) return;
+
+    const EXPLICACAO = fantasma.textContent.trim();
+    const LARGURA = 86;
+    let raiz = null, codigo = null, pronto = false, pedido = null;
+    let rafTexto = 0, timersSelos = [];
+
+    const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+    function realceTag(tag) {
+      const fecha = tag.startsWith("</");
+      const dentro = tag.slice(fecha ? 2 : 1, -1);
+      const nome = (dentro.match(/^[a-zA-Z0-9-]+/) || [""])[0];
+      if (!nome) return `<span class="tk-tag">${esc(tag)}</span>`;
+      const resto = dentro.slice(nome.length);
+      let saida = `<span class="tk-pont">${fecha ? "&lt;/" : "&lt;"}</span><span class="tk-tag">${esc(nome)}</span>`;
+      for (const parte of resto.split(/("[^"]*"|'[^']*')/g)) {
+        if (!parte) continue;
+        saida += (parte.startsWith('"') || parte.startsWith("'"))
+          ? `<span class="tk-str">${esc(parte)}</span>`
+          : `<span class="tk-atr">${esc(parte)}</span>`;
+      }
+      return saida + '<span class="tk-pont">&gt;</span>';
+    }
+
+    function realceHtml(linha) {
+      let saida = "", fim = 0, m;
+      const re = /<[^>]*>/g;
+      while ((m = re.exec(linha))) {
+        saida += esc(linha.slice(fim, m.index)) + realceTag(m[0]);
+        fim = re.lastIndex;
+      }
+      return saida + esc(linha.slice(fim));
+    }
+
+    function trocar(linha, re, escolher) {
+      let saida = "", fim = 0, m;
+      re.lastIndex = 0;
+      while ((m = re.exec(linha))) {
+        saida += esc(linha.slice(fim, m.index));
+        const r = escolher(...m);
+        saida += r ? `<span class="${r[0]}">${esc(r[1])}</span>` : esc(m[0]);
+        fim = re.lastIndex;
+        if (!m[0]) re.lastIndex++;
+      }
+      return saida + esc(linha.slice(fim));
+    }
+
+    function realceCss(linha) {
+      const re = /(\/\*[\s\S]*?\*\/)|("[^"]*"|'[^']*')|(#[0-9a-fA-F]{3,8}\b)|(-{0,2}[a-zA-Z-]+(?=\s*:))|(\b\d+(?:\.\d+)?(?:px|em|rem|%|s|ms|vw|vh|fr|deg)?\b)/g;
+      return trocar(linha, re, (m, com, str, hex, prop, num) => {
+        if (com) return ["tk-com", m];
+        if (str) return ["tk-str", m];
+        if (hex) return ["tk-num", m];
+        if (prop) return ["tk-key", m];
+        if (num) return ["tk-num", m];
+        return null;
+      });
+    }
+
+    function realceJs(linha) {
+      const re = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)|(\b(?:const|let|var|function|return|if|else|for|of|in|new|class|true|false|null|undefined|document|window|Math|Object|Array|Map|Set|Intl)\b)|(\b\d+(?:\.\d+)?\b)/g;
+      return trocar(linha, re, (m, com, str, key, num) => {
+        if (com) return ["tk-com", m];
+        if (str) return ["tk-str", m];
+        if (key) return ["tk-key", m];
+        if (num) return ["tk-num", m];
+        return null;
+      });
+    }
+
+    const realce = (linha, modo) => modo === "css" ? realceCss(linha) : modo === "js" ? realceJs(linha) : realceHtml(linha);
+
+    function quebrar(linha) {
+      const partes = [];
+      let s = linha;
+      while (s.length > LARGURA) {
+        let corte = s.lastIndexOf(" ", LARGURA);
+        if (corte < 60) corte = LARGURA;
+        partes.push(s.slice(0, corte));
+        s = s.slice(corte).replace(/^ +/, "");
+      }
+      if (s || !partes.length) partes.push(s);
+      return partes;
+    }
+
+    function processar(textoBruto) {
+      const linhas = [];
+      let modo = "html";
+      for (const bruta of textoBruto.replace(/\r\n/g, "\n").split("\n")) {
+        if (bruta === "<style>") { linhas.push({ m: "html", t: bruta }); modo = "css"; continue; }
+        if (bruta.startsWith("</style>")) modo = "html";
+        if (bruta === "<script>") { linhas.push({ m: "html", t: bruta }); modo = "js"; continue; }
+        if (bruta.startsWith("<\/script>")) modo = "html";
+        if (bruta.startsWith("const DATA=")) {
+          linhas.push({ m: "js", t: "const DATA={…}" });
+          linhas.push({ m: "js", t: "// 354 mil caracteres de dados do IBGE e do Atlas Brasil" });
+          continue;
+        }
+        for (const parte of quebrar(bruta)) linhas.push({ m: modo, t: parte });
+      }
+      return linhas;
+    }
+
+    const FIXO = [
+      ["css", ":root{--ink:#202a32;--muted:#6d777e;--line:#e3e7e5;--paper:#f5f6f2;--panel:#fff;--green:#1b604c;--green2:#2b7a60;--soft:#eaf2ed;--accent:#d77840}"],
+      ["css", `*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}`],
+      ["css", ".shell{max-width:1500px;margin:0 auto;padding:34px 42px 28px}"],
+      ["css", ".topline{display:flex;align-items:center;gap:9px;color:var(--green);font-weight:700;font-size:12px;letter-spacing:.11em;text-transform:uppercase}"],
+      ["css", ".dot{width:8px;height:8px;border-radius:50%;background:#4e9a76}"],
+      ["css", ".title-row{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:10px 0 24px}"],
+      ["css", ".title-row h1{font:500 clamp(29px,3vw,42px)/1.12 Georgia,\"Times New Roman\",serif;letter-spacing:-.025em;margin:0}"],
+      ["js", "const DATA={…}"],
+      ["js", "// 354 mil caracteres de dados do IBGE e do Atlas Brasil"],
+      ["js", "const byCode=new Map(DATA.cities.map(c=>[c.code,c]));"],
+      ["js", "const fmtInt=new Intl.NumberFormat('pt-BR');"],
+      ["js", "const fmtBRL=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});"],
+      ["js", "let selected=DATA.cities.find(c=>c.name==='Goiânia')||DATA.cities[0],series='pop';"],
+      ["js", "const palette=['#e9f1eb','#cbded1','#a6c9b4','#7eaf91','#538d70','#2e6c52'];"],
+      ["js", "function svgPath(geom,project){let d='';const ring=r=>r.map((p,i)=>{const q=project(p);return(i?'L':'M')+q[0].toFixed(2)+','+q[1].toFixed(2)}).join('')+'Z';if(geom.type==='Polygon'&&geom.coordinates.length)d+=ring(geom.coordinates[0]);else if(geom.type==='MultiPolygon')for(const p of geom.coordinates)if(p.length)d+=ring(p[0]);return d}"],
+    ];
+
+    function processarFixo() {
+      const linhas = [];
+      for (const [m, t] of FIXO) for (const parte of quebrar(t)) linhas.push({ m, t: parte });
+      return linhas;
+    }
+
+    const ESTILO = `
+      :host { display:block; position:absolute; inset:0; overflow:visible; clip-path:inset(0); }
+      .janela { height:100%; overflow:hidden; }
+      .codigo { animation-name: rolar; animation-duration: 40s; animation-timing-function: linear; animation-iteration-count: infinite; animation-delay: .6s; will-change: transform; }
+      .bloco { padding: 14px 22px; }
+      .linha { display:block; white-space:pre; font:500 15px/1.55 var(--mono); color:#d7ddd8; }
+      .tk-pont { color:#7f8c86; }
+      .tk-tag { color:#e0a06f; }
+      .tk-atr { color:#b9c9c0; }
+      .tk-str { color:#a9c9a0; }
+      .tk-key { color:#e0a06f; }
+      .tk-num { color:#cbb47c; }
+      .tk-com { color:#6f9183; font-style:italic; }
+      @keyframes rolar { from { transform: translateY(0); } to { transform: translateY(calc(-1 * var(--dist, 0px))); } }
+    `;
+
+    const noPasso = (n) => {
+      const el = cena.querySelector(`[data-passo="${n}"]`);
+      return !!el && el.classList.contains("visto") && !el.classList.contains("passou");
+    };
+
+    function reiniciar() {
+      if (!codigo) return;
+      codigo.style.animation = "none";
+      void codigo.offsetWidth;
+      codigo.style.animation = "";
+      codigo.style.animationPlayState = "running";
+    }
+    function parar() { if (codigo) codigo.style.animationPlayState = "paused"; }
+
+    function montar(linhas) {
+      if (raiz) return;
+      const html = linhas.map((l) => `<span class="linha">${realce(l.t, l.m)}</span>`).join("");
+      const bloco = `<div class="bloco">${html}</div>`;
+      host.attachShadow({ mode: "open" }).innerHTML = `<style>${ESTILO}</style><div class="janela"><div class="codigo">${bloco}${bloco}${bloco}</div></div>`;
+      raiz = host.shadowRoot;
+      codigo = raiz.querySelector(".codigo");
+      const altura = raiz.querySelector(".bloco").offsetHeight;
+      codigo.style.setProperty("--dist", `${altura}px`);
+      pronto = true;
+      janela.classList.add("pronto");
+      if (noPasso(0)) reiniciar(); else parar();
+    }
+
+    function carregar() {
+      if (pedido) return;
+      pedido = fetch("exemplos/mapa-goias.html", { cache: "no-store" })
+        .then((r) => { if (!r.ok) throw new Error("sem arquivo"); return r.text(); })
+        .then((t) => montar(processar(t)))
+        .catch(() => montar(processarFixo()));
+    }
+
+    function selosParar() {
+      timersSelos.forEach(clearTimeout);
+      timersSelos = [];
+      selos.forEach((s) => s.classList.remove("on"));
+    }
+    function selosAgora() {
+      selosParar();
+      selos.forEach((s, i) => {
+        timersSelos.push(setTimeout(() => s.classList.add("on"), 900 + i * 480));
+      });
+    }
+
+    function pararEscrita() {
+      cancelAnimationFrame(rafTexto);
+      rafTexto = 0;
+      texto.textContent = "";
+      texto.append(cursor);
+      texto.classList.remove("fim");
+    }
+    function escrever() {
+      pararEscrita();
+      const inicio = performance.now();
+      const passo = (agora) => {
+        const n = Math.min(EXPLICACAO.length, Math.floor((agora - inicio) / 18));
+        texto.textContent = EXPLICACAO.slice(0, n);
+        texto.append(cursor);
+        if (n < EXPLICACAO.length) rafTexto = requestAnimationFrame(passo);
+        else texto.classList.add("fim");
+      };
+      rafTexto = requestAnimationFrame(passo);
+    }
+
+    cena.addEventListener("entrou", carregar);
+    cena.addEventListener("passo", (e) => {
+      const n = e.detail;
+      if (n === 0) { if (pronto) reiniciar(); selosAgora(); } else { parar(); selosParar(); }
+      if (n === 1) escrever(); else pararEscrita();
+    });
+    cena.addEventListener("saiu", () => { parar(); pararEscrita(); selosParar(); });
+  })();
+
+  // Fim: o céu de pontos da capa no obrigado.
+  (() => {
+    const cena = document.getElementById("fim");
+    const canvas = cena && cena.querySelector(".fim-ceu");
+    if (!canvas || !window.criarCeuDePontos) return;
+    const ceu = window.criarCeuDePontos(canvas);
+    cena.addEventListener("passo", (e) => { if (e.detail === 2) ceu.ligar(); else ceu.desligar(); });
+    cena.addEventListener("saiu", ceu.desligar);
   })();
 </script>
 <script src="js/gratis.js" defer></script>

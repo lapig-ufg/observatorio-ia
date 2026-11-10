@@ -44,6 +44,11 @@
   .arquivo b { display: block; font: 600 15px/1.2 var(--mono); overflow-wrap: anywhere; }
   .arquivo span { min-width: 0; }
   .arquivo small { display: block; font-size: 13px; color: var(--tinta-2); }
+  .arquivo-nome { min-width: 0; }
+  .arquivo-baixar { display: flex; align-items: center; gap: 5px; margin-top: 4px; font: 700 14px/1 var(--sans); font-style: normal; color: var(--terracota); }
+  .arquivo-seta { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--terracota); color: #fff; }
+  .arquivo-seta svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .arquivo:hover { box-shadow: 0 8px 18px -12px rgba(16, 33, 27, .4); }
   .sem-arquivo { margin: 0; color: var(--tinta-2); }
   .preparo { margin: 12px 0 0; color: var(--tinta-2); }
   .pedido { position: relative; background: var(--fundo); border-radius: 12px; padding: 14px 16px 14px 18px; margin: 0 0 10px; }

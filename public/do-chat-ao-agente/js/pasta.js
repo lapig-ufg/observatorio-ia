@@ -5,6 +5,7 @@
 window.PASTAS = {
   viagens: {
     caminho: "Downloads",
+    zip: "fase3/comprovantes-campinas.zip",
     grupos: [
       { nome: "Viagens a trabalho", arquivos: ["IMG_20241014_161520.jpg", "IMG_20241015_105420.jpg", "IMG_20241016_141118.jpg", "IMG_20241017_124625.jpg",
         "Scan_20241018_105957.jpg", "bilhete.pdf", "comprovante_pix_20241010.pdf", "voucher-reserva-58213.pdf"] },
@@ -15,6 +16,7 @@ window.PASTAS = {
   },
   certificados: {
     caminho: "2-certificados", grande: true,
+    zip: "fase3/certificados.zip",
     grupos: [{ arquivos: [
       { arq: "inscricoes-oficina.xlsx", img: "inscricoes-oficina" },
       { arq: "modelo-certificado.docx", img: "previa-modelo" },
@@ -43,6 +45,7 @@ window.PASTAS = {
     el.innerHTML = `
       <div class="explorador${p.grande ? " grande" : ""}${p.paginas ? " paginas" : ""}${p.vazia ? " vazia" : ""}">
         <header class="exp-barra"><i></i><i></i><i></i><span class="exp-caminho"><i class="icone-pasta"></i>${esc(p.caminho)}</span></header>
+        ${p.zip ? `<div class="exp-topo"><a class="exp-baixar" href="pratica/${esc(p.zip)}" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v13m0 0l-6-6m6 6l6-6M4 21h16"/></svg>Baixar esta pasta (zip)</a></div>` : ""}
         <div class="exp-corpo">${p.vazia
           ? `<div class="exp-vazio"><i class="icone-pasta"></i><b>pasta vazia</b></div>`
           : p.grupos.map((g) => `
