@@ -124,28 +124,28 @@
     </div>
   </section>
 
-  <section class="cena" id="mesa" data-fase="1" data-passos="1" data-titulo="A mesa de cartas">
+  <section class="cena" id="mesa" data-fase="1" data-passos="1" data-titulo="A mesa de dominó">
     <div class="vitrine">
       <div class="problema" data-passo="0" data-ate="0">
         <span class="rotulo">Um problema</span>
-        <p>Falta gente para o Uno de domingo. Dá para ter adversários que pensam cada jogada <em>sem nenhuma IA ligada</em>?</p>
+        <p>No dominó de domingo, sempre falta alguém para fechar as duplas. Dá para ter parceiros e adversários que pensam cada jogada <em>sem nenhuma IA ligada</em>?</p>
       </div>
       <div class="vitrine-texto" data-passo="1">
         <span class="rotulo">Uma conversa depois</span>
-        <h2 class="titulo">Quatro robôs numa mesa de Uno</h2>
-        <p class="linha-fina">A partida acontece agora, no navegador: não é um vídeo gravado, e as cartas mudam a cada jogo. Os robôs não são IAs. Cada um tem uma ficha com três regras e confere de cima para baixo; o balão mostra a regra que ele usou.</p>
+        <h2 class="titulo">Quatro robôs numa mesa de dominó</h2>
+        <p class="linha-fina">A partida acontece agora, no navegador: não é um vídeo gravado, e as pedras mudam a cada jogo. Os robôs não são IAs. Cada um lê a sua ficha de cima para baixo e usa a primeira regra que serve. Em tela cheia, clique numa linha da ficha para trocar a regra e veja o robô mudar de jogo.</p>
         <button class="abrir" type="button">Abrir em tela cheia <kbd>Enter</kbd></button>
       </div>
-      <div class="peca" data-passo="1" data-ao-vivo="mesa.html">
+      <div class="peca" data-passo="1" data-ao-vivo="domino.html">
         <div class="peca-giro">
-          <div class="frente"><iframe data-src="mesa.html" title="Mesa de Uno com quatro robôs"></iframe></div>
+          <div class="frente"><iframe data-src="domino.html" title="Mesa de dominó com quatro robôs"></iframe></div>
           <div class="verso">
             <span class="rotulo">O pedido</span>
-            <blockquote>Fazer algo bem mais impressionante, como se fosse uma mesa e tendo algum tipo de representação para cada bot.</blockquote>
-            <p class="quem">Victor, sobre a versão anterior · 2 nov. 2026</p>
+            <blockquote>Faça esse dominó ser extremamente fluido, algo bem animado e mecanicamente impressionante.</blockquote>
+            <p class="quem">Victor, depois de uma mesa de Uno · 9 nov. 2026</p>
             <dl>
-              <dt>Quem fez</dt><dd>Claude Code (mesa e fichas) e Gemini no Antigravity (os robôs)</dd>
-              <dt>O que fez</dt><dd data-resumo="O Claude escreveu as fichas dos robôs uma vez; na partida, nenhuma IA é chamada.">Escreveu uma vez a ficha de regras de cada robô e montou a mesa; pediu ao Gemini os retratos. Na partida, nenhuma IA é chamada</dd>
+              <dt>Quem fez</dt><dd>DeepSeek V4.1 Flash (jogo e fichas), Claude Code (revisão e corrente) e Gemini no Antigravity (os robôs)</dd>
+              <dt>O que fez</dt><dd data-resumo="O DeepSeek escreveu o jogo e as fichas; o Claude conferiu e refez a corrente. Na partida, nenhuma IA é chamada.">O DeepSeek escreveu o jogo e as fichas; o Claude conferiu 2.000 mãos e refez a corrente de pedras. Na partida, nenhuma IA é chamada</dd>
             </dl>
           </div>
         </div>
@@ -163,15 +163,15 @@
       <div class="vitrine-texto" data-passo="1">
         <span class="rotulo">Uma IA pedindo a outra</span>
         <h2 class="titulo">Quatro jeitos de jogar</h2>
-        <p class="linha-fina">A atacante, o cuidadoso, a colorida e o guardador: o jeito de cada um está no rosto e na ficha de regras.</p>
+        <p class="linha-fina">O veterano, a que conta os pontos, o afobado e a parceira: o jeito de cada um está no rosto e na ficha de regras.</p>
       </div>
       <div class="peca" data-passo="1">
         <div class="peca-giro">
-          <div class="frente robos-frente"><img src="assets/img/bots/bia.png" alt="Bia, a confiante"><img src="assets/img/bots/caio.png" alt="Caio, o pensativo"><img src="assets/img/bots/dani.png" alt="Dani, a alegre"><img src="assets/img/bots/edu.png" alt="Edu, o desconfiado"></div>
+          <div class="frente robos-frente"><img src="assets/img/bots-domino/busto-bene.png" alt="Seu Bené, o veterano"><img src="assets/img/bots-domino/busto-cida.png" alt="Dona Cida, a que conta os pontos"><img src="assets/img/bots-domino/busto-tiao.png" alt="Tião, o afobado"><img src="assets/img/bots-domino/busto-nina.png" alt="Nina, a parceira"></div>
           <div class="verso">
             <span class="rotulo">O pedido</span>
-            <blockquote>Quatro bustos de robôs simpáticos, lado a lado […] cada um com uma personalidade visível no rosto: um confiante, um pensativo, um alegre, um desconfiado.</blockquote>
-            <p class="quem">Claude Code, pedindo ao Gemini (Antigravity) · 2 nov. 2026</p>
+            <blockquote>Quatro bustos de robôs simpáticos, lado a lado […] Eles são jogadores de dominó numa praça, cada um com muita personalidade.</blockquote>
+            <p class="quem">Claude Code, pedindo ao Gemini (Antigravity) · 9 nov. 2026</p>
             <dl>
               <dt>Quem fez</dt><dd>Gemini, pela ferramenta de imagens do Antigravity</dd>
               <dt>O que fez</dt><dd data-resumo="O Gemini desenhou os quatro robôs; o Claude recortou cada um e pôs na mesa.">Desenhou os quatro numa imagem só; o Claude recortou cada um e pôs na mesa</dd>
@@ -235,11 +235,11 @@
         <div class="verso"></div>
       </div></div>
       <div class="carta" data-de="mesa"><div class="peca-giro">
-        <div class="frente"><img src="assets/img/mesa.jpg" alt=""><span>A mesa de cartas</span></div>
+        <div class="frente"><img src="assets/img/domino.jpg" alt=""><span>A mesa de dominó</span></div>
         <div class="verso"></div>
       </div></div>
       <div class="carta" data-de="robos"><div class="peca-giro">
-        <div class="frente robos-frente"><img src="assets/img/bots/bia.png" alt=""><img src="assets/img/bots/caio.png" alt=""><img src="assets/img/bots/dani.png" alt=""><img src="assets/img/bots/edu.png" alt=""><span>Os robôs</span></div>
+        <div class="frente robos-frente"><img src="assets/img/bots-domino/busto-bene.png" alt=""><img src="assets/img/bots-domino/busto-cida.png" alt=""><img src="assets/img/bots-domino/busto-tiao.png" alt=""><img src="assets/img/bots-domino/busto-nina.png" alt=""><span>Os robôs</span></div>
         <div class="verso"></div>
       </div></div>
       <div class="carta" data-de="observatorio"><div class="peca-giro">
