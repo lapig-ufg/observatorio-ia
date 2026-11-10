@@ -745,16 +745,18 @@
   </section>
 
   <!-- A pergunta em outra língua: o agente pedindo licença (0), a brincadeira
-       "Você aprovaria?" com os dois pedidos em chinês (1), os três modos de
-       permissão do app ChatGPT no mesmo teste (2) e a escolha do curso (3).
+       "Você aprovaria?", em que a linha de código vira chinês na frente da turma (1),
+       a outra IA traduzindo a linha de volta para o português (2), os três modos
+       de permissão do app ChatGPT (3) e a escolha do curso (4).
        Linhas e textos reais do teste de 07/11/2026 (mapa de Goiânia), no app
        ChatGPT, modelo Luna, raciocínio Alto. -->
-  <section class="cena" id="protecoes" data-fase="3" data-passos="3" data-titulo="A pergunta em outra língua">
+  <section class="cena" id="protecoes" data-fase="3" data-passos="4" data-titulo="A pergunta em outra língua">
     <div class="vitrine prot">
       <div class="prot-comeco" data-passo="0" data-ate="0">
-        <span class="rotulo">Antes dos três modos</span>
-        <h2 class="titulo">O agente pede licença</h2>
-        <p class="linha-fina">O agente trabalha numa área protegida do seu computador, dentro da pasta do projeto. Para usar a internet ou mexer fora da pasta, ele para e pede a sua licença.</p>
+        <span class="rotulo">Como o agente trabalha</span>
+        <h2 class="titulo">Para sair da pasta, ele pede licença</h2>
+        <p class="linha-fina">O agente trabalha numa área protegida do computador, dentro da pasta do projeto. Quando precisa da internet ou de algo fora da pasta, ele para e mostra o que quer rodar. Você permite ou recusa.</p>
+        <p class="prot-gancho">O problema é a língua em que ele pergunta.</p>
       </div>
 
       <div class="prot-agente" data-passo="0" data-ate="0">
@@ -775,14 +777,14 @@
       <div class="prot-jogo" data-passo="1" data-ate="1">
         <header class="prot-jogo-cabeca">
           <h2 class="titulo">Você aprovaria?</h2>
-          <p class="linha-fina">Para quem não programa, a linha do agente é tão clara quanto esta.</p>
+          <p class="linha-fina">Esta é a linha que o agente pediu para rodar. Para quem não programa, ela diz tanto quanto uma frase em chinês.</p>
         </header>
         <div class="prot-jogo-palco">
           <div class="prot-brinca">
             <div class="prot-brinca-cartoes">
               <article class="prot-brinca-cartao" data-rodada="1">
                 <header class="prot-brinca-topo"><i class="prot-cadeado" aria-hidden="true"></i><span>pedido de aprovação</span></header>
-                <p class="prot-chines">我可以从巴西地理统计局（IBGE）下载戈亚尼亚市的边界吗？</p>
+                <p class="prot-chines" data-codigo="$u='https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5208707?formato=application/vnd.geo+json&amp;qualidade=intermediaria'; $r=Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 60">我可以从巴西地理统计局（IBGE）下载戈亚尼亚市的边界吗？</p>
                 <div class="prot-brinca-acoes">
                   <button type="button" class="prot-jogo-botao prot-jogo-permitir" data-escolha="permitir">Permitir <kbd>P</kbd></button>
                   <button type="button" class="prot-jogo-botao prot-jogo-recusar" data-escolha="recusar">Recusar <kbd>R</kbd></button>
@@ -798,7 +800,7 @@
               </article>
               <article class="prot-brinca-cartao" data-rodada="2" hidden>
                 <header class="prot-brinca-topo"><i class="prot-cadeado" aria-hidden="true"></i><span>pedido de aprovação</span></header>
-                <p class="prot-chines">我可以删除"文档"文件夹里的所有文件吗？</p>
+                <p class="prot-chines" data-codigo="Remove-Item -Recurse -Force &quot;$HOME\Documents\*&quot;">我可以删除"文档"文件夹里的所有文件吗？</p>
                 <div class="prot-brinca-acoes">
                   <button type="button" class="prot-jogo-botao prot-jogo-permitir" data-escolha="permitir">Permitir <kbd>P</kbd></button>
                   <button type="button" class="prot-jogo-botao prot-jogo-recusar" data-escolha="recusar">Recusar <kbd>R</kbd></button>
@@ -818,13 +820,30 @@
         </div>
       </div>
 
-      <div class="vitrine-texto prot-intro" data-passo="2" data-ate="2">
-        <span class="rotulo">A mesma saída, três modos</span>
-        <h2 class="titulo">Três modos de deixar o agente agir</h2>
-        <p class="linha-fina">Os três mostram o mesmo momento do teste do curso: o agente precisa da internet para buscar dados públicos do IBGE e a previsão do tempo (Open-Meteo) e montar um mapa de Goiânia.</p>
+      <div class="prot-volta" data-passo="2" data-ate="2">
+        <div class="prot-volta-esq">
+          <span class="rotulo">Uma saída</span>
+          <h2 class="titulo">Outra IA traduz o pedido <em>de volta</em></h2>
+          <p class="linha-fina">No modo <b>Aprovar por mim</b>, um segundo modelo lê a linha antes de ela rodar e responde em português. Se vê risco, ele para e chama você.</p>
+        </div>
+        <figure class="prot-volta-cartao">
+          <header class="prot-volta-topo"><i class="prot-cadeado" aria-hidden="true"></i><span class="prot-volta-rotulo">a linha que o agente quer rodar</span></header>
+          <p class="prot-volta-morfa" aria-live="off" data-codigo="$u='https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5208707?formato=application/vnd.geo+json&amp;qualidade=intermediaria'; $r=Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 60">Aprovado: faz as consultas públicas que a pessoa pediu, gera um mapa no próprio computador e não apaga nada, não usa senhas nem envia dados sensíveis.</p>
+          <div class="prot-volta-original">
+            <span>a linha original</span>
+            <code>$u='https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5208707?formato=application/vnd.geo+json&amp;qualidade=intermediaria'; $r=Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 60</code>
+          </div>
+        </figure>
+        <p class="prot-volta-legenda">Resposta real do revisor automático no teste do curso de 7 nov. 2026, no app ChatGPT.</p>
       </div>
 
-      <div class="prot-modos" data-passo="2" data-ate="2">
+      <div class="vitrine-texto prot-intro" data-passo="3" data-ate="3">
+        <span class="rotulo">No app ChatGPT</span>
+        <h2 class="titulo">Três modos de deixar o agente agir</h2>
+        <p class="linha-fina">A diferença está em quem lê a linha antes de ela rodar: você, outra IA ou ninguém. Os três mostram o mesmo momento do teste do mapa de Goiânia.</p>
+      </div>
+
+      <div class="prot-modos" data-passo="3" data-ate="3">
         <article class="prot-cartao">
           <header class="prot-cartao-topo">
             <span class="prot-modo-num">1</span>
@@ -889,10 +908,10 @@
         </article>
       </div>
 
-      <p class="prot-escolha" data-passo="2" data-ate="2">Não existe modo certo para todo mundo. <b>É uma escolha sua</b>, pesando o que você ganha e o que arrisca.</p>
-      <p class="prot-legenda" data-passo="2" data-ate="2">Linhas e textos reais do teste do curso de 07/11/2026 (mapa de Goiânia), no app ChatGPT, modelo Luna, raciocínio Alto.</p>
+      <p class="prot-escolha" data-passo="3" data-ate="3">Não existe modo certo para todo mundo. <b>É uma escolha sua</b>, pesando o que você ganha e o que arrisca.</p>
+      <p class="prot-legenda" data-passo="3" data-ate="3">Linhas e textos reais do teste do curso de 07/11/2026 (mapa de Goiânia), no app ChatGPT, modelo Luna, raciocínio Alto.</p>
 
-      <div class="vitrine-texto prot-escolha-texto" data-passo="3" data-ate="3">
+      <div class="vitrine-texto prot-escolha-texto" data-passo="4" data-ate="4">
         <span class="rotulo">O modo do curso</span>
         <h2 class="titulo">A escolha deste curso</h2>
         <p class="linha-fina">Neste curso usamos o ChatGPT no modo <b>Aprovar por mim</b>, depois de um pedido curto de preparo feito uma vez.</p>
@@ -900,7 +919,7 @@
         <p class="prot-proxima">O preparo vem na próxima tela.</p>
       </div>
 
-      <div class="prot-quadro" data-passo="3" data-ate="3">
+      <div class="prot-quadro" data-passo="4" data-ate="4">
         <div class="prot-quadro-topo">
           <span class="prot-quadro-rotulo">No app ChatGPT</span>
           <em class="prot-quadro-selo">o curso usa este</em>
@@ -1264,11 +1283,27 @@
     </div>
   </section>
 
-  <section class="cena" id="dois-pedidos" data-fase="3" data-passos="2" data-titulo="O mesmo assunto, dois pedidos">
+  <section class="cena" id="dois-pedidos" data-fase="3" data-passos="2" data-titulo="Lição 1: o pedido claro">
     <div class="vitrine dois-p">
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>Alguém quer ver como as cidades de Goiás mudaram ao longo dos anos: população, PIB e IDH.</p>
+      <div class="licoes" data-passo="0" data-ate="0">
+        <div class="licoes-texto">
+          <span class="rotulo licoes-rotulo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h10.5a2 2 0 0 1 2 2v15l-3-2-3 2-3-2-3 2V5.5a2 2 0 0 1 2-2z"/><path d="M9 8.5h6M9 12h6"/></svg>Bastidores dos testes</span>
+          <h2 class="titulo">Duas lições que <em>aprendemos testando</em></h2>
+          <p class="linha-fina">Antes de fechar, dois tropeços que tivemos ao preparar os exemplos desta fase, e o que eles ensinaram.</p>
+        </div>
+        <ol class="licoes-lista">
+          <li class="licao atual">
+            <span class="licao-n">1</span>
+            <b>O pedido vago</b>
+            <p>Pedimos uma página sobre Goiânia. Vieram gráficos vazios e um mapa desenhado de cabeça.</p>
+            <span class="licao-aprendida">Lição: descreva o que você quer ver na tela.</span>
+          </li>
+          <li class="licao">
+            <span class="licao-n">2</span>
+            <b>A entrega sem olhar</b>
+            <p>O agente entregou uma página sem abrir, e ela saiu com defeito.</p>
+          </li>
+        </ol>
       </div>
       <div class="pedido dois-p-esq" data-passo="1">
         <span class="rotulo">Pedido 1</span>
@@ -1291,12 +1326,28 @@
     </div>
   </section>
 
-  <section class="cena" id="olhou" data-fase="3" data-passos="3" data-titulo="Ele olhou antes de entregar">
+  <section class="cena" id="olhou" data-fase="3" data-passos="3" data-titulo="Lição 2: ele olha antes de entregar">
     <div class="vitrine">
       <h2 class="titulo olhou-titulo" data-passo="1">Ele olhou antes de entregar</h2>
-      <div class="problema" data-passo="0" data-ate="0">
-        <span class="rotulo">Um problema</span>
-        <p>Uma página feita pelo agente pode sair com um defeito que só aparece quando alguém abre.</p>
+      <div class="licoes" data-passo="0" data-ate="0">
+        <div class="licoes-texto">
+          <span class="rotulo licoes-rotulo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h10.5a2 2 0 0 1 2 2v15l-3-2-3 2-3-2-3 2V5.5a2 2 0 0 1 2-2z"/><path d="M9 8.5h6M9 12h6"/></svg>Bastidores dos testes</span>
+          <h2 class="titulo">Duas lições que <em>aprendemos testando</em></h2>
+          <p class="linha-fina">A primeira já vimos: descreva o que você quer ver na tela. Agora, a segunda.</p>
+        </div>
+        <ol class="licoes-lista">
+          <li class="licao feita">
+            <span class="licao-n">1</span>
+            <b>O pedido vago</b>
+            <p>Pedimos uma página sobre Goiânia. Vieram gráficos vazios e um mapa desenhado de cabeça.</p>
+            <span class="licao-aprendida">Lição: descreva o que você quer ver na tela.</span>
+          </li>
+          <li class="licao atual">
+            <span class="licao-n">2</span>
+            <b>A entrega sem olhar</b>
+            <p>O agente entregou uma página sem abrir, e ela saiu com defeito.</p>
+          </li>
+        </ol>
       </div>
       <div class="olhou-sem" data-passo="1" data-ate="1">
         <div class="olhou-caso">
@@ -1365,49 +1416,91 @@
     </div>
   </section>
 
-  <!-- A IA traduz nas duas direções: a ideia vira código (0), o código volta em
-       português (1) e o T do GPT (2). O código real vem de exemplos/mapa-goias.html. -->
-  <section class="cena" id="traducao" data-fase="3" data-passos="3" data-titulo="A IA traduz nas duas direções">
+  <!-- Da ideia à solução: o pedido do mapa vira código e o código vira o mapa (0),
+       os exemplos do curso como traduções (1) e o T do GPT, com a máquina de
+       tradução de 2017 e o pedido de hoje (2). O código real vem de exemplos/mapa-goias.html. -->
+  <section class="cena" id="traducao" data-fase="3" data-passos="2" data-titulo="Da ideia à solução">
     <div class="trad trad-0" data-passo="0" data-ate="0">
-      <div class="trad-esq">
-        <span class="rotulo">Uma direção</span>
-        <blockquote>Faça um mapa de Goiás com todos os municípios, coloridos pela população, em que eu possa clicar num município e ver a população, o PIB e o IDH dele ao longo dos anos. Use dados do IBGE.</blockquote>
-        <p class="trad-conta">37 palavras, em português</p>
+      <header class="trad-cabeca">
+        <span class="rotulo">O que o curso mostrou</span>
+        <h2 class="titulo">Uma ideia, <em>traduzida</em> em solução</h2>
+      </header>
+      <div class="trad-fluxo">
+        <article class="trad-col trad-ideia">
+          <span class="trad-etapa"><b>1</b>A ideia</span>
+          <blockquote class="trad-pedido">Faça um mapa de Goiás com todos os municípios, coloridos pela população, em que eu possa clicar num município e ver a população, o PIB e o IDH dele ao longo dos anos. Use dados do IBGE.</blockquote>
+          <p class="trad-conta">37 palavras, em português</p>
+        </article>
+        <svg class="trad-fio trad-fio-1" viewBox="0 0 70 40" aria-hidden="true"><path class="trad-fio-linha" d="M2 20H68"/><circle r="3.2" cy="20"/><circle r="3.2" cy="20"/><circle r="3.2" cy="20"/></svg>
+        <article class="trad-col trad-meio">
+          <span class="trad-etapa"><b>2</b>A IA traduz</span>
+          <figure class="trad-editor">
+            <header class="trad-topo">
+              <span class="trad-bolas" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="trad-arquivo">mapa-goias.html</span>
+              <span class="trad-selos" aria-label="As linguagens do arquivo"><b>HTML</b><b>CSS</b><b>JS</b></span>
+            </header>
+            <div class="trad-janela">
+              <div class="trad-codigo" role="img" aria-label="O código do mapa de Goiás, rolando"></div>
+              <div class="trad-esqueleto" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+          </figure>
+          <p class="trad-conta">cerca de 17 mil caracteres de código</p>
+        </article>
+        <svg class="trad-fio trad-fio-2" viewBox="0 0 70 40" aria-hidden="true"><path class="trad-fio-linha" d="M2 20H68"/><circle r="3.2" cy="20"/><circle r="3.2" cy="20"/><circle r="3.2" cy="20"/></svg>
+        <article class="trad-col trad-solucao">
+          <span class="trad-etapa"><b>3</b>A solução</span>
+          <figure class="trad-mapa"><img src="assets/img/fase3/mapa-agente.jpg" alt="O mapa de Goiás com os 246 municípios coloridos pela população"></figure>
+          <p class="trad-conta">246 municípios, e cada um abre ao clicar</p>
+        </article>
       </div>
-      <figure class="trad-editor">
-        <header class="trad-topo">
-          <span class="trad-bolas" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="trad-arquivo">mapa-goias.html</span>
-          <span class="trad-selos" aria-label="As linguagens do arquivo"><b>HTML</b><b>CSS</b><b>JavaScript</b></span>
-        </header>
-        <div class="trad-janela">
-          <div class="trad-codigo" role="img" aria-label="O código do mapa de Goiás, rolando"></div>
-          <div class="trad-esqueleto" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        </div>
-      </figure>
-      <p class="trad-fecho">Virou um arquivo com cerca de 17 mil caracteres de código em três linguagens, e você não escreveu nenhum.</p>
+      <p class="trad-fecho">Você escreveu as 37 palavras e conferiu o mapa. <b>O código, você nem precisou ler.</b></p>
     </div>
 
     <div class="trad trad-1" data-passo="1" data-ate="1">
-      <span class="rotulo">A outra direção</span>
-      <div class="trad-volta">
-        <div class="trad-comando"><code>$u='https://<wbr>servicodados.ibge.gov.br/<wbr>api/<wbr>v3/<wbr>malhas/<wbr>municipios/<wbr>5208707?<wbr>formato=<wbr>application/<wbr>vnd.geo+json&amp;<wbr>qualidade=<wbr>intermediaria'; <span class="trad-arg">$r=Invoke-WebRequest</span> <span class="trad-arg">-Uri $u</span> <wbr><span class="trad-arg">-UseBasicParsing</span> <wbr><span class="trad-arg">-TimeoutSec 60</span></code></div>
-        <svg class="trad-seta" viewBox="0 0 104 60" aria-hidden="true"><path d="M4 30h88M77 14l15 16-15 16"/></svg>
-        <div class="trad-explica">
-          <p class="trad-texto"><span class="trad-cursor" aria-hidden="true"></span></p>
-          <p class="trad-fantasma" aria-hidden="true">Aprovado: faz as consultas públicas que a pessoa pediu, gera um mapa no próprio computador e não apaga nada, não usa senhas nem envia dados sensíveis.</p>
-        </div>
-      </div>
-      <p class="trad-legenda">Texto real do teste do curso de 7 nov. 2026, no modo Aprovar por mim.</p>
+      <header class="trad-cabeca">
+        <span class="rotulo">Foi assim em todo o curso</span>
+        <h2 class="titulo">Você descreveu. <em>A IA traduziu.</em></h2>
+        <p class="linha-fina">Em cada exemplo, você disse em português o que queria, e a IA respondeu na forma que resolvia o problema.</p>
+      </header>
+      <ol class="trad-pares">
+        <li><span class="trad-par-foto"><img src="assets/img/pratica/lousa.jpg" alt=""></span><span class="trad-de">A foto de uma lousa</span><i class="trad-par-seta" aria-hidden="true"></i><span class="trad-para">uma tabela com as 7 tarefas</span></li>
+        <li><span class="trad-par-foto"><img src="assets/img/problemas/contrato-p1.png" alt=""></span><span class="trad-de">Um contrato de 5 páginas</span><i class="trad-par-seta" aria-hidden="true"></i><span class="trad-para">as respostas de quem vai assinar, com a cláusula de cada uma</span></li>
+        <li><span class="trad-par-foto"><img src="assets/img/pratica/cupom-03.jpg" alt=""></span><span class="trad-de">Nove fotos de comprovantes</span><i class="trad-par-seta" aria-hidden="true"></i><span class="trad-para">uma tabela com o total que bate</span></li>
+        <li><span class="trad-par-foto"><img src="assets/img/fase3/IMG_20241014_161520.jpg" alt=""></span><span class="trad-de">Uma pasta de viagens bagunçada</span><i class="trad-par-seta" aria-hidden="true"></i><span class="trad-para">os comprovantes de Campinas separados, com o total de R$ 1.550,74</span></li>
+        <li><span class="trad-par-foto"><img src="assets/img/fase3/previa-modelo.jpg" alt=""></span><span class="trad-de">Uma planilha e um modelo do Word</span><i class="trad-par-seta" aria-hidden="true"></i><span class="trad-para">um certificado em PDF para cada uma das 16 pessoas</span></li>
+        <li><span class="trad-par-foto trad-par-texto" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="trad-de">Um pedido de 37 palavras</span><i class="trad-par-seta" aria-hidden="true"></i><span class="trad-para">um mapa dos 246 municípios de Goiás</span></li>
+      </ol>
     </div>
 
     <div class="trad trad-2" data-passo="2">
-      <h2 class="titulo">A IA traduz <em>nas duas direções</em></h2>
-      <p class="linha-fina">A sua ideia vira código, e o que o código vai fazer volta em português. Você não precisa dominar a linguagem para ter acesso à solução. Precisa saber o que pediu e conferir o que voltou.</p>
-      <div class="trad-gpt">
-        <div class="trad-letras" aria-label="G, P, T"><span>G</span><span>P</span><span class="acesa">T</span></div>
-        <p>GPT quer dizer Generative Pre-trained Transformer. O Transformer é uma técnica publicada por pesquisadores do Google em 2017, no artigo “Attention Is All You Need”. Ela foi criada e testada para <b>tradução automática</b>: de inglês para alemão e de inglês para francês.</p>
+      <div class="trad-gpt-esq">
+        <span class="rotulo">Por que falar em tradução</span>
+        <h2 class="titulo">O T do ChatGPT <em>vem de um tradutor</em></h2>
+        <dl class="trad-siglas">
+          <div><dt>G</dt><dd><b>Generative</b>: gera o texto, uma palavra depois da outra.</dd></div>
+          <div><dt>P</dt><dd><b>Pre-trained</b>: aprendeu antes, lendo uma quantidade enorme de textos.</dd></div>
+          <div class="acesa"><dt>T</dt><dd><b>Transformer</b>: a técnica que faz o trabalho. Pesquisadores do Google a publicaram em 2017, no artigo “Attention Is All You Need”, e a testaram traduzindo de inglês para alemão e de inglês para francês.</dd></div>
+        </dl>
       </div>
+      <figure class="trad-maquina" aria-label="Ilustração: um texto entra, o Transformer liga cada palavra que sai às palavras que entraram, e sai o mesmo sentido em outra língua">
+        <div class="trad-maq-fase" data-fase-maq="0">
+          <span class="trad-maq-quando">2017 · o teste do artigo</span>
+          <p class="trad-maq-entra"><span>The</span> <span>map</span> <span>shows</span> <span>all</span> <span>the</span> <span>cities</span> <span>in</span> <span>the</span> <span>state.</span></p>
+          <p class="trad-maq-sai"><span data-liga="0">Die</span> <span data-liga="1">Karte</span> <span data-liga="2">zeigt</span> <span data-liga="3">alle</span> <span data-liga="5">Städte</span> <span data-liga="6">des</span> <span data-liga="8">Bundeslandes.</span></p>
+          <span class="trad-maq-lingua trad-maq-lingua-e">inglês</span><span class="trad-maq-lingua trad-maq-lingua-s">alemão</span>
+        </div>
+        <div class="trad-maq-fase" data-fase-maq="1">
+          <span class="trad-maq-quando">Hoje · o seu pedido</span>
+          <p class="trad-maq-entra"><span>Faça</span> <span>um</span> <span>mapa</span> <span>de</span> <span>Goiás,</span> <span>com</span> <span>os</span> <span>municípios</span> <span>coloridos</span> <span>pela</span> <span>população…</span></p>
+          <p class="trad-maq-sai trad-maq-codigo"><span data-liga="2">&lt;svg&gt;</span> <span data-liga="7">municipios.forEach(m =&gt;</span> <span data-liga="8">pintar(m,</span> <span data-liga="10">m.populacao))</span></p>
+          <span class="trad-maq-lingua trad-maq-lingua-e">português</span><span class="trad-maq-lingua trad-maq-lingua-s">código</span>
+        </div>
+        <div class="trad-maq-motor"><b>Transformer</b><span>cada palavra que sai olha para as palavras que entraram</span></div>
+        <svg class="trad-maq-fios" aria-hidden="true"></svg>
+        <figcaption>Ilustração com frases de exemplo.</figcaption>
+      </figure>
+      <p class="trad-gpt-fecho">O ChatGPT usa a mesma técnica. Mudou a língua de chegada: em vez de alemão, <b>a tabela, o texto ou o código que resolve o seu problema</b>.</p>
     </div>
   </section>
 
@@ -1843,15 +1936,11 @@
     const host = cena.querySelector(".trad-codigo");
     const janela = cena.querySelector(".trad-janela");
     const selos = [...cena.querySelectorAll(".trad-selos b")];
-    const texto = cena.querySelector(".trad-texto");
-    const fantasma = cena.querySelector(".trad-fantasma");
-    const cursor = cena.querySelector(".trad-cursor");
-    if (!host || !janela || !texto || !fantasma) return;
+    if (!host || !janela) return;
 
-    const EXPLICACAO = fantasma.textContent.trim();
-    const LARGURA = 86;
+    const LARGURA = 46;
     let raiz = null, codigo = null, pronto = false, pedido = null;
-    let rafTexto = 0, timersSelos = [];
+    let timersSelos = [];
 
     const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -2034,37 +2123,16 @@
     function selosAgora() {
       selosParar();
       selos.forEach((s, i) => {
-        timersSelos.push(setTimeout(() => s.classList.add("on"), 900 + i * 480));
+        timersSelos.push(setTimeout(() => s.classList.add("on"), 3000 + i * 420));
       });
-    }
-
-    function pararEscrita() {
-      cancelAnimationFrame(rafTexto);
-      rafTexto = 0;
-      texto.textContent = "";
-      texto.append(cursor);
-      texto.classList.remove("fim");
-    }
-    function escrever() {
-      pararEscrita();
-      const inicio = performance.now();
-      const passo = (agora) => {
-        const n = Math.min(EXPLICACAO.length, Math.floor((agora - inicio) / 18));
-        texto.textContent = EXPLICACAO.slice(0, n);
-        texto.append(cursor);
-        if (n < EXPLICACAO.length) rafTexto = requestAnimationFrame(passo);
-        else texto.classList.add("fim");
-      };
-      rafTexto = requestAnimationFrame(passo);
     }
 
     cena.addEventListener("entrou", carregar);
     cena.addEventListener("passo", (e) => {
       const n = e.detail;
       if (n === 0) { if (pronto) reiniciar(); selosAgora(); } else { parar(); selosParar(); }
-      if (n === 1) escrever(); else pararEscrita();
     });
-    cena.addEventListener("saiu", () => { parar(); pararEscrita(); selosParar(); });
+    cena.addEventListener("saiu", () => { parar(); selosParar(); });
   })();
 
   // Fim: o céu de pontos da capa no obrigado.
@@ -2077,6 +2145,7 @@
     cena.addEventListener("saiu", ceu.desligar);
   })();
 </script>
+<script src="js/traducoes.js"></script>
 <script src="js/gratis.js" defer></script>
 <script src="js/coruja.js" defer></script>
 </body>

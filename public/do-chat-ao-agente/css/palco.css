@@ -1483,40 +1483,56 @@ body.preto .tela-preta { display: block; }
 .etapas[data-lista="3"] .etapa-nome { font-size: 26px; }
 .etapas[data-lista="3"] .etapa-frase { font-size: 18px; }
 
-/* ---------- Fase 3: a IA traduz nas duas direções (cena "traducao") ---------- */
+/* ---------- Fase 3: da ideia à solução (cena "traducao", refeita em 10/11/2026) ---------- */
 
 .trad { position: absolute; inset: 0; z-index: 2; }
+.trad-cabeca .rotulo { display: block; margin-bottom: 16px; }
+.trad-cabeca .titulo { font-size: 64px; }
+.trad-cabeca .linha-fina { margin-top: 14px; max-width: 1100px; font-size: 25px; }
 
-/* Passo 0: o pedido à esquerda e o código à direita. */
-.trad-0 { display: grid; grid-template-columns: 488px minmax(0, 1fr); grid-template-rows: 1fr auto; column-gap: 48px; padding: 52px 110px 58px; }
-.trad-esq { align-self: center; }
-.trad-esq .rotulo { display: block; margin-bottom: 26px; }
-.trad-esq blockquote { margin: 0; font: 400 35px/1.3 var(--serifa); color: var(--creme); text-wrap: pretty; }
-.trad-conta { margin: 22px 0 0; font-size: 17px; color: var(--creme-3); }
+/* Passo 0: a ideia, a tradução e a solução, ligadas por fios. */
+.trad-0 { display: flex; flex-direction: column; padding: 50px 110px 40px; }
+.trad-fluxo {
+  flex: 1; min-height: 0; margin-top: 30px;
+  display: grid; grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1.08fr) 70px minmax(0, 1fr);
+  align-items: center;
+}
+.trad-col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.trad-etapa { display: flex; align-items: center; gap: 10px; font: 700 17px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--creme-2); }
+.trad-etapa b {
+  width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+  font: 700 15px/1 var(--sans); letter-spacing: 0; color: #10211b; background: var(--creme-2);
+}
+.trad-conta { margin: 0; font-size: 17px; line-height: 1.35; color: var(--creme-3); }
+.trad-pedido {
+  margin: 0; height: 430px; padding: 30px 32px; border-radius: 18px;
+  background: var(--creme); color: #10211b; font: 400 29px/1.42 var(--serifa); text-wrap: pretty;
+  box-shadow: 0 50px 100px -50px #000;
+}
+.trad-pedido .pal { transition: color .35s, background-color .35s; border-radius: 4px; }
+.trad-pedido .pal.lida { color: var(--terracota-escura); }
 .trad-editor {
-  align-self: center; margin: 0; height: 560px; border-radius: 16px; overflow: hidden;
+  margin: 0; height: 430px; border-radius: 18px; overflow: hidden;
   background: #12171a; border: 1px solid rgba(243, 239, 230, .16);
   box-shadow: 0 60px 130px -45px #000; display: flex; flex-direction: column;
 }
 .trad-topo {
-  flex: none; height: 48px; display: flex; align-items: center; gap: 12px; padding: 0 16px;
+  flex: none; height: 46px; display: flex; align-items: center; gap: 12px; padding: 0 14px;
   background: #1b2124; border-bottom: 1px solid rgba(255, 255, 255, .07);
 }
 .trad-bolas { display: flex; gap: 6px; }
 .trad-bolas i { width: 9px; height: 9px; border-radius: 50%; background: #4b5457; }
-.trad-arquivo { flex: 1; margin-left: 4px; font: 500 15px/1 var(--mono); color: #9aa7a1; }
-.trad-selos { display: flex; gap: 7px; }
+.trad-arquivo { flex: 1; min-width: 0; margin-left: 2px; font: 500 15px/1 var(--mono); color: #9aa7a1; }
+.trad-selos { display: flex; gap: 6px; }
 .trad-selos b {
-  padding: 5px 9px; border-radius: 999px; font: 600 15px/1 var(--mono); letter-spacing: .02em;
+  padding: 5px 8px; border-radius: 999px; font: 600 15px/1 var(--mono);
   color: var(--creme-2); background: rgba(243, 239, 230, .08); border: 1px solid rgba(243, 239, 230, .14);
   opacity: 0; translate: 0 -4px; transition: opacity .45s var(--curva), translate .45s var(--curva);
 }
 .trad-selos b.on { opacity: 1; translate: 0 0; }
 .trad-janela { position: relative; flex: 1; min-height: 0; background: #12171a; }
 .trad-codigo { position: absolute; inset: 0; overflow: visible; clip-path: inset(0); }
-.trad-janela::before, .trad-janela::after {
-  content: ""; position: absolute; left: 0; right: 0; height: 44px; z-index: 3; pointer-events: none;
-}
+.trad-janela::before, .trad-janela::after { content: ""; position: absolute; left: 0; right: 0; height: 44px; z-index: 3; pointer-events: none; }
 .trad-janela::before { top: 0; background: linear-gradient(#12171a, rgba(18, 23, 26, 0)); }
 .trad-janela::after { bottom: 0; background: linear-gradient(rgba(18, 23, 26, 0), #12171a); }
 .trad-esqueleto { position: absolute; inset: 0; padding: 18px 22px; display: grid; align-content: start; gap: 13px; transition: opacity .3s; }
@@ -1525,66 +1541,252 @@ body.preto .tela-preta { display: block; }
 .trad-esqueleto i:nth-child(4n) { width: 85%; }
 .trad-esqueleto i:nth-child(5n) { width: 58%; }
 .trad-janela.pronto .trad-esqueleto { opacity: 0; }
-.trad-fecho {
-  grid-column: 1 / -1; margin: 26px 0 0; padding-top: 18px; border-top: 1px solid var(--linha);
-  font-size: 24px; line-height: 1.4; color: var(--creme-2); text-wrap: pretty;
+.trad-mapa {
+  margin: 0; height: 430px; border-radius: 18px; overflow: hidden; background: #f5f6f2;
+  box-shadow: 0 50px 100px -50px #000; border: 1px solid rgba(243, 239, 230, .2);
+}
+.trad-mapa img { width: 100%; height: 100%; object-fit: cover; object-position: 24% 50%; display: block; }
+
+.trad-fio { width: 70px; height: 40px; overflow: visible; color: var(--terracota); }
+.trad-fio-linha { fill: none; stroke: rgba(224, 122, 69, .35); stroke-width: 2; stroke-dasharray: 4 6; vector-effect: non-scaling-stroke; }
+.trad-fio circle { fill: currentColor; opacity: 0; }
+
+/* A sequência: a ideia é lida, o fio leva, o código rola, o fio leva, o mapa aparece. */
+.cena.ativa .trad-0.visto:not(.passou) .trad-ideia { animation: trad-entra .7s .15s var(--curva) both; }
+.cena.ativa .trad-0.visto:not(.passou) .trad-meio { animation: trad-entra .7s 2.6s var(--curva) both; }
+.cena.ativa .trad-0.visto:not(.passou) .trad-solucao { animation: trad-entra .8s 4.6s var(--curva) both; }
+.cena.ativa .trad-0.visto:not(.passou) .trad-mapa img { animation: trad-revela 1.4s 4.8s var(--curva) both; }
+.cena.ativa .trad-0.visto:not(.passou) .trad-fio-1 circle { animation: trad-viaja 1.6s linear infinite; animation-delay: 2.2s; }
+.cena.ativa .trad-0.visto:not(.passou) .trad-fio-1 circle:nth-of-type(2) { animation-delay: 2.73s; }
+.cena.ativa .trad-0.visto:not(.passou) .trad-fio-1 circle:nth-of-type(3) { animation-delay: 3.26s; }
+.cena.ativa .trad-0.visto:not(.passou) .trad-fio-2 circle { animation: trad-viaja 1.6s linear infinite; animation-delay: 4.1s; }
+.cena.ativa .trad-0.visto:not(.passou) .trad-fio-2 circle:nth-of-type(2) { animation-delay: 4.63s; }
+.cena.ativa .trad-0.visto:not(.passou) .trad-fio-2 circle:nth-of-type(3) { animation-delay: 5.16s; }
+.cena.ativa .trad-0.visto:not(.passou) .trad-fecho { animation: trad-entra .7s 6.2s var(--curva) both; }
+@keyframes trad-entra { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes trad-revela { from { clip-path: inset(100% 0 0 0); filter: blur(8px); } to { clip-path: inset(0 0 0 0); filter: blur(0); } }
+@keyframes trad-viaja {
+  0% { transform: translateX(2px); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateX(66px); opacity: 0; }
+}
+.trad-fio circle { transform-box: view-box; }
+.trad-fecho { margin: 26px 0 0; padding-top: 18px; border-top: 1px solid var(--linha); font-size: 25px; line-height: 1.4; color: var(--creme-2); }
+.trad-fecho b { color: var(--creme); font-weight: 600; }
+
+/* Passo 1: os exemplos do curso, cada um uma tradução. */
+.trad-1 { display: flex; flex-direction: column; padding: 50px 110px 44px; }
+.trad-pares {
+  flex: 1; min-height: 0; margin: 34px 0 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 18px 28px;
+}
+.trad-pares li {
+  display: grid; grid-template-columns: 92px minmax(0, .9fr) 46px minmax(0, 1.1fr); align-items: center; gap: 18px;
+  padding: 14px 22px 14px 14px; border-radius: 18px;
+  background: rgba(243, 239, 230, .05); border: 1px solid var(--linha);
+}
+.trad-par-foto { width: 92px; height: 92px; border-radius: 12px; overflow: hidden; background: var(--creme); display: block; }
+.trad-par-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.trad-par-texto { display: flex; flex-direction: column; justify-content: center; gap: 9px; padding: 0 14px; }
+.trad-par-texto i { display: block; height: 7px; border-radius: 4px; background: #c9bea9; }
+.trad-par-texto i:nth-child(2) { width: 82%; }
+.trad-par-texto i:nth-child(4) { width: 60%; }
+.trad-de { font-size: 21px; line-height: 1.3; color: var(--creme-2); }
+.trad-para { font: 400 23px/1.3 var(--serifa); color: var(--creme); text-wrap: pretty; }
+.trad-par-seta { width: 46px; height: 2px; background: var(--terracota); position: relative; border-radius: 2px; transform-origin: left; }
+.trad-par-seta::after {
+  content: ""; position: absolute; right: -1px; top: -6px; width: 12px; height: 12px;
+  border-top: 2px solid var(--terracota); border-right: 2px solid var(--terracota); transform: rotate(45deg);
+}
+.cena.ativa .trad-1.visto:not(.passou) .trad-pares li { animation: trad-entra .6s var(--curva) both; animation-delay: calc(.35s + var(--i) * .32s); }
+.cena.ativa .trad-1.visto:not(.passou) .trad-par-seta { animation: trad-seta-cresce .5s var(--curva) both; animation-delay: calc(.75s + var(--i) * .32s); }
+.cena.ativa .trad-1.visto:not(.passou) .trad-para { animation: trad-entra .5s var(--curva) both; animation-delay: calc(1s + var(--i) * .32s); }
+.trad-pares li:nth-child(1) { --i: 0; } .trad-pares li:nth-child(2) { --i: 1; } .trad-pares li:nth-child(3) { --i: 2; }
+.trad-pares li:nth-child(4) { --i: 3; } .trad-pares li:nth-child(5) { --i: 4; } .trad-pares li:nth-child(6) { --i: 5; }
+@keyframes trad-seta-cresce { from { transform: scaleX(0); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Passo 2: o T do GPT e a máquina de tradução. */
+.trad-2 {
+  display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 1fr); grid-template-rows: 1fr auto;
+  column-gap: 70px; padding: 54px 110px 44px;
+}
+.trad-gpt-esq { align-self: center; }
+.trad-gpt-esq .rotulo { display: block; margin-bottom: 16px; }
+.trad-gpt-esq .titulo { font-size: 60px; }
+.trad-siglas { margin: 32px 0 0; display: grid; gap: 14px; }
+.trad-siglas div { display: grid; grid-template-columns: 64px 1fr; gap: 18px; align-items: start; }
+.trad-siglas dt {
+  width: 64px; height: 74px; border-radius: 12px; display: grid; place-items: center;
+  font: 400 44px/1 var(--serifa); color: var(--creme-3);
+  background: rgba(243, 239, 230, .03); border: 1px solid rgba(243, 239, 230, .16);
+}
+.trad-siglas dd { margin: 0; padding-top: 6px; font-size: 20px; line-height: 1.45; color: var(--creme-2); }
+.trad-siglas dd b { color: var(--creme); font-weight: 600; }
+.trad-siglas .acesa dt {
+  color: #10211b; background: var(--terracota); border-color: var(--terracota);
+  box-shadow: 0 0 0 8px rgba(224, 122, 69, .08), 0 18px 50px -16px rgba(224, 122, 69, .6);
+}
+.trad-siglas .acesa dd { color: var(--creme); }
+.cena.ativa .trad-2.visto .trad-siglas div { animation: trad-entra .6s var(--curva) both; }
+.cena.ativa .trad-2.visto .trad-siglas div:nth-child(2) { animation-delay: .25s; }
+.cena.ativa .trad-2.visto .trad-siglas div:nth-child(3) { animation-delay: .5s; }
+
+.trad-maquina {
+  position: relative; align-self: center; margin: 0; height: 620px; border-radius: 24px;
+  background: rgba(4, 18, 14, .4); border: 1px solid var(--linha); overflow: hidden;
+}
+.trad-maq-fase { position: absolute; inset: 0; opacity: 0; transition: opacity .6s var(--curva); }
+.trad-maq-fase.on { opacity: 1; }
+.trad-maq-quando {
+  position: absolute; left: 32px; top: 26px; font: 700 16px/1 var(--sans); letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ouro);
+}
+.trad-maq-entra, .trad-maq-sai {
+  position: absolute; left: 32px; right: 32px; margin: 0; text-align: center; text-wrap: balance;
+}
+.trad-maq-entra { top: 76px; font: 400 27px/1.5 var(--serifa); color: var(--creme-2); }
+.trad-maq-sai { bottom: 64px; font: 400 30px/1.5 var(--serifa); color: var(--creme); }
+.trad-maq-codigo { font: 500 23px/1.6 var(--mono); color: #e0a06f; font-variant-ligatures: none; }
+.trad-maq-entra span { transition: color .4s; }
+.trad-maq-entra span.ligada { color: var(--creme); }
+.trad-maq-lingua {
+  position: absolute; right: 32px; font: 600 15px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--creme-3); padding: 6px 10px; border-radius: 999px; border: 1px solid var(--linha);
+}
+.trad-maq-lingua-e { top: 20px; }
+.trad-maq-lingua-s { bottom: 22px; }
+.trad-maq-motor {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: 3;
+  width: 440px; padding: 18px 24px; border-radius: 18px; text-align: center;
+  background: #10211b; border: 1px solid rgba(224, 122, 69, .55);
+  box-shadow: 0 0 0 10px rgba(224, 122, 69, .06), 0 30px 70px -30px #000;
+}
+.trad-maq-motor b { display: block; font: 400 34px/1.1 var(--serifa); color: var(--terracota); }
+.trad-maq-motor span { display: block; margin-top: 8px; font-size: 17px; line-height: 1.35; color: var(--creme-2); }
+.trad-maq-fios { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+.trad-maq-fios path {
+  fill: none; stroke: var(--terracota); stroke-width: var(--grossura, 2); stroke-linecap: round; opacity: var(--forca, .55);
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+}
+.trad-maquina.rodando .trad-maq-fios path { animation: trad-fio 1s var(--curva) forwards; animation-delay: calc(.4s + var(--k) * .45s); }
+.trad-maq-sai span { opacity: .12; transition: opacity .5s; }
+.trad-maquina.rodando .trad-maq-fase.on .trad-maq-sai span { animation: trad-palavra .5s var(--curva) forwards; animation-delay: calc(1.1s + var(--k, 0) * .45s); }
+@keyframes trad-fio { to { stroke-dashoffset: 0; } }
+@keyframes trad-palavra { from { opacity: .12; } to { opacity: 1; } }
+.trad-maquina figcaption { position: absolute; left: 32px; bottom: 24px; font-size: 15px; color: var(--creme-3); z-index: 3; }
+.trad-gpt-fecho {
+  grid-column: 1 / -1; margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--linha);
+  font-size: 25px; line-height: 1.4; color: var(--creme-2);
+}
+.trad-gpt-fecho b { color: var(--creme); font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cena.ativa .trad-0.visto .trad-col, .cena.ativa .trad-0.visto .trad-fecho, .cena.ativa .trad-0.visto .trad-mapa img,
+  .cena.ativa .trad-1.visto .trad-pares li, .cena.ativa .trad-1.visto .trad-par-seta, .cena.ativa .trad-1.visto .trad-para,
+  .cena.ativa .trad-2.visto .trad-siglas div { animation: none !important; }
+  .trad-fio circle { display: none; }
+  .trad-maq-fios path { stroke-dashoffset: 0; }
+  .trad-maq-sai span { opacity: 1; }
 }
 
-/* Passo 1: do código de volta para o português. */
-.trad-1 { display: flex; flex-direction: column; padding: 58px 110px 62px; }
-.trad-1 > .rotulo { flex: none; }
-.trad-volta { flex: 1; min-height: 0; display: grid; grid-template-columns: 690px 120px minmax(0, 1fr); gap: 28px; align-items: center; }
-.trad-comando {
-  padding: 24px 26px; border-radius: 16px; background: #12171a;
-  border: 1px solid rgba(255, 255, 255, .12); box-shadow: 0 40px 90px -40px #000;
+/* ---------- Fase 3: a pergunta em outra língua, ajustes de 10/11/2026 ---------- */
+
+.prot-gancho { margin: 22px 0 0; font: 400 28px/1.3 var(--serifa); color: var(--ouro); }
+.prot-comeco .titulo { font-size: 52px; }
+
+/* A linha de código que vira chinês. */
+.prot-chines { min-height: 150px; display: flex; align-items: center; transition: font-size .5s var(--curva); }
+.prot-chines.codigo, .prot-chines.morfando {
+  font: 500 21px/1.55 var(--mono), "Microsoft YaHei", "PingFang SC", sans-serif; color: #dfe3df;
+  overflow-wrap: anywhere; word-break: break-all;
 }
-.trad-comando code { display: block; font: 500 18px/1.55 var(--mono); color: #dfe3df; overflow-wrap: normal; }
-.trad-arg { white-space: nowrap; }
-.trad-seta { width: 120px; height: 70px; color: var(--terracota); }
-.trad-seta path {
-  fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
-  stroke-dasharray: 200; stroke-dashoffset: 200;
+.prot-chines.morfando { color: var(--ouro); }
+.prot-brinca-cartao .prot-brinca-acoes { transition: opacity .4s var(--curva); }
+.prot-brinca-cartao.esperando .prot-brinca-acoes { opacity: 0; pointer-events: none; }
+.prot-brinca.final .prot-chines { min-height: 116px; }
+
+/* Passo 2: outra IA traduz a linha de volta para o português. */
+.prot-volta {
+  position: absolute; inset: 0; z-index: 2;
+  display: grid; grid-template-columns: 500px minmax(0, 1fr); grid-template-rows: 1fr auto;
+  column-gap: 64px; padding: 60px 110px 44px;
 }
-.trad-1.visto .trad-seta path { animation: trad-seta .9s .4s var(--curva) forwards; }
-@keyframes trad-seta { to { stroke-dashoffset: 0; } }
-.trad-explica {
-  position: relative; padding: 30px 34px; border-radius: 16px; background: var(--creme); color: #10211b;
-  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, .8);
+.prot-volta-esq { align-self: center; }
+.prot-volta-esq .rotulo { display: block; margin-bottom: 22px; }
+.prot-volta-esq .titulo { font-size: 56px; }
+.prot-volta-esq .linha-fina { margin-top: 24px; font-size: 24px; line-height: 1.5; }
+.prot-volta-esq .linha-fina b { color: var(--creme); font-weight: 600; }
+.prot-volta-cartao {
+  align-self: center; margin: 0; padding: 26px 30px 28px; border-radius: 20px;
+  background: #1b1d1f; border: 1px solid rgba(255, 255, 255, .12);
+  box-shadow: 0 50px 110px -45px #000;
+  transition: background-color 1.4s var(--curva), border-color 1.4s var(--curva);
 }
-.trad-explica p { margin: 0; font: 400 24px/1.45 var(--serifa); }
-.trad-fantasma { visibility: hidden; }
-.trad-texto { position: absolute; inset: 30px 34px; }
-.trad-cursor {
-  display: inline-block; width: 2px; height: 1.02em; margin-left: 2px; vertical-align: -.12em;
-  background: var(--terracota-escura); opacity: 1; transition: opacity .3s;
+.prot-volta-topo { display: flex; align-items: center; gap: 9px; font: 600 15px/1 var(--sans); letter-spacing: .09em; text-transform: uppercase; color: #aeb4af; transition: color 1s; }
+.prot-volta-morfa {
+  margin: 18px 0 0; min-height: 210px; display: flex; align-items: center;
+  font: 400 32px/1.45 var(--serifa); color: var(--creme); transition: color 1.2s var(--curva);
 }
-.trad-texto.fim .trad-cursor { opacity: 0; }
-.trad-legenda {
-  flex: none; margin: 26px 0 0; padding-top: 16px; border-top: 1px solid var(--linha);
+.prot-volta-morfa.codigo, .prot-volta-morfa.morfando { font: 500 21px/1.55 var(--mono); overflow-wrap: anywhere; word-break: break-all; }
+.prot-volta-morfa.morfando { color: var(--ouro); }
+.prot-volta-cartao.traduzido { background: var(--creme); border-color: var(--creme); }
+.prot-volta-cartao.traduzido .prot-volta-topo { color: #6f6048; }
+.prot-volta-cartao.traduzido .prot-volta-morfa { color: #10211b; }
+.prot-volta-cartao.traduzido .prot-volta-morfa.morfando { color: var(--terracota-escura); }
+.prot-volta-original {
+  margin-top: 22px; padding: 12px 14px; border-radius: 10px; background: #101214;
+  opacity: 0; transform: translateY(8px); transition: opacity .6s var(--curva), transform .6s var(--curva);
+}
+.prot-volta-original span { display: block; margin-bottom: 6px; font: 600 15px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #8d968f; }
+.prot-volta-original code { display: block; font: 500 15px/1.45 var(--mono); color: #c9cec9; overflow-wrap: anywhere; }
+.prot-volta-morfa.morfado ~ .prot-volta-original { opacity: 1; transform: none; }
+.prot-volta-legenda {
+  grid-column: 1 / -1; margin: 22px 0 0; padding-top: 14px; border-top: 1px solid var(--linha);
   font-size: 15px; line-height: 1.3; color: var(--creme-3);
 }
 
-/* Passo 2: o T do GPT. */
-.trad-2 { display: flex; flex-direction: column; justify-content: center; padding: 58px 110px 72px; }
-.trad-2 .titulo { max-width: 1420px; font-size: 88px; }
-.trad-2 .linha-fina { margin-top: 26px; max-width: 1200px; font-size: 27px; }
-.trad-gpt {
-  width: 1200px; max-width: 100%; margin-top: 48px; padding: 30px 38px; border-radius: 22px;
-  display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: center;
-  background: rgba(4, 18, 14, .38); border: 1px solid var(--linha);
+/* ---------- Fase 3: as duas lições dos testes (cenas "dois-pedidos" e "olhou") ---------- */
+/* Um caderno de bastidores, de outro jeito que o "Um problema" dos exemplos. */
+.licoes {
+  position: absolute; inset: 0; z-index: 3;
+  display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); column-gap: 80px; align-items: center;
+  padding: 60px 110px;
 }
-.trad-letras { display: flex; gap: 9px; }
-.trad-letras span {
-  width: 88px; height: 108px; border-radius: 14px; display: grid; place-items: center;
-  font: 400 64px/1 var(--serifa); color: var(--creme-3);
-  background: rgba(243, 239, 230, .03); border: 1px solid rgba(243, 239, 230, .16);
+.licoes-rotulo { display: inline-flex !important; align-items: center; gap: 12px; margin-bottom: 22px; color: var(--ouro) !important; }
+.licoes-rotulo svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.licoes-texto .titulo { font-size: 60px; }
+.licoes-texto .linha-fina { margin-top: 24px; font-size: 25px; line-height: 1.5; }
+.licoes-lista { margin: 0; padding: 0; list-style: none; display: grid; gap: 44px; }
+.licao {
+  position: relative; display: grid; grid-template-columns: 74px 1fr; column-gap: 22px; row-gap: 6px;
+  padding: 28px 32px 28px 26px; border-radius: 10px; color: #2a2a22;
+  background:
+    repeating-linear-gradient(transparent 0 37px, rgba(60, 80, 120, .13) 37px 38px),
+    linear-gradient(#f6f1e4, #efe7d3);
+  box-shadow: 0 30px 60px -30px #000;
+  transition: opacity .5s, transform .5s var(--curva), filter .5s;
 }
-.trad-letras .acesa {
-  color: #10211b; background: var(--terracota); border-color: var(--terracota);
-  box-shadow: 0 0 0 10px rgba(224, 122, 69, .08), 0 20px 60px -18px rgba(224, 122, 69, .6);
+.licao::before { /* a fita que prende a folha */
+  content: ""; position: absolute; top: -12px; left: 50%; width: 110px; height: 26px; translate: -50% 0; rotate: -2deg;
+  background: rgba(232, 194, 106, .55); border-radius: 3px;
 }
-.trad-gpt p { margin: 0; font-size: 21px; line-height: 1.5; color: var(--creme-2); }
-.trad-gpt b { color: var(--creme); font-weight: 600; }
+.licao:nth-child(1) { rotate: -1.2deg; }
+.licao:nth-child(2) { rotate: .9deg; }
+.licao-n {
+  grid-row: 1 / span 3; width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center;
+  font: 400 38px/1 var(--serifa); color: var(--terracota-escura); border: 3px solid var(--terracota-escura);
+}
+.licao b { font: 400 34px/1.15 var(--serifa); color: #1d241b; }
+.licao p { margin: 0; font-size: 22px; line-height: 1.45; color: #4a463a; }
+.licao-aprendida { display: none; margin-top: 6px; font: 600 19px/1.35 var(--sans); color: #1b604c; }
+.licao.feita .licao-aprendida { display: block; }
+.licao.feita .licao-n { color: #1b604c; border-color: #1b604c; }
+.licao:not(.atual) { opacity: .5; filter: saturate(.6); transform: scale(.96); }
+.licao.atual { box-shadow: 0 0 0 4px rgba(224, 122, 69, .55), 0 40px 80px -30px #000; }
+.cena.ativa .licoes.visto:not(.passou) .licao { animation: licao-cai .8s var(--curva) both; }
+.cena.ativa .licoes.visto:not(.passou) .licao:nth-child(2) { animation-delay: .2s; }
+@keyframes licao-cai { from { opacity: 0; translate: 0 -24px; } }
 
 /* Ajustes do Claude depois do pedido 12 (09/11/2026, noite) */
 .prot-codigo code span { white-space: normal; overflow-wrap: anywhere; } /* a linha do IBGE não sai do cartão */
