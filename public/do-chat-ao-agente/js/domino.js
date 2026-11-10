@@ -736,7 +736,7 @@
     mostrarBalao(bot, {
       titulo: d.nomeRegra,
       texto,
-      tipo: d.regra === -2 ? "mesa" : d.regra === -1 ? "recurso" : "",
+      tipo: d.regra === -2 ? "da-mesa" : d.regra === -1 ? "recurso" : "",
     });
   }
 
