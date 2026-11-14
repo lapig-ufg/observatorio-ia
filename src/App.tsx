@@ -90,6 +90,27 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    "date": "8 a 14 de novembro de 2026",
+    "source": "Nathan Benaich / Air Street Capital · curadoria do Observatório UFG-IA",
+    "title": "State of AI Report 2026",
+    "summary": "Panorama anual da IA, de pesquisa e indústria a regulação, segurança e previsões. O relatório reúne 244 lâminas e o Explorador Web reorganiza o conteúdo em nove capítulos. O podcast em português destaca a infraestrutura física da IA.",
+    "links": [
+      {
+        "label": "Relatório completo · 244 lâminas",
+        "href": "https://www.stateof.ai/State-of-AI-Report-2026.pdf"
+      },
+      {
+        "label": "Explore the 2026 report",
+        "href": "https://www.stateof.ai/2026-explore/"
+      },
+      {
+        "label": "O gargalo da IA é físico · podcast em português",
+        "href": "https://drive.google.com/file/d/1t6HZOeQTxRr_Jp6CIVfmQUJPDdZaiY-K/view"
+      }
+    ],
+    "eventLabel": "state-of-ai-20261108"
+  },
+  {
     "date": "1 a 7 de novembro de 2026",
     "source": "Observatório UFG-IA · aula interativa e levantamento",
     "title": "Do neurônio ao campus: entender para decidir",

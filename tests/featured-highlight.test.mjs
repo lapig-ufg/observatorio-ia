@@ -2,21 +2,31 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 
-test("destaque bilíngue reúne relatório, explorador e podcast e preserva as edições anteriores", () => {
+test("destaque bilíngue divulga o curso e preserva as edições anteriores", () => {
   const feature = fs.readFileSync("src/FeaturedDebate.tsx", "utf8");
   const pt = fs.readFileSync("src/App.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8");
   const en = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8");
 
-  assert.match(feature, /8 a 14 nov 2026/);
-  assert.match(feature, /Nov 8–14, 2026/);
-  assert.match(feature, /244 lâminas/);
-  assert.match(feature, /244 slides/);
-  assert.match(feature, /Listen to the podcast \(Portuguese\)/);
-  assert.match(feature, /https:\/\/www\.stateof\.ai\/State-of-AI-Report-2026\.pdf/);
-  assert.match(feature, /https:\/\/www\.stateof\.ai\/2026-explore\//);
-  assert.match(feature, /https:\/\/drive\.google\.com\/file\/d\/1t6HZOeQTxRr_Jp6CIVfmQUJPDdZaiY-K\/view/);
-  assert.match(feature, /nove capítulos/);
-  assert.match(feature, /nine chapters/);
+  assert.match(feature, /15 a 21 nov 2026/);
+  assert.match(feature, /Nov 15–21, 2026/);
+  assert.match(feature, /Do chat ao agente/);
+  assert.match(feature, /From chat to agent/);
+  assert.match(feature, /Open the course \(Portuguese\)/);
+  assert.match(feature, /https:\/\/lapig-ufg\.github\.io\/observatorio-ia\/do-chat-ao-agente\//);
+  for (const file of ["index.html", "aula.html", "pratica.html", "pratica-3.html", "assets/img/domino.jpg"]) {
+    assert.ok(fs.existsSync(`public/do-chat-ao-agente/${file}`));
+    if (file !== "index.html") assert.ok(feature.includes(file));
+  }
+  assert.match(pt, /8 a 14 de novembro de 2026/);
+  assert.match(en, /Nov 8–14, 2026/);
+  for (const history of [pt, en]) {
+    assert.match(history, /State of AI Report 2026/);
+    for (const link of [
+      "https://www.stateof.ai/State-of-AI-Report-2026.pdf",
+      "https://www.stateof.ai/2026-explore/",
+      "https://drive.google.com/file/d/1t6HZOeQTxRr_Jp6CIVfmQUJPDdZaiY-K/view",
+    ]) assert.ok(history.includes(link));
+  }
   for (const file of ["infraestrutura-ia-2026-11-08.png", "infraestrutura-ia-2026-11-08-640.webp", "infraestrutura-ia-2026-11-08-1280.webp"]) assert.ok(fs.existsSync(`public/covers/${file}`));
   assert.match(pt, /Do neurônio ao campus: entender para decidir/);
   assert.match(en, /From neuron to campus: understand, then decide/);

@@ -6,150 +6,82 @@ import { assetUrl } from "./catalog";
 type Language = "pt" | "en";
 type MaterialKind = "audio" | "presentation" | "document" | "survey" | "lesson";
 
-const reportLinks = {
-  pdf: "https://www.stateof.ai/State-of-AI-Report-2026.pdf",
-  explorer: "https://www.stateof.ai/2026-explore/",
-  podcast: "https://drive.google.com/file/d/1t6HZOeQTxRr_Jp6CIVfmQUJPDdZaiY-K/view",
+const courseLinks = {
+  overview: "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/",
+  lesson: "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/aula.html",
+  browserPractice: "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica.html",
+  desktopPractice: "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica-3.html",
 } as const;
 
 const editions = {
-  "pt": {
-    "startsOn": "2026-11-08",
-    "kicker": "Em destaque...",
-    "period": "8 a 14 nov 2026 · o panorama anual da IA",
-    "eyebrow": "Modelos, aplicações e infraestrutura",
-    "title": "State of AI Report 2026",
-    "lead": "De agentes e robótica à energia que sustenta os centros de dados. Conheça o panorama anual de Nathan Benaich e da Air Street Capital pelo relatório completo, pelo Explorador Web ou pelo podcast em português.",
-    "first": "O relatório tem 244 lâminas. Depois da introdução, organiza-se em cinco seções: pesquisa, indústria, política e regulação, segurança e previsões. A última seção avalia as previsões da edição anterior e apresenta as dos autores para 2027.",
-    "second": "O Explorador reorganiza o relatório em nove capítulos, com texto, gráficos interativos e links para lâminas específicas. Ao comparar as fontes, vale distinguir resultados de estudos e benchmarks, métricas divulgadas por empresas e previsões dos autores.",
-    "imageAlt": "Gravura de um centro de dados em corte, com fileiras de servidores entre uma subestação elétrica e o sistema de refrigeração.",
-    "imageCredit": "Gravura editorial do Observatório UFG-IA · gerada com IA",
-    "explore": "Três formas de acompanhar a edição",
-    "note": "Relatório e Explorador em inglês. Podcast em português, com 21 min.",
-    "quick": [
+  pt: {
+    startsOn: "2026-11-15",
+    kicker: "Em destaque...",
+    period: "15 a 21 nov 2026 · curso prático do Observatório UFG-IA",
+    eyebrow: "Aprenda a usar IA no dia a dia",
+    title: "Do chat ao agente",
+    lead: "Um curso prático de oito horas, em dois encontros, para quem trabalha com documentos, planilhas e fotos e não programa. Comece pelo chat no navegador e pratique com a IA em uma pasta no seu computador. Em cada etapa, aprenda a conferir o resultado.",
+    imageAlt: "Quatro personagens robóticos ao redor de uma mesa de dominó, com as peças e as fichas de regras à vista.",
+    imageCredit: "Mesa de dominó da aula · Observatório UFG-IA",
+    explore: "Três formas de começar",
+    first: "A aula começa com demonstrações criadas com IA, como a gangorra que calcula o centro de massa e a mesa de dominó. Depois, os exercícios no navegador mostram como extrair tarefas de uma foto, conferir informações em documentos e revisar planilhas.",
+    second: "Na última etapa, a prática passa para arquivos e pastas no computador, com exemplos de viagens, certificados e um mapa de Goiás. Cada exercício indica quais resultados conferir antes de usá-los.",
+    quick: [{ kind: "lesson", label: "Acessar o curso", href: courseLinks.overview }],
+    cards: [
       {
-        "kind": "presentation",
-        "label": "Abrir o PDF · 244 lâminas",
-        "href": reportLinks.pdf
+        meta: "Aula e gravações",
+        title: "Assista à aula",
+        description: "Percorra as três etapas e veja os exemplos gravados.",
+        links: [{ kind: "lesson", label: "Abrir a aula", href: courseLinks.lesson }],
       },
       {
-        "kind": "document",
-        "label": "Explorar a edição de 2026",
-        "href": reportLinks.explorer
+        meta: "Seis exercícios",
+        title: "Pratique no navegador",
+        description: "Trabalhe com fotos, documentos e planilhas no chat de IA que você já usa.",
+        links: [{ kind: "lesson", label: "Abrir os exercícios no navegador", href: courseLinks.browserPractice }],
       },
       {
-        "kind": "audio",
-        "label": "Ouvir o podcast",
-        "href": reportLinks.podcast
-      }
+        meta: "Três exercícios",
+        title: "Pratique no computador",
+        description: "Trabalhe com pastas e arquivos de exemplo e confira os resultados de cada exercício.",
+        links: [{ kind: "lesson", label: "Abrir os exercícios no computador", href: courseLinks.desktopPractice }],
+      },
     ],
-    "cards": [
-      {
-        "meta": "Relatório original · PDF em inglês",
-        "title": "As 244 lâminas do State of AI Report 2026",
-        "description": "Pesquisa, indústria, política e regulação, segurança e previsões. Para ver como o Explorador remete às fontes, abra a lâmina numerada 14 sobre agentes, que é a página 15 do PDF.",
-        "links": [
-          {
-            "kind": "presentation",
-            "label": "Abrir relatório completo",
-            "href": reportLinks.pdf
-          }
-        ]
-      },
-      {
-        "meta": "Explorador Web · nove capítulos em inglês",
-        "title": "Explore the 2026 report",
-        "description": "Progresso da IA, agentes, computação e infraestrutura, negócios, robótica, ciência, política e geopolítica, segurança e previsões.",
-        "links": [
-          {
-            "kind": "document",
-            "label": "Abrir o Explorador Web",
-            "href": reportLinks.explorer
-          }
-        ]
-      },
-      {
-        "meta": "Podcast complementar · M4A em português · 21 min",
-        "title": "O gargalo da IA é físico",
-        "description": "Síntese em áudio do Explorador Web, com o tema da infraestrutura em primeiro plano.",
-        "links": [
-          {
-            "kind": "audio",
-            "label": "Ouvir no Google Drive",
-            "href": reportLinks.podcast
-          }
-        ]
-      }
-    ]
   },
-  "en": {
-    "kicker": "Featured",
-    "period": "Nov 8–14, 2026 · the annual AI report",
-    "eyebrow": "Models, applications and infrastructure",
-    "title": "State of AI Report 2026",
-    "lead": "From agents and robotics to the electricity that powers data centres. Explore Nathan Benaich and Air Street Capital’s annual survey through the full report, the web explorer or a companion podcast in Portuguese.",
-    "first": "The report contains 244 slides. After the introduction, it has five sections: research, industry, politics and regulation, safety, and predictions. The final section grades last year’s predictions and presents the authors’ forecasts for 2027.",
-    "second": "The web explorer reorganises the report into nine chapters, with text, interactive charts and links to specific slides. The sources range from studies and benchmarks to figures reported by companies and the authors’ own forecasts.",
-    "imageAlt": "An engraving of a data centre in cutaway, with rows of servers between an electrical substation and the cooling system.",
-    "imageCredit": "Editorial engraving by the UFG-AI Observatory · AI-generated",
-    "explore": "Three ways to explore the report",
-    "note": "Report and web explorer in English. Podcast in Portuguese, 21 min.",
-    "quick": [
+  en: {
+    kicker: "Featured",
+    period: "Nov 15–21, 2026 · practical course from the UFG-AI Observatory",
+    eyebrow: "Learn to use AI in everyday work",
+    title: "From chat to agent",
+    lead: "An eight-hour practical course over two sessions for people who work with documents, spreadsheets and photos and have no programming experience. Start with AI chat in your browser, then practise using AI with a folder on your computer. Learn to check the results at every stage.",
+    imageAlt: "Four robot characters around a domino table, with the tiles and rule cards in view.",
+    imageCredit: "Domino table from the course · UFG-AI Observatory",
+    note: "The course and its materials are in Portuguese.",
+    explore: "Three ways to get started",
+    first: "The course begins with demonstrations made with AI, including a seesaw that calculates the centre of mass and a domino table. Browser exercises then show how to extract tasks from a photo, check information in documents and review spreadsheets.",
+    second: "The final stage moves to files and folders on your computer, with examples involving travel records, certificates and a map of Goiás. Each exercise tells you what to check before using the results.",
+    quick: [{ kind: "lesson", label: "Open the course (Portuguese)", href: courseLinks.overview }],
+    cards: [
       {
-        "kind": "presentation",
-        "label": "Open the PDF · 244 slides",
-        "href": reportLinks.pdf
+        meta: "Lesson and recordings",
+        title: "Watch the lesson",
+        description: "Work through all three stages and watch the recorded examples.",
+        links: [{ kind: "lesson", label: "Open the lesson (Portuguese)", href: courseLinks.lesson }],
       },
       {
-        "kind": "document",
-        "label": "Explore the 2026 report",
-        "href": reportLinks.explorer
+        meta: "Six exercises",
+        title: "Practise in the browser",
+        description: "Work with photos, documents and spreadsheets in the AI chat you already use.",
+        links: [{ kind: "lesson", label: "Open the browser exercises (Portuguese)", href: courseLinks.browserPractice }],
       },
       {
-        "kind": "audio",
-        "label": "Listen to the podcast (Portuguese)",
-        "href": reportLinks.podcast
-      }
+        meta: "Three exercises",
+        title: "Practise on your computer",
+        description: "Work with sample files and folders and check the results of each exercise.",
+        links: [{ kind: "lesson", label: "Open the desktop exercises (Portuguese)", href: courseLinks.desktopPractice }],
+      },
     ],
-    "cards": [
-      {
-        "meta": "Original report · PDF in English",
-        "title": "All 244 slides of the State of AI Report 2026",
-        "description": "Research, industry, politics and regulation, safety, and predictions. To see how the explorer links back to the source, open the agent slide numbered 14, which is page 15 of the PDF.",
-        "links": [
-          {
-            "kind": "presentation",
-            "label": "Open the full report",
-            "href": reportLinks.pdf
-          }
-        ]
-      },
-      {
-        "meta": "Web explorer · nine chapters in English",
-        "title": "Explore the 2026 report",
-        "description": "AI progress, agents, compute and infrastructure, business, robotics, science, policy and geopolitics, safety, and predictions.",
-        "links": [
-          {
-            "kind": "document",
-            "label": "Open the web explorer",
-            "href": reportLinks.explorer
-          }
-        ]
-      },
-      {
-        "meta": "Companion podcast · M4A in Portuguese · 21 min",
-        "title": "O gargalo da IA é físico",
-        "description": "An audio summary of the web explorer with an emphasis on the physical infrastructure behind AI.",
-        "links": [
-          {
-            "kind": "audio",
-            "label": "Listen on Google Drive (Portuguese)",
-            "href": reportLinks.podcast
-          }
-        ]
-      }
-    ]
-  }
+  },
 } as const;
 
 // O Sobre reaproveita a data editorial da edição, sem manter uma segunda cópia.
@@ -197,13 +129,10 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
         <div className="featured-quick-links">
           {edition.quick.map((link) => <a key={link.href} href={link.href} target="_blank" rel="noreferrer" onClick={() => trackMaterial(link.kind, link.label, link.href)}><MaterialIcon kind={link.kind} /> {link.label}</a>)}
         </div>
-        <small className="featured-material-note">{edition.note}</small>
+        {"note" in edition && <small className="featured-material-note">{edition.note}</small>}
       </div>
       <figure className="featured-debate-art">
-        <picture>
-          <source type="image/webp" srcSet={`${assetUrl("covers/infraestrutura-ia-2026-11-08-640.webp")} 640w, ${assetUrl("covers/infraestrutura-ia-2026-11-08-1280.webp")} 1280w`} sizes="(max-width: 700px) calc(100vw - 64px), 550px" />
-          <img src={assetUrl("covers/infraestrutura-ia-2026-11-08.png")} alt={edition.imageAlt} width="1536" height="1024" decoding="async" />
-        </picture>
+        <img src={assetUrl("do-chat-ao-agente/assets/img/domino.jpg")} alt={edition.imageAlt} width="1600" height="900" decoding="async" />
         <figcaption>{edition.imageCredit}</figcaption>
       </figure>
     </div>

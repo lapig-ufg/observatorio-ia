@@ -9,16 +9,18 @@ const bootstrap = readFileSync('public/analytics-bootstrap.js', 'utf8');
 test('published manifest includes every current material with its actual kind and destination', () => {
   const m = featuredManifest(source);
   assert.equal(m.schemaVersion, 1);
-  assert.match(m.startsOn, /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(m.startsOn, '2026-11-15');
+  assert.equal(m.edition, 'Do chat ao agente');
+  assert.deepEqual(m.editionAliases, ['From chat to agent']);
   assert.equal(m.materials.length, 3);
-  assert.deepEqual(m.materials.map(x => x.kind), ['presentation', 'document', 'audio']);
+  assert.deepEqual(m.materials.map(x => x.kind), ['lesson', 'lesson', 'lesson']);
   assert.deepEqual(m.materials.map(x => x.href), [
-    'https://www.stateof.ai/State-of-AI-Report-2026.pdf',
-    'https://www.stateof.ai/2026-explore/',
-    'https://drive.google.com/file/d/1t6HZOeQTxRr_Jp6CIVfmQUJPDdZaiY-K/view',
+    'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/aula.html',
+    'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica.html',
+    'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica-3.html',
   ]);
-  assert.throws(() => featuredManifest(source.replaceAll('"kind": "presentation"', '"kind": "unknown"')), /Invalid featured/);
-  assert.throws(() => featuredManifest(source.replaceAll('"href":', '"missingHref":')), /Missing featured/);
+  assert.throws(() => featuredManifest(source.replaceAll('kind: "lesson"', 'kind: "unknown"')), /Invalid featured/);
+  assert.throws(() => featuredManifest(source.replaceAll('href:', 'missingHref:')), /Missing featured/);
 });
 
 test('no GA script or events are created by development hosts', () => {

@@ -144,6 +144,27 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 
 const featuredHistoryEnglish = [
   {
+    "date": "Nov 8–14, 2026",
+    "source": "Nathan Benaich / Air Street Capital · UFG-AI Observatory curation",
+    "title": "State of AI Report 2026",
+    "summary": "An annual overview of AI research, industry, regulation, safety and predictions. The full report contains 244 slides, and the web explorer presents nine chapters. The companion podcast in Portuguese focuses on the physical infrastructure behind AI.",
+    "links": [
+      {
+        "label": "Full report · 244 slides",
+        "href": "https://www.stateof.ai/State-of-AI-Report-2026.pdf"
+      },
+      {
+        "label": "Explore the 2026 report",
+        "href": "https://www.stateof.ai/2026-explore/"
+      },
+      {
+        "label": "O gargalo da IA é físico · Portuguese podcast",
+        "href": "https://drive.google.com/file/d/1t6HZOeQTxRr_Jp6CIVfmQUJPDdZaiY-K/view"
+      }
+    ],
+    "eventLabel": "state-of-ai-20261108"
+  },
+  {
     "date": "Nov 1–7, 2026",
     "source": "UFG-AI Observatory · interactive lesson and survey",
     "title": "From neuron to campus: understand, then decide",
