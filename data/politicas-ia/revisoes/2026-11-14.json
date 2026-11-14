@@ -2,7 +2,7 @@
   "version": 1,
   "cycle": "2026-11-14",
   "startedAt": "2026-11-14T11:43:46.256111+00:00",
-  "finishedAt": "2026-11-14T12:00:59.271+00:00",
+  "finishedAt": "2026-11-14T13:09:25.424+00:00",
   "baseCommit": "ff55e3f49a1cbed190a27550f084255af6b2bfce",
   "status": "partial",
   "comparisonReference": "2026-11-07",
@@ -342,84 +342,99 @@
     },
     {
       "key": "[\"Organismo transversal\",\"WAME\",\"SAU\",\"Internacional\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:49:03.452Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Recommendations 1–5, revised 31 May 2023. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Versão 2, 31/05/2023. Texto novo: Agradecimentos e prompts, inclusive conversão para tabelas/ilustrações. Análise, resultados, figuras ou código: Resumo e Métodos, ferramenta/versão, prompt e data/hora. Autores respondem pela integridade e não podem fabricar dados. Editores e pareceristas devem explicar o uso; enviar manuscrito a chatbot viola sigilo. Isso não é autorização geral para qualquer imagem sintética.",
       "sources": [
         {
-          "url": "https://wame.org/page3.php?id=106",
           "owner": "WAME",
           "section": "Recommendations 1–5, revised 31 May 2023",
+          "url": "https://wame.org/page3.php?id=106",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "7e2eb49cf9d9479d255c60df706ed2eec9190cf8f3b8f4f72e90441d61da758b",
           "queriedAt": "2026-11-14T11:49:03.452Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-02.json",
-            "browser-attempts.json"
+          "hashBasis": "Seção normativa visível no domínio oficial, normalizada.",
+          "evidence": [
+            "scheduled-browser-readbacks.json"
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Organismo transversal\",\"CSE\",\"MUL\",\"Internacional\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:50:57.698Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Artificial Intelligence Authorship, 2.1.15. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Seção 2.1.15 atualizada em 26 de dezembro de 2025. Recomenda políticas explícitas e revisão anual; autores, revisores e editores devem divulgar ferramenta e finalidade, exceto usos básicos de gramática/ortografia. Autores declaram na submissão ao periódico e aos leitores, com responsabilidade integral. Nenhuma parte do manuscrito ou parecer pode ser inserida em chatbot/LLM público; decisões editoriais não podem depender apenas de sínteses/recomendações geradas. Recomenda que cada periódico especifique regras para texto, imagens e demais usos; não estabelece permissão universal de imagens.",
       "sources": [
         {
-          "url": "https://www.councilscienceeditors.org/2-2-authorship-and-authorship-responsibilities",
           "owner": "Council of Science Editors",
           "section": "Artificial Intelligence Authorship",
+          "url": "https://www.councilscienceeditors.org/2-2-authorship-and-authorship-responsibilities",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "03473e5b6a600b407c4a7f130ea21964b0197e98e47c297bad3ac25a861dd320",
           "queriedAt": "2026-11-14T11:50:57.695Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-02.json",
-            "browser-attempts.json"
+          "hashBasis": "Seção normativa visível no domínio oficial, normalizada.",
+          "evidence": [
+            "scheduled-browser-readbacks.json"
           ]
         },
         {
-          "url": "https://www.councilscienceeditors.org/2-1-editor-roles-and-responsibilities",
           "owner": "CSE",
           "section": "2.1.15",
+          "url": "https://www.councilscienceeditors.org/2-1-editor-roles-and-responsibilities",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "d075e3577b35ba628ee693e200d52f268d8965709db660b7f925973f27c816a8",
           "queriedAt": "2026-11-14T11:50:57.698Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-02.json",
-            "browser-attempts.json"
+          "hashBasis": "Seção normativa visível no domínio oficial, normalizada.",
+          "evidence": [
+            "scheduled-browser-readbacks.json"
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Organismo transversal\",\"EASE\",\"MUL\",\"Europa\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:49:00.823Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Recommendations for editors, authors, peer reviewers. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Recomendações EASE (2024), não regra automaticamente vinculante de todo periódico. Recomenda declarar usos em criação/edição, inclusive respostas aos pareceres; métodos/dados/código em Methods ou declaração de IA, visualizações também nas legendas. Cada periódico deve explicitar se isenta a edição de linguagem. Revisores seguem a política local e declaram assistência na criação/edição do parecer. Para suspeitas de infração, recomenda comunicar o editor e admite relatórios de detectores como possível evidência; não define limiar de prova conclusiva.",
       "sources": [
         {
-          "url": "https://ease.org.uk/2024/09/recommendations-on-the-use-of-ai-in-scholarly-communication/",
           "owner": "European Association of Science Editors",
           "section": "Recommendations for editors, authors, peer reviewers",
+          "url": "https://ease.org.uk/2024/09/recommendations-on-the-use-of-ai-in-scholarly-communication/",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "1d2968a2ca13d6750534d6342570e1107b0673d45fcf37a4fe5a7d9b63c109b1",
           "queriedAt": "2026-11-14T11:49:00.823Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-02.json",
-            "browser-attempts.json"
+          "hashBasis": "Seção normativa visível no domínio oficial, normalizada.",
+          "evidence": [
+            "scheduled-browser-readbacks.json"
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -519,7 +534,7 @@
       "key": "[\"Organismo transversal\",\"ISTIC + editoras globais (China)\",\"MUL\",\"China\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:25.346Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Guia chinês AIGC 3.0, seções 3 e 4, autoria, pesquisa, imagens/dados, declaração, revisão e publicação. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Guia chinês AIGC 3.0, seções 3 e 4, autoria, pesquisa, imagens/dados, declaração, revisão e publicação.",
       "sources": [
         {
           "url": "https://journals.istic.ac.cn/zgkjzydk/ch/reader/view_news.aspx?id=20260130090933001",
@@ -552,24 +567,36 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"American Chemical Society (ACS)\",\"EXA\",\"EUA\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:44:25.346Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: AI Policy for ACS Publications Authors, Editors, and Peer Reviewers, updated 6 November 2026. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Política atualizada em 06/11/2026. Admite melhorar texto próprio, traduzir e apoiar busca bibliográfica. Veda criar ou alterar dados, resultados e imagens que os representem, assim como delegar raciocínio ou gerar conteúdo substantivo de análise ou revisão bibliográfica. A exceção metodológica exige descrição em Métodos e dados originais disponíveis a pedido. Uso substantivo exige ferramenta, finalidade e trechos em Agradecimentos ou Métodos, e legenda para figuras geradas. Arte de capa é condicionada e imagem gerada não cabe no sumário gráfico. Revisores não podem gerar, redigir ou revisar pareceres com IA generativa. Editores retêm o julgamento. Material sigiloso só pode passar por ferramentas autorizadas e integradas pela ACS.",
       "sources": [
         {
-          "url": "https://researcher-resources.acs.org/publish/aipolicy",
           "owner": "American Chemical Society",
           "section": "AI Policy for ACS Publications Authors, Editors, and Peer Reviewers, updated 6 November 2026",
+          "url": "https://researcher-resources.acs.org/publish/aipolicy",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "14ecdbd47ea312b983d56925d6da593a7533a28dab0484d3b359ab8258cb0a4d",
           "queriedAt": "2026-11-14T11:44:25.346Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-04.json"
+          ],
+          "lineRanges": [
+            [
+              179,
+              214
+            ]
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -604,7 +631,7 @@
       "key": "[\"Sociedade/associação\",\"American Mathematical Society\",\"EXA\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:08.825Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Autoria, ferramenta e finalidade em Métodos, imagens e dados, vedação de envio de manuscrito a LLM, Sigilo de manuscritos, pareceres e identidade dos revisores. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Autoria, ferramenta e finalidade em Métodos, imagens e dados, vedação de envio de manuscrito a LLM, Sigilo de manuscritos, pareceres e identidade dos revisores.",
       "sources": [
         {
           "url": "https://www.ams.org/publications/journals/policies/UseofArtificialIntelligence",
@@ -751,38 +778,43 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"ACM\",\"EXA\",\"Internacional\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:49:28.762Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Authorship criteria and Use of Artificial Intelligence, May 14 2026, Peer review — confidentiality and large language models. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Autoria atualizada em 14/05/2026: não exige declaração de IA para escrita; usos que afetam desenho, método, dados, código e figuras relevantes às conclusões devem ser detalhados em Métodos. Autores humanos respondem pela integridade. Revisão (30/11/2023): só aprimorar qualidade/legibilidade do próprio parecer, removendo toda informação confidencial ou identificadora; não delegar autoria/julgamento. A norma não dá autorização genérica para qualquer imagem sintética.",
       "sources": [
         {
-          "url": "https://www.acm.org/publications/policies/new-acm-policy-on-authorship",
           "owner": "ACM Publications Board",
           "section": "Authorship criteria and Use of Artificial Intelligence, May 14 2026",
+          "url": "https://www.acm.org/publications/policies/new-acm-policy-on-authorship",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "027dada599e0d780fd046b869d1e8440ea9aabf1b664f51ce3c936e7c11967d1",
           "queriedAt": "2026-11-14T11:49:28.762Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-06.json",
-            "browser-attempts.json"
+          "hashBasis": "Seção normativa visível no domínio oficial, normalizada.",
+          "evidence": [
+            "scheduled-browser-readbacks.json"
           ]
         },
         {
-          "url": "https://www.acm.org/publications/policies/peer-review",
           "owner": "ACM Publications Board",
           "section": "Peer review — confidentiality and large language models",
+          "url": "https://www.acm.org/publications/policies/peer-review",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "edef7d80bde718d9836b302bb89443047ab5bc4d491875b4315e0a11d2b94a59",
           "queriedAt": "2026-11-14T11:49:28.762Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-06.json",
-            "browser-attempts.json"
+          "hashBasis": "Seção normativa visível no domínio oficial, normalizada.",
+          "evidence": [
+            "scheduled-browser-readbacks.json"
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -919,7 +951,7 @@
       "key": "[\"Sociedade/associação\",\"SBC — Sociedade Brasileira de Computação\",\"EXA\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:49:38.657Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Código de Conduta, arts. 2 III e 4, 28 fevereiro 2024. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Código de Conduta, arts. 2 III e 4, 28 fevereiro 2024.",
       "sources": [
         {
           "url": "https://sol.sbc.org.br/index.php/indice/conduta",
@@ -971,31 +1003,44 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"EGU (declaração)\",\"EXA\",\"Europa\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:44:31.776Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Statement, 22 January 2024. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:07:42Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Declaração institucional de 22/01/2024 sobre apresentação/publicação, não todas as etapas da pesquisa. Recomenda supervisão humana, veda autoria por IA e pede declaração em seção apropriada (exemplos: Methods ou Acknowledgements, sem local único). Recomenda não aplicar IA para avaliar a qualidade dos manuscritos. Não fixa regra própria de geração de imagens; conferir a política do periódico.",
       "sources": [
         {
-          "url": "https://www.egu.eu/news/1031/",
           "owner": "European Geosciences Union",
           "section": "Statement, 22 January 2024",
+          "url": "https://www.egu.eu/news/1031/",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:31.776Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "191936592e515573afbe52a6d41e95946eb8178574e07b1895d029048f9932a2",
+          "queriedAt": "2026-11-14T13:07:42Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-12.json",
             "consultas/source-08.json"
+          ],
+          "lineRanges": [
+            [
+              103,
+              111
+            ]
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Editora\",\"Periódicos Copernicus/EGU (HESS, ESSD, GMD, BG)\",\"EXA\",\"Europa\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:44:33.261Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:07:41Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Texto e interpretações não podem ser gerados por IA; edição assistiva de linguagem é isenta de declaração. Figuras/esquemas são permitidos, identificados em Métodos ou Acknowledgements e certificados na submissão. Revisores não podem enviar manuscritos/pareceres nem gerar comentários com IA, mas podem usar assistência de pontuação, gramática e ortografia. Julgamento permanece humano.",
       "sources": [
         {
           "url": "https://www.hydrology-and-earth-system-sciences.net/policies/ai_policy.html",
@@ -1037,19 +1082,33 @@
           ]
         },
         {
-          "url": "https://www.biogeosciences.net/policies/ai_policy.html",
           "owner": "Biogeosciences — Copernicus/EGU",
           "section": "Current official page",
+          "url": "https://www.biogeosciences.net/policies/ai_policy.html",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:33.261Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "3d90b52756eaaa2923e217e97968eb699f64affaf4a0b1c93c9648bdfad68d70",
+          "queriedAt": "2026-11-14T13:07:41Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-10.json",
+            "consultas/scheduled-11.json",
             "consultas/source-09.json"
+          ],
+          "lineRanges": [
+            [
+              175,
+              185
+            ]
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -1084,7 +1143,7 @@
       "key": "[\"Sociedade/associação\",\"Geological Society of London\",\"EXA\",\"Reino Unido\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:51:00.060Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: AI policy and full table, February 2026. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: AI policy and full table, February 2026.",
       "sources": [
         {
           "url": "https://www.lyellcollection.org/publishing-hub/ai-in-publishing",
@@ -1105,9 +1164,9 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"American Meteorological Society\",\"EXA\",\"EUA\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:44:34.788Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Obligations of Editors and Reviewers; sigilo e exceção linguística no relatório. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: American Meteorological Society: cláusula de autores adotada em janeiro de 2024. Uso substantivo de IA na escrita, imagens/gráficos ou coleta/análise de dados deve identificar ferramenta e uso nas seções apropriadas de dados, métodos ou materiais; autores humanos respondem integralmente pelo conteúdo. Revisores não podem avaliar manuscritos ou gerar pareceres com IA nem fazer upload de qualquer parte, mesmo em ferramenta dita segura. A única exceção expressa é editar a linguagem e a clareza do próprio parecer, declarando esse uso no relatório. Não confundir esta AMS com a American Mathematical Society.",
       "sources": [
         {
           "url": "https://www.ametsoc.org/ams/publications/ethical-guidelines-and-ams-policies/author-disclosure-and-obligations/",
@@ -1123,41 +1182,78 @@
           ]
         },
         {
-          "url": "https://www.ametsoc.org/ams/publications/editors-and-reviewers/obligations-of-editors-and-reviewers-in-the-ams-scientific-publication-process/",
           "owner": "American Meteorological Society",
           "section": "Obligations of Editors and Reviewers; sigilo e exceção linguística no relatório",
+          "url": "https://www.ametsoc.org/ams/publications/editors-and-reviewers/obligations-of-editors-and-reviewers-in-the-ams-scientific-publication-process/",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "2094678136102e52a4583a927227c5690a2fac9e854650e2929918a1761d1bb8",
           "queriedAt": "2026-11-14T11:44:34.788Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-10.json"
+          ],
+          "lineRanges": [
+            [
+              34,
+              47
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/open1.json",
+              "lineRanges": [
+                [
+                  34,
+                  47
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Agência de fomento\",\"USGS\",\"EXA\",\"EUA\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:44:36.325Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: General Principles; Disclosure Placement and Formatting Guidance. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:07:41Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Diretrizes para produtos científicos do USGS, não regra geral de financiamento. IA generativa, inclusive imagens, exige transparência e verificação humana. Declarar desenho, análise e código em Métodos; redação, edição, imagens e ideias em Agradecimentos; detalhes publicáveis, como ferramenta, versão, prompts e datas, nos suplementos. Aprendizado de máquina específico pode dispensar declaração separada quando técnicas são descritas/citadas conforme as práticas USGS. IA não pode ser autora; esta página não fixa regra de pareceristas.",
       "sources": [
         {
-          "url": "https://www.usgs.gov/office-of-science-quality-and-integrity/example-ai-disclosure-statements-usgs-scientific",
           "owner": "U.S. Geological Survey — OSQI",
           "section": "General Principles; Disclosure Placement and Formatting Guidance",
+          "url": "https://www.usgs.gov/office-of-science-quality-and-integrity/example-ai-disclosure-statements-usgs-scientific",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:36.325Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "0ee48575ac46d7528900513a55824157b71e56ffaae996661efd9c211a0818c9",
+          "queriedAt": "2026-11-14T13:07:41Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-10.json",
+            "consultas/scheduled-11.json",
             "consultas/source-11.json"
+          ],
+          "lineRanges": [
+            [
+              24,
+              75
+            ]
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -1233,7 +1329,7 @@
       "key": "[\"Editora\",\"Royal Society of Chemistry\",\"EXA\",\"Reino Unido\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:16.746Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: AI authorship, disclosure and images. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: AI authorship, disclosure and images.",
       "sources": [
         {
           "url": "https://www.rsc.org/publishing/journals/processes-and-policies/reviewer-responsibilities",
@@ -1269,7 +1365,7 @@
       "key": "[\"Periódico\",\"Remote Sensing of Environment / ISPRS J. / JAG\",\"EXA\",\"Internacional\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:53:06.076Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page, Current official page, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page, Current official page, Current official page.",
       "sources": [
         {
           "url": "https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals",
@@ -1406,7 +1502,7 @@
       "key": "[\"Periódico\",\"Remote Sensing (MDPI)\",\"EXA\",\"Internacional\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:41.430Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page, Current official page.",
       "sources": [
         {
           "url": "https://www.mdpi.com/journal/remotesensing/instructions",
@@ -1440,7 +1536,7 @@
       "key": "[\"Periódico\",\"IJRS / GIScience & RS / Remote Sensing Letters\",\"EXA\",\"Internacional\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:54.563Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Instructions for authors, Current official page, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Instructions for authors, Current official page, Current official page.",
       "sources": [
         {
           "url": "https://taylorandfrancis.com/our-policies/ai-policy/",
@@ -1545,31 +1641,44 @@
     },
     {
       "key": "[\"Periódico\",\"Rev. Brasileira de Geomorfologia (UGB)\",\"EXA\",\"Brasil\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:44:44.840Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:07:41Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Declaração de Uso de Inteligência Artificial em seção própria antes das referências, cobrindo qualquer fase e verificações humanas; corretores ortográficos básicos são isentos. Revisores não podem compartilhar manuscrito ou partes com IA, mas podem revisar a linguagem do próprio parecer já escrito sem informar ao editor e verificar fatos públicos. Visualizações de dados reais e esquemas ilustrativos são permitidos; figuras apoiadas por IA devem ser identificadas nas legendas. É vedado fabricar/distorcer dados ou imagens.",
       "sources": [
         {
-          "url": "https://rbgeomorfologia.org.br/rbg/ai-policy",
           "owner": "União da Geomorfologia Brasileira",
           "section": "Current official page",
+          "url": "https://rbgeomorfologia.org.br/rbg/ai-policy",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:44.840Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "9e99d962c779069385f62cd641582366552ec10a4591a9af646ded5245527eef",
+          "queriedAt": "2026-11-14T13:07:41Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-11.json",
             "consultas/source-16.json"
+          ],
+          "lineRanges": [
+            [
+              22,
+              133
+            ]
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Boletim de Ciências Geodésicas\",\"EXA\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:44.840Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page, Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/bcg/about/?ilang=en",
@@ -1603,7 +1712,7 @@
       "key": "[\"Periódico\",\"Química Nova (SBQ)\",\"EXA\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:46.317Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/qn/about/",
@@ -1625,7 +1734,7 @@
       "key": "[\"Evento/conferência\",\"SBSR / INPE\",\"EXA\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:46.317Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page, Current official page.",
       "sources": [
         {
           "url": "https://proceedings.science/cfp/sbsr-2027?lang=pt-br",
@@ -1657,31 +1766,43 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"Ecological Society of America (ESA)\",\"BIO\",\"EUA\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:44:46.317Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Declarar ferramenta e uso na seção pertinente, nos Acknowledgments e no formulário de submissão; ortografia, gramática e edição geral são isentas. Imagens e análise de dados estão expressamente abrangidas. Editores/revisores não podem enviar manuscrito, figuras ou tabelas à IA; podem melhorar a qualidade dos próprios comentários, declarando isso ao submeter o parecer. Avaliação e responsabilidade permanecem humanas.",
       "sources": [
         {
-          "url": "https://esa.org/publications/artificial-intelligence-ai-policy/",
           "owner": "Ecological Society of America",
           "section": "Current official page",
+          "url": "https://esa.org/publications/artificial-intelligence-ai-policy/",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "010dd5c59acd5b73426d85c70cf99aa737477b7e81f45782d9844e246aec353d",
           "queriedAt": "2026-11-14T11:44:46.317Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-17.json"
+          ],
+          "lineRanges": [
+            [
+              37,
+              45
+            ]
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Sociedade/associação\",\"American Society for Microbiology (ASM)\",\"BIO\",\"EUA\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:44:47.845Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Reviewer Policies and Ethics; Confidentiality e Guidelines for Reviewers Using AI Tools. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Autores: IA apenas para melhorar linguagem, acessibilidade ou qualidade de texto humano; não gerar conteúdo original sem contribuição humana significativa. Declarar na cover letter; detalhes adicionais no artigo podem ser pedidos. Não usar em imagens, capas, vídeos ou esquemas, com exceções avaliadas pelo staff (p.ex. pesquisa sobre IA). Revisores podem aprimorar clareza/tom/tradução do próprio parecer, reconhecendo o uso no formulário; não copiar manuscrito para IA.",
       "sources": [
         {
           "url": "https://journals.asm.org/generative-ai",
@@ -1697,26 +1818,61 @@
           ]
         },
         {
-          "url": "https://journals.asm.org/reviewer-guidelines?journal=mmbr",
           "owner": "American Society for Microbiology",
           "section": "Reviewer Policies and Ethics; Confidentiality e Guidelines for Reviewers Using AI Tools",
+          "url": "https://journals.asm.org/reviewer-guidelines?journal=mmbr",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "69ea4e7df62d432ee7d48f09c3aac586a8a9581ddbbf923729849bcb934fa27a",
           "queriedAt": "2026-11-14T11:44:47.845Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-18.json"
+          ],
+          "lineRanges": [
+            [
+              75,
+              76
+            ],
+            [
+              78,
+              82
+            ],
+            [
+              99,
+              106
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/open2.json",
+              "lineRanges": [
+                [
+                  75,
+                  82
+                ],
+                [
+                  99,
+                  106
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Sociedade/associação\",\"EMBO Press\",\"BIO\",\"Europa\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:48:24.878Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://link.springer.com/partners/embo-press/editorial-policies",
@@ -1752,7 +1908,7 @@
       "key": "[\"Sociedade/associação\",\"ASBMB (JBC, MCP, JLR)\",\"BIO\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:48:26.381Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.asbmb.org/journals/editorial-policies",
@@ -1786,9 +1942,9 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"ASPB (The Plant Cell)\",\"BIO\",\"EUA\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:48:26.381Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: AI Principles for OUP Journals; cinco princípios, autores, revisores e editores, Policy on AI Use & Disclosure for OUP Journals Authors, atualizada em 13/07/2026, Fair editing and peer review; confidentiality e obrigações éticas. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:07:02Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Escopo: The Plant Cell, não toda a ASPB. As instruções permitem assistência de IA em conteúdo, imagens, código, dados e tradução sob responsabilidade humana; a IA não pode figurar como autora. Declarar na carta ao editor e em Métodos ou Agradecimentos. Imagens de dados devem representar fielmente os originais, sem inserir, remover ou ocultar características; permissão condicionada de imagens não autoriza fabricar evidência. As seções de revisão e a norma OUP expressamente vinculada exigem sigilo e tratam de conduta, mas não contêm ali uma cláusula específica de IAG para pareceristas; Não trata não significa permissão. Não extrapolar esta página para outros periódicos da sociedade.",
       "sources": [
         {
           "url": "https://academic.oup.com/plcell/pages/author-guidelines",
@@ -1806,50 +1962,77 @@
           ]
         },
         {
-          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals",
           "owner": "Oxford University Press",
           "section": "AI Principles for OUP Journals; cinco princípios, autores, revisores e editores",
+          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:49.496Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-19.json"
+          "access": "read",
+          "sha256": "8c883e5f00f1e82162c12c3e01bdfd359a8b0821f31bcd90d6a26d49ced624cc",
+          "queriedAt": "2026-11-14T13:05:15Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-5.json"
+          ],
+          "lineRanges": [
+            [
+              2477,
+              2508
+            ]
           ]
         },
         {
-          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals/policy-on-ai-use-and-disclosure-for-oxford-journals-authors",
           "owner": "Oxford University Press",
           "section": "Policy on AI Use & Disclosure for OUP Journals Authors, atualizada em 13/07/2026",
+          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals/policy-on-ai-use-and-disclosure-for-oxford-journals-authors",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:51.127Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-20.json"
+          "access": "read",
+          "sha256": "cb28e28d9d1aa034fb6c1146c622fe76bfc985afbecc1453e41cf407c266ebaa",
+          "queriedAt": "2026-11-14T13:07:02Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-10.json",
+            "consultas/scheduled-5.json"
+          ],
+          "lineRanges": [
+            [
+              2477,
+              2524
+            ]
           ]
         },
         {
-          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ethics",
           "owner": "Oxford University Press",
           "section": "Fair editing and peer review; confidentiality e obrigações éticas",
+          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ethics",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:51.127Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-20.json"
+          "access": "read",
+          "sha256": "7cd77515774d2b66f44ade0c8b5588c240731033834180a3b08d94b7f5d08d6d",
+          "queriedAt": "2026-11-14T13:05:15Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-5.json"
+          ],
+          "lineRanges": [
+            [
+              2543,
+              2558
+            ]
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Sociedade/associação\",\"Society for Neuroscience (J. Neurosci.)\",\"BIO\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:51:00.073Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page, Current official page.",
       "sources": [
         {
           "url": "https://www.sfn.org/about/professional-conduct/reviewers-of-manuscripts",
@@ -1884,7 +2067,7 @@
       "key": "[\"Periódico\",\"Cell (Cell Press)\",\"BIO\",\"Internacional\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:53:06.076Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals",
@@ -1966,7 +2149,7 @@
       "key": "[\"Editora\",\"PeerJ\",\"BIO\",\"Internacional\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:58.472Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Generative AI; autoria, declaração, versões, pesquisa, imagens e remissão normativa a Taylor & Francis, Confidentiality; sigilo de manuscritos, pareceristas e correspondência. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Generative AI; autoria, declaração, versões, pesquisa, imagens e remissão normativa a Taylor & Francis, Confidentiality; sigilo de manuscritos, pareceristas e correspondência.",
       "sources": [
         {
           "url": "https://taylorandfrancis.com/our-policies/ai-policy/",
@@ -2015,7 +2198,7 @@
       "key": "[\"Periódico\",\"Genetics and Molecular Biology (SBG)\",\"BIO\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:54.543Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/gmb/about/?ilang=en",
@@ -2037,7 +2220,7 @@
       "key": "[\"Periódico\",\"Brazilian Journal of Biology\",\"BIO\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:54.543Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/bjb/about/",
@@ -2059,7 +2242,7 @@
       "key": "[\"Periódico\",\"Acta Botanica Brasilica (SBB)\",\"BIO\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:14.567Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://acta.botanica.org.br/author-guidelines/",
@@ -2082,7 +2265,7 @@
       "key": "[\"Periódico\",\"Biota Neotropica\",\"BIO\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:56.137Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/bn/about/",
@@ -2161,7 +2344,7 @@
       "key": "[\"Sociedade/associação\",\"ASCE\",\"ENG\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:49:35.130Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://ascelibrary.org/author-center/ai-policy",
@@ -2210,9 +2393,9 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"INFORMS\",\"ENG\",\"EUA\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:44:57.863Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Guidelines for Ethical Behavior in Publishing; confidencialidade e uso de IA na revisão, modelo para os periódicos. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:05:18Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: O portal institucional permite IA sob responsabilidade humana e exige declaração em Agradecimentos com ferramenta e natureza do auxílio. O modelo institucional de revisão condiciona o uso a que a ferramenta não compartilhe o conteúdo do manuscrito nem use as entradas para treinamento e a que cumpra integralmente o sigilo. A redação consultada não estabelece uma cláusula autônoma sobre retenção. Conferir a norma específica de cada periódico. Fabricação de dados é proibida. As fontes gerais examinadas não fixam regra específica de imagens ou ano da versão.",
       "sources": [
         {
           "url": "https://pubsonline.informs.org/authorportal/publication-ethics",
@@ -2228,26 +2411,57 @@
           ]
         },
         {
-          "url": "https://pubsonline.informs.org/authorportal/guidelines-for-ethical-behavior-in-publishing",
           "owner": "INFORMS",
           "section": "Guidelines for Ethical Behavior in Publishing; confidencialidade e uso de IA na revisão, modelo para os periódicos",
+          "url": "https://pubsonline.informs.org/authorportal/guidelines-for-ethical-behavior-in-publishing",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:57.863Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-24.json"
+          "access": "read",
+          "sha256": "9cd31cbdc824c156a408dff5452d66a3b1c1897bf68203983e2d615e74aab6b9",
+          "queriedAt": "2026-11-14T13:05:18Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-7.json"
+          ],
+          "lineRanges": [
+            [
+              141,
+              141
+            ],
+            [
+              143,
+              145
+            ],
+            [
+              147,
+              151
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/templates.json",
+              "lineRanges": [
+                [
+                  141,
+                  151
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Engenharia Sanitária e Ambiental (ABES)\",\"ENG\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:53:06.076Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Engenharia Sanitária e Ambiental; índice de submissão, versão inglesa aponta ao regulamento de agosto de 2025. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Engenharia Sanitária e Ambiental; índice de submissão, versão inglesa aponta ao regulamento de agosto de 2025.",
       "sources": [
         {
           "url": "https://abes-dn.org.br/wp-content/uploads/2025/09/Guidelines-ESA-Journal_Aug_25.pdf",
@@ -2285,7 +2499,7 @@
       "key": "[\"Periódico\",\"Rev. Brasileira de Recursos Hídricos (ABRHidro)\",\"ENG\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:59.379Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/rbrh/about/",
@@ -2307,7 +2521,7 @@
       "key": "[\"Periódico\",\"Gestão & Produção\",\"ENG\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:59.379Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/gp/about/",
@@ -2329,7 +2543,7 @@
       "key": "[\"Periódico\",\"NEJM\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:09.564Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.nejm.org/about-nejm/editorial-policies",
@@ -2409,7 +2623,7 @@
       "key": "[\"Periódico\",\"The Lancet\",\"SAU\",\"Reino Unido\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:49:30.937Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: August 2026 Information for Authors, generative AI rules including continuation on page 4, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: August 2026 Information for Authors, generative AI rules including continuation on page 4, Current official page.",
       "sources": [
         {
           "url": "https://www.thelancet.com/pb-assets/Lancet/authors/tl-info-for-authors-1787150940677.pdf",
@@ -2444,7 +2658,7 @@
       "key": "[\"Sociedade/associação\",\"American Heart Association\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:12.110Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.ahajournals.org/ai-guidance",
@@ -2467,7 +2681,7 @@
       "key": "[\"Sociedade/associação\",\"ASCO (JCO)\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:51:00.051Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://ascopubs.org/authors/journal-policies",
@@ -2490,7 +2704,7 @@
       "key": "[\"Sociedade/associação\",\"ACP (Annals of Internal Medicine)\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:59.579Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page, Current official page.",
       "sources": [
         {
           "url": "https://www.acpjournals.org/journal/aim/authors5",
@@ -2526,7 +2740,7 @@
       "key": "[\"Sociedade/associação\",\"AACR\",\"SAU\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:51:00.316Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page, Current official page.",
       "sources": [
         {
           "url": "https://aacrjournals.org/pages/editorial-policies",
@@ -2631,133 +2845,353 @@
     },
     {
       "key": "[\"Editora\",\"Wolters Kluwer / Lippincott\",\"SAU\",\"Internacional\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:06.576Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Generative AI policy for authors and Generative AI Policy for Journals. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:05:17Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Declarar ferramenta/finalidade em Materials and Methods ou equivalente para redação, imagens/gráficos e dados. Não enviar manuscrito aceito/publicado à IA em violação a direitos. Revisores e editores não podem fazer upload de manuscritos, pareceres ou cartas, nem para melhorar linguagem. IA não pode ser o único mecanismo avaliativo; automação de triagem/validação pode apoiar o fluxo sem decidir aceitação ou rejeição.",
       "sources": [
         {
-          "url": "https://www.wolterskluwer.com/en/solutions/lippincott-journals/lippincott-journals-ethical-best-practices-in-scholarly-publishing",
           "owner": "Wolters Kluwer Health / Lippincott",
           "section": "Generative AI policy for authors and Generative AI Policy for Journals",
+          "url": "https://www.wolterskluwer.com/en/solutions/lippincott-journals/lippincott-journals-ethical-best-practices-in-scholarly-publishing",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:06.576Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-29.json"
+          "access": "read",
+          "sha256": "654612829cdbc4158a5f9ccd40c529ad65013cd05ca1cf821400941415b2cc8d",
+          "queriedAt": "2026-11-14T13:05:17Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-6.json"
+          ],
+          "lineRanges": [
+            [
+              822,
+              822
+            ],
+            [
+              824,
+              824
+            ],
+            [
+              826,
+              830
+            ],
+            [
+              832,
+              832
+            ],
+            [
+              834,
+              837
+            ],
+            [
+              839,
+              848
+            ],
+            [
+              850,
+              853
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/focus.json",
+              "lineRanges": [
+                [
+                  825,
+                  856
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Editora\",\"Mary Ann Liebert\",\"SAU\",\"EUA\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:06.576Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Full AI policy, Submission Guidelines, escopo, adoção explícita da norma Sage e autoria. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:05:18Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: O portfólio Mary Ann Liebert migrou para a plataforma Sage em 2026. A fonte histórica de AI in Neuroscience redireciona para instruções que adotam explicitamente a política Sage: assistência de linguagem, gramática e estrutura é dispensada; geração substantiva e IA em métodos são declaradas na submissão e em Métodos ou Agradecimentos. Admitem-se ilustrações representativas e visualizações declaradas, não imagens fabricadas como evidência original. Revisores podem aprimorar a apresentação do próprio parecer, sem enviar manuscrito a IA ou delegar avaliação. A codificação herdada está comprovada para esse título e a política geral indicada; não certifica exceções de cada periódico do portfólio.",
       "sources": [
         {
-          "url": "https://www.sagepub.com/journals/publication-ethics-policies/artificial-intelligence-policy",
           "owner": "Sage",
           "section": "Full AI policy",
+          "url": "https://www.sagepub.com/journals/publication-ethics-policies/artificial-intelligence-policy",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:06.576Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "38a90413c017c51e18e5fd329cd4a81e53d253836cd47e9ac0900def98f554aa",
+          "queriedAt": "2026-11-14T13:05:18Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-7.json",
             "consultas/source-29.json"
+          ],
+          "lineRanges": [
+            [
+              40,
+              56
+            ],
+            [
+              58,
+              59
+            ],
+            [
+              61,
+              61
+            ],
+            [
+              63,
+              73
+            ],
+            [
+              75,
+              76
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/comparacao-fontes.json",
+              "lineRanges": [
+                [
+                  29,
+                  65
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://journals.sagepub.com/author-instructions/ain",
           "owner": "AI in Neuroscience / Sage",
           "section": "Submission Guidelines, escopo, adoção explícita da norma Sage e autoria",
+          "url": "https://journals.sagepub.com/author-instructions/ain",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:06.576Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "c9eafac9ec27230179741b7606647ed6214fe2e28db5cba3b8a2066006d16cae",
+          "queriedAt": "2026-11-14T13:05:18Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-7.json",
             "consultas/source-29.json"
+          ],
+          "lineRanges": [
+            [
+              7,
+              7
+            ],
+            [
+              9,
+              10
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              17,
+              18
+            ],
+            [
+              20,
+              20
+            ],
+            [
+              175,
+              176
+            ],
+            [
+              178,
+              178
+            ],
+            [
+              180,
+              182
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/readers.json",
+              "lineRanges": [
+                [
+                  7,
+                  20
+                ],
+                [
+                  174,
+                  182
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Cadernos de Saúde Pública (Fiocruz)\",\"SAU\",\"Brasil\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:08.256Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Processo de Avaliação por Pares e escopo da revista, Instruções EN, redação e figuras/dados. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:05:20Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Instruções operacionais PT/EN: escrita assistida para legibilidade/linguagem, com controle humano e declaração em Métodos. Figuras, quadros e tabelas não podem ser criados/alterados por IA, salvo quando a IA integra o desenho ou método, descrito de modo reprodutível. A seção operacional de revisão não dá regra específica de GenAI para pareceristas. O editorial 40(11) discute usos mais amplos; não se interpreta essa discussão como dispensa das instruções vigentes.",
       "sources": [
         {
-          "url": "https://www.scielo.br/journal/csp/about/?ilang=pt_BR",
           "owner": "Cadernos de Saúde Pública / ENSP-Fiocruz",
           "section": "Processo de Avaliação por Pares e escopo da revista",
+          "url": "https://www.scielo.br/journal/csp/about/?ilang=pt_BR",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:06.576Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-29.json"
+          "access": "read",
+          "sha256": "dc7b74a033c07d5a3c9cf0b9f8c9b8525ca82b374be5068167a1cf9dd8696317",
+          "queriedAt": "2026-11-14T13:05:20Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-3.json",
+            "consultas/scheduled-8.json"
+          ],
+          "lineRanges": [
+            [
+              125,
+              134
+            ],
+            [
+              178,
+              188
+            ]
           ]
         },
         {
-          "url": "https://www.scielo.br/journal/csp/about/?ilang=en",
           "owner": "Cadernos de Saúde Pública / ENSP-Fiocruz",
           "section": "Instruções EN, redação e figuras/dados",
+          "url": "https://www.scielo.br/journal/csp/about/?ilang=en",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:08.256Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-30.json"
+          "access": "read",
+          "sha256": "51015966c5e9f3630455043fe2e7c7fb87e16484477066a93d522573fd809d68",
+          "queriedAt": "2026-11-14T13:05:13Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-4.json"
+          ],
+          "lineRanges": [
+            [
+              186,
+              190
+            ],
+            [
+              193,
+              193
+            ],
+            [
+              195,
+              195
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/pt-instructions.json",
+              "lineRanges": [
+                [
+                  185,
+                  195
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Rev. Brasileira de Enfermagem (ABEn)\",\"SAU\",\"Brasil\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:08.256Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: COPE, prompts em Métodos, Resumo e referências, Instruções PT, Métodos e Resumo. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:05:20Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Adota recomendações COPE e remete a WAME/JAMA. Deve descrever em Métodos o uso e todos os prompts para texto, adaptações, ilustrações ou tabelas. Para análises, resultados ou código, informar também no Resumo, incluindo prompt completo, ferramenta, versão, data e horário. Referências: IA limitada à normalização. As instruções contemplam ilustrações com declaração, mas isso não autoriza fabricar dados. Não foi localizada nesta página regra própria específica sobre uso de IA por pareceristas.",
       "sources": [
         {
-          "url": "https://www.scielo.br/journal/reben/about/",
           "owner": "Revista Brasileira de Enfermagem / ABEn",
           "section": "COPE, prompts em Métodos, Resumo e referências",
+          "url": "https://www.scielo.br/journal/reben/about/",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:08.256Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-30.json"
+          "access": "read",
+          "sha256": "30a75de8168feb67b5554c04e09bd642e48cddce1104e2f52ba9cb6d44722503",
+          "queriedAt": "2026-11-14T13:05:20Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-4.json",
+            "consultas/scheduled-8.json"
+          ],
+          "lineRanges": [
+            [
+              186,
+              191
+            ],
+            [
+              434,
+              439
+            ],
+            [
+              461,
+              466
+            ]
           ]
         },
         {
-          "url": "https://www.scielo.br/journal/reben/about/?ilang=pt_BR",
           "owner": "Revista Brasileira de Enfermagem / ABEn",
           "section": "Instruções PT, Métodos e Resumo",
+          "url": "https://www.scielo.br/journal/reben/about/?ilang=pt_BR",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:08.256Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-30.json"
+          "access": "read",
+          "sha256": "8b0947ebc1af27a5447210d6f96e67a4a5139852fdce75447e00b8abb81252c8",
+          "queriedAt": "2026-11-14T13:05:13Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-4.json"
+          ],
+          "lineRanges": [
+            [
+              434,
+              445
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/brazil-pt.json",
+              "lineRanges": [
+                [
+                  434,
+                  445
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Revista de Saúde Pública (USP)\",\"SAU\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:09.897Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.org/documents/30/Guia-de-uso-de-ferramentas-e-recursos-de-IA-20230914.pdf",
@@ -2792,7 +3226,7 @@
       "key": "[\"Periódico\",\"Arq. Brasileiros de Cardiologia (SBC-Cardiologia)\",\"SAU\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:49:34.579Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://abccardiol.org/politica-sobre-o-uso-de-inteligencia-artificial/",
@@ -2842,24 +3276,67 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"ASA–CSSA–SSSA\",\"AGR\",\"EUA\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:45:09.897Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Artificial Intelligence Generated Content; atualização de 30/06/2026. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Atualizada em 30 de junho de 2026. Na escrita, IA apenas como apoio à legibilidade/linguagem, com controle humano; proíbe criar/alterar dados e resultados originais. Declarar na submissão e em seção própria antes das referências, com ferramenta, versão e validação; ferramentas básicas de gramática, ortografia e referências dispensam. A regra de escrita não regula uso como método de análise. Revisores e editores não podem usar IA generativa na avaliação nem enviar manuscritos a essas ferramentas.",
       "sources": [
         {
-          "url": "https://www.sciencesocieties.org/publications/journals/author-resources/editorial-policies",
           "owner": "ASA, CSSA e SSSA",
           "section": "Artificial Intelligence Generated Content; atualização de 30/06/2026",
+          "url": "https://www.sciencesocieties.org/publications/journals/author-resources/editorial-policies",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "74fda91c8ed88a6a39098d5b6b343c39ffa5c3bfc870f5f34c2964ce5a6ae52a",
           "queriedAt": "2026-11-14T11:45:09.897Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-31.json"
+          ],
+          "lineRanges": [
+            [
+              23,
+              27
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              32
+            ],
+            [
+              34,
+              35
+            ],
+            [
+              37,
+              41
+            ],
+            [
+              43,
+              49
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/open8.json",
+              "lineRanges": [
+                [
+                  23,
+                  49
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -2893,60 +3370,135 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"ASAS (J. Animal Science)\",\"AGR\",\"EUA\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:11.640Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Autoria e disclosure; vínculo expresso à política OUP, Policy on AI Use & Disclosure for OUP Journals Authors, atualizada em 13/07/2026, AI Principles for OUP Journals; cinco princípios, autores, revisores e editores, Fair editing and peer review; confidentiality e obrigações éticas. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:07:02Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Regra própria do Journal of Animal Science: declarar uso de IA para conteúdo, imagens, código, dados ou tradução tanto na carta quanto em Métodos ou Agradecimentos; IA não é autora. Imagens assistidas exigem declaração e não podem falsificar dados. Os princípios gerais OUP aplicam responsabilidade e proteção do sigilo a revisores e editores; uso condicionado não autoriza delegar julgamento científico nem expor manuscritos a serviços externos. As exigências específicas do periódico prevalecem sobre a orientação geral para autores.",
       "sources": [
         {
-          "url": "https://academic.oup.com/jas/pages/author-guidelines",
           "owner": "ASAS / Journal of Animal Science",
           "section": "Autoria e disclosure; vínculo expresso à política OUP",
+          "url": "https://academic.oup.com/jas/pages/author-guidelines",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:11.640Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "c24924fe325095aeed959ff44c825625fa6443f085a1481b376bd50eedf6b780",
+          "queriedAt": "2026-11-14T13:05:15Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-5.json",
             "consultas/source-32.json"
+          ],
+          "lineRanges": [
+            [
+              69,
+              72
+            ],
+            [
+              74,
+              74
+            ],
+            [
+              76,
+              80
+            ],
+            [
+              82,
+              82
+            ],
+            [
+              153,
+              159
+            ],
+            [
+              161,
+              161
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/oup-review.json",
+              "lineRanges": [
+                [
+                  68,
+                  82
+                ]
+              ]
+            },
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/oup-full.json",
+              "lineRanges": [
+                [
+                  153,
+                  162
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals/policy-on-ai-use-and-disclosure-for-oxford-journals-authors",
           "owner": "Oxford University Press",
           "section": "Policy on AI Use & Disclosure for OUP Journals Authors, atualizada em 13/07/2026",
+          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals/policy-on-ai-use-and-disclosure-for-oxford-journals-authors",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:51.127Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-20.json"
+          "access": "read",
+          "sha256": "cb28e28d9d1aa034fb6c1146c622fe76bfc985afbecc1453e41cf407c266ebaa",
+          "queriedAt": "2026-11-14T13:07:02Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-10.json",
+            "consultas/scheduled-5.json"
+          ],
+          "lineRanges": [
+            [
+              2477,
+              2524
+            ]
           ]
         },
         {
-          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals",
           "owner": "Oxford University Press",
           "section": "AI Principles for OUP Journals; cinco princípios, autores, revisores e editores",
+          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:49.496Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-19.json"
+          "access": "read",
+          "sha256": "8c883e5f00f1e82162c12c3e01bdfd359a8b0821f31bcd90d6a26d49ced624cc",
+          "queriedAt": "2026-11-14T13:05:15Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-5.json"
+          ],
+          "lineRanges": [
+            [
+              2477,
+              2508
+            ]
           ]
         },
         {
-          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ethics",
           "owner": "Oxford University Press",
           "section": "Fair editing and peer review; confidentiality e obrigações éticas",
+          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ethics",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:51.127Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-20.json"
+          "access": "read",
+          "sha256": "7cd77515774d2b66f44ade0c8b5588c240731033834180a3b08d94b7f5d08d6d",
+          "queriedAt": "2026-11-14T13:05:15Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-5.json"
+          ],
+          "lineRanges": [
+            [
+              2543,
+              2558
+            ]
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -3002,7 +3554,7 @@
       "key": "[\"Periódico\",\"Scientia Agricola (USP/ESALQ)\",\"AGR\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:13.172Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/sa/about/?ilang=en",
@@ -3024,7 +3576,7 @@
       "key": "[\"Periódico\",\"Pesquisa Agropecuária Brasileira (Embrapa)\",\"AGR\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:13.172Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://apct.sede.embrapa.br/pab/en/about/submissions",
@@ -3046,7 +3598,7 @@
       "key": "[\"Periódico\",\"Rev. Brasileira de Ciência do Solo (SBCS)\",\"AGR\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:13.172Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/rbcs/about/?ilang=en",
@@ -3068,7 +3620,7 @@
       "key": "[\"Periódico\",\"Revista Árvore\",\"AGR\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:13.172Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.org/documents/30/Guia-de-uso-de-ferramentas-e-recursos-de-IA-20230914.pdf",
@@ -3103,7 +3655,7 @@
       "key": "[\"Periódico\",\"Ciência Rural (UFSM)\",\"AGR\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:15.021Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/cr/about/",
@@ -3125,7 +3677,7 @@
       "key": "[\"Periódico\",\"Rev. Bras. Eng. Agrícola e Ambiental\",\"AGR\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:15.021Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/rbeaa/about/",
@@ -3147,7 +3699,7 @@
       "key": "[\"Periódico\",\"Pesquisa Veterinária Brasileira\",\"AGR\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:15.021Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/pvb/about/",
@@ -3198,7 +3750,7 @@
       "key": "[\"Sociedade/associação\",\"Econometric Society\",\"SOC\",\"Internacional\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:10.891Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page, Current official page.",
       "sources": [
         {
           "url": "https://www.econometricsociety.org/publications/econometrica/editorial-procedures-and-policies",
@@ -3234,7 +3786,7 @@
       "key": "[\"Sociedade/associação\",\"Academy of Management (AOM)\",\"SOC\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:16.736Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.aom.org/publications/journals/publishing-with-aom/aom-artificial-intelligence-policy/",
@@ -3284,7 +3836,7 @@
       "key": "[\"Sociedade/associação\",\"AALS (Direito)\",\"SOC\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:18.701Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://jle.aals.org/home/submissions.html",
@@ -3376,31 +3928,95 @@
     },
     {
       "key": "[\"Editora\",\"Edward Elgar\",\"SOC\",\"Reino Unido\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:18.701Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Policy on the Use of Artificial Intelligence Tools; authors, book editors and peer reviewers. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:05:18Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Norma para livros e capítulos. Veda redigir, reescrever ou parafrasear texto com IA generativa e admite verificadores linguísticos limitados. Uso além de apoio menor deve ser declarado na proposta, checklist e, quando exigido, no manuscrito, com ferramenta, versão, provedor e finalidade. É vedado fabricar, alterar ou manipular dados, resultados ou imagens originais de pesquisa ou violar sigilo e direitos. Editores de livros não podem enviar capítulos em avaliação à IA. Pareceristas não podem enviar texto, imagens ou informações de propostas ou manuscritos inéditos para auxiliar a elaboração do parecer. Não há data normativa explícita.",
       "sources": [
         {
-          "url": "https://www.e-elgar.com/author-hub/before-you-start-writingediting-2/",
           "owner": "Edward Elgar Publishing",
           "section": "Policy on the Use of Artificial Intelligence Tools; authors, book editors and peer reviewers",
+          "url": "https://www.e-elgar.com/author-hub/before-you-start-writingediting-2/",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:18.701Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "7e5c4b497e1c1d28ceb71c9e467954fa3a81c91c2ab664a8de8e82256a898961",
+          "queriedAt": "2026-11-14T13:05:18Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-7.json",
             "consultas/source-36.json"
+          ],
+          "lineRanges": [
+            [
+              140,
+              146
+            ],
+            [
+              148,
+              150
+            ],
+            [
+              152,
+              159
+            ],
+            [
+              161,
+              167
+            ],
+            [
+              169,
+              173
+            ],
+            [
+              175,
+              176
+            ],
+            [
+              178,
+              178
+            ],
+            [
+              180,
+              182
+            ],
+            [
+              184,
+              184
+            ],
+            [
+              188,
+              189
+            ],
+            [
+              191,
+              191
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/follow-index.json",
+              "lineRanges": [
+                [
+                  139,
+                  191
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"RAC (ANPAD)\",\"SOC\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:20.207Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/rac/about/",
@@ -3422,7 +4038,7 @@
       "key": "[\"Periódico\",\"RAE (FGV EAESP)\",\"SOC\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:48:32.898Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.emerald.com/publish-with-us/pages/publication-ethics",
@@ -3458,7 +4074,7 @@
       "key": "[\"Periódico\",\"Revista de Economia Política\",\"SOC\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:20.207Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/rep/about/?ilang=en",
@@ -3508,7 +4124,7 @@
       "key": "[\"Sociedade/associação\",\"AERA\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:48:34.431Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page, 2021 manual: review, confidentiality and contributors. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page, 2021 manual: review, confidentiality and contributors.",
       "sources": [
         {
           "url": "https://www.aera.net/Portals/38/docs/About_AERA/CodeOfEthics%281%29.pdf",
@@ -3557,7 +4173,7 @@
       "key": "[\"Sociedade/associação\",\"American Association of Geographers\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:21.716Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.aag.org/statement-of-professional-ethics/",
@@ -3637,7 +4253,7 @@
       "key": "[\"Sociedade/associação\",\"American Sociological Association\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:53.444Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Index Ethics; Code of Ethics de junho de 2018 vinculado, June 2018 Code, cover and sections 9 to 16 (authorship, research, confidentiality and peer review). A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Index Ethics; Code of Ethics de junho de 2018 vinculado, June 2018 Code, cover and sections 9 to 16 (authorship, research, confidentiality and peer review).",
       "sources": [
         {
           "url": "https://www.asanet.org/about/ethics/",
@@ -3672,7 +4288,7 @@
       "key": "[\"Periódico\",\"APSA / AJPS\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:24.951Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://ajps.org/ajps-ai-policy/",
@@ -3694,7 +4310,7 @@
       "key": "[\"Sociedade/associação\",\"American Philosophical Association\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:13.874Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.apaonline.org/page/journalpractices",
@@ -3717,7 +4333,7 @@
       "key": "[\"Sociedade/associação\",\"AAR / SBL\",\"HUM\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:53.967Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Entire current PDF visually read in browser, Entire current PDF visually read in browser. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Entire current PDF visually read in browser, Entire current PDF visually read in browser.",
       "sources": [
         {
           "url": "https://papers.aarweb.org/sites/default/files/uploads/PAPERS_Submission_Instructions%202026%20_0.pdf",
@@ -3833,7 +4449,7 @@
       "key": "[\"Periódico\",\"Rev. Brasileira de Ciências Sociais (ANPOCS)\",\"HUM\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:28.426Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/rbcsoc/about/#instructions",
@@ -3855,7 +4471,7 @@
       "key": "[\"Periódico\",\"Rev. Brasileira de Educação (ANPEd)\",\"HUM\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:28.426Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Instruções aos autores integrais PT, autoria, figuras, integridade e avaliação, Instructions to authors integrais EN, autoria, figuras, integridade e avaliação. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Instruções aos autores integrais PT, autoria, figuras, integridade e avaliação, Instructions to authors integrais EN, autoria, figuras, integridade e avaliação.",
       "sources": [
         {
           "url": "https://new.scielo.br/journal/rbedu/about/?ilang=pt_BR",
@@ -3889,7 +4505,7 @@
       "key": "[\"Periódico\",\"Educação & Sociedade (CEDES)\",\"HUM\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:28.426Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/es/about/",
@@ -3999,7 +4615,7 @@
       "key": "[\"Sociedade/associação\",\"Modern Language Association (MLA)\",\"LLA\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:29.924Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.mla.org/Publications/MLA-Book-Publications/Resources-for-Contributors/Policy-on-Generative-AI",
@@ -4021,7 +4637,7 @@
       "key": "[\"Sociedade/associação\",\"Linguistic Society of America (PLSA)\",\"LLA\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:48:37.586Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.cambridge.org/core/journals/proceedings-of-the-linguistic-society-of-america/information/author-instructions/preparing-your-materials",
@@ -4153,7 +4769,7 @@
       "key": "[\"Periódico\",\"DELTA (Linguística)\",\"LLA\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:33.144Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/delta/about/",
@@ -4291,26 +4907,164 @@
     },
     {
       "key": "[\"Editora\",\"Springer Nature\",\"MUL\",\"Internacional\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:49:04.617Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "outcome": "changed",
+      "checkedAt": "2026-11-14T13:07:41Z",
+      "reason": "As orientações vinculadas complementam o quadro de riscos com detalhes normativos sobre declaração, ilustrações e revisão confidencial.",
       "sources": [
         {
-          "url": "https://www.nature.com/nature-portfolio/editorial-policies/ai",
           "owner": "Springer Nature / Nature Portfolio",
           "section": "Current official page",
+          "url": "https://www.nature.com/nature-portfolio/editorial-policies/ai",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "5902704477d630b1db93a080fca6c643a74174629f94c84a1f3a874bc83c0987",
           "queriedAt": "2026-11-14T11:49:04.617Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-46.json",
-            "browser-attempts.json"
+          "hashBasis": "Seção normativa visível no domínio oficial, normalizada.",
+          "evidence": [
+            "scheduled-browser-readbacks.json"
           ]
+        },
+        {
+          "url": "https://www.springernature.com/gp/policies/editorial-policies/ai-manuscript-preparation",
+          "official": true,
+          "access": "read",
+          "sha256": "5faa1ef027ce3bb5cf6bed1213d76380872359fc44ad1a6fc5a8347fd0422b37",
+          "queriedAt": "2026-11-14T13:07:00Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-1.json",
+            "consultas/scheduled-9.json"
+          ],
+          "lineRanges": [
+            [
+              74,
+              189
+            ]
+          ],
+          "owner": "Springer Nature",
+          "section": "Preparação do manuscrito e conteúdo visual, requisitos e declaração"
+        },
+        {
+          "url": "https://www.springernature.com/gp/policies/editorial-policies/using-ai-in-research",
+          "official": true,
+          "access": "read",
+          "sha256": "4af97edb9bdc323880ae4e29329e7e711c669791efb12f34363e662d247d8827",
+          "queriedAt": "2026-11-14T13:07:00Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-1.json",
+            "consultas/scheduled-9.json"
+          ],
+          "lineRanges": [
+            [
+              74,
+              154
+            ]
+          ],
+          "owner": "Springer Nature",
+          "section": "Uso de IA na pesquisa, riscos, verificação e declaração"
+        },
+        {
+          "url": "https://www.springernature.com/gp/policies/editorial-policies/using-ai-in-peer-review",
+          "official": true,
+          "access": "read",
+          "sha256": "b232bf58c80dd54146187d97a65e7cb6546535bc511f344d09ab49f616c4eec0",
+          "queriedAt": "2026-11-14T13:07:00Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-1.json",
+            "consultas/scheduled-9.json"
+          ],
+          "lineRanges": [
+            [
+              74,
+              248
+            ]
+          ],
+          "owner": "Springer Nature",
+          "section": "Risco na revisão, jurisdição do parecerista, sigilo e declaração"
+        },
+        {
+          "url": "https://www.springernature.com/gp/policies/editorial-policies/ai-editor-guidance",
+          "official": true,
+          "access": "read",
+          "sha256": "7ebe1b7135104f52b551f1bb9a80240230104fc4a34596be94a777ac02187823",
+          "queriedAt": "2026-11-14T13:07:41Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-1.json",
+            "consultas/scheduled-11.json",
+            "consultas/scheduled-9.json"
+          ],
+          "lineRanges": [
+            [
+              73,
+              135
+            ]
+          ],
+          "owner": "Springer Nature",
+          "section": "Deveres de editores, proteção de material inédito e tratamento das declarações"
         }
       ],
-      "scopesChecked": [],
-      "changedFields": []
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
+      "changedFields": [
+        "loc",
+        "nota"
+      ],
+      "before": {
+        "nome": "Springer Nature",
+        "tipo": "Editora",
+        "area": "MUL",
+        "sub": "Multidisciplinar",
+        "geo": "Internacional",
+        "ano": null,
+        "gen": "Permitida",
+        "loc": "Não especifica",
+        "rev": "Condicionado",
+        "img": "Restritas",
+        "verif": "P",
+        "url": "https://www.nature.com/nature-portfolio/editorial-policies/ai",
+        "nota": "Na política Nature Portfolio consultada, framework por risco: apoio assistivo permitido; usos interpretativos exigem supervisão, verificação e transparência. É vedado delegar julgamento ou apresentar raciocínio/dados fabricados como humanos. Pareceristas podem obter apoio, mas não enviar conteúdo a IA pública ou insegura nem delegar crítica. Deepfakes fotorealistas são proibidos. Não há local único de declaração nem data normativa explícita nesta página. Confirmar instruções do periódico específico."
+      },
+      "after": {
+        "nome": "Springer Nature",
+        "tipo": "Editora",
+        "area": "MUL",
+        "sub": "Multidisciplinar",
+        "geo": "Internacional",
+        "ano": null,
+        "gen": "Permitida",
+        "loc": "Múltiplos",
+        "rev": "Condicionado",
+        "img": "Restritas",
+        "verif": "P",
+        "url": "https://www.nature.com/nature-portfolio/editorial-policies/ai",
+        "nota": "A política do Nature Portfolio e as orientações vinculadas da Springer Nature permitem apoio assistivo e condicionam usos interpretativos à supervisão, à verificação e à declaração. Julgamento, autoria e responsabilidade permanecem humanos. Figuras assistidas por IA requerem insumos verificáveis e atribuídos, validação humana e declaração da ferramenta, finalidade e contribuição em seção própria e na legenda. Conteúdo visual sem insumo verificável e deepfakes fotorealistas são vedados. Pareceristas declaram a assistência no parecer, preservam o sigilo e mantêm a crítica e a recomendação independentes. Sistemas públicos ou inseguros não recebem material confidencial. Uso limitado em ambiente seguro depende das garantias de proteção e orientação institucional. Conferir instruções do título."
+      },
+      "decisions": [
+        {
+          "field": "loc",
+          "reason": "A orientação vinculada especifica declaração de conteúdo visual tanto em seção própria quanto na legenda.",
+          "sourceUrls": [
+            "https://www.springernature.com/gp/policies/editorial-policies/ai-manuscript-preparation"
+          ]
+        },
+        {
+          "field": "nota",
+          "reason": "As orientações por função detalham integridade visual com insumos verificáveis, declaração, sigilo e limites para revisores e editores.",
+          "sourceUrls": [
+            "https://www.springernature.com/gp/policies/editorial-policies/ai-manuscript-preparation",
+            "https://www.springernature.com/gp/policies/editorial-policies/using-ai-in-research",
+            "https://www.springernature.com/gp/policies/editorial-policies/using-ai-in-peer-review",
+            "https://www.springernature.com/gp/policies/editorial-policies/ai-editor-guidance"
+          ]
+        }
+      ]
     },
     {
       "key": "[\"Editora\",\"Wiley\",\"MUL\",\"Internacional\"]",
@@ -4370,70 +5124,137 @@
     },
     {
       "key": "[\"Editora\",\"SAGE\",\"MUL\",\"Internacional\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:06.576Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Full AI policy. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:05:18Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Assistência à linguagem/estrutura dispensa declaração por autores e pareceristas. Uso generativo requer declaração na submissão e em Métodos ou Agradecimentos. Admitem-se visualizações e ilustrações representativas, não dados/imagens falsificados. A revisão humana não pode ser substituída nem manuscritos enviados a GenAI; a ajuda na redação do próprio parecer não autoriza avaliação automática.",
       "sources": [
         {
-          "url": "https://www.sagepub.com/journals/publication-ethics-policies/artificial-intelligence-policy",
           "owner": "Sage",
           "section": "Full AI policy",
+          "url": "https://www.sagepub.com/journals/publication-ethics-policies/artificial-intelligence-policy",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:06.576Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "38a90413c017c51e18e5fd329cd4a81e53d253836cd47e9ac0900def98f554aa",
+          "queriedAt": "2026-11-14T13:05:18Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-7.json",
             "consultas/source-29.json"
+          ],
+          "lineRanges": [
+            [
+              40,
+              56
+            ],
+            [
+              58,
+              59
+            ],
+            [
+              61,
+              61
+            ],
+            [
+              63,
+              73
+            ],
+            [
+              75,
+              76
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/comparacao-fontes.json",
+              "lineRanges": [
+                [
+                  29,
+                  65
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Editora\",\"Oxford University Press\",\"MUL\",\"Reino Unido\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:44:51.127Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Policy on AI Use & Disclosure for OUP Journals Authors, atualizada em 13/07/2026, AI Principles for OUP Journals; cinco princípios, autores, revisores e editores, Fair editing and peer review; confidentiality e obrigações éticas. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:07:02Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Política para autores atualizada em 13 de julho de 2026; requisitos próprios do periódico prevalecem. Usos substanciais, tradução, código e visualização geralmente exigem declaração na carta e nos Agradecimentos, também em Métodos quando integrarem o método, com ferramenta, versão, finalidade e supervisão. Correção linguística simples e formatação de referências dispensam. Ilustrações e resumos gráficos podem ser admitidos com declaração; é proibido fabricar resultados ou criar/alterar imagens científicas factuais. Os princípios gerais exigem responsabilidade e confidencialidade de autores, revisores e editores; verificar instruções específicas de revisão do título.",
       "sources": [
         {
-          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals/policy-on-ai-use-and-disclosure-for-oxford-journals-authors",
           "owner": "Oxford University Press",
           "section": "Policy on AI Use & Disclosure for OUP Journals Authors, atualizada em 13/07/2026",
+          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals/policy-on-ai-use-and-disclosure-for-oxford-journals-authors",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:51.127Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-20.json"
+          "access": "read",
+          "sha256": "cb28e28d9d1aa034fb6c1146c622fe76bfc985afbecc1453e41cf407c266ebaa",
+          "queriedAt": "2026-11-14T13:07:02Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-10.json",
+            "consultas/scheduled-5.json"
+          ],
+          "lineRanges": [
+            [
+              2477,
+              2524
+            ]
           ]
         },
         {
-          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals",
           "owner": "Oxford University Press",
           "section": "AI Principles for OUP Journals; cinco princípios, autores, revisores e editores",
+          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ai-principles-for-oxford-journals",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:49.496Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-19.json"
+          "access": "read",
+          "sha256": "8c883e5f00f1e82162c12c3e01bdfd359a8b0821f31bcd90d6a26d49ced624cc",
+          "queriedAt": "2026-11-14T13:05:15Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-5.json"
+          ],
+          "lineRanges": [
+            [
+              2477,
+              2508
+            ]
           ]
         },
         {
-          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ethics",
           "owner": "Oxford University Press",
           "section": "Fair editing and peer review; confidentiality e obrigações éticas",
+          "url": "https://academic.oup.com/pages/for-authors/journals/preparing-and-submitting-your-manuscript/ethics",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:44:51.127Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-20.json"
+          "access": "read",
+          "sha256": "7cd77515774d2b66f44ade0c8b5588c240731033834180a3b08d94b7f5d08d6d",
+          "queriedAt": "2026-11-14T13:05:15Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-5.json"
+          ],
+          "lineRanges": [
+            [
+              2543,
+              2558
+            ]
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -4512,7 +5333,7 @@
       "key": "[\"Editora\",\"MDPI\",\"MUL\",\"Suíça\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:44:41.430Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.mdpi.com/ethics",
@@ -4534,7 +5355,7 @@
       "key": "[\"Editora\",\"Frontiers\",\"MUL\",\"Suíça\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:36.216Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.frontiersin.org/guidelines/policies-and-publication-ethics",
@@ -4586,7 +5407,7 @@
       "key": "[\"Editora\",\"F1000Research\",\"MUL\",\"Reino Unido\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:16.405Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://f1000research.com/about/policies",
@@ -4651,7 +5472,7 @@
       "key": "[\"Periódico\",\"PNAS\",\"MUL\",\"EUA\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:11.988Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Peer Review Process; editorial assessment; artificial intelligence and authorship, Submitting Your Manuscript; cover art, direitos, declaração e distinção entre elementos acessórios e composição principal. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Peer Review Process; editorial assessment; artificial intelligence and authorship, Submitting Your Manuscript; cover art, direitos, declaração e distinção entre elementos acessórios e composição principal.",
       "sources": [
         {
           "url": "https://www.pnas.org/author-center/editorial-and-journal-policies",
@@ -4728,7 +5549,7 @@
       "key": "[\"Periódico\",\"Anais da Academia Brasileira de Ciências\",\"MUL\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:45:39.501Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page.",
       "sources": [
         {
           "url": "https://www.scielo.br/journal/aabc/about/",
@@ -4750,7 +5571,7 @@
       "key": "[\"Sociedade/associação\",\"SBPC\",\"MUL\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:59.296Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Current official page, Full substantive norms sections 1 to 7; section 8 is knowledge-area classification. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Current official page, Full substantive norms sections 1 to 7; section 8 is knowledge-area classification.",
       "sources": [
         {
           "url": "https://ra.sbpcnet.org.br/78RA/inscricao-e-envio-de-resumo/",
@@ -4982,8 +5803,8 @@
     {
       "key": "[\"Agência de fomento\",\"DFG\",\"MUL\",\"Alemanha\"]",
       "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:53:10.785Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Leitlinie, quatro princípios e FAQ para pareceristas, FAQ para proponentes; declaração e proteção de direitos e sigilo, Vordruck 4.04; diretriz normativa da avaliação. A linha conserva a codificação anterior.",
+      "checkedAt": "2026-11-14T13:05:17Z",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Leitlinie, quatro princípios e FAQ para pareceristas.",
       "sources": [
         {
           "url": "https://www.dfg.de/resource/blob/393362/forschung-2026-01.pdf",
@@ -5015,27 +5836,80 @@
           ]
         },
         {
-          "url": "https://www.dfg.de/de/grundlagen-themen/digitale-themen/ki/antragstellung",
           "owner": "DFG",
           "section": "FAQ para proponentes; declaração e proteção de direitos e sigilo",
+          "url": "https://www.dfg.de/de/grundlagen-themen/digitale-themen/ki/antragstellung",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:46.269Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-52.json"
+          "access": "read",
+          "sha256": "ac7a3defd8d6177615b2cd02e50887e09e4b49c59711673585157bf074ab37b3",
+          "queriedAt": "2026-11-14T13:05:17Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-6.json"
+          ],
+          "lineRanges": [
+            [
+              655,
+              655
+            ],
+            [
+              657,
+              662
+            ],
+            [
+              664,
+              664
+            ],
+            [
+              666,
+              671
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/focus.json",
+              "lineRanges": [
+                [
+                  654,
+                  670
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://www.dfg.de/resource/blob/387664/4-04-de.pdf",
           "owner": "DFG",
           "section": "Vordruck 4.04; diretriz normativa da avaliação",
+          "url": "https://www.dfg.de/resource/blob/387664/4-04-de.pdf",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:47.799Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "842ecb190ddec7972ced57ec9402b04af79607694a4096a764b81dc5b091ad2f",
+          "queriedAt": "2026-11-14T13:05:17Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-6.json",
             "consultas/source-53.json"
+          ],
+          "lineRanges": [
+            [
+              0,
+              5
+            ],
+            [
+              7,
+              104
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/recovery-20261107/web/follow-index.json",
+              "lineRanges": [
+                [
+                  0,
+                  104
+                ]
+              ]
+            }
           ]
         }
       ],
@@ -5106,7 +5980,7 @@
       "key": "[\"Agência de fomento\",\"FAPESP / CAPES / FAPEG\",\"MUL\",\"Brasil\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:53:12.320Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Non-binding status of discussion report, Current official page, Current index and ownership of scoped resolutions, Current official page. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: Non-binding status of discussion report, Current official page, Current index and ownership of scoped resolutions, Current official page.",
       "sources": [
         {
           "url": "https://fapesp.br/boaspraticas/2014/FAPESP-Code_of_Good_Scientific_Practice.pdf",
@@ -5207,43 +6081,104 @@
     },
     {
       "key": "[\"Sociedade/associação\",\"Seismological Society of America (SSA)\",\"EXA\",\"EUA\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:45:50.854Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Authorship, Reviewing a Paper, Disclosure and Responsible Research, Escopo da ética editorial das publicações SSA. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Diretriz para todos os periódicos da SSA. Desencoraja texto, imagens e gráficos gerados fora do desenho ou método da pesquisa, mas disciplina o uso declarado e mantém a responsabilidade humana. Identificar conteúdo, modo de produção, ferramenta e versão em Data and Resources. Alteração significativa de estilo ou gramática também exige explicar a validação na carta. Ferramentas básicas de ortografia, gramática e referências ficam fora dessa definição. Pareceristas não podem enviar partes do manuscrito nem usar IA generativa para criar ou ampliar o parecer.",
       "sources": [
         {
-          "url": "https://www.seismosoc.org/publications/ai-guidelines/",
           "owner": "Seismological Society of America",
           "section": "Authorship, Reviewing a Paper, Disclosure and Responsible Research",
+          "url": "https://www.seismosoc.org/publications/ai-guidelines/",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "b85a90fd1878187f6fb2201270c562806474db45b7224dd0d868db8dbf08042b",
           "queriedAt": "2026-11-14T11:45:50.854Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-55.json"
+          ],
+          "lineRanges": [
+            [
+              7,
+              9
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              20,
+              22
+            ],
+            [
+              24,
+              27
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  7,
+                  27
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://www.seismosoc.org/inside/publishing-ethics-guidelines/",
           "owner": "Seismological Society of America",
           "section": "Escopo da ética editorial das publicações SSA",
+          "url": "https://www.seismosoc.org/inside/publishing-ethics-guidelines/",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "2c4ae19d793bf7edbd4cfbeb108b195c45f74976ae997132dcb0d624b91cc38f",
           "queriedAt": "2026-11-14T11:45:50.854Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-55.json"
+          ],
+          "lineRanges": [
+            [
+              9,
+              16
+            ],
+            [
+              18,
+              18
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  9,
+                  18
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Sociedade/associação\",\"Society of Petroleum Engineers (SPE)\",\"ENG\",\"Internacional\"]",
       "outcome": "unresolved",
       "checkedAt": "2026-11-14T11:50:10.762Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: AI-generated Content in Publications; Copyright During Peer Review; Publications Ethics Policy, SPE Journal peer review process. A linha conserva a codificação anterior.",
+      "reason": "Permanece a codificação anterior. Falta reconciliar as fontes e escopos: AI-generated Content in Publications; Copyright During Peer Review; Publications Ethics Policy, SPE Journal peer review process.",
       "sources": [
         {
           "url": "https://www.spe.org/en/authors/policies/",
@@ -5277,454 +6212,1672 @@
     },
     {
       "key": "[\"Editora\",\"Duke University Press (periódicos)\",\"HUM\",\"EUA\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:54.300Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Author responsibilities, data, editor confidentiality and reviewer AI use. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:04:39Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Regra geral dos periódicos da editora, com possíveis instruções próprias por título. Recusa texto substancialmente gerado e proíbe delegar descobertas, pesquisa original ou conclusões. Usos além de ortografia e gramática, inclusive edição, tradução, análise de dados e visualizações, são declarados no início do artigo, por exemplo em nota sem numeração. Revisores leem integralmente, informam ao editor eventual assistência na redação do parecer e não inserem manuscritos em plataformas de IA. Editores protegem a confidencialidade da submissão.",
       "sources": [
         {
-          "url": "https://www.dukeupress.edu/journals/journal-authors-editors/ethics-statement-for-journals",
           "owner": "Duke University Press",
-          "section": "Author responsibilities, data, editor confidentiality and reviewer AI use",
+          "section": "Publisher-wide policy for journal editors and reviewers",
+          "url": "https://www.dukeupress.edu/journals/journal-authors-editors/ethics-statement-for-journals",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:54.300Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "612d544612db412d7877bd507f712df79cd6252dccc7b1ac1604653290c64ca8",
+          "queriedAt": "2026-11-14T13:04:39Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-2.json",
             "consultas/source-56.json"
+          ],
+          "lineRanges": [
+            [
+              227,
+              227
+            ],
+            [
+              229,
+              229
+            ],
+            [
+              231,
+              232
+            ],
+            [
+              234,
+              234
+            ],
+            [
+              236,
+              236
+            ],
+            [
+              238,
+              242
+            ],
+            [
+              244,
+              249
+            ],
+            [
+              251,
+              255
+            ],
+            [
+              280,
+              280
+            ],
+            [
+              282,
+              282
+            ],
+            [
+              284,
+              285
+            ],
+            [
+              287,
+              288
+            ],
+            [
+              290,
+              295
+            ],
+            [
+              297,
+              297
+            ],
+            [
+              299,
+              300
+            ],
+            [
+              302,
+              302
+            ],
+            [
+              304,
+              305
+            ],
+            [
+              307,
+              311
+            ],
+            [
+              313,
+              314
+            ],
+            [
+              316,
+              316
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  227,
+                  255
+                ],
+                [
+                  280,
+                  316
+                ]
+              ]
+            },
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  280,
+                  304
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Editora\",\"MIT Press (livros)\",\"MUL\",\"EUA\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:45:56.987Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Author responsibilities, AI policy and book manuscript preparation, Book review workflow and reviewer scope. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Diretriz da página de preparação de livros para autores da MIT Press. Ferramentas não podem figurar na autoria. Usos para produzir texto ou imagens ou coletar dados devem ser informados ao editor e descritos no manuscrito, sem seção única indicada. O autor responde por todo o conteúdo. O uso de IA para auxiliar a revisão por pares é proibido. O escopo aqui verificado é o da orientação para livros.",
       "sources": [
         {
-          "url": "https://mitpress.mit.edu/for-authors/",
           "owner": "MIT Press",
           "section": "Author responsibilities, AI policy and book manuscript preparation",
+          "url": "https://mitpress.mit.edu/for-authors/",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "8ec44efac28aa1075ecdee5bd0d229359de67e6d94dc20814661dbf3efe07885",
           "queriedAt": "2026-11-14T11:45:54.300Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-56.json"
+          ],
+          "lineRanges": [
+            [
+              38,
+              38
+            ],
+            [
+              40,
+              43
+            ],
+            [
+              45,
+              46
+            ],
+            [
+              48,
+              49
+            ],
+            [
+              51,
+              52
+            ],
+            [
+              54,
+              60
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  35,
+                  57
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://mitpress.mit.edu/peer-review/",
           "owner": "MIT Press",
           "section": "Book review workflow and reviewer scope",
+          "url": "https://mitpress.mit.edu/peer-review/",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "eb9fefcc11b659049e9cbdb1874e6b6773117d4f9098a4ef9d02a99bed501753",
           "queriedAt": "2026-11-14T11:45:56.987Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-57.json"
+          ],
+          "lineRanges": [
+            [
+              14,
+              14
+            ],
+            [
+              16,
+              16
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              20,
+              21
+            ],
+            [
+              23,
+              27
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  14,
+                  27
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Editora\",\"University of California Press\",\"MUL\",\"EUA\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:45:56.987Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Scope; Content Creators; Peer Review; Freelancers and Independent Contractors. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Diretriz geral de 31/07/2025 para livros, periódicos e outras obras, com possíveis adaptações por equipe editorial. Admite melhorar texto humano e exige comunicação ao editor e transparência no manuscrito ao produzir texto ou imagens ou ao coletar ou processar dados. IA não recebe autoria. Pareceristas não enviam manuscritos nem compõem pareceres com IA e declaram no parecer eventual apoio à avaliação de alegações. Editores de periódicos e prestadores abrangidos têm restrições a upload de propostas ou manuscritos e à geração de conteúdo original.",
       "sources": [
         {
-          "url": "https://www.ucpress.edu/about/ai-guidelines",
           "owner": "University of California Press",
-          "section": "Scope; Content Creators; Peer Review; Freelancers and Independent Contractors",
+          "section": "Publisher peer review and editors",
+          "url": "https://www.ucpress.edu/about/ai-guidelines",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "2649c16abdd6673afc681bf40d121792e43636328d30cd23cd4b0c47701e3366",
           "queriedAt": "2026-11-14T11:45:56.987Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-57.json"
+          ],
+          "lineRanges": [
+            [
+              47,
+              47
+            ],
+            [
+              49,
+              52
+            ],
+            [
+              55,
+              58
+            ],
+            [
+              61,
+              63
+            ],
+            [
+              66,
+              70
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  47,
+                  70
+                ]
+              ]
+            },
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  61,
+                  68
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Editora\",\"Edusp (livros)\",\"MUL\",\"Brasil\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:45:56.987Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Política de publicação, submissão, avaliação e imagens. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: A Editora da Universidade de São Paulo recusa obras escritas com auxílio de IA e exige, na proposta, declaração de que a redação ocorreu sem essa tecnologia. O texto da política prevê interromper a avaliação ou publicação se for identificado uso de IA no texto. As seções consultadas explicam a avaliação externa e a entrega de imagens, sem cláusula específica de IA para essas funções. O registro se refere a livros.",
       "sources": [
         {
-          "url": "https://www.edusp.com.br/como-publicar/",
           "owner": "Editora da Universidade de São Paulo",
           "section": "Política de publicação, submissão, avaliação e imagens",
+          "url": "https://www.edusp.com.br/como-publicar/",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "6efb0ce3f25ea6c7a8548f32645152e834ceebe02e8ecf362e2b4e7580f6ccf2",
           "queriedAt": "2026-11-14T11:45:56.987Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-57.json"
+          ],
+          "lineRanges": [
+            [
+              42,
+              42
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              46,
+              53
+            ],
+            [
+              55,
+              56
+            ],
+            [
+              58,
+              58
+            ],
+            [
+              60,
+              63
+            ],
+            [
+              65,
+              65
+            ],
+            [
+              67,
+              68
+            ],
+            [
+              70,
+              73
+            ],
+            [
+              75,
+              76
+            ],
+            [
+              78,
+              79
+            ],
+            [
+              81,
+              82
+            ],
+            [
+              84,
+              84
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  42,
+                  84
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Editora\",\"John Benjamins Publishing Company\",\"LLA\",\"Europa\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:58.495Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Full AI policy, last updated 6 July 2026, Ethics scope, editors, journal and book confidentiality. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:04:39Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Política atualizada em 06/07/2026. Informar o uso de IA na pesquisa ou na preparação do trabalho na descrição das ferramentas ou dos métodos. Autores respondem pelo conteúdo e pela integridade de resultados e dados. Editores só recorrem a IA quando indispensável, em ambiente fechado e seguro. Pareceristas não podem gerar parecer com IA e só podem ajustar a linguagem com ferramentas fechadas, sem treinar o sistema com manuscritos ou pareceres. A norma não tem cláusula específica sobre imagens.",
       "sources": [
         {
-          "url": "https://benjamins.com/content/authors/ai-policy",
           "owner": "John Benjamins Publishing Company",
-          "section": "Full AI policy, last updated 6 July 2026",
+          "section": "Publisher review rule linked in the journal guidelines",
+          "url": "https://benjamins.com/content/authors/ai-policy",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "4e6d29008724c3ff67232777296b97dde103f92ba34be7c5c6f46361e8080a10",
           "queriedAt": "2026-11-14T11:45:56.987Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-57.json"
+          ],
+          "lineRanges": [
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              10,
+              12
+            ],
+            [
+              14,
+              16
+            ],
+            [
+              18,
+              19
+            ],
+            [
+              21,
+              23
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  2,
+                  23
+                ]
+              ]
+            },
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  16,
+                  23
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://benjamins.com/content/authors/ethics",
           "owner": "John Benjamins Publishing Company",
           "section": "Ethics scope, editors, journal and book confidentiality",
+          "url": "https://benjamins.com/content/authors/ethics",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:58.495Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "52e2ce7cc957b43ac383e471aeafe64c73d48f7dc1170ba6d31ca55936d3ef99",
+          "queriedAt": "2026-11-14T13:04:39Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-2.json",
             "consultas/source-58.json"
+          ],
+          "lineRanges": [
+            [
+              6,
+              7
+            ],
+            [
+              9,
+              9
+            ],
+            [
+              12,
+              13
+            ],
+            [
+              15,
+              15
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              21,
+              22
+            ],
+            [
+              24,
+              24
+            ],
+            [
+              57,
+              62
+            ],
+            [
+              64,
+              64
+            ],
+            [
+              66,
+              68
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  5,
+                  24
+                ],
+                [
+                  57,
+                  68
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Revista da Abralin\",\"LLA\",\"Brasil\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:58.495Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Política editorial sobre IAG e diretrizes para pareceristas e editores. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:04:41Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Política própria que cita a Portaria CNPq nº 2.664/2026. Exige declarar ferramenta, finalidade, etapa e aplicação na submissão e nas informações complementares do manuscrito. Prevê uso identificado em partes do texto e em ilustrações sob condições, sem manipular dados ou atribuir conteúdo gerado à autoria humana. Pareceristas não podem enviar material de terceiros a plataformas abertas nem delegar o julgamento. Editores podem usar apoio técnico e administrativo com supervisão, segurança e sigilo. A página não data a política do periódico.",
       "sources": [
         {
-          "url": "https://revista.abralin.org/index.php/abralin/about/submissions",
           "owner": "Revista da Abralin",
           "section": "Política editorial sobre IAG e diretrizes para pareceristas e editores",
+          "url": "https://revista.abralin.org/index.php/abralin/about/submissions",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:58.495Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-58.json"
+          "access": "read",
+          "sha256": "76c50517458612856d7126346ff457d8c5d9d3c3a70fa43d61dfe40544bc8c66",
+          "queriedAt": "2026-11-14T13:04:41Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-3.json"
+          ],
+          "lineRanges": [
+            [
+              328,
+              328
+            ],
+            [
+              330,
+              334
+            ],
+            [
+              336,
+              336
+            ],
+            [
+              338,
+              338
+            ],
+            [
+              340,
+              349
+            ],
+            [
+              351,
+              363
+            ],
+            [
+              365,
+              365
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  328,
+                  365
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Cadernos de Linguística\",\"LLA\",\"Brasil\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:45:58.495Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Autores, dados, imagens e triagem editorial, Use of AI in Peer Review and Editorial Assessment. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:04:41Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Exige declarar ferramenta e função em Métodos e em declaração de IA ao final, com link para os prompts na declaração de dados. Autores verificam resultados e figuras e identificam e justificam dados sintéticos quando admissíveis. Editores e pareceristas não podem enviar trechos de manuscrito a ferramentas externas nem delegar avaliação científica. Admite edição linguística leve de parecer já redigido, informada à secretaria editorial. A triagem formal tem regras próprias de confidencialidade e veda uso de submissões para treinar modelos públicos.",
       "sources": [
         {
-          "url": "https://cadernos.abralin.org/index.php/cadernos/ai",
           "owner": "Cadernos de Linguística",
           "section": "Autores, dados, imagens e triagem editorial",
+          "url": "https://cadernos.abralin.org/index.php/cadernos/ai",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "87181244721094ae6b02910688d42d4614efc4aa0bdeeb148ade32646be098e4",
           "queriedAt": "2026-11-14T11:45:58.495Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-58.json"
+          ],
+          "lineRanges": [
+            [
+              27,
+              27
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              32,
+              32
+            ],
+            [
+              34,
+              46
+            ],
+            [
+              48,
+              48
+            ],
+            [
+              50,
+              51
+            ],
+            [
+              53,
+              55
+            ],
+            [
+              57,
+              66
+            ],
+            [
+              68,
+              68
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  27,
+                  68
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://cadernos.abralin.org/index.php/cadernos/editor",
           "owner": "Cadernos de Linguística",
           "section": "Use of AI in Peer Review and Editorial Assessment",
+          "url": "https://cadernos.abralin.org/index.php/cadernos/editor",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:58.495Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-58.json"
+          "access": "read",
+          "sha256": "ee0f74feb5550a4c0f9aa439b8970a0cfc71044cbd02188678f25e99ad86ef5d",
+          "queriedAt": "2026-11-14T13:04:41Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-3.json"
+          ],
+          "lineRanges": [
+            [
+              150,
+              150
+            ],
+            [
+              152,
+              154
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  150,
+                  154
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Trabalhos em Linguística Aplicada\",\"LLA\",\"Brasil\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:45:59.948Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Política de inteligência artificial, Processo de avaliação, Ética editorial, Privacidade. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: A norma do periódico da Unicamp veda chatbots e outras ferramentas de IA para elaboração do manuscrito. Admite somente apoio básico, como revisão e formatação de referências. A política de IA não prescreve declaração para esse apoio. As páginas oficiais de avaliação, ética e privacidade consultadas não especificam regra de IA para revisores, editores, imagens ou dados.",
       "sources": [
         {
-          "url": "https://periodicos.sbu.unicamp.br/ojs/index.php/tla/ia",
           "owner": "Trabalhos em Linguística Aplicada",
           "section": "Política de inteligência artificial",
+          "url": "https://periodicos.sbu.unicamp.br/ojs/index.php/tla/ia",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "e3ed0c801aee350faf9bd699aabb601355ecfac36ed25c08401d975cec196736",
           "queriedAt": "2026-11-14T11:45:59.948Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-59.json"
+          ],
+          "lineRanges": [
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              15,
+              15
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              20
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  11,
+                  20
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://periodicos.sbu.unicamp.br/ojs/index.php/tla/aval",
           "owner": "Trabalhos em Linguística Aplicada",
           "section": "Processo de avaliação",
+          "url": "https://periodicos.sbu.unicamp.br/ojs/index.php/tla/aval",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "7b8651e8412a04f3287fa694fd8e2d9befaf92108ff13588e81ddb7dd827b38c",
           "queriedAt": "2026-11-14T11:45:59.948Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-59.json"
+          ],
+          "lineRanges": [
+            [
+              12,
+              17
+            ],
+            [
+              19,
+              20
+            ],
+            [
+              22,
+              22
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  11,
+                  22
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://periodicos.sbu.unicamp.br/ojs/index.php/tla/etica",
           "owner": "Trabalhos em Linguística Aplicada",
           "section": "Ética editorial",
+          "url": "https://periodicos.sbu.unicamp.br/ojs/index.php/tla/etica",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "d02e2d6914c528b38af59c7b25e574ecafc6d80eb6237c8e2392b3122c93df7b",
           "queriedAt": "2026-11-14T11:45:59.948Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-59.json"
+          ],
+          "lineRanges": [
+            [
+              11,
+              14
+            ],
+            [
+              16,
+              18
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  11,
+                  18
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://periodicos.sbu.unicamp.br/ojs/index.php/tla/about/privacy",
           "owner": "Trabalhos em Linguística Aplicada",
           "section": "Privacidade",
+          "url": "https://periodicos.sbu.unicamp.br/ojs/index.php/tla/about/privacy",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "a0409f3c84bb969100439fb7618655ebf813aa0dd97a32147c5a4ae39acbdb5a",
           "queriedAt": "2026-11-14T11:45:59.948Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-59.json"
+          ],
+          "lineRanges": [
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  11,
+                  14
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Journal of Open Source Software (JOSS)\",\"EXA\",\"Internacional\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:46:03.598Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: AI usage policy for authors and reviewers, Official journal identity and public review and AI policy scope. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Admite IA para código, documentação e redação, com responsabilidade humana e seção obrigatória inclusive para informar ausência de uso. Se houver uso, identificar ferramenta e versão, onde e como foi aplicada e a verificação humana. Na revisão, admite tarefas não substantivas, com breve declaração ao final, e reserva avaliação e recomendação ao parecerista. Interações com autores não usam IA, exceto apoio à tradução. A revisão ocorre em fluxo aberto e a cláusula consultada não fixa regra específica para imagens nem autorização para compartilhar material confidencial.",
       "sources": [
         {
-          "url": "https://joss.readthedocs.io/en/latest/policies.html",
           "owner": "Journal of Open Source Software",
           "section": "AI usage policy for authors and reviewers",
+          "url": "https://joss.readthedocs.io/en/latest/policies.html",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "763cc7967b56b2519d003b92a31e64c7d10eb9623bb1559bd73f7d5aab8c9e74",
           "queriedAt": "2026-11-14T11:46:03.598Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-60.json"
+          ],
+          "lineRanges": [
+            [
+              18,
+              18
+            ],
+            [
+              20,
+              21
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              25,
+              26
+            ],
+            [
+              28,
+              29
+            ],
+            [
+              31,
+              33
+            ],
+            [
+              35,
+              35
+            ],
+            [
+              37,
+              37
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  18,
+                  37
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://joss.theoj.org/about",
           "owner": "Journal of Open Source Software",
           "section": "Official journal identity and public review and AI policy scope",
+          "url": "https://joss.theoj.org/about",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "0e3d4e21f94633d2206ad8649968db4c3ec7d31edc7a035813d96fa8f83083af",
           "queriedAt": "2026-11-14T11:46:03.598Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-60.json"
+          ],
+          "lineRanges": [
+            [
+              6,
+              7
+            ],
+            [
+              9,
+              9
+            ],
+            [
+              11,
+              12
+            ],
+            [
+              33,
+              36
+            ],
+            [
+              38,
+              46
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  6,
+                  13
+                ],
+                [
+                  33,
+                  46
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Transactions on Machine Learning Research (TMLR)\",\"EXA\",\"Internacional\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:46:05.195Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Open double-blind process, LLM use and authorship, Reviewer LLM guidance, Editorial responsibility and ethics. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:04:39Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Permite LLMs como assistência geral e reserva autoria e responsabilidade a pessoas. A cláusula de autores não determina local para declaração. Pareceristas leem integralmente, formam juízo e redigem o próprio parecer, com apoio limitado, por exemplo, para notação ou linguagem. A avaliação é aberta e duplo-cega, com submissões inicialmente anonimizadas. As diretrizes examinadas não dão autorização específica para enviar material de revisão ou tratar imagens com IA.",
       "sources": [
         {
-          "url": "https://www.jmlr.org/tmlr/editorial-policies.html",
           "owner": "Transactions on Machine Learning Research",
           "section": "Open double-blind process, LLM use and authorship",
+          "url": "https://www.jmlr.org/tmlr/editorial-policies.html",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:46:03.598Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "65963296a74a578701dee8446631db5cf347b34eba72e730aff3d9c9e6ef4ca9",
+          "queriedAt": "2026-11-14T13:04:39Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-2.json",
             "consultas/source-60.json"
+          ],
+          "lineRanges": [
+            [
+              33,
+              39
+            ],
+            [
+              81,
+              86
+            ],
+            [
+              97,
+              97
+            ],
+            [
+              99,
+              99
+            ],
+            [
+              101,
+              104
+            ],
+            [
+              106,
+              110
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  33,
+                  39
+                ],
+                [
+                  81,
+                  86
+                ],
+                [
+                  97,
+                  110
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://www.jmlr.org/tmlr/reviewer-guide.html",
           "owner": "Transactions on Machine Learning Research",
           "section": "Reviewer LLM guidance",
+          "url": "https://www.jmlr.org/tmlr/reviewer-guide.html",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "9a763e78c8541ecb4482aeca04441d146e1e0ac19e65db18e213856281f691c6",
           "queriedAt": "2026-11-14T11:46:03.598Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-60.json"
+          ],
+          "lineRanges": [
+            [
+              23,
+              31
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  23,
+                  31
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://jmlr.org/tmlr/ae-guide.html",
           "owner": "Transactions on Machine Learning Research",
           "section": "Editorial responsibility and ethics",
+          "url": "https://jmlr.org/tmlr/ae-guide.html",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "4731100c6cf89bc52bf395987dbc3e13d6ed773400116096b5a5104c62113b1d",
           "queriedAt": "2026-11-14T11:46:05.195Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-61.json"
+          ],
+          "lineRanges": [
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              20
+            ],
+            [
+              22,
+              22
+            ],
+            [
+              37,
+              42
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  17,
+                  22
+                ],
+                [
+                  37,
+                  42
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"International Journal of Learner Corpus Research\",\"LLA\",\"Internacional\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:46:05.195Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Journal-specific AI, datasets and disclosure instructions, Publisher review rule linked in the journal guidelines. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:04:39Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Exige declaração já na submissão e ao fim do artigo, inclusive quando não houve IA generativa. Revisão textual simples dispensa relato do uso. Processamento, anotação e análise assistidos constam em Métodos. A norma veda fabricar dados de aprendizes, exemplos ou corpus empírico e proíbe enviar material confidencial ou protegido sem permissão. O título remete à política John Benjamins, que proíbe gerar parecer e só admite ajuste linguístico em ferramenta fechada e segura. A norma do título não fixa regra específica de imagens.",
       "sources": [
         {
-          "url": "https://benjamins.com/catalog/ijlcr/guidelines",
           "owner": "International Journal of Learner Corpus Research",
           "section": "Journal-specific AI, datasets and disclosure instructions",
+          "url": "https://benjamins.com/catalog/ijlcr/guidelines",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:46:05.195Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "4f4d0d01ff8cd6a1a05eda87fb3bb231cb322cfb62dd9d0b5b529fb1f493e6fe",
+          "queriedAt": "2026-11-14T13:04:39Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-2.json",
             "consultas/source-61.json"
+          ],
+          "lineRanges": [
+            [
+              58,
+              58
+            ],
+            [
+              60,
+              61
+            ],
+            [
+              63,
+              63
+            ],
+            [
+              65,
+              67
+            ],
+            [
+              69,
+              71
+            ],
+            [
+              73,
+              75
+            ],
+            [
+              77,
+              78
+            ],
+            [
+              80,
+              81
+            ],
+            [
+              83,
+              83
+            ],
+            [
+              85,
+              89
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  58,
+                  89
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://benjamins.com/content/authors/ai-policy",
           "owner": "John Benjamins Publishing Company",
           "section": "Publisher review rule linked in the journal guidelines",
+          "url": "https://benjamins.com/content/authors/ai-policy",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "4e6d29008724c3ff67232777296b97dde103f92ba34be7c5c6f46361e8080a10",
           "queriedAt": "2026-11-14T11:45:56.987Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-57.json"
+          ],
+          "lineRanges": [
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              10,
+              12
+            ],
+            [
+              14,
+              16
+            ],
+            [
+              18,
+              19
+            ],
+            [
+              21,
+              23
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  2,
+                  23
+                ]
+              ]
+            },
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  16,
+                  23
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Elementa: Science of the Anthropocene\",\"MUL\",\"Internacional\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:46:05.195Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Confidentiality and Anonymity; Artificial Intelligence for authors, reviewers and editors. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:05:13Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: Norma própria. Declarar uso na submissão e no artigo, por exemplo em Métodos para a pesquisa. Permite melhorar o texto humano e refinar o resumo, com limites. Veda gerar um resumo integral ou apresentar texto, dados ou figuras gerados como originais do autor. Pareceristas podem traduzir ou polir o próprio parecer com proteção de dados, sem enviar texto do manuscrito, gerar parecer ou avaliar ciência por IA. Editores podem usar apoio seguro para sintetizar pareceres ou preparar comunicações, com registro interno e decisão humana.",
       "sources": [
         {
-          "url": "https://online.ucpress.edu/elementa/pages/journalpolicies",
           "owner": "Elementa: Science of the Anthropocene",
           "section": "Confidentiality and Anonymity; Artificial Intelligence for authors, reviewers and editors",
+          "url": "https://online.ucpress.edu/elementa/pages/journalpolicies",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:46:05.195Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
-            "consultas/source-61.json"
+          "access": "read",
+          "sha256": "7eae9e0cafcb0e9b4255a2155bbdd18b972e86e6407d2719156007cc4d266178",
+          "queriedAt": "2026-11-14T13:05:13Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-3.json",
+            "consultas/scheduled-4.json"
+          ],
+          "lineRanges": [
+            [
+              134,
+              134
+            ],
+            [
+              138,
+              140
+            ],
+            [
+              172,
+              202
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  134,
+                  141
+                ],
+                [
+                  172,
+                  202
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Current History\",\"HUM\",\"EUA\"]",
-      "outcome": "unresolved",
+      "outcome": "unchanged",
       "checkedAt": "2026-11-14T11:46:05.195Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: Journal-specific disclosure, allowed use, exclusions and publisher adoption, Publisher peer review and editors. A linha conserva a codificação anterior.",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: A revista exige declarar todo uso na submissão, admite apenas revisão de texto humano e veda gerar texto, resumir ou coescrever conteúdo, e gerar dados ou figuras. Orienta autores a evitar inserir manuscrito em ferramentas sem privacidade ou que retenham dados ou treinem com eles. A revista exige seguir também a diretriz da UC Press, que veda compor pareceres com IA e enviar manuscritos, com declaração de eventual apoio à avaliação de alegações.",
       "sources": [
         {
-          "url": "https://online.ucpress.edu/currenthistory/pages/submit",
           "owner": "Current History",
           "section": "Journal-specific disclosure, allowed use, exclusions and publisher adoption",
+          "url": "https://online.ucpress.edu/currenthistory/pages/submit",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "c1d05844845ac4bbbf176c55e719ef8a05d7ae39605cd62ee86e2735bc3d7e81",
           "queriedAt": "2026-11-14T11:46:05.195Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-61.json"
+          ],
+          "lineRanges": [
+            [
+              78,
+              78
+            ],
+            [
+              80,
+              80
+            ],
+            [
+              82,
+              83
+            ],
+            [
+              85,
+              85
+            ],
+            [
+              87,
+              90
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  78,
+                  90
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://www.ucpress.edu/about/ai-guidelines",
           "owner": "University of California Press",
           "section": "Publisher peer review and editors",
+          "url": "https://www.ucpress.edu/about/ai-guidelines",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "2649c16abdd6673afc681bf40d121792e43636328d30cd23cd4b0c47701e3366",
           "queriedAt": "2026-11-14T11:45:56.987Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-57.json"
+          ],
+          "lineRanges": [
+            [
+              47,
+              47
+            ],
+            [
+              49,
+              52
+            ],
+            [
+              55,
+              58
+            ],
+            [
+              61,
+              63
+            ],
+            [
+              66,
+              70
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  47,
+                  70
+                ]
+              ]
+            },
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  61,
+                  68
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
       "key": "[\"Periódico\",\"Critical AI\",\"HUM\",\"EUA\"]",
-      "outcome": "unresolved",
-      "checkedAt": "2026-11-14T11:46:06.667Z",
-      "reason": "Ainda falta confirmar o conjunto de fontes e escopos aplicáveis: For Authors; distinct journal disclosure and AI writing policy, Publisher-wide policy for journal editors and reviewers. A linha conserva a codificação anterior.",
+      "outcome": "unchanged",
+      "checkedAt": "2026-11-14T13:04:39Z",
+      "reason": "Cotejo das fontes oficiais e da aplicabilidade por entidade confirma a codificação anterior, incluindo estes limites: As instruções próprias recusam trabalho escrito substancialmente por IA e exigem declaração geral no início, além de citar cada uso em texto, imagens, tabelas e outras partes. A política geral de periódicos da Duke University Press mantém sigilo editorial e veda enviar manuscritos a plataformas de IA. Pareceristas leem integralmente e informam ao editor eventual assistência na redação do próprio parecer.",
       "sources": [
         {
-          "url": "https://dukeupress.edu/critical-ai",
           "owner": "Critical AI",
           "section": "For Authors; distinct journal disclosure and AI writing policy",
+          "url": "https://dukeupress.edu/critical-ai",
           "official": true,
-          "access": "unavailable",
+          "access": "read",
+          "sha256": "f5b9593256c3e1bdd5411d60fbe29d025ddc2151ae1e9d83ff1f225b074e88eb",
           "queriedAt": "2026-11-14T11:46:06.667Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
             "consultas/source-62.json"
+          ],
+          "lineRanges": [
+            [
+              314,
+              314
+            ],
+            [
+              316,
+              324
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  314,
+                  324
+                ]
+              ]
+            }
           ]
         },
         {
-          "url": "https://www.dukeupress.edu/journals/journal-authors-editors/ethics-statement-for-journals",
           "owner": "Duke University Press",
           "section": "Publisher-wide policy for journal editors and reviewers",
+          "url": "https://www.dukeupress.edu/journals/journal-authors-editors/ethics-statement-for-journals",
           "official": true,
-          "access": "unavailable",
-          "queriedAt": "2026-11-14T11:45:54.300Z",
-          "reason": "O documento abriu, mas o confronto das seções aplicáveis ou a versão vigente ainda exige conferência.",
-          "attempts": [
+          "access": "read",
+          "sha256": "612d544612db412d7877bd507f712df79cd6252dccc7b1ac1604653290c64ca8",
+          "queriedAt": "2026-11-14T13:04:39Z",
+          "hashBasis": "Texto oficial normalizado nas seções normativas cotejadas.",
+          "evidence": [
+            "consultas/scheduled-2.json",
             "consultas/source-56.json"
+          ],
+          "lineRanges": [
+            [
+              227,
+              227
+            ],
+            [
+              229,
+              229
+            ],
+            [
+              231,
+              232
+            ],
+            [
+              234,
+              234
+            ],
+            [
+              236,
+              236
+            ],
+            [
+              238,
+              242
+            ],
+            [
+              244,
+              249
+            ],
+            [
+              251,
+              255
+            ],
+            [
+              280,
+              280
+            ],
+            [
+              282,
+              282
+            ],
+            [
+              284,
+              285
+            ],
+            [
+              287,
+              288
+            ],
+            [
+              290,
+              295
+            ],
+            [
+              297,
+              297
+            ],
+            [
+              299,
+              300
+            ],
+            [
+              302,
+              302
+            ],
+            [
+              304,
+              305
+            ],
+            [
+              307,
+              311
+            ],
+            [
+              313,
+              314
+            ],
+            [
+              316,
+              316
+            ]
+          ],
+          "referenceSections": [
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  227,
+                  255
+                ],
+                [
+                  280,
+                  316
+                ]
+              ]
+            },
+            {
+              "path": "state/automations/evidence/2026-11-07/politicas/decisoes-novas.py",
+              "lineRanges": [
+                [
+                  280,
+                  304
+                ]
+              ]
+            }
           ]
         }
       ],
-      "scopesChecked": [],
+      "scopesChecked": [
+        "author",
+        "disclosure",
+        "review",
+        "images"
+      ],
       "changedFields": []
     },
     {
@@ -6711,11 +8864,11 @@
   "summary": {
     "inventory": 171,
     "initialInventory": 165,
-    "verified": 66,
-    "changed": 0,
+    "verified": 105,
+    "changed": 1,
     "added": 6,
-    "unchanged": 60,
-    "unresolved": 105,
+    "unchanged": 98,
+    "unresolved": 66,
     "canClose": false
   }
 }
