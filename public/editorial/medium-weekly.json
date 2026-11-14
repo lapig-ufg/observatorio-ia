@@ -1,85 +1,46 @@
 {
   "dateBasis": "included",
-  "start": "2026-11-07",
-  "end": "2026-11-07",
-  "reviewedAt": "2026-11-07",
+  "start": "2026-11-14",
+  "end": "2026-11-14",
+  "reviewedAt": "2026-11-14",
   "title": {
-    "pt": "Agentes em operação e o trabalho de verificar",
-    "en": "Agents in operation and the work of verification"
+    "pt": "Da demonstração à evidência em sistemas de IA",
+    "en": "From demonstration to evidence in AI systems"
   },
   "summary": {
-    "pt": "Nesta edição, 64 leituras discutem como medir o que a IA faz depois da demonstração. Agentes e aplicações são o maior grupo, com 25 textos. Estratégia e mercado reúnem 17, aprendizagem 11, modelos sete, Transformers três e gestão do conhecimento um. Ensaios sobre orquestração e guias de segurança mostram onde verificar o resultado, enquanto comparações de modelos e relatos de computação local esclarecem como hardware, tarefa e política de retenção mudam a avaliação. Textos sobre matemática, astronomia e edição de pesos mostram a diferença entre um resultado anunciado, uma demonstração delimitada e confirmação independente. Os números da edição descrevem o corpus, e não a frequência desses fenômenos no setor.",
-    "en": "In this edition, 64 readings discuss how to measure what AI does after the demo. Agents and applications form the largest group with 25 texts. Strategy and markets account for 17, learning for 11, models for seven, Transformers for three and knowledge management for one. Essays on orchestration and security guides show where to verify outcomes, while model comparisons and local computing accounts clarify how hardware, task and retention policy change the assessment. Articles on mathematics, astronomy and weight editing illustrate the distinction between an announced result, a bounded demonstration and independent confirmation. The edition’s counts describe the corpus rather than the prevalence of these phenomena in the industry."
+    "pt": "A edição reúne 53 leituras. Quinze tratam de estratégia e mercado, 14 de aprendizagem e pesquisa, 14 de agentes e aplicações, cinco de dados e vetores, três de modelos generativos e duas de Transformers. Em diferentes áreas, o resultado depende do que se mede: caber na memória, transcrever uma tabela e entregar software revisado são critérios distintos. O mapeamento de inundações e a busca geográfica ilustram a necessidade de validar um resultado na escala de uso. Os guias de pesquisa mostram como preservar a origem de dados e afirmações. Previsões financeiras, anúncios de modelos e ensaios de opinião são atribuídos aos autores e às fontes discutidas.",
+    "en": "This edition brings together 53 readings. Fifteen cover strategy and markets, 14 cover learning and research, 14 cover agents and applications, five cover data and vectors, three cover generative models and two cover Transformers. Across domains, results depend on what is measured: fitting in memory, transcribing a table and delivering reviewed software are different criteria. Flood mapping and geographic search illustrate the need to validate results at the scale of use. Research guides show how to preserve the origins of data and claims. Financial forecasts, model announcements and opinion pieces are attributed to their authors and discussed sources."
   },
   "method": {
-    "pt": "Esta edição reúne inclusões do Medium Digest em 07/11/2026. A fila tinha 69 candidatos capturados entre 31/10 e 07/11 e observados até 09:59:46 BRT de 07/11 (12:59:46 UTC). A coleta informa apenas o dia. Capturas que chegarem depois do corte pertencem ao ciclo seguinte. Um registro já concluído foi identificado por ID e URL. O texto renderizado dos outros 68 originais foi lido em sessão autenticada. Uma segunda duplicata foi detectada pelo conteúdo e três textos foram descartados pelos critérios editoriais. As 64 fichas preservam as datas de publicação de 16/09 a 06/11 e o título do original. A data de inclusão delimita o lote desta edição, separado das entradas avulsas da coleção. Cada texto tem um tema principal. Relatos, opiniões, anúncios, preprints e resultados de experimentos são tratados conforme sua fonte. O levantamento não reproduziu os testes nem verificou independentemente todos os estudos, gráficos ou preços mencionados.",
-    "en": "This edition covers Medium Digest additions on 7 November 2026. The queue contained 69 candidates collected from 31 October through 7 November and observed by 09:59:46 Brasília time on 7 November (12:59:46 UTC). The collection records show dates only. Captures arriving after the cutoff belong to the next cycle. One previously completed record was identified by ID and URL. The full rendered text of the other 68 originals was read in the authenticated session. Content review identified a second duplicate, and three texts were rejected under the editorial criteria. The 64 entries retain original titles and publication dates from 16 September through 6 November. The addition date defines this edition’s batch, separately from individual editorial submissions to the collection. Each text has one primary topic. Accounts, opinions, announcements, preprints and experiments are treated according to their source. The survey did not reproduce the trials or independently verify every cited study, chart or price."
+    "pt": "A edição usa a data de inclusão de 14/11/2026. O corte observado foi 06h34min15s de Brasília (09h34min15s UTC). A fila tinha 57 candidatos com datas de captura de 08/11 a 13/11 e sem saldo anterior. Os 57 originais foram lidos integralmente na sessão autenticada. Foram selecionadas 53 leituras e descartadas quatro, incluindo um artigo de título idêntico e conteúdo distinto com sobreposição de pauta. Cada leitura tem um tema principal, e as fichas preservam títulos e datas originais de 23/07 a 12/11. A seleção não representa todas as publicações do Medium. A curadoria não reproduziu os experimentos nem verificou independentemente todas as afirmações, preços ou benchmarks citados.",
+    "en": "This edition uses the addition date of 14 November 2026. The observed cutoff was 06:34:15 Brasília time (09:34:15 UTC). The queue contained 57 candidates collected from 8 to 13 November and no prior backlog. All 57 originals were read in full in the authenticated session. The review selected 53 readings and rejected four, including one with an identical title and distinct text covering overlapping introductory ground. Each reading has one primary topic, and entries retain original titles and publication dates from 23 July to 12 November. This selection does not represent all Medium publications. The review did not reproduce the experiments or independently verify every cited claim, price or benchmark."
   },
   "topics": [
-    {
-      "title": {
-        "pt": "Agentes, RAG e aplicações",
-        "en": "Agents, RAG and applications"
-      },
-      "summary": {
-        "pt": "As 25 leituras tratam de permissões, limites de retentativa, contexto, conectores e critérios de sucesso. O estudo de injeção discutido no corpus distingue recusa de falha mecânica e ilustra por que a taxa de ataque precisa ser lida ao lado da conclusão da tarefa. A máquina de estados para disputas de pagamento é um exemplo hipotético, e o cluster Slurm para agentes é uma proposta de arquitetura. Ambos ajudam a formular testes de idempotência, alocação e verificação do resultado. Guias de SKILL.md, MCP e Claude Code explicam mecanismos, com exemplos que dependem da versão e dos limites de acesso.",
-        "en": "The 25 readings cover permissions, retry bounds, context, connectors and success criteria. The injection study discussed in the corpus distinguishes refusal from mechanical failure and illustrates why attack rates belong alongside task-completion rates. The payment-dispute state machine is a hypothetical example, and the Slurm cluster for agents is an architectural proposal. Both help frame tests of idempotency, resource allocation and outcome verification. Guides to SKILL.md, MCP and Claude Code explain mechanisms through examples that depend on version and access boundaries."
-      },
-      "sourceIds": [
-        "medium-e57c6275efe0",
-        "medium-277f41f50ce3",
-        "medium-1b0bd9b2c05b",
-        "medium-f3d1b2ca8465",
-        "medium-9738697352d6",
-        "medium-13749320ad3a",
-        "medium-bbb46a9c1383",
-        "medium-6e18fb4ae539",
-        "medium-00c0b7aa7678",
-        "medium-6df413dd548a",
-        "medium-6dacc961edd5",
-        "medium-e8bd0ca0400f",
-        "medium-14753023e334",
-        "medium-6025497cb0c4",
-        "medium-1cd4993130da",
-        "medium-14fd4ebeaad7",
-        "medium-54c98991fa32",
-        "medium-b4e25a26f6d8",
-        "medium-aa960eea2b1a",
-        "medium-782b92740740",
-        "medium-54da30a81549",
-        "medium-3133a3bccc87",
-        "medium-86942723f850",
-        "medium-ec769ff63c26",
-        "medium-e286483930ef"
-      ]
-    },
     {
       "title": {
         "pt": "Estratégia, mercado e impactos",
         "en": "Strategy, market and impacts"
       },
       "summary": {
-        "pt": "As 17 leituras examinam o custo de inferência, comparações de modelos e mudanças no trabalho. Um levantamento de commits com assinaturas visíveis distingue participação agregada e mediana por repositório. As proporções dependem da seleção de projetos e das formas de atribuição. Comparações de GPUs locais, ofertas gratuitas e assinaturas usam hipóteses diferentes sobre memória, uso e retenção. Análises de investimentos e abertura de capital oferecem cenários e interpretações, enquanto as entrevistas sobre sistemas de design mostram como a revisão pode virar gargalo. Nenhuma dessas fontes, isoladamente, estima o efeito médio sobre custo ou produtividade.",
-        "en": "The 17 readings examine inference costs, model comparisons and changes in work. A survey of commits with visible signatures distinguishes aggregate participation from the median by repository. The proportions depend on project selection and attribution methods. Comparisons of local GPUs, free offers and subscriptions use different assumptions about memory, usage and retention. Analyses of investment and public listings offer scenarios and interpretations, while interviews about design systems show how review can become a bottleneck. None of these sources alone estimates an average effect on cost or productivity."
+        "pt": "Quinze leituras avaliam modelos, infraestrutura e decisões de adoção. Análises de GPUs e de memória para inferência local distinguem capacidade, largura de banda e custo total. Comparações de assinaturas dependem de uso e cache. Relatos sobre benchmarks e gráficos ajudam a identificar quais tarefas foram avaliadas. Abertura de capital, concentração de fornecedores e restrições em bancos aparecem como interpretações e cenários, sujeitos aos documentos e prazos citados.",
+        "en": "Fifteen readings assess models, infrastructure and adoption decisions. GPU and memory analyses for local inference distinguish capacity, bandwidth and total cost. Subscription comparisons depend on usage and caching. Accounts of benchmarks and charts help identify the tasks evaluated. Public offerings, supplier concentration and bank restrictions appear as interpretations and scenarios that depend on the cited documents and time periods."
       },
       "sourceIds": [
-        "medium-512444108d41",
-        "medium-fbd13ecb311e",
-        "medium-4c6a784ff990",
-        "medium-3ac051efe88d",
-        "medium-26c76998c367",
-        "medium-deb6191c3f65",
-        "medium-959617069358",
-        "medium-1fa5bcdf6089",
-        "medium-5f32cda76d02",
-        "medium-2f009af603a3",
-        "medium-c406b328ca9d",
-        "medium-1f58938e8d10",
-        "medium-5a2d8ddf727f",
-        "medium-d4e8e8f4ceb2",
-        "medium-ce9c0c56cf72",
-        "medium-bacf7d1e226d",
-        "medium-a45453ed34a4"
+        "medium-202a4dcafb45",
+        "medium-a64bbb2dc251",
+        "medium-710c1f300930",
+        "medium-9f9812095ceb",
+        "medium-2d2a9b10fec7",
+        "medium-1a6c28789e19",
+        "medium-c25fe6ec4844",
+        "medium-20b7a6127d34",
+        "medium-7dd974181d22",
+        "medium-fc7f8d3230f2",
+        "medium-7ebbaad45217",
+        "medium-d348e3affdbe",
+        "medium-7d0183a1cf33",
+        "medium-e2e7236eaee9",
+        "medium-19b3d10ab06c"
       ]
     },
     {
@@ -88,55 +49,50 @@
         "en": "Learning, research and productivity"
       },
       "summary": {
-        "pt": "As 11 leituras vão da montagem de cadernos com fontes ao estudo ativo, à documentação de código e à divulgação científica. Os guias do Gemini Notebook separam organização de material, prática de recuperação e formulação de perguntas. As citações permitem voltar ao trecho de origem, mas a seleção do corpus e a qualidade da leitura ainda importam. Os relatos sobre um candidato a planeta e algoritmos para satisfatibilidade exemplificam estágios distintos da investigação. Identificar um candidato, conferir uma prova formal e obter avaliação independente são etapas com exigências diferentes.",
-        "en": "The 11 readings range from building source-based notebooks to active study, code documentation and science reporting. The Gemini Notebook guides separate organizing material, practicing recall and formulating questions. Citations support a return to the original passage, while corpus selection and reading quality still matter. Accounts of a planet candidate and satisfiability algorithms illustrate different stages of inquiry. Identifying a candidate, checking a formal proof and obtaining independent assessment have distinct requirements."
+        "pt": "Quatorze leituras vão da pesquisa baseada em documentos ao sensoriamento remoto, ensino de inglês e matemática. Guias do Gemini Notebook mostram como conservar fontes, parâmetros e versões quando se passam resultados para outra ferramenta. O teste de OCR encontra erros mantidos com alta confiança. O tutorial de mapeamento de inundações demonstra a execução de um modelo; a acurácia cartográfica exige validação por evento e cobertura. O corpus também distingue anúncio matemático, prova e revisão independente.",
+        "en": "Fourteen readings range from document-based research to remote sensing, English teaching and mathematics. Gemini Notebook guides show how to retain sources, parameters and versions when passing results to another tool. The OCR trial finds errors that persist at high confidence. The flood-mapping tutorial demonstrates model execution, while map accuracy requires validation by event and land cover. The corpus also distinguishes mathematical announcements, proof and independent review."
       },
       "sourceIds": [
-        "medium-b07fa351caa9",
-        "medium-7a2dea395403",
-        "medium-0b3bafbec5f5",
-        "medium-5c88752ee694",
-        "medium-1ac935ed822e",
-        "medium-6ea3b0672932",
-        "medium-9665e93ca2ba",
-        "medium-d0c00731837d",
-        "medium-5bbbd7ead2d6",
-        "medium-d3980ea2cc7c",
-        "medium-fdb7b15f631b"
+        "medium-80a3f21bcea4",
+        "medium-b2c5aa6e110c",
+        "medium-49985c4e3f2c",
+        "medium-e761b8059f8c",
+        "medium-751eba7ac7bc",
+        "medium-0bd7ca58cede",
+        "medium-2de995a127aa",
+        "medium-9afda57ee782",
+        "medium-e8adbc808aee",
+        "medium-6540c29ea9d3",
+        "medium-1adf47bae1f3",
+        "medium-a2aa2df5c313",
+        "medium-7109cdb579fc",
+        "medium-0390f824911b"
       ]
     },
     {
       "title": {
-        "pt": "Modelos de linguagem e IA generativa",
-        "en": "Language models and generative AI"
+        "pt": "Agentes, RAG e aplicações",
+        "en": "Agents, RAG and applications"
       },
       "summary": {
-        "pt": "As sete leituras cobrem edição de pesos, modalidades de geração, abertura e riscos de interpretação. O relato sobre um Qwen pequeno descreve uma edição que mitigou repetição no experimento citado, com outro modelo sem melhora comparável. Na produção de áudio e vídeo, demonstrações ajudam a explicar o controle gerativo, mas deixam questões de fidelidade e validação independente. Artigos sobre comportamento de chatbots e consciência distinguem alegações, precauções e interpretações. O acesso aos pesos amplia opções de operação e inspeção, sujeito a licenças e aos materiais disponíveis para auditoria.",
-        "en": "The seven readings cover weight editing, generative modalities, openness and interpretive risks. The account of a small Qwen model describes an edit that reduced repetition in the cited experiment, with no comparable gain on another model. In audio and video production, demonstrations explain generative control while leaving questions of fidelity and independent validation. Articles on chatbot behavior and consciousness distinguish allegations, precautions and interpretations. Access to weights expands operational and inspection options, subject to licensing and the material available for auditing."
+        "pt": "Quatorze leituras tratam de orquestração, integração e desenvolvimento de software. Uma experiência relata que a presença de componentes de delegação não levou o agente a delegar em cinco testes com instruções neutras. Outros guias enfatizam permissões, critérios de aceite, ambientes isolados e testes. Os relatos de equipes mostram como filas de revisão podem crescer quando a geração de código acelera. Em segurança, os textos separam registros de eventos, interpretações e cenários de risco.",
+        "en": "Fourteen readings cover orchestration, integration and software development. One trial reports that the availability of delegation components did not lead the agent to delegate in five tests with neutral instructions. Other guides emphasize permissions, acceptance criteria, isolated environments and tests. Team accounts illustrate how review queues can grow as code generation accelerates. Security readings distinguish event records, interpretations and risk scenarios."
       },
       "sourceIds": [
-        "medium-ec2c6caf9986",
-        "medium-3a6c3b267a1c",
-        "medium-55f2267c3903",
-        "medium-a9eadc2ab19f",
-        "medium-cc4fcde803a0",
-        "medium-86bd54dede17",
-        "medium-e84aabffa4e6"
-      ]
-    },
-    {
-      "title": {
-        "pt": "Transformers e mecanismos de atenção",
-        "en": "Transformers and attention mechanisms"
-      },
-      "summary": {
-        "pt": "Três leituras examinam recorrência em profundidade, previsão de múltiplos tokens e integração de imagens. O ensaio com Huginn em uma A100 reutiliza parâmetros ao longo das iterações, o que ainda custa computação. A análise de Soft-MTP distingue o ganho incremental relatado em preprint da aceleração total por decodificação especulativa. O percurso de CLIP, ViT e LLaVA mostra por que transcrever uma imagem, interpretar suas relações e explicar uma causa são tarefas separadas. Cada resultado depende da configuração avaliada.",
-        "en": "Three readings examine depth recurrence, multi-token prediction and image integration. The Huginn trial on an A100 reuses parameters across iterations, which still cost computation. The Soft-MTP analysis distinguishes the incremental gain reported in a preprint from the total speedup from speculative decoding. The path through CLIP, ViT and LLaVA shows why transcribing an image, interpreting its relationships and explaining a cause are separate tasks. Each result depends on the evaluated setup."
-      },
-      "sourceIds": [
-        "medium-3f199ec2f3fb",
-        "medium-6789450a8310",
-        "medium-0dff60f866ae"
+        "medium-ab0cb6371f89",
+        "medium-86a783d4ea6a",
+        "medium-fb1136d7ae13",
+        "medium-6fedc6d20621",
+        "medium-1839c0484d9a",
+        "medium-ca64e0b10b99",
+        "medium-55caf5ac2b43",
+        "medium-ec5fe416ce5a",
+        "medium-45c917478da4",
+        "medium-ea62c900bfda",
+        "medium-f07081f40f4c",
+        "medium-04fc8098e558",
+        "medium-138fa1c0adc6",
+        "medium-1c253e63e290"
       ]
     },
     {
@@ -145,398 +101,365 @@
         "en": "Data, vectors and knowledge management"
       },
       "summary": {
-        "pt": "Uma leitura propõe um acervo local em Markdown com originais protegidos contra escrita, páginas derivadas com referências e histórico de alterações. O desenho separa ingestão, curadoria e consulta, tornando possível examinar a origem de uma resposta e registrar contradições. Trata-se de um roteiro técnico e comercial do autor. A receita do título é uma simulação de vendas, sem demonstração de ganhos.",
-        "en": "One reading proposes a local Markdown archive with write-protected originals, source-linked derivative pages and a change history. Its design separates ingestion, curation and retrieval, making it possible to inspect where an answer came from and record contradictions. This is the author’s technical and commercial workflow. The headline revenue is a sales simulation without demonstrated earnings."
+        "pt": "Cinco leituras exploram grafos, wikis, manutenção de fontes e embeddings geoespaciais. Os exemplos de Wikipédia, OKF e Markdown mostram maneiras de preservar a origem de um vínculo ou de uma síntese. A busca geográfica com AlphaEarth e NASA POWER compara similaridade, consulta de clima e classificação. Métricas de busca dependem do recorte espacial, da cobertura e da resolução dos dados climáticos.",
+        "en": "Five readings explore graphs, wikis, source maintenance and geospatial embeddings. Wikipedia, OKF and Markdown examples show ways to preserve the origins of links and summaries. Geographic search with AlphaEarth and NASA POWER compares similarity, climate queries and classification. Retrieval metrics depend on geographic scope, coverage and the resolution of climate data."
       },
       "sourceIds": [
-        "medium-abb75fcb8e2e"
+        "medium-074d944a68b3",
+        "medium-0e738f644f07",
+        "medium-2a2b19fe7dd3",
+        "medium-fd2c46061c96",
+        "medium-fd5c1ca7e496"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos de linguagem e IA generativa",
+        "en": "Language models and generative AI"
+      },
+      "summary": {
+        "pt": "Três leituras examinam concentração de respostas em tarefas assistidas, comportamento de agentes em simulações e possíveis indicadores de consciência. Cada texto oferece um tipo diferente de evidência, de estudo comentado a ensaio filosófico e sátira. A atividade aparente, a capacidade de persuasão e descrições fluentes de experiência precisam ser interpretadas diante da tarefa e daquilo que foi observado.",
+        "en": "Three readings examine concentration of responses in assisted tasks, simulated agent behavior and possible indicators of consciousness. Each uses a different kind of evidence, from commentary on a study to philosophical essay and satire. Apparent activity, persuasive ability and fluent descriptions of experience need to be interpreted in light of the task and the observed behavior."
+      },
+      "sourceIds": [
+        "medium-9e57b6468180",
+        "medium-e0d4c74d43d8",
+        "medium-29fc31cb0006"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Transformers e mecanismos de atenção",
+        "en": "Transformers and attention mechanisms"
+      },
+      "summary": {
+        "pt": "Duas leituras examinam a estrutura das saídas de modelos. Uma explica geração com refinamento dentro de blocos e os limites de comparar vazão sem controlar hardware, contexto e qualidade. A outra propõe componentes que preveem decisões em horizontes distintos. O primeiro texto descreve uma arquitetura avaliada em condições específicas. O segundo apresenta hipóteses que pedem implementação e teste.",
+        "en": "Two readings examine how model outputs are structured. One explains generation with within-block refinement and the limits of comparing throughput without controlling hardware, context and quality. The other proposes components that predict decisions over different horizons. The first describes an architecture assessed under specific conditions. The second presents hypotheses that require implementation and testing."
+      },
+      "sourceIds": [
+        "medium-7ae5bf425f2e",
+        "medium-d598ae9bd66b"
       ]
     }
   ],
   "corpus": [
     {
-      "id": "medium-512444108d41",
-      "date": "2026-10-30",
-      "title": "AI Agents Now Open 40% of GitHub’s Pull Requests. I Checked How Much Code Actually Gets In.",
-      "url": "https://briefs.aiadvances.org/ai-agents-now-open-40-of-githubs-pull-requests-i-checked-how-much-code-actually-gets-in-512444108d41"
+      "id": "medium-80a3f21bcea4",
+      "date": "2026-11-06",
+      "title": "AI Won’t Kill Math But Empty Classrooms Will",
+      "url": "https://albertoromgar.medium.com/ai-wont-kill-math-but-empty-classrooms-will-80a3f21bcea4"
     },
     {
-      "id": "medium-b07fa351caa9",
-      "date": "2026-10-30",
-      "title": "Gemini Notebook for Beginners: How to Build Your First AI-Powered Learning System",
-      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-for-beginners-how-to-build-your-first-ai-powered-learning-system-b07fa351caa9"
+      "id": "medium-202a4dcafb45",
+      "date": "2026-11-02",
+      "title": "AI Won’t Walk Into the Old Building. The Business Will Walk Out.",
+      "url": "https://medium.com/@serhat_pala/ai-wont-walk-into-the-old-building-the-business-will-walk-out-202a4dcafb45"
     },
     {
-      "id": "medium-fbd13ecb311e",
-      "date": "2026-10-29",
-      "title": "Gemini 4 Carbon: the world’s best AI model yet?",
-      "url": "https://medium.com/data-science-collective/gemini-4-carbon-the-worlds-best-ai-model-yet-fbd13ecb311e"
+      "id": "medium-b2c5aa6e110c",
+      "date": "2026-11-05",
+      "title": "Map Floods from Space on Your Mac with NASA’s Open Prithvi AI",
+      "url": "https://joets.medium.com/map-floods-from-space-on-your-mac-with-nasas-open-prithvi-ai-b2c5aa6e110c"
     },
     {
-      "id": "medium-7a2dea395403",
-      "date": "2026-10-28",
-      "title": "This AI Screen Recorder is Perfect for Any Product Demos",
-      "url": "https://generativeai.pub/this-ai-screen-recorder-is-perfect-for-any-product-demos-7a2dea395403"
+      "id": "medium-9e57b6468180",
+      "date": "2026-11-05",
+      "title": "New Study: Anthropic Just Gave You a Reason to Stop Working With AI",
+      "url": "https://albertoromgar.medium.com/new-study-anthropic-just-gave-you-a-reason-to-stop-working-with-ai-9e57b6468180"
     },
     {
-      "id": "medium-e57c6275efe0",
-      "date": "2026-10-05",
-      "title": "Anthropic Just Revealed 12 New Rules for Prompting Claude Opus 5.5",
-      "url": "https://blog.vijayasekhardeepak.com/anthropic-just-revealed-12-new-rules-for-prompting-claude-opus-5-5-e57c6275efe0"
+      "id": "medium-49985c4e3f2c",
+      "date": "2026-11-07",
+      "title": "How Does Google Maps Predict Your Arrival Time? The AI Behind Your ETA",
+      "url": "https://aiadvances.org/how-does-google-maps-predict-your-arrival-time-the-ai-behind-your-eta-49985c4e3f2c"
     },
     {
-      "id": "medium-4c6a784ff990",
-      "date": "2026-10-29",
-      "title": "Anthropic Can Pay for the Compute. Can It Fill It?",
-      "url": "https://medium.com/@adriel.frederick/anthropic-can-pay-for-the-compute-can-it-fill-it-4c6a784ff990"
+      "id": "medium-ab0cb6371f89",
+      "date": "2026-11-07",
+      "title": "When AI Gets Smarter, Is Our Cybersecurity Keeping Up? From University Systems to Food Security",
+      "url": "https://aiadvances.org/when-ai-gets-smarter-is-our-cybersecurity-keeping-up-from-university-systems-to-food-security-ab0cb6371f89"
     },
     {
-      "id": "medium-0b3bafbec5f5",
-      "date": "2026-10-24",
-      "title": "Gemini Notebook Just Got a Major Update. You Can Now Manage Your Research From Gemini",
-      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-just-got-a-major-update-you-can-now-manage-your-research-from-gemini-0b3bafbec5f5"
+      "id": "medium-86a783d4ea6a",
+      "date": "2026-11-06",
+      "title": "Coding an Agent: A Harness That Rewrites Itself",
+      "url": "https://pub.towardsai.net/coding-an-agent-a-harness-that-rewrites-itself-86a783d4ea6a"
     },
     {
-      "id": "medium-ec2c6caf9986",
-      "date": "2026-10-29",
-      "title": "I Found an AI Tool That Lets Me Reimagine Viral Videos",
-      "url": "https://generativeai.pub/i-found-an-ai-tool-that-lets-me-reimagine-viral-videos-ec2c6caf9986"
+      "id": "medium-e761b8059f8c",
+      "date": "2026-11-06",
+      "title": "Gemini Notebook Is Doing Real Math Now: How Cloud Python, Autonomous Research, and Persistent Instructions Change the Game",
+      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-is-doing-real-math-now-how-cloud-python-autonomous-research-and-persistent-e761b8059f8c"
     },
     {
-      "id": "medium-277f41f50ce3",
-      "date": "2026-10-30",
-      "title": "The Case Against The Sovereign Orchestrator in Multi-Agent AI",
-      "url": "https://aiadvances.org/the-case-against-the-sovereign-orchestrator-in-multi-agent-ai-277f41f50ce3"
+      "id": "medium-fb1136d7ae13",
+      "date": "2026-11-08",
+      "title": "Forget PI Agent. DeepSeek Super Agent Harness 10x Better",
+      "url": "https://levelup.gitconnected.com/forget-pi-agent-deepseek-super-agent-harness-10x-better-fb1136d7ae13"
     },
     {
-      "id": "medium-1b0bd9b2c05b",
-      "date": "2026-10-05",
-      "title": "When AI Makes the Wrong Call, Design Becomes the Guardrail",
-      "url": "https://aiadvances.org/when-ai-makes-the-wrong-call-design-becomes-the-guardrail-1b0bd9b2c05b"
+      "id": "medium-6fedc6d20621",
+      "date": "2026-11-04",
+      "title": "10 MCP Servers That Can Do Things You Wouldn’t Expect",
+      "url": "https://medium.com/ai-decode/10-mcp-servers-that-can-do-things-you-wouldnt-expect-6fedc6d20621"
     },
     {
-      "id": "medium-f3d1b2ca8465",
-      "date": "2026-10-30",
-      "title": "The Agent Didn’t Resist the Attack. It Didn’t Notice.",
-      "url": "https://generativeai.pub/the-agent-didnt-resist-the-attack-it-didn-t-notice-f3d1b2ca8465"
+      "id": "medium-a64bbb2dc251",
+      "date": "2026-11-04",
+      "title": "OpenAI’s Next Model Scores 47% Higher Than Astra. So Why Is IndCar’s Chip Ganassi Racing the Bigger Story?",
+      "url": "https://medium.com/@mikesulka/openais-next-model-scores-47-higher-than-astra-a64bbb2dc251"
     },
     {
-      "id": "medium-3ac051efe88d",
-      "date": "2026-10-29",
-      "title": "Meet 24 AI Agents You’ve Never Heard Of That Could Change Your Life (Ranked)",
-      "url": "https://medium.com/@lvntblsn/meet-24-ai-agents-youve-never-heard-of-that-could-change-your-life-ranked-3ac051efe88d"
+      "id": "medium-710c1f300930",
+      "date": "2026-11-04",
+      "title": "I Almost Paid $200 a Month for AI. Here Is What the Numbers Showed Me",
+      "url": "https://medium.com/@loengnavy/i-almost-paid-200-a-month-for-ai-here-is-what-the-numbers-showed-me-710c1f300930"
     },
     {
-      "id": "medium-5c88752ee694",
-      "date": "2026-10-30",
-      "title": "90% of ChatGPT Users Don’t Know These 8 Secret Codes",
-      "url": "https://medium.com/ai-engineering-simplified/90-of-chatgpt-users-dont-know-these-8-secret-codes-5c88752ee694"
+      "id": "medium-1839c0484d9a",
+      "date": "2026-10-20",
+      "title": "OpenAI Just Open-Sourced Symphony. Every AI Startup Should Pay Attention",
+      "url": "https://www.towardsdeeplearning.com/openai-just-open-sourced-symphony-every-ai-startup-should-pay-attention-1839c0484d9a"
     },
     {
-      "id": "medium-26c76998c367",
-      "date": "2026-10-28",
-      "title": "If There’s No AI Bubble, Why Are Tech Billionaires Cashing Out Now?",
-      "url": "https://medium.com/predict/if-theres-no-ai-bubble-why-are-tech-billionaires-cashing-out-now-26c76998c367"
+      "id": "medium-751eba7ac7bc",
+      "date": "2026-11-08",
+      "title": "I Think Gemini Notebook Could Become Your Second Brain. Here’s How I’d Build One",
+      "url": "https://medium.com/@mubashirburfat4/i-think-gemini-notebook-could-become-your-second-brain-heres-how-i-d-build-one-751eba7ac7bc"
     },
     {
-      "id": "medium-3a6c3b267a1c",
-      "date": "2026-10-29",
-      "title": "An ML Engineer From Amazon Died After Taking ChatGPT’s Health Advice",
-      "url": "https://levelup.gitconnected.com/an-ml-engineer-from-amazon-died-after-taking-chatgpts-health-advice-3a6c3b267a1c"
+      "id": "medium-9f9812095ceb",
+      "date": "2026-11-02",
+      "title": "Michael Burry Read Anthropic’s S-1 So You Don’t Have To. $537 Billion of Compute Against $16.3 Billion of Revenue.",
+      "url": "https://medium.com/thought-thinkers/michael-burry-read-anthropics-s-1-so-you-don-t-have-to-9f9812095ceb"
     },
     {
-      "id": "medium-9738697352d6",
-      "date": "2026-11-01",
-      "title": "Make ChatGPT Do the Thinking and Power Automate Do the Work",
-      "url": "https://medium.com/@thehumanmode/make-chatgpt-do-the-thinking-and-power-automate-do-the-work-9738697352d6"
+      "id": "medium-ca64e0b10b99",
+      "date": "2026-11-08",
+      "title": "The SDLC Is Out of Balance: Beyond the AI Code Review Bottleneck",
+      "url": "https://aiadvances.org/the-sdlc-is-out-of-balance-beyond-the-ai-code-review-bottleneck-ca64e0b10b99"
     },
     {
-      "id": "medium-deb6191c3f65",
+      "id": "medium-0bd7ca58cede",
+      "date": "2026-11-07",
+      "title": "I Tested MiniCPM-OCR-Jev to See If AI Can Catch Its Own OCR Mistakes",
+      "url": "https://aiadvances.org/i-tested-minicpm-ocr-jev-to-see-if-ai-can-catch-its-own-ocr-mistakes-0bd7ca58cede"
+    },
+    {
+      "id": "medium-2de995a127aa",
+      "date": "2026-11-09",
+      "title": "10 Gemini Notebook Prompts That Make AI Think Like a Research Analyst",
+      "url": "https://medium.com/@mubashirburfat4/10-gemini-notebook-prompts-that-make-ai-think-like-a-research-analyst-2de995a127aa"
+    },
+    {
+      "id": "medium-9afda57ee782",
+      "date": "2026-11-07",
+      "title": "Did AI Just Solve an ‘Impossible’ Problem?",
+      "url": "https://medium.com/data-science-collective/did-ai-just-solve-an-impossible-problem-9afda57ee782"
+    },
+    {
+      "id": "medium-55caf5ac2b43",
+      "date": "2026-11-05",
+      "title": "Explored Claude’s Hidden Capabilities. These 8 Changed How I Use AI.",
+      "url": "https://medium.com/ai-engineering-simplified/explored-claudes-hidden-capabilities-these-8-changed-how-i-use-ai-55caf5ac2b43"
+    },
+    {
+      "id": "medium-2d2a9b10fec7",
+      "date": "2026-11-03",
+      "title": "I Ranked 20 GPUs for Local AI by Value: The Winner Isn’t Who You’d Expect",
+      "url": "https://medium.com/@loengnavy/i-ranked-20-gpus-for-local-ai-by-value-the-winner-isnt-who-you-d-expect-2d2a9b10fec7"
+    },
+    {
+      "id": "medium-074d944a68b3",
+      "date": "2026-10-31",
+      "title": "Build an Agentic Knowledge Graph From Scratch: No Graph DB, No Extraction Model",
+      "url": "https://medium.com/@saurabhraj042/build-an-agentic-knowledge-graph-from-scratch-no-graph-db-no-extraction-model-074d944a68b3"
+    },
+    {
+      "id": "medium-1a6c28789e19",
+      "date": "2026-11-03",
+      "title": "I Ran a 180B AI Model on Free Kaggle GPUs. Here’s What You Actually Get",
+      "url": "https://medium.com/@khmerlux8878/i-ran-a-180b-ai-model-on-free-kaggle-gpus-heres-what-you-actually-get-1a6c28789e19"
+    },
+    {
+      "id": "medium-ec5fe416ce5a",
+      "date": "2026-11-05",
+      "title": "Stop Prompting AI to Code. There’s a Much Faster Way to Build Software",
+      "url": "https://pub.towardsai.net/stop-prompting-ai-to-code-theres-a-much-faster-way-to-build-software-ec5fe416ce5a"
+    },
+    {
+      "id": "medium-c25fe6ec4844",
+      "date": "2026-11-09",
+      "title": "How Can AI Models Run Without Powerful GPUs?",
+      "url": "https://aiadvances.org/how-do-various-tools-and-repositories-run-ai-models-locally-without-a-gpu-c25fe6ec4844"
+    },
+    {
+      "id": "medium-45c917478da4",
+      "date": "2026-11-03",
+      "title": "The Swiss Army Knife Trap: Why Wrapping Every API as an Agent Tool Backfires",
+      "url": "https://aiadvances.org/the-swiss-army-knife-trap-why-wrapping-every-api-as-an-agent-tool-backfires-45c917478da4"
+    },
+    {
+      "id": "medium-e8adbc808aee",
+      "date": "2026-11-10",
+      "title": "Gemini Notebook + Claude Code: A Powerful New Workflow for AI-Assisted Development",
+      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-claude-code-a-powerful-new-workflow-for-ai-assisted-development-e8adbc808aee"
+    },
+    {
+      "id": "medium-20b7a6127d34",
+      "date": "2026-11-09",
+      "title": "Jensen Huang, NVIDIA & the Accountability Bloodsport. Is the AI Empire Bigger Than Its Founder?",
+      "url": "https://medium.com/@mikesulka/jensen-huang-nvidia-the-accountability-bloodsport-is-the-ai-empire-bigger-than-its-founder-20b7a6127d34"
+    },
+    {
+      "id": "medium-7dd974181d22",
       "date": "2026-10-27",
-      "title": "I Did the Math on Replacing a $200 AI Subscription With a Home GPU. Here’s What the Numbers Say",
-      "url": "https://medium.com/@loengnavy/i-did-the-math-on-replacing-a-200-ai-subscription-with-a-home-gpu-heres-what-the-numbers-say-deb6191c3f65"
+      "title": "Is Rust the Perfect Language for LLMs? The AI Industry Is Starting to Think Differently",
+      "url": "https://medium.com/data-science-collective/is-rust-the-perfect-language-for-llms-the-ai-industry-is-starting-to-think-differently-7dd974181d22"
     },
     {
-      "id": "medium-959617069358",
-      "date": "2026-10-28",
-      "title": "What is Gemini 4 Carbon? How It Just Beat Claude, GPT and Every Other AI Model",
-      "url": "https://medium.com/@lvntblsn/what-is-gemini-4-carbon-959617069358"
+      "id": "medium-0e738f644f07",
+      "date": "2026-07-23",
+      "title": "How I Restructured My Obsidian Notes Using Google’s OKF for Human-AI Harmony",
+      "url": "https://medium.com/@yukiyotsuya/how-i-restructured-my-obsidian-notes-using-googles-okf-for-human-ai-harmony-0e738f644f07"
     },
     {
-      "id": "medium-1fa5bcdf6089",
-      "date": "2026-10-29",
-      "title": "Creativity AI #99: 100 pages of AI risks and not one killer robot",
-      "url": "https://medium.com/creativity-ai/creativity-ai-99-100-pages-of-ai-risks-and-not-one-killer-robot-1fa5bcdf6089"
+      "id": "medium-fc7f8d3230f2",
+      "date": "2026-11-05",
+      "title": "Anthropic’s $2 Trillion IPO and the Banks Saying No to AI Agents",
+      "url": "https://ai.plainenglish.io/anthropics-2-trillion-ipo-and-the-banks-saying-no-to-ai-agents-fc7f8d3230f2"
     },
     {
-      "id": "medium-13749320ad3a",
-      "date": "2026-10-30",
-      "title": "Autonomous AI Agents Are Real Now, and the Hard Part Isn’t the AI",
-      "url": "https://ai.plainenglish.io/autonomous-ai-agents-are-real-now-and-the-hard-part-isnt-the-ai-13749320ad3a"
-    },
-    {
-      "id": "medium-3f199ec2f3fb",
-      "date": "2026-10-30",
-      "title": "How Looped Transformers Think 132 Layers Deep Without Words: Huginn-0125 on an A100",
-      "url": "https://aiadvances.org/how-looped-transformers-think-132-layers-deep-without-words-huginn-0125-on-an-a100-3f199ec2f3fb"
-    },
-    {
-      "id": "medium-abb75fcb8e2e",
-      "date": "2026-10-29",
-      "title": "How to Turn Claude Opus 5.5 + Obsidian Into $2,100 a Month With Karpathy’s Second Brain (Full Guide)",
-      "url": "https://towardsdev.com/how-to-turn-claude-opus-5-5-obsidian-into-2-100-a-month-with-karpathys-second-brain-full-guide-abb75fcb8e2e"
-    },
-    {
-      "id": "medium-bbb46a9c1383",
-      "date": "2026-10-29",
-      "title": "Anthropic Just Shipped Claude 2.0",
-      "url": "https://uxplanet.org/anthropic-just-shipped-claude-2-0-bbb46a9c1383"
-    },
-    {
-      "id": "medium-5f32cda76d02",
-      "date": "2026-10-31",
-      "title": "The AI Feudal Lords Won’t Build Your Machine, They Are Heading Somewhere Else",
-      "url": "https://xhinker.medium.com/the-ai-feudal-lords-wont-build-your-machine-they-are-heading-somewhere-else-5f32cda76d02"
-    },
-    {
-      "id": "medium-6e18fb4ae539",
-      "date": "2026-10-28",
-      "title": "The Playbook for Reviewing AI Code Fast Enough to Ship",
-      "url": "https://medium.com/ai-all-in/the-playbook-for-reviewing-ai-code-fast-enough-to-ship-6e18fb4ae539"
-    },
-    {
-      "id": "medium-2f009af603a3",
-      "date": "2026-10-28",
-      "title": "How to Run LFM3 Locally: The Non-Transformer Model That Fits in 1.1 GB",
-      "url": "https://blog.gopenai.com/how-to-run-lfm3-locally-the-non-transformer-model-that-fits-in-1-1-gb-2f009af603a3"
-    },
-    {
-      "id": "medium-1ac935ed822e",
-      "date": "2026-10-28",
-      "title": "A Guy Found a Possible New Planet Using Claude",
-      "url": "https://medium.com/data-science-collective/a-guy-found-a-possible-new-planet-using-claude-1ac935ed822e"
-    },
-    {
-      "id": "medium-00c0b7aa7678",
-      "date": "2026-10-09",
-      "title": "His entire AI skills library loads in 660 tokens. What Matt Pocock taught me about writing efficient agent skills.",
-      "url": "https://generativeai.pub/his-entire-ai-skills-library-loads-in-660-tokens-00c0b7aa7678"
-    },
-    {
-      "id": "medium-6df413dd548a",
-      "date": "2026-10-31",
-      "title": "Claude Cowork Just Changed How AI Works While You’re Away From Your Computer",
-      "url": "https://medium.com/@mubashirburfat4/claude-cowork-just-changed-how-ai-works-while-youre-away-from-your-computer-6df413dd548a"
-    },
-    {
-      "id": "medium-6dacc961edd5",
-      "date": "2026-10-31",
-      "title": "I Just Built an Office for My AI Agents",
-      "url": "https://joets.medium.com/i-just-built-an-office-for-my-ai-agents-6dacc961edd5"
-    },
-    {
-      "id": "medium-e8bd0ca0400f",
-      "date": "2026-09-20",
-      "title": "10 Crazy Things Claude Can Do That Most ChatGPT Users Don’t Know About",
-      "url": "https://medium.com/codetodeploy/10-crazy-things-claude-can-do-that-most-chatgpt-users-dont-know-about-e8bd0ca0400f"
-    },
-    {
-      "id": "medium-14753023e334",
-      "date": "2026-10-31",
-      "title": "Ghostty's creator returns with a new weapon called Rex, welding Tmux and AI directly into the Mac terminal!",
-      "url": "https://githubdaily.medium.com/ghosttys-creator-returns-with-a-new-weapon-called-rex-welding-tmux-and-ai-directly-into-the-mac-14753023e334"
-    },
-    {
-      "id": "medium-55f2267c3903",
-      "date": "2026-10-31",
-      "title": "Did Stanford Just Kill ChatGPT? I Looked. Here’s the Truth.",
-      "url": "https://levelup.gitconnected.com/did-stanford-just-kill-chatgpt-i-looked-heres-the-truth-55f2267c3903"
-    },
-    {
-      "id": "medium-6025497cb0c4",
-      "date": "2026-10-29",
-      "title": "Conway’s Law for AI Agents: Rethinking Microservices in the Age of AI",
-      "url": "https://medium.com/devops-ai/conways-law-for-ai-agents-rethinking-microservices-in-the-age-of-ai-6025497cb0c4"
-    },
-    {
-      "id": "medium-c406b328ca9d",
-      "date": "2026-11-01",
-      "title": "Can macOS FM Replace Jev for Fast AI Decisions?",
-      "url": "https://medium.com/macoclock/can-macos-fm-replace-jev-for-fast-ai-decisions-c406b328ca9d"
-    },
-    {
-      "id": "medium-1cd4993130da",
-      "date": "2026-10-30",
-      "title": "You’re Probably Overengineering SKILL.md: What Modern AI Agents Actually Need",
-      "url": "https://bibek-poudel.medium.com/youre-probably-overengineering-skill-md-what-modern-ai-agents-actually-need-1cd4993130da"
-    },
-    {
-      "id": "medium-14fd4ebeaad7",
+      "id": "medium-7ae5bf425f2e",
       "date": "2026-11-02",
-      "title": "The Future of Agentic HPC: What If 10,000 Agents Were Your Cluster’s Users?",
-      "url": "https://medium.com/@cdcore/the-future-of-agentic-hpc-what-if-10-000-agents-were-your-clusters-users-14fd4ebeaad7"
+      "title": "A New AI Model Writes in Blocks Instead of One Token at a Time — Here’s Why That Matters",
+      "url": "https://pub.towardsai.net/a-new-ai-model-writes-in-blocks-instead-of-one-token-at-a-time-heres-why-that-matters-7ae5bf425f2e"
     },
     {
-      "id": "medium-a9eadc2ab19f",
-      "date": "2026-11-01",
-      "title": "Open-Weight vs. Closed-Weight AI: Who Really Controls the Model?",
-      "url": "https://pub.towardsai.net/open-weight-vs-closed-weight-ai-who-really-controls-the-model-a9eadc2ab19f"
+      "id": "medium-e0d4c74d43d8",
+      "date": "2026-11-10",
+      "title": "Bullshit Agents",
+      "url": "https://aiadvances.org/bullshit-agents-e0d4c74d43d8"
     },
     {
-      "id": "medium-54c98991fa32",
-      "date": "2026-10-30",
-      "title": "The Next Big AI Breakthrough Isn’t About Generating Text",
-      "url": "https://generativeai.pub/the-next-big-ai-breakthrough-isnt-about-generating-text-54c98991fa32"
+      "id": "medium-2a2b19fe7dd3",
+      "date": "2026-11-10",
+      "title": "An LLM Wiki for the Rest of Us",
+      "url": "https://aiadvances.org/an-llm-wiki-for-the-rest-of-us-2a2b19fe7dd3"
     },
     {
-      "id": "medium-b4e25a26f6d8",
-      "date": "2026-10-25",
-      "title": "Claude Code Has an Awesome Feature We Rarely Use",
-      "url": "https://medium.com/@airabbitX/claude-code-has-an-awesome-feature-we-rarely-use-b4e25a26f6d8"
+      "id": "medium-6540c29ea9d3",
+      "date": "2026-11-11",
+      "title": "Building an AI-Powered Teaching Assistant to Make ESL Tutoring Smarter",
+      "url": "https://alt.ctrlmag.com/fluentora-building-an-ai-powered-teaching-assistant-to-make-esl-tutoring-smarter-6540c29ea9d3"
     },
     {
-      "id": "medium-1f58938e8d10",
-      "date": "2026-11-04",
-      "title": "Don’t Buy into the AI IPOs",
-      "url": "https://aiadvances.org/dont-buy-into-the-ai-ipos-1f58938e8d10"
+      "id": "medium-29fc31cb0006",
+      "date": "2026-11-11",
+      "title": "Can AI Ever Be Conscious?",
+      "url": "https://aiadvances.org/can-ai-ever-be-conscious-29fc31cb0006"
     },
     {
-      "id": "medium-cc4fcde803a0",
-      "date": "2026-11-03",
-      "title": "Anthropic Banned Cruelty to Claude. I Doubt We’d Notice It Hurting.",
-      "url": "https://aiadvances.org/anthropic-banned-cruelty-to-claude-i-doubt-wed-notice-it-hurting-cc4fcde803a0"
+      "id": "medium-7ebbaad45217",
+      "date": "2026-11-10",
+      "title": "What is Claude Fable 5.2? The New #1 AI Model Is Worth It — Just Not for Your Everyday Fixes",
+      "url": "https://medium.com/@lvntblsn/what-is-claude-fable-5-2-the-new-1-ai-model-is-worth-it-just-not-for-your-everyday-fixes-7ebbaad45217"
     },
     {
-      "id": "medium-86bd54dede17",
-      "date": "2026-11-03",
-      "title": "What If an AI Could Rewrite Its Own Brain?",
-      "url": "https://aiadvances.org/what-if-an-ai-could-rewrite-its-own-brain-86bd54dede17"
+      "id": "medium-1adf47bae1f3",
+      "date": "2026-11-11",
+      "title": "How to Make a PowerPoint Presentation With AI for Free in 2026",
+      "url": "https://medium.com/@thehumanmode/how-to-make-a-powerpoint-presentation-with-ai-for-free-in-2026-1adf47bae1f3"
     },
     {
-      "id": "medium-aa960eea2b1a",
-      "date": "2026-11-03",
-      "title": "8 “Claude 2.0” Features That Change How You Work (Most People Still Use Claude the Old Way)",
-      "url": "https://medium.com/ai-engineering-simplified/8-claude-2-0-features-that-change-how-you-work-most-people-still-use-claude-the-old-way-aa960eea2b1a"
+      "id": "medium-a2aa2df5c313",
+      "date": "2026-11-11",
+      "title": "Stop Giving Claude Code Random Documentation Links. Build It a Research Brain With Gemini Notebook.",
+      "url": "https://medium.com/@mubashirburfat4/stop-giving-claude-code-random-documentation-links-build-it-a-research-brain-with-gemini-notebook-a2aa2df5c313"
     },
     {
-      "id": "medium-5a2d8ddf727f",
-      "date": "2026-11-01",
-      "title": "Claude Ultra Replaced Max 20x on Oct 30. 5 Moves Before Nov 30",
-      "url": "https://medium.com/@automation.labs/claude-ultra-replaced-max-20x-on-oct-30-5-moves-before-nov-30-5a2d8ddf727f"
+      "id": "medium-ea62c900bfda",
+      "date": "2026-11-12",
+      "title": "AI in the SDLC: Rethinking AI Coding Tools and AI Agents",
+      "url": "https://medium.com/tech-and-ai-guild/ai-in-the-sdlc-rethinking-ai-coding-tools-and-ai-agents-ea62c900bfda"
     },
     {
-      "id": "medium-782b92740740",
-      "date": "2026-11-04",
-      "title": "Something Has Gone Terribly Wrong with AI Agents",
-      "url": "https://mujtaba-raza.medium.com/something-has-gone-terribly-wrong-with-ai-agents-782b92740740"
+      "id": "medium-fd2c46061c96",
+      "date": "2026-11-11",
+      "title": "AI Won’t Fix Your Data Problem. It Will Expose It.",
+      "url": "https://aiadvances.org/ai-wont-fix-your-data-problem-it-will-expose-it-fd2c46061c96"
     },
     {
-      "id": "medium-6ea3b0672932",
-      "date": "2026-10-28",
-      "title": "4 Claude Skills Every Data Scientist Needs in 2026",
-      "url": "https://medium.com/data-science-collective/4-claude-skills-every-data-scientist-needs-in-2026-6ea3b0672932"
-    },
-    {
-      "id": "medium-9665e93ca2ba",
-      "date": "2026-11-01",
-      "title": "How to Learn Anything With Gemini Notebook: A Step-by-Step Study Method",
-      "url": "https://medium.com/@mubashirburfat4/how-to-learn-anything-with-gemini-notebook-a-step-by-step-study-method-9665e93ca2ba"
-    },
-    {
-      "id": "medium-d0c00731837d",
-      "date": "2026-11-03",
-      "title": "Why You Should Rethink How You Use AI",
-      "url": "https://medium.com/change-your-mind/why-you-should-rethink-how-you-use-ai-d0c00731837d"
-    },
-    {
-      "id": "medium-54da30a81549",
-      "date": "2026-11-05",
-      "title": "Mods, Agents, Skills, Plugins, MCP: The 5 AI Words Everyone Uses Now (A Visual Explanation)",
-      "url": "https://medium.com/ai-engineering-simplified/mods-agents-skills-plugins-mcp-the-5-ai-words-everyone-uses-now-a-visual-explanation-54da30a81549"
-    },
-    {
-      "id": "medium-3133a3bccc87",
-      "date": "2026-11-05",
-      "title": "10 New Open-Source AI Projects Worth Checking Out",
-      "url": "https://python.plainenglish.io/10-new-open-source-ai-projects-worth-checking-out-3133a3bccc87"
-    },
-    {
-      "id": "medium-d4e8e8f4ceb2",
-      "date": "2026-11-04",
-      "title": "What AI has changed in Design Systems, and what is still up to us",
-      "url": "https://uxdesign.cc/what-ai-has-changed-in-design-systems-and-what-is-still-up-to-us-d4e8e8f4ceb2"
-    },
-    {
-      "id": "medium-ce9c0c56cf72",
-      "date": "2026-11-02",
-      "title": "Free AI Coding Models in 2026: Are They Really Free, and What Do You Pay With?",
-      "url": "https://medium.com/@loengnavy/free-ai-coding-models-in-2026-are-they-really-free-and-what-do-you-pay-with-ce9c0c56cf72"
-    },
-    {
-      "id": "medium-6789450a8310",
-      "date": "2026-11-01",
-      "title": "A New AI Paper Found a Problem With How Language Models Learn to Predict Multiple Tokens",
-      "url": "https://medium.com/@Pop123/a-new-ai-paper-found-a-problem-with-how-language-models-learn-to-predict-multiple-tokens-6789450a8310"
-    },
-    {
-      "id": "medium-5bbbd7ead2d6",
-      "date": "2026-11-04",
-      "title": "How to Ask Better Questions in Gemini Notebook: 10 Prompts That Improve Your Learning",
-      "url": "https://medium.com/@mubashirburfat4/how-to-ask-better-questions-in-gemini-notebook-10-prompts-that-improve-your-learning-5bbbd7ead2d6"
-    },
-    {
-      "id": "medium-bacf7d1e226d",
-      "date": "2026-09-16",
-      "title": "I Built an AI Business With No Employees. Here Is What Nobody Tells You",
-      "url": "https://ai.plainenglish.io/i-built-an-ai-business-with-no-employees-here-is-what-nobody-tells-you-bacf7d1e226d"
-    },
-    {
-      "id": "medium-d3980ea2cc7c",
-      "date": "2026-11-05",
-      "title": "Did AI Just Overturn a 27-Year-Old Mathematical Conjecture?",
-      "url": "https://vplevris.medium.com/did-ai-just-overturn-a-27-year-old-mathematical-conjecture-d3980ea2cc7c"
-    },
-    {
-      "id": "medium-0dff60f866ae",
-      "date": "2026-11-03",
-      "title": "The End of the Language Model: The Day AI Learned to See",
-      "url": "https://medium.com/@cdcore/the-end-of-the-language-model-the-day-ai-learned-to-see-0dff60f866ae"
-    },
-    {
-      "id": "medium-a45453ed34a4",
+      "id": "medium-f07081f40f4c",
       "date": "2026-11-06",
-      "title": "The uncomfortable reason some software engineers might shy away from AI",
-      "url": "https://alt.ctrlmag.com/the-uncomfortable-reason-some-software-engineers-might-shy-away-from-ai-a45453ed34a4"
+      "title": "The Agent Harness, Explained: What Microsoft Shipped and How to Build on It in Python",
+      "url": "https://aiadvances.org/the-agent-harness-explained-what-microsoft-shipped-and-how-to-build-on-it-in-python-f07081f40f4c"
     },
     {
-      "id": "medium-86942723f850",
-      "date": "2026-11-03",
-      "title": "10 MCP Servers That Make AI Do Things You Didn’t Know Were Possible",
-      "url": "https://pub.towardsai.net/10-mcp-servers-that-make-ai-do-things-you-didnt-know-were-possible-86942723f850"
+      "id": "medium-04fc8098e558",
+      "date": "2026-11-12",
+      "title": "Claude Code Can Now Feed Your Gemini Notebook. Here’s What You Can Build (and What Still Needs You)",
+      "url": "https://medium.com/@mubashirburfat4/claude-code-can-now-feed-your-gemini-notebook-heres-what-you-can-build-and-what-still-needs-you-04fc8098e558"
     },
     {
-      "id": "medium-fdb7b15f631b",
-      "date": "2026-11-04",
-      "title": "25 Free AI Tools That Feel Too Useful to Be Free",
-      "url": "https://medium.com/@thehumanmode/25-free-ai-tools-that-feel-too-useful-to-be-free-fdb7b15f631b"
-    },
-    {
-      "id": "medium-ec769ff63c26",
-      "date": "2026-11-06",
-      "title": "7 Terms Standing Between You and Senior Roles: The New AI Engineering Vocabulary",
-      "url": "https://medium.com/@JustSnehal/7-terms-standing-between-you-and-senior-roles-the-new-ai-engineering-vocabulary-ec769ff63c26"
-    },
-    {
-      "id": "medium-e84aabffa4e6",
-      "date": "2026-10-22",
-      "title": "How to Master Your Music with AI",
-      "url": "https://aiadvances.org/how-to-master-your-music-with-ai-e84aabffa4e6"
-    },
-    {
-      "id": "medium-e286483930ef",
+      "id": "medium-138fa1c0adc6",
       "date": "2026-11-05",
-      "title": "The Autonomous Loop Trap: When Compound Workflows Beat Agent Swarms",
-      "url": "https://aiadvances.org/the-autonomous-loop-trap-when-compound-workflows-beat-agent-swarms-e286483930ef"
+      "title": "I Tested Anthropic’s Claude Code Advice on Real Code. The Numbers Surprised Me",
+      "url": "https://ai.plainenglish.io/i-tested-anthropics-claude-code-advice-on-real-code-the-numbers-surprised-me-138fa1c0adc6"
+    },
+    {
+      "id": "medium-7109cdb579fc",
+      "date": "2026-11-12",
+      "title": "Dario Amodei Warned Against AI Cure Hype, Yesterday He Hyped 10 Years. Google’s AlphaGenome 2 Actually Delivers",
+      "url": "https://medium.com/@mikesulka/dario-amodei-warned-against-ai-cure-hype-yesterday-he-hyped-10-years-7109cdb579fc"
+    },
+    {
+      "id": "medium-d348e3affdbe",
+      "date": "2026-11-10",
+      "title": "5 Cool Things People Are Building with Claude Fable 5.2",
+      "url": "https://generativeai.pub/5-cool-things-people-are-building-with-claude-fable-5-2-d348e3affdbe"
+    },
+    {
+      "id": "medium-0390f824911b",
+      "date": "2026-11-12",
+      "title": "The AI Engineer Roadmap Is Changing: What You Actually Need to Learn in 2027",
+      "url": "https://python.plainenglish.io/the-ai-engineer-roadmap-is-changing-what-you-actually-need-to-learn-in-2027-0390f824911b"
+    },
+    {
+      "id": "medium-7d0183a1cf33",
+      "date": "2026-11-11",
+      "title": "What is Claude Sheets? The Launch That Sent Microsoft Stock Down 2%",
+      "url": "https://medium.com/@lvntblsn/what-is-claude-sheets-the-launch-that-sent-microsoft-stock-down-2-7d0183a1cf33"
+    },
+    {
+      "id": "medium-e2e7236eaee9",
+      "date": "2026-11-11",
+      "title": "AI Is Now Building AI Twice as Fast. The Evidence Is Redacted.",
+      "url": "https://ai.plainenglish.io/ai-is-now-building-ai-twice-as-fast-the-evidence-is-redacted-e2e7236eaee9"
+    },
+    {
+      "id": "medium-19b3d10ab06c",
+      "date": "2026-11-10",
+      "title": "I Compared Every Way to Get 256 GB for Local AI. Price per GB Is the Wrong Number",
+      "url": "https://medium.com/@loengnavy/i-compared-every-way-to-get-256-gb-for-local-ai-price-per-gb-is-the-wrong-number-19b3d10ab06c"
+    },
+    {
+      "id": "medium-1c253e63e290",
+      "date": "2026-11-09",
+      "title": "Out of Control: Massive Swarms of AI Agents Are Already Operating Behind Our Backs",
+      "url": "https://medium.com/predict/out-of-control-massive-swarms-of-ai-agents-are-already-operating-behind-our-backs-1c253e63e290"
+    },
+    {
+      "id": "medium-fd5c1ca7e496",
+      "date": "2026-10-31",
+      "title": "Ask the Map: Finding Places Using Satellite Map Embeddings and NASA POWER Climate Data",
+      "url": "https://aiadvances.org/ask-the-map-finding-places-using-satellite-map-embeddings-and-nasa-power-climate-data-fd5c1ca7e496"
+    },
+    {
+      "id": "medium-d598ae9bd66b",
+      "date": "2026-11-12",
+      "title": "Rethinking Transformer Architecture: The Rise of AI Decision Models",
+      "url": "https://aiadvances.org/rethinking-transformer-architecture-the-rise-of-ai-decision-models-d598ae9bd66b"
     }
   ]
 }

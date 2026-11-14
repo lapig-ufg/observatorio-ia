@@ -1,0 +1,147 @@
+{
+  "collection": "medium",
+  "dateBasis": "included",
+  "start": "2026-11-14",
+  "end": "2026-11-14",
+  "reviewedAt": "2026-11-14",
+  "expectedCount": 53,
+  "title": {
+    "pt": "Da demonstração à evidência em sistemas de IA",
+    "en": "From demonstration to evidence in AI systems"
+  },
+  "summary": {
+    "pt": "A edição reúne 53 leituras. Quinze tratam de estratégia e mercado, 14 de aprendizagem e pesquisa, 14 de agentes e aplicações, cinco de dados e vetores, três de modelos generativos e duas de Transformers. Em diferentes áreas, o resultado depende do que se mede: caber na memória, transcrever uma tabela e entregar software revisado são critérios distintos. O mapeamento de inundações e a busca geográfica ilustram a necessidade de validar um resultado na escala de uso. Os guias de pesquisa mostram como preservar a origem de dados e afirmações. Previsões financeiras, anúncios de modelos e ensaios de opinião são atribuídos aos autores e às fontes discutidas.",
+    "en": "This edition brings together 53 readings. Fifteen cover strategy and markets, 14 cover learning and research, 14 cover agents and applications, five cover data and vectors, three cover generative models and two cover Transformers. Across domains, results depend on what is measured: fitting in memory, transcribing a table and delivering reviewed software are different criteria. Flood mapping and geographic search illustrate the need to validate results at the scale of use. Research guides show how to preserve the origins of data and claims. Financial forecasts, model announcements and opinion pieces are attributed to their authors and discussed sources."
+  },
+  "method": {
+    "pt": "A edição usa a data de inclusão de 14/11/2026. O corte observado foi 06h34min15s de Brasília (09h34min15s UTC). A fila tinha 57 candidatos com datas de captura de 08/11 a 13/11 e sem saldo anterior. Os 57 originais foram lidos integralmente na sessão autenticada. Foram selecionadas 53 leituras e descartadas quatro, incluindo um artigo de título idêntico e conteúdo distinto com sobreposição de pauta. Cada leitura tem um tema principal, e as fichas preservam títulos e datas originais de 23/07 a 12/11. A seleção não representa todas as publicações do Medium. A curadoria não reproduziu os experimentos nem verificou independentemente todas as afirmações, preços ou benchmarks citados.",
+    "en": "This edition uses the addition date of 14 November 2026. The observed cutoff was 06:34:15 Brasília time (09:34:15 UTC). The queue contained 57 candidates collected from 8 to 13 November and no prior backlog. All 57 originals were read in full in the authenticated session. The review selected 53 readings and rejected four, including one with an identical title and distinct text covering overlapping introductory ground. Each reading has one primary topic, and entries retain original titles and publication dates from 23 July to 12 November. This selection does not represent all Medium publications. The review did not reproduce the experiments or independently verify every cited claim, price or benchmark."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Estratégia, mercado e impactos",
+        "en": "Strategy, market and impacts"
+      },
+      "summary": {
+        "pt": "Quinze leituras avaliam modelos, infraestrutura e decisões de adoção. Análises de GPUs e de memória para inferência local distinguem capacidade, largura de banda e custo total. Comparações de assinaturas dependem de uso e cache. Relatos sobre benchmarks e gráficos ajudam a identificar quais tarefas foram avaliadas. Abertura de capital, concentração de fornecedores e restrições em bancos aparecem como interpretações e cenários, sujeitos aos documentos e prazos citados.",
+        "en": "Fifteen readings assess models, infrastructure and adoption decisions. GPU and memory analyses for local inference distinguish capacity, bandwidth and total cost. Subscription comparisons depend on usage and caching. Accounts of benchmarks and charts help identify the tasks evaluated. Public offerings, supplier concentration and bank restrictions appear as interpretations and scenarios that depend on the cited documents and time periods."
+      },
+      "sourceIds": [
+        "medium-202a4dcafb45",
+        "medium-a64bbb2dc251",
+        "medium-710c1f300930",
+        "medium-9f9812095ceb",
+        "medium-2d2a9b10fec7",
+        "medium-1a6c28789e19",
+        "medium-c25fe6ec4844",
+        "medium-20b7a6127d34",
+        "medium-7dd974181d22",
+        "medium-fc7f8d3230f2",
+        "medium-7ebbaad45217",
+        "medium-d348e3affdbe",
+        "medium-7d0183a1cf33",
+        "medium-e2e7236eaee9",
+        "medium-19b3d10ab06c"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aprendizado, pesquisa e produtividade",
+        "en": "Learning, research and productivity"
+      },
+      "summary": {
+        "pt": "Quatorze leituras vão da pesquisa baseada em documentos ao sensoriamento remoto, ensino de inglês e matemática. Guias do Gemini Notebook mostram como conservar fontes, parâmetros e versões quando se passam resultados para outra ferramenta. O teste de OCR encontra erros mantidos com alta confiança. O tutorial de mapeamento de inundações demonstra a execução de um modelo; a acurácia cartográfica exige validação por evento e cobertura. O corpus também distingue anúncio matemático, prova e revisão independente.",
+        "en": "Fourteen readings range from document-based research to remote sensing, English teaching and mathematics. Gemini Notebook guides show how to retain sources, parameters and versions when passing results to another tool. The OCR trial finds errors that persist at high confidence. The flood-mapping tutorial demonstrates model execution, while map accuracy requires validation by event and land cover. The corpus also distinguishes mathematical announcements, proof and independent review."
+      },
+      "sourceIds": [
+        "medium-80a3f21bcea4",
+        "medium-b2c5aa6e110c",
+        "medium-49985c4e3f2c",
+        "medium-e761b8059f8c",
+        "medium-751eba7ac7bc",
+        "medium-0bd7ca58cede",
+        "medium-2de995a127aa",
+        "medium-9afda57ee782",
+        "medium-e8adbc808aee",
+        "medium-6540c29ea9d3",
+        "medium-1adf47bae1f3",
+        "medium-a2aa2df5c313",
+        "medium-7109cdb579fc",
+        "medium-0390f824911b"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Agentes, RAG e aplicações",
+        "en": "Agents, RAG and applications"
+      },
+      "summary": {
+        "pt": "Quatorze leituras tratam de orquestração, integração e desenvolvimento de software. Uma experiência relata que a presença de componentes de delegação não levou o agente a delegar em cinco testes com instruções neutras. Outros guias enfatizam permissões, critérios de aceite, ambientes isolados e testes. Os relatos de equipes mostram como filas de revisão podem crescer quando a geração de código acelera. Em segurança, os textos separam registros de eventos, interpretações e cenários de risco.",
+        "en": "Fourteen readings cover orchestration, integration and software development. One trial reports that the availability of delegation components did not lead the agent to delegate in five tests with neutral instructions. Other guides emphasize permissions, acceptance criteria, isolated environments and tests. Team accounts illustrate how review queues can grow as code generation accelerates. Security readings distinguish event records, interpretations and risk scenarios."
+      },
+      "sourceIds": [
+        "medium-ab0cb6371f89",
+        "medium-86a783d4ea6a",
+        "medium-fb1136d7ae13",
+        "medium-6fedc6d20621",
+        "medium-1839c0484d9a",
+        "medium-ca64e0b10b99",
+        "medium-55caf5ac2b43",
+        "medium-ec5fe416ce5a",
+        "medium-45c917478da4",
+        "medium-ea62c900bfda",
+        "medium-f07081f40f4c",
+        "medium-04fc8098e558",
+        "medium-138fa1c0adc6",
+        "medium-1c253e63e290"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Dados, vetores e gestão do conhecimento",
+        "en": "Data, vectors and knowledge management"
+      },
+      "summary": {
+        "pt": "Cinco leituras exploram grafos, wikis, manutenção de fontes e embeddings geoespaciais. Os exemplos de Wikipédia, OKF e Markdown mostram maneiras de preservar a origem de um vínculo ou de uma síntese. A busca geográfica com AlphaEarth e NASA POWER compara similaridade, consulta de clima e classificação. Métricas de busca dependem do recorte espacial, da cobertura e da resolução dos dados climáticos.",
+        "en": "Five readings explore graphs, wikis, source maintenance and geospatial embeddings. Wikipedia, OKF and Markdown examples show ways to preserve the origins of links and summaries. Geographic search with AlphaEarth and NASA POWER compares similarity, climate queries and classification. Retrieval metrics depend on geographic scope, coverage and the resolution of climate data."
+      },
+      "sourceIds": [
+        "medium-074d944a68b3",
+        "medium-0e738f644f07",
+        "medium-2a2b19fe7dd3",
+        "medium-fd2c46061c96",
+        "medium-fd5c1ca7e496"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos de linguagem e IA generativa",
+        "en": "Language models and generative AI"
+      },
+      "summary": {
+        "pt": "Três leituras examinam concentração de respostas em tarefas assistidas, comportamento de agentes em simulações e possíveis indicadores de consciência. Cada texto oferece um tipo diferente de evidência, de estudo comentado a ensaio filosófico e sátira. A atividade aparente, a capacidade de persuasão e descrições fluentes de experiência precisam ser interpretadas diante da tarefa e daquilo que foi observado.",
+        "en": "Three readings examine concentration of responses in assisted tasks, simulated agent behavior and possible indicators of consciousness. Each uses a different kind of evidence, from commentary on a study to philosophical essay and satire. Apparent activity, persuasive ability and fluent descriptions of experience need to be interpreted in light of the task and the observed behavior."
+      },
+      "sourceIds": [
+        "medium-9e57b6468180",
+        "medium-e0d4c74d43d8",
+        "medium-29fc31cb0006"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Transformers e mecanismos de atenção",
+        "en": "Transformers and attention mechanisms"
+      },
+      "summary": {
+        "pt": "Duas leituras examinam a estrutura das saídas de modelos. Uma explica geração com refinamento dentro de blocos e os limites de comparar vazão sem controlar hardware, contexto e qualidade. A outra propõe componentes que preveem decisões em horizontes distintos. O primeiro texto descreve uma arquitetura avaliada em condições específicas. O segundo apresenta hipóteses que pedem implementação e teste.",
+        "en": "Two readings examine how model outputs are structured. One explains generation with within-block refinement and the limits of comparing throughput without controlling hardware, context and quality. The other proposes components that predict decisions over different horizons. The first describes an architecture assessed under specific conditions. The second presents hypotheses that require implementation and testing."
+      },
+      "sourceIds": [
+        "medium-7ae5bf425f2e",
+        "medium-d598ae9bd66b"
+      ]
+    }
+  ]
+}
