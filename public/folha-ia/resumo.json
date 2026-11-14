@@ -1,6 +1,6 @@
 {
-  "total": 7060,
-  "lastDate": "2026-11-07",
+  "total": 7135,
+  "lastDate": "2026-11-13",
   "monthlyCounts": [
     {
       "month": "2025-12",
@@ -48,24 +48,24 @@
     },
     {
       "month": "2026-11",
-      "count": 69
+      "count": 144
     }
   ],
   "articles": [
     {
-      "date": "2026-11-07",
-      "title": "A bolha das ações de inteligência artificial está prestes a estourar? — Coluna examina sinais de fragilidade das ações de IA e o efeito de licenças e alavancagem, sem prever com certeza o fim da alta.",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/11/a-bolha-das-acoes-de-inteligencia-artificial-esta-prestes-a-estourar.shtml"
+      "date": "2026-11-13",
+      "title": "CEO da Anthropic diz não estar muito preocupado com turbulência no mercado antes do IPO — Dario Amodei comenta a volatilidade do mercado na preparação para a oferta pública da Anthropic.",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/11/ceo-da-anthropic-diz-nao-estar-muito-preocupado-com-turbulencia-no-mercado-antes-do-ipo.shtml"
     },
     {
-      "date": "2026-11-07",
-      "title": "Anthropic avança com IPO mirando avaliação de US$ 1,5 trilhão — Financial Times relata planos de abertura de capital e estimativas de investidores; preço e data da operação seguem incertos.",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/11/anthropic-avanca-com-ipo-mirando-avaliacao-de-us-15-trilhao.shtml"
+      "date": "2026-11-13",
+      "title": "Eleitores dos EUA rejeitaram data centers, mas muitos serão construídos mesmo assim — Reportagem confronta resultados eleitorais e a execução de projetos de centros de dados nos Estados Unidos.",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/11/eleitores-dos-eua-rejeitaram-data-centers-mas-muitos-serao-construidos-mesmo-assim.shtml"
     },
     {
-      "date": "2026-11-06",
-      "title": "Ações dos EUA ensaiam recuperação tímida após derrocada de US$ 3,2 tri por temores com a IA — Reportagem registra recuperação parcial após a queda de capitalização em Wall Street e descreve expectativas sobre centros de dados.",
-      "url": "https://c-level.folha.uol.com.br/negocios/2026/11/acoes-dos-eua-ensaiam-recuperacao-timida-apos-derrocada-de-us-32-tri-por-temores-com-a-ia.shtml"
+      "date": "2026-11-13",
+      "title": "Empresa brasileira de IA na segurança pública é escolhida para programa restrito da OpenAI — Empresa brasileira que aplica IA à segurança pública foi selecionada para programa da OpenAI, segundo a reportagem.",
+      "url": "https://www1.folha.uol.com.br/colunas/monicabergamo/2026/11/empresa-brasileira-de-ia-na-seguranca-publica-fecha-acordo-com-openai-apos-aproximacao-via-irmao-de-sam-altman.shtml"
     }
   ]
 }

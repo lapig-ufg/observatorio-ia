@@ -1,0 +1,190 @@
+{
+  "collection": "folha",
+  "start": "2026-11-08",
+  "end": "2026-11-14",
+  "reviewedAt": "2026-11-14",
+  "expectedCount": 73,
+  "title": {
+    "pt": "Mudança na Nvidia, dependência da nuvem e regras para IA na escola",
+    "en": "Nvidia’s leadership change, cloud dependence and AI rules for schools"
+  },
+  "summary": {
+    "pt": "A renúncia de Jensen Huang abriu uma transição na Nvidia em meio a uma investigação e aumentou a atenção sobre a venda de chips avançados. A pane da Microsoft mostrou como a concentração de serviços de nuvem pode afetar organizações, inclusive no Brasil. Enquanto a Anthropic pediu abertura de capital e firmou um acordo de fornecimento de geradores a gás, outros projetos de centros de dados apareceram como planos sujeitos a financiamento, energia e decisões locais. No Brasil, o MEC homologou diretrizes para uso de IA na educação, com supervisão até o 5º ano e avaliação humana. Casos de vigilância, fraudes, desinformação e disputas de autoria completam a seleção.",
+    "en": "Jensen Huang’s resignation triggered a leadership transition at Nvidia amid an investigation and drew attention to sales of advanced chips. The Microsoft outage showed how concentration in cloud services can affect organizations, including in Brazil. Anthropic filed for an initial public offering and reached an agreement to buy gas generators, while other data center projects remained plans contingent on financing, energy and local decisions. In Brazil, the Ministry of Education ratified guidelines for AI use in education, with supervision through fifth grade and human assessment. Surveillance, fraud, misinformation and authorship disputes also feature in the selection."
+  },
+  "method": {
+    "pt": "Corpus de 73 matérias publicadas de 08 a 14/11/2026, com corte às 05:46:58 de 14/11 (America/Sao_Paulo, UTC−3). A busca autenticada por “inteligência artificial” em 07–14/11, com sobreposição de 07/11, retornou 154 resultados em sete páginas. O acervo ganhou 75 registros, dois de 07/11 após o corte anterior e fora desta síntese. Houve 58 exclusões e 21 deduplicações. Foram examinados títulos e trechos de todos os resultados e aberturas ou passagens pertinentes de 89 originais. A primeira página e o total ficaram estáveis na conferência às 05h51. A publicação mais recente observada era das 04h. A seleção não cobre horas posteriores ao corte, outros termos de busca ou validação independente de alegações. Os temas são agrupamentos editoriais. A tradução é editorial. Títulos e links preservam o acesso às matérias de origem, que podem exigir assinatura.",
+    "en": "The corpus contains 73 articles published between 8 and 14 November 2026, with a cutoff at 05:46:58 on 14 November (America/Sao_Paulo, UTC−3). The authenticated search for “inteligência artificial” on 7–14 November, including an overlap on 7 November, returned 154 results across seven pages. The archive gained 75 records, including two published on 7 November after the previous cutoff and outside this briefing. Fifty-eight results were excluded and 21 were deduplicated. Headlines and excerpts were examined for all results, along with openings or relevant passages from 89 original pieces. The total and first page were stable when rechecked at 05:51. The latest observed article was published at 04:00. The selection does not cover hours after the cutoff, other search terms or independent verification of claims. Themes are editorial groupings. The translation is editorial. Headlines and links point to the original coverage, which may require a subscription."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Governança da Nvidia e disputa por chips",
+        "en": "Nvidia governance and competition for chips"
+      },
+      "summary": {
+        "pt": "A renúncia de Jensen Huang, a transição na liderança e as convocações no Congresso dos EUA são desdobramentos distintos. As matérias atribuem as suspeitas de espionagem a fontes e autoridades e registram revisões nas exportações de chips. A oferta de novos chips pelo Google segue uma disputa comercial já em curso. A cobertura não estabelece que a crise na Nvidia tenha causado a decisão do Google.",
+        "en": "Jensen Huang’s resignation, the leadership transition and the U.S. congressional summons are separate developments. Reports attribute the espionage suspicions to sources and officials and describe reviews of chip exports. Google’s announcement of new chips follows an existing commercial rivalry. The coverage does not establish that the Nvidia crisis caused Google’s decision."
+      },
+      "sourceIds": [
+        "7360419dfb4d52",
+        "a2b46e3da56529",
+        "d6f706c0837172",
+        "440e4ae4375fda",
+        "79654bda688ad8",
+        "e642d031e147ad",
+        "ad699a8d7bb256",
+        "d0bcfbbbbcb9ad",
+        "ec76865612f1b1",
+        "497da03b7b9fa0",
+        "91c1fee2e064cd",
+        "0f35119c5646c4",
+        "37176105b4b957"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Centros de dados, energia e dependência da nuvem",
+        "en": "Data centers, energy and cloud dependence"
+      },
+      "summary": {
+        "pt": "A cobertura registra projetos nos Estados Unidos, no Brasil e na Argentina, além de debate sobre a atração de centros de dados no Paraguai. Anúncios de investimento informam intenções. O acordo da Anthropic para aquisição de geradores a gás mostra uma decisão de compra, com impactos ambientais ainda sem medida nesta cobertura. A pane da Microsoft expôs a dependência de serviços concentrados e levou organizações brasileiras a recorrer a canais alternativos de comunicação.",
+        "en": "Coverage describes projects in the United States, Brazil and Argentina, as well as debate over attracting data centers to Paraguay. Investment announcements describe intentions. Anthropic’s agreement to buy gas generators is a procurement decision whose environmental impacts were not measured in this coverage. The Microsoft outage exposed dependence on concentrated services and led Brazilian organizations to turn to alternative communications channels."
+      },
+      "sourceIds": [
+        "745df9e8e93514",
+        "8a2df84896baee",
+        "dc7fbd3c3d94dc",
+        "ec04a97bd659a7",
+        "18a27fb9c935a3",
+        "c6325267403601",
+        "b154b474a946d0",
+        "089f58681073cf",
+        "f49ce28d7c7dc5",
+        "44e88d1daa6b48",
+        "f4bbe8cd92179f",
+        "53058c342775cc",
+        "cd7ac5d97efc27"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Financiamento, produtos e retorno empresarial",
+        "en": "Financing, products and business returns"
+      },
+      "summary": {
+        "pt": "O pedido de abertura de capital da Anthropic e a procura reportada por suas ações indicam o interesse de investidores. Avaliações pretendidas, ganhos potenciais de acionistas e projeções de investimento continuam incertos. Uma pesquisa empresarial identificou dificuldade em medir retorno com IA. Lançamentos e testes em comércio, atendimento e serviços ilustram adoção, com evidência desigual sobre os resultados.",
+        "en": "Anthropic’s initial public offering filing and reported demand for its shares point to investor interest. Target valuations, potential gains for shareholders and investment forecasts remain uncertain. A business survey found that many respondents struggled to measure AI returns. Launches and trials in commerce, customer support and services illustrate adoption, with uneven evidence of outcomes."
+      },
+      "sourceIds": [
+        "ca12cc4038907d",
+        "098921822a77ba",
+        "f8324f349feb05",
+        "87ee12c3680b28",
+        "a1a9f82fe98520",
+        "6b0321ecd80342",
+        "f36347ba45fc98",
+        "900d288155972c",
+        "875974cc358d2b",
+        "60b2bb3ec0c68b",
+        "b8baf1555d7b5b",
+        "babd4ca854b79c",
+        "aedd0ba0b6d3b7",
+        "842657a1d0b12c",
+        "2841a55145ebda",
+        "283a863ad6b030"
+      ]
+    },
+    {
+      "title": {
+        "pt": "IA na educação, no jornalismo e no início da carreira",
+        "en": "AI in education, journalism and early careers"
+      },
+      "summary": {
+        "pt": "As diretrizes homologadas pelo MEC exigem supervisão até o 5º ano e preservam a avaliação humana. A suspeita de uso de IA no Provão Paulista aparece numa apuração sobre possíveis fraudes. Cursos para jornalistas, formação em tecnologia e usos em estágios mostram como a IA entra na formação profissional. As colunas defendem mudanças no ensino e na avaliação, sem estimar seus efeitos.",
+        "en": "The guidelines ratified by Brazil’s Ministry of Education require supervision through fifth grade and retain human assessment. Suspected AI use in the Provão Paulista is part of an inquiry into possible cheating. Journalism courses, technology education and uses in internships show how AI is entering professional training. Columns call for changes in teaching and assessment without estimating their effects."
+      },
+      "sourceIds": [
+        "cda67cb6c1bcad",
+        "b9447db16c91e6",
+        "c81514ec471d5f",
+        "de78772d9d45c6",
+        "a2c41eb7c0a1dc",
+        "bc538c520b5bfd",
+        "c73359a713e6f5",
+        "5b5adb22acd229",
+        "ac8a7ee550588c",
+        "1b924f03fad01f",
+        "7e5eebf96f606e"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Vigilância, golpes e respostas automatizadas",
+        "en": "Surveillance, scams and automated answers"
+      },
+      "summary": {
+        "pt": "A Polícia Civil abriu inquérito sobre um possível vazamento no Smart Sampa. A cobertura trata separadamente de fraudes com vozes e identidades sintéticas e de uma informação falsa que a Folha identificou em respostas de IA do Google. Os casos ilustram formas diferentes de falha e abuso. A seleção não permite estimar a frequência desses problemas.",
+        "en": "Civil police opened an inquiry into a possible leak involving Smart Sampa. Separate stories address fraud involving synthetic voices and identities and a false claim Folha found in Google’s AI answers. These cases illustrate different forms of failure and abuse. The selection cannot establish how common they are."
+      },
+      "sourceIds": [
+        "0789a00edd6b15",
+        "8c3d7fcb13b1f9",
+        "a2d120fc5c20f7",
+        "e01876c918a448",
+        "5d712dd7351fe3",
+        "fba5a7db18db92",
+        "9931d4c250f27a"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Direitos autorais, consentimento e plataformas",
+        "en": "Copyright, consent and platforms"
+      },
+      "summary": {
+        "pt": "Titulares de direitos sobre músicas de Elvis Presley e Eminem acionaram uma empresa de IA. Em outro caso, a disputa contratual de um grupo de K-pop abrange possíveis usos de vozes e identidades sintéticas. A 99Food anunciou revisão da moderação de fotos alteradas sem consentimento. A multa eleitoral à Meta decorre de uma ação sobre tratamento desigual, cujo debate incluiu respostas automatizadas.",
+        "en": "Rights holders for songs by Elvis Presley and Eminem sued an AI company. In a separate case, a K-pop group’s contract dispute encompasses possible uses of synthetic voices and identities. 99Food announced a review of its moderation after photos were altered without consent. Meta’s election-related fine arose from a case about differential treatment, in which automated answers were among the issues discussed."
+      },
+      "sourceIds": [
+        "e0ba3f882cd5ad",
+        "6ad19302859186",
+        "bd400d2550cdc7",
+        "180a1e168f703c",
+        "4c7c283f5288f8"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Criação, música e publicidade",
+        "en": "Creative work, music and advertising"
+      },
+      "summary": {
+        "pt": "As peças sobre música gerada, paródias e memes mostram como a IA entra na produção e na circulação de obras e comentários. A suspeita de que uma campanha animada da Dior tenha usado IA permanece atribuída às pessoas citadas na reportagem. Uma crítica de cinema usa uma personagem artificial para discutir identidade e exploração.",
+        "en": "Coverage of generated music, parodies and memes shows how AI enters the production and circulation of creative work and commentary. Suspicion that an animated Dior campaign used AI remains attributed to people cited in the story. A film review uses an artificial character to discuss identity and exploitation."
+      },
+      "sourceIds": [
+        "c6f3a8131b5a46",
+        "b09498e1821241",
+        "ebe229f625bf8b",
+        "5e53653ac7eee1",
+        "6adc6f2f3415ff",
+        "bb1b7140414e6c",
+        "1e34f18ddfb541"
+      ]
+    },
+    {
+      "title": {
+        "pt": "IA na medição de calcificações em mamografias",
+        "en": "AI-assisted measurement of calcifications in mammograms"
+      },
+      "summary": {
+        "pt": "Uma cardiologista descreve como a IA facilita a medição de calcificações arteriais mamárias em pesquisa sobre risco cardiovascular. A presença de calcificação pode indicar risco. A matéria não demonstra, por si só, que a análise automatizada melhore desfechos clínicos.",
+        "en": "A cardiologist describes how AI can help measure breast arterial calcifications in cardiovascular risk research. Calcification may be a risk indicator. The article does not on its own demonstrate that automated analysis improves clinical outcomes."
+      },
+      "sourceIds": [
+        "1ab2d04edfe364"
+      ]
+    }
+  ]
+}
