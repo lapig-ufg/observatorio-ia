@@ -1,5 +1,5 @@
 {
-  "sourceSha256": "9e9b45feea5656317f6342e3a431df37bacf52e09320e767fc388d2e75f16f93",
+  "sourceSha256": "45ebe114c38eaee2a2a8e0276bdb456f20fd5ae2e6e57987bfea40ff3d5635a9",
   "messages": [
     [
       "Human responsibility, different rules",
@@ -23,13 +23,13 @@
     ],
     [
       "Coverage and limits",
-      "Partial review on 14 November 2026. 105 of 171 records were reconciled, including 6 additions. 66 retain their prior coding. The last full review is dated 7 November 2026."
+      "Partial review on 14 November 2026. 140 of 171 records were reconciled, including 6 additions. 31 retain their prior coding. The last full review is dated 7 November 2026."
     ]
   ],
   "cross": [
     [
       "Scope of comparison",
-      "Purposive inventory of 171 identities. Partial review on 14 November 2026. 105 of 171 records were reconciled, including 6 additions. 66 retain their prior coding. The last full review is dated 7 November 2026. Proportions describe the published dataset, including records still under review."
+      "Purposive inventory of 171 identities. Partial review on 14 November 2026. 140 of 171 records were reconciled, including 6 additions. 31 retain their prior coding. The last full review is dated 7 November 2026. Proportions describe the published dataset, including records still under review."
     ],
     [
       "Text generation",
@@ -97,7 +97,7 @@
     "**Disclosure:** Scientia Agricola requires Methods for AI use plus a statement before References; the manuscript-format section requires that statement even when AI was not used. The previous description was corrected. In Educação & Sociedade, auxiliary use is mentioned at the end without a mandatory section heading.",
     "**SciELO:** the preliminary guide of 14 September 2023 advises transparency in the Abstract and Methods or equivalent. Adoption and exceptions must be confirmed in journal instructions; the guide does not establish an identical rule throughout the network.",
     "**CNPq and other agencies:** CNPq's official March 2026 rule was read: assistive use requires responsibility and transparency; confidential third-party proposals must not be submitted to external tools. This is not a prohibition of every form of reviewer assistance. The FAPESP/CAPES/FAPEG aggregate remains separate and does not inherit CNPq's rule.",
-    "**Coverage.** 16/42 Brazilian journals reconciled in the 14 November cycle. Unresolved rows retain their prior information."
+    "**Coverage.** 33/42 Brazilian journals reconciled in the 14 November cycle. Unresolved rows retain their prior information."
   ],
   "checks": [
     "**Target and role:** read the journal/event rules for the article type and your role. The publisher's general policy alone does not establish every title's operational rule.",
@@ -129,7 +129,7 @@
     ],
     [
       "Partial review of 14 November 2026",
-      "Partial review on 14 November 2026. 105 of 171 records were reconciled, including 6 additions. 66 retain their prior coding. The last full review is dated 7 November 2026. The history records sources, actual consultation times and prospecting."
+      "Partial review on 14 November 2026. 140 of 171 records were reconciled, including 6 additions. 31 retain their prior coding. The last full review is dated 7 November 2026. The history records sources, actual consultation times and prospecting."
     ],
     [
       "Sample",
@@ -149,7 +149,7 @@
     ],
     [
       "Limits",
-      "105 of 171 records reconciled. 66 retain the earlier rule while source comparison continues. Deferred candidates remain in the prospecting record. The sample is purposive and the coding was AI-assisted."
+      "140 of 171 records reconciled. 31 retain the earlier rule while source comparison continues. Deferred candidates remain in the prospecting record. The sample is purposive and the coding was AI-assisted."
     ],
     [
       "Policy and practice",
