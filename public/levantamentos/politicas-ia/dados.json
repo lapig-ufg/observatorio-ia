@@ -2641,7 +2641,7 @@
       ],
       "brasil": "3 de 4 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 35/35 registros da área reconciliados no ciclo de 14/11. As linhas pendentes conservam a informação anterior. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 35/35 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
     },
     "BIO": {
       "sub": "Biologia geral, Genética, Botânica, Zoologia, Ecologia, Morfologia, Fisiologia, Bioquímica, Biofísica, Farmacologia, Imunologia, Microbiologia, Parasitologia",
@@ -2654,7 +2654,7 @@
       ],
       "brasil": "4 de 4 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 13/13 registros da área reconciliados no ciclo de 14/11. As linhas pendentes conservam a informação anterior. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 13/13 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
     },
     "ENG": {
       "sub": "Engenharias civil, de minas, de materiais, química, nuclear, sanitária, de produção, mecânica, elétrica, biomédica, naval, aeroespacial e de transportes",
@@ -2667,7 +2667,7 @@
       ],
       "brasil": "2 de 3 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 9/9 registros da área reconciliados no ciclo de 14/11. As linhas pendentes conservam a informação anterior. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 9/9 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
     },
     "SAU": {
       "sub": "Medicina, Odontologia, Farmácia, Enfermagem, Nutrição, Saúde Coletiva, Fonoaudiologia, Fisioterapia e Terapia Ocupacional, Educação Física",
@@ -2680,7 +2680,7 @@
       ],
       "brasil": "5 de 5 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 20/20 registros da área reconciliados no ciclo de 14/11. As linhas pendentes conservam a informação anterior. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 20/20 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
     },
     "AGR": {
       "sub": "Agronomia, Recursos Florestais e Engenharia Florestal, Engenharia Agrícola, Zootecnia, Medicina Veterinária, Recursos Pesqueiros, Ciência e Tecnologia de Alimentos",
@@ -2693,7 +2693,7 @@
       ],
       "brasil": "5 de 8 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 11/11 registros da área reconciliados no ciclo de 14/11. As linhas pendentes conservam a informação anterior. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 11/11 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
     },
     "SOC": {
       "sub": "Direito, Administração, Turismo, Economia, Arquitetura e Urbanismo, Planejamento Urbano e Regional, Demografia, Ciência da Informação, Museologia, Comunicação, Serviço Social, Desenho Industrial",
@@ -2706,7 +2706,7 @@
       ],
       "brasil": "4 de 4 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 12/12 registros da área reconciliados no ciclo de 14/11. As linhas pendentes conservam a informação anterior. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 12/12 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
     },
     "HUM": {
       "sub": "Filosofia, Sociologia, Antropologia, Arqueologia, História, Geografia, Psicologia, Educação, Ciência Política, Teologia",
@@ -2719,7 +2719,7 @@
       ],
       "brasil": "6 de 7 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 22/22 registros da área reconciliados no ciclo de 14/11. As linhas pendentes conservam a informação anterior. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 22/22 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
     },
     "LLA": {
       "sub": "Linguística, Letras, Artes",
@@ -2732,7 +2732,7 @@
       ],
       "brasil": "6 de 6 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 11/11 registros da área reconciliados no ciclo de 14/11. As linhas pendentes conservam a informação anterior. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 11/11 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
     },
     "MUL": {
       "sub": "Editoras e periódicos multidisciplinares, academias, redes de indexação e entidades gerais",
@@ -2745,7 +2745,7 @@
       ],
       "brasil": "0 de 1 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 38/38 registros da área reconciliados no ciclo de 14/11. As linhas pendentes conservam a informação anterior. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 38/38 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
     }
   },
   "brasil": [

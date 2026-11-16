@@ -36,10 +36,10 @@ export function buildPolicyEnglish(source, content, notes, vocabulary) {
       `**Coded dataset in this area:** ${count('gen','Permitida')} Allowed; ${count('gen','Restrita')} Restricted; ${count('gen','Vedada')} Prohibited; ${count('gen','Sem regra')} No rule located; ${count('gen','N/A')} Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.`,
       `**Reviewing:** ${count('rev','Condicionado')} records with conditional use, ${count('rev','Vedado')} with prohibition and ${count('rev','Não trata')} with no coded provision. Read the conditions in each note and source.`,
       `**Images:** ${core.filter(r=>r.img!=='Não trata').length} of ${core.length} comparable records have a coded rule; conceptual illustrations are not experimental data.`,
-      `**Reconfirmation on ${reviewDate}:** ${verified} of ${inventory} area records. Reconciled sources include ${consulted[1]}.`
+      `**Review cycle of ${reviewDate}:** ${verified} of ${inventory} area records. Reconciled sources include ${consulted[1]}.`
     ],brasil:`${journals.filter(r=>r.gen!=='Sem regra').length} of ${journals.length} Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.`,
     pratica:'Check the title\'s current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.',
-    confianca:`Coverage: ${verified}/${inventory} records reconciled across all four fields on ${reviewDate}, within the described corpora. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction.`}];
+    confianca:`Coverage: ${verified}/${inventory} records reconciled across all four fields for the ${reviewDate} cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction.`}];
   }));
   const guide=source.guide.map(g=>{
     const row=source.rows.find(r=>r.nome===g[0]);assert(row);
