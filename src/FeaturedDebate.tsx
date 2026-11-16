@@ -115,7 +115,12 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
 
   const trackMaterial = (material: MaterialKind, label: string, href: string) => {
     trackEvent("open_featured_material", { event_category: "content", event_label: label, material, featured_edition: edition.title, language });
-    // External materials already emit GA's enhanced-measurement click event.
+    // O GA4 só emite o evento automático "click" para links externos. O curso
+    // fica no mesmo domínio, então enviamos o mesmo evento à mão para o painel
+    // de audiência conseguir contar cada material do destaque.
+    if (href.startsWith(`${window.location.origin}/`)) {
+      trackEvent("click", { link_url: href, link_domain: window.location.hostname, link_text: label, outbound: false });
+    }
     if (material === "survey") trackEvent("open_featured_survey", { event_category: "content", event_label: href, language });
   };
 

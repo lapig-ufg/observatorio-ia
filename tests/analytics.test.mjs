@@ -12,12 +12,14 @@ test('published manifest includes every current material with its actual kind an
   assert.equal(m.startsOn, '2026-11-15');
   assert.equal(m.edition, 'Do chat ao agente');
   assert.deepEqual(m.editionAliases, ['From chat to agent']);
-  assert.equal(m.materials.length, 3);
-  assert.deepEqual(m.materials.map(x => x.kind), ['lesson', 'lesson', 'lesson']);
+  assert.equal(m.materials.length, 4);
+  assert.deepEqual(m.materials.map(x => x.kind), ['lesson', 'lesson', 'lesson', 'lesson']);
+  assert.deepEqual(m.materials.map(x => x.title), ['Assista à aula', 'Pratique no navegador', 'Pratique no computador', 'Acessar o curso']);
   assert.deepEqual(m.materials.map(x => x.href), [
     'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/aula.html',
     'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica.html',
     'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica-3.html',
+    'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/',
   ]);
   assert.throws(() => featuredManifest(source.replaceAll('kind: "lesson"', 'kind: "unknown"')), /Invalid featured/);
   assert.throws(() => featuredManifest(source.replaceAll('href:', 'missingHref:')), /Missing featured/);
@@ -42,4 +44,15 @@ test('production queues configuration without an automatic page view and loads o
   assert.equal(window.dataLayer.length,2);
   assert.equal(window.dataLayer[1][0],'config');
   assert.equal(window.dataLayer[1][2].send_page_view,false);
+});
+
+test('every public course page loads the shared GA bootstrap and sends its own page view', () => {
+  const pages = ['index.html', 'aula.html', 'pratica.html', 'pratica-3.html', 'instalar.html',
+    'missoes.html', 'missao-1.html', 'missao-2.html', 'missao-3.html', 'missao-4.html', 'missao-5.html',
+    'mesa.html', 'domino.html', 'centro-de-massa.html', 'responder.html'];
+  for (const page of pages) {
+    const html = readFileSync(`public/do-chat-ao-agente/${page}`, 'utf8');
+    assert.match(html, /<script src="\.\.\/analytics-bootstrap\.js"><\/script>/, page);
+    assert.match(html, /window\.gtag\('event', 'page_view'/, page);
+  }
 });

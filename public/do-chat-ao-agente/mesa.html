@@ -108,6 +108,16 @@
   .controles button { cursor: pointer; padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(243,239,230,.3); background: rgba(8,20,15,.6); font-size: 16px; font-weight: 600; }
   .controles button[aria-pressed="true"] { background: var(--creme); color: var(--tinta); }
 </style>
+  <script src="../analytics-bootstrap.js"></script>
+  <script>
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        send_to: 'G-2R8KZB3YJ7',
+        page_title: document.title,
+        page_location: window.location.href
+      });
+    }
+  </script>
 </head>
 <body>
 <div class="sala">

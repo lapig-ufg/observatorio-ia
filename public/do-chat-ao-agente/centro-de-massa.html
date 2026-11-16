@@ -40,6 +40,16 @@
   .resultado p { margin: 6px 0 0; font-size: 20px; color: var(--tinta-2); min-height: 1.4em; }
   .resultado p.ok { color: var(--verde); font-weight: 700; }
 </style>
+  <script src="../analytics-bootstrap.js"></script>
+  <script>
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        send_to: 'G-2R8KZB3YJ7',
+        page_title: document.title,
+        page_location: window.location.href
+      });
+    }
+  </script>
 </head>
 <body>
 <div class="quadro">

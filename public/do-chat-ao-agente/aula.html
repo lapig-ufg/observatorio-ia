@@ -17,6 +17,16 @@
   // O QR code aponta para o endereço público mesmo quando a aula roda no computador local.
   window.CURSO_PUBLICO = "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/";
 </script>
+  <script src="../analytics-bootstrap.js"></script>
+  <script>
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        send_to: 'G-2R8KZB3YJ7',
+        page_title: document.title,
+        page_location: window.location.href
+      });
+    }
+  </script>
 </head>
 <body>
 

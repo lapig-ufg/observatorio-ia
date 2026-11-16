@@ -30,12 +30,25 @@ export function featuredManifest(source) {
   const pt = prop(editions, 'pt');
   const cards = prop(pt, 'cards');
   if (!ts.isArrayLiteralExpression(cards)) throw new Error('Featured cards must be an array');
-  const materials = cards.elements.flatMap(card => {
+  const materials = [];
+  const seen = new Set();
+  const add = (title, link) => {
+    const item = {title, kind: string(prop(link, 'kind')), href: string(prop(link, 'href'))};
+    if (seen.has(item.href)) return;
+    seen.add(item.href);
+    materials.push(item);
+  };
+  for (const card of cards.elements) {
     const title = string(prop(card, 'title'));
     const links = prop(card, 'links');
     if (!ts.isArrayLiteralExpression(links)) throw new Error('Featured links must be an array');
-    return links.elements.map(link => ({title, kind: string(prop(link, 'kind')), href: string(prop(link, 'href'))}));
-  });
+    for (const link of links.elements) add(title, link);
+  }
+  // O link rápido ("Acessar o curso") é a entrada mais visível da edição e
+  // também precisa entrar no painel; se repetir um cartão, o href é descartado.
+  const quick = prop(pt, 'quick');
+  if (!ts.isArrayLiteralExpression(quick)) throw new Error('Featured quick links must be an array');
+  for (const link of quick.elements) add(string(prop(link, 'label')), link);
   if (!materials.length || new Set(materials.map(x => x.href)).size !== materials.length) throw new Error('Featured materials missing or duplicated');
   for (const material of materials) {
     if (!['audio', 'presentation', 'document', 'survey', 'lesson'].includes(material.kind) || !/^(https:\/\/|#)/.test(material.href)) throw new Error('Invalid featured material');
