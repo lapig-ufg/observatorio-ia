@@ -263,3 +263,6 @@
 @media (max-width: 699px) {
   .usage-pillars, .usage-plans { grid-template-columns: 1fr; }
 }
+
+/* Selo da versão nova do guia (nov/2026), enquanto estiver em teste. */
+.panorama-beta { display: inline-block; margin-right: 10px; padding: 1px 7px; border: 1px solid var(--green-700); border-radius: 2px; color: var(--green-700); font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; vertical-align: 2px; }
