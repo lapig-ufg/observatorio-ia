@@ -80,7 +80,7 @@ test("both Panorama pages read the live Panorama site, never a local copy", () =
   const english = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8") + fs.readFileSync("src/PortalFooter.tsx", "utf8");
   const page = fs.readFileSync("src/panorama/PanoramaPage.tsx", "utf8");
   const timeline = fs.readFileSync("src/panorama/Timeline.tsx", "utf8");
-  const guide = fs.readFileSync("src/panorama/ModelGuide.tsx", "utf8");
+  const guide = fs.readFileSync("src/panorama/guia/GuiaModelos.tsx", "utf8");
   const data = fs.readFileSync("src/panoramaData.ts", "utf8");
   assert.match(data, /PANORAMA_SITE = "https:\/\/lapig-ufg\.github\.io\/app-panorama-global-da-ia-generativa\/"/);
   assert.doesNotMatch(pt, /iframe|panoramaEmbedUrl|\?embed=1/);
@@ -89,9 +89,9 @@ test("both Panorama pages read the live Panorama site, never a local copy", () =
   assert.match(page, /<Timeline english=\{english\} \/>/);
   assert.match(timeline, /loadPanoramaLaunches\(locale/);
   assert.match(timeline, /loadPanoramaCatalog|loadPanoramaBenchmarks/);
-  assert.match(page, /<ModelGuide english=\{english\} \/>/);
-  assert.match(guide, /loadPanoramaBenchmarks\(locale/);
-  assert.match(guide, /loadPanoramaLaunches\(locale/);
+  assert.match(page, /<GuiaModelos english=\{english\} \/>/);
+  assert.match(guide, /loadGuideData\(controller\.signal\)/);
+  assert.match(guide, /loadPanoramaConfig\(\)/);
   assert.match(page, /<FreeTools english=\{english\} referenceDate=\{context\?\.date\} \/>/);
   assert.match(page, /<UsageGuide english=\{english\} \/>/);
   assert.doesNotMatch(page, /ComingSoon|está sendo preparada|being prepared/);

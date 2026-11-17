@@ -1,0 +1,19 @@
+# Worker da coruja do "Qual modelo usar". Publicar: ver LEIA-ME.md.
+name = "coruja-guia-modelos"
+main = "worker.mjs"
+compatibility_date = "2026-09-20"
+
+[vars]
+ORIGENS = "https://lapig-ufg.github.io,http://localhost:5174"
+MODELO = "deepseek-v4.1-flash"
+OLLAMA_URL = "https://ollama.com/api/chat"
+# Desligador: qualquer outro valor desliga a IA (a página segue com os textos dela).
+IA_LIGADA = "sim"
+
+[[durable_objects.bindings]]
+name = "CONTADOR"
+class_name = "Contador"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Contador"]

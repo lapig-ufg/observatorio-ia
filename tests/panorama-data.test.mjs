@@ -163,6 +163,8 @@ test("benchmarks são lidos do arquivo da AA e ligados ao lançamento curado", (
 test("o carregador lê o Panorama vivo e não traz cópia para o Observatório", () => {
   const loader = fs.readFileSync("src/panoramaSource.ts", "utf8");
   assert.match(source, /PANORAMA_SITE = "https:\/\/lapig-ufg\.github\.io\/app-panorama-global-da-ia-generativa\/"/);
-  assert.match(loader, /new URL\(`assets\/\$\{path\}`, PANORAMA_SITE\)/);
+  // Em produção, sempre o site vivo; o clone local só entra no `pnpm dev` com VITE_PANORAMA_DEV=1.
+  assert.match(loader, /new URL\(`assets\/\$\{path\}`, panoramaBase\(\)\)/);
+  assert.match(loader, /import\.meta\.env\?\.DEV && import\.meta\.env\?\.VITE_PANORAMA_DEV === "1"[\s\S]{0,120}: PANORAMA_SITE;/);
   assert.doesNotMatch(loader, /["'`]\.{1,2}\/panorama\/|public\/panorama/);
 });

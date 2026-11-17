@@ -17,6 +17,7 @@ import {
   type PanoramaLaunch,
 } from "./panoramaData";
 import { editorialFromScript } from "./panoramaEditorial";
+import { modelsFromJson, plansFromJson, sourcesFromJson, type GuideModels, type GuidePlans, type GuideSources } from "./guiaModelos";
 
 /* Busca de rede do Panorama. Tudo vem do site vivo do Panorama e da planilha
    dele, a cada abertura: o Observatório não guarda cópia (ver o teste
@@ -31,7 +32,13 @@ export type PanoramaLaunchesResult = {
   warnings: string[];
 };
 
-const assetUrl = (path: string) => new URL(`assets/${path}`, PANORAMA_SITE).toString();
+/* Em desenvolvimento, `VITE_PANORAMA_DEV=1` lê os dados de um clone local do
+   Panorama pelo proxy do Vite (vite.config.ts), para testar dados novos antes
+   de publicá-los. No build publicado, sempre o site vivo do Panorama. */
+const panoramaBase = () => import.meta.env?.DEV && import.meta.env?.VITE_PANORAMA_DEV === "1"
+  ? new URL("/panorama-dev/", window.location.origin).toString()
+  : PANORAMA_SITE;
+const assetUrl = (path: string) => new URL(`assets/${path}`, panoramaBase()).toString();
 
 /* A planilha do Panorama é lida pelo nome da aba (a do acervo é lida pelo gid).
    JSONP, como o resto do Observatório e o próprio Panorama: o gviz não manda
@@ -127,6 +134,23 @@ export async function loadPanoramaBenchmarks(locale: PanoramaLocale = "pt", sign
     fetchJson(locale === "en" ? "benchmarks-en.json" : "benchmarks.json", signal),
   ]);
   return benchmarksFromJson(json, config);
+}
+
+/* "Qual modelo usar" (nov/2026): os modelos com todas as variantes de esforço são
+   obrigatórios; as outras fontes e os planos são complementares e, se faltarem,
+   a página só esconde as partes que dependem deles. */
+export async function loadGuideData(signal?: AbortSignal): Promise<{ models: GuideModels; sources: GuideSources | null; plans: GuidePlans | null }> {
+  const optional = <T,>(path: string, parse: (json: unknown) => T) => fetchJson(path, signal).then(parse).catch((error) => {
+    if (signal?.aborted) throw error;
+    return null;
+  });
+  const [models, sources, plans] = await Promise.all([
+    fetchJson("guia-modelos.json", signal).then(modelsFromJson),
+    optional("guia-fontes.json", sourcesFromJson),
+    optional("guia-planos.json", plansFromJson),
+  ]);
+  if (!models.families.length) throw new Error("guia-modelos.json sem famílias");
+  return { models, sources, plans };
 }
 
 /* O catálogo (~480 famílias) só deve ser pedido quando a tela precisar dele. */

@@ -8,7 +8,7 @@ const compile = (path) => ts.transpileModule(fs.readFileSync(path, "utf8"), {
   compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
 }).outputText;
 const uri = (source) => `data:text/javascript;base64,${Buffer.from(source).toString("base64")}`;
-const sourceUri = uri(compile("src/panoramaSource.ts").replace('"./panoramaData"', JSON.stringify(uri(compile("src/panoramaData.ts")))).replace('"./panoramaEditorial"', JSON.stringify(uri(compile("src/panoramaEditorial.ts")))));
+const sourceUri = uri(compile("src/panoramaSource.ts").replace('"./panoramaData"', JSON.stringify(uri(compile("src/panoramaData.ts")))).replace('"./panoramaEditorial"', JSON.stringify(uri(compile("src/panoramaEditorial.ts")))).replace('"./guiaModelos"', JSON.stringify(uri(compile("src/guiaModelos.ts")))));
 
 test("sair de uma aba não cancela a configuração compartilhada com outra aba", async (t) => {
   const source = await import(sourceUri);

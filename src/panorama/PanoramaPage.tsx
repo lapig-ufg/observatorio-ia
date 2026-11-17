@@ -4,7 +4,7 @@ import { sectionNavigation, type SectionLink } from "../sectionNavigation";
 import { trackEvent } from "../analytics";
 import { PANORAMA_SITE, canonicalCompany } from "../panoramaData";
 import { Timeline } from "./Timeline";
-import { ModelGuide } from "./ModelGuide";
+import { GuiaModelos } from "./guia/GuiaModelos";
 import { FreeTools } from "./FreeTools";
 import { UsageGuide } from "./UsageGuide";
 import { loadPanoramaBenchmarks, loadPanoramaLaunches } from "../panoramaSource";
@@ -82,12 +82,12 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
 
   const introductions: Record<TabKey, string> = english ? {
     "": "Follow model releases since ChatGPT in November 2022, by company and ecosystem.",
-    guia: "Compare measured capability, API price and response speed for each task.",
+    guia: "Each model's best result, what every effort level costs and takes, how the sources agree, and your own team.",
     gratuitos: "Free AI in the browser and installed on your computer: limits, catches and privacy, checked on the official pages.",
     "como-usar": "Understand what changes when AI can work with files and programs on your computer.",
   } : {
     "": "Acompanhe os lançamentos desde o ChatGPT, em novembro de 2022, por empresa e ecossistema.",
-    guia: "Compare a capacidade medida, o preço da API e a velocidade de resposta para cada tarefa.",
+    guia: "O melhor resultado de cada modelo, quanto custa e demora cada nível de esforço, o que dizem as outras fontes e a sua equipe.",
     gratuitos: "IA gratuita no navegador e instalada no seu computador: limites, poréns e privacidade, conferidos nas páginas oficiais.",
     "como-usar": "Entenda o que muda quando a IA pode trabalhar com arquivos e programas no seu computador.",
   };
@@ -108,8 +108,8 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
       <SectionNav sections={sections} route={route} label={english ? "Panorama sections" : "Seções do Panorama"} headingId="panorama-title" english={english} onNavigate={navigate} />
       <p className="panorama-tab-intro">{introductions[tab]}</p>
 
-      {tab === "" ? <Timeline english={english} /> : tab === "guia" ? <ModelGuide english={english} /> : tab === "gratuitos" ? <FreeTools english={english} referenceDate={context?.date} /> : <UsageGuide english={english} />}
-      {tab === "guia" && <footer className="panorama-provenance panorama-page-source"><span>{english ? "Source: Artificial Analysis · curation by LAPIG/UFG" : "Fonte: Artificial Analysis · curadoria LAPIG/UFG"}</span><a href={`${openOriginalUrl}guia.html`} target="_blank" rel="noreferrer">{english ? "Original Panorama" : "Panorama original"} ↗</a></footer>}
+      {tab === "" ? <Timeline english={english} /> : tab === "guia" ? <GuiaModelos english={english} /> : tab === "gratuitos" ? <FreeTools english={english} referenceDate={context?.date} /> : <UsageGuide english={english} />}
+      {tab === "guia" && <footer className="panorama-provenance panorama-page-source"><span>{english ? "Sources: Artificial Analysis, LMArena and Epoch AI · curation by LAPIG/UFG" : "Fontes: Artificial Analysis, LMArena e Epoch AI · curadoria LAPIG/UFG"}</span><a href={`${openOriginalUrl}guia.html`} target="_blank" rel="noreferrer">{english ? "Original Panorama" : "Panorama original"} ↗</a></footer>}
       <SectionNav sections={sections} route={route} label={english ? "Panorama sections" : "Seções do Panorama"} headingId="panorama-title" english={english} position="pager" onNavigate={navigate} />
     </section>
   );
