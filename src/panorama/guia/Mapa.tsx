@@ -38,7 +38,22 @@ export function Mapa({ models, highlighted, indexKey, axis, config, english, t, 
   const yMin = Math.max(0, Math.floor((Math.min(...all.map((p) => p.score)) - 3) / 10) * 10);
   const X = (v: number) => m.left + (Math.log10(v) - Math.log10(xMin)) / (Math.log10(xMax) - Math.log10(xMin)) * (width - m.left - m.right);
   const Y = (v: number) => m.top + (yMax - v) / (yMax - yMin) * (height - m.top - m.bottom);
+  // No celular, só as potências de 10 ganham rótulo; as demais linhas ficam sem texto.
   const ticks = logTicks(xMin, xMax);
+  const labelTick = (v: number) => !narrow || Math.abs(Math.log10(v) - Math.round(Math.log10(v))) < 1e-9;
+  /* Estilo de cada série: a cor da empresa; o segundo e o terceiro modelo da mesma empresa
+     ganham traço tracejado ou pontilhado, para não se confundirem. */
+  const styles = new Map(highlighted.map((family, i) => {
+    const sameBefore = highlighted.slice(0, i).filter((f) => f.creator === family.creator).length;
+    return [family.id, { color: familyColor(family.creator, config), dash: ["", "7 4", "2 3"][Math.min(sameBefore, 2)] }];
+  }));
+  /* Nome no fim de cada trajetória, empurrado para baixo quando encosta no de cima. */
+  const ends = highlighted.flatMap((family) => {
+    const pts = all.filter((p) => p.family.id === family.id).sort((a, b) => a.x - b.x);
+    const last = pts[pts.length - 1];
+    return last ? [{ family, x: X(last.x), y: Y(last.score) }] : [];
+  }).sort((a, b) => a.y - b.y);
+  ends.forEach((e, i) => { if (i > 0 && e.y - ends[i - 1].y < 13) e.y = ends[i - 1].y + 13; });
   const fmtX = (v: number) => axis === "cost" ? formatCost(v, english).replace("US$ ", "$") : formatTime(v, english);
   const yTicks = Array.from({ length: (yMax - yMin) / 10 + 1 }, (_, i) => yMin + i * 10);
 
@@ -46,21 +61,25 @@ export function Mapa({ models, highlighted, indexKey, axis, config, english, t, 
     <div ref={box} className={`gm-chart-box${focus ? " has-focus" : ""}`} onMouseLeave={() => setHover(null)}>
       <svg width={width} height={height} role="img" aria-label={t(`Nota em ${indexLabel(indexKey, false)} contra ${axis === "cost" ? "custo por tarefa" : "tempo de resposta"}, escala logarítmica`, `${indexLabel(indexKey, true)} score versus ${axis === "cost" ? "cost per task" : "response time"}, log scale`)}>
         {yTicks.map((v) => <g key={v}><line x1={m.left} x2={width - m.right} y1={Y(v)} y2={Y(v)} className="gm-grid" /><text x={m.left - 8} y={Y(v) + 4} className="gm-tick" textAnchor="end">{v}</text></g>)}
-        {ticks.map((v) => <g key={v}><line x1={X(v)} x2={X(v)} y1={m.top} y2={height - m.bottom} className="gm-grid gm-grid-v" /><text x={X(v)} y={height - m.bottom + 16} className="gm-tick" textAnchor="middle">{fmtX(v)}</text></g>)}
+        {ticks.map((v) => <g key={v}><line x1={X(v)} x2={X(v)} y1={m.top} y2={height - m.bottom} className="gm-grid gm-grid-v" />{labelTick(v) && <text x={X(v)} y={height - m.bottom + 16} className="gm-tick" textAnchor="middle">{fmtX(v)}</text>}</g>)}
         <text x={width - m.right} y={height - 8} className="gm-axis-title" textAnchor="end">{axis === "cost" ? t("custo por tarefa (escala log) →", "cost per task (log scale) →") : t("tempo de resposta (escala log) →", "response time (log scale) →")}</text>
         <text x={m.left} y={m.top - 6} className="gm-axis-title">{t("↑ nota", "↑ score")}</text>
         <polyline points={front.map((p) => `${X(p.x)},${Y(p.score)}`).join(" ")} className="gm-frontier" />
         {all.filter((p) => !ids.has(p.family.id)).map((p) => <circle key={`${p.family.id}-${p.variant.effort}`} cx={X(p.x)} cy={Y(p.score)} r={3.2} className="gm-bg-dot" onMouseEnter={() => setHover(p)} onClick={() => onPick(p.family.id)} />)}
         {highlighted.map((family) => {
           const pts = all.filter((p) => p.family.id === family.id).sort((a, b) => a.x - b.x);
-          const color = familyColor(family.creator, config);
+          const { color, dash } = styles.get(family.id)!;
           return <g key={family.id} className={`gm-series${focus === family.id ? " is-focus" : ""}`}>
-            <polyline points={pts.map((p) => `${X(p.x)},${Y(p.score)}`).join(" ")} fill="none" stroke={color} strokeWidth={2.4} strokeLinejoin="round" strokeLinecap="round" />
+            <polyline points={pts.map((p) => `${X(p.x)},${Y(p.score)}`).join(" ")} fill="none" stroke={color} strokeWidth={2.4} strokeDasharray={dash || undefined} strokeLinejoin="round" strokeLinecap="round" />
             {pts.map((p, i) => <g key={p.variant.effort} onMouseEnter={() => setHover(p)} onClick={() => setHover(p)} className="gm-point">
               <circle cx={X(p.x)} cy={Y(p.score)} r={i === pts.length - 1 ? 6 : 4.6} fill={i === pts.length - 1 ? color : "#fff"} stroke={color} strokeWidth={2} />
               {focus === family.id && <text x={X(p.x) + 7} y={Y(p.score) - 8} className="gm-point-label">{effortLabel(p.variant.effort, english)}</text>}
             </g>)}
           </g>;
+        })}
+        {!narrow && ends.map((e) => {
+          const left = e.x > width - 150;
+          return <text key={`end-${e.family.id}`} x={e.x + (left ? -10 : 10)} y={e.y + 4} textAnchor={left ? "end" : "start"} className="gm-end-label" style={{ fill: styles.get(e.family.id)!.color }}>{e.family.name}</text>;
         })}
         {hover && <circle cx={X(hover.x)} cy={Y(hover.score)} r={9} className="gm-hover-ring" />}
       </svg>
@@ -72,7 +91,7 @@ export function Mapa({ models, highlighted, indexKey, axis, config, english, t, 
       </div>}
     </div>
     <figcaption className="gm-legend">
-      {highlighted.map((family) => <button type="button" key={family.id} onClick={() => onPick(family.id)} onMouseEnter={() => setLegendFocus(family.id)} onMouseLeave={() => setLegendFocus(null)} onFocus={() => setLegendFocus(family.id)} onBlur={() => setLegendFocus(null)} title={t("Tirar do destaque", "Remove highlight")}><Mark company={family.creator} config={config} size={18} /><span style={{ borderBottomColor: familyColor(family.creator, config) }}>{family.name}</span><span aria-hidden="true">×</span></button>)}
+      {highlighted.map((family) => <button type="button" key={family.id} onClick={() => onPick(family.id)} onMouseEnter={() => setLegendFocus(family.id)} onMouseLeave={() => setLegendFocus(null)} onFocus={() => setLegendFocus(family.id)} onBlur={() => setLegendFocus(null)} title={t("Tirar do destaque", "Remove highlight")}><svg width="22" height="8" aria-hidden="true"><line x1="1" x2="21" y1="4" y2="4" stroke={styles.get(family.id)!.color} strokeWidth="2.5" strokeDasharray={styles.get(family.id)!.dash || undefined} /></svg><span>{family.name}</span><span aria-hidden="true">×</span></button>)}
       <span className="gm-legend-key"><i className="gm-key-line" />{t("trajetória do low ao max", "path from low to max")}</span>
       <span className="gm-legend-key"><i className="gm-key-frontier" />{t("fronteira: ninguém faz mais por menos", "frontier: nobody does more for less")}</span>
     </figcaption>

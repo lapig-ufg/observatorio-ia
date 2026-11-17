@@ -29,6 +29,9 @@ type Props = {
   onEvent: (name: string, label: string) => void;
 };
 
+/* Os nomes dos planos vêm da página oficial em português; no inglês, só o “grátis” muda. */
+export const planLabel = (name: string, english: boolean) => english ? name.replace("(app grátis)", "(free app)").replace("(grátis)", "(free)").replace("grátis", "free") : name;
+
 export function arenaFor(sources: GuideSources | null, family: Family, category: string): { interval: Interval; effort: string | null } | null {
   let best: { interval: Interval; effort: string | null } | null = null;
   for (const entry of sources?.families.get(family.id)?.lmarena || []) {
@@ -62,7 +65,7 @@ export function Equipe({ models, sources, plans, team, planIds, extraIds, config
       {providers.length > 0 && <div className="gm-plan-groups">
         {providers.map(([provider, list]) => <div key={provider} className="gm-plan-group">
           <span className="gm-kicker">{provider}</span>
-          <div>{list.map((plan) => <button type="button" key={plan.id} className="gm-chip" aria-pressed={planIds.includes(plan.id)} onClick={() => togglePlan(plan.id)} title={plan.price}>{plan.name}</button>)}</div>
+          <div>{list.map((plan) => <button type="button" key={plan.id} className="gm-chip" aria-pressed={planIds.includes(plan.id)} onClick={() => togglePlan(plan.id)} title={plan.price}>{planLabel(plan.name, english)}</button>)}</div>
         </div>)}
       </div>}
       <div className="gm-team-search">
@@ -71,12 +74,13 @@ export function Equipe({ models, sources, plans, team, planIds, extraIds, config
         </label>
         {suggestions.length > 0 && <div className="gm-suggest">{suggestions.map((f) => <button type="button" key={f.id} onClick={() => { onExtras([...extraIds, f.id]); setQuery(""); onEvent("team_model", f.id); }}><Mark company={f.creator} config={config} size={20} /><span>{f.name}<small>{f.creator}</small></span><Plus size={15} aria-hidden="true" /></button>)}</div>}
       </div>
-      {plans && <p className="gm-note">{t(`Planos e modelos conferidos nas páginas oficiais em ${plans.checkedAt.split("-").reverse().join("/")}. Nenhuma delas informa o nível de esforço: cada modelo entra no esforço padrão documentado pelo fabricante, e você pode trocá-lo.`, `Plans and models checked on the official pages on ${plans.checkedAt}. None of them states the effort level: each model enters at the manufacturer's documented default effort, which you can change.`)}</p>}
+      {plans && <p className="gm-note">{t(`Planos e modelos conferidos nas páginas oficiais em ${plans.checkedAt.split("-").reverse().join("/")}. As páginas dos planos não informam o nível de esforço: cada modelo entra no esforço padrão documentado pelo fabricante, e você pode trocá-lo.`, `Plans and models checked on the official pages on ${new Date(`${plans.checkedAt}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}. The plan pages don't state the effort level: each model enters at the manufacturer's documented default effort, which you can change.`)}</p>}
     </div>
 
     {!team.length ? <div className="gm-team-empty">
       <p><strong>{t("Marque os planos que você tem", "Select the plans you have")}</strong> {t("ou acrescente modelos pelo nome. A tabela mostra cada um deles em todas as medidas, lado a lado.", "or add models by name. The table shows each of them in every measure, side by side.")}</p>
     </div> : <>
+      <TeamCards team={team} sources={sources} plans={plans} english={english} t={t} onEffort={onEffort} config={config} />
       <div className="gm-team-scroll" tabIndex={0} role="region" aria-label={t("Tabela da sua equipe", "Your team table")}>
         <table className="gm-team-table">
           <thead><tr>
@@ -102,7 +106,7 @@ export function Equipe({ models, sources, plans, team, planIds, extraIds, config
                   return <td key={member.family.id} className={near ? "is-near" : ""}>
                     {v === null ? <span className="gm-na">{t("sem medida", "not measured")}</span> : <>
                       <span className="gm-cell-bar"><span style={{ width: `${(v / fieldMax[key]) * 100}%` }} /></span>
-                      <b>{formatScore(v, english)}</b>{near && team.length > 1 && <small>{t("topo da equipe", "team top")}</small>}
+                      <b>{formatScore(v, english)}</b>{near && team.length > 1 && <small>{t("topo da equipe", "team best")}</small>}
                     </>}
                   </td>;
                 })}
@@ -118,7 +122,7 @@ export function Equipe({ models, sources, plans, team, planIds, extraIds, config
                   {cells.map((cell, i) => {
                     const overlap = cell && top && (cell.interval.upper ?? cell.interval.rating) >= (top.lower ?? top.rating);
                     return <td key={team[i].family.id} className={overlap ? "is-near" : ""}>
-                      {cell ? <><b>{Math.round(cell.interval.rating)}</b><small>{cell.effort ? effortLabel(cell.effort, english) : t("esforço não informado", "effort not stated")}{overlap && team.length > 1 ? t(" · topo da equipe", " · team top") : ""}</small></> : <span className="gm-na">{t("fora do LMArena", "not on LMArena")}</span>}
+                      {cell ? <><b>{Math.round(cell.interval.rating)}</b><small>{cell.effort ? effortLabel(cell.effort, english) : t("esforço não informado", "effort not stated")}{overlap && team.length > 1 ? t(" · topo da equipe", " · team best") : ""}</small></> : <span className="gm-na">{t("fora do LMArena", "not on LMArena")}</span>}
                     </td>;
                   })}
                 </tr>;
@@ -127,15 +131,46 @@ export function Equipe({ models, sources, plans, team, planIds, extraIds, config
             <tr className="gm-team-section"><th colSpan={team.length + 1} scope="colgroup">{t("Quanto consome (medianas da Artificial Analysis)", "What it consumes (Artificial Analysis medians)")}</th></tr>
             <tr><th scope="row">{t("Custo por tarefa (API)", "Cost per task (API)")}</th>{team.map((m) => <td key={m.family.id}><b>{formatCost(m.variant.costPerTask, english)}</b></td>)}</tr>
             <tr><th scope="row">{t("Tempo de resposta", "Response time")}</th>{team.map((m) => <td key={m.family.id}><b>{formatTime(m.variant.e2e, english)}</b></td>)}</tr>
-            <tr><th scope="row">{t("De onde vem", "Comes from")}</th>{team.map((m) => <td key={m.family.id}><small>{m.planIds.length ? m.planIds.map((id) => plans?.plans.find((p) => p.id === id)?.name || id).join(", ") : t("acrescentado por você", "added by you")}</small></td>)}</tr>
+            <tr><th scope="row">{t("Incluído em", "Included in")}</th>{team.map((m) => <td key={m.family.id}><small>{m.planIds.length ? m.planIds.map((id) => planLabel(plans?.plans.find((p) => p.id === id)?.name || id, english)).join(", ") : t("acrescentado por você", "added by you")}</small></td>)}</tr>
           </tbody>
         </table>
       </div>
-      <p className="gm-note">{t("“Topo da equipe” marca quem fica a menos de 1 ponto do melhor da sua equipe naquela linha (no LMArena, quem tem o intervalo de confiança encostando no do melhor). Não é recomendação: o que pesa mais depende do seu trabalho.", "“Team top” marks whoever is less than 1 point from your team's best on that row (on LMArena, whoever's confidence interval reaches the best one). It is not a recommendation: what matters most depends on your work.")}</p>
+      <p className="gm-note">{t("“Topo da equipe” marca quem fica a menos de 1 ponto do melhor da sua equipe naquela linha (no LMArena, quem tem o intervalo de confiança encostando no do melhor). Não é recomendação: o que pesa mais depende do seu trabalho.", "“Team best” marks whoever is less than 1 point from your team's best on that row (on LMArena, whoever's confidence interval reaches the best one). It is not a recommendation: what matters most depends on your work.")}</p>
       <div className="gm-team-actions">
         <button type="button" className="gm-button" onClick={() => { openReport(team, sources, plans, english); onEvent("report", String(team.length)); }}><FileDown size={16} aria-hidden="true" />{t("Abrir o relatório da minha equipe", "Open my team report")}</button>
       </div>
     </>}
+  </div>;
+}
+
+/* No celular, um cartão por modelo, com as mesmas medidas e o mesmo “topo da equipe” da tabela. */
+function TeamCards({ team, sources, plans, english, t, onEffort, config }: { team: TeamMember[]; sources: GuideSources | null; plans: GuidePlans | null; english: boolean; t: T; onEffort: (id: string, effort: string) => void; config: PanoramaConfig }) {
+  const best = Object.fromEntries(INDEX_KEYS.map((key) => [key, Math.max(...team.map((m) => m.variant.scores[key] ?? -Infinity))])) as Record<IndexKey, number>;
+  const arenaTop = Object.fromEntries(ARENA_ROWS.map((r) => [r.id, team.reduce<Interval | null>((acc, m) => { const c = arenaFor(sources, m.family, r.id); return c && (!acc || c.interval.rating > acc.rating) ? c.interval : acc; }, null)]));
+  return <div className="gm-team-cards">
+    {team.map((m) => <article key={m.family.id} className="gm-team-card">
+      <header><Mark company={m.family.creator} config={config} size={24} /><b>{m.family.name}</b>
+        <select aria-label={t(`Esforço de ${m.family.name}`, `${m.family.name} effort`)} value={m.variant.effort} onChange={(e) => onEffort(m.family.id, e.target.value)}>
+          {m.family.variants.map((v) => <option key={v.effort} value={v.effort}>{effortLabel(v.effort, english)}{plans?.defaults.get(m.family.id)?.effort === v.effort ? t(" · padrão", " · default") : ""}</option>)}
+        </select>
+      </header>
+      <dl>
+        {INDEX_KEYS.map((key) => {
+          const v = m.variant.scores[key];
+          const near = v !== null && best[key] - v < 1 && team.length > 1;
+          return <div key={key} className={near ? "is-near" : ""}><dt>{indexLabel(key, english)}</dt><dd>{v === null ? <span className="gm-na">{t("sem medida", "not measured")}</span> : formatScore(v, english)}{near && <small>{t("topo", "best")}</small>}</dd></div>;
+        })}
+        {sources && ARENA_ROWS.map((r) => {
+          const c = arenaFor(sources, m.family, r.id);
+          const top = arenaTop[r.id];
+          const near = c && top && team.length > 1 && (c.interval.upper ?? c.interval.rating) >= (top.lower ?? top.rating);
+          return <div key={r.id} className={near ? "is-near" : ""}><dt>LMArena · {english ? r.en : r.pt}</dt><dd>{c ? Math.round(c.interval.rating) : <span className="gm-na">—</span>}{near && <small>{t("topo", "best")}</small>}</dd></div>;
+        })}
+        <div><dt>{t("Custo por tarefa (API)", "Cost per task (API)")}</dt><dd>{formatCost(m.variant.costPerTask, english)}</dd></div>
+        <div><dt>{t("Tempo de resposta", "Response time")}</dt><dd>{formatTime(m.variant.e2e, english)}</dd></div>
+        <div><dt>{t("Incluído em", "Included in")}</dt><dd><small>{m.planIds.length ? m.planIds.map((id) => planLabel(plans?.plans.find((p) => p.id === id)?.name || id, english)).join(", ") : t("acrescentado por você", "added by you")}</small></dd></div>
+      </dl>
+    </article>)}
   </div>;
 }
 

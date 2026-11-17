@@ -39,6 +39,19 @@ export function Vozes({ models, sources, config, english, t, onPick }: Props) {
   const liked = [...points].sort((a, b) => b.shift - a.shift).slice(0, 5).filter((p) => p.shift > 2);
   const scored = [...points].sort((a, b) => a.shift - b.shift).slice(0, 5).filter((p) => p.shift < -2);
   const rhoText = rho === null ? "—" : english ? rho.toFixed(2) : rho.toFixed(2).replace(".", ",");
+  /* Rótulos só nos casos extremos (os da lista ao lado; no celular, os três de cada lado).
+     Cada rótulo vai para o lado com mais espaço e desce quando encosta num vizinho. */
+  const labeled = narrow ? [...liked.slice(0, 3), ...scored.slice(0, 3)] : [...liked, ...scored];
+  const labels = labeled.map((p) => {
+    const px = X(p.aa), py = Y(p.arena.rating), left = px > width - 150;
+    return { p, px, py, left, x: px + (left ? -9 : 9), y: py + 4 };
+  }).sort((a, b) => a.y - b.y);
+  labels.forEach((l, i) => {
+    for (let j = 0; j < i; j++) {
+      const o = labels[j];
+      if (o.left === l.left && Math.abs(o.x - l.x) < 130 && l.y - o.y < 13) l.y = o.y + 13;
+    }
+  });
 
   return <div className="gm-voices">
     <div className="gm-segmented" role="group" aria-label={t("Categoria do LMArena", "LMArena category")}>
@@ -67,7 +80,10 @@ export function Vozes({ models, sources, config, english, t, onPick }: Props) {
                 <circle cx={X(p.aa)} cy={Y(p.arena.rating)} r={5} fill={color} stroke="#fff" strokeWidth={1.5} />
               </g>;
             })}
-            {[...liked, ...scored].map((p) => <text key={`l-${p.family.id}`} x={X(p.aa) + (X(p.aa) > width - 140 ? -8 : 8)} y={Y(p.arena.rating) + 4} textAnchor={X(p.aa) > width - 140 ? "end" : "start"} className="gm-voice-label">{p.family.name}</text>)}
+            {labels.map((l) => <g key={`l-${l.p.family.id}`}>
+              {Math.abs(l.y - l.py) > 3 && <line x1={l.px} y1={l.py} x2={l.x + (l.left ? 2 : -2)} y2={l.y - 4} className="gm-leader" />}
+              <text x={l.x} y={l.y} textAnchor={l.left ? "end" : "start"} className="gm-voice-label">{l.p.family.name}</text>
+            </g>)}
             {hover && <circle cx={X(hover.aa)} cy={Y(hover.arena.rating)} r={9} className="gm-hover-ring" />}
           </svg>
           {hover && <div className="gm-tooltip" style={{ left: Math.min(width - 230, Math.max(0, X(hover.aa) + 12)), top: Math.max(0, Y(hover.arena.rating) - 80) }}>
@@ -76,14 +92,14 @@ export function Vozes({ models, sources, config, english, t, onPick }: Props) {
             <span>LMArena <b>{Math.round(hover.arena.rating)}</b>{hover.arena.lower !== null && ` (${Math.round(hover.arena.lower)}–${Math.round(hover.arena.upper!)})`}{hover.arenaEffort ? ` · ${effortLabel(hover.arenaEffort, english)}` : ""} · {t(`${hover.arenaRank}º`, `#${hover.arenaRank}`)}</span>
           </div>}
         </div>
-        <figcaption className="gm-caption">{t(`${points.length} modelos com as duas medidas. Correlação de postos entre as fontes: ${rhoText} (1 seria a mesma ordem). A barra vertical é o intervalo de confiança do LMArena; cada fonte aparece no esforço em que mediu.`, `${points.length} models with both measures. Rank correlation between the sources: ${rhoText} (1 would be the same order). The vertical bar is LMArena's confidence interval; each source appears at the effort it measured.`)}</figcaption>
+        <figcaption className="gm-caption">{t(`${points.length} modelos com as duas medidas. Correlação de postos entre as fontes: ${rhoText} (1 seria a mesma ordem). A cor de cada ponto é a da empresa; a barra vertical é o intervalo de confiança do LMArena; cada fonte aparece no esforço em que mediu.`, `${points.length} models with both measures. Rank correlation between the sources: ${rhoText} (1 would be the same order). Each dot takes its company's color; the vertical bar is LMArena's confidence interval; each source appears at the effort it measured.`)}</figcaption>
       </figure>
       <div className="gm-disagree">
         <h4>{t("Mais preferido do que a nota indica", "Preferred more than the score suggests")}</h4>
         <ol>{liked.map((p) => <li key={p.family.id}><button type="button" onClick={() => onPick(p.family.id)}><Mark company={p.family.creator} config={config} size={20} /><span>{p.family.name}</span><b className="is-up">↑{p.shift}</b></button></li>)}</ol>
-        <h4>{t("Nota maior do que a preferência", "Scores higher than it's preferred")}</h4>
+        <h4>{t("Nota maior do que a preferência", "Scores higher than its preference")}</h4>
         <ol>{scored.map((p) => <li key={p.family.id}><button type="button" onClick={() => onPick(p.family.id)}><Mark company={p.family.creator} config={config} size={20} /><span>{p.family.name}</span><b className="is-down">↓{-p.shift}</b></button></li>)}</ol>
-        <p className="gm-note">{t("Posições ganhas ou perdidas no LMArena em relação à ordem da Artificial Analysis, entre os modelos do gráfico.", "Positions gained or lost on LMArena relative to the Artificial Analysis order, among the models in the chart.")}{arena?.url && <> <a href={arena.url} target="_blank" rel="noreferrer">LMArena ↗</a></>}</p>
+        <p className="gm-note">{t("Posições ganhas ou perdidas no LMArena em relação à ordem da Artificial Analysis, entre os modelos do gráfico.", "Positions gained or lost on LMArena relative to the Artificial Analysis order, among the models in the chart.")}{arena?.url && <> <a href={arena.url} target="_blank" rel="noreferrer">{"LMArena\u00a0↗"}</a></>}</p>
       </div>
     </div>
   </div>;

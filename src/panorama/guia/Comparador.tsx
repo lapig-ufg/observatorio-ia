@@ -48,7 +48,7 @@ export function Comparador({ families, models, sources, plans, indexKey, config,
             <h3>{f.name}</h3>
             <small>{f.creator}{f.releaseDate ? ` · ${f.releaseDate.slice(0, 7).split("-").reverse().join("/")}` : ""}</small>
             <p><b>{formatScore(top?.scores.intelligence ?? null, english)}</b> {t("no melhor resultado", "at its best")} ({effortLabel(top?.effort || "", english)})</p>
-            {def && <p className="gm-note">{t("padrão do fabricante", "manufacturer default")}: {effortLabel(def.effort, english)}</p>}
+            <p className="gm-note">{t("padrão do fabricante", "manufacturer default")}: {def ? effortLabel(def.effort, english) : t("não informado", "not stated")}</p>
           </section>;
         })}
       </div>
@@ -61,8 +61,9 @@ export function Comparador({ families, models, sources, plans, indexKey, config,
             <button type="button" aria-pressed={relative} onClick={() => setRelative(true)}>{t("em relação à mediana", "versus the median")}</button>
           </div>
         </div>
+        <p className="gm-shape-legend">{families.map((f, i) => <span key={f.id}><svg width="14" height="14" aria-hidden="true"><Shape i={i} x={7} y={7} color={colors[i]} /></svg>{f.name}</span>)}</p>
         <DotPlot families={families} colors={colors} medians={medians} relative={relative} english={english} t={t} positions={positions} />
-        <p className="gm-note">{relative ? t("Pontos à direita da linha central estão acima da mediana dos modelos medidos naquele índice. Assim aparece o que é próprio de cada modelo: “Estratégia” costuma ter as notas mais altas para todos, e a escala crua faria todos parecerem estrategistas.", "Dots to the right of the center line are above the median of measured models on that index. This shows what is specific to each model: “Strategy” tends to score highest for everyone, and the raw scale would make all of them look like strategists.") : t("Mesma escala de 0 a 100 em todos os índices. A Artificial Analysis não publica a composição dos índices de domínio; só a do índice geral.", "The same 0–100 scale for every index. Artificial Analysis doesn't publish how the domain indices are built; only the overall index.")}</p>
+        <p className="gm-note">{relative ? t("Pontos à direita da linha central estão acima da mediana dos modelos medidos naquele índice. Assim aparece o que é próprio de cada modelo: “Estratégia” costuma ter as notas mais altas para todos, e a escala crua faria todos parecerem estrategistas.", "Dots to the right of the center line are above the median of measured models on that index. This shows what is specific to each model: “Strategy” tends to score highest for everyone, and the raw scale would make all of them look like strategists.") : t("Notas de 0 a 100 em todos os índices; o eixo começa perto do menor valor, para os pontos não se amontoarem. A Artificial Analysis não publica a composição dos índices de domínio, só a do índice geral.", "Scores from 0 to 100 on every index; the axis starts near the lowest value so the dots don't pile up. Artificial Analysis doesn't publish how the domain indices are built, only the overall index.")}</p>
       </section>
 
       <section className="gm-compare-block">
@@ -106,6 +107,17 @@ export function Comparador({ families, models, sources, plans, indexKey, config,
   </dialog>;
 }
 
+/* Forma por modelo (círculo, quadrado, triângulo, losango): a cor sozinha não basta
+   quando dois modelos são da mesma empresa ou para quem não distingue cores. */
+function Shape({ i, x, y, color }: { i: number; x: number; y: number; color: string }) {
+  const r = 6;
+  const common = { fill: color, stroke: "#fff", strokeWidth: 1.5 };
+  if (i === 1) return <rect x={x - r + 0.5} y={y - r + 0.5} width={2 * r - 1} height={2 * r - 1} {...common} />;
+  if (i === 2) return <polygon points={`${x},${y - r - 1} ${x + r + 0.5},${y + r - 0.5} ${x - r - 0.5},${y + r - 0.5}`} {...common} />;
+  if (i === 3) return <polygon points={`${x},${y - r - 1} ${x + r + 1},${y} ${x},${y + r + 1} ${x - r - 1},${y}`} {...common} />;
+  return <circle cx={x} cy={y} r={r} {...common} />;
+}
+
 function Row({ label, cells }: { label: string; cells: React.ReactNode[] }) {
   return <><span className="gm-sources-label">{label}</span>{cells.map((c, i) => <span key={i} className="gm-sources-cell">{c}</span>)}</>;
 }
@@ -145,9 +157,10 @@ function DotPlot({ families, colors, medians, relative, english, t, positions }:
             const v = relative ? deltas[i][r] : values[i][r];
             const pos = positions.get(f.id)?.[key];
             if (v === null) return <text key={f.id} x={x1} y={y + 4} className="gm-tick" textAnchor="end">{i === 0 ? t("sem medida", "not measured") : ""}</text>;
-            return <circle key={f.id} cx={X(v)} cy={y + (i - (families.length - 1) / 2) * 3} r={6} fill={colors[i]} stroke="#fff" strokeWidth={1.5}>
+            return <g key={f.id}>
               <title>{`${f.name} · ${indexLabel(key, english)}: ${formatScore(values[i][r], english)}${pos ? ` · ${pos.position}/${pos.total}` : ""}`}</title>
-            </circle>;
+              <Shape i={i} x={X(v)} y={y + (i - (families.length - 1) / 2) * 3} color={colors[i]} />
+            </g>;
           })}
         </g>;
       })}

@@ -45,15 +45,17 @@ export function Ranking({ rows, indexKey, config, plans, english, t, compare, ma
       <span />
     </div>
     <ol className="gm-rank-list">
-      {visible.map((row) => {
+      {visible.map((row, i) => {
         const { family, top } = row;
+        // Empate marca o grupo inteiro: quem está a menos de 1 ponto do vizinho de cima ou de baixo.
+        const tied = row.tieWithPrevious || Boolean(visible[i + 1]?.tieWithPrevious);
         const color = familyColor(family.creator, config);
         const expanded = open === family.id;
         const selected = compare.includes(family.id);
         const scored = family.variants.filter((v) => v.scores[indexKey] !== null);
         return <li key={family.id} className={`gm-rank-row${expanded ? " is-open" : ""}`}>
           <div className="gm-rank-line">
-            <span className="gm-pos">{row.tieWithPrevious && <abbr title={t("Menos de 1 ponto do modelo acima: empate técnico", "Less than 1 point below the model above: a statistical tie")}>≈</abbr>}{row.position}</span>
+            <span className="gm-pos">{tied && <abbr title={t("Menos de 1 ponto de um vizinho: empate técnico", "Less than 1 point from a neighbor: a statistical tie")}>≈</abbr>}{row.position}</span>
             <span className="gm-ident">
               <Mark company={family.creator} config={config} />
               <span><strong>{family.name}</strong><small>{family.creator} · <span className="gm-effort-tag">{effortLabel(top.effort, english)}</span></small></span>
@@ -67,8 +69,10 @@ export function Ranking({ rows, indexKey, config, plans, english, t, compare, ma
                 return <span key={v.effort} className={`gm-dot${isTop ? " is-top" : ""}`} style={{ left: pct(v.scores[indexKey]!), borderColor: color, background: isTop ? color : "#fff" }} title={`${effortLabel(v.effort, english)}: ${formatScore(v.scores[indexKey], english)}`} />;
               })}
             </span>
+            <span className="gm-consume">
             <span className="gm-num gm-cost"><span className="gm-mobile-label">{t("Custo ", "Cost ")}</span>{formatCost(top.costPerTask, english)}</span>
             <span className="gm-num gm-time"><span className="gm-mobile-label">{t("Tempo ", "Time ")}</span>{formatTime(top.e2e, english)}</span>
+            </span>
             <span className="gm-actions">
               {scored.length > 1 && <button type="button" className="gm-ladder-button" aria-expanded={expanded} aria-controls={`gm-ladder-${family.id}`} onClick={() => { setOpen(expanded ? null : family.id); if (!expanded) onEvent("ladder", family.id); }}>
                 <span>{t("Escada", "Ladder")}</span><b>{scored.length}</b><ChevronDown size={15} aria-hidden="true" />
@@ -78,7 +82,7 @@ export function Ranking({ rows, indexKey, config, plans, english, t, compare, ma
               </button>
             </span>
           </div>
-          {expanded && <Ladder family={family} indexKey={indexKey} color={color} plans={plans} english={english} t={t} id={`gm-ladder-${family.id}`} axisMax={axisMax} />}
+          {expanded && <Ladder family={family} indexKey={indexKey} plans={plans} english={english} t={t} id={`gm-ladder-${family.id}`} axisMax={axisMax} />}
         </li>;
       })}
     </ol>
@@ -90,7 +94,7 @@ export function Ranking({ rows, indexKey, config, plans, english, t, compare, ma
 
 /* A escada de um modelo: cada esforço com nota, custo e tempo, o que muda de um
    degrau para o outro, e a comparação do modelo com ele mesmo. */
-function Ladder({ family, indexKey, color, plans, english, t, id, axisMax }: { family: Family; indexKey: IndexKey; color: string; plans: GuidePlans | null; english: boolean; t: T; id: string; axisMax: number }) {
+function Ladder({ family, indexKey, plans, english, t, id, axisMax }: { family: Family; indexKey: IndexKey; plans: GuidePlans | null; english: boolean; t: T; id: string; axisMax: number }) {
   const scored = family.variants.filter((v) => v.scores[indexKey] !== null);
   const steps = effortSteps(family, indexKey);
   const fallback = plans?.defaults.get(family.id);
@@ -115,7 +119,7 @@ function Ladder({ family, indexKey, color, plans, english, t, id, axisMax }: { f
         const isDefault = fallback?.effort === v.effort;
         return <div key={v.effort} className={`gm-ladder-row${isDefault ? " is-default" : ""}`} role="row">
           <span role="cell" className="gm-ladder-effort"><b>{effortLabel(v.effort, english)}</b>{isDefault && <small>{t("padrão", "default")}</small>}</span>
-          <span role="cell" className="gm-ladder-bar"><span style={{ width: pct(v.scores[indexKey]!), background: color }} /><b>{formatScore(v.scores[indexKey], english)}</b></span>
+          <span role="cell" className="gm-ladder-bar"><span style={{ width: pct(v.scores[indexKey]!) }} /><b>{formatScore(v.scores[indexKey], english)}</b></span>
           <span role="cell" className="gm-num">{formatCost(v.costPerTask, english)}</span>
           <span role="cell" className="gm-num">{formatTime(v.e2e, english)}</span>
           <span role="cell" className="gm-ladder-step">{step ? <StepText step={step} english={english} t={t} /> : <small>{t("primeiro degrau medido", "first measured step")}</small>}</span>

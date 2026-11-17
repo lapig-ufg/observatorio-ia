@@ -402,7 +402,7 @@ export function formatCost(value: number | null, english = false) {
   if (value === null) return "—";
   const digits = value < 0.1 ? 3 : 2;
   const text = value.toFixed(digits);
-  return `US$ ${english ? text : text.replace(".", ",")}`;
+  return english ? `$${text}` : `US$ ${text.replace(".", ",")}`;
 }
 
 export function formatTime(seconds: number | null, english = false) {
