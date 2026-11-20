@@ -43,8 +43,16 @@ test("English catalog preserves source identity and access fields", () => {
   for (const record of pt) {
     const translated = enById.get(record.id);
     assert.ok(translated, `missing English record ${record.id}`);
-    for (const field of ["ativo", "tipo", "url_pdf_institucional", "capa", "idioma", "data_inclusao"]) {
+    for (const field of ["ativo", "tipo", "capa", "idioma", "data_inclusao"]) {
       assert.equal(translated[field], record[field], `${record.id}: ${field} changed`);
+    }
+    if (record.id === "documento-cne-cp-parecer-15-2026") {
+      const drivePdf = /^https:\/\/drive\.google\.com\/file\/d\/[\w-]+\/view$/;
+      assert.match(record.url_pdf_institucional, drivePdf);
+      assert.match(translated.url_pdf_institucional, drivePdf);
+      assert.notEqual(translated.url_pdf_institucional, record.url_pdf_institucional, `${record.id}: expected a PDF for each language`);
+    } else {
+      assert.equal(translated.url_pdf_institucional, record.url_pdf_institucional, `${record.id}: url_pdf_institucional changed`);
     }
     assert.equal(withoutLanguage(translated.url_original), withoutLanguage(record.url_original), `${record.id}: url_original changed`);
   }
