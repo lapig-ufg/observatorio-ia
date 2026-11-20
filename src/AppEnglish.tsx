@@ -144,7 +144,7 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 
 const featuredHistoryEnglish = [
   {
-    "date": "Nov 15–21, 2026",
+    "date": "Nov 15–20, 2026",
     "source": "Practical course from the UFG-AI Observatory",
     "title": "From chat to agent",
     "summary": "An eight-hour course over two sessions on using AI with documents, spreadsheets and photos. Start with chat in a browser, then practise with files on your computer and check results at each stage.",

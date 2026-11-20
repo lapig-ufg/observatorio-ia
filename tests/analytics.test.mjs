@@ -9,7 +9,7 @@ const bootstrap = readFileSync('public/analytics-bootstrap.js', 'utf8');
 test('published manifest includes every current material with its actual kind and destination', () => {
   const m = featuredManifest(source);
   assert.equal(m.schemaVersion, 1);
-  assert.equal(m.startsOn, '2026-11-22');
+  assert.equal(m.startsOn, '2026-11-20');
   assert.equal(m.edition, 'IA na educação brasileira');
   assert.deepEqual(m.editionAliases, ['AI in Brazilian education']);
   assert.equal(m.materials.length, 4);

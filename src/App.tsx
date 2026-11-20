@@ -90,7 +90,7 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
-    "date": "15 a 21 de novembro de 2026",
+    "date": "15 a 20 de novembro de 2026",
     "source": "Curso prático do Observatório UFG-IA",
     "title": "Do chat ao agente",
     "summary": "Curso de oito horas, em dois encontros, para usar IA com documentos, planilhas e fotos. Da conversa no navegador à prática com arquivos no computador, com conferência dos resultados em cada etapa.",

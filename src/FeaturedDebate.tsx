@@ -18,7 +18,7 @@ const courseEditions = {
   pt: {
     startsOn: "2026-11-15",
     kicker: "Em destaque...",
-    period: "15 a 21 nov 2026 · curso prático do Observatório UFG-IA",
+    period: "15 a 20 nov 2026 · curso prático do Observatório UFG-IA",
     eyebrow: "Aprenda a usar IA no dia a dia",
     title: "Do chat ao agente",
     lead: "Um curso prático de oito horas, em dois encontros, para quem trabalha com documentos, planilhas e fotos e não programa. Comece pelo chat no navegador e pratique com a IA em uma pasta no seu computador. Em cada etapa, aprenda a conferir o resultado.",
@@ -51,7 +51,7 @@ const courseEditions = {
   },
   en: {
     kicker: "Featured",
-    period: "Nov 15–21, 2026 · practical course from the UFG-AI Observatory",
+    period: "Nov 15–20, 2026 · practical course from the UFG-AI Observatory",
     eyebrow: "Learn to use AI in everyday work",
     title: "From chat to agent",
     lead: "An eight-hour practical course over two sessions for people who work with documents, spreadsheets and photos and have no programming experience. Start with AI chat in your browser, then practise using AI with a folder on your computer. Learn to check the results at every stage.",
@@ -95,9 +95,9 @@ const educationLinks = {
 
 const editions = {
   pt: {
-    startsOn: "2026-11-22",
+    startsOn: "2026-11-20",
     kicker: "Em destaque...",
-    period: "22 a 28 nov 2026 · Conselho Nacional de Educação",
+    period: "20 a 28 nov 2026 · Conselho Nacional de Educação",
     eyebrow: "Resolução CNE/CP nº 1/2026",
     title: "IA na educação brasileira",
     lead: "Quando a IA pode apoiar o ensino? A Resolução CNE/CP nº 1/2026 define regras por etapa, protege os dados dos estudantes e mantém a responsabilidade pedagógica com as pessoas. Conheça a norma, veja a apresentação e ouça o episódio.",
@@ -139,7 +139,7 @@ const editions = {
   },
   en: {
     kicker: "Featured",
-    period: "Nov 22–28, 2026 · Brazil’s National Council of Education",
+    period: "Nov 20–28, 2026 · Brazil’s National Council of Education",
     eyebrow: "CNE/CP Resolution No. 1/2026",
     title: "AI in Brazilian education",
     lead: "When can AI support teaching? CNE/CP Resolution No. 1/2026 sets rules by stage of education, protects student data and keeps people responsible for teaching and assessment. Read the resolution, view the slides and listen to the episode.",
