@@ -117,6 +117,7 @@ export function CatalogCard({ article, position = "catalog", english = false, ex
   const author = english ? article.author.replace("Autoria não identificada", "Author not identified").replace("(entrevistado)", "(interviewee)") : article.author;
   const byline = [...new Set([author, article.source].filter(Boolean))].join(" · ");
   const action = article.type === "medium" ? (english ? "Read publication" : "Ler publicação") : article.type === "audio" ? (english ? "Listen" : "Ouvir áudio") : article.type === "entrevista" || thumbnail ? (english ? "Watch video" : "Assistir vídeo") : article.type === "apresentacao" ? (english ? "View presentation" : "Ver apresentação") : english ? "Read source" : "Acessar fonte";
+  const showCneDocuments = expanded && article.id === "documento-cne-cp-parecer-15-2026";
   const primaryUrl = article.originalUrl || (article.type !== "medium" ? article.institutionalPdfUrl : "");
   return <article className={`article-card compact-card type-${article.type}${expanded ? " expanded-card" : ""}`}>
     {!expanded && layout === "cards" && <div className={`cover-frame${cover && !failed ? " has-image" : " category-cover"}`}>
@@ -139,8 +140,18 @@ export function CatalogCard({ article, position = "catalog", english = false, ex
         </dl>}
         <div className="article-actions">
           {!expanded && <a id={`summary-${article.id}`} className="secondary-action summary-action" href={href} onClick={(event) => onOpen?.(event, article.id)} aria-label={`${english ? "Read summary" : "Ver resumo"}: ${article.title}`}>{english ? "Read summary" : "Ver resumo"}</a>}
-          {primaryUrl ? <a className="article-action" href={primaryUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_article", { event_category: "article", event_label: article.id, article_type: article.type, position })}>{action} <ArrowUpRight size={17} aria-hidden="true" /></a> : <span>{english ? "Link under review" : "Link em revisão"}</span>}
-          {expanded && article.type !== "medium" && article.institutionalPdfUrl && article.originalUrl && article.institutionalPdfUrl !== article.originalUrl && <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer">{english ? "Institutional PDF" : "PDF institucional"} <ArrowUpRight size={16} aria-hidden="true" /></a>}
+          {showCneDocuments && (
+            <a className="article-action" href="https://www.in.gov.br/web/dou/-/resolucao-cne/cp-n-1-de-11-de-novembro-de-2026-744136563" target="_blank" rel="noreferrer">
+              {english ? "Resolution No. 1/2026 (Official Gazette)" : "Resolução nº 1/2026 no DOU"} <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+          )}
+          {primaryUrl ? <a className={showCneDocuments ? "secondary-action" : "article-action"} href={primaryUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("open_article", { event_category: "article", event_label: article.id, article_type: article.type, position })}>{showCneDocuments ? (english ? "Full opinion (PDF)" : "Parecer integral (PDF)") : action} <ArrowUpRight size={17} aria-hidden="true" /></a> : <span>{english ? "Link under review" : "Link em revisão"}</span>}
+          {showCneDocuments && (
+            <a className="secondary-action" href="https://www.in.gov.br/web/dou/-/despacho-mec-de-10-de-novembro-de-2026-743562031" target="_blank" rel="noreferrer">
+              {english ? "Ministerial ratification notice (Official Gazette)" : "Despacho de homologação no DOU"} <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          )}
+          {expanded && article.type !== "medium" && article.institutionalPdfUrl && article.originalUrl && article.institutionalPdfUrl !== article.originalUrl && <a className="secondary-action" href={article.institutionalPdfUrl} target="_blank" rel="noreferrer">{showCneDocuments ? (english ? "One-page summary (PDF)" : "Síntese de uma página (PDF)") : english ? "Institutional PDF" : "PDF institucional"} <ArrowUpRight size={16} aria-hidden="true" /></a>}
         </div>
       </div>
     </div>
