@@ -9,7 +9,7 @@ import { PortalSectionCards } from "./PortalSectionCards";
 import { HomeSectionHeading } from "./HomeSectionHeading";
 import { HomeAdditions } from "./HomeAdditions";
 import { PressSummary, type NewsSummary } from "./PressSummary";
-import { FeaturedDebate } from "./FeaturedDebate";
+import { FeaturedDebate, isEducationEdition } from "./FeaturedDebate";
 import { InitiativeCard } from "./InitiativeCard";
 
 export type FeaturedHistoryItem = { date: string; source: string; title: string; summary: string; links?: { label: string; href: string }[]; href?: string; eventLabel: string };
@@ -17,6 +17,7 @@ type Props = { english?: boolean; articles: Article[]; initiatives: Initiative[]
 
 export function PortalHome({ english = false, articles, initiatives, catalog, error, query, setQuery, setSelectedKeyword, setAdded, revealCatalog, detailHref, openDetail, featuredHistory, showFeaturedHistory, setShowFeaturedHistory, newsSummary }: Props) {
   const recentArticles = useMemo(() => selectRecentAdditions(articles, (left, right) => catalogDate(right.includedAt) - catalogDate(left.includedAt) || newestFirst(left, right), article => article.type === "link-video" && !!videoThumbnail(article.originalUrl)), [articles]);
+  const previousHighlights = isEducationEdition() ? featuredHistory : featuredHistory.filter(item => item.eventLabel !== "do-chat-ao-agente-20261115");
   return (<div className="pt-home-page">
       <section className="pt-home-opening" aria-labelledby="page-title">
         <p className="eyebrow">{english ? "Artificial intelligence in perspective" : "Inteligência artificial em perspectiva"}</p>
@@ -49,7 +50,7 @@ export function PortalHome({ english = false, articles, initiatives, catalog, er
           <div id="weekly-highlight-history" className="weekly-highlight-history" aria-label={english ? "Previously featured topics" : "Temas anteriores em destaque"}>
             <p className="eyebrow">{english ? "Previous highlights" : "Destaques anteriores"}</p>
             <div className="weekly-highlight-history-grid">
-              {featuredHistory.map((featured) => {
+              {previousHighlights.map((featured) => {
                 const links = featured.links ?? [{ label: english ? "Open topic" : "Acessar tema", href: featured.href || "#" }];
                 return <article key={featured.eventLabel} className="weekly-highlight-history-item">
                   <p>{featured.date} · {featured.source}</p>

@@ -9,19 +9,19 @@ const bootstrap = readFileSync('public/analytics-bootstrap.js', 'utf8');
 test('published manifest includes every current material with its actual kind and destination', () => {
   const m = featuredManifest(source);
   assert.equal(m.schemaVersion, 1);
-  assert.equal(m.startsOn, '2026-11-15');
-  assert.equal(m.edition, 'Do chat ao agente');
-  assert.deepEqual(m.editionAliases, ['From chat to agent']);
+  assert.equal(m.startsOn, '2026-11-22');
+  assert.equal(m.edition, 'IA na educação brasileira');
+  assert.deepEqual(m.editionAliases, ['AI in Brazilian education']);
   assert.equal(m.materials.length, 4);
-  assert.deepEqual(m.materials.map(x => x.kind), ['lesson', 'lesson', 'lesson', 'lesson']);
-  assert.deepEqual(m.materials.map(x => x.title), ['Assista à aula', 'Pratique no navegador', 'Pratique no computador', 'Acessar o curso']);
+  assert.deepEqual(m.materials.map(x => x.kind), ['document', 'document', 'presentation', 'audio']);
+  assert.deepEqual(m.materials.map(x => x.title), ['Resolução CNE/CP nº 1/2026', 'Resolução CNE/CP nº 1/2026', 'Diretrizes de IA na educação brasileira', 'Novas regras da IA nas escolas']);
   assert.deepEqual(m.materials.map(x => x.href), [
-    'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/aula.html',
-    'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica.html',
-    'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica-3.html',
-    'https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/',
+    'https://www.in.gov.br/web/dou/-/resolucao-cne/cp-n-1-de-11-de-novembro-de-2026-744136563',
+    'https://lapig-ufg.github.io/observatorio-ia/?item=documento-cne-cp-parecer-15-2026#item',
+    'https://drive.google.com/file/d/1fnq7F2oIsrEtgSSmKknfFpWA80D3Udpo/view',
+    'https://drive.google.com/file/d/1tbsRLBdu299Yv8lXj0ytUO7dIyCwP4Nk/view',
   ]);
-  assert.throws(() => featuredManifest(source.replaceAll('kind: "lesson"', 'kind: "unknown"')), /Invalid featured/);
+  assert.throws(() => featuredManifest(source.replaceAll('kind: "audio"', 'kind: "unknown"')), /Invalid featured/);
   assert.throws(() => featuredManifest(source.replaceAll('href:', 'missingHref:')), /Missing featured/);
 });
 

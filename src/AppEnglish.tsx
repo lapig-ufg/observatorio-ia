@@ -144,6 +144,19 @@ const ecosystemInitiativeTranslationsEnglish: Record<string, Pick<Initiative, "n
 
 const featuredHistoryEnglish = [
   {
+    "date": "Nov 15–21, 2026",
+    "source": "Practical course from the UFG-AI Observatory",
+    "title": "From chat to agent",
+    "summary": "An eight-hour course over two sessions on using AI with documents, spreadsheets and photos. Start with chat in a browser, then practise with files on your computer and check results at each stage.",
+    "links": [
+      { "label": "Open the course (Portuguese)", "href": "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/" },
+      { "label": "Open the lesson (Portuguese)", "href": "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/aula.html" },
+      { "label": "Practise in the browser (Portuguese)", "href": "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica.html" },
+      { "label": "Practise on your computer (Portuguese)", "href": "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica-3.html" }
+    ],
+    "eventLabel": "do-chat-ao-agente-20261115"
+  },
+  {
     "date": "Nov 8–14, 2026",
     "source": "Nathan Benaich / Air Street Capital · UFG-AI Observatory curation",
     "title": "State of AI Report 2026",

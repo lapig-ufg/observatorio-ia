@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { ArrowUpRight, FileText, Headphones, Presentation, TableProperties, Network } from "lucide-react";
 import { trackEvent } from "./analytics";
 import { assetUrl } from "./catalog";
+import { radarDateWindow } from "./radarPeriod";
 
 type Language = "pt" | "en";
 type MaterialKind = "audio" | "presentation" | "document" | "survey" | "lesson";
@@ -13,7 +14,7 @@ const courseLinks = {
   desktopPractice: "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica-3.html",
 } as const;
 
-const editions = {
+const courseEditions = {
   pt: {
     startsOn: "2026-11-15",
     kicker: "Em destaque...",
@@ -84,8 +85,110 @@ const editions = {
   },
 } as const;
 
+const educationLinks = {
+  resolution: "https://www.in.gov.br/web/dou/-/resolucao-cne/cp-n-1-de-11-de-novembro-de-2026-744136563",
+  presentation: "https://drive.google.com/file/d/1fnq7F2oIsrEtgSSmKknfFpWA80D3Udpo/view",
+  audio: "https://drive.google.com/file/d/1tbsRLBdu299Yv8lXj0ytUO7dIyCwP4Nk/view",
+  itemPt: "https://lapig-ufg.github.io/observatorio-ia/?item=documento-cne-cp-parecer-15-2026#item",
+  itemEn: "https://lapig-ufg.github.io/observatorio-ia/en/?item=documento-cne-cp-parecer-15-2026#item",
+} as const;
+
+const editions = {
+  pt: {
+    startsOn: "2026-11-22",
+    kicker: "Em destaque...",
+    period: "22 a 28 nov 2026 · Conselho Nacional de Educação",
+    eyebrow: "Resolução CNE/CP nº 1/2026",
+    title: "IA na educação brasileira",
+    lead: "Quando a IA pode apoiar o ensino? A Resolução CNE/CP nº 1/2026 define regras por etapa, protege os dados dos estudantes e mantém a responsabilidade pedagógica com as pessoas. Conheça a norma, veja a apresentação e ouça o episódio.",
+    imageAlt: "Uma professora conversa com dois estudantes diante de um caderno aberto. Um computador está ao lado.",
+    imageCredit: "Ilustração editorial gerada com IA · Observatório UFG-IA",
+    explore: "Materiais para entender a resolução",
+    first: "A resolução entrou em vigor em 12 de novembro de 2026. O art. 46 dá 12 meses para que redes e instituições façam as adequações necessárias. As vedações do art. 41, como a vigilância biométrica contínua e as decisões exclusivamente automatizadas com efeitos relevantes, valem desde a publicação.",
+    second: "Na Educação Infantil, a norma veda o uso de IA pelas crianças, mesmo com mediação. Nos anos iniciais do Ensino Fundamental, a interação de estudantes com IA generativa ou conversacional é vedada mesmo com supervisão. Nos anos finais, o uso de IA generativa só é admitido em atividades com mediação de profissionais da educação (arts. 21 a 23).",
+    quick: [
+      { kind: "document", label: "Ler a resolução no DOU", href: educationLinks.resolution },
+      { kind: "document", label: "Ver a síntese e o parecer", href: educationLinks.itemPt },
+      { kind: "presentation", label: "Ver a apresentação (PDF)", href: educationLinks.presentation },
+      { kind: "audio", label: "Ouvir o episódio (12 min)", href: educationLinks.audio },
+    ],
+    note: "Na apresentação, a lâmina 6 reúne anos finais e Ensino Médio. O art. 23 da resolução trata dos anos finais do Ensino Fundamental.",
+    cards: [
+      {
+        meta: "Diário Oficial da União · 12/11/2026",
+        title: "Resolução CNE/CP nº 1/2026",
+        description: "Texto oficial das diretrizes e ficha do Observatório com síntese de uma página, parecer integral e despacho de homologação.",
+        links: [
+          { kind: "document", label: "Ler o texto oficial", href: educationLinks.resolution },
+          { kind: "document", label: "Abrir a ficha da norma", href: educationLinks.itemPt },
+        ],
+      },
+      {
+        meta: "Apresentação · PDF · 15 lâminas",
+        title: "Diretrizes de IA na educação brasileira",
+        description: "Guia visual sobre mediação docente, regras por etapa e níveis de risco. Na lâmina 7, a incorporação da política ao PDI e aos PPCs é prevista quando pertinente (art. 27, § 1º). Na lâmina 12, o relatório de impacto à proteção de dados é exigido quando aplicável (art. 40, § 2º, II).",
+        links: [{ kind: "presentation", label: "Abrir a apresentação", href: educationLinks.presentation }],
+      },
+      {
+        meta: "Áudio em português · 12 min",
+        title: "Novas regras da IA nas escolas",
+        description: "Episódio complementar sobre as diretrizes.",
+        links: [{ kind: "audio", label: "Abrir o áudio no Drive", href: educationLinks.audio }],
+      },
+    ],
+  },
+  en: {
+    kicker: "Featured",
+    period: "Nov 22–28, 2026 · Brazil’s National Council of Education",
+    eyebrow: "CNE/CP Resolution No. 1/2026",
+    title: "AI in Brazilian education",
+    lead: "When can AI support teaching? CNE/CP Resolution No. 1/2026 sets rules by stage of education, protects student data and keeps people responsible for teaching and assessment. Read the resolution, view the slides and listen to the episode.",
+    imageAlt: "A teacher talks with two students over an open notebook, with a laptop to one side.",
+    imageCredit: "AI-generated editorial illustration · UFG-AI Observatory",
+    explore: "Materials for understanding the resolution",
+    first: "The resolution took effect on November 12, 2026. Article 46 gives education systems and institutions 12 months to make the required adjustments. The prohibitions in Article 41, including continuous biometric surveillance and solely automated decisions with significant effects, have applied since publication.",
+    second: "Children in early childhood education may not use AI, even with adult mediation. In the early grades of fundamental education, students may not interact with generative or conversational AI even under supervision. In the later grades, generative AI may only be used in activities mediated by education professionals (Articles 21–23).",
+    quick: [
+      { kind: "document", label: "Read the resolution (Portuguese)", href: educationLinks.resolution },
+      { kind: "document", label: "See the English summary", href: educationLinks.itemEn },
+      { kind: "presentation", label: "View the slides (Portuguese)", href: educationLinks.presentation },
+      { kind: "audio", label: "Listen in Portuguese (12 min)", href: educationLinks.audio },
+    ],
+    note: "Slide 6 groups the later grades of fundamental education and upper secondary education. Article 23 addresses only the later grades of fundamental education.",
+    cards: [
+      {
+        meta: "Brazilian Official Gazette · Nov 12, 2026",
+        title: "CNE/CP Resolution No. 1/2026",
+        description: "The official guidelines and the Observatory entry with a one-page English summary, the full opinion and the ministerial ratification notice.",
+        links: [
+          { kind: "document", label: "Read the official text (Portuguese)", href: educationLinks.resolution },
+          { kind: "document", label: "Open the Observatory entry", href: educationLinks.itemEn },
+        ],
+      },
+      {
+        meta: "Presentation · 15 slides · Portuguese PDF",
+        title: "AI guidelines for Brazilian education",
+        description: "A visual guide to teacher mediation, rules by stage of education and risk levels. For slide 7, the resolution calls for including AI policies in institutional development and course plans where relevant (Article 27, § 1). For slide 12, a data protection impact report is required where applicable (Article 40, § 2, II).",
+        links: [{ kind: "presentation", label: "Open the slides (Portuguese)", href: educationLinks.presentation }],
+      },
+      {
+        meta: "Portuguese audio · 12 min",
+        title: "New rules for AI in schools",
+        description: "A companion episode about the guidelines.",
+        links: [{ kind: "audio", label: "Open the audio in Drive (Portuguese)", href: educationLinks.audio }],
+      },
+    ],
+  },
+} as const;
+
+export function isEducationEdition(now = new Date()) {
+  return radarDateWindow(now).end >= editions.pt.startsOn;
+}
+
 // O Sobre reaproveita a data editorial da edição, sem manter uma segunda cópia.
-export const featuredPeriod = { label: editions.pt.period.split(" · ")[0], englishLabel: editions.en.period.split(" · ")[0] };
+export function featuredPeriod(language: Language) {
+  return (isEducationEdition() ? editions : courseEditions)[language].period.split(" · ")[0];
+}
 
 function MaterialIcon({ kind }: { kind: MaterialKind }) {
   if (kind === "audio") return <Headphones size={15} aria-hidden="true" />;
@@ -97,7 +200,8 @@ function MaterialIcon({ kind }: { kind: MaterialKind }) {
 }
 
 export function FeaturedDebate({ language, weeklyBadge = false }: { language: Language; weeklyBadge?: boolean }) {
-  const edition = editions[language];
+  const education = isEducationEdition();
+  const edition = (education ? editions : courseEditions)[language];
   const Title = weeklyBadge || language === "pt" ? "h3" : "h2";
   const introRef = useRef<HTMLDivElement>(null);
 
@@ -137,7 +241,7 @@ export function FeaturedDebate({ language, weeklyBadge = false }: { language: La
         {"note" in edition && <small className="featured-material-note">{edition.note}</small>}
       </div>
       <figure className="featured-debate-art">
-        <img src={assetUrl("do-chat-ao-agente/assets/img/domino.jpg")} alt={edition.imageAlt} width="1600" height="900" decoding="async" />
+        {education ? <img src={assetUrl("covers/ia-educacao-brasileira-2026-11-22-1280.webp")} srcSet={`${assetUrl("covers/ia-educacao-brasileira-2026-11-22-640.webp")} 640w, ${assetUrl("covers/ia-educacao-brasileira-2026-11-22-1280.webp")} 1280w`} sizes="(max-width: 760px) calc(100vw - 56px), 510px" alt={edition.imageAlt} width="1280" height="720" decoding="async" /> : <img src={assetUrl("do-chat-ao-agente/assets/img/domino.jpg")} alt={edition.imageAlt} width="1600" height="900" decoding="async" />}
         <figcaption>{edition.imageCredit}</figcaption>
       </figure>
     </div>

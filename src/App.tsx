@@ -90,6 +90,19 @@ const ecosystemFeaturedInitiatives: Initiative[] = [
 
 const featuredHistory = [
   {
+    "date": "15 a 21 de novembro de 2026",
+    "source": "Curso prático do Observatório UFG-IA",
+    "title": "Do chat ao agente",
+    "summary": "Curso de oito horas, em dois encontros, para usar IA com documentos, planilhas e fotos. Da conversa no navegador à prática com arquivos no computador, com conferência dos resultados em cada etapa.",
+    "links": [
+      { "label": "Acessar o curso", "href": "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/" },
+      { "label": "Abrir a aula", "href": "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/aula.html" },
+      { "label": "Praticar no navegador", "href": "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica.html" },
+      { "label": "Praticar no computador", "href": "https://lapig-ufg.github.io/observatorio-ia/do-chat-ao-agente/pratica-3.html" }
+    ],
+    "eventLabel": "do-chat-ao-agente-20261115"
+  },
+  {
     "date": "8 a 14 de novembro de 2026",
     "source": "Nathan Benaich / Air Street Capital · curadoria do Observatório UFG-IA",
     "title": "State of AI Report 2026",

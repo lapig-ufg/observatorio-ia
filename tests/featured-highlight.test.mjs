@@ -2,11 +2,23 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 
-test("destaque bilíngue divulga o curso e preserva as edições anteriores", () => {
+test("destaque bilíngue apresenta a resolução e preserva as edições anteriores", () => {
   const feature = fs.readFileSync("src/FeaturedDebate.tsx", "utf8");
   const pt = fs.readFileSync("src/App.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8");
   const en = fs.readFileSync("src/AppEnglish.tsx", "utf8") + fs.readFileSync("src/PortalHome.tsx", "utf8");
 
+  assert.match(feature, /22 a 28 nov 2026/);
+  assert.match(feature, /Nov 22–28, 2026/);
+  assert.match(feature, /Art(icle|\.) 23/);
+  for (const width of [640, 1280]) {
+    const asset = `ia-educacao-brasileira-2026-11-22-${width}.webp`;
+    assert.match(feature, new RegExp(asset));
+    assert.ok(fs.existsSync(`public/covers/${asset}`));
+  }
+  for (const history of [pt, en]) {
+    assert.match(history, /"eventLabel": "do-chat-ao-agente-20261115"/);
+    for (const page of ["aula.html", "pratica.html", "pratica-3.html"]) assert.ok(history.includes(`do-chat-ao-agente/${page}`));
+  }
   assert.match(feature, /15 a 21 nov 2026/);
   assert.match(feature, /Nov 15–21, 2026/);
   assert.match(feature, /Do chat ao agente/);
