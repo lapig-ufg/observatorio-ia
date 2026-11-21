@@ -2307,8 +2307,8 @@
       "rev": "Condicionado",
       "img": "Permitidas c/ declaração",
       "verif": "P",
-      "url": "https://www.ucpress.edu/about/ai-guidelines",
-      "nota": "Diretriz geral de 31/07/2025 para livros, periódicos e outras obras, com possíveis adaptações por equipe editorial. Admite melhorar texto humano e exige comunicação ao editor e transparência no manuscrito ao produzir texto ou imagens ou ao coletar ou processar dados. IA não recebe autoria. Pareceristas não enviam manuscritos nem compõem pareceres com IA e declaram no parecer eventual apoio à avaliação de alegações. Editores de periódicos e prestadores abrangidos têm restrições a upload de propostas ou manuscritos e à geração de conteúdo original."
+      "url": "https://www.ucpress.edu/about/ai-policies",
+      "nota": "Diretriz geral de 31/07/2025 para livros, periódicos e outras obras, com possíveis adaptações por equipe editorial. Admite melhorar texto humano e exige comunicação ao editor e transparência no manuscrito ao produzir texto ou imagens ou ao coletar ou processar dados. IA não recebe autoria. Pareceristas não enviam manuscritos nem compõem pareceres com IA e declaram no parecer eventual apoio à avaliação de alegações. Editores de periódicos e prestadores abrangidos têm restrições a upload de propostas ou manuscritos e à geração de conteúdo original. A página atual também explicita uso editorial de ferramentas fechadas licenciadas pela universidade, revisão das saídas por pessoal da editora e vedação de usar manuscritos submetidos para treinamento."
     },
     {
       "nome": "Edusp (livros)",
@@ -2564,6 +2564,156 @@
       "verif": "P",
       "url": "https://rsdd.esd.gov.br/index.php/rsdd/polIA",
       "nota": "A política do periódico permite revisão linguística, tradução de trechos, apoio à organização, programação e visualização com validação humana. Exige seção própria antes das referências e informação no sistema editorial quando disponível. Imagens e gráficos com IA exigem origem, finalidade e modo de uso. Veda fabricar ou manipular evidências. Revisores e editores podem receber apoio auxiliar sem delegar julgamento. Conteúdo sigiloso só pode passar a ferramentas externas com autorização expressa e garantia institucional de proteção. Uso relevante de IA no parecer deve ser informado ao editor."
+    },
+    {
+      "nome": "American Phytopathological Society",
+      "tipo": "Sociedade/associação",
+      "area": "AGR",
+      "sub": "Fitopatologia",
+      "geo": "EUA",
+      "ano": null,
+      "gen": "Restrita",
+      "loc": "Agradecimentos",
+      "rev": "Vedado",
+      "img": "Restritas",
+      "verif": "P",
+      "url": "https://apsjournals.apsnet.org/page/ethics",
+      "nota": "Política dos periódicos da American Phytopathological Society. Permite ajuda à linguagem e à escrita se o resultado representar o trabalho original da autoria, sem novos conceitos, resultados ou interpretações. O uso deve constar dos Agradecimentos. Exige autoria e supervisão humanas, proíbe manipulação de imagens por IA e veda uso de IA ou LLM na revisão de manuscritos, cujo conteúdo é confidencial. A página não informa data normativa."
+    },
+    {
+      "nome": "University of Pennsylvania Press",
+      "tipo": "Editora",
+      "area": "MUL",
+      "sub": "Multidisciplinar",
+      "geo": "EUA",
+      "ano": null,
+      "gen": "Restrita",
+      "loc": "Múltiplos",
+      "rev": "Vedado",
+      "img": "Não trata",
+      "verif": "P",
+      "url": "https://www.pennpress.org/about/for-authors/policy-on-the-use-of-artificial-intelligence/",
+      "nota": "A Penn Press não aceita obras criadas por IA generativa ou tradução por IA. Uso transformativo deve ser discutido com a editoria e reconhecido no manuscrito se aceito. Ferramentas de indexação só podem auxiliar quando não ingerem o manuscrito para treinamento, e a autoria verifica o índice. Pareceristas não podem inserir conteúdo em modelos nem gerar parecer com IA. A política não detalha imagens e dados sintéticos; periódicos podem ter regras próprias."
+    },
+    {
+      "nome": "Johns Hopkins University Press",
+      "tipo": "Editora",
+      "area": "MUL",
+      "sub": "Multidisciplinar",
+      "geo": "EUA",
+      "ano": null,
+      "gen": "Restrita",
+      "loc": "Múltiplos",
+      "rev": "Não trata",
+      "img": "Permitidas c/ declaração",
+      "verif": "P",
+      "url": "https://www.press.jhu.edu/sites/default/files/media/2023/07/Generative%20AI%20for%20Authors_final_0.pdf",
+      "nota": "A política geral da Hopkins Press para livros e periódicos não aceita obra substancialmente escrita por IA e mantém autoria e responsabilidade humanas. Exige aviso em lugar destacado e citação localizada de cada uso em texto, imagens, gráficos, tabelas ou outras partes. A divisão de periódicos exige sigilo de manuscritos; o corpus geral consultado não estabelece regra específica de IA para pareceristas. Títulos podem aplicar regras adicionais. O caminho do PDF não comprova data normativa."
+    },
+    {
+      "nome": "Editora UFPR",
+      "tipo": "Editora",
+      "area": "MUL",
+      "sub": "Multidisciplinar",
+      "geo": "Brasil",
+      "ano": 2026,
+      "gen": "Restrita",
+      "loc": "Submissão/carta",
+      "rev": "Não trata",
+      "img": "Restritas",
+      "verif": "P",
+      "url": "https://editora.ufpr.br/publique-conosco/",
+      "nota": "Para o edital de 2026, a Editora UFPR não aceita originais ou traduções produzidos integralmente por IA generativa. Admite apoio pontual para tabelas, quadros, análise de dados e tarefas legítimas, com declaração integral no formulário de inscrição (Anexo I). A orientação trata de apoio à produção e à análise, sem autorização geral para síntese visual. As seções consultadas não prescrevem uso de IA por pareceristas."
+    },
+    {
+      "nome": "Revista Direito GV",
+      "tipo": "Periódico",
+      "area": "SOC",
+      "sub": "Direito",
+      "geo": "Brasil",
+      "ano": 2026,
+      "gen": "Vedada",
+      "loc": "Métodos",
+      "rev": "Vedado",
+      "img": "Restritas",
+      "verif": "P",
+      "url": "https://periodicos.fgv.br/revdireitogv/politic-ai",
+      "nota": "A política aplica-se a submissões desde outubro de 2026. Veda IA generativa na produção do texto, citações e fontes bibliográficas e exige declarar usos permitidos, preferencialmente em Métodos, com ferramenta, finalidade e atividades. Dados pessoais ou sensíveis devem ser anonimizados antes do uso de IA, com garantias de confidencialidade e ausência de retenção ou reúso verificadas e registradas. Pareceristas e editores não podem inserir materiais da avaliação em ferramentas. A cláusula sobre dados não define regra própria para imagens."
+    },
+    {
+      "nome": "Revista VIS",
+      "tipo": "Periódico",
+      "area": "LLA",
+      "sub": "Artes",
+      "geo": "Brasil",
+      "ano": null,
+      "gen": "Vedada",
+      "loc": "Submissão/carta",
+      "rev": "Não trata",
+      "img": "Restritas",
+      "verif": "P",
+      "url": "https://periodicos.unb.br/index.php/revistavis/politicas",
+      "nota": "A Revista VIS veda gerar, traduzir, parafrasear ou reescrever texto com IA generativa, bem como gerar ou alterar imagens, gráficos e outros elementos visuais. Aceita apoio mecânico não generativo e estudo sobre IA. Todos os autores apresentam declaração na submissão, inclusive negativa. A revista exige sigilo dos pareceristas e mantém decisões sob responsabilidade editorial humana. A política não enuncia regra específica para o uso de IA por pareceristas."
+    },
+    {
+      "nome": "Perspectivas em Diálogo: Revista de Educação e Sociedade",
+      "tipo": "Periódico",
+      "area": "HUM",
+      "sub": "Educação",
+      "geo": "Brasil",
+      "ano": 2025,
+      "gen": "Restrita",
+      "loc": "Submissão/carta",
+      "rev": "Vedado",
+      "img": "Permitidas c/ declaração",
+      "verif": "P",
+      "url": "https://periodicos.ufms.br/index.php/persdia/etica",
+      "nota": "Diretrizes em vigor desde novembro de 2025. Permite apoio linguístico, tradução, estrutura e versões iniciais supervisionadas, vedando geração de conteúdo científico central. Figuras podem ser produzidas com declaração, transparência, atribuição e direitos preservados; dados e imagens devem ser verificados. A declaração assinada na submissão é obrigatória, mesmo sem uso. Pareceristas mantêm sigilo e não podem processar manuscritos em ferramentas externas de IA."
+    },
+    {
+      "nome": "Revista Informação na Sociedade Contemporânea",
+      "tipo": "Periódico",
+      "area": "SOC",
+      "sub": "Ciência da Informação",
+      "geo": "Brasil",
+      "ano": null,
+      "gen": "Restrita",
+      "loc": "Métodos",
+      "rev": "Não trata",
+      "img": "Permitidas c/ declaração",
+      "verif": "P",
+      "url": "https://periodicos.ufrn.br/informacao/IA",
+      "nota": "A RISC veda IA para redigir seções, elaborar ou interpretar argumentos, gerar conteúdo intelectual original e tomar decisões editoriais ou acadêmicas que impliquem julgamento crítico. A edição gramatical, ortográfica, de pontuação, de estilo e clareza é dispensada de declaração. Coleta/análise de dados ou produção de imagens e gráficos exige indicar em Métodos modelo, versão, data, forma de interação e produtos incorporados. A fonte não detalha ferramenta segura nem regra autônoma de parecer."
+    },
+    {
+      "nome": "Revista Digital Constituição e Garantia de Direitos",
+      "tipo": "Periódico",
+      "area": "SOC",
+      "sub": "Direito",
+      "geo": "Brasil",
+      "ano": null,
+      "gen": "Restrita",
+      "loc": "Múltiplos",
+      "rev": "Condicionado",
+      "img": "Restritas",
+      "verif": "P",
+      "url": "https://www.periodicos.ufrn.br/constituicaoegarantiadedireitos/PoliticaIA",
+      "nota": "Aceita apoio à revisão linguística, tradução, organização textual e análise de dados com supervisão humana, vedando a redação substancial e fabricação de dados ou referências. Declaração obrigatória em formulário de submissão e em Métodos. Pareceristas devem manter sigilo e não inserir manuscritos em ferramentas. Eventual apoio excepcional deve ser explicitado e justificado no parecer. As restrições tratam de dados e conteúdo científico; imagens não têm regra própria."
+    },
+    {
+      "nome": "Revista Saridh – Linguagem e Discurso",
+      "tipo": "Periódico",
+      "area": "LLA",
+      "sub": "Linguística",
+      "geo": "Brasil",
+      "ano": null,
+      "gen": "Restrita",
+      "loc": "Múltiplos",
+      "rev": "Vedado",
+      "img": "Restritas",
+      "verif": "P",
+      "url": "https://www.periodicos.ufrn.br/RevSaridh/diretrizesdeusodeia",
+      "nota": "A Saridh reserva autoria e produção científica original a pessoas. O uso de IA deve ser explicitado em Métodos e indicado nas condições de submissão, com ferramenta, finalidade, versão, contexto e data. Figuras e tabelas geradas são vedadas salvo as exceções previstas e manifestamente justificadas. Avaliação, parecer e julgamento são tarefas humanas; a equipe editorial pode usar IA em atividades administrativas, sem delegar a decisão. O texto não detalha mecanismos de confidencialidade de ferramentas."
     }
   ],
   "areas": {
@@ -2596,25 +2746,25 @@
     ],
     [
       "Brasil: descrição da base, não censo",
-      "35 de 42 periódicos brasileiros da base têm cláusula de IA. A Revista da ANPEGE pede declaração mesmo sem uso. A Revista de Direito FAE e a Revista de Segurança, Desenvolvimento e Defesa têm políticas próprias. Os percentuais descrevem esta amostra."
+      "41 de 48 periódicos brasileiros da base têm cláusula de IA (85% da amostra). Entre as novas fichas, a Revista VIS e Perspectivas em Diálogo exigem declaração na submissão mesmo sem uso. As proporções descrevem o inventário publicado."
     ],
     [
       "Cobertura e limites",
-      "O ciclo de 14/11/2026 foi concluído em 16/11/2026. Foram conferidos os 171 registros, com 6 inclusões e 4 fichas anteriores atualizadas."
+      "O ciclo de 21/11/2026 registra revisão parcial de 93/181 fichas, com 10 inclusões e 1 correção de ficha existente. 88 fichas preservam a codificação anterior e aguardam cotejo."
     ]
   ],
   "cross": [
     [
       "Escopo da comparação",
-      "Inventário intencional de 171 identidades. O ciclo de 14/11/2026 foi concluído em 16/11/2026. Foram conferidos os 171 registros, com 6 inclusões e 4 fichas anteriores atualizadas. As proporções descrevem o inventário publicado."
+      "Inventário intencional de 181 identidades. O ciclo de 21/11/2026 registra revisão parcial de 93/181 fichas, com 10 inclusões e 1 correção de ficha existente. 88 fichas preservam a codificação anterior e aguardam cotejo. As proporções descrevem o inventário publicado."
     ],
     [
       "Geração de texto",
-      "112 Permitida, 27 Restrita, 12 Vedada, 17 Sem regra localizada e 3 N/A. As exceções e a IA como método constam das notas."
+      "112 Permitida, 35 Restrita, 14 Vedada, 17 Sem regra localizada e 3 N/A. As exceções e a IA como método constam das notas."
     ],
     [
       "Revisão por pares",
-      "103 registros condicionam o uso, 14 vedam e 54 não têm disposição codificada. As condições constam das notas."
+      "104 registros condicionam o uso, 19 vedam e 58 não têm disposição codificada. As condições constam das notas."
     ],
     [
       "Imagens",
@@ -2626,7 +2776,7 @@
     ],
     [
       "Brasil",
-      "35/42 periódicos com cláusula (83% da amostra). 18/42 têm disposição codificada para revisores."
+      "41/48 periódicos com cláusula (85% da amostra). 22/48 têm disposição codificada para revisores."
     ]
   ],
   "trends": {
@@ -2637,11 +2787,11 @@
         "**Base codificada na área.** 27 Permitida, 2 Restrita, 2 Vedada, 3 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
         "**Revisão.** 25 com uso condicionado, 3 com vedação e 6 sem disposição codificada. As condições constam das notas e fontes.",
         "**Imagens.** 21 de 34 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
-        "**Revisão integral do ciclo de 14/11/2026, concluída em 16/11.** 35 de 35 registros da área conferidos. Fontes reconciliadas incluem The Electrochemical Society (ECS), American Physical Society (APS), London Mathematical Society, SIAM."
+        "**Revisão parcial de 21/11/2026.** 22 de 35 registros da área foram reconciliados. Fontes reconciliadas incluem Journal of Open Source Software (JOSS), Transactions on Machine Learning Research (TMLR), The Electrochemical Society (ECS)."
       ],
-      "brasil": "3 de 4 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
+      "brasil": "3 de 4 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado por ficha.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 35/35 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 22/35 registros da área reconciliados em 21/11. Os pendentes preservam a codificação anterior. A/NL descrevem apenas o corpus consultado."
     },
     "BIO": {
       "sub": "Biologia geral, Genética, Botânica, Zoologia, Ecologia, Morfologia, Fisiologia, Bioquímica, Biofísica, Farmacologia, Imunologia, Microbiologia, Parasitologia",
@@ -2650,11 +2800,11 @@
         "**Base codificada na área.** 6 Permitida, 7 Restrita, 0 Vedada, 0 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
         "**Revisão.** 6 com uso condicionado, 0 com vedação e 7 sem disposição codificada. As condições constam das notas e fontes.",
         "**Imagens.** 10 de 13 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
-        "**Revisão integral do ciclo de 14/11/2026, concluída em 16/11.** 13 de 13 registros da área conferidos. Fontes reconciliadas incluem Global Change Biology (Wiley)."
+        "**Revisão parcial de 21/11/2026.** 4 de 13 registros da área foram reconciliados. Fontes reconciliadas incluem American Society for Microbiology (ASM), Global Change Biology (Wiley), Genetics and Molecular Biology (SBG)."
       ],
-      "brasil": "4 de 4 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
+      "brasil": "4 de 4 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado por ficha.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 13/13 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 4/13 registros da área reconciliados em 21/11. Os pendentes preservam a codificação anterior. A/NL descrevem apenas o corpus consultado."
     },
     "ENG": {
       "sub": "Engenharias civil, de minas, de materiais, química, nuclear, sanitária, de produção, mecânica, elétrica, biomédica, naval, aeroespacial e de transportes",
@@ -2663,11 +2813,11 @@
         "**Base codificada na área.** 7 Permitida, 0 Restrita, 1 Vedada, 1 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
         "**Revisão.** 3 com uso condicionado, 1 com vedação e 5 sem disposição codificada. As condições constam das notas e fontes.",
         "**Imagens.** 2 de 9 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
-        "**Revisão integral do ciclo de 14/11/2026, concluída em 16/11.** 9 de 9 registros da área conferidos. Fontes reconciliadas incluem IEEE, ASME, IET (livros)."
+        "**Revisão parcial de 21/11/2026.** 3 de 9 registros da área foram reconciliados. Fontes reconciliadas incluem IEEE, ASME, INFORMS."
       ],
-      "brasil": "2 de 3 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
+      "brasil": "2 de 3 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado por ficha.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 9/9 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 3/9 registros da área reconciliados em 21/11. Os pendentes preservam a codificação anterior. A/NL descrevem apenas o corpus consultado."
     },
     "SAU": {
       "sub": "Medicina, Odontologia, Farmácia, Enfermagem, Nutrição, Saúde Coletiva, Fonoaudiologia, Fisioterapia e Terapia Ocupacional, Educação Física",
@@ -2676,86 +2826,86 @@
         "**Base codificada na área.** 16 Permitida, 1 Restrita, 0 Vedada, 0 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
         "**Revisão.** 10 com uso condicionado, 3 com vedação e 4 sem disposição codificada. As condições constam das notas e fontes.",
         "**Imagens.** 14 de 17 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
-        "**Revisão integral do ciclo de 14/11/2026, concluída em 16/11.** 20 de 20 registros da área conferidos. Fontes reconciliadas incluem ICMJE, JAMA Network (AMA), BMJ, Thieme."
+        "**Revisão parcial de 21/11/2026.** 7 de 20 registros da área foram reconciliados. Fontes reconciliadas incluem Mary Ann Liebert, Cadernos de Saúde Pública (Fiocruz), Rev. Soc. Bras. Medicina Tropical."
       ],
-      "brasil": "5 de 5 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
+      "brasil": "5 de 5 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado por ficha.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 20/20 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 7/20 registros da área reconciliados em 21/11. Os pendentes preservam a codificação anterior. A/NL descrevem apenas o corpus consultado."
     },
     "AGR": {
       "sub": "Agronomia, Recursos Florestais e Engenharia Florestal, Engenharia Agrícola, Zootecnia, Medicina Veterinária, Recursos Pesqueiros, Ciência e Tecnologia de Alimentos",
       "headline": "Uso como método de pesquisa não se confunde com gerar o manuscrito",
       "trends": [
-        "**Base codificada na área.** 3 Permitida, 5 Restrita, 0 Vedada, 3 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
-        "**Revisão.** 3 com uso condicionado, 1 com vedação e 7 sem disposição codificada. As condições constam das notas e fontes.",
-        "**Imagens.** 6 de 11 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
-        "**Revisão integral do ciclo de 14/11/2026, concluída em 16/11.** 11 de 11 registros da área conferidos. Fontes reconciliadas incluem ADSA (J. Dairy Science), Rev. Brasileira de Zootecnia (SBZ)."
+        "**Base codificada na área.** 3 Permitida, 6 Restrita, 0 Vedada, 3 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
+        "**Revisão.** 3 com uso condicionado, 2 com vedação e 7 sem disposição codificada. As condições constam das notas e fontes.",
+        "**Imagens.** 7 de 12 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
+        "**Revisão parcial de 21/11/2026.** 5 de 12 registros da área foram reconciliados. Fontes reconciliadas incluem Ciência Rural (UFSM), Pesquisa Veterinária Brasileira, American Phytopathological Society."
       ],
-      "brasil": "5 de 8 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
+      "brasil": "5 de 8 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado por ficha.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 11/11 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 5/12 registros da área reconciliados em 21/11. Os pendentes preservam a codificação anterior. A/NL descrevem apenas o corpus consultado."
     },
     "SOC": {
       "sub": "Direito, Administração, Turismo, Economia, Arquitetura e Urbanismo, Planejamento Urbano e Regional, Demografia, Ciência da Informação, Museologia, Comunicação, Serviço Social, Desenho Industrial",
       "headline": "Sociedade, periódico e editora não têm necessariamente a mesma regra",
       "trends": [
-        "**Base codificada na área.** 7 Permitida, 1 Restrita, 3 Vedada, 1 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
-        "**Revisão.** 6 com uso condicionado, 3 com vedação e 3 sem disposição codificada. As condições constam das notas e fontes.",
-        "**Imagens.** 6 de 12 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
-        "**Revisão integral do ciclo de 14/11/2026, concluída em 16/11.** 12 de 12 registros da área conferidos. Fontes reconciliadas incluem Revista de Direito FAE, AEA / American Economic Review, National Communication Association, CSWE (Serviço Social)."
+        "**Base codificada na área.** 7 Permitida, 3 Restrita, 4 Vedada, 1 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
+        "**Revisão.** 7 com uso condicionado, 4 com vedação e 4 sem disposição codificada. As condições constam das notas e fontes.",
+        "**Imagens.** 9 de 15 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
+        "**Revisão parcial de 21/11/2026.** 10 de 15 registros da área foram reconciliados. Fontes reconciliadas incluem Revista Direito GV, Revista Informação na Sociedade Contemporânea, Revista Digital Constituição e Garantia de Direitos."
       ],
-      "brasil": "4 de 4 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
+      "brasil": "7 de 7 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado por ficha.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 12/12 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 10/15 registros da área reconciliados em 21/11. Os pendentes preservam a codificação anterior. A/NL descrevem apenas o corpus consultado."
     },
     "HUM": {
       "sub": "Filosofia, Sociologia, Antropologia, Arqueologia, História, Geografia, Psicologia, Educação, Ciência Política, Teologia",
       "headline": "Texto, imagens e elaboração intelectual exigem distinções explícitas",
       "trends": [
-        "**Base codificada na área.** 8 Permitida, 5 Restrita, 3 Vedada, 5 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
-        "**Revisão.** 12 com uso condicionado, 0 com vedação e 9 sem disposição codificada. As condições constam das notas e fontes.",
-        "**Imagens.** 13 de 21 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
-        "**Revisão integral do ciclo de 14/11/2026, concluída em 16/11.** 22 de 22 registros da área conferidos. Fontes reconciliadas incluem Revista da ANPEGE, Revista de Segurança, Desenvolvimento e Defesa, American Psychological Association, American Historical Association."
+        "**Base codificada na área.** 8 Permitida, 6 Restrita, 3 Vedada, 5 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
+        "**Revisão.** 12 com uso condicionado, 1 com vedação e 9 sem disposição codificada. As condições constam das notas e fontes.",
+        "**Imagens.** 14 de 22 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
+        "**Revisão parcial de 21/11/2026.** 14 de 23 registros da área foram reconciliados. Fontes reconciliadas incluem Revista da ANPEGE, Revista de Segurança, Desenvolvimento e Defesa, Perspectivas em Diálogo: Revista de Educação e Sociedade."
       ],
-      "brasil": "6 de 7 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
+      "brasil": "7 de 8 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado por ficha.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 22/22 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 14/23 registros da área reconciliados em 21/11. Os pendentes preservam a codificação anterior. A/NL descrevem apenas o corpus consultado."
     },
     "LLA": {
       "sub": "Linguística, Letras, Artes",
       "headline": "Apoio à escrita não elimina declaração nem responsabilidade pela análise",
       "trends": [
-        "**Base codificada na área.** 8 Permitida, 1 Restrita, 1 Vedada, 1 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
-        "**Revisão.** 6 com uso condicionado, 1 com vedação e 4 sem disposição codificada. As condições constam das notas e fontes.",
-        "**Imagens.** 5 de 11 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
-        "**Revisão integral do ciclo de 14/11/2026, concluída em 16/11.** 11 de 11 registros da área conferidos. Fontes reconciliadas incluem College Art Association (CAA), Rev. Brasileira de Linguística Aplicada, Alfa: Revista de Linguística (UNESP)."
+        "**Base codificada na área.** 8 Permitida, 2 Restrita, 2 Vedada, 1 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
+        "**Revisão.** 6 com uso condicionado, 2 com vedação e 5 sem disposição codificada. As condições constam das notas e fontes.",
+        "**Imagens.** 7 de 13 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
+        "**Revisão parcial de 21/11/2026.** 9 de 13 registros da área foram reconciliados. Fontes reconciliadas incluem International Journal of Learner Corpus Research, Revista VIS, Revista Saridh – Linguagem e Discurso."
       ],
-      "brasil": "6 de 6 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
+      "brasil": "8 de 8 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado por ficha.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 11/11 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 9/13 registros da área reconciliados em 21/11. Os pendentes preservam a codificação anterior. A/NL descrevem apenas o corpus consultado."
     },
     "MUL": {
       "sub": "Editoras e periódicos multidisciplinares, academias, redes de indexação e entidades gerais",
       "headline": "Condições e exceções impedem tratar políticas editoriais como uma regra única",
       "trends": [
-        "**Base codificada na área.** 17 Permitida, 3 Restrita, 2 Vedada, 2 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
-        "**Revisão.** 18 com uso condicionado, 1 com vedação e 5 sem disposição codificada. As condições constam das notas e fontes.",
-        "**Imagens.** 18 de 24 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
-        "**Revisão integral do ciclo de 14/11/2026, concluída em 16/11.** 38 de 38 registros da área conferidos. Fontes reconciliadas incluem Edinburgh University Press, Bloomsbury Publishing, COPE, ALLEA — Código Europeu de Integridade."
+        "**Base codificada na área.** 17 Permitida, 6 Restrita, 2 Vedada, 2 Sem regra e 0 N/A. Organismos transversais e agências de fomento ficam fora da comparação.",
+        "**Revisão.** 18 com uso condicionado, 2 com vedação e 7 sem disposição codificada. As condições constam das notas e fontes.",
+        "**Imagens.** 20 de 27 registros comparáveis têm regra codificada. Ilustrações conceituais e dados experimentais têm exigências distintas.",
+        "**Revisão parcial de 21/11/2026.** 19 de 41 registros da área foram reconciliados. Fontes reconciliadas incluem University of Pennsylvania Press, Johns Hopkins University Press, Editora UFPR."
       ],
-      "brasil": "0 de 1 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado de cada leitura.",
+      "brasil": "0 de 1 periódicos brasileiros da área têm regra na base. Consulte o histórico para o resultado por ficha.",
       "pratica": "Verificar as instruções vigentes do título, o tipo de contribuição e o papel exercido (autor, parecerista ou editor). Separar escrita assistida de método científico e registrar ferramenta, versão, finalidade e verificação humana.",
-      "confianca": "Cobertura: 38/38 registros da área reconciliados no ciclo de 14/11. Os horários de consulta constam do histórico. A/NL descrevem apenas o corpus consultado."
+      "confianca": "Cobertura: 19/41 registros da área reconciliados em 21/11. Os pendentes preservam a codificação anterior. A/NL descrevem apenas o corpus consultado."
     }
   },
   "brasil": [
-    "**Amostra brasileira.** 35 de 42 periódicos têm regra codificada (83%). Entre eles, 21 permitem, 11 restringem e 3 vedam gerar texto.",
-    "**Inclusões do ciclo.** Revista da ANPEGE, Revista de Direito FAE e Revista de Segurança, Desenvolvimento e Defesa entraram pela leitura de suas próprias normas.",
+    "**Amostra brasileira.** 41 de 48 periódicos brasileiros da base têm cláusula de IA (85% da amostra). Entre eles, 21 permitem, 15 restringem e 5 vedam gerar texto.",
+    "**Inclusões do ciclo.** Seis periódicos brasileiros e a Editora UFPR entraram no levantamento. As fichas mantêm o escopo próprio de cada norma.",
     "**Revisores:** a RBG permite aprimorar a linguagem de um parecer humano sob limites; Gestão & Produção e RBLA admitem apoio auxiliar com salvaguardas. A RAE veda o uso na revisão. Condicionado não significa avaliação automática permitida.",
     "**Declaração:** a Scientia Agricola exige Métodos para o uso e declaração antes das referências; a seção de formato do manuscrito exige essa declaração mesmo sem uso. A descrição anterior foi corrigida. Na Educação & Sociedade, o uso auxiliar é mencionado ao final, sem título obrigatório de seção.",
     "**SciELO:** o guia preliminar de 14/09/2023 orienta transparência no Resumo e em Métodos ou equivalente. Adoção e exceções devem ser confirmadas nas instruções do periódico; o guia não prova regra idêntica em toda a rede.",
     "**CNPq e demais agências:** a norma oficial do CNPq de março/2026 foi lida: uso assistivo exige responsabilidade e transparência; propostas confidenciais de terceiros não podem ser enviadas a ferramentas externas. Isso não equivale à vedação de qualquer apoio ao parecerista. O agregado FAPESP/CAPES/FAPEG continua separado e não herda a norma do CNPq.",
-    "**Cobertura.** Os 42 periódicos brasileiros foram conferidos no ciclo de 14/11, concluído em 16/11."
+    "**Cobertura parcial.** 24 de 48 periódicos brasileiros foram cotejados neste ciclo. Os 24 pendentes mantêm a codificação anterior."
   ],
   "checks": [
     "**Destino e papel:** ler as regras do periódico/evento para o tipo de artigo e para seu papel. A política geral da editora não prova, sozinha, a regra operacional de todo título.",
@@ -2939,12 +3089,12 @@
       "Levantamento intencional compilado em 14–16/10/2026, com referência inicial em 16/10. A última revisão integral, posterior à compilação, corresponde ao ciclo de 14/11/2026, concluído em 16/11/2026 e está documentada no histórico. A manutenção não certifica retroativamente a leitura ou a independência metodológica da compilação. Não é revisão PRISMA nem censo mundial."
     ],
     [
-      "Revisão integral do ciclo de 14/11/2026",
-      "O ciclo de 14/11/2026 foi concluído em 16/11/2026. Foram conferidos os 171 registros, com 6 inclusões e 4 fichas anteriores atualizadas. O histórico traz as fontes, os horários reais e a prospecção."
+      "Revisão parcial do ciclo de 21/11/2026",
+      "O ciclo de 21/11/2026 registra revisão parcial de 93/181 fichas, com 10 inclusões e 1 correção de ficha existente. 88 fichas preservam a codificação anterior e aguardam cotejo. O histórico registra as fontes, datas de consulta e a prospecção."
     ],
     [
       "Amostra",
-      "165 identidades preservadas e 6 incluídas. O inventário reúne 171 identidades e 42 periódicos brasileiros. Foram feitas buscas PT/EN de sociedades, editoras e periódicos."
+      "171 identidades anteriores preservadas e 10 incluídas. O inventário reúne 181 identidades e 48 periódicos brasileiros. A prospecção em português e inglês cobriu sociedades, editoras e periódicos."
     ],
     [
       "Codificação",
@@ -2956,11 +3106,11 @@
     ],
     [
       "Evidências e datas",
-      "O histórico reúne proprietário, seção, instante da consulta, conteúdo ou evidência da leitura e decisões por campo. A comparação parte da revisão integral de 07/11. As datas de consulta e de norma são independentes."
+      "O histórico reúne titular, seção, instante da consulta, evidência normalizada e decisões por campo. A comparação parte da revisão integral do ciclo de 14/11/2026. Datas de consulta e de norma são independentes."
     ],
     [
       "Limites",
-      "171 de 171 registros conferidos. Os candidatos adiados constam da prospecção. A amostra é intencional e a codificação foi assistida por IA."
+      "93 de 181 registros foram reconciliados neste ciclo. Os 88 pendentes preservam a codificação anterior. A amostra é intencional e a codificação foi assistida por IA."
     ],
     [
       "Política e prática",
@@ -2978,15 +3128,15 @@
   "meta": {
     "referencia": "2026-11-14",
     "revisao": {
-      "data": "2026-11-14",
-      "status": "integral",
-      "inventory": 171,
-      "verified": 171,
-      "changed": 4,
-      "added": 6,
-      "unresolved": 0,
-      "history": "levantamentos/politicas-ia/revisao-2026-11-14.json",
-      "finishedAt": "2026-11-16T13:11:53.742+00:00"
+      "data": "2026-11-21",
+      "status": "parcial",
+      "inventory": 181,
+      "verified": 93,
+      "changed": 1,
+      "added": 10,
+      "unresolved": 88,
+      "finishedAt": "2026-11-21T13:48:20.106890+00:00",
+      "history": "levantamentos/politicas-ia/revisao-2026-11-21.json"
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "sourceSha256": "16c37275ea2faa99afa68c2c0269212c1c4f65c71c40f0351ccaa858b6358f88",
+  "sourceSha256": "eacdddaf69a0696044705aa553ac5117f174cc163a6bc1331ea1a87d35366159",
   "messages": [
     [
       "Human responsibility, different rules",
@@ -19,25 +19,25 @@
     ],
     [
       "Brazil: dataset description, not a census",
-      "35 of 42 Brazilian journals in the dataset have an AI provision. Revista da ANPEGE requires a statement even when AI was not used. Revista de Direito FAE and Revista de Segurança, Desenvolvimento e Defesa have their own policies. The percentages describe this sample."
+      "41 of 48 Brazilian journals in the dataset have a coded AI rule (85% of the sample). Among the additions, Revista VIS and Perspectivas em Diálogo require a statement at submission even when AI has not been used. The proportions describe the published dataset."
     ],
     [
       "Coverage and limits",
-      "The 14 November 2026 cycle was completed on 16 November 2026. All 171 records were reviewed, with 6 additions and 4 updates to existing records."
+      "The 21 November 2026 cycle records a partial review of 93/181 entries, with 10 additions and 1 correction to an existing entry. 88 entries retain their previous coding and await reconciliation."
     ]
   ],
   "cross": [
     [
       "Scope of comparison",
-      "Purposive inventory of 171 identities. The 14 November 2026 cycle was completed on 16 November 2026. All 171 records were reviewed, with 6 additions and 4 updates to existing records. Proportions describe the published inventory."
+      "Purposive dataset of 181 entries. The 21 November 2026 cycle records a partial review of 93/181 entries, with 10 additions and 1 correction to an existing entry. 88 entries retain their previous coding and await reconciliation. The proportions describe the published dataset."
     ],
     [
       "Text generation",
-      "112 Allowed, 27 Restricted, 12 Prohibited, 17 No rule located and 3 Not applicable. The notes describe exceptions and AI as a research method."
+      "112 Allowed, 35 Restricted, 14 Prohibited, 17 No rule located and 3 Not applicable. The notes document exceptions and AI as a research method."
     ],
     [
       "Peer review",
-      "103 records make use conditional, 14 prohibit it and 54 have no coded provision. The notes explain the conditions."
+      "104 entries condition use, 19 prohibit it, and 58 have no coded provision. See the notes for the conditions."
     ],
     [
       "Images",
@@ -49,7 +49,7 @@
     ],
     [
       "Brazil",
-      "35/42 journals have a coded provision (83% of the sample). 18/42 have a coded reviewer provision."
+      "41/48 journals have a coded rule (85% of the sample). 22/48 have a coded reviewer provision."
     ]
   ],
   "trendText": {
@@ -91,13 +91,13 @@
     }
   },
   "brasil": [
-    "**Brazilian sample.** 35 of 42 journals have a coded rule (83%). Among them, 21 allow, 11 restrict and 3 prohibit text generation.",
-    "**Additions this cycle.** Revista da ANPEGE, Revista de Direito FAE and Revista de Segurança, Desenvolvimento e Defesa were added based on each journal’s own policy.",
+    "**Brazilian sample.** 41 of 48 Brazilian journals in the dataset have a coded AI rule (85% of the sample). Of those, 21 allow, 15 restrict, and 5 prohibit text generation.",
+    "**Additions this cycle.** Six Brazilian journals and Editora UFPR were added. The entries retain the specific scope of each policy.",
     "**Reviewers:** RBG allows improving the language of a human review within limits; Gestão & Produção and RBLA allow auxiliary assistance with safeguards. RAE prohibits reviewing use. Conditional does not mean automatic assessment is allowed.",
     "**Disclosure:** Scientia Agricola requires Methods for AI use plus a statement before References; the manuscript-format section requires that statement even when AI was not used. The previous description was corrected. In Educação & Sociedade, auxiliary use is mentioned at the end without a mandatory section heading.",
     "**SciELO:** the preliminary guide of 14 September 2023 advises transparency in the Abstract and Methods or equivalent. Adoption and exceptions must be confirmed in journal instructions; the guide does not establish an identical rule throughout the network.",
     "**CNPq and other agencies:** CNPq's official March 2026 rule was read: assistive use requires responsibility and transparency; confidential third-party proposals must not be submitted to external tools. This is not a prohibition of every form of reviewer assistance. The FAPESP/CAPES/FAPEG aggregate remains separate and does not inherit CNPq's rule.",
-    "**Coverage.** All 42 Brazilian journals were checked in the 14 November cycle, which was completed on 16 November."
+    "**Partial coverage.** 24 of 48 Brazilian journals were reconciled this cycle. The 24 unresolved ones retain their previous coding."
   ],
   "checks": [
     "**Target and role:** read the journal/event rules for the article type and your role. The publisher's general policy alone does not establish every title's operational rule.",
@@ -128,12 +128,12 @@
       "Purposive survey compiled on 14–16 October 2026, with an initial reference date of 16 October. The latest full review, after compilation, covers the 14 November 2026 cycle and was completed on 16 November 2026 and documented in the history. Maintenance does not retroactively certify the compilation’s reading or methodological independence. This is neither a PRISMA review nor a worldwide census."
     ],
     [
-      "Full review of the 14 November 2026 cycle",
-      "The 14 November 2026 cycle was completed on 16 November 2026. All 171 records were reviewed, with 6 additions and 4 updates to existing records. The history records sources, actual consultation times and prospecting."
+      "Partial review for the 21 November 2026 cycle",
+      "The 21 November 2026 cycle records a partial review of 93/181 entries, with 10 additions and 1 correction to an existing entry. 88 entries retain their previous coding and await reconciliation. The review history records sources, consultation dates and discovery."
     ],
     [
       "Sample",
-      "165 identities preserved and 6 added. The inventory contains 171 identities and 42 Brazilian journals. Portuguese and English searches covered societies, publishers and journals."
+      "171 previous entries were retained and 10 were added. The dataset contains 181 entries and 48 Brazilian journals. Discovery in Portuguese and English covered societies, publishers and journals."
     ],
     [
       "Coding",
@@ -145,11 +145,11 @@
     ],
     [
       "Evidence and dates",
-      "The history records the owner, section, consultation time, readback evidence and field-level decisions. Comparison starts from the full review of 7 November. Consultation and policy dates are distinct."
+      "The history records the owner, section, consultation time, normalized evidence and field-level decisions. The comparison uses the full review for the 14 November 2026 cycle. Consultation and policy dates are recorded separately."
     ],
     [
       "Limits",
-      "All 171 records reviewed. Deferred candidates remain in the prospecting record. The sample is purposive and the coding was AI-assisted."
+      "93 of 181 records were reconciled this cycle. The 88 unresolved entries retain their previous coding. The sample is purposive and AI assisted the coding."
     ],
     [
       "Policy and practice",
