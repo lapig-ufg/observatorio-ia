@@ -1,0 +1,202 @@
+{
+  "collection": "folha",
+  "start": "2026-11-15",
+  "end": "2026-11-21",
+  "reviewedAt": "2026-11-21",
+  "expectedCount": 85,
+  "title": {
+    "pt": "A estreia da Anthropic, os limites aos chips e os custos da infraestrutura",
+    "en": "Anthropic’s debut, chip restrictions and the costs of AI infrastructure"
+  },
+  "summary": {
+    "pt": "A abertura de capital da Anthropic e a oscilação de seus papéis colocaram em evidência o financiamento da IA. As restrições dos EUA à exportação de chips podem afetar compras brasileiras, inclusive um projeto de supercomputador. Em paralelo, a expansão de centros de dados reabriu questões sobre políticas de atração e demanda de energia. A curadoria também acompanhou o debate sobre autenticação de conteúdo e direitos autorais, a automação do trabalho e uma alegação matemática que ainda aguardava verificação independente.",
+    "en": "Anthropic’s initial public offering and subsequent share price swings drew attention to the financing of AI. U.S. chip export restrictions could affect purchases in Brazil, including a supercomputer project. The expansion of data centers also renewed questions about investment incentives and electricity demand. The selection covers debates over content authentication and copyright, automation at work, and a mathematical claim that still awaited independent verification."
+  },
+  "method": {
+    "pt": "Corpus de 85 matérias publicadas de 15 a 21/11/2026, com corte em 21/11 às 08:42:56, no horário de Brasília. A busca autenticada por “inteligência artificial”, com sobreposição de 14/11, percorreu oito páginas com 194 resultados e 194 URLs distintas. O cumulativo recebeu 91 registros, seis de 14/11 após o corte anterior e fora desta síntese. Houve 80 exclusões e 23 deduplicações. A publicação mais recente observada foi às 08h. A curadoria examinou títulos, trechos e passagens pertinentes de originais. A busca tem um único termo e a síntese distingue relatos, alegações e opiniões. Alguns links podem exigir assinatura. A tradução é editorial.",
+    "en": "The corpus contains 85 articles published from 15 to 21 November 2026, with a cutoff at 08:42:56 Brasília time on 21 November. The authenticated search for “inteligência artificial” included a one-day overlap on 14 November and covered eight pages with 194 results and 194 distinct URLs. The cumulative archive gained 91 records, six published after the previous cutoff on 14 November and outside this briefing. Eighty results were excluded and 23 deduplicated. The latest article observed was published at 08:00. The review used headlines, excerpts and relevant passages from original sources. The search used one term, and the briefing distinguishes reports, allegations and opinions. Some links may require a subscription. The translation is editorial."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Oferta da Anthropic, crédito e expectativas de retorno",
+        "en": "Anthropic’s offering, lending and expectations of returns"
+      },
+      "summary": {
+        "pt": "A abertura de capital da Anthropic captou US$ 81 bilhões, segundo a reportagem. Os papéis subiram na estreia e recuaram na sessão seguinte. As duas observações mostram que demanda inicial e desempenho posterior medem coisas diferentes. A cobertura também mostra bancos tentando reduzir exposição ao crédito ligado à IA e o Google ampliando respostas geradas por IA na busca, com consequências ainda em aberto para suas receitas.",
+        "en": "Anthropic raised US$81 billion in its initial public offering, according to the report. Shares rose on their debut and fell in the following session. Initial demand and subsequent trading capture different aspects of the offering. Other reports describe banks seeking to reduce exposure to AI-related lending and Google expanding AI-generated answers in Search, with the effect on its revenue still uncertain."
+      },
+      "sourceIds": [
+        "d48c2f3a96f4cd",
+        "ff2d8ed57e0a54",
+        "bc986033039b89",
+        "a509fb7eabfc7b",
+        "1594dab6159c2e",
+        "6b2583e1b45d91",
+        "a72ba9f6cb3bec",
+        "4b315ed5e08476",
+        "865eab4fed66c4",
+        "7bb1e1dca72ddc",
+        "02e4a94ed393a3",
+        "3b7dd0609566af",
+        "3c358e9bbf1c07",
+        "e3db7654fb18e3",
+        "febb09fd8c14cf",
+        "0ef00b9c439aa3"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Controles de chips e capacidade computacional",
+        "en": "Chip controls and computing capacity"
+      },
+      "summary": {
+        "pt": "As restrições dos EUA podem retardar compras brasileiras, segundo fontes ouvidas sobre a aquisição de um supercomputador. Medidas sobre fabricação e exportação coexistem com autorizações específicas e com a suspensão de algumas remessas pela Nvidia. A disputa inclui fornecedores de nuvem chineses no Brasil e desdobramentos na governança da Nvidia. A cobertura atribui investigações e suspeitas a suas fontes.",
+        "en": "U.S. restrictions could delay Brazilian purchases, according to sources speaking about the acquisition of a supercomputer. Manufacturing and export controls coexist with specific authorizations and Nvidia’s suspension of some shipments. Other reports cover Chinese cloud providers in Brazil and changes in Nvidia’s governance. The reporting attributes investigations and suspicions to its sources."
+      },
+      "sourceIds": [
+        "76f62bc45f787d",
+        "1afd8cb64e8af0",
+        "a1c6dff0ab68b1",
+        "4e3241ba59c31d",
+        "ac76cb5c72db61",
+        "e6738908bf68e6",
+        "9de249ad5880d5",
+        "8c45cbb7e2478d",
+        "e5bc1185c3eea2",
+        "55f99d68f4e129",
+        "cf9744ddf8d977",
+        "961bcb5ed6ccbf",
+        "835bfbac52f733",
+        "4b9ba7b4e31bac",
+        "2252f96c28828b",
+        "6f1765cf93fd06",
+        "f82ef58958a28e"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Centros de dados, energia e localização",
+        "en": "Data centers, energy and location"
+      },
+      "summary": {
+        "pt": "A possibilidade de taxar investimentos americanos no exterior e os obstáculos à instalação de centros de dados no Brasil entram no debate sobre a localização da infraestrutura. Uma reportagem sobre a revisão da meta climática da Meta discute a pressão do consumo de energia. Projetos em órbita, a proposta envolvendo Tesla e SpaceX e a discussão em Itaipu estão em estágios distintos e seguem sujeitos a decisões comerciais, regulatórias ou de financiamento.",
+        "en": "Potential U.S. taxes on investment abroad and barriers to setting up data centers in Brazil feature in the debate over where to build AI infrastructure. Reporting on Meta’s climate target review examines pressure from electricity demand. Orbital projects, the Tesla–SpaceX proposal and the Itaipu debate are at different stages and depend on commercial, regulatory or financing decisions."
+      },
+      "sourceIds": [
+        "9e399e05e63d5c",
+        "f54c97980f4e37",
+        "7c56f472879e9a",
+        "32ec86aa6b2751",
+        "cdfb6ded990513",
+        "0da763289bebda",
+        "a1a9eb9e0e9133",
+        "22fc335db0a936",
+        "b064207f9654a5",
+        "8a9752d1edb59c",
+        "88103da53a7f78"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Segurança digital, policiamento e detecção",
+        "en": "Cybersecurity, policing and detection"
+      },
+      "summary": {
+        "pt": "As matérias relatam um incidente na Comissão Europeia, interrupções de serviços e a hipótese de que correções apressadas contribuíram para falhas nos Estados Unidos. Tratam também de usos em policiamento, conformidade financeira e detecção de vídeos manipulados. A ação da Califórnia contra a OpenAI e o caso de uma falsa identificação de ameaça registram alegações judiciais.",
+        "en": "Reports describe an incident at the European Commission, service disruptions and the hypothesis that rushed fixes contributed to failures in the United States. Other articles cover policing, financial compliance and detection of manipulated videos. California’s suit against OpenAI and a lawsuit over a falsely identified threat describe allegations brought in court."
+      },
+      "sourceIds": [
+        "852b13c687e840",
+        "da47ee93a82ba0",
+        "653bb4de708f69",
+        "9add6fb50738d3",
+        "8cd66fd75a469e",
+        "5404a03e688116",
+        "e59cb639d0cf54",
+        "baa9c7600c18a1",
+        "43808faee3f5b0",
+        "b7a641975a3cbf",
+        "4764e678e000e7",
+        "3fa6e1f161c596",
+        "26d4eb146b692f",
+        "2ffd533acf89c3"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Regras, educação e profissões",
+        "en": "Rules, education and professions"
+      },
+      "summary": {
+        "pt": "A pauta federal brasileira inclui a regulação da IA. O pedido de investigação sobre o Provão Paulista e a decisão judicial sobre uma empresa de IA jurídica trazem questões de aplicação em contextos específicos. Nos EUA, propostas sobre autoaperfeiçoamento e debates estaduais sobre centros de dados aparecem como agendas em discussão.",
+        "en": "Brazil’s federal agenda includes AI regulation. A request for an investigation into the São Paulo state examination and a court decision concerning a legal AI provider raise questions in specific settings. In the United States, proposals on self-improving systems and state-level data center debates remain under discussion."
+      },
+      "sourceIds": [
+        "286800c8021a0c",
+        "cd5a5a4c1a20d9",
+        "024fbcde4a4e1e",
+        "e35dcf784a2439",
+        "c098c14c58a4fc"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Matemática, clima e aplicações em saúde",
+        "en": "Mathematics, climate and healthcare applications"
+      },
+      "summary": {
+        "pt": "A suposta demonstração da hipótese de Riemann com ajuda do Claude permanecia sem verificação independente na reportagem. Outros textos tratam de respostas de chatbots sobre o clima, de sinais na fala pesquisados para estimar risco e de ferramentas para revisar prescrições. O uso ambiental com georreferenciamento de árvores aparece como aplicação reportada da Copel.",
+        "en": "The proposed proof of the Riemann hypothesis with Claude’s help remained independently unverified in the report. Other articles address chatbot answers on climate science, the study of speech signals as potential risk indicators, and tools for reviewing prescriptions. Copel’s mapping and monitoring of trees is reported as an environmental application."
+      },
+      "sourceIds": [
+        "437d8b2b91bfc4",
+        "ebd5276974a695",
+        "0b5173023e2605",
+        "8311287361e7c4",
+        "1c3b5e594ca7e7",
+        "6349da8814f1a7",
+        "80f76596e95056",
+        "d5d4a630498aa9"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Autoria, música e criação",
+        "en": "Authorship, music and creative work"
+      },
+      "summary": {
+        "pt": "A ação da L&PM contra a OpenAI leva ao Judiciário brasileiro alegações sobre uso de obras. O filtro de buscas do Deezer, a cobertura de um festival de cinema e o debate Folha–Faap mostram respostas diferentes ao uso de IA na criação e circulação de obras. O estudo citado sobre anúncios analisa reações do público ao emprego de simulação de sentimentos.",
+        "en": "L&PM’s suit against OpenAI brings allegations about the use of published works before a Brazilian court. Deezer’s search filter, film festival coverage and the Folha–Faap discussion illustrate different responses to AI in creating and distributing works. A reported study of advertising examines how audiences react to simulated feelings."
+      },
+      "sourceIds": [
+        "acb4a21e5b6206",
+        "41a2e0e6a6b8ce",
+        "56398176068dec",
+        "ec4e0557c990dc",
+        "561c867ab5b55c",
+        "00266c338deef8",
+        "aa17e938af0d91"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Trabalho, automação e reação social",
+        "en": "Work, automation and public reaction"
+      },
+      "summary": {
+        "pt": "As reportagens registram automação industrial nos EUA, mudanças possíveis na divisão do trabalho e apreensão de parte do público. A manifestação após a estreia da Anthropic registra a mobilização de um grupo específico. Aplicações no trânsito e na advocacia ilustram contextos em que a supervisão operacional e os custos de integração também importam.",
+        "en": "Reports describe industrial automation in the United States, potential shifts in the division of labor and concern among members of the public. The protest after Anthropic’s debut records the mobilization of one specific group. Applications in traffic management and law illustrate settings in which oversight and integration costs also matter."
+      },
+      "sourceIds": [
+        "56c1e78867a8b7",
+        "72d9121db1ac66",
+        "25364f40bbbc91",
+        "2298c304d14d16",
+        "291266ef681dc4",
+        "ba28a52832ba30",
+        "0f5e440dd1d666"
+      ]
+    }
+  ]
+}
