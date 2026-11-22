@@ -2102,6 +2102,7 @@
     },
     {
       "nome": "CNPq (Portaria 2.664/2026)",
+      "titulo": "CNPq (Ordinances No. 2,664/2026 and No. 3,004/2026)",
       "tipo": "Agência de fomento",
       "area": "MUL",
       "sub": "Research funding",
@@ -3146,7 +3147,7 @@
   "translation": {
     "language": "en",
     "sourceLanguage": "pt-BR",
-    "sourceSha256": "7eedff69fc041de3762537453b0690f7682962acb5c02adec8fa40976334422f",
+    "sourceSha256": "cdbef2b54ea4f49783090c2eb43e213659fdfd919873da66c045669994e927bc",
     "sourceReference": "2026-11-21",
     "kind": "editorial-not-official",
     "preserved": [

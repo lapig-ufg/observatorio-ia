@@ -25,7 +25,7 @@ test("os dados publicados batem com a base do levantamento", () => {
   assert.equal(quoted, false);
   assert.equal(table.length - 1, data.rows.length);
   const fields = ["nome", "tipo", "area", "sub", "geo", "ano", "gen", "loc", "rev", "img", "verif", "url", "nota"];
-  data.rows.forEach((row, i) => fields.forEach((field, j) => assert.equal(table[i + 1][j], String(row[field] ?? ""))));
+  data.rows.forEach((row, i) => fields.forEach((field, j) => assert.equal(table[i + 1][j], String((field === "nome" ? row.titulo ?? row.nome : row[field]) ?? ""))));
   const gen = survey.countBy(data.rows, row => row.gen);
   const csvGen = survey.countBy(table.slice(1), row => row[6]);
   assert.deepEqual([...gen].sort(), [...csvGen].sort());

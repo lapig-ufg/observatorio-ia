@@ -7,7 +7,7 @@ import { SectionNav } from "../SectionNav";
 import { sectionNavigation, type SectionLink } from "../sectionNavigation";
 import {
   AREA_INDICATORS, AREA_ORDER, GEN_CATEGORIES, REV_CATEGORIES, SURVEY_BASE, SURVEY_TABS,
-  boldSegments, brazilianJournals, categoryCounts, comparableRows, filterPolicies, isBrazilian, percent,
+  boldSegments, brazilianJournals, categoryCounts, comparableRows, filterPolicies, isBrazilian, percent, policyTitle,
   type PolicyFilters, type PolicyRow,
 } from "./surveyLogic";
 import "./levantamentos.css";
@@ -46,7 +46,7 @@ function Legend({ categories }: { categories: readonly string[] }) {
 }
 
 function names(rows: PolicyRow[], limit = 6) {
-  return rows.slice(0, limit).map(row => row.nome).join("; ") + (rows.length > limit ? "; …" : "");
+  return rows.slice(0, limit).map(policyTitle).join("; ") + (rows.length > limit ? "; …" : "");
 }
 
 // Barras em HTML: o texto mantém o tamanho legível no celular, e cada segmento traz rótulo e dica.
@@ -116,7 +116,7 @@ function EntityTable({ rows, columns = "full", empty }: { rows: PolicyRow[]; col
       const expanded = open === id;
       return <Fragment key={id}>
         <tr className={expanded ? "is-open" : undefined}>
-          <th scope="row"><button type="button" className="sv-row-toggle" aria-expanded={expanded} onClick={() => setOpen(expanded ? null : id)}>{row.nome}</button><span className="sv-row-meta">{[row.sub, label(row.geo), row.ano].filter(Boolean).join(" · ")}</span></th>
+          <th scope="row"><button type="button" className="sv-row-toggle" aria-expanded={expanded} onClick={() => setOpen(expanded ? null : id)}>{policyTitle(row)}</button><span className="sv-row-meta">{[row.sub, label(row.geo), row.ano].filter(Boolean).join(" · ")}</span></th>
           {columns !== "area" && <td data-label={t("Área")}>{AREA_SHORT[row.area]}</td>}
           {columns !== "brasil" && <td data-label={t("Tipo")}>{label(row.tipo)}</td>}
           <td data-label={t("Gerar texto")}><Status value={row.gen} /></td><td data-label={t("Onde declarar")}>{LOC_LABEL[row.loc] || label(row.loc)}</td><td data-label={t("Revisores")}><Status value={row.rev} /></td>
@@ -361,7 +361,7 @@ function Method({ data }: { data: SurveyData }) {
     </section>
     <section className="sv-block" aria-labelledby="sv-sources-title">
       <h2 id="sv-sources-title">{t("Fontes por área")}</h2>
-      <div className="sv-sources">{AREA_ORDER.map(area => <p key={area}><strong>{AREA_SHORT[area]}</strong>{data.rows.filter(row => row.area === area && row.url).map((row, i) => <Fragment key={row.nome}>{i ? " · " : " "}<a href={row.url} target="_blank" rel="noreferrer">{row.nome}</a></Fragment>)}</p>)}
+      <div className="sv-sources">{AREA_ORDER.map(area => <p key={area}><strong>{AREA_SHORT[area]}</strong>{data.rows.filter(row => row.area === area && row.url).map((row, i) => <Fragment key={row.nome}>{i ? " · " : " "}<a href={row.url} target="_blank" rel="noreferrer">{policyTitle(row)}</a></Fragment>)}</p>)}
         <p><strong>{t("Evidência empírica")}</strong>{data.evidence.filter(item => item.u).map((item, i) => <Fragment key={item.l}>{i ? " · " : " "}<a href={item.u} target="_blank" rel="noreferrer">{item.s}</a></Fragment>)}</p>
       </div>
     </section>

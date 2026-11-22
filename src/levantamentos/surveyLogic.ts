@@ -1,9 +1,13 @@
 // Lógica pura do levantamento de políticas de IA: sem imports, para ser testada isoladamente.
 
 export type PolicyRow = {
-  nome: string; tipo: string; area: string; sub: string; geo: string; ano?: number | null;
+  nome: string; titulo?: string; tipo: string; area: string; sub: string; geo: string; ano?: number | null;
   gen: string; loc: string; rev: string; img: string; verif: string; url?: string; nota?: string;
 };
+
+export function policyTitle(row: PolicyRow): string {
+  return row.titulo ?? row.nome;
+}
 
 export const AREA_ORDER = ["EXA", "BIO", "ENG", "SAU", "AGR", "SOC", "HUM", "LLA", "MUL"] as const;
 export const AREA_SHORT: Record<string, string> = {
@@ -70,7 +74,7 @@ export function filterPolicies(rows: PolicyRow[], filters: PolicyFilters, additi
     && (!filters.gen || row.gen === filters.gen)
     && (!filters.rev || row.rev === filters.rev)
     && (!filters.scope || (filters.scope === "br" ? isBrazilian(row) : !isBrazilian(row)))
-    && (!query || fold(`${row.nome} ${row.sub} ${row.nota || ""} ${row.geo} ${additionalSearchText(row)}`).includes(query)));
+    && (!query || fold(`${policyTitle(row)} ${row.nome} ${row.sub} ${row.nota || ""} ${row.geo} ${additionalSearchText(row)}`).includes(query)));
 }
 
 // Sub-rotas do levantamento: a aba vem do hash, para os links e o botão voltar funcionarem.

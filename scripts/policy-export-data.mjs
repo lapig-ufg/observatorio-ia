@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 
 export const EXPORT_FIELDS=['nome','tipo','area','sub','geo','ano','gen','loc','rev','img','verif','url','nota'];
+export const exportValue=(row,key)=>key==='nome' ? row.titulo??row.nome : row[key];
 export const ENGLISH_HEADERS=['Entity','Type (source code)','Broad field (code)','Subfield','Geographical scope (source code)','Document year','Author text generation (source code)','Disclosure location (source code)','AI in peer review (source code)','Images (source code)','Verification (code)','Source (URL)','Note','Broad field','Historical change v4 → v5'];
 const historyLabels={'Gerar texto':'Text generation','Onde declarar':'Disclosure location','Revisores':'Reviewers','Imagens':'Images','Verificação':'Verification','Fonte':'Source'};
 export function translateHistoricalChange(value){
@@ -16,11 +17,17 @@ export function englishExportRows(pt,en,original,vocabulary){
   assert.equal(en.rows.length,pt.rows.length);
   return en.rows.map((row,i)=>{
     const source=pt.rows[i],prior=original[i+1];
-    assert.equal(row.nome,source.nome);assert.equal(prior[0],source.nome);
-    for(const [j,key]of EXPORT_FIELDS.entries())assert.equal(prior[j]??null,source[key] === '' ? null : source[key]??null,`Source workbook diverged: ${i}/${key}`);
+    assert.equal(row.nome,source.nome);
+    for(const [j,key]of EXPORT_FIELDS.entries()){
+      const expected=exportValue(source,key);
+      assert.equal(prior[j]??null,expected==='' ? null : expected??null,`Source workbook diverged: ${i}/${key}`);
+    }
     for(const key of EXPORT_FIELDS.filter(k=>!['sub','nota'].includes(k)))assert.equal(row[key],source[key],`Changed code: ${i}/${key}`);
     assert(Object.hasOwn(vocabulary,prior[13]),`Untranslated field: ${prior[13]}`);
-    return [...EXPORT_FIELDS.map(k=>row[k]=== ''?null:row[k]??null),vocabulary[prior[13]],translateHistoricalChange(prior[14])];
+    return [...EXPORT_FIELDS.map(key=>{
+      const value=exportValue(row,key);
+      return value==='' ? null : value??null;
+    }),vocabulary[prior[13]],translateHistoricalChange(prior[14])];
   });
 }
 export const toCsv=matrix=>'\uFEFF'+matrix.map(row=>row.map(value=>'"'+String(value??'').replaceAll('"','""')+'"').join(',')).join('\n')+'\n';
@@ -39,6 +46,6 @@ export function englishCodebook(pt,vocabulary){
     ['Historical change v4 → v5','Fields recoded relative to v4; blank means no recorded change at that historical transition. Field labels are translated; source codes, URLs and before/after values are preserved. This column is historical, not the change log of the current review.'],
     ['Type',meanings('tipo')],
     ['Geographical scope',meanings('geo')],
-    ['Translation and stable codes',`English editorial translation, not an official translation of institutional policies. All ${pt.rows.length} entity identities, numerical values, document years, source URLs and original categorical codes are preserved. Human-readable headers, subfields, broad-field names, notes and history field labels are translated. Empty source notes remain empty. Portuguese originals remain available on the Portuguese website.`]
+    ['Translation and stable codes',`English editorial translation, not an official translation of institutional policies. All ${pt.rows.length} entity identities, numerical values, document years, source URLs and original categorical codes are preserved. Human-readable headers, editorial titles, subfields, broad-field names, notes and history field labels are translated. Empty source notes remain empty. Portuguese originals remain available on the Portuguese website.`]
   ];
 }

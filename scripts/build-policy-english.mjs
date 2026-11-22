@@ -47,7 +47,7 @@ export function buildPolicyEnglish(source, content, notes, vocabulary) {
     return [g[0],lookup(g[1]),g[2].startsWith('Permitida (')?'Allowed (with specific conditions and exemptions)':lookup(g[2]),`${lookup(row.loc)}. ${notes[row.nome]}`,lookup(g[4]),g[5]];
   });
   return {...source,
-    rows:source.rows.map(row=>({...row,sub:lookup(row.sub),nota:notes[row.nome]})),
+    rows:source.rows.map(row=>({...row,sub:lookup(row.sub),nota:notes[row.nome],...(row.titulo&&{titulo:lookup(row.titulo)})})),
     areas:Object.fromEntries(Object.entries(source.areas).map(([key,value])=>[key,lookup(value)])),
     messages:content.messages,cross:content.cross,trends,brasil:content.brasil,checks:content.checks,guide,
     evidence:source.evidence.map((item,i)=>({...item,l:content.evidenceLabels[i],s:item.s.replace('set/2024','Sep 2024')})),

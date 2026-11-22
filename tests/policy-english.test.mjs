@@ -37,9 +37,10 @@ test('tradução integral preserva identidades, códigos, URLs, datas e números
   assert.equal(en.rows.length,pt.rows.length);
   assert.equal(new Set(en.rows.map(r=>r.nome)).size,pt.rows.length);
   for(let i=0;i<pt.rows.length;i++){
-    for(const field of Object.keys(pt.rows[i]).filter(k=>!['sub','nota'].includes(k)))assert.deepEqual(en.rows[i][field],pt.rows[i][field],`${i}/${field}`);
+    for(const field of Object.keys(pt.rows[i]).filter(k=>!['sub','nota','titulo'].includes(k)))assert.deepEqual(en.rows[i][field],pt.rows[i][field],`${i}/${field}`);
     assert.equal(en.rows[i].nota,notes[pt.rows[i].nome]);
     assert.equal(en.rows[i].sub,vocabulary[pt.rows[i].sub]);
+    assert.equal(en.rows[i].titulo,pt.rows[i].titulo ? vocabulary[pt.rows[i].titulo] : undefined);
   }
   assert.deepEqual(en.meta,pt.meta);
   en.evidence.forEach((row,i)=>{for(const f of ['v','u','declara'])assert.equal(row[f],pt.evidence[i][f]);});
@@ -63,6 +64,8 @@ test('a tradução preserva ressalvas críticas e não transforma ausência ou u
   assert.match(note('AAR / SBL'),/No joint policy is demonstrated/);
   assert.match(note('The Lancet'),/Comments and Correspondence allow only grammar\/spelling/);
   const cnpq = en.rows.find(row => row.nome === 'CNPq (Portaria 2.664/2026)');
+  assert.equal(pt.rows.find(row => row.nome === cnpq.nome).titulo, 'CNPq (Portarias nº 2.664/2026 e nº 3.004/2026)');
+  assert.equal(cnpq.titulo, 'CNPq (Ordinances No. 2,664/2026 and No. 3,004/2026)');
   assert.equal(cnpq.loc, 'Múltiplos');
   assert.equal(cnpq.rev, 'Condicionado');
   assert.match(cnpq.url, /in\.gov\.br\/web\/dou\/-\/portaria-cnpq-n-3\.004-/);
@@ -141,8 +144,11 @@ test('exports ingleses preservam todos os códigos, fontes, 15 colunas, históri
   assert.equal(translated.length,pt.rows.length+1);assert.deepEqual(translated[0],ENGLISH_HEADERS);
   for(let i=0;i<pt.rows.length;i++){
     const row=translated[i+1],prior=original[i+1];assert.equal(row.length,15);
-    EXPORT_FIELDS.forEach((key,j)=>assert.equal(row[j],String(en.rows[i][key]??''),`${i}/${key}`));
-    EXPORT_FIELDS.forEach((key,j)=>assert.equal(prior[j],String(pt.rows[i][key]??''),`Original CSV diverges: ${i}/${key}`));
+    EXPORT_FIELDS.forEach((key,j)=>{
+      const expected = record => String((key==='nome' ? record.titulo??record.nome : record[key])??'');
+      assert.equal(row[j],expected(en.rows[i]),`${i}/${key}`);
+      assert.equal(prior[j],expected(pt.rows[i]),`Original CSV diverges: ${i}/${key}`);
+    });
     assert.equal(row[13],vocabulary[prior[13]]);
     assert.equal(row[14],translateHistoricalChange(prior[14])??'');
     const values=s=>s.split('; ').map(x=>x.slice(x.indexOf(': ')+2));

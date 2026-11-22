@@ -23,6 +23,7 @@ const sourceMatrix=original.worksheets.getItem('Base').getRange(`A1:O${source.ro
 assert(!original.worksheets.getItem('Base').getRange(`A1:O${source.rows.length+1}`).formulas.flat().some(Boolean),'Unexpected formulas: preserve before translation.');
 const matrix=[ENGLISH_HEADERS,...englishExportRows(source,english,sourceMatrix,vocabulary)];
 const codebook=englishCodebook(source,vocabulary);
+const titledCells=source.rows.flatMap((row,index)=>row.titulo ? [`A${index+2}`] : []);
 const csv=toCsv(matrix),xlsxPath=path.join(dir,`${stem}-en.xlsx`),csvPath=path.join(dir,`${stem}-en.csv`);
 let prior;
 try{prior=await SpreadsheetFile.importXlsx(await FileBlob.load(xlsxPath));}catch{}
@@ -31,6 +32,7 @@ if(prior){
   idempotent=JSON.stringify(prior.worksheets.getItem('Dataset').getRange(`A1:O${matrix.length}`).values)===JSON.stringify(matrix)
     &&JSON.stringify(prior.worksheets.getItem('Codebook').getRange(`A1:B${codebook.length}`).values)===JSON.stringify(codebook)
     &&prior.worksheets.getItem('Dataset').getRange('M2').format.wrapText===true
+    &&titledCells.every(address=>prior.worksheets.getItem('Dataset').getRange(address).format.wrapText===true)
     &&await fs.readFile(csvPath,'utf8')===csv;
 }
 if(!idempotent){
@@ -42,6 +44,7 @@ if(!idempotent){
   const widths=[38,22,10,24,14,10,16,20,14,20,10,50,50,30,60];
   for(let j=0;j<widths.length;j++)base.getRangeByIndexes(0,j,matrix.length,1).format.columnWidth=widths[j];
   base.getRange(`M2:O${matrix.length}`).format.wrapText=true;
+  for(const address of titledCells)base.getRange(address).format.wrapText=true;
   base.getRange(`A2:O${matrix.length}`).format.verticalAlignment='top';
   base.getRange(`A2:O${matrix.length}`).format.autofitRows();
   base.getRange(`F2:F${matrix.length}`).setNumberFormat('0');
