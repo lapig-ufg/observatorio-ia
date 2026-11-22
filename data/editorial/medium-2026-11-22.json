@@ -1,0 +1,141 @@
+{
+  "collection": "medium",
+  "start": "2026-11-22",
+  "end": "2026-11-22",
+  "reviewedAt": "2026-11-22",
+  "dateBasis": "included",
+  "expectedCount": 47,
+  "title": {
+    "pt": "Como medir custo, qualidade e controle em sistemas de IA",
+    "en": "Measuring cost, quality, and control in AI systems"
+  },
+  "summary": {
+    "pt": "As leituras discutem como avaliar sistemas de IA quando o resultado depende tanto do modelo quanto da infraestrutura, dos dados e da forma de delegar tarefas. Os relatos sobre inferência local distinguem capacidade para armazenar pesos, velocidade de geração e custo por tarefa. Em agentes, testes de autorização e recuperação ajudam a separar a ação que o sistema pode executar do resultado que de fato entrega. Em pesquisa e gestão do conhecimento, a verificação de evidências volta a aparecer na revisão de citações, na proveniência de dados extraídos e na avaliação de sistemas de busca. A edição reúne ensaios, guias introdutórios, relatos de implantação e anúncios comentados. Os números citados valem para cada configuração, teste ou relato de origem.",
+    "en": "The readings examine how to evaluate AI systems when results depend on the model, infrastructure, data, and how work is delegated. Reports on local inference distinguish the capacity to store weights, generation speed, and cost per task. In agent systems, authorization and recovery tests help distinguish permitted actions from completed outcomes. In research and knowledge management, evidence checking matters for citations, the provenance of extracted data, and retrieval evaluation. The collection includes essays, introductory guides, deployment accounts, and commentary on announcements. Reported figures apply to the original configurations, tests, or accounts."
+  },
+  "method": {
+    "pt": "Edição do ciclo de 21/11/2026, com incorporação em 22/11. Às 09h34min11s de Brasília de 21/11, o inventário foi fixado em 51 candidatos capturados entre 14 e 20/11. Foram lidos integralmente 49 originais na sessão autenticada. A curadoria selecionou 47 e rejeitou dois após a leitura. Por decisão do editor, outros dois ficaram fora da edição porque o Medium manteve seus textos indisponíveis. Esses dois originais ficaram fora da análise. As fichas mantêm as datas originais, de 28/10 a 19/11. A seleção cobre a fila observada. Números e alegações de desempenho das fontes exigem validação independente para outros usos.",
+    "en": "This edition covers the 21 November 2026 cycle, with items added on 22 November. The inventory was fixed at 09:34:11 Brasília time on 21 November and contained 51 candidates collected from 14 to 20 November. The review read 49 originals in full in the authenticated session, selected 47, and rejected two after reading them. The editor authorized excluding two more because Medium continued to withhold their full text. Those two originals are outside the analysis. The entries retain the original publication dates, from 28 October to 19 November. The selection covers the observed queue. Figures and performance claims in the sources require independent validation for other uses."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Fundamentos técnicos de IA",
+        "en": "Technical foundations of AI"
+      },
+      "summary": {
+        "pt": "Um guia de aprendizado de máquina aborda conjuntos de teste, vazamento de dados e métricas. Um texto sobre complexidade computacional contextualiza uma alegação recente sobre a Hipótese do Tempo Exponencial, cuja demonstração exige validação independente.",
+        "en": "A machine-learning guide examines test sets, data leakage, and metrics. A computational complexity article explains a reported challenge to the Exponential Time Hypothesis whose proof requires independent validation."
+      },
+      "sourceIds": [
+        "medium-5c298c619f92",
+        "medium-53ae2a00ffbf"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos de linguagem e IA generativa",
+        "en": "Language models and generative AI"
+      },
+      "summary": {
+        "pt": "Os textos distinguem estratégias de representação, quantização, destilação e geração. Alguns propõem estruturas que preservam contexto ou usam resultados anteriores para orientar aprendizagem. As propostas abertas pedem critérios explícitos de avaliação.",
+        "en": "The readings distinguish representation, quantization, distillation, and generation strategies. Several propose methods that preserve context or use previous outcomes to guide learning. Open proposals call for explicit evaluation criteria."
+      },
+      "sourceIds": [
+        "medium-e177a0d54acc",
+        "medium-fb1471e2f849",
+        "medium-91b1db57d83c",
+        "medium-a1d3a81ce3cd",
+        "medium-cc68e3ed4c3f",
+        "medium-747ff26a19c6",
+        "medium-7499370e8c02"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Agentes, RAG e aplicações",
+        "en": "Agents, RAG and applications"
+      },
+      "summary": {
+        "pt": "Os exemplos separam interpretação, autorização e execução. Um experimento de governança mede efeitos registrados e recuperação após negativas. Um teste de consultas a uma base mostra por que é importante inspecionar o SQL e as definições utilizadas.",
+        "en": "The examples separate interpretation, authorization, and execution. A governance experiment measures committed effects and recovery after a denial. A database-query test shows why the SQL and business definitions need inspection."
+      },
+      "sourceIds": [
+        "medium-3af80d5ee0d6",
+        "medium-4e3d27bc9f49",
+        "medium-5c5e55493a03",
+        "medium-892e3405dfcf",
+        "medium-ffad320bd4a6",
+        "medium-2de3f3f249a6",
+        "medium-28e612472b82"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Dados, vetores e gestão do conhecimento",
+        "en": "Data, vectors and knowledge management"
+      },
+      "summary": {
+        "pt": "O contraste entre recuperação por trechos e pacotes de conhecimento destaca custo de manutenção, relações explícitas e proveniência. Uma análise de embeddings propõe avaliar recall com perguntas do domínio.",
+        "en": "The comparison between chunk retrieval and knowledge bundles highlights maintenance costs, explicit relationships, and provenance. An article on embeddings recommends evaluating recall with domain-specific questions."
+      },
+      "sourceIds": [
+        "medium-8fd472553392",
+        "medium-19bff3c38cde",
+        "medium-f5f2616aad3d",
+        "medium-5f154537ca64",
+        "medium-7a4686f9666a",
+        "medium-1798657718c1"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Estratégia, mercado e impactos",
+        "en": "Strategy, market and impacts"
+      },
+      "summary": {
+        "pt": "As leituras discutem preços, inflação de expectativas, custo por tarefa e infraestrutura de execução. Um relato reexamina o efeito do comprimento do prompt e do volume sobre a economia divulgada para um classificador. O dimensionamento de clusters e a execução local ilustram escolhas de memória, largura de banda e latência.",
+        "en": "The readings discuss pricing, rising expectations, cost per task, and inference infrastructure. An account reexamines the role of prompt length and traffic volume in reported cost savings for a classifier. Cluster sizing and local inference illustrate trade-offs in memory, bandwidth, and latency."
+      },
+      "sourceIds": [
+        "medium-5630cd95979f",
+        "medium-6142040649c5",
+        "medium-b910051b9742",
+        "medium-290a2693784e",
+        "medium-57d3f348f444",
+        "medium-390f8c3a3e5a",
+        "medium-c614fbbf1433",
+        "medium-1ad0a007f717",
+        "medium-da3939e4aac2",
+        "medium-2ba2ee8a829e",
+        "medium-ee929cd7af58",
+        "medium-ac9f400b4506",
+        "medium-bec2c8064aea",
+        "medium-f577c8138498",
+        "medium-4cecab092993"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aprendizado, pesquisa e produtividade",
+        "en": "Learning, research and productivity"
+      },
+      "summary": {
+        "pt": "Ferramentas e práticas são discutidas em tarefas de revisão de fontes, edição de apresentações e automação de etapas de coleta. A edição também aborda governança da pesquisa e fadiga ao alternar entre agentes.",
+        "en": "Tools and practices are discussed through tasks such as source review, slide editing, and data gathering. The collection also examines research governance and fatigue from switching between agents."
+      },
+      "sourceIds": [
+        "medium-c8a7ac4c53da",
+        "medium-31f89b9c9658",
+        "medium-ce9781051660",
+        "medium-a574c5f8d5dc",
+        "medium-d700a31c4ce3",
+        "medium-7df81f3ccf5c",
+        "medium-157236af833f",
+        "medium-46b230b857c0",
+        "medium-a66c8c959a35",
+        "medium-393279872425"
+      ]
+    }
+  ]
+}
