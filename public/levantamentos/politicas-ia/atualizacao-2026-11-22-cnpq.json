@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "kind": "atualizacao-pontual",
+  "date": "2026-11-22",
+  "baseCommit": "e7c0cdfc49ec8fe900f6f4a3e5f6e8f3364afc9a",
+  "reference": "2026-11-21",
+  "inventory": 181,
+  "record": {
+    "key": "[\"Agência de fomento\",\"CNPq (Portaria 2.664/2026)\",\"MUL\",\"Brasil\"]",
+    "outcome": "changed",
+    "checkedAt": "2026-11-22T19:57:54.616Z",
+    "before": {
+      "nome": "CNPq (Portaria 2.664/2026)",
+      "tipo": "Agência de fomento",
+      "area": "MUL",
+      "sub": "Fomento",
+      "geo": "Brasil",
+      "ano": 2026,
+      "gen": "Permitida",
+      "loc": "Não especifica",
+      "rev": "Condicionado",
+      "img": "Não trata",
+      "verif": "P",
+      "url": "https://www.gov.br/cnpq/pt-br/composicao/comissao-de-integridade/diretrizes",
+      "nota": "Diretrizes de integridade da pesquisa apoiada pelo CNPq, atualizadas em 13/03/2026: declarar ferramenta e finalidade de IAG em qualquer fase — concepção, redação, análise ou submissão — nos respectivos textos e exposições eletrônicas. É vedado apresentar conteúdo gerado por IAG como se fosse de autoria humana; os pesquisadores respondem integralmente por plágio, inexatidões e integridade dos dados. Para pareceres, a cláusula I.e veda inserir projetos de terceiros nas ferramentas; não é uma proibição textual de toda assistência, nem autorização para delegar a avaliação. A página dos Comitês, complementar, desaconselha IAG na elaboração de pareceres. Não foi localizada nas diretrizes uma cláusula própria para imagens geradas por IA; aplicam-se os deveres gerais de integridade e transparência. O texto integral do DOU não foi recuperado; a descrição acima é limitada às diretrizes oficiais acessíveis, não a uma transcrição integral da Portaria."
+    },
+    "after": {
+      "nome": "CNPq (Portaria 2.664/2026)",
+      "tipo": "Agência de fomento",
+      "area": "MUL",
+      "sub": "Fomento",
+      "geo": "Brasil",
+      "ano": 2026,
+      "gen": "Permitida",
+      "loc": "Múltiplos",
+      "rev": "Condicionado",
+      "img": "Não trata",
+      "verif": "P",
+      "url": "https://www.in.gov.br/web/dou/-/portaria-cnpq-n-3.004-de-16-de-novembro-de-2026-745254401",
+      "nota": "A Portaria CNPq nº 3.004/2026, em vigor desde 18/11/2026, detalha o uso de IA na pesquisa apoiada pelo CNPq, no âmbito da Portaria nº 2.664/2026. O art. 4º exige declarar o uso de IA generativa em cada etapa em que ocorrer, com ferramenta, versão quando disponível, etapa e finalidade. Use o campo estruturado da submissão ou, se ele não existir, uma seção própria do documento. A validação final cabe aos autores (art. 6º). As diretrizes de integridade vedam apresentar conteúdo gerado por IA como de autoria humana. A norma veda inserir material sigiloso ou de acesso restrito em ferramentas generativas (art. 7º). Pareceristas não podem submeter documentos de terceiros, mesmo em parte ou para verificar similaridade, nem delegar o julgamento à IA (art. 8º). Pode haver apoio a tarefas dentro desses limites. Projetos com treinamento de modelos devem declarar o uso de IA preditiva (art. 9º). Aplicam-se a LGPD e as salvaguardas do art. 5º. A Portaria não estabelece regra específica de publicação para imagens ou dados sintéticos."
+    },
+    "changedFields": [
+      "loc",
+      "url",
+      "nota"
+    ],
+    "scopesChecked": [
+      "author",
+      "disclosure",
+      "review",
+      "images"
+    ],
+    "sources": [
+      {
+        "url": "https://www.in.gov.br/web/dou/-/portaria-cnpq-n-3.004-de-16-de-novembro-de-2026-745254401",
+        "owner": "CNPq",
+        "official": true,
+        "access": "read",
+        "section": "DOU, edição 217-A, seção 1 Extra A, p. 1. Arts. 1–12.",
+        "effectiveOn": "2026-11-18",
+        "evidenceHash": {
+          "kind": "normalized-text-of-editor-supplied-DOU-printout",
+          "sha256": "4af13e310cfac33323bc1a5f58fe79bf23a264a7044edf323362ce4f7a3cc661"
+        }
+      },
+      {
+        "url": "https://www.gov.br/cnpq/pt-br/composicao/comissao-de-integridade/diretrizes",
+        "owner": "CNPq",
+        "official": true,
+        "access": "read",
+        "section": "Diretrizes de integridade na pesquisa, I.c–g e II"
+      }
+    ],
+    "decisions": [
+      {
+        "field": "loc",
+        "reason": "O art. 4º, § 1º, estabelece campo estruturado e seção própria como vias alternativas conforme o sistema de submissão.",
+        "sourceUrls": [
+          "https://www.in.gov.br/web/dou/-/portaria-cnpq-n-3.004-de-16-de-novembro-de-2026-745254401"
+        ]
+      },
+      {
+        "field": "url",
+        "reason": "O DOU contém o texto da Portaria nº 3.004/2026. As diretrizes anteriores do CNPq permanecem rastreáveis nesta atualização.",
+        "sourceUrls": [
+          "https://www.in.gov.br/web/dou/-/portaria-cnpq-n-3.004-de-16-de-novembro-de-2026-745254401",
+          "https://www.gov.br/cnpq/pt-br/composicao/comissao-de-integridade/diretrizes"
+        ]
+      },
+      {
+        "field": "nota",
+        "reason": "Arts. 1–2 delimitam o escopo, arts. 4–6 disciplinam declaração, dados pessoais e validação, arts. 7–8 estabelecem sigilo e limites ao parecerista, art. 9 trata de IA preditiva e art. 12 fixa a vigência na publicação. Não há regra específica sobre publicação de imagens ou dados sintéticos.",
+        "sourceUrls": [
+          "https://www.in.gov.br/web/dou/-/portaria-cnpq-n-3.004-de-16-de-novembro-de-2026-745254401"
+        ]
+      }
+    ]
+  }
+}

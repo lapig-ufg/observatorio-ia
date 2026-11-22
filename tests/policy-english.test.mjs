@@ -62,7 +62,11 @@ test('a tradução preserva ressalvas críticas e não transforma ausência ou u
   assert.match(note('FAPESP / CAPES / FAPEG'),/NL proves neither absence/);
   assert.match(note('AAR / SBL'),/No joint policy is demonstrated/);
   assert.match(note('The Lancet'),/Comments and Correspondence allow only grammar\/spelling/);
-  assert.match(note('CNPq (Portaria 2.664/2026)'),/full Official Gazette text was not retrieved/);
+  const cnpq = en.rows.find(row => row.nome === 'CNPq (Portaria 2.664/2026)');
+  assert.equal(cnpq.loc, 'Múltiplos');
+  assert.equal(cnpq.rev, 'Condicionado');
+  assert.match(cnpq.url, /in\.gov\.br\/web\/dou\/-\/portaria-cnpq-n-3\.004-/);
+  assert.match(cnpq.nota, /dedicated section.*third-party documents.*predictive AI/i);
   assert.match(note('MOST (China)'),/does not remove the specific proposal prohibition/);
   assert.match(en.metodo.map(x=>x.join(' ')).join(' '),/English translation is editorial and unofficial/);
   const brazilianJournals = rows => rows.filter(r=>r.geo.startsWith('Brasil')&&r.tipo==='Periódico').map(r=>r.nome);

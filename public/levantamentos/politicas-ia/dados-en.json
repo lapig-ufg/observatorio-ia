@@ -2108,12 +2108,12 @@
       "geo": "Brasil",
       "ano": 2026,
       "gen": "Permitida",
-      "loc": "Não especifica",
+      "loc": "Múltiplos",
       "rev": "Condicionado",
       "img": "Não trata",
       "verif": "P",
-      "url": "https://www.gov.br/cnpq/pt-br/composicao/comissao-de-integridade/diretrizes",
-      "nota": "Research-integrity guidelines for CNPq-supported research, updated 13 March 2026: disclose the GenAI tool and purpose at any stage—conception, writing, analysis or submission—in the corresponding texts and electronic presentations. Presenting GenAI-generated content as human-authored is prohibited; researchers are fully responsible for plagiarism, inaccuracies and data integrity. For reviews, clause I.e prohibits entering third-party projects into tools; it is neither a textual ban on all assistance nor permission to delegate assessment. The complementary Committees page discourages GenAI in preparing reviews. No specific AI-generated-image clause was located in the guidelines; general integrity and transparency duties apply. The full Official Gazette text was not retrieved; this description is limited to accessible official guidelines, not a full transcription of the Ordinance."
+      "url": "https://www.in.gov.br/web/dou/-/portaria-cnpq-n-3.004-de-16-de-novembro-de-2026-745254401",
+      "nota": "CNPq Ordinance No. 3,004/2026, effective November 18, 2026, sets out AI requirements for CNPq-supported research under Ordinance No. 2,664/2026. Article 4 requires disclosure at each stage where generative AI is used, including the tool, version where available, stage and purpose. Use the structured submission field or, if none is provided, a dedicated section of the document. Authors are responsible for final verification (Article 6). CNPq’s integrity guidelines prohibit presenting AI-generated content as human-authored. Confidential or restricted material must not be entered into generative AI tools (Article 7). Reviewers must not submit third-party documents, even in part or for similarity checks, or delegate their assessment to AI (Article 8). Tasks may receive support within those limits. Projects that train models must disclose predictive AI use (Article 9). Brazil’s General Data Protection Law (LGPD) and Article 5 safeguards apply. The ordinance sets no specific publication rule for images or synthetic data."
     },
     {
       "nome": "NIH",
@@ -2904,7 +2904,7 @@
     "**Reviewers.** RBG, Gestão & Produção, RBLA and RAE allow some language support for a reviewer’s own report. RAE applies narrow limits and confidentiality requirements. See each journal’s note for its conditions.",
     "**Disclosure:** Scientia Agricola requires Methods for AI use plus a statement before References; the manuscript-format section requires that statement even when AI was not used. The previous description was corrected. In Educação & Sociedade, auxiliary use is mentioned at the end without a mandatory section heading.",
     "**SciELO:** the preliminary guide of 14 September 2023 advises transparency in the Abstract and Methods or equivalent. Adoption and exceptions must be confirmed in journal instructions; the guide does not establish an identical rule throughout the network.",
-    "**CNPq and other agencies:** CNPq's official March 2026 rule was read: assistive use requires responsibility and transparency; confidential third-party proposals must not be submitted to external tools. This is not a prohibition of every form of reviewer assistance. The FAPESP/CAPES/FAPEG aggregate remains separate and does not inherit CNPq's rule.",
+    "**CNPq and other agencies.** Ordinance No. 3,004/2026, effective November 18, 2026, details generative AI disclosure in CNPq-supported research and requires predictive AI disclosure in projects that train models. Reviewers must retain human judgment and must not enter third-party documents into generative AI tools. The CNPq record links to Brazil’s Official Gazette. FAPESP, CAPES and FAPEG have their own scopes.",
     "**Coverage.** All 48 Brazilian journals were reviewed for the 21 November cycle. The sample is purposive."
   ],
   "checks": [
@@ -3123,6 +3123,10 @@
     [
       "Dataset and traceability",
       "JSON, CSV and XLSX derive from the same dataset. The historical v4 to v5 column and the codebook are preserved. The dated history records sources, decisions, prospecting and outstanding work. All four exports preserve identities, codes, years and URLs. The English translation is editorial and unofficial."
+    ],
+    [
+      "Targeted update",
+      "On November 22, 2026, the CNPq record was checked against Ordinance No. 3,004/2026 and the downloads were updated. The reference for the full review remains the November 21, 2026 cycle."
     ]
   ],
   "meta": {
@@ -3142,7 +3146,7 @@
   "translation": {
     "language": "en",
     "sourceLanguage": "pt-BR",
-    "sourceSha256": "48f25c25da5219a0465eb22aacf66ca2f34b1307d37bd62e55fa04dad70a5e8b",
+    "sourceSha256": "7eedff69fc041de3762537453b0690f7682962acb5c02adec8fa40976334422f",
     "sourceReference": "2026-11-21",
     "kind": "editorial-not-official",
     "preserved": [
