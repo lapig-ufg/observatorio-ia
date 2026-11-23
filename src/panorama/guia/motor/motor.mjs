@@ -190,6 +190,7 @@ export const fmt = {
   vezes: (r) => (r >= 10 ? String(Math.round(r)) : virgula(r)) + "×",
   pontos: (d) => `${d >= 0 ? "+" : "−"}${virgula(Math.abs(d))} pontos`,
   esforco: (e) => ({ "non-reasoning": "sem raciocínio", single: "único" }[e] ?? e),
+  data: (iso) => (/^\d{4}-\d{2}-\d{2}/.test(String(iso ?? "")) ? String(iso).slice(0, 10).split("-").reverse().join("/") : "data desconhecida"),
 };
 const nomeVar = (f, v) => (v.esforco === "single" ? f.nome : `${f.nome} ${fmt.esforco(v.esforco)}`);
 /** "custo 2,3× maior", "tempo 1,6× menor", "mesmo custo". */
@@ -783,6 +784,40 @@ export function abismo(base, { empresa = null, so_escada_completa = false, limit
 /* ─── 11. montar_time ─── */
 
 /** O que a pessoa tem (planos + modelos à mão) e quem do time vai melhor em cada perfil de tarefa. */
+/** Versões novas que a lista de planos ainda não cobre. A lista é conferida à mão nas páginas
+    oficiais (`checked_at`), e os fabricantes lançam modelo novo sem avisar quais planos o recebem.
+    Regra geral, sem nome fixo: mesma empresa e mesma "linha" (o nome sem os números, ex.: "GPT Astra"),
+    versão maior que a de um modelo do plano, lançada no dia da conferência ou depois, e fora de todos
+    os planos daquela empresa. Quando a lista for atualizada, o aviso some sozinho. */
+const linhaDoNome = (nome) => normal(String(nome).replace(/\d+(?:\.\d+)*/g, " "));
+const versaoDoNome = (nome) => (String(nome).match(/\d+(?:\.\d+)*/)?.[0] ?? "").split(".").filter(Boolean).map(Number);
+const versaoMaior = (a, b) => { for (let i = 0; i < Math.max(a.length, b.length); i++) { const d = (a[i] ?? 0) - (b[i] ?? 0); if (d) return d > 0; } return false; };
+export function novidades_fora_dos_planos(base, planoIds = []) {
+  if (!base.planos) return [];
+  const conferido = base.planos.conferidoEm || "";
+  const achados = new Map();
+  for (const id of planoIds) {
+    const p = base.planos.planos.find((x) => x.id === id);
+    if (!p) continue;
+    const listados = new Set(base.planos.planos.filter((x) => x.empresa === p.empresa).flatMap((x) => x.familias.map((f) => f.id)));
+    for (const pf of p.familias) {
+      const velho = base.porId.get(pf.id);
+      if (!velho) continue;
+      const linha = linhaDoNome(velho.nome), versao = versaoDoNome(velho.nome);
+      if (!linha || !versao.length) continue;
+      for (const f of base.familias) {
+        if (listados.has(f.id) || f.empresa !== velho.empresa || linhaDoNome(f.nome) !== linha) continue;
+        if (!versaoMaior(versaoDoNome(f.nome), versao) || !f.lancamento || (conferido && f.lancamento < conferido)) continue;
+        if (f.variantes.every((v) => v.notas.intelligence === null)) continue;
+        const atual = achados.get(f.id);
+        if (atual) { if (!atual.planos.includes(p.nome)) atual.planos.push(p.nome); continue; }
+        achados.set(f.id, { modelo: f.id, nome: f.nome, lancamento: f.lancamento, no_lugar_de: velho.nome, planos: [p.nome] });
+      }
+    }
+  }
+  return [...achados.values()].sort((a, b) => a.nome.localeCompare(b.nome));
+}
+
 export function montar_time(base, { planos = [], extras = [], escolhidos = {} } = {}) {
   const membros = new Map();
   const nivel = (f, permitidos, escolhido) => {
@@ -840,6 +875,7 @@ export function montar_time(base, { planos = [], extras = [], escolhidos = {} } 
     };
   });
   const abaixo = papeis.filter((p) => p.abaixo_do_piso).map((p) => p.nome.toLowerCase());
+  const novidades = novidades_fora_dos_planos(base, planos).filter((n) => !membros.has(n.modelo));
   const resposta = (() => {
     const conta = (lista) => { const c = new Map(); for (const x of lista) if (x) c.set(x.quem, (c.get(x.quem) ?? 0) + 1); return [...c].sort((a, b) => b[1] - a[1]); };
     const melhores = conta(papeis.map((p) => p.melhor));
@@ -855,13 +891,18 @@ export function montar_time(base, { planos = [], extras = [], escolhidos = {} } 
     const fraco = abaixo.length > n / 2;
     if (fraco) texto.push(`Ponto fraco: em ${abaixo.length} de ${n} tipos de tarefa, nenhum modelo do time chega à nota mínima sugerida. Para trabalho importante, vale ter acesso a um modelo mais forte.`);
     else if (abaixo.length) texto.push(`Ponto fraco: em ${juntar(abaixo)}, nenhum modelo do time chega à nota mínima sugerida.`);
+    if (novidades.length) {
+      const nomes = juntar(novidades.map((n) => n.nome));
+      const um = novidades.length === 1;
+      texto.push(`${nomes} ${um ? "é mais novo" : "são mais novos"} que os modelos da lista de planos (conferida em ${fmt.data(base.planos.conferidoEm)}) e ainda não ${um ? "entra" : "entram"} nesta conta: a página oficial não diz em que plano ${um ? "está" : "estão"}. Se ${um ? "ele já aparece" : "eles já aparecem"} no seu aplicativo, inclua na conta.`);
+    }
     const titulo = fraco ? "Seu time fica abaixo da nota mínima sugerida na maioria das tarefas." : eco ?`Seu time tem um modelo para o difícil (${melhores[0][0]}) e outro para o dia a dia (${eco[0]}).` : melhores[0] ? `${melhores[0][0]} resolve quase tudo no seu time.` : "Seu time não tem notas suficientes para dividir as tarefas.";
     return { titulo, texto };
   })();
   return {
     ok: true, resposta,
     membros: lista.map((m) => ({ ...resumoVar(m.f, m.v), origem_do_esforco: m.origem, planos: m.planos })),
-    papeis, desconhecidos,
+    papeis, desconhecidos, novidades,
     frases: [
       `O time tem ${lista.length} ${lista.length === 1 ? "modelo" : "modelos"}; o de maior nota geral é ${nomeVar(lista[0].f, lista[0].v)} (${fmt.nota(lista[0].v.notas.intelligence)}).`,
       abaixo.length ? `Para ${abaixo.join(", ")}, nenhum modelo do time chega ao piso sugerido do perfil.` : null,

@@ -58,7 +58,7 @@ Como trabalhar:
    resposta tem de aparecer no resultado de uma ferramenta. Se faltar o dado, diga que a página não tem.
 2. Use poucas ferramentas (no máximo 3). Para "vale subir/descer de esforço?", use degrau. Para "qual é melhor,
    A ou B?", use comparar. Para "o mais barato bom em X", use placar com a área. Para "o que usar para tal tarefa",
-   use perfil_tarefa. Para planos de assinatura, use montar_time.
+   use perfil_tarefa. Para planos de assinatura, use montar_time. Se montar_time trouxer "novidades" (modelos mais novos que a lista de planos), diga que eles ficaram fora da conta porque a página oficial não diz em que plano estão, e que a pessoa pode incluí-los se já os vê no aplicativo.
 3. Se a ferramenta devolver "resposta" (titulo e texto), use-a como base: ela já tem a conclusão certa.
 4. Diferença menor que 1 ponto é empate. Não eleja "o melhor" sem dizer a troca (nota, custo, tempo).
 5. Custo por tarefa é a média da Artificial Analysis pela API; quem usa assinatura gasta cota, não dinheiro.

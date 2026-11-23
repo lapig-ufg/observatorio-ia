@@ -1452,6 +1452,11 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
             `).join("")}
           </tbody>
         </table>
+        ${t.novidades?.length ? `
+          <div class="obs-novidades">
+            <p>${escHtml(t.novidades.map((n) => n.nome).join(" e "))} ${t.novidades.length === 1 ? "é mais novo" : "são mais novos"} que a lista de planos (conferida em ${escHtml(motor.fmt.data(state.base.planos?.conferidoEm))}) e ${t.novidades.length === 1 ? "ficou" : "ficaram"} fora desta conta.</p>
+            <button type="button" class="btn-pill" data-obs-incluir="${escHtml(JSON.stringify({ planos: params.planos || [], extras: [...(params.extras || []), ...t.novidades.map((n) => n.modelo)] }))}">Incluir na conta</button>
+          </div>` : ""}
         ${renderSourceLineHtml("aa", "intelligence")}
       `;
     }
@@ -2087,6 +2092,20 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     }
   }
 
+  // "Incluir na conta": refaz o time com os modelos mais novos que a lista de planos ainda não cobre.
+  const aoIncluirNovidades = (e) => {
+    const btn = e.target.closest?.("[data-obs-incluir]");
+    if (!btn || !raiz.contains(btn) || !state.base) return;
+    try {
+      const { planos, extras } = JSON.parse(btn.dataset.obsIncluir);
+      const t = motor.montar_time(state.base, { planos, extras });
+      if (!t.ok) return;
+      window.observatorio?.montar([{ tipo: "resposta", params: t.resposta }, { tipo: "time", params: { planos, extras } }]);
+      emit("time_incluir_novidades", extras.join(","));
+    } catch (_) {}
+  };
+  raiz.addEventListener("click", aoIncluirNovidades);
+
   const observatorioApi = {
     abrir(estado = {}) {
       if (!state.base || destroyed) return;
@@ -2478,6 +2497,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
 
   return function desmontar() {
     destroyed = true;
+    raiz.removeEventListener("click", aoIncluirNovidades);
     for (const fn of cleanups) fn();
     cleanups.length = 0;
     for (const id of timers) window.clearTimeout(id);
