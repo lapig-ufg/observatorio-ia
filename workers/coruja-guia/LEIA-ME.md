@@ -15,6 +15,21 @@ Worker da Cloudflare que dá IA à coruja da página **Panorama › Qual modelo 
 - Dados pessoais (e-mail, CPF, telefone, caminho de usuário) saem antes de ir à IA. O log guarda só o modo e os
   tokens, nunca o texto.
 
+## "Pergunte ao Observatório" (conversa com ferramentas, desde 23/11/2026)
+
+Pedido `{ pergunta, memoria, idioma }`, sem `modo`. A IA escolhe ferramentas do motor do guia de modelos
+(`src/panorama/guia/motor/motor.mjs`), que calcula todos os números; `conversa.mjs` confere a resposta e, se aparecer número
+que não veio das ferramentas, usa o texto calculado pelo motor (`conferida: false`). Resposta:
+`{ ok, titulo, texto[], blocos[], apontar, fontes[], memoria, uso, conferida }`.
+
+- Dados: os `guia-*.json` publicados do Panorama (`PANORAMA_ASSETS`), com cache de 1 h; `perfis.json` vai
+  junto no worker.
+- `src/panorama/guia/motor/` (o mesmo que a página usa) é cópia do repositório conselheiro-ia. Ao mudar lá, copiar de novo e rodar `teste-observatorio.mjs`.
+- Limites da conversa: pergunta de até 500 caracteres, até 4 ferramentas e 5 rodadas por pergunta, memória de 2
+  trocas (limpa no worker, porque vem do navegador). Cada pergunta conta 1 nos limites de aparelho e do dia.
+- Cada pergunta gasta mais que a coruja antiga (2 a 3 chamadas à IA, cerca de 7 mil tokens de entrada cada).
+- Teste no PC, com o Ollama local: `node workers/coruja-guia/teste-observatorio.mjs`.
+
 ## Limites
 
 40 perguntas por aparelho por dia, 6 por minuto, 800 no total por dia (`nucleo.mjs`, `LIMITES`). O aparelho é um

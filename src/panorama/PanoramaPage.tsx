@@ -5,6 +5,7 @@ import { trackEvent } from "../analytics";
 import { PANORAMA_SITE, canonicalCompany } from "../panoramaData";
 import { Timeline } from "./Timeline";
 import { GuiaModelos } from "./guia/GuiaModelos";
+import { GuiaV6 } from "./guia/v6/GuiaV6";
 import { FreeTools } from "./FreeTools";
 import { UsageGuide } from "./UsageGuide";
 import { loadPanoramaBenchmarks, loadPanoramaLaunches } from "../panoramaSource";
@@ -108,7 +109,7 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
       <SectionNav sections={sections} route={route} label={english ? "Panorama sections" : "Seções do Panorama"} headingId="panorama-title" english={english} onNavigate={navigate} />
       <p className="panorama-tab-intro">{tab === "guia" && <span className="panorama-beta" title={english ? "New page, still being tested: layout and texts may change." : "Página nova, ainda em teste: o desenho e os textos podem mudar."}>beta</span>}{introductions[tab]}</p>
 
-      {tab === "" ? <Timeline english={english} /> : tab === "guia" ? <GuiaModelos english={english} /> : tab === "gratuitos" ? <FreeTools english={english} referenceDate={context?.date} /> : <UsageGuide english={english} />}
+      {tab === "" ? <Timeline english={english} /> : tab === "guia" ? (english ? <GuiaModelos english /> : <GuiaV6 />) : tab === "gratuitos" ? <FreeTools english={english} referenceDate={context?.date} /> : <UsageGuide english={english} />}
       {tab === "guia" && <footer className="panorama-provenance panorama-page-source"><span>{english ? "Sources: Artificial Analysis, LMArena and Epoch AI · curation by LAPIG/UFG" : "Fontes: Artificial Analysis, LMArena e Epoch AI · curadoria LAPIG/UFG"}</span><a href={`${openOriginalUrl}guia.html`} target="_blank" rel="noreferrer">{english ? "Original Panorama" : "Panorama original"} ↗</a></footer>}
       <SectionNav sections={sections} route={route} label={english ? "Panorama sections" : "Seções do Panorama"} headingId="panorama-title" english={english} position="pager" onNavigate={navigate} />
     </section>
