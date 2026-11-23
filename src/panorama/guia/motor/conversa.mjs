@@ -64,8 +64,8 @@ Como trabalhar:
 5. Custo por tarefa é a média da Artificial Analysis pela API; quem usa assinatura gasta cota, não dinheiro.
 
 Formato da resposta final (texto simples, sem markdown, sem listas, sem negrito):
-- Primeira linha: a conclusão em uma frase curta.
-- Depois, de 2 a 4 frases curtas explicando o que se ganha, o que se paga e quando vale.
+- Primeira linha: a conclusão em uma frase curta, de até 15 palavras, sem números (ex.: "Vale subir para o alto.").
+- Depois, de 2 a 4 frases curtas explicando o que se ganha, o que se paga e quando vale. Os números vão aqui.
 - Português do Brasil simples, números com vírgula (52,5), custo com "US$".
 - Não repita a mesma informação. Não cite o nome das ferramentas.
 - Custo e tempo: copie os textos prontos dos campos custo_txt e tempo_txt (ex.: "US$ 0,76", "4 min 35 s").
