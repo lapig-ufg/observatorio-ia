@@ -3,10 +3,28 @@ import perfis from "../motor/perfis.json";
 
 const OBS_MAX_TURNS = 8;
 const OBS_MAX_CHARS = 500;
-const OBS_EXAMPLES = [
-  "Vale subir o Opus 5.5 de médio para alto?",
-  "Sonnet ou GPT-6.1 Sol para programar?",
-  "O que as pessoas acham do Gemini 4 Hydrogen para escrever?"
+const OBS_SUGGESTIONS = [
+  {
+    key: "esforco",
+    label: "Vale subir o Opus 5.5 de médio para alto?",
+    pergunta: "Vale subir o Opus 5.5 de médio para alto?"
+  },
+  {
+    key: "comparar",
+    label: "Qual é melhor para programar: Sonnet ou GPT-6.2 Sol?",
+    pergunta: "Qual é melhor para programar: Sonnet ou GPT-6.2 Sol?"
+  },
+  {
+    key: "barato",
+    label: "Qual o mais barato que é bom em direito?",
+    pergunta: "Qual o mais barato que é bom em direito?"
+  },
+  {
+    key: "time",
+    label: "Como dividir as tarefas no meu plano?",
+    pergunta: "Como dividir as tarefas no meu plano?",
+    alwaysLocal: true
+  }
 ];
 
 const MAIN_EFFORTS = ["low", "medium", "high", "xhigh", "max"];
@@ -154,10 +172,10 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     obsBlocks: [],
     obsForm: {},
     obsMemoria: null,
-    obsHistory: [],
-    obsActiveTurn: -1,
+    obsMessages: [],
+    obsFreeTurns: 0,
     obsLoading: false,
-    obsError: null,
+    obsMsgSeq: 0,
     lastTriggerEl: null,
     prevScoreboard: { int: null, cost: null, time: null },
     ladderPrevCoords: null,
@@ -1396,17 +1414,45 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
 
   /* ─── Pergunte ao Observatório ─── */
 
-  function renderObsCardHtml(bloco) {
+  const arrowUpSvg16 = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg>`;
+  const stopSquareSvg14 = `<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><rect x="2.5" y="2.5" width="9" height="9" rx="2"/></svg>`;
+  const newConvSvg16 = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.5 2.5a1.6 1.6 0 0 1 2.2 2.2L6 12.4l-3 .7.7-3 7.8-7.6Z"/></svg>`;
+
+  function defaultAaFontes() {
+    const f = state.base?.fontesInfo?.aa;
+    return f ? [{ nome: f.nome, url: f.url, coletado_em: f.coletadoEm }] : [];
+  }
+
+  function cardTitleForBlock(bloco) {
+    const tipo = bloco?.cartao || bloco?.tipo;
+    if (tipo === "degrau") return "mudança de esforço";
+    if (tipo === "comparacao") return "comparação completa";
+    if (tipo === "placar") return "placar da área";
+    if (tipo === "ranking") return "ranking da área";
+    if (tipo === "time") return "divisão por plano";
+    if (tipo === "painel_modelo") return "resumo do modelo";
+    if (tipo === "outras_fontes") return "outras fontes (LMArena e Epoch AI)";
+    if (tipo === "abismo") return "maiores ganhos com esforço";
+    return "mais dados";
+  }
+
+  function renderObsAvatarHtml(cls = "obs-msg-avatar") {
+    return corujaUrl
+      ? `<img class="${cls}" src="${escHtml(corujaUrl)}" alt="" width="24" height="22">`
+      : `<span class="obs-msg-avatar-fallback" aria-hidden="true">O</span>`;
+  }
+
+  function renderObsCardHtml(bloco, { showAllTimeRows = false, msgId = null } = {}) {
     const tipo = bloco?.cartao || bloco?.tipo;
     const params = bloco?.params || {};
     if (tipo === "degrau") {
       const area = params.area || state.area;
       const d = motor.degrau(state.base, { modelo: params.modelo, de: params.de, para: params.para, area });
-      return d.ok ? `${renderDegrauCardHtml(d, { compact: true, interactive: false })}${renderSourceLineHtml("aa", area)}` : "";
+      return d.ok ? renderDegrauCardHtml(d, { compact: true, interactive: false }) : "";
     }
     if (tipo === "comparacao") {
       const comp = motor.comparar(state.base, { itens: params.itens, areas: params.areas || motor.AREA_KEYS });
-      return comp.ok ? `${renderCompareTableHtml(comp, { compact: true, highlightArea: state.area })}${renderSourceLineHtml("aa", state.area)}` : "";
+      return comp.ok ? `<div class="obs-table-scroll">${renderCompareTableHtml(comp, { compact: true, highlightArea: state.area })}</div>` : "";
     }
     if (tipo === "placar") {
       const area = params.area || state.area;
@@ -1418,7 +1464,6 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
           <div class="obs-mini-card"><span class="obs-mini-card-lbl">Mais barato</span><span class="obs-mini-card-name">${p.mais_barato ? `${escHtml(p.mais_barato.nome)} ${escHtml(motor.fmt.esforco(p.mais_barato.esforco))}` : "—"}</span><span class="obs-mini-card-val num">${p.mais_barato ? escHtml(p.mais_barato.destaque) : "sem dado"}</span></div>
           <div class="obs-mini-card"><span class="obs-mini-card-lbl">Mais rápido</span><span class="obs-mini-card-name">${p.mais_rapido ? `${escHtml(p.mais_rapido.nome)} ${escHtml(motor.fmt.esforco(p.mais_rapido.esforco))}` : "—"}</span><span class="obs-mini-card-val num">${p.mais_rapido ? escHtml(p.mais_rapido.destaque) : "sem dado"}</span></div>
         </div>
-        ${renderSourceLineHtml("aa", area)}
       `;
     }
     if (tipo === "ranking") {
@@ -1427,32 +1472,42 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       const r = motor.ranking(state.base, { area, perfil: params.perfil || null, ordenar: params.ordenar || "nota", limite: lim, filtros: params.filtros });
       if (!r.ok) return "";
       return `
-        <table class="obs-mini-table">
-          <thead><tr><th>#</th><th>Modelo</th><th>${metricTip("nota", "Nota")}</th><th>${metricTip("custo", "Custo")}</th></tr></thead>
-          <tbody>
-            ${r.linhas.map((l) => `<tr><td class="num">${l.empate_com_anterior ? "≈" : ""}${l.posicao}</td><td>${escHtml(l.nome)} <span class="effort-pill">${escHtml(motor.fmt.esforco(l.esforco))}</span></td><td class="num">${motor.fmt.nota(l.nota)}</td><td class="num">${l.custo != null ? motor.fmt.custo(l.custo) : '<span class="missing-val">sem dado</span>'}</td></tr>`).join("")}
-          </tbody>
-        </table>
-        ${renderSourceLineHtml("aa", area, r.perfil)}
+        <div class="obs-table-scroll">
+          <table class="obs-mini-table">
+            <thead><tr><th>#</th><th>Modelo</th><th>${metricTip("nota", "Nota")}</th><th>${metricTip("custo", "Custo")}</th></tr></thead>
+            <tbody>
+              ${r.linhas.map((l) => `<tr><td class="num">${l.empate_com_anterior ? "≈" : ""}${l.posicao}</td><td>${escHtml(l.nome)} <span class="effort-pill">${escHtml(motor.fmt.esforco(l.esforco))}</span></td><td class="num">${motor.fmt.nota(l.nota)}</td><td class="num">${l.custo != null ? motor.fmt.custo(l.custo) : '<span class="missing-val">sem dado</span>'}</td></tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
       `;
     }
     if (tipo === "time") {
       const t = motor.montar_time(state.base, { planos: params.planos || [], extras: params.extras || [] });
       if (!t.ok) return `<p class="missing-val">${escHtml(t.erro)}</p>`;
+      const visibleRows = showAllTimeRows ? t.papeis : t.papeis.slice(0, 4);
+      const hasMore = !showAllTimeRows && t.papeis.length > 4;
       return `
-        <table class="obs-mini-table">
-          <thead><tr><th>Tipo de tarefa</th><th>Para o difícil</th><th>Para o dia a dia</th></tr></thead>
-          <tbody>
-            ${t.papeis.map((p) => `
-              <tr>
-                <td>${escHtml(p.nome)}</td>
-                <td>${p.melhor ? `${escHtml(p.melhor.quem)} <span class="num">(${motor.fmt.nota(p.melhor.nota)})</span>` : "—"}</td>
-                <td>${p.economico ? `${escHtml(p.economico.quem)} <span class="num">(${motor.fmt.custo(p.economico.custo)})</span>` : (p.melhor ? `<span class="missing-val">o mesmo</span>` : "—")}</td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-        ${renderSourceLineHtml("aa", "intelligence")}
+        <div class="obs-table-scroll">
+          <table class="obs-mini-table">
+            <thead><tr><th>Tipo de tarefa</th><th>Para o difícil</th><th>Para o dia a dia</th></tr></thead>
+            <tbody>
+              ${visibleRows.map((p) => `
+                <tr>
+                  <td>${escHtml(p.nome)}</td>
+                  <td>${p.melhor ? `${escHtml(p.melhor.quem)} <span class="num">(${motor.fmt.nota(p.melhor.nota)})</span>` : "—"}</td>
+                  <td>${p.economico ? `${escHtml(p.economico.quem)} <span class="num">(${motor.fmt.custo(p.economico.custo)})</span>` : (p.melhor ? `<span class="missing-val">o mesmo</span>` : "—")}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+        ${hasMore ? `<button type="button" class="obs-inline-link" data-obs-expand-time="${escHtml(String(msgId ?? ""))}">Ver as ${t.papeis.length} tarefas</button>` : ""}
+        ${t.novidades?.length ? `
+          <div class="obs-novidades">
+            <p>${escHtml(t.novidades.map((n) => n.nome).join(" e "))} ${t.novidades.length === 1 ? "é mais novo" : "são mais novos"} que a lista de planos (conferida em ${escHtml(motor.fmt.data(state.base.planos?.conferidoEm))}) e ${t.novidades.length === 1 ? "ficou" : "ficaram"} fora desta conta.</p>
+            <button type="button" class="btn-pill" data-obs-incluir="${escHtml(JSON.stringify({ planos: params.planos || [], extras: [...(params.extras || []), ...t.novidades.map((n) => n.modelo)] }))}">Incluir na conta</button>
+          </div>` : ""}
       `;
     }
     if (tipo === "painel_modelo") {
@@ -1478,7 +1533,6 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
           </div>
           <button type="button" class="btn-pill" style="align-self:flex-start" data-obs-action="${escHtml(JSON.stringify({ estado: JSON.parse(payload) }))}">Ver o modelo inteiro</button>
         </div>
-        ${renderSourceLineHtml("aa", area)}
       `;
     }
     if (tipo === "outras_fontes") {
@@ -1496,7 +1550,6 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
             </div>
             <div class="obs-other-main num">${g.posicao}º de ${g.total}</div>
             ${cats.length ? `<div class="obs-other-rows">${cats.map((c) => `<div class="obs-other-row"><span class="obs-other-row-lbl">${escHtml(c.categoria)}</span><span class="obs-other-row-val num">${c.posicao}º de ${c.total}</span></div>`).join("")}</div>` : ""}
-            ${renderSourceLineHtml("lmarena")}
           </div>
         `);
       }
@@ -1509,7 +1562,6 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
               ${o.epoch.esforco ? renderEffortPill(o.epoch.esforco) : ""}
             </div>
             ${testes.length ? `<div class="obs-other-rows">${testes.map((t) => `<div class="obs-other-row"><span class="obs-other-row-lbl">${escHtml(t.nome)}</span><span class="obs-other-row-val num">${motor.fmt.nota(t.nota)}</span></div>`).join("")}</div>` : `<p class="missing-val">sem dado</p>`}
-            ${renderSourceLineHtml("epoch")}
           </div>
         `);
       }
@@ -1531,7 +1583,6 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
             </div>
           `).join("")}
         </div>
-        ${renderSourceLineHtml("aa", area)}
       `;
     }
     return "";
@@ -1546,18 +1597,18 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       const defM = multiModels.find((f) => f.id === (state.obsForm.degModel || "claude-opus-5-5")) || multiModels[0];
       const dir = state.obsForm.degDir || "up";
       return `
-        <div class="obs-form" id="obs-f-esforco">
+        <div class="obs-form" data-obs-form="esforco">
           <div class="obs-form-line">
             <span>Estou usando o</span>
-            <select id="obs-deg-model" class="obs-select" aria-label="Modelo">${multiModels.map((f) => `<option value="${escHtml(f.id)}"${f.id === defM.id ? " selected" : ""}>${escHtml(f.nome)}</option>`).join("")}</select>
+            <select data-form-role="deg-model" class="obs-select" aria-label="Modelo">${multiModels.map((f) => `<option value="${escHtml(f.id)}"${f.id === defM.id ? " selected" : ""}>${escHtml(f.nome)}</option>`).join("")}</select>
             <span>no nível</span>
-            <select id="obs-deg-effort" class="obs-select" aria-label="Nível de esforço"></select>
+            <select data-form-role="deg-effort" class="obs-select" aria-label="Nível de esforço"></select>
             <span>e quero</span>
-            <select id="obs-deg-dir" class="obs-select" aria-label="Direção">
+            <select data-form-role="deg-dir" class="obs-select" aria-label="Direção">
               <option value="up"${dir === "up" ? " selected" : ""}>subir</option>
               <option value="down"${dir === "down" ? " selected" : ""}>descer</option>
             </select>
-            <button type="button" class="obs-submit" id="obs-deg-go">Ver resposta</button>
+            <button type="button" class="obs-submit" data-form-role="deg-go">Ver resposta</button>
           </div>
         </div>
       `;
@@ -1568,15 +1619,15 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       const opts1 = allModels.map((f) => `<option value="${escHtml(f.id)}"${f.id === m1Val ? " selected" : ""}>${escHtml(f.nome)}</option>`).join("");
       const opts2 = allModels.map((f) => `<option value="${escHtml(f.id)}"${f.id === m2Val ? " selected" : ""}>${escHtml(f.nome)}</option>`).join("");
       return `
-        <div class="obs-form" id="obs-f-comparar">
+        <div class="obs-form" data-obs-form="comparar">
           <div class="obs-form-line">
             <span>Comparar</span>
-            <select id="obs-cmp-m1" class="obs-select" aria-label="Primeiro modelo">${opts1}</select>
-            <select id="obs-cmp-e1" class="obs-select" aria-label="Esforço do primeiro modelo"></select>
+            <select data-form-role="cmp-m1" class="obs-select" aria-label="Primeiro modelo">${opts1}</select>
+            <select data-form-role="cmp-e1" class="obs-select" aria-label="Esforço do primeiro modelo"></select>
             <span>com</span>
-            <select id="obs-cmp-m2" class="obs-select" aria-label="Segundo modelo">${opts2}</select>
-            <select id="obs-cmp-e2" class="obs-select" aria-label="Esforço do segundo modelo"></select>
-            <button type="button" class="obs-submit" id="obs-cmp-go">Ver resposta</button>
+            <select data-form-role="cmp-m2" class="obs-select" aria-label="Segundo modelo">${opts2}</select>
+            <select data-form-role="cmp-e2" class="obs-select" aria-label="Esforço do segundo modelo"></select>
+            <button type="button" class="obs-submit" data-form-role="cmp-go">Ver resposta</button>
           </div>
         </div>
       `;
@@ -1585,16 +1636,16 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       const areaVal = state.obsForm.barArea || state.area;
       const tolVal = Number(state.obsForm.barTol ?? 10);
       return `
-        <div class="obs-form" id="obs-f-barato">
+        <div class="obs-form" data-obs-form="barato">
           <div class="obs-form-line">
             <span>Em</span>
-            <select id="obs-bar-area" class="obs-select" aria-label="Área">${motor.AREA_KEYS.map((k) => `<option value="${k}"${k === areaVal ? " selected" : ""}>${escHtml(motor.AREAS[k])}</option>`).join("")}</select>
+            <select data-form-role="bar-area" class="obs-select" aria-label="Área">${motor.AREA_KEYS.map((k) => `<option value="${k}"${k === areaVal ? " selected" : ""}>${escHtml(motor.AREAS[k])}</option>`).join("")}</select>
             <span>, aceitando ficar até</span>
-            <select id="obs-bar-tol" class="obs-select" aria-label="Margem de pontos">
+            <select data-form-role="bar-tol" class="obs-select" aria-label="Margem de pontos">
               ${[5, 10, 15].map((t) => `<option value="${t}"${t === tolVal ? " selected" : ""}>${t}</option>`).join("")}
             </select>
             <span>pontos abaixo do melhor</span>
-            <button type="button" class="obs-submit" id="obs-bar-go">Ver resposta</button>
+            <button type="button" class="obs-submit" data-form-role="bar-go">Ver resposta</button>
           </div>
         </div>
       `;
@@ -1614,11 +1665,10 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         </div>
       `).join("");
       return `
-        <div class="obs-form" id="obs-f-time">
-          <div class="obs-form-line"><span>Eu assino:</span></div>
+        <div class="obs-form" data-obs-form="time">
           <div class="obs-plans-grid">${colsHtml}</div>
           <div class="obs-plans-actions">
-            <button type="button" class="obs-submit" id="obs-time-go">Ver resposta</button>
+            <button type="button" class="obs-submit" data-form-role="time-go">Montar</button>
           </div>
         </div>
       `;
@@ -1627,56 +1677,43 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
   }
 
   function renderObservatorioShellHtml() {
-    const owlHtml = corujaUrl
-      ? `<img class="obs-owl" src="${escHtml(corujaUrl)}" alt="" width="28" height="25">`
-      : "";
     return `
       <div class="obs-box" id="obs-box">
-        <div class="obs-head">
-          <div class="obs-head-id">
-            ${owlHtml}
-            <div>
-              <h2 class="obs-title" id="obs-heading">Pergunte ao Observatório</h2>
-              <p class="obs-sub">${hasEndpoint ? "Escreva sua pergunta ou escolha uma pronta abaixo." : "Escolha uma pergunta pronta abaixo."}</p>
-            </div>
+        <div class="obs-chat-head">
+          <div class="obs-chat-head-id">
+            ${corujaUrl ? `<img class="obs-owl" src="${escHtml(corujaUrl)}" alt="" width="24" height="22">` : ""}
+            <h2 class="obs-chat-title" id="obs-heading">Pergunte ao Observatório</h2>
           </div>
-          <button type="button" class="obs-close" id="obs-close-btn" aria-label="Fechar pergunta" hidden>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>
+          <button type="button" class="obs-new-conv-icon" id="obs-new-conv" aria-label="Nova conversa" title="Nova conversa" hidden>
+            ${newConvSvg16}
           </button>
         </div>
-        <div class="obs-free-wrap" id="obs-free-wrap"${hasEndpoint ? "" : " hidden"}>
-          <div class="obs-free-row" id="obs-free-row">
-            <textarea class="obs-free-input" id="obs-free-input" rows="1" maxlength="${OBS_MAX_CHARS}" placeholder="Escreva sua pergunta sobre modelos, esforço, custo…" aria-label="Pergunta livre ao Observatório"></textarea>
-            <button type="button" class="obs-free-send" id="obs-free-send">Enviar →</button>
+
+        <div class="obs-chat-area" id="obs-chat-area">
+          <div class="obs-empty" id="obs-empty">
+            <p class="obs-empty-desc">Pergunte sobre modelos, esforço, custo ou o seu plano. As respostas usam os dados desta página.</p>
+            <div class="obs-suggestions" id="obs-suggestions">
+              ${OBS_SUGGESTIONS.map((s) => `<button type="button" class="obs-suggestion-chip" data-obs-suggestion="${escHtml(s.key)}">${escHtml(s.label)}</button>`).join("")}
+            </div>
+          </div>
+          <div class="obs-chat-list" id="obs-chat-list" hidden></div>
+        </div>
+
+        <div class="obs-composer" id="obs-composer">
+          <div class="obs-composer-box" id="obs-composer-box"${hasEndpoint ? "" : " hidden"}>
+            <textarea class="obs-composer-input" id="obs-free-input" rows="1" maxlength="${OBS_MAX_CHARS}" placeholder="Pergunte ao Observatório…" aria-label="Pergunte ao Observatório"></textarea>
+            <div class="obs-composer-right">
+              <span class="obs-char-count num" id="obs-char-count" hidden>0 / ${OBS_MAX_CHARS}</span>
+              <button type="button" class="obs-send-btn" id="obs-free-send" aria-label="Enviar pergunta" disabled>
+                ${arrowUpSvg16}
+              </button>
+            </div>
           </div>
           <div class="obs-limit-box" id="obs-limit-box" hidden>
             <span>Esta conversa chegou ao limite.</span>
-            <button type="button" class="obs-new-conv" id="obs-limit-reset">Começar nova conversa</button>
+            <button type="button" class="obs-inline-link" id="obs-limit-reset">Começar nova conversa</button>
           </div>
-          <div class="obs-free-meta">
-            <div class="obs-examples">
-              <span>Exemplos:</span>
-              ${OBS_EXAMPLES.map((ex) => `<button type="button" class="obs-example-link" data-obs-example="${escHtml(ex)}">${escHtml(ex)}</button>`).join("")}
-            </div>
-            <div class="obs-free-tools">
-              <span class="obs-char-count num" id="obs-char-count" hidden>0 / ${OBS_MAX_CHARS}</span>
-              <button type="button" class="obs-new-conv" id="obs-new-conv" hidden>Nova conversa</button>
-            </div>
-          </div>
-        </div>
-        <p class="obs-ready-label"${hasEndpoint ? "" : " hidden"}>Ou escolha uma pergunta pronta:</p>
-        <div class="obs-pills-wrap">
-          <div class="obs-pills" id="obs-pills">
-            ${OBS_QUESTIONS.map((q) => `<button type="button" class="obs-pill" data-obs-q="${q.key}" aria-expanded="false">${escHtml(q.label)}</button>`).join("")}
-          </div>
-        </div>
-        <div class="obs-expand" id="obs-expand">
-          <div class="obs-expand-inner">
-            <div class="obs-body" id="obs-body">
-              <div id="obs-form-wrap"></div>
-              <div class="obs-resp" id="obs-response"></div>
-            </div>
-          </div>
+          <p class="obs-composer-note" id="obs-composer-note"${hasEndpoint ? "" : " hidden"}>As respostas usam IA para explicar os dados; os números vêm das fontes indicadas.</p>
         </div>
       </div>
     `;
@@ -1700,162 +1737,239 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     return null;
   }
 
-  function renderObsTurnHtml(turn) {
-    const { pergunta, data } = turn;
-    const textos = Array.isArray(data.texto) ? data.texto : (data.texto ? [data.texto] : []);
-    const fontes = Array.isArray(data.fontes) ? data.fontes : [];
-    const acao = buildActionFromApi(data);
-    const blocos = (Array.isArray(data.blocos) ? data.blocos : []).slice(0, 2);
-    const renderedCards = blocos.map((b) => renderObsCardHtml(b)).filter(Boolean);
-    const isWide = blocos.some((b) => (b?.cartao || b?.tipo) === "time") || !renderedCards.length;
-
-    return `
-      <p class="obs-you-asked">Você perguntou: ${escHtml(pergunta)}</p>
-      <div class="obs-resp-grid${isWide ? " is-wide" : ""}">
-        <div class="obs-resp-left">
-          ${data.titulo ? `<h3 class="obs-resp-title">${escHtml(data.titulo)}</h3>` : ""}
-          ${textos.length ? `<div class="obs-resp-text">${textos.map((t) => `<p class="obs-resp-p">${escHtml(t)}</p>`).join("")}</div>` : ""}
-          ${data.conferida === false ? `<p class="obs-unverified-note">A IA citou um número que não está nos dados; mostramos a explicação calculada pela página.</p>` : ""}
-          ${fontes.length ? `
-            <div class="obs-source-pills">
-              ${fontes.map((f) => `<a class="obs-source-pill" href="${escHtml(f.url || "#")}" target="_blank" rel="noopener">${escHtml(f.nome)}${f.coletado_em ? ` · ${escHtml(fmtBrDate(f.coletado_em))}` : ""} ↗</a>`).join("")}
-            </div>
-          ` : ""}
-          ${acao ? `<button type="button" class="btn-pill obs-resp-action" data-obs-action="${escHtml(JSON.stringify({ estado: acao.estado, apontar: acao.apontar }))}">${escHtml(acao.rotulo)}</button>` : ""}
-        </div>
-        ${renderedCards.length ? `<div class="obs-resp-right">${renderedCards.map((c) => `<div>${c}</div>`).join("")}</div>` : ""}
-      </div>
-    `;
+  function pushObsMessage(msg) {
+    state.obsMsgSeq += 1;
+    const full = { id: state.obsMsgSeq, ...msg };
+    state.obsMessages.push(full);
+    return full;
   }
 
-  function bindObsResponseActions(wrap) {
-    wrap.querySelectorAll("[data-obs-action]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        try {
-          const payload = JSON.parse(btn.dataset.obsAction);
-          window.observatorio?.abrir(payload.estado || {});
-          if (payload.apontar) window.observatorio?.apontar(payload.apontar);
-        } catch (_) {}
-      });
-    });
-    wrap.querySelectorAll("[data-obs-turn]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        state.obsActiveTurn = Number(btn.dataset.obsTurn);
-        renderFreeConversation();
-      });
-    });
-  }
-
-  function renderFreeConversation() {
-    const wrap = $("obs-response");
-    const expand = $("obs-expand");
-    const closeBtn = $("obs-close-btn");
-    if (!wrap) return;
-
-    if (expand && !expand.classList.contains("is-open")) {
-      nextFrame(() => expand.classList.add("is-open"));
-    }
-    if (closeBtn) closeBtn.hidden = false;
-
-    const visibleStart = Math.max(0, state.obsHistory.length - 3);
-    const visible = state.obsHistory.slice(visibleStart);
-
-    let html = "";
-    if (visible.length) {
-      html += `<div class="obs-history">`;
-      visible.forEach((turn, i) => {
-        const absIdx = visibleStart + i;
-        if (absIdx === state.obsActiveTurn && !state.obsLoading) {
-          html += renderObsTurnHtml(turn);
-        } else {
-          html += `
-            <button type="button" class="obs-turn-collapsed" data-obs-turn="${absIdx}">
-              <span class="obs-you-asked">Você perguntou: ${escHtml(turn.pergunta)}</span>
-              <span class="obs-turn-collapsed-title">${escHtml(turn.data.titulo || "")}</span>
-            </button>
-          `;
-        }
-      });
-      html += `</div>`;
+  function renderObsMessageHtml(msg) {
+    if (msg.role === "user") {
+      return `<div class="obs-msg-user" data-obs-msg-id="${msg.id}" data-obs-role="user">${escHtml(msg.text)}</div>`;
     }
 
-    if (state.obsLoading) {
-      html += `
-        <div class="obs-skeleton" aria-live="polite">
-          <div class="obs-skeleton-line w-60"></div>
-          <div class="obs-skeleton-line w-90"></div>
-          <div class="obs-skeleton-line w-75"></div>
-          <p class="obs-skeleton-msg">Buscando nos dados da Artificial Analysis…</p>
+    if (msg.kind === "form") {
+      const intro = msg.formKey === "time"
+        ? "Marque os planos que você assina para montar a divisão de tarefas:"
+        : "Preencha os campos abaixo para ver a resposta calculada:";
+      return `
+        <div class="obs-msg-assistant" data-obs-msg-id="${msg.id}" data-obs-role="assistant">
+          ${renderObsAvatarHtml()}
+          <div class="obs-msg-body">
+            <p class="obs-msg-p">${escHtml(intro)}</p>
+            <div class="obs-msg-cards">${renderObsFormHtml(msg.formKey)}</div>
+          </div>
         </div>
       `;
     }
 
-    if (state.obsError) {
-      html += `<div class="obs-error-box" role="alert">${escHtml(state.obsError)}</div>`;
+    if (msg.kind === "error") {
+      return `
+        <div class="obs-msg-assistant" data-obs-msg-id="${msg.id}" data-obs-role="assistant">
+          ${renderObsAvatarHtml()}
+          <div class="obs-msg-body">
+            <div class="obs-error-inline" role="alert">
+              <p>${escHtml(msg.text)}</p>
+              ${msg.retryQuestion ? `<button type="button" class="obs-inline-link" data-obs-retry="${msg.id}">Tentar de novo</button>` : ""}
+            </div>
+          </div>
+        </div>
+      `;
     }
 
-    if (state.obsHistory.length || state.obsLoading) {
-      html += `<p class="obs-foot-note">As respostas usam IA para escolher e explicar os dados; os números são calculados pela página a partir das fontes indicadas.</p>`;
-    }
+    const textos = Array.isArray(msg.texto) ? msg.texto : (msg.texto ? [msg.texto] : []);
+    const blocos = (Array.isArray(msg.blocos) ? msg.blocos : []).slice(0, 2);
+    const renderedCards = blocos.map((b) => ({
+      bloco: b,
+      html: renderObsCardHtml(b, { showAllTimeRows: Boolean(msg.expandedTimeRows), msgId: msg.id })
+    })).filter((c) => Boolean(c.html));
 
-    wrap.innerHTML = html;
-    bindObsResponseActions(wrap);
+    const fontes = Array.isArray(msg.fontes) ? msg.fontes : [];
+    const acao = msg.acao || null;
+    const hasFoot = fontes.length > 0 || Boolean(acao);
+
+    return `
+      <div class="obs-msg-assistant" data-obs-msg-id="${msg.id}" data-obs-role="assistant">
+        ${renderObsAvatarHtml()}
+        <div class="obs-msg-body">
+          ${(msg.titulo || textos.length) ? `
+            <div class="obs-msg-text">
+              ${msg.titulo ? `<p class="obs-msg-p"><strong>${escHtml(msg.titulo)}</strong></p>` : ""}
+              ${textos.map((t) => `<p class="obs-msg-p">${escHtml(t)}</p>`).join("")}
+            </div>
+          ` : ""}
+          ${msg.conferida === false ? `<p class="obs-unverified-note">A IA citou um número que não está nos dados; mostramos a explicação calculada pela página.</p>` : ""}
+          ${renderedCards.length ? `
+            <div class="obs-msg-cards">
+              <div>${renderedCards[0].html}</div>
+              ${renderedCards.length > 1 ? (
+                msg.expandedSecondCard
+                  ? `<div>${renderedCards[1].html}</div>`
+                  : `<button type="button" class="obs-inline-link" data-obs-expand-card="${msg.id}">Ver também: ${escHtml(cardTitleForBlock(renderedCards[1].bloco))}</button>`
+              ) : ""}
+            </div>
+          ` : ""}
+          ${hasFoot ? `
+            <div class="obs-msg-foot">
+              ${fontes.length ? `
+                <span class="obs-foot-sources">
+                  ${fontes.map((f) => `<a class="obs-source-link" href="${escHtml(f.url || "#")}" target="_blank" rel="noopener">Fonte: ${escHtml(f.nome)}${f.coletado_em ? ` · ${escHtml(fmtBrDate(f.coletado_em))}` : ""} ↗</a>`).join(" ")}
+                </span>
+              ` : ""}
+              ${acao ? `<button type="button" class="obs-inline-link" data-obs-action="${escHtml(JSON.stringify({ estado: acao.estado, apontar: acao.apontar }))}">${escHtml(acao.rotulo || "Abrir na página")}</button>` : ""}
+            </div>
+          ` : ""}
+        </div>
+      </div>
+    `;
   }
 
-  function updateFreeUiState() {
-    const row = $("obs-free-row");
-    const limitBox = $("obs-limit-box");
-    const newConvBtn = $("obs-new-conv");
-    const sendBtn = $("obs-free-send");
-    const atLimit = state.obsHistory.length >= OBS_MAX_TURNS;
+  function renderWaitingHtml() {
+    return `
+      <div class="obs-msg-assistant" id="obs-waiting-msg" data-obs-role="waiting" aria-live="polite">
+        ${renderObsAvatarHtml()}
+        <div class="obs-msg-body">
+          <div class="obs-waiting-dots" aria-hidden="true">
+            <span class="obs-waiting-dot"></span>
+            <span class="obs-waiting-dot"></span>
+            <span class="obs-waiting-dot"></span>
+          </div>
+          <p class="obs-waiting-msg">Buscando nos dados…</p>
+        </div>
+      </div>
+    `;
+  }
 
-    if (row) row.hidden = atLimit;
+  function scrollChatArea(mode) {
+    const area = $("obs-chat-area");
+    if (!area || mode === "none") return;
+    if (mode === "bottom") {
+      area.scrollTop = area.scrollHeight;
+      return;
+    }
+    if (mode === "last-assistant") {
+      const list = $("obs-chat-list");
+      const assistants = list ? list.querySelectorAll('[data-obs-role="assistant"]') : [];
+      const target = assistants[assistants.length - 1];
+      if (!target) return;
+      const areaRect = area.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      area.scrollTop = Math.max(0, area.scrollTop + (targetRect.top - areaRect.top) - 6);
+    }
+  }
+
+  function updateChatControls() {
+    const newConvBtn = $("obs-new-conv");
+    const composerBox = $("obs-composer-box");
+    const limitBox = $("obs-limit-box");
+    const noteEl = $("obs-composer-note");
+    const sendBtn = $("obs-free-send");
+    const input = $("obs-free-input");
+    const atLimit = state.obsFreeTurns >= OBS_MAX_TURNS;
+
+    if (newConvBtn) newConvBtn.hidden = state.obsMessages.length === 0;
+    if (composerBox) composerBox.hidden = !hasEndpoint || atLimit;
     if (limitBox) limitBox.hidden = !atLimit;
-    if (newConvBtn) newConvBtn.hidden = state.obsHistory.length === 0 || atLimit;
+    if (noteEl) {
+      noteEl.hidden = !hasEndpoint || atLimit;
+      if (state.obsFreeTurns >= 5 && !atLimit) {
+        const left = OBS_MAX_TURNS - state.obsFreeTurns;
+        noteEl.textContent = left === 1 ? "Resta 1 pergunta nesta conversa" : `Restam ${left} perguntas nesta conversa`;
+      } else {
+        noteEl.textContent = "As respostas usam IA para explicar os dados; os números vêm das fontes indicadas.";
+      }
+    }
     if (sendBtn) {
-      sendBtn.disabled = state.obsLoading;
-      sendBtn.innerHTML = state.obsLoading
-        ? `Consultando<span class="obs-dots" aria-hidden="true"><span class="obs-dot">.</span><span class="obs-dot">.</span><span class="obs-dot">.</span></span>`
-        : "Enviar →";
+      if (state.obsLoading) {
+        sendBtn.disabled = true;
+        sendBtn.classList.add("is-loading");
+        sendBtn.setAttribute("aria-label", "Consultando…");
+        sendBtn.innerHTML = stopSquareSvg14;
+      } else {
+        const hasText = Boolean(input?.value.trim());
+        sendBtn.disabled = !hasText;
+        sendBtn.classList.remove("is-loading");
+        sendBtn.setAttribute("aria-label", "Enviar pergunta");
+        sendBtn.innerHTML = arrowUpSvg16;
+      }
+    }
+  }
+
+  function renderChat({ scroll = "none" } = {}) {
+    const emptyEl = $("obs-empty");
+    const listEl = $("obs-chat-list");
+    if (!emptyEl || !listEl) return;
+
+    const hasConversation = state.obsMessages.length > 0 || state.obsLoading;
+    emptyEl.hidden = hasConversation;
+    listEl.hidden = !hasConversation;
+
+    if (!hasConversation) {
+      listEl.innerHTML = "";
+      updateChatControls();
+      return;
+    }
+
+    const prevTop = $("obs-chat-area")?.scrollTop ?? 0;
+    listEl.innerHTML = state.obsMessages.map(renderObsMessageHtml).join("") + (state.obsLoading ? renderWaitingHtml() : "");
+    listEl.querySelectorAll("[data-obs-form]").forEach((formEl) => {
+      bindObsFormEvents(formEl.dataset.obsForm, formEl);
+    });
+
+    updateChatControls();
+    if (scroll === "none") {
+      const area = $("obs-chat-area");
+      if (area) area.scrollTop = prevTop;
+    } else {
+      nextFrame(() => scrollChatArea(scroll));
     }
   }
 
   function resetFreeConversation() {
     state.obsMemoria = null;
-    state.obsHistory = [];
-    state.obsActiveTurn = -1;
-    state.obsError = null;
+    state.obsMessages = [];
+    state.obsFreeTurns = 0;
     state.obsLoading = false;
-    updateFreeUiState();
-    if (!state.obsQuestion) {
-      const resp = $("obs-response");
-      if (resp) resp.innerHTML = "";
-      $("obs-expand")?.classList.remove("is-open");
-      const closeBtn = $("obs-close-btn");
-      if (closeBtn) closeBtn.hidden = true;
+    state.obsQuestion = null;
+    state.obsBlocks = [];
+    syncUrl();
+    renderChat({ scroll: "none" });
+  }
+
+  function openFormInChat(key, userPrompt) {
+    if (!key) return;
+    const s = OBS_SUGGESTIONS.find((x) => x.key === key);
+    const label = userPrompt || s?.label || OBS_QUESTIONS.find((q) => q.key === key)?.label || "";
+    const last = state.obsMessages[state.obsMessages.length - 1];
+    if (last?.kind === "form" && last.formKey === key) {
+      scrollChatArea("last-assistant");
+      return;
     }
+    if (label) pushObsMessage({ role: "user", text: label });
+    pushObsMessage({ role: "assistant", kind: "form", formKey: key });
+    state.obsQuestion = key;
+    syncUrl();
+    emit("obs_question", key);
+    renderChat({ scroll: "last-assistant" });
   }
 
   async function submitFreeQuestion(rawText) {
     if (!hasEndpoint) return;
     const pergunta = String(rawText ?? "").trim().slice(0, OBS_MAX_CHARS);
-    if (!pergunta || state.obsLoading || state.obsHistory.length >= OBS_MAX_TURNS) return;
+    if (!pergunta || state.obsLoading || state.obsFreeTurns >= OBS_MAX_TURNS) return;
 
-    if (state.obsQuestion) {
-      state.obsQuestion = null;
-      $$("#obs-pills .obs-pill").forEach((b) => {
-        b.classList.remove("is-active");
-        b.setAttribute("aria-expanded", "false");
-      });
-      const fw = $("obs-form-wrap");
-      if (fw) fw.innerHTML = "";
-      syncUrl();
+    const input = $("obs-free-input");
+    if (input) {
+      input.value = "";
+      input.style.height = "auto";
     }
+    const counter = $("obs-char-count");
+    if (counter) counter.hidden = true;
 
+    pushObsMessage({ role: "user", text: pergunta });
     state.obsLoading = true;
-    state.obsError = null;
-    updateFreeUiState();
-    renderFreeConversation();
+    renderChat({ scroll: "bottom" });
     emit("obs_free", "");
 
     try {
@@ -1870,81 +1984,68 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       if (destroyed) return;
       if (res.status === 429) {
         state.obsLoading = false;
-        state.obsError = "Muitas perguntas seguidas. Tente de novo em um minuto.";
-        updateFreeUiState();
-        renderFreeConversation();
+        pushObsMessage({
+          role: "assistant",
+          kind: "error",
+          text: "Muitas perguntas seguidas. Tente de novo em um minuto.",
+          retryQuestion: pergunta
+        });
+        renderChat({ scroll: "last-assistant" });
         return;
       }
       if (!res.ok || !data?.ok) {
         throw new Error(data?.erro || `HTTP ${res.status}`);
       }
       state.obsLoading = false;
+      state.obsFreeTurns += 1;
       state.obsMemoria = data.memoria ?? null;
-      state.obsHistory.push({ pergunta, data });
-      state.obsActiveTurn = state.obsHistory.length - 1;
-      const input = $("obs-free-input");
-      if (input) {
-        input.value = "";
-        input.style.height = "auto";
-      }
-      const counter = $("obs-char-count");
-      if (counter) counter.hidden = true;
-      updateFreeUiState();
-      renderFreeConversation();
+      pushObsMessage({
+        role: "assistant",
+        kind: "response",
+        titulo: data.titulo || "",
+        texto: Array.isArray(data.texto) ? data.texto : (data.texto ? [data.texto] : []),
+        blocos: Array.isArray(data.blocos) ? data.blocos : [],
+        fontes: Array.isArray(data.fontes) ? data.fontes : [],
+        acao: buildActionFromApi(data),
+        conferida: data.conferida !== false,
+        expandedSecondCard: false,
+        expandedTimeRows: false
+      });
+      renderChat({ scroll: "last-assistant" });
     } catch (_) {
       if (destroyed) return;
       state.obsLoading = false;
-      state.obsError = "A IA do Observatório não respondeu agora. As perguntas prontas abaixo funcionam sem ela.";
-      updateFreeUiState();
-      renderFreeConversation();
+      pushObsMessage({
+        role: "assistant",
+        kind: "error",
+        text: "A IA do Observatório não respondeu agora. Você pode tentar de novo ou usar o plano guiado.",
+        retryQuestion: pergunta
+      });
+      renderChat({ scroll: "last-assistant" });
     }
   }
 
-  function setObsQuestion(key, { keepBlocks = false } = {}) {
-    const expand = $("obs-expand");
-    const closeBtn = $("obs-close-btn");
-    const formWrap = $("obs-form-wrap");
-    const respEl = $("obs-response");
-    if (!expand || !formWrap || !respEl) return;
-
-    state.obsQuestion = key;
-    $$("#obs-pills .obs-pill").forEach((btn) => {
-      const act = btn.dataset.obsQ === key;
-      btn.classList.toggle("is-active", act);
-      btn.setAttribute("aria-expanded", String(act));
-    });
-
+  function setObsQuestion(key) {
     if (!key) {
-      expand.classList.remove("is-open");
-      if (closeBtn) closeBtn.hidden = true;
-      state.obsBlocks = [];
-      respEl.innerHTML = "";
-      formWrap.innerHTML = "";
+      state.obsQuestion = null;
       syncUrl();
       return;
     }
-
-    if (closeBtn) closeBtn.hidden = false;
-    formWrap.innerHTML = renderObsFormHtml(key);
-    if (!keepBlocks) {
-      state.obsBlocks = [];
-      respEl.innerHTML = "";
-    }
-    bindObsFormEvents(key);
-    nextFrame(() => expand.classList.add("is-open"));
-    syncUrl();
-    emit("obs_question", key);
+    openFormInChat(key);
   }
 
   function bindObsShellEvents() {
-    $$("#obs-pills .obs-pill").forEach((btn) => {
+    $$("#obs-suggestions .obs-suggestion-chip").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const k = btn.dataset.obsQ;
-        setObsQuestion(state.obsQuestion === k ? null : k);
+        const key = btn.dataset.obsSuggestion;
+        const s = OBS_SUGGESTIONS.find((x) => x.key === key);
+        if (!s) return;
+        if (s.alwaysLocal || !hasEndpoint) {
+          openFormInChat(s.key, s.pergunta);
+        } else {
+          submitFreeQuestion(s.pergunta);
+        }
       });
-    });
-    $("obs-close-btn")?.addEventListener("click", () => {
-      setObsQuestion(null);
     });
 
     const input = $("obs-free-input");
@@ -1952,12 +2053,13 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     const syncInputSize = () => {
       if (!input) return;
       input.style.height = "auto";
-      input.style.height = `${Math.min(84, input.scrollHeight)}px`;
+      input.style.height = `${Math.min(118, input.scrollHeight)}px`;
       if (counter) {
         const len = input.value.length;
         counter.hidden = len < 400;
         counter.textContent = `${len} / ${OBS_MAX_CHARS}`;
       }
+      updateChatControls();
     };
     input?.addEventListener("input", syncInputSize);
     input?.addEventListener("keydown", (e) => {
@@ -1969,25 +2071,73 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     $("obs-free-send")?.addEventListener("click", () => {
       submitFreeQuestion(input?.value || "");
     });
-    $$("[data-obs-example]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const ex = btn.dataset.obsExample || "";
-        if (input) {
-          input.value = ex;
-          syncInputSize();
-        }
-        submitFreeQuestion(ex);
-      });
-    });
     $("obs-new-conv")?.addEventListener("click", resetFreeConversation);
     $("obs-limit-reset")?.addEventListener("click", resetFreeConversation);
+
+    const chatList = $("obs-chat-list");
+    chatList?.addEventListener("click", (e) => {
+      const actionBtn = e.target.closest("[data-obs-action]");
+      if (actionBtn) {
+        try {
+          const payload = JSON.parse(actionBtn.dataset.obsAction);
+          window.observatorio?.abrir(payload.estado || {});
+          if (payload.apontar) window.observatorio?.apontar(payload.apontar);
+        } catch (_) {}
+        return;
+      }
+      const expandCardBtn = e.target.closest("[data-obs-expand-card]");
+      if (expandCardBtn) {
+        const msgId = Number(expandCardBtn.dataset.obsExpandCard);
+        const msg = state.obsMessages.find((m) => m.id === msgId);
+        if (msg) {
+          msg.expandedSecondCard = true;
+          renderChat({ scroll: "none" });
+        }
+        return;
+      }
+      const expandTimeBtn = e.target.closest("[data-obs-expand-time]");
+      if (expandTimeBtn) {
+        const msgId = Number(expandTimeBtn.dataset.obsExpandTime);
+        const msg = state.obsMessages.find((m) => m.id === msgId);
+        if (msg) {
+          msg.expandedTimeRows = true;
+          renderChat({ scroll: "none" });
+        }
+        return;
+      }
+      const retryBtn = e.target.closest("[data-obs-retry]");
+      if (retryBtn) {
+        const msgId = Number(retryBtn.dataset.obsRetry);
+        const idx = state.obsMessages.findIndex((m) => m.id === msgId);
+        if (idx !== -1) {
+          const pergunta = state.obsMessages[idx].retryQuestion;
+          state.obsMessages.splice(idx, 1);
+          if (pergunta) submitFreeQuestion(pergunta);
+        }
+        return;
+      }
+      const explainBtn = e.target.closest(".step-explain-btn");
+      if (explainBtn) {
+        const footer = explainBtn.closest(".step-explain-footer");
+        const explainWrap = footer?.querySelector(".step-explain-wrap");
+        if (!explainWrap) return;
+        const open = !explainWrap.classList.contains("is-open");
+        explainWrap.classList.toggle("is-open", open);
+        explainBtn.setAttribute("aria-expanded", String(open));
+        const lbl = explainBtn.querySelector(".step-explain-lbl");
+        if (lbl) lbl.textContent = open ? "Ocultar explicação" : "Ver explicação";
+      }
+    });
   }
 
-  function bindObsFormEvents(key) {
+  function bindObsFormEvents(key, scopeEl) {
+    const q = (role) => scopeEl?.querySelector(`[data-form-role="${role}"]`);
     if (key === "esforco") {
-      const mSel = $("obs-deg-model");
-      const eSel = $("obs-deg-effort");
-      const dSel = $("obs-deg-dir");
+      const mSel = q("deg-model");
+      const eSel = q("deg-effort");
+      const dSel = q("deg-dir");
+      const goBtn = q("deg-go");
+      if (!mSel || !eSel || !dSel || !goBtn) return;
       const syncEff = () => {
         const f = state.base.porId.get(mSel.value);
         const vs = f.variantes.filter((v) => v.notas[state.area] !== null);
@@ -2005,7 +2155,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       mSel.addEventListener("change", syncEff);
       dSel.addEventListener("change", syncEff);
       eSel.addEventListener("change", () => { state.obsForm.degEffort = eSel.value; });
-      $("obs-deg-go").addEventListener("click", () => {
+      goBtn.addEventListener("click", () => {
         const f = state.base.porId.get(mSel.value);
         const vs = f.variantes.filter((v) => v.notas[state.area] !== null);
         const idx = vs.findIndex((v) => v.esforco === eSel.value);
@@ -2022,8 +2172,10 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     }
 
     if (key === "comparar") {
-      const m1 = $("obs-cmp-m1"), e1 = $("obs-cmp-e1");
-      const m2 = $("obs-cmp-m2"), e2 = $("obs-cmp-e2");
+      const m1 = q("cmp-m1"), e1 = q("cmp-e1");
+      const m2 = q("cmp-m2"), e2 = q("cmp-e2");
+      const goBtn = q("cmp-go");
+      if (!m1 || !e1 || !m2 || !e2 || !goBtn) return;
       const fill = (mEl, eEl, defKey) => {
         const f = state.base.porId.get(mEl.value);
         const wanted = state.obsForm[defKey] || "high";
@@ -2037,7 +2189,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       m2.addEventListener("change", () => { state.obsForm.cmpM2 = m2.value; fill(m2, e2, "cmpE2"); });
       e1.addEventListener("change", () => { state.obsForm.cmpE1 = e1.value; });
       e2.addEventListener("change", () => { state.obsForm.cmpE2 = e2.value; });
-      $("obs-cmp-go").addEventListener("click", () => {
+      goBtn.addEventListener("click", () => {
         const itens = [{ modelo: m1.value, esforco: e1.value }, { modelo: m2.value, esforco: e2.value }];
         const c = motor.comparar(state.base, { itens, areas: motor.AREA_KEYS });
         window.observatorio?.montar([
@@ -2049,11 +2201,13 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     }
 
     if (key === "barato") {
-      const areaSel = $("obs-bar-area");
-      const tolSel = $("obs-bar-tol");
+      const areaSel = q("bar-area");
+      const tolSel = q("bar-tol");
+      const goBtn = q("bar-go");
+      if (!areaSel || !tolSel || !goBtn) return;
       areaSel.addEventListener("change", () => { state.obsForm.barArea = areaSel.value; });
       tolSel.addEventListener("change", () => { state.obsForm.barTol = Number(tolSel.value); });
-      $("obs-bar-go").addEventListener("click", () => {
+      goBtn.addEventListener("click", () => {
         const a = areaSel.value;
         const selTol = Number(tolSel.value);
         const p = motor.placar(state.base, { area: a, tolerancia: selTol });
@@ -2066,13 +2220,15 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     }
 
     if (key === "time") {
-      $$('input[name="obs-plan"]').forEach((cb) => {
+      const goBtn = q("time-go");
+      if (!goBtn || !scopeEl) return;
+      scopeEl.querySelectorAll('input[name="obs-plan"]').forEach((cb) => {
         cb.addEventListener("change", () => {
-          state.obsForm.timePlanos = [...$$('input[name="obs-plan"]:checked')].map((el) => el.value);
+          state.obsForm.timePlanos = [...scopeEl.querySelectorAll('input[name="obs-plan"]:checked')].map((el) => el.value);
         });
       });
-      $("obs-time-go").addEventListener("click", () => {
-        const planos = [...$$('input[name="obs-plan"]:checked')].map((el) => el.value);
+      goBtn.addEventListener("click", () => {
+        const planos = [...scopeEl.querySelectorAll('input[name="obs-plan"]:checked')].map((el) => el.value);
         state.obsForm.timePlanos = planos;
         const t = motor.montar_time(state.base, { planos });
         if (!t.ok) {
@@ -2086,6 +2242,20 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       });
     }
   }
+
+  // "Incluir na conta": refaz o time com os modelos mais novos que a lista de planos ainda não cobre.
+  const aoIncluirNovidades = (e) => {
+    const btn = e.target.closest?.("[data-obs-incluir]");
+    if (!btn || !raiz.contains(btn) || !state.base) return;
+    try {
+      const { planos, extras } = JSON.parse(btn.dataset.obsIncluir);
+      const t = motor.montar_time(state.base, { planos, extras });
+      if (!t.ok) return;
+      window.observatorio?.montar([{ tipo: "resposta", params: t.resposta }, { tipo: "time", params: { planos, extras } }]);
+      emit("time_incluir_novidades", extras.join(","));
+    } catch (_) {}
+  };
+  raiz.addEventListener("click", aoIncluirNovidades);
 
   const observatorioApi = {
     abrir(estado = {}) {
@@ -2165,90 +2335,37 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     montar(blocos = []) {
       if (destroyed) return;
       state.obsBlocks = blocos;
-      const expand = $("obs-expand");
-      const closeBtn = $("obs-close-btn");
-      const wrap = $("obs-response");
-      if (!wrap) return;
-      if (expand && !expand.classList.contains("is-open")) {
-        nextFrame(() => expand.classList.add("is-open"));
-      }
-      if (closeBtn) closeBtn.hidden = false;
+      if (!blocos.length) return;
 
       const respBloco = blocos.find((b) => b.tipo === "resposta" || b.tipo === "frase");
-      const cardBloco = blocos.find((b) => ["degrau", "comparacao", "placar", "ranking", "time"].includes(b.tipo));
+      const cardBlocos = blocos.filter((b) => ["degrau", "comparacao", "placar", "ranking", "time", "painel_modelo", "outras_fontes", "abismo"].includes(b.cartao || b.tipo));
       const acaoBloco = blocos.find((b) => b.tipo === "acao");
 
-      const buildHtml = () => {
-        if (!blocos.length) return "";
-        let leftHtml = "";
-        if (respBloco?.tipo === "resposta") {
-          const titulo = respBloco.params?.titulo || "";
-          const textos = Array.isArray(respBloco.params?.texto) ? respBloco.params.texto : (respBloco.params?.texto ? [respBloco.params.texto] : []);
-          leftHtml += titulo ? `<h3 class="obs-resp-title obs-anim">${escHtml(titulo)}</h3>` : "";
-          leftHtml += textos.length ? `<div class="obs-resp-text obs-anim">${textos.map((t) => `<p class="obs-resp-p">${escHtml(t)}</p>`).join("")}</div>` : "";
-        } else if (respBloco?.tipo === "frase") {
-          leftHtml += `<p class="obs-resp-p obs-anim">${escHtml(respBloco.params?.texto || "")}</p>`;
-        }
-        if (acaoBloco) {
-          const payload = { estado: acaoBloco.params?.estado || {}, apontar: acaoBloco.params?.apontar || null };
-          leftHtml += `<button type="button" class="btn-pill obs-resp-action obs-anim" data-obs-action="${escHtml(JSON.stringify(payload))}">${escHtml(acaoBloco.params?.rotulo || "Abrir na página")}</button>`;
-        }
+      const titulo = respBloco?.tipo === "resposta" ? (respBloco.params?.titulo || "") : "";
+      const texto = respBloco?.tipo === "resposta"
+        ? (Array.isArray(respBloco.params?.texto) ? respBloco.params.texto : (respBloco.params?.texto ? [respBloco.params.texto] : []))
+        : (respBloco?.tipo === "frase" ? [respBloco.params?.texto || ""] : []);
+      const acao = acaoBloco
+        ? {
+            rotulo: acaoBloco.params?.rotulo || "Abrir na página",
+            estado: acaoBloco.params?.estado || {},
+            apontar: acaoBloco.params?.apontar || null
+          }
+        : null;
 
-        const cardHtml = cardBloco ? renderObsCardHtml(cardBloco) : "";
-        const isWide = (cardBloco?.cartao || cardBloco?.tipo) === "time";
-
-        return `
-          <div class="obs-resp-grid${isWide || !cardHtml ? " is-wide" : ""}">
-            <div class="obs-resp-left">${leftHtml}</div>
-            ${cardHtml ? `<div class="obs-resp-right obs-anim">${cardHtml}</div>` : ""}
-          </div>
-          <p class="obs-foot-note">As respostas usam IA para escolher e explicar os dados; os números são calculados pela página a partir das fontes indicadas.</p>
-        `;
-      };
-
-      const bindAndReveal = () => {
-        wrap.innerHTML = buildHtml();
-        wrap.querySelectorAll("[data-obs-action]").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            try {
-              const payload = JSON.parse(btn.dataset.obsAction);
-              window.observatorio?.abrir(payload.estado || {});
-              if (payload.apontar) window.observatorio?.apontar(payload.apontar);
-            } catch (_) {}
-          });
-        });
-        wrap.querySelectorAll(".step-explain-btn").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const footer = btn.closest(".step-explain-footer");
-            const explainWrap = footer?.querySelector(".step-explain-wrap");
-            if (!explainWrap) return;
-            const open = !explainWrap.classList.contains("is-open");
-            explainWrap.classList.toggle("is-open", open);
-            btn.setAttribute("aria-expanded", String(open));
-            const lbl = btn.querySelector(".step-explain-lbl");
-            if (lbl) lbl.textContent = open ? "Ocultar explicação" : "Ver explicação";
-          });
-        });
-        const els = [...wrap.querySelectorAll(".obs-anim")];
-        if (prefersReducedMotion()) {
-          els.forEach((el) => el.classList.add("is-in"));
-        } else {
-          els.forEach((el, i) => {
-            later(() => nextFrame(() => el.classList.add("is-in")), i * 60);
-          });
-        }
-      };
-
-      const hadContent = wrap.innerHTML.trim() !== "";
-      if (hadContent && !prefersReducedMotion()) {
-        wrap.classList.add("is-fading");
-        later(() => {
-          bindAndReveal();
-          nextFrame(() => wrap.classList.remove("is-fading"));
-        }, 150);
-      } else {
-        bindAndReveal();
-      }
+      pushObsMessage({
+        role: "assistant",
+        kind: "response",
+        titulo,
+        texto,
+        blocos: cardBlocos,
+        fontes: defaultAaFontes(),
+        acao,
+        conferida: true,
+        expandedSecondCard: false,
+        expandedTimeRows: false
+      });
+      renderChat({ scroll: "last-assistant" });
     }
   };
 
@@ -2478,6 +2595,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
 
   return function desmontar() {
     destroyed = true;
+    raiz.removeEventListener("click", aoIncluirNovidades);
     for (const fn of cleanups) fn();
     cleanups.length = 0;
     for (const id of timers) window.clearTimeout(id);
