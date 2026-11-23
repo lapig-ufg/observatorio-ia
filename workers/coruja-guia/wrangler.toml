@@ -4,11 +4,13 @@ main = "worker.mjs"
 compatibility_date = "2026-09-20"
 
 [vars]
-ORIGENS = "https://lapig-ufg.github.io,http://localhost:5174"
+ORIGENS = "https://lapig-ufg.github.io,http://localhost:5174,http://localhost:4822"
 MODELO = "deepseek-v4.1-flash"
 OLLAMA_URL = "https://ollama.com/api/chat"
 # Desligador: qualquer outro valor desliga a IA (a página segue com os textos dela).
 IA_LIGADA = "sim"
+# De onde o "Pergunte ao Observatório" lê os dados do guia (guia-modelos, guia-fontes, guia-planos).
+PANORAMA_ASSETS = "https://lapig-ufg.github.io/app-panorama-global-da-ia-generativa/assets/"
 
 [[durable_objects.bindings]]
 name = "CONTADOR"

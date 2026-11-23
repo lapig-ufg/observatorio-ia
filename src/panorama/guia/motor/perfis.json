@@ -1,0 +1,199 @@
+{
+  "versao": 1,
+  "atualizado_em": "2026-11-02",
+  "perfis": {
+    "codigo-agentico": {
+      "nome": "Código agêntico (longo, terminal, repo)",
+      "descricao": "Implementar/refatorar em repositório, rodar testes, usar terminal por muito tempo.",
+      "qualidade": { "engineering": 0.6, "intelligence": 0.4 },
+      "externo": {
+        "vals": { "terminal-bench-4": 0.35, "swebench-multimodal": 0.3, "code-migration-v1-1": 0.15, "vibe-code": 0.1, "programbench": 0.1 },
+        "lmarena": ["coding", "industry_software_and_it_services", "instruction_following"]
+      },
+      "custo": 0.08,
+      "quota": 0.25,
+      "velocidade": 0.07,
+      "risco": "medio",
+      "piso": 42,
+      "comprimento": "longo",
+      "contexto_min": 200000,
+      "cascata": ["deepseek-v4-1-flash-1017", "claude-sonnet-5-5", "claude-opus-5-5", "gpt-6-astra"],
+      "palavras": ["refatorar", "implementar", "repositório", "repo", "terminal", "agente", "pipeline", "deploy", "testes", "bug"]
+    },
+    "codigo-curto": {
+      "nome": "Código curto (função, script, review)",
+      "descricao": "Uma função, um script, um trecho, revisão de código ou explicação.",
+      "qualidade": { "engineering": 0.7, "intelligence": 0.3 },
+      "externo": {
+        "vals": { "vibe-code": 0.4, "code-migration-v1-1": 0.3, "programbench": 0.3 },
+        "lmarena": ["coding", "instruction_following"]
+      },
+      "custo": 0.12,
+      "quota": 0.18,
+      "velocidade": 0.15,
+      "risco": "baixo",
+      "piso": 30,
+      "comprimento": "curto",
+      "cascata": ["deepseek-v4-1-flash-1017", "claude-sonnet-5-5", "gpt-6-1-sol", "claude-opus-5-5"],
+      "palavras": ["função", "script", "regex", "trecho", "review", "revisar código", "explicar código"]
+    },
+    "pesquisa": {
+      "nome": "Pesquisa e síntese",
+      "descricao": "Investigar um tema, comparar fontes, montar estado da arte ou relatório analítico.",
+      "qualidade": { "intelligence": 0.55, "strategy": 0.15, "economics": 0.1, "engineering": 0.1, "legal": 0.1 },
+      "externo": {
+        "vals": { "science_index": 0.3, "proof_bench": 0.3, "time_horizon_index": 0.2, "rsi_index": 0.2 },
+        "lmarena": ["overall", "hard_prompts", "longer_query"]
+      },
+      "custo": 0.08,
+      "quota": 0.15,
+      "velocidade": 0.05,
+      "risco": "medio",
+      "piso": 42,
+      "comprimento": "medio",
+      "contexto_min": 200000,
+      "cascata": ["claude-opus-5-5", "gpt-6-astra", "gemini-4-argon", "gemini-4-carbon"],
+      "palavras": ["pesquisar", "investigar", "fontes", "literatura", "estado da arte", "deep research", "comparar"]
+    },
+    "escrita": {
+      "nome": "Escrita para outras pessoas",
+      "descricao": "Relatório, e-mail, artigo, slides, texto oficial. O AA não mede escrita; a nota é sua.",
+      "qualidade": { "escrita": 0.6, "intelligence": 0.4 },
+      "externo": {
+        "lmarena": ["creative_writing", "industry_writing_and_literature_and_language", "instruction_following"]
+      },
+      "custo": 0.05,
+      "quota": 0.15,
+      "velocidade": 0.05,
+      "risco": "alto",
+      "piso": 45,
+      "comprimento": "medio",
+      "cascata": ["claude-opus-5-5", "claude-sonnet-5-5", "gemini-4-argon", "claude-fable-5-1"],
+      "palavras": ["escrever", "relatório", "texto", "e-mail", "artigo", "slides", "apresentação", "ofício", "parecer"]
+    },
+    "dados": {
+      "nome": "Dados, planilhas e análise",
+      "descricao": "Analisar CSV/planilha, fazer conta, montar gráfico, checar números.",
+      "qualidade": { "finance": 0.35, "economics": 0.2, "intelligence": 0.3, "engineering": 0.15 },
+      "externo": {
+        "vals": { "finance_index": 0.4, "fabv2-1": 0.3, "tax_agent_bench": 0.3 },
+        "lmarena": ["industry_business_and_management_and_financial_operations", "math"]
+      },
+      "custo": 0.08,
+      "quota": 0.15,
+      "velocidade": 0.07,
+      "risco": "medio",
+      "piso": 38,
+      "comprimento": "medio",
+      "cascata": ["claude-opus-5-5", "gpt-6-astra", "gpt-6-1-sol", "gemini-4-argon"],
+      "palavras": ["planilha", "csv", "dados", "análise", "estatística", "gráfico", "número", "orçamento"]
+    },
+    "volume": {
+      "nome": "Volume mecânico",
+      "descricao": "Muitos PDFs, extração, classificação, transcrição, lote. O barato que passa no piso.",
+      "qualidade": { "intelligence": 0.4, "engineering": 0.2, "finance": 0.2, "strategy": 0.2 },
+      "externo": {
+        "lmarena": ["instruction_following", "longer_query"]
+      },
+      "custo": 0.25,
+      "quota": 0.35,
+      "velocidade": 0.05,
+      "risco": "baixo",
+      "piso": 22,
+      "comprimento": "longo",
+      "estrategia": "custo",
+      "bonus_default": 12.0,
+      "margem_valor": 0.6,
+      "preferido": "deepseek-v4-1-flash-1017",
+      "canais_preferidos": ["ollama", "antigravity-gemini"],
+      "cascata": ["deepseek-v4-1-flash-1017", "glm-5-3-flash", "claude-haiku-5-5", "gpt-6-luna"],
+      "palavras": ["pdfs", "extrair", "classificar", "transcrever", "lote", "200", "1000", "em massa", "volume"]
+    },
+    "juridico": {
+      "nome": "Jurídico",
+      "descricao": "Contrato, parecer, legislação, análise de risco jurídico. Risco alto; exige revisão humana.",
+      "qualidade": { "legal": 0.6, "intelligence": 0.25, "strategy": 0.1, "economics": 0.05 },
+      "externo": {
+        "vals": { "legal_index": 0.4, "legal_research": 0.3, "legal_bench": 0.15, "immigration": 0.15 },
+        "lmarena": ["industry_legal_and_government"]
+      },
+      "custo": 0.05,
+      "quota": 0.1,
+      "velocidade": 0.05,
+      "risco": "alto",
+      "piso": 45,
+      "comprimento": "medio",
+      "cascata": ["claude-opus-5-5", "gemini-4-argon", "gemini-4-carbon", "gpt-6-astra"],
+      "palavras": ["jurídico", "legal", "contrato", "lei", "parecer", "processo", "compliance"]
+    },
+    "saude": {
+      "nome": "Saúde e medicina",
+      "descricao": "Conteúdo clínico,educação em saúde, análise de caso. Risco alto; exige revisão humana.",
+      "qualidade": { "health": 0.6, "intelligence": 0.3, "engineering": 0.1 },
+      "externo": {
+        "vals": { "medcode": 0.3, "medscribe": 0.3, "biomysterybench": 0.2, "hlab": 0.2 },
+        "lmarena": ["industry_medicine_and_healthcare"]
+      },
+      "custo": 0.05,
+      "quota": 0.1,
+      "velocidade": 0.05,
+      "risco": "alto",
+      "piso": 45,
+      "comprimento": "medio",
+      "cascata": ["claude-opus-5-5", "gemini-4-argon", "gpt-6-astra", "claude-sonnet-5-5"],
+      "palavras": ["saúde", "médico", "clínico", "paciente", "diagnóstico", "medicamento"]
+    },
+    "imagem": {
+      "nome": "Imagem",
+      "descricao": "Gerar ou interpretar imagem, figura, slide visual.",
+      "qualidade": { "intelligence": 0.5, "engineering": 0.3, "strategy": 0.2 },
+      "externo": {
+        "lmarena": ["overall"]
+      },
+      "custo": 0.1,
+      "quota": 0.2,
+      "velocidade": 0.1,
+      "risco": "baixo",
+      "piso": 25,
+      "comprimento": "curto",
+      "gera_imagem": true,
+      "cascata": ["gemini-4-argon", "gpt-6-astra", "gemini-4-carbon"],
+      "palavras": ["imagem", "figura", "foto", "gerar imagem", "ilustração", "capa"]
+    },
+    "segunda-opiniao": {
+      "nome": "Segunda opinião",
+      "descricao": "Revisar a saída de outra família; apontar furos e divergências.",
+      "qualidade": { "intelligence": 0.5, "engineering": 0.3, "strategy": 0.2 },
+      "externo": {
+        "vals": { "vals_index": 1.0 },
+        "lmarena": ["overall", "instruction_following"]
+      },
+      "custo": 0.08,
+      "quota": 0.2,
+      "velocidade": 0.07,
+      "risco": "medio",
+      "piso": 40,
+      "comprimento": "medio",
+      "diversidade": true,
+      "cascata": ["gpt-6-astra", "claude-opus-5-5", "gemini-4-argon"],
+      "palavras": ["segunda opinião", "revisar", "conferir", "criticar", "auditar"]
+    },
+    "geral": {
+      "nome": "Uso geral",
+      "descricao": "Pergunta solta, explicação, conversa, tarefa sem perfil claro.",
+      "qualidade": { "intelligence": 0.6, "engineering": 0.2, "strategy": 0.2 },
+      "externo": {
+        "vals": { "vals_index": 1.0 },
+        "lmarena": ["overall"]
+      },
+      "custo": 0.1,
+      "quota": 0.2,
+      "velocidade": 0.1,
+      "risco": "baixo",
+      "piso": 30,
+      "comprimento": "curto",
+      "cascata": ["deepseek-v4-1-flash-1017", "claude-sonnet-5-5", "claude-opus-5-5", "gpt-6-astra"],
+      "palavras": []
+    }
+  }
+}

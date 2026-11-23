@@ -97,7 +97,9 @@ test("both Panorama pages read the live Panorama site, never a local copy", () =
   assert.match(page, /<Timeline english=\{english\} \/>/);
   assert.match(timeline, /loadPanoramaLaunches\(locale/);
   assert.match(timeline, /loadPanoramaCatalog|loadPanoramaBenchmarks/);
-  assert.match(page, /<GuiaModelos english=\{english\} \/>/);
+  // Desde a v6, a guia em português é GuiaV6 (que também lê o Panorama publicado); a inglesa segue em GuiaModelos.
+  assert.match(page, /english \? <GuiaModelos english \/> : <GuiaV6 \/>/);
+  assert.match(fs.readFileSync("src/panorama/guia/v6/GuiaV6.tsx", "utf8"), /PANORAMA_SITE/);
   assert.match(guide, /loadGuideData\(controller\.signal\)/);
   assert.match(guide, /loadPanoramaConfig\(\)/);
   assert.match(page, /<FreeTools english=\{english\} referenceDate=\{context\?\.date\} \/>/);
