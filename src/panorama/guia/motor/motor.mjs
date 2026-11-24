@@ -106,13 +106,16 @@ function montarFontesInfo(base, raiz) {
     const f = base.fontes?.info[id];
     if (f) info[id] = { id, nome: f.nome, url: f.url, coletadoEm: f.coletadoEm, mede: f.mede };
   }
+  // Vals AI: só quando os números vieram junto (uso local; o arquivo publicado não os traz).
+  const temVals = base.fontes && [...base.fontes.familias.values()].some((x) => x.vals);
+  if (temVals && base.fontes.info.vals) { const f = base.fontes.info.vals; info.vals = { id: "vals", nome: f.nome, url: f.url, coletadoEm: f.coletadoEm, mede: f.mede }; }
   return info;
 }
 
 /** Quais fontes cada ferramenta usa. */
 export const FONTES_POR_FERRAMENTA = {
   achar_modelo: [], placar: ["aa"], ranking: ["aa"], escada: ["aa"], degrau: ["aa"], comparar: ["aa"],
-  parecidos: ["aa"], perfil_tarefa: ["aa"], outras_fontes: ["lmarena", "epoch"], abismo: ["aa"], montar_time: ["aa"],
+  parecidos: ["aa"], perfil_tarefa: ["aa"], outras_fontes: ["lmarena", "epoch"], comparar_fontes: ["aa", "lmarena", "epoch", "vals"], abismo: ["aa"], montar_time: ["aa"],
   explicar_metodo: [], opcoes: [],
 };
 
@@ -135,12 +138,15 @@ function lerFontes(json) {
       geral: intervalo(e.overall),
       categorias: Object.fromEntries(Object.entries(obj(e.categories)).map(([c, v]) => [c, intervalo(v)]).filter(([, v]) => v)),
     })).filter((e) => e.geral);
-    const ep = obj(f.epoch);
-    const epoch = Object.keys(obj(ep.benchmarks)).length ? {
-      esforco: str(ep.effort) || null,
-      testes: Object.entries(obj(ep.benchmarks)).flatMap(([k, b]) => num(obj(b).score) === null ? [] : [{ chave: k, nome: str(b.label) || k, nota: b.score }]),
-    } : null;
-    familias.set(id, { lmarena, epoch });
+    const testes = (fonte) => {
+      const o = obj(fonte);
+      return Object.keys(obj(o.benchmarks)).length ? {
+        esforco: str(o.effort) || null,
+        testes: Object.entries(obj(o.benchmarks)).flatMap(([k, b]) => num(obj(b).score) === null ? [] : [{ chave: k, nome: str(b.label) || k, nota: b.score }]),
+      } : null;
+    };
+    // Vals AI só chega aqui pela cópia local do Victor (a licença não permite publicar os números).
+    familias.set(id, { lmarena, epoch: testes(f.epoch), vals: testes(f.vals) });
   }
   return { info, familias };
 }
@@ -752,6 +758,147 @@ export function outras_fontes(base, { modelo } = {}) {
   return r;
 }
 
+/* ─── 9b. comparar_fontes ─── */
+
+// "O nível mais alto" é pela ordem de esforço (max > xhigh > high…), não pela nota.
+const posNivel = (e) => RACIOCINIO.indexOf(e);
+const maisAlto = (lista) => lista.reduce((m, e) => (m === null || posNivel(e.esforco) > posNivel(m.esforco) ? e : m), null);
+const NOMES_FONTE = { aa: "Artificial Analysis", lmarena: "LMArena", epoch: "Epoch AI", vals: "Vals AI" };
+
+/** Uma linha de comparação: quem fica à frente, com empate quando a diferença é pequena.
+    `perto(a, b)` diz se b está perto demais de a (o melhor) para contar como derrota. */
+function linhaFontes(nomes, valores, perto) {
+  if (valores.some((x) => x === null)) return { lider: null, empate: null, sem_dado: true };
+  const ordem = valores.map((v, i) => [v, i]).sort((a, b) => b[0].nota - a[0].nota);
+  const topo = ordem[0][0];
+  const juntos = ordem.filter(([v]) => perto(topo, v)).map(([, i]) => nomes[i]);
+  return juntos.length === 1 ? { lider: juntos[0], empate: null, sem_dado: false } : { lider: null, empate: juntos, sem_dado: false };
+}
+
+function placarDaFonte(nomes, linhas) {
+  const v = new Map(nomes.map((n) => [n, 0]));
+  for (const l of linhas) if (l.lider) v.set(l.lider, v.get(l.lider) + 1);
+  const ordem = [...v].sort((a, b) => b[1] - a[1]);
+  const empates = linhas.filter((l) => l.empate).length;
+  // Só lidera quem ganha mais vezes que o segundo e pelo menos tantas vezes quanto houve empate.
+  const lider = ordem[0][1] > 0 && ordem[0][1] > (ordem[1]?.[1] ?? -1) && ordem[0][1] >= empates ? ordem[0][0] : null;
+  return { vitorias: Object.fromEntries(v), lider };
+}
+
+/** De 2 a 4 modelos, cada um no nível mais alto que cada fonte mediu: quem fica à frente na
+    Artificial Analysis, no LMArena, no Epoch AI (e no Vals AI, quando os dados locais o trazem). */
+export function comparar_fontes(base, { itens = [] } = {}) {
+  if (!Array.isArray(itens) || itens.length < 2 || itens.length > 4) return erro("comparar_fontes pede de 2 a 4 modelos");
+  const fs = [];
+  for (const it of itens) {
+    const r = resolver(base, typeof it === "string" ? it : it.modelo);
+    if (!r.ok) return erro(`não achei "${typeof it === "string" ? it : it.modelo}": ${r.erro}`);
+    if (fs.some((f) => f.id === r.f.id)) return erro(`${r.f.nome} apareceu duas vezes: aqui cada modelo entra uma vez, no nível mais alto`);
+    fs.push(r.f);
+  }
+  const nomes = fs.map((f) => f.nome);
+  const dados = fs.map((f) => base.fontes?.familias.get(f.id) ?? {});
+  const fontes = [];
+
+  // Artificial Analysis: inteligência geral no nível mais alto medido.
+  const aaVar = fs.map((f) => maisAlto(f.variantes.filter((v) => posNivel(v.esforco) >= 0)) ?? f.variantes.at(-1));
+  const aaVal = aaVar.map((v) => ((v?.notas.intelligence ?? null) === null ? null : { nota: v.notas.intelligence }));
+  const aaLinha = { teste: "intelligence", nome: AREAS.intelligence, notas: aaVal.map((x) => x && arred(x.nota, 1)), ...linhaFontes(nomes, aaVal, (a, b) => a.nota - b.nota < EMPATE) };
+  fontes.push({ id: "aa", nome: NOMES_FONTE.aa, mede: base.fontesInfo.aa?.mede, esforcos: aaVar.map((v) => v?.esforco ?? null), linhas: [aaLinha], faltam: nomes.filter((_, i) => aaVal[i] === null), ...placarDaFonte(nomes, [aaLinha]) });
+
+  // LMArena: preferência das pessoas, com margem de erro (se as margens se cruzam, é empate).
+  if (base.fontesInfo.lmarena) {
+    const ent = dados.map((d) => (d.lmarena?.length ? maisAlto(d.lmarena) ?? d.lmarena.at(-1) : null));
+    const faltam = nomes.filter((_, i) => !ent[i]);
+    let linhas = [];
+    if (!faltam.length) {
+      const cats = [["geral", "Geral"], ...Object.entries(CATEGORIAS_ARENA).map(([c, n]) => [c, n[0].toUpperCase() + n.slice(1)])];
+      linhas = cats.flatMap(([c, nome]) => {
+        const vals = ent.map((e) => (c === "geral" ? e.geral : e.categorias[c]) ?? null);
+        if (vals.every((v) => v === null)) return [];
+        const perto = (a, b) => (a.min === null || b.max === null ? a.nota - b.nota < EMPATE : b.max >= a.min);
+        return [{ teste: c, nome, notas: vals.map((v) => v && { nota: v.nota, min: v.min, max: v.max, posicao: v.posicao, total: v.total }), ...linhaFontes(nomes, vals, perto) }];
+      });
+    }
+    fontes.push({ id: "lmarena", nome: NOMES_FONTE.lmarena, mede: base.fontesInfo.lmarena.mede, esforcos: ent.map((e) => e?.esforco ?? null), linhas, faltam, ...placarDaFonte(nomes, linhas) });
+  }
+
+  // Epoch AI e Vals AI: só os testes que todos fizeram; menos de 1 ponto é empate.
+  for (const id of ["epoch", "vals"]) {
+    if (!base.fontesInfo[id]) continue;
+    const ent = dados.map((d) => d[id] ?? null);
+    const faltam = nomes.filter((_, i) => !ent[i]);
+    let linhas = [];
+    if (!faltam.length) {
+      const comuns = ent[0].testes.filter((t) => ent.every((e) => e.testes.some((x) => x.chave === t.chave)));
+      linhas = comuns.map((t) => {
+        const vals = ent.map((e) => ({ nota: e.testes.find((x) => x.chave === t.chave).nota }));
+        return { teste: t.chave, nome: t.nome, notas: vals.map((v) => arred(v.nota, 1)), ...linhaFontes(nomes, vals, (a, b) => a.nota - b.nota < EMPATE) };
+      });
+    }
+    fontes.push({ id, nome: NOMES_FONTE[id], mede: base.fontesInfo[id].mede, esforcos: ent.map((e) => e?.esforco ?? null), linhas, faltam, ...placarDaFonte(nomes, linhas) });
+  }
+
+  // Uma linha curta por fonte, para o cartão.
+  for (const f of fontes) {
+    const n = f.linhas.length, emp = f.linhas.filter((l) => l.empate).length;
+    if (f.faltam.length) f.resumo = `não tem ${juntar(f.faltam)}`;
+    else if (!n) f.resumo = "nenhum teste em comum";
+    else if (f.id === "aa") f.resumo = f.lider ? `${f.lider} à frente` : "empate técnico";
+    else if (f.lider) f.resumo = `${f.lider} à frente em ${f.vitorias[f.lider]} de ${n}`;
+    else f.resumo = `sem vencedor claro${emp ? ` (${emp} ${emp === 1 ? "empate" : "empates"} em ${n})` : ""}`;
+  }
+
+  // O veredito: as fontes que deram resultado concordam?
+  const comResultado = fontes.filter((f) => !f.faltam.length && f.linhas.length);
+  const lideres = comResultado.map((f) => f.lider);
+  const iguais = comResultado.length > 1 && !!lideres[0] && lideres.every((l) => l === lideres[0]);
+  const nivel = (e) => (e && e !== "single" ? ` (${fmt.esforco(e)})` : "");
+  const texto = [];
+  for (const f of fontes) {
+    if (f.faltam.length) { texto.push(`${f.id === "aa" ? "A" : "O"} ${f.nome} não tem ${juntar(f.faltam)}.`); continue; }
+    if (!f.linhas.length) { texto.push(`No ${f.nome}, os modelos não fizeram nenhum teste em comum.`); continue; }
+    if (f.id === "aa") {
+      const l = f.linhas[0];
+      texto.push(`Na Artificial Analysis (inteligência geral): ${nomes.map((n, i) => `${n}${nivel(f.esforcos[i])} ${fmt.nota(l.notas[i])}`).join(" × ")}${l.empate ? ", empate técnico" : ""}.`);
+      continue;
+    }
+    const ganhos = Object.entries(f.vitorias).filter(([, c]) => c > 0).sort((x, y) => y[1] - x[1]).map(([n, c], i) => (i ? `${n} em ${c}` : `${n} fica à frente em ${c}`));
+    const emp = f.linhas.filter((l) => l.empate).length;
+    const n = f.linhas.length;
+    const onde = f.id === "lmarena" ? `${n === 1 ? "na categoria" : `nas ${n} categorias`} de conversa` : `${n === 1 ? "no teste" : `nos ${n} testes`} que ${nomes.length === 2 ? "os dois fizeram" : "todos fizeram"}`;
+    const fim = emp ? `; ${emp === 1 ? "1 empate" : `${emp} empates`}${f.id === "lmarena" ? " (as margens de erro se cruzam)" : " (menos de 1 ponto)"}` : "";
+    texto.push(`No ${f.nome}, ${onde}: ${ganhos.length ? ganhos.join(", ") : "ninguém fica à frente sozinho"}${fim}.`);
+  }
+  const reais = (f) => f.esforcos.map((e) => (e && e !== "single" ? e : null));
+  const niveisDiferentes = fs.some((_, i) => new Set(fontes.map((f) => reais(f)[i]).filter(Boolean)).size > 1);
+  if (niveisDiferentes) texto.push("Cada fonte mede no nível que escolheu, e ele nem sempre é o mesmo: o nível aparece ao lado de cada nota.");
+  let titulo;
+  const naFonte = (f) => (f.id === "aa" ? "na AA" : `no ${f.nome}`);
+  if (!comResultado.length) titulo = "Falta dado para comparar estes modelos.";
+  else if (comResultado.length === 1) titulo = lideres[0] ? `Só a ${comResultado[0].nome} tem todos: ${lideres[0]} fica à frente.` : `Só a ${comResultado[0].nome} tem todos, e ninguém fica à frente.`;
+  else if (iguais) titulo = `${comResultado.length === fontes.length ? `As ${fontes.length} fontes` : `As ${comResultado.length} fontes que têm todos`} põem ${lideres[0]} à frente.`;
+  else if (lideres.every((l) => !l)) titulo = "Nenhuma fonte aponta um vencedor claro.";
+  else {
+    const grupos = new Map();
+    for (const f of comResultado) if (f.lider) grupos.set(f.lider, [...(grupos.get(f.lider) ?? []), naFonte(f)]);
+    const semVencedor = comResultado.filter((f) => !f.lider).map(naFonte);
+    const resto = semVencedor.length ? `; ${juntar(semVencedor)}, ninguém se destaca` : "";
+    titulo = grupos.size === 1
+      ? `${[...grupos.keys()][0]} fica à frente ${juntar([...grupos.values()][0])}${resto}.`
+      : `As fontes não concordam: ${[...grupos].map(([n, onde]) => `${n} ${juntar(onde)}`).join("; ")}${resto}.`;
+  }
+  return {
+    ok: true,
+    modelos: fs.map((f) => ({ modelo: f.id, nome: f.nome, empresa: f.empresa })),
+    fontes_comparadas: fontes,
+    concordam: iguais,
+    frases: [titulo, ...texto],
+    resposta: { titulo, texto },
+    ver: { cartao: "comparar_fontes", params: { itens: fs.map((f) => f.id) } },
+  };
+}
+
 /* ─── 10. abismo ─── */
 
 /** Do menor esforço com raciocínio ao maior medido (pela ordem de esforço, não pela nota). */
@@ -958,6 +1105,7 @@ export const FERRAMENTAS = {
   parecidos: { fn: parecidos, descricao: "Quem tem nota parecida e sai mais barato ou mais rápido.", params: { modelo: "id ou texto", esforco: "opcional", tolerancia: "padrão 2" } },
   perfil_tarefa: { fn: perfil_tarefa, descricao: "Ranking por tipo de tarefa (pesos e piso do perfil); sem perfil, lista os perfis.", params: { perfil: "chave ou nome", ordenar: "nota|custo|tempo" } },
   outras_fontes: { fn: outras_fontes, descricao: "O que LMArena e Epoch AI dizem do modelo.", params: { modelo: "id ou texto" } },
+  comparar_fontes: { fn: comparar_fontes, descricao: "De 2 a 4 modelos no nível mais alto de cada um, comparados na Artificial Analysis, no LMArena e no Epoch AI: quem vai à frente em cada fonte e se elas concordam.", params: { itens: "2 a 4 modelos (id ou texto; o esforço é ignorado)" } },
   abismo: { fn: abismo, descricao: "Quanto a nota sobe do menor ao maior esforço, e quanto isso custa.", params: { empresa: "opcional", so_escada_completa: "opcional" } },
   montar_time: { fn: montar_time, descricao: "Time a partir dos planos assinados e modelos extras, com quem vai melhor em cada tarefa.", params: { planos: "ids de planos", extras: "modelos à mão" } },
   explicar_metodo: { fn: explicar_metodo, descricao: "Texto fixo e revisado sobre o método.", params: { tema: Object.keys(METODO).join("|") } },

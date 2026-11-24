@@ -32,6 +32,7 @@ const ESQUEMAS = {
   parecidos: { p: { modelo: s("nome ou id"), esforco: ESF("nível"), area: AREA, tolerancia: n("pontos, padrão 2") }, r: ["modelo"] },
   perfil_tarefa: { p: { perfil: s("tipo de tarefa: codigo-agentico, codigo-curto, pesquisa, dados, volume, juridico, saude, geral"), ordenar: s("nota, custo ou tempo", { enum: ["nota", "custo", "tempo"] }), filtros: FILTROS }, r: ["perfil"] },
   outras_fontes: { p: { modelo: s("nome ou id") }, r: ["modelo"] },
+  comparar_fontes: { p: { itens: { type: "array", description: "2 a 4 modelos, só o nome (cada fonte usa o nível mais alto que mediu)", items: { type: "string" } } }, r: ["itens"] },
   abismo: { p: { empresa: s("opcional") }, r: [] },
   montar_time: { p: { planos: { type: "array", items: s("id do plano, ex.: chatgpt-plus, claude-pro, gemini-free"), description: "planos que a pessoa assina" }, extras: { type: "array", items: { type: "string" }, description: "modelos avulsos, opcional" } }, r: [] },
   explicar_metodo: { p: { tema: s("aa, custo, tempo, empate, esforco, selo, lmarena, epoch, sem-dado, placar") }, r: ["tema"] },
@@ -58,7 +59,9 @@ Como trabalhar:
    resposta tem de aparecer no resultado de uma ferramenta. Se faltar o dado, diga que a página não tem.
 2. Use poucas ferramentas (no máximo 3). Para "vale subir/descer de esforço?", use degrau. Para "qual é melhor,
    A ou B?", use comparar. Para "o mais barato bom em X", use placar com a área. Para "o que usar para tal tarefa",
-   use perfil_tarefa. Para planos de assinatura, use montar_time. Se montar_time trouxer "novidades" (modelos mais novos que a lista de planos), diga que eles ficaram fora da conta porque a página oficial não diz em que plano estão, e que a pessoa pode incluí-los se já os vê no aplicativo.
+   use perfil_tarefa. Para "as outras fontes concordam?", ou quando a pessoa falar de escrita, conversa, matemática ou
+   preferência das pessoas, use comparar_fontes (cada fonte no nível mais alto de cada modelo; diga isso).
+   Para planos de assinatura, use montar_time. Se montar_time trouxer "novidades" (modelos mais novos que a lista de planos), diga que eles ficaram fora da conta porque a página oficial não diz em que plano estão, e que a pessoa pode incluí-los se já os vê no aplicativo.
 3. Se a ferramenta devolver "resposta" (titulo e texto), use-a como base: ela já tem a conclusão certa.
 4. Diferença menor que 1 ponto é empate. Não eleja "o melhor" sem dizer a troca (nota, custo, tempo).
 5. Custo por tarefa é a média da Artificial Analysis pela API; quem usa assinatura gasta cota, não dinheiro.
@@ -195,7 +198,7 @@ export async function conversar({ base, pergunta, memoria = null, ia, idioma = "
   }
 
   // Memória para a próxima pergunta
-  const modelos = [...new Set(uteis.flatMap((c) => [c.resultado.modelo, ...(c.resultado.colunas ?? []).map((x) => x.modelo)]).filter(Boolean))].slice(0, 4);
+  const modelos = [...new Set(uteis.flatMap((c) => [c.resultado.modelo, ...(c.resultado.colunas ?? []).map((x) => x.modelo), ...(c.resultado.modelos ?? []).map((x) => x.modelo)]).filter(Boolean))].slice(0, 4);
   const area = uteis.map((c) => c.resultado.area).filter(Boolean).at(-1) ?? mem.foco.area;
   const resumoResposta = [titulo, ...(texto ?? [])].join(" ").slice(0, 600);
   const novaMemoria = { trocas: [...mem.trocas, { pergunta: q, resposta: resumoResposta }].slice(-LIMITES.trocas), foco: { modelos: modelos.length ? modelos : mem.foco.modelos, area } };
@@ -205,7 +208,7 @@ export async function conversar({ base, pergunta, memoria = null, ia, idioma = "
     ok: true, titulo, texto: texto ?? [], blocos: blocos.slice(0, 2),
     apontar: ver && (ver.cartao === "degrau"
       ? (uteis.find((c) => c.resultado.ver === ver || JSON.stringify(c.resultado.ver) === JSON.stringify(ver))?.resultado.sentido === "descer" ? "painel.descer" : "painel.subir")
-      : { comparacao: "comparar", placar: "placar.barato" }[ver.cartao] ?? null),
+      : { comparacao: "comparar", comparar_fontes: "comparar.fontes", placar: "placar.barato" }[ver.cartao] ?? null),
     fontes, memoria: novaMemoria, uso, conferida,
     ferramentas_usadas: chamadas.map((c) => ({ nome: c.nome, ok: c.resultado.ok })),
     numeros_descartados: conferencia.ok ? [] : conferencia.fora,

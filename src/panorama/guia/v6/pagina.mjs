@@ -815,6 +815,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         ${respostaHtml}
         <div id="compare-result-wrap"></div>
         ${renderSourceLineHtml("aa", state.area)}
+        ${renderFontesSectionHtml()}
       </div>
     `;
     const resultWrap = $("compare-result-wrap");
@@ -1423,6 +1424,49 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     return f ? [{ nome: f.nome, url: f.url, coletado_em: f.coletadoEm }] : [];
   }
 
+  // "O que dizem as outras fontes": cada modelo no nível mais alto que cada fonte mediu.
+  // Todo número e toda frase vêm de motor.comparar_fontes.
+  function renderFontesCompareHtml(r, { compact = false } = {}) {
+    if (!r?.ok) return "";
+    const nomes = r.modelos.map((m) => m.nome);
+    const mede = (f) => (f.id === "aa" ? "acerto em tarefas difíceis (inteligência geral)" : f.mede || "");
+    const cel = (f, v) => {
+      if (v === null || v === undefined) return `<span class="missing-val">sem dado</span>`;
+      if (typeof v === "object") return `<span class="num">${escHtml(motor.fmt.nota(Math.round(v.nota)).replace(/,0$/, ""))}</span>${v.posicao ? `<span class="fontes-cmp-pos">${v.posicao}º</span>` : ""}`;
+      return `<span class="num">${escHtml(motor.fmt.nota(v))}</span>`;
+    };
+    const itens = r.fontes_comparadas.map((f) => {
+      const ok = !f.faltam.length && f.linhas.length;
+      const cab = nomes.map((n, i) => `<th scope="col"><span class="fontes-cmp-modelo">${escHtml(n)}</span>${f.esforcos[i] && f.esforcos[i] !== "single" ? renderEffortPill(f.esforcos[i]) : ""}</th>`).join("");
+      const linhas = f.linhas.map((l) => `<tr><th scope="row">${escHtml(l.nome)}</th>${l.notas.map((v, i) => `<td class="${l.lider === nomes[i] ? "is-lead" : ""}">${cel(f, v)}</td>`).join("")}<td class="fontes-cmp-quem">${l.lider ? escHtml(l.lider) : l.empate ? "empate" : "—"}</td></tr>`).join("");
+      const nota = f.id === "lmarena" ? `<p class="fontes-cmp-note">Nota do LMArena e posição entre todos os modelos. Quando as margens de erro se cruzam, conta como empate.</p>`
+        : f.id === "aa" ? "" : `<p class="fontes-cmp-note">Só os testes que ${nomes.length === 2 ? "os dois fizeram" : "todos fizeram"}. Menos de 1 ponto de diferença é empate.</p>`;
+      const corpo = ok
+        ? `<div class="obs-table-scroll"><table class="fontes-cmp-table"><thead><tr><th scope="col"><span class="sr-only">${f.id === "lmarena" ? "Categoria" : "Teste"}</span></th>${cab}<th scope="col" class="fontes-cmp-quem">À frente</th></tr></thead><tbody>${linhas}</tbody></table></div>${nota}`
+        : "";
+      const res = `<span class="fontes-cmp-res${ok ? "" : " is-missing"}">${escHtml(f.resumo || "")}</span>`;
+      const head = `<span class="fontes-cmp-src"><span class="fontes-cmp-nome">${escHtml(f.nome)}</span><span class="fontes-cmp-mede">${escHtml(mede(f))}</span></span>${res}`;
+      return ok
+        ? `<details class="fontes-cmp-item"><summary>${head}<span class="fontes-cmp-chev" aria-hidden="true"></span></summary><div class="fontes-cmp-body">${corpo}${renderSourceLineHtml(f.id, "intelligence")}</div></details>`
+        : `<div class="fontes-cmp-item is-static"><div class="fontes-cmp-summary">${head}</div></div>`;
+    }).join("");
+    const extra = (r.resposta?.texto || []).filter((t) => /^Cada fonte mede/.test(t));
+    return `
+      <div class="fontes-cmp${compact ? " is-compact" : ""}">
+        ${compact ? "" : `<p class="fontes-cmp-title">${escHtml(r.resposta?.titulo || "")}</p>`}
+        <div class="fontes-cmp-list">${itens}</div>
+        ${extra.length ? `<p class="fontes-cmp-note">${escHtml(extra[0])}</p>` : ""}
+      </div>`;
+  }
+
+  function renderFontesSectionHtml() {
+    const ids = [...new Set(state.compareItems.map((c) => c.modelo))];
+    const head = `<div class="fontes-cmp-head"><h3 class="fontes-cmp-h">O que dizem as outras fontes</h3><p class="fontes-cmp-sub">Outras fontes medem cada modelo num nível só, quase sempre o mais alto. Aqui entra o nível mais alto que cada uma mediu, não o esforço escolhido acima.</p></div>`;
+    if (ids.length < 2) return `<div class="fontes-cmp-wrap">${head}<p class="fontes-cmp-note">Escolha modelos diferentes para comparar nas outras fontes.</p></div>`;
+    const r = motor.comparar_fontes(state.base, { itens: ids });
+    return r.ok ? `<div class="fontes-cmp-wrap">${head}${renderFontesCompareHtml(r)}</div>` : "";
+  }
+
   function cardTitleForBlock(bloco) {
     const tipo = bloco?.cartao || bloco?.tipo;
     if (tipo === "degrau") return "mudança de esforço";
@@ -1432,6 +1476,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     if (tipo === "time") return "divisão por plano";
     if (tipo === "painel_modelo") return "resumo do modelo";
     if (tipo === "outras_fontes") return "outras fontes (LMArena e Epoch AI)";
+    if (tipo === "comparar_fontes") return "o que dizem as outras fontes";
     if (tipo === "abismo") return "maiores ganhos com esforço";
     return "mais dados";
   }
@@ -1534,6 +1579,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
           <button type="button" class="btn-pill" style="align-self:flex-start" data-obs-action="${escHtml(JSON.stringify({ estado: JSON.parse(payload) }))}">Ver o modelo inteiro</button>
         </div>
       `;
+    }
+    if (tipo === "comparar_fontes") {
+      return renderFontesCompareHtml(motor.comparar_fontes(state.base, { itens: params.itens }), { compact: true });
     }
     if (tipo === "outras_fontes") {
       const o = motor.outras_fontes(state.base, { modelo: params.modelo });
@@ -1730,6 +1778,11 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     }
     if (data.apontar === "comparar") {
       return { rotulo: "Abrir na comparação", estado: p.itens ? { comparar: p.itens } : {}, apontar: "comparar" };
+    }
+    if (data.apontar === "comparar.fontes" && Array.isArray(p.itens)) {
+      // A comparação da página pede um esforço por modelo: entra o mais alto medido.
+      const itens = p.itens.filter((id) => state.base.porId.has(id)).map((id) => ({ modelo: id, esforco: state.base.porId.get(id).variantes.at(-1).esforco }));
+      return itens.length >= 2 ? { rotulo: "Abrir na comparação", estado: { comparar: itens }, apontar: "comparar" } : null;
     }
     if (String(data.apontar).startsWith("placar.")) {
       return { rotulo: "Ver no placar", estado: { area: p.area || state.area, tol: p.tolerancia ?? state.tol }, apontar: data.apontar };
@@ -2338,7 +2391,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       if (!blocos.length) return;
 
       const respBloco = blocos.find((b) => b.tipo === "resposta" || b.tipo === "frase");
-      const cardBlocos = blocos.filter((b) => ["degrau", "comparacao", "placar", "ranking", "time", "painel_modelo", "outras_fontes", "abismo"].includes(b.cartao || b.tipo));
+      const cardBlocos = blocos.filter((b) => ["degrau", "comparacao", "placar", "ranking", "time", "painel_modelo", "outras_fontes", "comparar_fontes", "abismo"].includes(b.cartao || b.tipo));
       const acaoBloco = blocos.find((b) => b.tipo === "acao");
 
       const titulo = respBloco?.tipo === "resposta" ? (respBloco.params?.titulo || "") : "";
@@ -2425,7 +2478,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       <section id="comparar-section" aria-labelledby="comparar-heading">
         <div class="section-head">
           <h2 id="comparar-heading">Comparar modelos</h2>
-          <span class="section-sub">Lado a lado nas 7 áreas, custo e tempo</span>
+          <span class="section-sub">Lado a lado nas 7 áreas, custo, tempo e outras fontes</span>
         </div>
         <div id="compare-root"></div>
       </section>
