@@ -39,6 +39,7 @@ export function degrau(base: unknown, params?: { modelo: string; de?: string | n
 export function comparar(base: unknown, params?: { itens?: unknown[]; areas?: string[] }): unknown;
 export function parecidos(base: unknown, params?: { modelo: string; esforco?: string | null; area?: string; tolerancia?: number; limite?: number }): unknown;
 export function outras_fontes(base: unknown, params?: { modelo?: string }): unknown;
+export function comparar_fontes(base: unknown, params?: { itens?: unknown[] }): unknown;
 export function abismo(base: unknown, params?: { empresa?: string | null; so_escada_completa?: boolean; limite?: number; area?: string }): unknown;
 export function montar_time(base: unknown, params?: { planos?: string[]; extras?: string[]; escolhidos?: Record<string, string> }): unknown;
 export function explicar_metodo(base: unknown, params?: { tema?: string }): unknown;

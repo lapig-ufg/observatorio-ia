@@ -482,6 +482,45 @@
   .obs6 .compare-table th:first-child,.obs6 .compare-table td:first-child{width:155px;min-width:155px}
   .obs6 .compare-table th:not(:first-child),.obs6 .compare-table td:not(:first-child){width:160px;max-width:160px}
 }
+/* O que dizem as outras fontes (motor.comparar_fontes) */
+.obs6 .fontes-cmp-wrap{display:flex;flex-direction:column;gap:10px;margin-top:10px;padding-top:18px;border-top:1px solid var(--line)}
+.obs6 .fontes-cmp-h{margin:0;font-size:15px;font-weight:700;color:var(--green-900)}
+.obs6 .fontes-cmp-sub{margin:4px 0 0;font-size:13px;color:var(--muted);line-height:1.45}
+.obs6 .fontes-cmp{display:flex;flex-direction:column;gap:10px;min-width:0}
+.obs6 .fontes-cmp-title{margin:0;font-size:15px;font-weight:600;color:var(--ink);line-height:1.45}
+.obs6 .fontes-cmp-list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;background:var(--paper);overflow:hidden}
+.obs6 .fontes-cmp-item+.fontes-cmp-item{border-top:1px solid var(--line)}
+.obs6 .fontes-cmp-item summary,.obs6 .fontes-cmp-summary{display:flex;align-items:center;gap:12px;padding:12px 14px;list-style:none}
+.obs6 .fontes-cmp-item summary{cursor:pointer}
+.obs6 .fontes-cmp-item summary::-webkit-details-marker{display:none}
+.obs6 .fontes-cmp-item summary:hover{background:var(--bg)}
+.obs6 .fontes-cmp-item summary:focus-visible{outline:2px solid var(--green-700);outline-offset:-2px}
+.obs6 .fontes-cmp-src{display:flex;flex-direction:column;gap:2px;flex:1 1 auto;min-width:0}
+.obs6 .fontes-cmp-nome{font-size:14px;font-weight:700;color:var(--ink)}
+.obs6 .fontes-cmp-mede{font-size:12px;color:var(--muted);line-height:1.35}
+.obs6 .fontes-cmp-res{flex:0 1 auto;max-width:48%;text-align:right;font-size:13px;font-weight:600;color:var(--green-900);line-height:1.35}
+.obs6 .fontes-cmp-res.is-missing{color:var(--muted);font-weight:500}
+.obs6 .fontes-cmp-chev{flex:0 0 auto;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);margin:0 2px 4px}
+.obs6 .fontes-cmp-item[open] .fontes-cmp-chev{transform:rotate(-135deg);margin:4px 2px 0}
+.obs6 .fontes-cmp-body{padding:0 14px 12px;display:flex;flex-direction:column;gap:6px}
+.obs6 .fontes-cmp-table{width:100%;border-collapse:collapse;font-size:13px}
+.obs6 .fontes-cmp-table th,.obs6 .fontes-cmp-table td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);vertical-align:top}
+.obs6 .fontes-cmp-table tbody tr:last-child th,.obs6 .fontes-cmp-table tbody tr:last-child td{border-bottom:0}
+.obs6 .fontes-cmp-table th[scope=row]{text-align:left;font-weight:500;color:var(--ink)}
+.obs6 .fontes-cmp-table thead th{font-weight:600;color:var(--muted);font-size:12px}
+.obs6 .fontes-cmp-table thead th .effort-pill{margin-left:6px}
+.obs6 .fontes-cmp-modelo{display:inline}
+.obs6 .fontes-cmp-table td.is-lead{font-weight:700;color:var(--green-900)}
+.obs6 .fontes-cmp-pos{margin-left:6px;font-size:11px;color:var(--muted);font-weight:500}
+.obs6 .fontes-cmp-quem{text-align:left !important;color:var(--muted);font-size:12px}
+.obs6 .fontes-cmp-note{margin:0;font-size:12px;color:var(--muted);line-height:1.45}
+.obs6 .fontes-cmp.is-compact .fontes-cmp-list{border-radius:10px}
+@media (max-width:640px){
+  .obs6 .fontes-cmp-item summary,.obs6 .fontes-cmp-summary{flex-wrap:wrap;gap:4px 10px}
+  .obs6 .fontes-cmp-src{flex-basis:100%}
+  .obs6 .fontes-cmp-res{max-width:none;text-align:left;flex:1 1 auto}
+  .obs6 .fontes-cmp-mede{display:none}
+}
 @media (prefers-reduced-motion:reduce){
   .obs6 *,.obs6 *::before,.obs6 *::after{transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}
   .obs6 .obs-pointed,.obs6 .obs-waiting-dot{animation:none!important}
