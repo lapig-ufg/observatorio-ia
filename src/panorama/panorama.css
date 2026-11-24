@@ -4,7 +4,10 @@
 .pt-panorama-intro .panorama-heading h1 { margin-block: 6px 12px; font-family: Georgia, "Times New Roman", serif; font-weight: 600; }
 .pt-site-shell .panorama-tab-intro { margin: 0; padding: 16px var(--pt-page-gutter) 0; color: var(--muted); line-height: 1.5; }
 .pt-site-shell .panorama-page-source { margin-inline: var(--pt-page-gutter); }
-.panorama-page :is(button, .panorama-segmented, .panorama-search, .panorama-pop-panel, .panorama-scroll, .guide-method, .guide-bar, .panorama-year, .panorama-card, .panorama-reading-more, .panorama-execution-figure, .panorama-catalog-grid > article, .panorama-reading-pair > *) { border-radius: 2px; }
+/* O canto reto vale para as telas antigas do Panorama. O guia "Qual modelo usar"
+   v6 (.obs6) tem raios próprios — pílulas, chips e o botão redondo de enviar —
+   e fica de fora, senão esta regra os quadradiza por vir depois no bundle. */
+.panorama-page :is(button, .panorama-segmented, .panorama-search, .panorama-pop-panel, .panorama-scroll, .guide-method, .guide-bar, .panorama-year, .panorama-card, .panorama-reading-more, .panorama-execution-figure, .panorama-catalog-grid > article, .panorama-reading-pair > *):not(:where(.obs6 *)) { border-radius: 2px; }
 .panorama-page :is(.guide-method, .panorama-reading-more, .panorama-reading-rule, .panorama-catalog-grid > article, .panorama-flow li, .panorama-card) { background: #fff; }
 .panorama-toolbar { display: flex; flex-wrap: nowrap; align-items: end; gap: 14px; }
 .panorama-toolbar > .panorama-search { flex: 1 1 180px; max-width: 260px; }
