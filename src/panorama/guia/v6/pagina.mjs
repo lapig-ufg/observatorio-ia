@@ -1923,9 +1923,13 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     const atLimit = state.obsFreeTurns >= OBS_MAX_TURNS;
     const text = input?.value.trim() || "";
     const empty = !input?.value;
+    // Sugestões só antes da primeira pergunta (voltam em "Nova conversa").
+    // Sem o serviço (modo local), as sugestões são a única forma de perguntar.
+    const inConversation = state.obsMessages.length > 0 || state.obsLoading;
+    const showSuggestion = empty && (!hasEndpoint || !inConversation);
 
-    $("obs-input-suggestion").hidden = !empty;
-    $("obs-use-suggestion").hidden = !empty;
+    $("obs-input-suggestion").hidden = !showSuggestion;
+    $("obs-use-suggestion").hidden = !showSuggestion;
 
     if (newConvBtn) newConvBtn.hidden = state.obsMessages.length === 0;
     if (composerBox) composerBox.hidden = atLimit;
@@ -2132,7 +2136,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       }, OBS_SUGGESTION_INTERVAL);
     };
     const fillSuggestion = () => {
-      if (input.value) return;
+      if (input.value || $("obs-input-suggestion").hidden) return;
       input.focus({ preventScroll: true });
       input.value = OBS_SUGGESTIONS[suggestionIndex].pergunta;
       updateChatControls();
@@ -2149,7 +2153,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       updateChatControls();
     });
     listen(input, "keydown", (e) => {
-      if (e.key === "Tab" && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey && !e.isComposing && !input.value) {
+      if (e.key === "Tab" && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey && !e.isComposing && !input.value && !placeholder.hidden) {
         e.preventDefault();
         fillSuggestion();
       } else if (e.key === "Enter" && !e.isComposing) {
