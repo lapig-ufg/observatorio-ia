@@ -3,29 +3,28 @@ import perfis from "../motor/perfis.json";
 
 const OBS_MAX_TURNS = 8;
 const OBS_MAX_CHARS = 500;
+const OBS_SUGGESTION_INTERVAL = 3600;
 const OBS_SUGGESTIONS = [
   {
-    key: "esforco",
-    label: "Vale subir o Opus 5.5 de médio para alto?",
-    pergunta: "Vale subir o Opus 5.5 de médio para alto?"
-  },
-  {
     key: "comparar",
-    label: "Qual é melhor para programar: Sonnet ou GPT-6.2 Sol?",
-    pergunta: "Qual é melhor para programar: Sonnet ou GPT-6.2 Sol?"
+    pergunta: "É melhor usar o Sonnet 5.5 no alto ou o Opus 5.5 no médio?",
+    ferramenta: "comparar",
+    params: { itens: ["Sonnet 5.5 no alto", "Opus 5.5 no médio"] }
   },
   {
-    key: "barato",
-    label: "Qual o mais barato que é bom em direito?",
-    pergunta: "Qual o mais barato que é bom em direito?"
+    key: "juridico",
+    pergunta: "Qual a melhor IA para questões jurídicas?",
+    ferramenta: "perfil_tarefa",
+    params: { perfil: "juridico" }
   },
   {
-    key: "time",
-    label: "Como dividir as tarefas no meu plano?",
-    pergunta: "Como dividir as tarefas no meu plano?",
-    alwaysLocal: true
+    key: "esforco",
+    pergunta: "Vale subir o Sonnet 5.5 de médio para alto?",
+    ferramenta: "degrau",
+    params: { modelo: "claude-sonnet-5-5", de: "medium", para: "high" }
   }
 ];
+const findObsSuggestion = (pergunta) => OBS_SUGGESTIONS.find((s) => s.pergunta === pergunta);
 
 const MAIN_EFFORTS = ["low", "medium", "high", "xhigh", "max"];
 const MONTHS_PT = ["jan.", "fev.", "mar.", "abr.", "mai.", "jun.", "jul.", "ago.", "set.", "out.", "nov.", "dez."];
@@ -675,7 +674,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     const timeCells = cols.map((c) => `<td class="num">${c.tempo != null ? motor.fmt.tempo(c.tempo) : '<span class="missing-italic">sem dado</span>'}</td>`).join("");
 
     const tableHtml = `
-      <table class="${cls}" style="--cmp-cols:${cols.length}">
+      <table class="${cls}">
         <thead><tr><th>Área</th>${headCols}</tr></thead>
         <tbody>
           ${areaRows}
@@ -684,7 +683,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         </tbody>
       </table>
     `;
-    return compact ? tableHtml : `<div class="compare-table-card">${tableHtml}</div>`;
+    return compact ? tableHtml : `<div class="compare-table-card" style="--cmp-cols:${cols.length}">${tableHtml}</div>`;
   }
 
   function shortCompareName(c) {
@@ -1737,20 +1736,22 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
           </button>
         </div>
 
-        <div class="obs-chat-area" id="obs-chat-area">
-          <div class="obs-empty" id="obs-empty">
-            <p class="obs-empty-desc">Pergunte sobre modelos, esforço, custo ou o seu plano. As respostas usam os dados desta página.</p>
-            <div class="obs-suggestions" id="obs-suggestions">
-              ${OBS_SUGGESTIONS.map((s) => `<button type="button" class="obs-suggestion-chip" data-obs-suggestion="${escHtml(s.key)}">${escHtml(s.label)}</button>`).join("")}
-            </div>
-          </div>
-          <div class="obs-chat-list" id="obs-chat-list" hidden></div>
+        <p class="obs-empty-desc" id="obs-empty-desc">Pergunte sobre modelos, esforço, custo ou o seu plano. As respostas usam os dados desta página.</p>
+        <div class="obs-chat-area" id="obs-chat-area" hidden>
+          <div class="obs-chat-list" id="obs-chat-list"></div>
         </div>
 
         <div class="obs-composer" id="obs-composer">
-          <div class="obs-composer-box" id="obs-composer-box"${hasEndpoint ? "" : " hidden"}>
-            <textarea class="obs-composer-input" id="obs-free-input" rows="1" maxlength="${OBS_MAX_CHARS}" placeholder="Pergunte ao Observatório…" aria-label="Pergunte ao Observatório"></textarea>
+          <div class="obs-composer-box" id="obs-composer-box">
+            <div class="obs-input-wrap">
+              <input type="text" class="obs-composer-input" id="obs-free-input" maxlength="${OBS_MAX_CHARS}" aria-label="Pergunte ao Observatório" aria-describedby="obs-suggestion-help">
+              <span class="obs-input-suggestion" id="obs-input-suggestion" aria-hidden="true">${escHtml(OBS_SUGGESTIONS[0].pergunta)}</span>
+            </div>
+            <span class="sr-only" id="obs-suggestion-help">Com o campo vazio, pressione Tab ou ative Usar sugestão para preencher a pergunta.</span>
             <div class="obs-composer-right">
+              <button type="button" class="obs-use-suggestion" id="obs-use-suggestion" aria-label="Usar sugestão" tabindex="-1">
+                <kbd class="obs-suggestion-key">Tab</kbd><span class="obs-suggestion-touch">Usar</span>
+              </button>
               <span class="obs-char-count num" id="obs-char-count" hidden>0 / ${OBS_MAX_CHARS}</span>
               <button type="button" class="obs-send-btn" id="obs-free-send" aria-label="Enviar pergunta" disabled>
                 ${arrowUpSvg16}
@@ -1761,7 +1762,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
             <span>Esta conversa chegou ao limite.</span>
             <button type="button" class="obs-inline-link" id="obs-limit-reset">Começar nova conversa</button>
           </div>
-          <p class="obs-composer-note" id="obs-composer-note"${hasEndpoint ? "" : " hidden"}>As respostas usam IA para explicar os dados; os números vêm das fontes indicadas.</p>
+          <p class="obs-composer-note" id="obs-composer-note"></p>
         </div>
       </div>
     `;
@@ -1920,13 +1921,20 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     const sendBtn = $("obs-free-send");
     const input = $("obs-free-input");
     const atLimit = state.obsFreeTurns >= OBS_MAX_TURNS;
+    const text = input?.value.trim() || "";
+    const empty = !input?.value;
+
+    $("obs-input-suggestion").hidden = !empty;
+    $("obs-use-suggestion").hidden = !empty;
 
     if (newConvBtn) newConvBtn.hidden = state.obsMessages.length === 0;
-    if (composerBox) composerBox.hidden = !hasEndpoint || atLimit;
+    if (composerBox) composerBox.hidden = atLimit;
     if (limitBox) limitBox.hidden = !atLimit;
     if (noteEl) {
-      noteEl.hidden = !hasEndpoint || atLimit;
-      if (state.obsFreeTurns >= 5 && !atLimit) {
+      noteEl.hidden = atLimit;
+      if (!hasEndpoint) {
+        noteEl.textContent = "Use uma sugestão para consultar os dados da página.";
+      } else if (state.obsFreeTurns >= 5 && !atLimit) {
         const left = OBS_MAX_TURNS - state.obsFreeTurns;
         noteEl.textContent = left === 1 ? "Resta 1 pergunta nesta conversa" : `Restam ${left} perguntas nesta conversa`;
       } else {
@@ -1940,8 +1948,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         sendBtn.setAttribute("aria-label", "Consultando…");
         sendBtn.innerHTML = stopSquareSvg14;
       } else {
-        const hasText = Boolean(input?.value.trim());
-        sendBtn.disabled = !hasText;
+        sendBtn.disabled = hasEndpoint ? !text : !findObsSuggestion(text);
         sendBtn.classList.remove("is-loading");
         sendBtn.setAttribute("aria-label", "Enviar pergunta");
         sendBtn.innerHTML = arrowUpSvg16;
@@ -1950,13 +1957,12 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
   }
 
   function renderChat({ scroll = "none" } = {}) {
-    const emptyEl = $("obs-empty");
     const listEl = $("obs-chat-list");
-    if (!emptyEl || !listEl) return;
+    if (!listEl) return;
 
     const hasConversation = state.obsMessages.length > 0 || state.obsLoading;
-    emptyEl.hidden = hasConversation;
-    listEl.hidden = !hasConversation;
+    $("obs-empty-desc").hidden = hasConversation;
+    $("obs-chat-area").hidden = !hasConversation;
 
     if (!hasConversation) {
       listEl.innerHTML = "";
@@ -1990,10 +1996,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     renderChat({ scroll: "none" });
   }
 
-  function openFormInChat(key, userPrompt) {
+  function openFormInChat(key) {
     if (!key) return;
-    const s = OBS_SUGGESTIONS.find((x) => x.key === key);
-    const label = userPrompt || s?.label || OBS_QUESTIONS.find((q) => q.key === key)?.label || "";
+    const label = OBS_QUESTIONS.find((q) => q.key === key)?.label || "";
     const last = state.obsMessages[state.obsMessages.length - 1];
     if (last?.kind === "form" && last.formKey === key) {
       scrollChatArea("last-assistant");
@@ -2008,17 +2013,19 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
   }
 
   async function submitFreeQuestion(rawText) {
-    if (!hasEndpoint) return;
     const pergunta = String(rawText ?? "").trim().slice(0, OBS_MAX_CHARS);
     if (!pergunta || state.obsLoading || state.obsFreeTurns >= OBS_MAX_TURNS) return;
+    const local = hasEndpoint ? null : findObsSuggestion(pergunta);
+    if (!hasEndpoint && !local) return;
 
     const input = $("obs-free-input");
-    if (input) {
-      input.value = "";
-      input.style.height = "auto";
-    }
+    if (input) input.value = "";
     const counter = $("obs-char-count");
     if (counter) counter.hidden = true;
+    if (local) {
+      answerLocalSuggestion(local);
+      return;
+    }
 
     pushObsMessage({ role: "user", text: pergunta });
     state.obsLoading = true;
@@ -2087,36 +2094,65 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     openFormInChat(key);
   }
 
-  function bindObsShellEvents() {
-    $$("#obs-suggestions .obs-suggestion-chip").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const key = btn.dataset.obsSuggestion;
-        const s = OBS_SUGGESTIONS.find((x) => x.key === key);
-        if (!s) return;
-        if (s.alwaysLocal || !hasEndpoint) {
-          openFormInChat(s.key, s.pergunta);
-        } else {
-          submitFreeQuestion(s.pergunta);
-        }
+  function answerLocalSuggestion({ key, pergunta, ferramenta, params }) {
+    const result = motor.chamar(state.base, ferramenta, params);
+    pushObsMessage({ role: "user", text: pergunta });
+    if (result.ok) {
+      const resposta = result.resposta || { titulo: result.frases[0], texto: result.frases.slice(1) };
+      const bloco = { tipo: result.ver.cartao, params: result.ver.params };
+      pushObsMessage({
+        role: "assistant",
+        ...resposta,
+        blocos: [bloco],
+        fontes: motor.fontesDe(state.base, ferramenta),
+        acao: ferramenta === "comparar" ? buildActionFromApi({ apontar: "comparar", blocos: [bloco] }) : null
       });
-    });
+    } else {
+      pushObsMessage({ role: "assistant", kind: "error", text: result.erro });
+    }
+    emit("obs_question", key);
+    renderChat({ scroll: "last-assistant" });
+  }
 
+  function bindObsShellEvents() {
     const input = $("obs-free-input");
+    const placeholder = $("obs-input-suggestion");
+    const useSuggestion = $("obs-use-suggestion");
     const counter = $("obs-char-count");
-    const syncInputSize = () => {
-      if (!input) return;
-      input.style.height = "auto";
-      input.style.height = `${Math.min(118, input.scrollHeight)}px`;
+    let suggestionIndex = 0;
+
+    const scheduleSuggestion = () => {
+      later(() => {
+        if (!placeholder.hidden && state.obsFreeTurns < OBS_MAX_TURNS) {
+          suggestionIndex = (suggestionIndex + 1) % OBS_SUGGESTIONS.length;
+          placeholder.textContent = OBS_SUGGESTIONS[suggestionIndex].pergunta;
+          if (!prefersReducedMotion()) placeholder.animate?.([{ opacity: 0.35 }, { opacity: 1 }], 220);
+        }
+        scheduleSuggestion();
+      }, OBS_SUGGESTION_INTERVAL);
+    };
+    const fillSuggestion = () => {
+      if (input.value) return;
+      input.focus({ preventScroll: true });
+      input.value = OBS_SUGGESTIONS[suggestionIndex].pergunta;
+      updateChatControls();
+    };
+    listen(useSuggestion, "click", fillSuggestion);
+    updateChatControls();
+    scheduleSuggestion();
+    listen(input, "input", () => {
       if (counter) {
         const len = input.value.length;
         counter.hidden = len < 400;
         counter.textContent = `${len} / ${OBS_MAX_CHARS}`;
       }
       updateChatControls();
-    };
-    input?.addEventListener("input", syncInputSize);
-    input?.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+    });
+    listen(input, "keydown", (e) => {
+      if (e.key === "Tab" && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey && !e.isComposing && !input.value) {
+        e.preventDefault();
+        fillSuggestion();
+      } else if (e.key === "Enter" && !e.isComposing) {
         e.preventDefault();
         submitFreeQuestion(input.value);
       }
@@ -2442,7 +2478,11 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         ${renderObservatorioShellHtml()}
       </section>
 
-      <nav class="area-strip" aria-label="Área de avaliação">
+      <div class="obs-ranking-intro">
+        <h2 id="obs-ranking-heading">Ranking por área</h2>
+        <p id="obs-ranking-description">Escolha uma área para ver os melhores modelos.</p>
+      </div>
+      <nav class="area-strip" aria-labelledby="obs-ranking-heading" aria-describedby="obs-ranking-description">
         ${motor.AREA_KEYS.map((k) => `<button type="button" class="area-pill${k === state.area ? " is-active" : ""}" data-area="${k}" aria-pressed="${k === state.area}">${escHtml(motor.AREAS[k])}</button>`).join("")}
       </nav>
 
