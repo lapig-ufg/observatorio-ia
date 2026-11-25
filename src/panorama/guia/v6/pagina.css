@@ -26,6 +26,8 @@
 .obs6 .status-box{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:32px 24px;text-align:center;color:var(--muted)}
 
 /* Faixa de área */
+.obs6 .obs-ranking-intro{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 14px;padding-top:14px;margin-bottom:10px;border-top:1px solid var(--line)}
+.obs6 .obs-ranking-intro p{margin:0;color:var(--muted);font-size:13.5px}
 .obs6 .area-strip{display:flex;align-items:center;gap:6px;margin-bottom:18px;padding:4px;background:var(--paper);border:1px solid var(--line);border-radius:999px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;max-width:100%}
 .obs6 .area-strip::-webkit-scrollbar{display:none}
 .obs6 .area-pill{appearance:none;background:transparent;border:0;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background 200ms var(--ease),color 200ms var(--ease)}
@@ -317,7 +319,7 @@
 
 /* Pergunte ao Observatório (Chat) */
 .obs6 .obs-section{margin-bottom:20px}
-.obs6 .obs-box{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:14px}
+.obs6 .obs-box{position:relative;background:#f0f7f3;border:1px solid #c6dcd1;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:14px}
 .obs6 .obs-box:has(.obs-empty:not([hidden])){padding:12px 16px;gap:8px}
 .obs6 .obs-chat-head{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:28px}
 .obs6 .obs-chat-head-id{display:flex;align-items:center;gap:9px;min-width:0}
@@ -328,14 +330,14 @@
 .obs6 .obs-new-conv-icon:focus-visible{outline:2px solid var(--green-700);outline-offset:2px}
 
 .obs6 .obs-chat-area{max-height:min(70vh,720px);overflow-y:auto;display:flex;flex-direction:column;gap:16px;padding-right:2px;scroll-behavior:auto}
-.obs6 .obs-empty{display:flex;flex-direction:column;gap:8px}
+.obs6 .obs-empty{display:flex;flex-direction:column;gap:5px}
 .obs6 .obs-empty-desc{margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
+.obs6 .obs-suggestions-label{margin:0;color:var(--green-900);font-size:12px;font-weight:700}
 .obs6 .obs-suggestions{display:flex;flex-wrap:wrap;gap:6px}
-.obs6 .obs-suggestion-chip{appearance:none;text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:6px 10px;min-height:32px;font-size:13.5px;font-weight:500;line-height:1.35;color:var(--ink);cursor:pointer;transition:border-color 160ms var(--ease),background 160ms var(--ease),color 160ms var(--ease)}
-.obs6 .obs-suggestion-chip:hover{border-color:var(--green-700);background:var(--surface);color:var(--green-900)}
+.obs6 .obs-suggestion-chip{appearance:none;display:inline-flex;align-items:center;gap:8px;text-align:left;background:var(--paper);border:1px solid #b3cfc1;border-radius:14px;padding:6px 10px;min-height:34px;font-size:13.5px;font-weight:600;line-height:1.35;color:var(--green-900);cursor:pointer;transition:border-color 160ms var(--ease),background 160ms var(--ease),color 160ms var(--ease)}
+.obs6 .obs-suggestion-chip svg{flex-shrink:0;color:var(--green-700)}
+.obs6 .obs-suggestion-chip:hover{border-color:var(--green-700);background:var(--green-100)}
 .obs6 .obs-suggestion-chip:focus-visible{outline:2px solid var(--green-700);outline-offset:2px}
-
-.obs6 .obs-ranking-hint{margin:0;color:var(--green-900);font-size:13px;font-weight:600}
 
 .obs6 .obs-chat-list{display:flex;flex-direction:column;gap:16px}
 .obs6 .obs-msg-user{align-self:flex-end;max-width:80%;background:var(--surface);color:var(--ink);padding:10px 14px;border-radius:16px 16px 4px 16px;font-size:15px;line-height:1.5;word-break:break-word}
@@ -458,8 +460,6 @@
 @media (max-width:640px){
   .obs6 .obs6-container{padding:4px 0 36px}
   .obs6 .obs-box{padding:16px;max-height:75vh;gap:10px}
-  .obs6 .obs-chat-head{flex-wrap:wrap;gap:4px 12px}
-  .obs6 .obs-ranking-hint{flex-basis:100%}
   .obs6 .obs-chat-area{flex:1 1 auto;min-height:0;max-height:none}
   .obs6 .obs-msg-user{max-width:88%}
   .obs6 .obs-form-line{flex-direction:column;align-items:stretch}

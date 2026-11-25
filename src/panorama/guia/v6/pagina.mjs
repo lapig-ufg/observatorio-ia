@@ -1724,7 +1724,6 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
           <button type="button" class="obs-new-conv-icon" id="obs-new-conv" aria-label="Nova conversa" title="Nova conversa" hidden>
             ${newConvSvg16}
           </button>
-          <p class="obs-ranking-hint" id="obs-ranking-hint">O ranking está logo abaixo.</p>
         </div>
 
         <p class="obs-empty-desc" id="obs-empty-desc">Pergunte sobre modelos, esforço, custo ou o seu plano. As respostas usam os dados desta página.</p>
@@ -1749,8 +1748,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
           <p class="obs-composer-note" id="obs-composer-note"${hasEndpoint ? "" : " hidden"}>As respostas usam IA para explicar os dados; os números vêm das fontes indicadas.</p>
         </div>
         <div id="obs-empty" class="obs-empty">
-          <div class="obs-suggestions" id="obs-suggestions">
-            ${Object.entries(OBS_SUGGESTIONS).map(([key, { pergunta }]) => `<button type="button" class="obs-suggestion-chip" data-obs-suggestion="${escHtml(key)}">${escHtml(pergunta)}</button>`).join("")}
+          <p class="obs-suggestions-label" id="obs-suggestions-label">Sugestões de perguntas</p>
+          <div class="obs-suggestions" id="obs-suggestions" role="group" aria-labelledby="obs-suggestions-label">
+            ${Object.entries(OBS_SUGGESTIONS).map(([key, { pergunta }]) => `<button type="button" class="obs-suggestion-chip" data-obs-suggestion="${escHtml(key)}"><span>${escHtml(pergunta)}</span>${arrowRightSvg12}</button>`).join("")}
           </div>
         </div>
       </div>
@@ -1947,7 +1947,6 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     const hasConversation = state.obsMessages.length > 0 || state.obsLoading;
     emptyEl.hidden = hasConversation;
     $("obs-empty-desc").hidden = hasConversation;
-    $("obs-ranking-hint").hidden = hasConversation;
     $("obs-chat-area").hidden = !hasConversation;
 
     if (!hasConversation) {
@@ -2442,7 +2441,11 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         ${renderObservatorioShellHtml()}
       </section>
 
-      <nav class="area-strip" aria-label="Área de avaliação">
+      <div class="obs-ranking-intro">
+        <h2 id="obs-ranking-heading">Ranking por área</h2>
+        <p id="obs-ranking-description">Escolha uma área para ver os melhores modelos.</p>
+      </div>
+      <nav class="area-strip" aria-labelledby="obs-ranking-heading" aria-describedby="obs-ranking-description">
         ${motor.AREA_KEYS.map((k) => `<button type="button" class="area-pill${k === state.area ? " is-active" : ""}" data-area="${k}" aria-pressed="${k === state.area}">${escHtml(motor.AREAS[k])}</button>`).join("")}
       </nav>
 

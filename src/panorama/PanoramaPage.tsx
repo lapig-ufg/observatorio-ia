@@ -96,9 +96,8 @@ export function PanoramaPage({ english = false }: { english?: boolean }) {
 
   return (
     <section id="panorama" className="panorama-page" aria-labelledby="panorama-title">
-      <div className="panorama-intro pt-panorama-intro">
+      <div className="panorama-intro panorama-masthead">
         <div className="panorama-heading">
-          <p className="eyebrow">{english ? "AI Panorama" : "Panorama da IA"}</p>
           <h1 id="panorama-title">{english ? "Global Generative AI Landscape" : "Panorama da IA generativa"}</h1>
           <p className="panorama-context" aria-live="polite">{context ? (english
             ? `${context.releases} releases from ${context.companies} companies · data collected on ${formatPublicDate(context.date, "en")}`

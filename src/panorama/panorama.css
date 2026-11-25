@@ -2,6 +2,41 @@
    acabamento fica reunido para não alterar os componentes de outras páginas. */
 .pt-site-shell .pt-panorama-intro { padding-block: 22px; background: #fff; }
 .pt-panorama-intro .panorama-heading h1 { margin-block: 6px 12px; font-family: Georgia, "Times New Roman", serif; font-weight: 600; }
+.pt-site-shell .panorama-masthead {
+  padding-block: 14px;
+  border-bottom: 1px solid #dfe7e2;
+  background: radial-gradient(circle at 88% 10%, rgba(129, 192, 173, .22), transparent 48%), #eef5f0;
+}
+.panorama-masthead .panorama-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 24px;
+}
+.panorama-masthead .panorama-heading h1 {
+  margin: 0;
+  color: #123d31;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+.panorama-masthead .panorama-heading .panorama-context {
+  display: block;
+  margin: 0;
+  color: #425c52;
+  font-size: .85rem;
+  line-height: 1.4;
+}
+.panorama-page > .section-nav--bar .panorama-tabs a { padding-block: 8px; }
+@media (max-width: 767px) {
+  .pt-site-shell .panorama-masthead { padding-block: 10px; }
+  .panorama-masthead .panorama-heading h1 { font-size: clamp(1.25rem, 5.33vw, 1.4rem); }
+  .panorama-page > .section-nav--bar .section-nav-mobile { padding-block: 5px; }
+  .panorama-page > .section-nav--bar .section-nav-bar button { padding-block: 5px; }
+  .panorama-page > .section-nav--bar .section-nav-bar > button:not(.section-nav-trigger) { line-height: 1; }
+}
 .pt-site-shell .panorama-tab-intro { margin: 0; padding: 16px var(--pt-page-gutter) 0; color: var(--muted); line-height: 1.5; }
 .pt-site-shell .panorama-page-source { margin-inline: var(--pt-page-gutter); }
 /* O canto reto vale para as telas antigas do Panorama. O guia "Qual modelo usar"
