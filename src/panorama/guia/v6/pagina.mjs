@@ -417,6 +417,8 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
   function updateScoreboard(animate = true) {
     const res = motor.placar(state.base, { area: state.area, tolerancia: state.tol });
     if (!res.ok) return;
+    const ressalvaEl = $("area-ressalva");
+    if (ressalvaEl) ressalvaEl.hidden = state.area !== "legal";
     const ptWord = state.tol === 1 ? "ponto" : "pontos";
     $("tol-readout").textContent = `margem de ${state.tol} ${ptWord} · nota mínima ${motor.fmt.nota(res.piso)}`;
     $("scoreboard-rule").textContent = `Os cartões de preço e de rapidez só consideram modelos a até ${state.tol} ${ptWord} do melhor. Diferença menor que 1 ponto é empate.`;
@@ -2500,6 +2502,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
           </div>
         </div>
         <p class="tol-explain">Em 0, os três cartões mostram o mais inteligente. Aumentar a régua revela opções bem mais baratas ou rápidas que ficam poucos pontos atrás.</p>
+        <p class="area-ressalva" id="area-ressalva"${state.area === "legal" ? "" : " hidden"}>Atenção: os testes de direito da Artificial Analysis usam exemplos sobretudo dos EUA e da Europa; não há confirmação de que meçam o direito brasileiro.</p>
         <div class="scoreboard" id="scoreboard">
           <button type="button" class="score-card" id="card-int"></button>
           <button type="button" class="score-card" id="card-cost"></button>
