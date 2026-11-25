@@ -3,29 +3,18 @@ import perfis from "../motor/perfis.json";
 
 const OBS_MAX_TURNS = 8;
 const OBS_MAX_CHARS = 500;
-const OBS_SUGGESTIONS = [
-  {
-    key: "esforco",
-    label: "Vale subir o Opus 5.5 de médio para alto?",
-    pergunta: "Vale subir o Opus 5.5 de médio para alto?"
+const OBS_SUGGESTIONS = {
+  comparar: {
+    pergunta: "É melhor usar o Sonnet 5.5 no alto ou o Opus 5.5 no médio?",
+    ferramenta: "comparar",
+    params: { itens: ["Sonnet 5.5 no alto", "Opus 5.5 no médio"] }
   },
-  {
-    key: "comparar",
-    label: "Qual é melhor para programar: Sonnet ou GPT-6.2 Sol?",
-    pergunta: "Qual é melhor para programar: Sonnet ou GPT-6.2 Sol?"
-  },
-  {
-    key: "barato",
-    label: "Qual o mais barato que é bom em direito?",
-    pergunta: "Qual o mais barato que é bom em direito?"
-  },
-  {
-    key: "time",
-    label: "Como dividir as tarefas no meu plano?",
-    pergunta: "Como dividir as tarefas no meu plano?",
-    alwaysLocal: true
+  juridico: {
+    pergunta: "Qual a melhor IA para questões jurídicas?",
+    ferramenta: "perfil_tarefa",
+    params: { perfil: "juridico" }
   }
-];
+};
 
 const MAIN_EFFORTS = ["low", "medium", "high", "xhigh", "max"];
 const MONTHS_PT = ["jan.", "fev.", "mar.", "abr.", "mai.", "jun.", "jul.", "ago.", "set.", "out.", "nov.", "dez."];
@@ -1735,21 +1724,17 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
           <button type="button" class="obs-new-conv-icon" id="obs-new-conv" aria-label="Nova conversa" title="Nova conversa" hidden>
             ${newConvSvg16}
           </button>
+          <p class="obs-ranking-hint" id="obs-ranking-hint">O ranking está logo abaixo.</p>
         </div>
 
-        <div class="obs-chat-area" id="obs-chat-area">
-          <div class="obs-empty" id="obs-empty">
-            <p class="obs-empty-desc">Pergunte sobre modelos, esforço, custo ou o seu plano. As respostas usam os dados desta página.</p>
-            <div class="obs-suggestions" id="obs-suggestions">
-              ${OBS_SUGGESTIONS.map((s) => `<button type="button" class="obs-suggestion-chip" data-obs-suggestion="${escHtml(s.key)}">${escHtml(s.label)}</button>`).join("")}
-            </div>
-          </div>
-          <div class="obs-chat-list" id="obs-chat-list" hidden></div>
+        <p class="obs-empty-desc" id="obs-empty-desc">Pergunte sobre modelos, esforço, custo ou o seu plano. As respostas usam os dados desta página.</p>
+        <div class="obs-chat-area" id="obs-chat-area" hidden>
+          <div class="obs-chat-list" id="obs-chat-list"></div>
         </div>
 
         <div class="obs-composer" id="obs-composer">
           <div class="obs-composer-box" id="obs-composer-box"${hasEndpoint ? "" : " hidden"}>
-            <textarea class="obs-composer-input" id="obs-free-input" rows="1" maxlength="${OBS_MAX_CHARS}" placeholder="Pergunte ao Observatório…" aria-label="Pergunte ao Observatório"></textarea>
+            <input type="text" class="obs-composer-input" id="obs-free-input" maxlength="${OBS_MAX_CHARS}" placeholder="Pergunte ao Observatório…" aria-label="Pergunte ao Observatório">
             <div class="obs-composer-right">
               <span class="obs-char-count num" id="obs-char-count" hidden>0 / ${OBS_MAX_CHARS}</span>
               <button type="button" class="obs-send-btn" id="obs-free-send" aria-label="Enviar pergunta" disabled>
@@ -1762,6 +1747,11 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
             <button type="button" class="obs-inline-link" id="obs-limit-reset">Começar nova conversa</button>
           </div>
           <p class="obs-composer-note" id="obs-composer-note"${hasEndpoint ? "" : " hidden"}>As respostas usam IA para explicar os dados; os números vêm das fontes indicadas.</p>
+        </div>
+        <div id="obs-empty" class="obs-empty">
+          <div class="obs-suggestions" id="obs-suggestions">
+            ${Object.entries(OBS_SUGGESTIONS).map(([key, { pergunta }]) => `<button type="button" class="obs-suggestion-chip" data-obs-suggestion="${escHtml(key)}">${escHtml(pergunta)}</button>`).join("")}
+          </div>
         </div>
       </div>
     `;
@@ -1956,7 +1946,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
 
     const hasConversation = state.obsMessages.length > 0 || state.obsLoading;
     emptyEl.hidden = hasConversation;
-    listEl.hidden = !hasConversation;
+    $("obs-empty-desc").hidden = hasConversation;
+    $("obs-ranking-hint").hidden = hasConversation;
+    $("obs-chat-area").hidden = !hasConversation;
 
     if (!hasConversation) {
       listEl.innerHTML = "";
@@ -1990,10 +1982,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     renderChat({ scroll: "none" });
   }
 
-  function openFormInChat(key, userPrompt) {
+  function openFormInChat(key) {
     if (!key) return;
-    const s = OBS_SUGGESTIONS.find((x) => x.key === key);
-    const label = userPrompt || s?.label || OBS_QUESTIONS.find((q) => q.key === key)?.label || "";
+    const label = OBS_QUESTIONS.find((q) => q.key === key)?.label || "";
     const last = state.obsMessages[state.obsMessages.length - 1];
     if (last?.kind === "form" && last.formKey === key) {
       scrollChatArea("last-assistant");
@@ -2013,10 +2004,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     if (!pergunta || state.obsLoading || state.obsFreeTurns >= OBS_MAX_TURNS) return;
 
     const input = $("obs-free-input");
-    if (input) {
-      input.value = "";
-      input.style.height = "auto";
-    }
+    if (input) input.value = "";
     const counter = $("obs-char-count");
     if (counter) counter.hidden = true;
 
@@ -2087,36 +2075,48 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     openFormInChat(key);
   }
 
+  function answerLocalSuggestion(key, { pergunta, ferramenta, params }) {
+    const result = motor.chamar(state.base, ferramenta, params);
+    pushObsMessage({ role: "user", text: pergunta });
+    if (result.ok) {
+      const resposta = result.resposta || { titulo: result.frases[0], texto: result.frases.slice(1) };
+      const bloco = { tipo: result.ver.cartao, params: result.ver.params };
+      pushObsMessage({
+        role: "assistant",
+        ...resposta,
+        blocos: [bloco],
+        fontes: motor.fontesDe(state.base, ferramenta),
+        acao: ferramenta === "comparar" ? buildActionFromApi({ apontar: "comparar", blocos: [bloco] }) : null
+      });
+    } else {
+      pushObsMessage({ role: "assistant", kind: "error", text: result.erro });
+    }
+    emit("obs_question", key);
+    renderChat({ scroll: "last-assistant" });
+  }
+
   function bindObsShellEvents() {
     $$("#obs-suggestions .obs-suggestion-chip").forEach((btn) => {
       btn.addEventListener("click", () => {
         const key = btn.dataset.obsSuggestion;
-        const s = OBS_SUGGESTIONS.find((x) => x.key === key);
-        if (!s) return;
-        if (s.alwaysLocal || !hasEndpoint) {
-          openFormInChat(s.key, s.pergunta);
-        } else {
-          submitFreeQuestion(s.pergunta);
-        }
+        const suggestion = OBS_SUGGESTIONS[key];
+        if (hasEndpoint) submitFreeQuestion(suggestion.pergunta);
+        else answerLocalSuggestion(key, suggestion);
       });
     });
 
     const input = $("obs-free-input");
     const counter = $("obs-char-count");
-    const syncInputSize = () => {
-      if (!input) return;
-      input.style.height = "auto";
-      input.style.height = `${Math.min(118, input.scrollHeight)}px`;
+    input?.addEventListener("input", () => {
       if (counter) {
         const len = input.value.length;
         counter.hidden = len < 400;
         counter.textContent = `${len} / ${OBS_MAX_CHARS}`;
       }
       updateChatControls();
-    };
-    input?.addEventListener("input", syncInputSize);
+    });
     input?.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+      if (e.key === "Enter" && !e.isComposing) {
         e.preventDefault();
         submitFreeQuestion(input.value);
       }

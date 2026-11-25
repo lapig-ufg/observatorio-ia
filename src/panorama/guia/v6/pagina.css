@@ -318,6 +318,7 @@
 /* Pergunte ao Observatório (Chat) */
 .obs6 .obs-section{margin-bottom:20px}
 .obs6 .obs-box{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:14px}
+.obs6 .obs-box:has(.obs-empty:not([hidden])){padding:12px 16px;gap:8px}
 .obs6 .obs-chat-head{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:28px}
 .obs6 .obs-chat-head-id{display:flex;align-items:center;gap:9px;min-width:0}
 .obs6 .obs-owl{width:24px;height:22px;flex-shrink:0;display:block;object-fit:contain}
@@ -327,12 +328,14 @@
 .obs6 .obs-new-conv-icon:focus-visible{outline:2px solid var(--green-700);outline-offset:2px}
 
 .obs6 .obs-chat-area{max-height:min(70vh,720px);overflow-y:auto;display:flex;flex-direction:column;gap:16px;padding-right:2px;scroll-behavior:auto}
-.obs6 .obs-empty{display:flex;flex-direction:column;gap:12px;padding:4px 0 2px}
+.obs6 .obs-empty{display:flex;flex-direction:column;gap:8px}
 .obs6 .obs-empty-desc{margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
-.obs6 .obs-suggestions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.obs6 .obs-suggestion-chip{appearance:none;text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:13.5px;font-weight:500;line-height:1.35;color:var(--ink);cursor:pointer;transition:border-color 160ms var(--ease),background 160ms var(--ease),color 160ms var(--ease)}
+.obs6 .obs-suggestions{display:flex;flex-wrap:wrap;gap:6px}
+.obs6 .obs-suggestion-chip{appearance:none;text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:6px 10px;min-height:32px;font-size:13.5px;font-weight:500;line-height:1.35;color:var(--ink);cursor:pointer;transition:border-color 160ms var(--ease),background 160ms var(--ease),color 160ms var(--ease)}
 .obs6 .obs-suggestion-chip:hover{border-color:var(--green-700);background:var(--surface);color:var(--green-900)}
 .obs6 .obs-suggestion-chip:focus-visible{outline:2px solid var(--green-700);outline-offset:2px}
+
+.obs6 .obs-ranking-hint{margin:0;color:var(--green-900);font-size:13px;font-weight:600}
 
 .obs6 .obs-chat-list{display:flex;flex-direction:column;gap:16px}
 .obs6 .obs-msg-user{align-self:flex-end;max-width:80%;background:var(--surface);color:var(--ink);padding:10px 14px;border-radius:16px 16px 4px 16px;font-size:15px;line-height:1.5;word-break:break-word}
@@ -364,10 +367,11 @@
 .obs6 .obs-error-inline{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;font-size:15px;line-height:1.6;color:var(--ink)}
 .obs6 .obs-error-inline p{margin:0}
 
-.obs6 .obs-composer{display:flex;flex-direction:column;gap:8px}
-.obs6 .obs-composer-box{display:flex;align-items:flex-end;gap:8px;border:1px solid var(--line);border-radius:22px;background:var(--paper);padding:6px 8px 6px 16px;transition:border-color 180ms var(--ease),box-shadow 180ms var(--ease)}
+.obs6 .obs-composer{display:none;flex-direction:column;gap:4px}
+.obs6 .obs-composer:has(> :not([hidden])){display:flex}
+.obs6 .obs-composer-box{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:22px;background:var(--paper);padding:6px 8px 6px 16px;transition:border-color 180ms var(--ease),box-shadow 180ms var(--ease)}
 .obs6 .obs-composer-box:focus-within{border-color:var(--green-700);box-shadow:0 0 0 3px rgba(29,102,80,.14)}
-.obs6 .obs-composer-input{flex:1 1 auto;min-width:0;border:0;background:transparent;padding:6px 0;font-family:inherit;font-size:15px;line-height:1.45;color:var(--ink);resize:none;outline:none;max-height:118px;overflow-y:auto}
+.obs6 .obs-composer-input{flex:1 1 auto;min-width:0;border:0;background:transparent;padding:6px 0;font-family:inherit;font-size:15px;line-height:1.45;color:var(--ink);outline:none}
 .obs6 .obs-composer-input::placeholder{color:var(--muted)}
 .obs6 .obs-composer-right{display:flex;align-items:center;gap:8px;flex-shrink:0;padding-bottom:1px}
 .obs6 .obs-char-count{font-size:11.5px;color:var(--muted);white-space:nowrap}
@@ -454,8 +458,9 @@
 @media (max-width:640px){
   .obs6 .obs6-container{padding:4px 0 36px}
   .obs6 .obs-box{padding:16px;max-height:75vh;gap:10px}
+  .obs6 .obs-chat-head{flex-wrap:wrap;gap:4px 12px}
+  .obs6 .obs-ranking-hint{flex-basis:100%}
   .obs6 .obs-chat-area{flex:1 1 auto;min-height:0;max-height:none}
-  .obs6 .obs-suggestions{grid-template-columns:1fr}
   .obs6 .obs-msg-user{max-width:88%}
   .obs6 .obs-form-line{flex-direction:column;align-items:stretch}
   .obs6 .obs-submit{align-self:flex-start}
