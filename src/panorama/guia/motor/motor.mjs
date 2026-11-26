@@ -391,7 +391,7 @@ function abreMao(v, topoV, k) {
 /* ─── 3. ranking (e 8. perfil_tarefa) ─── */
 
 /** Cada família no seu melhor nível na área (ou no perfil). Ordena por nota, custo ou tempo. */
-export function ranking(base, { area: a = "intelligence", perfil = null, ordenar = "nota", limite = LIMITE_LINHAS, filtros = {} } = {}) {
+export function ranking(base, { area: a = "intelligence", perfil = null, ordenar = "nota", limite = LIMITE_LINHAS, filtros = {} } = {}, { completo = false } = {}) {
   const p = perfil ? base.perfis.find((x) => x.chave === perfil || normal(x.nome).includes(normal(perfil))) : null;
   if (perfil && !p) return erro(`perfil desconhecido: ${perfil}`, { perfis: base.perfis.map((x) => x.chave) });
   const k = p ? null : area(a);
@@ -415,7 +415,7 @@ export function ranking(base, { area: a = "intelligence", perfil = null, ordenar
   });
   linhas.sort(campo === "nota" ? (x, y) => y.s - x.s || (x.v.custo ?? Infinity) - (y.v.custo ?? Infinity) : (x, y) => x.v[campo] - y.v[campo] || y.s - x.s);
   const lim = Math.max(1, Math.min(LIMITE_LINHAS, Number(limite) || LIMITE_LINHAS));
-  const saida = linhas.slice(0, lim).map((x, i) => ({
+  const saida = linhas.slice(0, completo ? undefined : lim).map((x, i) => ({
     posicao: i + 1, ...resumoVar(x.f, x.v, k, p),
     empate_com_anterior: campo === "nota" && i > 0 && linhas[i - 1].s - x.s < EMPATE,
     abaixo_do_piso: piso !== null && x.s < piso,
@@ -424,7 +424,7 @@ export function ranking(base, { area: a = "intelligence", perfil = null, ordenar
   const r = { ok: true, area: k, perfil: p && { chave: p.chave, nome: p.nome, pesos: p.pesos, piso: p.piso, risco: p.risco }, ordenar: campo, total: linhas.length, linhas: saida };
   const l1 = saida[0];
   r.frases = [
-    campo === "nota" ? `${emTitulo}, ${nomeVarR(l1)} lidera com ${fmt.nota(l1.nota)} pontos${saida[1]?.empate_com_anterior ? `, em empate técnico com ${nomeVarR(saida[1])}` : ""}.`
+    !l1 ? "Nenhum modelo com dados para estes filtros." : campo === "nota" ? `${emTitulo}, ${nomeVarR(l1)} lidera com ${fmt.nota(l1.nota)} pontos${saida[1]?.empate_com_anterior ? `, em empate técnico com ${nomeVarR(saida[1])}` : ""}.`
       : `${emTitulo}, ${campo === "custo" ? "o mais barato" : "o mais rápido"}${piso !== null ? ` com nota a partir de ${fmt.nota(piso)}` : ""} é ${nomeVarR(l1)}: ${campo === "custo" ? fmt.custo(l1.custo) : fmt.tempo(l1.tempo)} (${fmt.nota(l1.nota)} pontos).`,
     p ? `O perfil pondera ${Object.entries(p.pesos).map(([kk, w]) => `${AREAS[kk].toLowerCase()} ${Math.round(w * 100)}%`).join(", ")}${p.piso !== null ? `; abaixo de ${fmt.nota(p.piso)} pontos o risco de errar é alto para esse uso` : ""}.` : null,
     p?.fora.length ? `Parte do perfil original (${p.fora.join(", ")}) não vem da AA e ficou fora desta conta.` : null,
@@ -787,7 +787,7 @@ function placarDaFonte(nomes, linhas) {
 
 /** De 2 a 4 modelos, cada um no nível mais alto que cada fonte mediu: quem fica à frente na
     Artificial Analysis, no LMArena, no Epoch AI (e no Vals AI, quando os dados locais o trazem). */
-export function comparar_fontes(base, { itens = [] } = {}) {
+export function comparar_fontes(base, { itens = [], incluirParciais = false } = {}) {
   if (!Array.isArray(itens) || itens.length < 2 || itens.length > 4) return erro("comparar_fontes pede de 2 a 4 modelos");
   const fs = [];
   for (const it of itens) {
@@ -811,10 +811,10 @@ export function comparar_fontes(base, { itens = [] } = {}) {
     const ent = dados.map((d) => (d.lmarena?.length ? maisAlto(d.lmarena) ?? d.lmarena.at(-1) : null));
     const faltam = nomes.filter((_, i) => !ent[i]);
     let linhas = [];
-    if (!faltam.length) {
+    if (!faltam.length || incluirParciais) {
       const cats = [["geral", "Geral"], ...Object.entries(CATEGORIAS_ARENA).map(([c, n]) => [c, n[0].toUpperCase() + n.slice(1)])];
       linhas = cats.flatMap(([c, nome]) => {
-        const vals = ent.map((e) => (c === "geral" ? e.geral : e.categorias[c]) ?? null);
+        const vals = ent.map((e) => (c === "geral" ? e?.geral : e?.categorias[c]) ?? null);
         if (vals.every((v) => v === null)) return [];
         const perto = (a, b) => (a.min === null || b.max === null ? a.nota - b.nota < EMPATE : b.max >= a.min);
         return [{ teste: c, nome, notas: vals.map((v) => v && { nota: v.nota, min: v.min, max: v.max, posicao: v.posicao, total: v.total }), ...linhaFontes(nomes, vals, perto) }];
@@ -829,12 +829,14 @@ export function comparar_fontes(base, { itens = [] } = {}) {
     const ent = dados.map((d) => d[id] ?? null);
     const faltam = nomes.filter((_, i) => !ent[i]);
     let linhas = [];
-    if (!faltam.length) {
-      const comuns = ent[0].testes.filter((t) => ent.every((e) => e.testes.some((x) => x.chave === t.chave)));
-      linhas = comuns.map((t) => {
-        const vals = ent.map((e) => ({ nota: e.testes.find((x) => x.chave === t.chave).nota }));
-        return { teste: t.chave, nome: t.nome, notas: vals.map((v) => arred(v.nota, 1)), ...linhaFontes(nomes, vals, (a, b) => a.nota - b.nota < EMPATE) };
+    if (!faltam.length || incluirParciais) {
+      const testes = new Map(ent.flatMap((e) => e?.testes.map((t) => [t.chave, t.nome]) ?? []));
+      linhas = [...testes].flatMap(([chave, nome]) => {
+        const vals = ent.map((e) => e?.testes.find((t) => t.chave === chave) ?? null);
+        if (!incluirParciais && vals.includes(null)) return [];
+        return [{ teste: chave, nome, notas: vals.map((v) => v && arred(v.nota, 1)), ...linhaFontes(nomes, vals, (a, b) => a.nota - b.nota < EMPATE) }];
       });
+      linhas.sort((a, b) => a.notas.filter((v) => v === null).length - b.notas.filter((v) => v === null).length);
     }
     fontes.push({ id, nome: NOMES_FONTE[id], mede: base.fontesInfo[id].mede, esforcos: ent.map((e) => e?.esforco ?? null), linhas, faltam, ...placarDaFonte(nomes, linhas) });
   }

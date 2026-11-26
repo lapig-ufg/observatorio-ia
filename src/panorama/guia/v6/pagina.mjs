@@ -1,10 +1,12 @@
 import * as motor from "../motor/motor.mjs";
 import perfis from "../motor/perfis.json";
+import { categoriaArena, consultarLiderArena } from "../motor/arena.mjs";
 
 const OBS_MAX_TURNS = 8;
 const OBS_MAX_CHARS = 500;
 const OBS_SUGGESTION_INTERVAL = 3600;
 const OBS_SUGGESTIONS = [
+  { key: "arena", pergunta: "Qual é o primeiro lugar em escrita criativa no LMArena?" },
   {
     key: "comparar",
     pergunta: "É melhor usar o Sonnet 5.5 no alto ou o Opus 5.5 no médio?",
@@ -160,8 +162,10 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     area: "intelligence",
     tol: 10,
     sortField: "nota",
-    sortDir: "desc",
+    limitarNota: false,
+    rankingSelected: null,
     expandedRanking: false,
+    compareSource: "aa",
     compareItems: DEFAULT_COMPARE.map((x) => ({ ...x })),
     drawerOpen: false,
     drawerModelId: null,
@@ -176,7 +180,6 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     obsLoading: false,
     obsMsgSeq: 0,
     lastTriggerEl: null,
-    prevScoreboard: { int: null, cost: null, time: null },
     ladderPrevCoords: null,
     ladderGhostTimer: null,
     pointTimer: null
@@ -186,6 +189,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
   let compareResizeObserver = null;
   let lastCompareComp = null;
   let metricTipPinnedEl = null;
+  let obsRequest = 0;
 
   function renderSourceLineHtml(sourceId = "aa", area = state.area, perfil = null) {
     const f = state.base?.fontesInfo?.[sourceId];
@@ -301,7 +305,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     if (currentHash && !currentHash.startsWith("#panorama/guia")) return;
     const p = new URLSearchParams();
     if (state.area !== "intelligence") p.set("area", state.area);
-    if (state.tol !== 10) p.set("tol", String(state.tol));
+    if (state.limitarNota) p.set("tol", String(state.tol));
     if (state.drawerOpen && state.drawerModelId) {
       p.set("modelo", state.drawerModelId);
       if (state.drawerEffort) p.set("esforco", state.drawerEffort);
@@ -343,211 +347,29 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     }
   }
 
-  /* ─── Placar ─── */
-
-  function animateValue(el, fromVal, toVal, formatter) {
-    if (!el) return;
-    if (prefersReducedMotion() || fromVal == null || toVal == null || fromVal === toVal) {
-      el.textContent = formatter(toVal);
-      return;
-    }
-    const start = performance.now();
-    function frame(now) {
-      if (destroyed) return;
-      const t = Math.min(1, (now - start) / 250);
-      const curr = fromVal + (toVal - fromVal) * (1 - Math.pow(1 - t, 3));
-      el.textContent = formatter(curr);
-      if (t < 1) nextFrame(frame);
-      else el.textContent = formatter(toVal);
-    }
-    nextFrame(frame);
-  }
-
-  function renderScoreCardContent(cardEl, { eyebrow, item, bigText, otherText, tieText, unitText, variantChanged, animate }) {
-    if (!item) {
-      cardEl.innerHTML = `<div class="score-card-top"><span class="score-card-eyebrow">${escHtml(eyebrow)}</span></div><div class="score-card-body"><span class="missing-val">nenhum modelo com esse dado dentro da margem</span></div>`;
-      cardEl.dataset.modelId = "";
-      cardEl.dataset.effort = "";
-      return;
-    }
-    cardEl.dataset.modelId = item.modelo;
-    cardEl.dataset.effort = item.esforco;
-
-    const tradeoffHtml = String(item.abre_mao || "")
-      .split(" · ")
-      .map((part) => `<span class="tradeoff-part">${escHtml(part)}</span>`)
-      .join('<span aria-hidden="true"> · </span>');
-
-    const existingBig = cardEl.querySelector(".score-big");
-    if (!existingBig || variantChanged) {
-      const fadeCls = (animate && variantChanged && !prefersReducedMotion()) ? " is-fading" : "";
-      cardEl.innerHTML = `
-        <div class="score-card-top">
-          <span class="score-card-eyebrow">${escHtml(eyebrow)}</span>
-          <svg class="score-card-arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
-        </div>
-        <div class="score-card-body${fadeCls}">
-          <div class="score-identity">
-            ${renderLogo(item.empresa)}
-            <span class="score-model-name">${escHtml(item.nome)}</span>
-            ${renderEffortPill(item.esforco)}
-          </div>
-          <div class="score-big-row">
-            <span class="score-big num">${escHtml(bigText)}</span>
-            ${unitText ? `<span class="score-unit">${escHtml(unitText)}</span>` : ""}
-          </div>
-          <div class="score-other num">${escHtml(otherText)}</div>
-          ${tieText ? `<div class="score-tie">${escHtml(tieText)}</div>` : ""}
-          <div class="score-tradeoff num">${tradeoffHtml}</div>
-        </div>
-      `;
-      if (fadeCls) {
-        const body = cardEl.querySelector(".score-card-body");
-        nextFrame(() => body && body.classList.remove("is-fading"));
-      }
-    } else {
-      cardEl.querySelector(".score-big").textContent = bigText;
-      cardEl.querySelector(".score-other").textContent = otherText;
-      cardEl.querySelector(".score-tradeoff").innerHTML = tradeoffHtml;
-      const tieEl = cardEl.querySelector(".score-tie");
-      if (tieEl) tieEl.textContent = tieText || "";
-    }
-  }
-
-  function updateScoreboard(animate = true) {
-    const res = motor.placar(state.base, { area: state.area, tolerancia: state.tol });
-    if (!res.ok) return;
-    const ressalvaEl = $("area-ressalva");
-    if (ressalvaEl) ressalvaEl.hidden = state.area !== "legal";
-    const ptWord = state.tol === 1 ? "ponto" : "pontos";
-    $("tol-readout").textContent = `margem de ${state.tol} ${ptWord} · nota mínima ${motor.fmt.nota(res.piso)}`;
-    $("scoreboard-rule").textContent = `Os cartões de preço e de rapidez só consideram modelos a até ${state.tol} ${ptWord} do melhor. Diferença menor que 1 ponto é empate.`;
-    const srcEl = $("scoreboard-source");
-    if (srcEl) srcEl.innerHTML = renderSourceLineHtml("aa", state.area);
-
-    const cardInt = $("card-int");
-    const cardCost = $("card-cost");
-    const cardTime = $("card-time");
-    const prev = state.prevScoreboard;
-
-    const intItem = res.mais_inteligente ? { ...res.mais_inteligente, abre_mao: "o melhor nesta área" } : null;
-    const costItem = res.mais_barato;
-    const timeItem = res.mais_rapido;
-
-    const intKey = intItem ? `${intItem.modelo}:${intItem.esforco}` : "";
-    const costKey = costItem ? `${costItem.modelo}:${costItem.esforco}` : "";
-    const timeKey = timeItem ? `${timeItem.modelo}:${timeItem.esforco}` : "";
-    const tieStr = intItem?.empatados_com?.length ? `empatado com ${intItem.empatados_com.join(", ")}` : "";
-
-    const intChanged = !prev.int || prev.int.key !== intKey;
-    renderScoreCardContent(cardInt, {
-      eyebrow: "Mais inteligente",
-      item: intItem,
-      bigText: intItem ? motor.fmt.nota(intItem.nota) : "sem dado",
-      unitText: "pontos",
-      otherText: intItem ? `${motor.fmt.custo(intItem.custo)} · ${motor.fmt.tempo(intItem.tempo)}` : "",
-      tieText: tieStr,
-      variantChanged: intChanged,
-      animate
-    });
-    if (animate && intItem && prev.int?.val != null && (intChanged || prev.int.val !== intItem.nota)) {
-      animateValue(cardInt.querySelector(".score-big"), prev.int.val, intItem.nota, motor.fmt.nota);
-    }
-
-    const costChanged = !prev.cost || prev.cost.key !== costKey;
-    renderScoreCardContent(cardCost, {
-      eyebrow: "Mais barato dentro da margem",
-      item: costItem,
-      bigText: costItem ? costItem.destaque : "sem dado",
-      unitText: "",
-      otherText: costItem ? `nota ${motor.fmt.nota(costItem.nota)} · ${motor.fmt.tempo(costItem.tempo)}` : "",
-      tieText: "",
-      variantChanged: costChanged,
-      animate
-    });
-    if (animate && costItem && prev.cost?.val != null && costChanged) {
-      animateValue(cardCost.querySelector(".score-big"), prev.cost.val, costItem.custo, motor.fmt.custo);
-    }
-
-    const timeChanged = !prev.time || prev.time.key !== timeKey;
-    renderScoreCardContent(cardTime, {
-      eyebrow: "Mais rápido dentro da margem",
-      item: timeItem,
-      bigText: timeItem ? timeItem.destaque : "sem dado",
-      unitText: "",
-      otherText: timeItem ? `nota ${motor.fmt.nota(timeItem.nota)} · ${motor.fmt.custo(timeItem.custo)}` : "",
-      tieText: "",
-      variantChanged: timeChanged,
-      animate
-    });
-    if (animate && timeItem && prev.time?.val != null && timeChanged) {
-      animateValue(cardTime.querySelector(".score-big"), prev.time.val, timeItem.tempo, motor.fmt.tempo);
-    }
-
-    state.prevScoreboard = {
-      int: { key: intKey, val: intItem?.nota ?? null },
-      cost: { key: costKey, val: costItem?.custo ?? null },
-      time: { key: timeKey, val: timeItem?.tempo ?? null }
-    };
-  }
-
   /* ─── Ranking ─── */
 
-  function getFullRankingRows() {
-    const k = state.area;
-    const field = state.sortField;
-    const dir = state.sortDir;
+  const rankingMetrics = {
+    nota: { label: "Inteligência", rule: "Maior nota de cada modelo na área selecionada." },
+    custo: { label: "Preço", rule: "Menor custo por tarefa via API, entre os níveis avaliados." },
+    tempo: { label: "Velocidade", rule: "Menor tempo de resposta entre os níveis avaliados." }
+  };
+  let rankingRows = [];
+  let rankingSearchMatches = [];
+  let rankingSearchIndex = -1;
 
-    const isDefaultDir = (field === "nota" && dir === "desc") || (field !== "nota" && dir === "asc");
-    const motorRes = isDefaultDir ? motor.ranking(state.base, { area: k, ordenar: field, limite: 10 }) : null;
-
-    const linhas = state.base.familias.flatMap((f) => {
-      const vs = f.variantes.filter((v) => v.notas[k] !== null);
-      if (!vs.length) return [];
-      let v;
-      if (field === "nota") {
-        v = vs.reduce((m, x) => (x.notas[k] > m.notas[k] || (x.notas[k] === m.notas[k] && (x.custo ?? Infinity) < (m.custo ?? Infinity)) ? x : m));
-      } else {
-        const ok = vs.filter((x) => x[field] !== null);
-        if (!ok.length) return [];
-        v = ok.reduce((m, x) => (dir === "asc" ? (x[field] < m[field] ? x : m) : (x[field] > m[field] ? x : m)));
-      }
-      return [{ f, v, s: v.notas[k] }];
-    });
-
-    if (field === "nota") {
-      linhas.sort((x, y) => dir === "desc" ? (y.s - x.s || (x.v.custo ?? Infinity) - (y.v.custo ?? Infinity)) : (x.s - y.s || (x.v.custo ?? Infinity) - (y.v.custo ?? Infinity)));
-    } else {
-      linhas.sort((x, y) => dir === "asc" ? (x.v[field] - y.v[field] || y.s - x.s) : (y.v[field] - x.v[field] || y.s - x.s));
-    }
-
-    const allRows = linhas.map((x, i) => ({
-      posicao: i + 1,
-      modelo: x.f.id,
-      nome: x.f.nome,
-      empresa: x.f.empresa,
-      esforco: x.v.esforco,
-      nota: Math.round(x.s * 10) / 10,
-      custo: x.v.custo != null ? Math.round(x.v.custo * 10000) / 10000 : null,
-      tempo: x.v.tempo != null ? Math.round(x.v.tempo * 10) / 10 : null,
-      empate_com_anterior: field === "nota" && dir === "desc" && i > 0 && linhas[i - 1].s - x.s < motor.EMPATE
-    }));
-
-    if (motorRes?.ok && motorRes.linhas.length) {
-      for (let i = 0; i < motorRes.linhas.length; i++) allRows[i] = motorRes.linhas[i];
-    }
-    const maxScore = Math.max(...allRows.map((r) => r.nota ?? 0), 1);
-    return { rows: allRows, maxScore };
+  function rankingFloor() {
+    if (!state.limitarNota || state.sortField === "nota") return null;
+    const scores = state.base.familias.flatMap((f) => f.variantes.map((v) => v.notas[state.area])).filter((v) => v != null);
+    return scores.length ? Math.max(...scores) - state.tol : null;
   }
-
-  const sortIndicator = (field) => state.sortField !== field ? "" : (state.sortDir === "asc" ? "↑" : "↓");
 
   function renderRankRow(r, maxScore, isLastVisible) {
     const scorePct = r.nota != null ? Math.max(0, Math.min(1, r.nota / maxScore)) : 0;
     const posHtml = `${r.empate_com_anterior ? '<span class="rank-pos-approx" title="Menos de 1 ponto abaixo do anterior">≈</span>' : ""}${r.posicao}`;
     return `
-      <button type="button" class="rank-row${isLastVisible ? " is-last-visible" : ""}" data-model-id="${escHtml(r.modelo)}" data-effort="${escHtml(r.esforco)}">
-        <span class="rank-pos num">${posHtml}</span>
+      <button type="button" class="rank-row${isLastVisible ? " is-last-visible" : ""}${state.rankingSelected === r.modelo ? " is-located" : ""}" data-rank="${r.posicao}" data-model-id="${escHtml(r.modelo)}" data-effort="${escHtml(r.esforco)}">
+        <span class="rank-pos num"><span class="sr-only">Posição </span>${posHtml}</span>
         <span class="rank-model">
           ${renderLogo(r.empresa)}
           <span class="rank-model-text">
@@ -560,11 +382,11 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         </span>
         <span class="rank-score-cell">
           ${r.nota != null
-            ? `<span class="score-track" aria-hidden="true"><span class="score-fill" style="--scale:${scorePct.toFixed(4)}"></span></span><span class="rank-score-val num">${motor.fmt.nota(r.nota)}</span>`
+            ? `<span class="score-track" aria-hidden="true"><span class="score-fill" style="--scale:${scorePct.toFixed(4)}"></span></span><span class="rank-score-val num"><span class="sr-only">Nota </span>${motor.fmt.nota(r.nota)}</span>`
             : `<span class="missing-val">sem dado</span>`}
         </span>
-        <span class="rank-num-cell cost-cell num">${r.custo != null ? motor.fmt.custo(r.custo) : '<span class="missing-val">sem dado</span>'}</span>
-        <span class="rank-num-cell time-cell num">${r.tempo != null ? motor.fmt.tempo(r.tempo) : '<span class="missing-val">sem dado</span>'}</span>
+        <span class="rank-num-cell cost-cell num"><span class="sr-only">Custo por tarefa </span>${r.custo != null ? motor.fmt.custo(r.custo) : '<span class="missing-val">sem dado</span>'}</span>
+        <span class="rank-num-cell time-cell num"><span class="sr-only">Tempo de resposta </span>${r.tempo != null ? motor.fmt.tempo(r.tempo) : '<span class="missing-val">sem dado</span>'}</span>
         <span class="rank-arrow" aria-hidden="true">›</span>
       </button>
     `;
@@ -591,58 +413,205 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       }
     }, { threshold: 0 });
 
-    tracks.forEach((tr, idx) => {
-      const fill = tr.querySelector(".score-fill");
-      if (!fill) return;
-      if (state.expandedRanking && idx >= 10) {
-        fill.style.transitionDelay = `${Math.min((idx - 10) * 12, 240)}ms`;
-        nextFrame(() => fill.classList.add("is-visible"));
-      } else {
-        rankingObserver.observe(tr);
-      }
+    tracks.forEach((tr) => rankingObserver.observe(tr));
+  }
+
+  function renderRanking({ animate = false } = {}) {
+    const card = $("ranking-card");
+    if (!card) return;
+    const floor = rankingFloor();
+    const result = motor.ranking(state.base, {
+      area: state.area, ordenar: state.sortField,
+      filtros: floor === null ? {} : { nota_min: floor - 1e-9 }
+    }, { completo: true });
+    rankingRows = result.linhas || [];
+    const shown = state.expandedRanking ? rankingRows : rankingRows.slice(0, 10);
+    const maxScore = Math.max(...rankingRows.map((r) => r.nota ?? 0), 1);
+    const html = shown.map((r, i) => renderRankRow(r, maxScore, i === shown.length - 1)).join("");
+    const count = rankingRows.length;
+    const selected = shown.find((r) => r.modelo === state.rankingSelected);
+    const field = state.sortField;
+    syncTabButtons($("ranking-tabs"), field);
+    $("ranking-results").setAttribute("aria-labelledby", "ranking-tab-" + field);
+    $("ranking-rule").textContent = rankingMetrics[field].rule;
+    $("ranking-tie-note").hidden = field !== "nota";
+    $("ranking-filter").hidden = field === "nota";
+    $("ranking-margin").hidden = !state.limitarNota;
+    $("limit-ranking").checked = state.limitarNota;
+    $("tol-slider").value = state.tol;
+    $("tol-readout").textContent = floor === null ? "" : `${state.tol} ${state.tol === 1 ? "ponto" : "pontos"} · nota mínima ${motor.fmt.nota(floor)}`;
+    $("area-ressalva").hidden = state.area !== "legal";
+    $("ranking-status").textContent = selected
+      ? `${selected.nome} · ${selected.posicao}º de ${count}`
+      : count ? `${shown.length} de ${count} modelos` : "Sem modelos neste recorte";
+    $("ranking-source").innerHTML = renderSourceLineHtml("aa", state.area);
+    card.dataset.metric = field;
+    card.innerHTML = `
+      <div class="ranking-head" aria-hidden="true">
+        <span>#</span><span>Modelo</span><span data-metric="nota">Nota</span><span data-metric="custo">Custo / tarefa</span><span data-metric="tempo">Tempo</span><span></span>
+      </div>
+      <div id="ranking-list">${html || '<p class="status-box">Nenhum modelo com dados para esta seleção.</p>'}</div>
+      ${count > 10 ? `<div class="ranking-footer">
+        <button type="button" class="btn-pill" id="toggle-ranking-btn" aria-expanded="${state.expandedRanking}">
+          ${state.expandedRanking ? "Voltar ao top 10" : `Ver todos os ${count} modelos`}
+        </button>
+      </div>` : ""}
+    `;
+    if (animate && !prefersReducedMotion()) {
+      $("ranking-list").animate?.([{ opacity: 0.55, transform: "translateY(5px)" }, { opacity: 1, transform: "none" }], { duration: 240, easing: "ease-out" });
+    }
+    closeRankingSearch();
+    observeRankingBars();
+  }
+
+  function closeRankingSearch() {
+    rankingSearchMatches = [];
+    rankingSearchIndex = -1;
+    $("ranking-matches").hidden = true;
+    $("ranking-query").setAttribute("aria-expanded", "false");
+    $("ranking-query").removeAttribute("aria-activedescendant");
+    $("ranking-search-status").textContent = "";
+  }
+
+  function updateRankingSearch() {
+    const query = guideModelKey($("ranking-query").value);
+    if (!query) { closeRankingSearch(); return; }
+    rankingSearchMatches = rankingRows
+      .map((r) => {
+        const name = guideModelKey(r.nome);
+        const match = name === query ? 0 : name.startsWith(query) ? 1
+          : name.includes(query) ? 2 : guideModelKey(r.empresa).includes(query) ? 3 : null;
+        return { r, match };
+      })
+      .filter(({ match }) => match !== null).sort((a, b) => a.match - b.match)
+      .slice(0, 8).map(({ r }) => r);
+    rankingSearchIndex = -1;
+    const matches = $("ranking-matches");
+    matches.innerHTML = rankingSearchMatches.map((r, i) => `
+      <div class="rank-match" id="rank-match-${i}" role="option" aria-selected="false" data-match="${i}">
+        ${renderLogo(r.empresa, false, 20)}
+        <span>${escHtml(r.nome)}<small>${escHtml(r.empresa)}</small></span>
+        <strong>${r.posicao}º</strong>
+      </div>
+    `).join("") || '<div class="rank-match-empty" role="option" aria-disabled="true">Nenhum modelo neste ranking</div>';
+    matches.hidden = false;
+    $("ranking-query").setAttribute("aria-expanded", "true");
+    $("ranking-query").removeAttribute("aria-activedescendant");
+    $("ranking-search-status").textContent = rankingSearchMatches.length
+      ? `${rankingSearchMatches.length} sugestões` : "Nenhum modelo neste ranking";
+  }
+
+  function locateRankingModel(modelo, { takeFocus = false } = {}) {
+    const result = rankingRows.find((r) => r.modelo === modelo);
+    if (!result) return;
+    state.rankingSelected = modelo;
+    if (result.posicao > 10) state.expandedRanking = true;
+    $("ranking-query").value = "";
+    renderRanking();
+    const row = raiz.querySelector(`#ranking-card [data-rank="${result.posicao}"]`);
+    if (takeFocus) row.focus({ preventScroll: true });
+    [row.previousElementSibling, row, row.nextElementSibling].forEach((neighbor) => {
+      neighbor?.querySelector(".score-fill")?.classList.add("is-visible");
+    });
+    row.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "center" });
+    if (!prefersReducedMotion()) {
+      row.animate?.([{ boxShadow: "inset 0 0 0 2px var(--green-700)" }, { boxShadow: "inset 0 0 0 2px transparent" }], {
+        duration: 850, delay: 260, easing: "ease-out"
+      });
+    }
+    emit("ranking_locate", modelo);
+  }
+
+  function syncTabButtons(group, active) {
+    group.querySelectorAll('[role="tab"]').forEach((tab) => {
+      const selected = tab.dataset.tab === active;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
     });
   }
 
-  function renderRanking() {
-    const card = $("ranking-card");
-    if (!card) return;
-    const sub = $("ranking-area-sub");
-    if (sub) sub.textContent = `${motor.AREAS[state.area]} · melhor nível de cada modelo`;
+  function bindTabs(group, onSelect) {
+    group.addEventListener("click", (e) => {
+      const tab = e.target.closest('[role="tab"]');
+      if (tab) onSelect(tab.dataset.tab);
+    });
+    group.addEventListener("keydown", (e) => {
+      const tabs = [...group.querySelectorAll('[role="tab"]')];
+      const index = tabs.indexOf(e.target);
+      if (index < 0 || !["ArrowRight", "ArrowLeft", "Home", "End"].includes(e.key)) return;
+      e.preventDefault();
+      const next = e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1
+        : (index + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[next].focus();
+      onSelect(tabs[next].dataset.tab);
+    });
+  }
 
-    const { rows, maxScore } = getFullRankingRows();
-    const top10 = rows.slice(0, 10), rest = rows.slice(10);
-    const sA = sortIndicator("nota"), cA = sortIndicator("custo"), tA = sortIndicator("tempo");
-
-    card.innerHTML = `
-      <div class="mobile-sort-bar">
-        <span class="mobile-sort-label">Ordenar:</span>
-        <button type="button" class="mobile-sort-chip${state.sortField === "nota" ? " is-active" : ""}" data-sort="nota">Nota ${sA}</button>
-        <button type="button" class="mobile-sort-chip${state.sortField === "custo" ? " is-active" : ""}" data-sort="custo">Custo ${cA}</button>
-        <button type="button" class="mobile-sort-chip${state.sortField === "tempo" ? " is-active" : ""}" data-sort="tempo">Tempo ${tA}</button>
-      </div>
-      <div class="ranking-head">
-        <div style="text-align:right;padding-right:4px">#</div>
-        <div>Modelo</div>
-        <div><button type="button" class="sort-btn" data-sort="nota" aria-sort="${state.sortField === "nota" ? (state.sortDir === "desc" ? "descending" : "ascending") : "none"}">${metricTip("nota", "Nota")} <span aria-hidden="true">${sA}</span></button></div>
-        <div><button type="button" class="sort-btn" data-sort="custo" aria-sort="${state.sortField === "custo" ? (state.sortDir === "asc" ? "ascending" : "descending") : "none"}">${metricTip("custo", "Custo")} <span aria-hidden="true">${cA}</span></button></div>
-        <div><button type="button" class="sort-btn" data-sort="tempo" aria-sort="${state.sortField === "tempo" ? (state.sortDir === "asc" ? "ascending" : "descending") : "none"}">${metricTip("tempo", "Tempo")} <span aria-hidden="true">${tA}</span></button></div>
-        <div></div>
-      </div>
-      <div id="ranking-top10">${top10.map((r, i) => renderRankRow(r, maxScore, (!state.expandedRanking || !rest.length) && i === top10.length - 1)).join("")}</div>
-      ${rest.length ? `
-        <div class="ranking-extra-wrap${state.expandedRanking ? " is-open" : ""}" id="ranking-extra-wrap">
-          <div class="ranking-extra-inner" id="ranking-rest">${rest.map((r, i) => renderRankRow(r, maxScore, i === rest.length - 1)).join("")}</div>
-        </div>
-        <div class="ranking-footer">
-          <button type="button" class="btn-pill" id="toggle-ranking-btn" aria-expanded="${state.expandedRanking}">
-            ${state.expandedRanking ? "Mostrar só os 10 primeiros" : `Ver todos os ${rows.length} modelos`}
-          </button>
-        </div>
-      ` : ""}
-    `;
-    const srcEl = $("ranking-source");
-    if (srcEl) srcEl.innerHTML = renderSourceLineHtml("aa", state.area);
-    observeRankingBars();
+  function bindRankingEvents() {
+    const query = $("ranking-query");
+    const matches = $("ranking-matches");
+    bindTabs($("ranking-tabs"), (field) => {
+      if (field === state.sortField) return;
+      state.sortField = field;
+      state.expandedRanking = false;
+      state.rankingSelected = null;
+      query.value = "";
+      renderRanking({ animate: true });
+      emit("ranking_metric", field);
+    });
+    query.addEventListener("input", updateRankingSearch);
+    query.addEventListener("focus", updateRankingSearch);
+    query.addEventListener("blur", closeRankingSearch);
+    query.addEventListener("keydown", (e) => {
+      if (e.isComposing) return;
+      if (e.key === "Escape") { closeRankingSearch(); return; }
+      if (e.key === "Enter" && rankingSearchMatches.length) {
+        e.preventDefault();
+        locateRankingModel(rankingSearchMatches[Math.max(0, rankingSearchIndex)].modelo, { takeFocus: true });
+        return;
+      }
+      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+      if (matches.hidden) updateRankingSearch();
+      if (!rankingSearchMatches.length) return;
+      e.preventDefault();
+      const size = rankingSearchMatches.length;
+      rankingSearchIndex = rankingSearchIndex < 0 ? (e.key === "ArrowDown" ? 0 : size - 1)
+        : (rankingSearchIndex + (e.key === "ArrowDown" ? 1 : -1) + size) % size;
+      matches.querySelectorAll("[data-match]").forEach((el, i) => el.setAttribute("aria-selected", String(i === rankingSearchIndex)));
+      const selected = $("rank-match-" + rankingSearchIndex);
+      query.setAttribute("aria-activedescendant", selected.id);
+      selected.scrollIntoView({ block: "nearest" });
+    });
+    matches.addEventListener("pointerdown", (e) => { if (e.target.closest("[data-match]")) e.preventDefault(); });
+    matches.addEventListener("click", (e) => {
+      const match = e.target.closest("[data-match]");
+      if (match) locateRankingModel(rankingSearchMatches[Number(match.dataset.match)].modelo, { takeFocus: true });
+    });
+    $("limit-ranking").addEventListener("change", (e) => {
+      state.limitarNota = e.target.checked;
+      state.expandedRanking = false;
+      renderRanking({ animate: true });
+      syncUrl();
+    });
+    $("tol-slider").addEventListener("input", (e) => {
+      state.tol = Number(e.target.value);
+      renderRanking();
+      syncUrl();
+    });
+    $("tol-slider").addEventListener("change", () => emit("tol", state.tol));
+    $("ranking-card").addEventListener("click", (e) => {
+      if (e.target.closest("#toggle-ranking-btn")) {
+        state.expandedRanking = !state.expandedRanking;
+        if (!state.expandedRanking) state.rankingSelected = null;
+        renderRanking();
+        const target = state.expandedRanking ? raiz.querySelector('#ranking-list [data-rank="11"]') : $("toggle-ranking-btn");
+        target?.focus({ preventScroll: true });
+        target?.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "center" });
+        return;
+      }
+      const row = e.target.closest(".rank-row");
+      if (row) openDrawer(row.dataset.modelId, row.dataset.effort, row);
+    });
   }
 
   /* ─── Comparar modelos ─── */
@@ -757,6 +726,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
 
   function renderCompareResultBody(wrapEl) {
     if (!wrapEl || !lastCompareComp?.ok) return;
+    if (state.compareSource !== "aa") return;
     const w = wrapEl.clientWidth || wrapEl.getBoundingClientRect().width || window.innerWidth;
     const minTableWidth = 220 + 160 * lastCompareComp.colunas.length;
     const mode = w >= minTableWidth ? "table" : "list";
@@ -771,6 +741,11 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     const root = $("compare-root");
     if (!root) return;
 
+    const aaActive = state.compareSource === "aa";
+    const ids = [...new Set(state.compareItems.map((c) => c.modelo))];
+    const fontes = !aaActive && ids.length >= 2
+      ? motor.comparar_fontes(state.base, { itens: ids, incluirParciais: true })
+      : null;
     const colsHtml = state.compareItems.map((it, idx) => {
       const f = state.base.porId.get(it.modelo) || state.base.familias[0];
       const effortsHtml = f.variantes.map((v) => `
@@ -789,10 +764,10 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
               <input type="text" class="compare-search-input" value="${escHtml(f.nome)}" data-compare-search="${idx}" aria-label="Escolher modelo ${idx + 1}" autocomplete="off">
               <div class="compare-dropdown" data-compare-dropdown="${idx}"></div>
             </div>
-            <select class="compare-effort-select" data-compare-select="${idx}" aria-label="Nível de esforço do modelo ${idx + 1}">${selectOptsHtml}</select>
+            ${aaActive ? `<select class="compare-effort-select" data-compare-select="${idx}" aria-label="Nível de esforço do modelo ${idx + 1}">${selectOptsHtml}</select>` : ""}
             ${state.compareItems.length > 2 ? `<button type="button" class="compare-remove" data-compare-remove="${idx}" aria-label="Remover coluna ${idx + 1}">×</button>` : ""}
           </div>
-          <div class="compare-efforts">${effortsHtml}</div>
+          ${aaActive ? `<div class="compare-efforts">${effortsHtml}</div>` : ""}
         </div>
       `;
     }).join("");
@@ -801,9 +776,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       ? `<button type="button" class="compare-add-btn" id="compare-add-btn">+ adicionar</button>`
       : "";
 
-    const comp = motor.comparar(state.base, { itens: state.compareItems, areas: motor.AREA_KEYS });
+    const comp = aaActive ? motor.comparar(state.base, { itens: state.compareItems, areas: motor.AREA_KEYS }) : null;
     lastCompareComp = comp;
-    const respostaHtml = comp.ok && comp.resposta
+    const respostaHtml = comp?.ok && comp.resposta
       ? `<div class="compare-resposta-box">
           <div class="compare-resposta-head">${bulbIconSvg}<p class="compare-resposta-title">${escHtml(comp.resposta.titulo)}</p></div>
           <div class="compare-resposta-texts">${(comp.resposta.texto || []).map((t) => `<p class="compare-resposta-p">${escHtml(t)}</p>`).join("")}</div>
@@ -812,13 +787,27 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
 
     root.innerHTML = `
       <div class="compare-shell">
-        <div class="compare-cols-bar">${colsHtml}${addBtnHtml}</div>
-        ${respostaHtml}
-        <div id="compare-result-wrap"></div>
-        ${renderSourceLineHtml("aa", state.area)}
-        ${renderFontesSectionHtml()}
+        <div class="guide-tabs compare-source-tabs" id="compare-source-tabs" role="tablist" aria-label="Fonte da comparação">
+          ${Object.entries(compareSources).map(([key, label]) => `<button type="button" role="tab" data-tab="${key}" id="compare-tab-${key}" aria-controls="compare-panel">${label}</button>`).join("")}
+        </div>
+        <div id="compare-panel" role="tabpanel" aria-labelledby="compare-tab-${state.compareSource}" tabindex="0">
+          <div class="compare-cols-bar">${colsHtml}${addBtnHtml}</div>
+          ${aaActive ? `${respostaHtml}<div id="compare-result-wrap"></div>${renderSourceLineHtml("aa", state.area)}`
+            : renderExternalCompareHtml(fontes, ids.length)}
+        </div>
       </div>
     `;
+    const tabGroup = $("compare-source-tabs");
+    syncTabButtons(tabGroup, state.compareSource);
+    bindTabs(tabGroup, (id) => {
+      if (id === state.compareSource) return;
+      state.compareSource = id;
+      renderCompareSection();
+      $("compare-tab-" + id).focus({ preventScroll: true });
+      if (!prefersReducedMotion()) $("compare-panel").animate?.([{ opacity: 0.6 }, { opacity: 1 }], 220);
+      emit("compare_source", id);
+    });
+
     const resultWrap = $("compare-result-wrap");
     renderCompareResultBody(resultWrap);
     if (compareResizeObserver) compareResizeObserver.disconnect();
@@ -1427,7 +1416,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
 
   // "O que dizem as outras fontes": cada modelo no nível mais alto que cada fonte mediu.
   // Todo número e toda frase vêm de motor.comparar_fontes.
-  function renderFontesCompareHtml(r, { compact = false } = {}) {
+  function renderFontesCompareHtml(r) {
     if (!r?.ok) return "";
     const nomes = r.modelos.map((m) => m.nome);
     const mede = (f) => (f.id === "aa" ? "acerto em tarefas difíceis (inteligência geral)" : f.mede || "");
@@ -1453,19 +1442,56 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     }).join("");
     const extra = (r.resposta?.texto || []).filter((t) => /^Cada fonte mede/.test(t));
     return `
-      <div class="fontes-cmp${compact ? " is-compact" : ""}">
-        ${compact ? "" : `<p class="fontes-cmp-title">${escHtml(r.resposta?.titulo || "")}</p>`}
+      <div class="fontes-cmp">
         <div class="fontes-cmp-list">${itens}</div>
         ${extra.length ? `<p class="fontes-cmp-note">${escHtml(extra[0])}</p>` : ""}
       </div>`;
   }
 
-  function renderFontesSectionHtml() {
-    const ids = [...new Set(state.compareItems.map((c) => c.modelo))];
-    const head = `<div class="fontes-cmp-head"><h3 class="fontes-cmp-h">O que dizem as outras fontes</h3><p class="fontes-cmp-sub">Outras fontes medem cada modelo num nível só, quase sempre o mais alto. Aqui entra o nível mais alto que cada uma mediu, não o esforço escolhido acima.</p></div>`;
-    if (ids.length < 2) return `<div class="fontes-cmp-wrap">${head}<p class="fontes-cmp-note">Escolha modelos diferentes para comparar nas outras fontes.</p></div>`;
-    const r = motor.comparar_fontes(state.base, { itens: ids });
-    return r.ok ? `<div class="fontes-cmp-wrap">${head}${renderFontesCompareHtml(r)}</div>` : "";
+  const compareSources = { aa: "Artificial Analysis", lmarena: "LMArena", epoch: "Epoch AI" };
+
+  function renderExternalCompareHtml(result, selectedCount) {
+    const source = state.compareSource;
+    const arena = source === "lmarena";
+    const f = result?.fontes_comparadas.find((v) => v.id === source);
+    const explanation = arena
+      ? "Nota e posição a partir de votos em comparações de respostas às cegas."
+      : "Resultados em testes de matemática, ciência, código e outras tarefas. Cada linha usa a escala do teste.";
+    const intro = `<div class="compare-benchmark-intro">
+      <p>${explanation}</p>
+      <p><strong>Maior esforço medido pela fonte.</strong> A configuração usada em cada teste aparece abaixo do nome do modelo.</p>
+    </div>`;
+    const sourceLine = renderSourceLineHtml(source);
+    if (selectedCount < 2) return intro + '<p class="compare-benchmark-empty">Escolha dois ou mais modelos diferentes para comparar nesta fonte.</p>' + sourceLine;
+    if (!f?.linhas.length) return intro + '<p class="compare-benchmark-empty">A coleta desta fonte não traz resultados para os modelos selecionados.</p>' + sourceLine;
+    const missing = f.faltam.length ? `<p class="compare-benchmark-note">Sem resultados na coleta para ${escHtml(f.faltam.join(", "))}.</p>` : "";
+    const labels = { low: "Baixo", medium: "Médio", high: "Alto", xhigh: "Muito alto", max: "Máximo", single: "Nível único" };
+    const cols = result.modelos.map((model, i) => `<th scope="col">
+      <span class="benchmark-model">${renderLogo(model.empresa, false, 18)}${escHtml(model.nome)}</span>
+      ${f.esforcos[i] ? `<span class="effort-pill">${escHtml(labels[f.esforcos[i]] || motor.fmt.esforco(f.esforcos[i]))}</span>`
+        : '<small>Esforço não informado</small>'}
+    </th>`).join("");
+    const rows = f.linhas.map((row) => {
+      const cells = row.notas.map((value, i) => {
+        if (value === null) return '<td><span class="missing-val">Sem dado</span></td>';
+        const leader = row.lider === result.modelos[i].nome;
+        const score = motor.fmt.nota(arena ? Math.round(value.nota) : value).replace(/,0$/, "");
+        const place = arena && value.posicao ? `<small>${value.posicao}º${value.total ? ` de ${value.total}` : ""}</small>` : "";
+        const tie = row.empate?.includes(result.modelos[i].nome);
+        return `<td class="${leader ? "is-lead" : ""}"><span class="num">${tie ? '<abbr title="Empate técnico">≈</abbr> ' : ""}${score}</span>${place}</td>`;
+      }).join("");
+      return `<tr><th scope="row">${escHtml(row.nome)}</th>${cells}</tr>`;
+    }).join("");
+    const note = arena ? "≈ indica que as margens de erro se sobrepõem."
+      : "≈ indica menos de 1 ponto de diferença. Testes com mais modelos avaliados aparecem primeiro.";
+    return `${intro}${missing}
+      <div class="compare-benchmark-scroll" tabindex="0" role="region" aria-label="Resultados de ${compareSources[source]}">
+        <table class="compare-benchmark-table" style="--benchmark-cols:${result.modelos.length}">
+          <thead><tr><th scope="col">${arena ? "Categoria" : "Teste"}</th>${cols}</tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <p class="compare-benchmark-note">${note}</p>${sourceLine}`;
   }
 
   function cardTitleForBlock(bloco) {
@@ -1582,7 +1608,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       `;
     }
     if (tipo === "comparar_fontes") {
-      return renderFontesCompareHtml(motor.comparar_fontes(state.base, { itens: params.itens }), { compact: true });
+      return renderFontesCompareHtml(motor.comparar_fontes(state.base, { itens: params.itens }));
     }
     if (tipo === "outras_fontes") {
       const o = motor.outras_fontes(state.base, { modelo: params.modelo });
@@ -1738,7 +1764,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
           </button>
         </div>
 
-        <p class="obs-empty-desc" id="obs-empty-desc">Pergunte sobre modelos, esforço, custo ou o seu plano. As respostas usam os dados desta página.</p>
+        <p class="obs-empty-desc" id="obs-empty-desc">Pergunte sobre modelos, custo, esforço, seu plano ou quem lidera na Arena.</p>
         <div class="obs-chat-area" id="obs-chat-area" hidden>
           <div class="obs-chat-list" id="obs-chat-list"></div>
         </div>
@@ -1785,10 +1811,10 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     if (data.apontar === "comparar.fontes" && Array.isArray(p.itens)) {
       // A comparação da página pede um esforço por modelo: entra o mais alto medido.
       const itens = p.itens.filter((id) => state.base.porId.has(id)).map((id) => ({ modelo: id, esforco: state.base.porId.get(id).variantes.at(-1).esforco }));
-      return itens.length >= 2 ? { rotulo: "Abrir na comparação", estado: { comparar: itens }, apontar: "comparar" } : null;
+      return itens.length >= 2 ? { rotulo: "Ver os benchmarks no comparador", estado: { comparar: itens, fonte: "lmarena" }, apontar: "comparar" } : null;
     }
     if (String(data.apontar).startsWith("placar.")) {
-      return { rotulo: "Ver no placar", estado: { area: p.area || state.area, tol: p.tolerancia ?? state.tol }, apontar: data.apontar };
+      return { rotulo: "Ver no ranking", estado: { area: p.area || state.area, tol: p.tolerancia ?? state.tol }, apontar: data.apontar };
     }
     return null;
   }
@@ -1939,7 +1965,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     if (noteEl) {
       noteEl.hidden = atLimit;
       if (!hasEndpoint) {
-        noteEl.textContent = "Use uma sugestão para consultar os dados da página.";
+        noteEl.textContent = "Consulte quem lidera na Arena ou use uma das perguntas sugeridas.";
       } else if (state.obsFreeTurns >= 5 && !atLimit) {
         const left = OBS_MAX_TURNS - state.obsFreeTurns;
         noteEl.textContent = left === 1 ? "Resta 1 pergunta nesta conversa" : `Restam ${left} perguntas nesta conversa`;
@@ -1954,7 +1980,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         sendBtn.setAttribute("aria-label", "Consultando…");
         sendBtn.innerHTML = stopSquareSvg14;
       } else {
-        sendBtn.disabled = hasEndpoint ? !text : !findObsSuggestion(text);
+        sendBtn.disabled = !text;
         sendBtn.classList.remove("is-loading");
         sendBtn.setAttribute("aria-label", "Enviar pergunta");
         sendBtn.innerHTML = arrowUpSvg16;
@@ -1992,6 +2018,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
   }
 
   function resetFreeConversation() {
+    obsRequest += 1;
     state.obsMemoria = null;
     state.obsMessages = [];
     state.obsFreeTurns = 0;
@@ -2021,8 +2048,16 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
   async function submitFreeQuestion(rawText) {
     const pergunta = String(rawText ?? "").trim().slice(0, OBS_MAX_CHARS);
     if (!pergunta || state.obsLoading || state.obsFreeTurns >= OBS_MAX_TURNS) return;
-    const local = hasEndpoint ? null : findObsSuggestion(pergunta);
-    if (!hasEndpoint && !local) return;
+    const arena = categoriaArena(pergunta);
+    const local = hasEndpoint || arena ? null : findObsSuggestion(pergunta);
+    if (!hasEndpoint && !local && !arena) {
+      pushObsMessage({ role: "user", text: pergunta });
+      pushObsMessage({ role: "assistant", kind: "response", titulo: "A consulta aberta está indisponível neste momento.",
+        texto: ["Experimente perguntar quem lidera em escrita criativa na Arena ou escolha uma pergunta sugerida."] });
+      $("obs-free-input").value = "";
+      renderChat({ scroll: "last-assistant" });
+      return;
+    }
 
     const input = $("obs-free-input");
     if (input) input.value = "";
@@ -2037,18 +2072,18 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     state.obsLoading = true;
     renderChat({ scroll: "bottom" });
     emit("obs_free", "");
+    const request = ++obsRequest;
 
     try {
-      const res = await fetch(endereco, {
+      const res = arena ? null : await fetch(endereco, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ pergunta, memoria: state.obsMemoria, idioma: "pt", aparelho: deviceId() })
       });
-      if (destroyed) return;
-      let data = null;
-      try { data = await res.json(); } catch (_) {}
-      if (destroyed) return;
-      if (res.status === 429) {
+      if (destroyed || request !== obsRequest) return;
+      const data = arena ? await consultarLiderArena(arena) : await res.json().catch(() => null);
+      if (destroyed || request !== obsRequest) return;
+      if (res?.status === 429) {
         state.obsLoading = false;
         pushObsMessage({
           role: "assistant",
@@ -2059,12 +2094,12 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         renderChat({ scroll: "last-assistant" });
         return;
       }
-      if (!res.ok || !data?.ok) {
-        throw new Error(data?.erro || `HTTP ${res.status}`);
+      if ((res && !res.ok) || !data?.ok) {
+        throw new Error(data?.erro || `HTTP ${res?.status}`);
       }
       state.obsLoading = false;
       state.obsFreeTurns += 1;
-      state.obsMemoria = data.memoria ?? null;
+      state.obsMemoria = data.memoria ?? state.obsMemoria;
       pushObsMessage({
         role: "assistant",
         kind: "response",
@@ -2079,7 +2114,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       });
       renderChat({ scroll: "last-assistant" });
     } catch (_) {
-      if (destroyed) return;
+      if (destroyed || request !== obsRequest) return;
       state.obsLoading = false;
       pushObsMessage({
         role: "assistant",
@@ -2309,7 +2344,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         window.observatorio?.montar([
           { tipo: "resposta", params: p.resposta },
           { tipo: "placar", params: { area: a, tolerancia: selTol } },
-          { tipo: "acao", params: { rotulo: "Ver no placar", estado: { area: a, tol: selTol }, apontar: "placar.barato" } }
+          { tipo: "acao", params: { rotulo: "Ver no ranking", estado: { area: a, tol: selTol }, apontar: "placar.barato" } }
         ]);
       });
     }
@@ -2362,9 +2397,13 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       }
       if (estado.tol != null && estado.tol !== "") {
         const t = Math.max(0, Math.min(25, Number(estado.tol)));
-        if (!Number.isNaN(t)) state.tol = t;
+        if (!Number.isNaN(t)) {
+          state.tol = t;
+          state.limitarNota = true;
+        }
       }
       if (estado.comparar) {
+        state.compareSource = Object.hasOwn(compareSources, estado.fonte) ? estado.fonte : "aa";
         const list = Array.isArray(estado.comparar)
           ? estado.comparar
           : String(estado.comparar).split(",").map((s) => { const [m, e] = s.split(":"); return { modelo: m, esforco: e }; });
@@ -2381,11 +2420,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         b.classList.toggle("is-active", act);
         b.setAttribute("aria-pressed", String(act));
       });
-      const slider = $("tol-slider");
-      if (slider) slider.value = String(state.tol);
-
-      updateScoreboard(true);
-      if (areaChanged) renderRanking();
+      if (areaChanged || estado.tol != null) renderRanking();
       renderCompareSection();
 
       const resolvedModel = estado.modelo ? resolveModelId(estado.modelo) : null;
@@ -2405,19 +2440,19 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     apontar(alvo) {
       if (destroyed) return;
       let el = null;
-      if (alvo === "placar.inteligente") el = $("card-int");
-      else if (alvo === "placar.barato") el = $("card-cost");
-      else if (alvo === "placar.rapido") el = $("card-time");
+      if (String(alvo).startsWith("placar.")) {
+        state.sortField = { "placar.barato": "custo", "placar.rapido": "tempo" }[alvo] || "nota";
+        state.expandedRanking = false;
+        state.rankingSelected = null;
+        renderRanking();
+        el = $("ranking-section");
+      }
       else if (alvo === "comparar") el = $("comparar-section");
       else if (alvo === "painel.subir") el = raiz.querySelector('#model-drawer [data-step-dir="up"]');
       else if (alvo === "painel.descer") el = raiz.querySelector('#model-drawer [data-step-dir="down"]');
       else if (String(alvo).startsWith("ranking:")) {
-        const id = alvo.slice(8);
-        el = raiz.querySelector(`#ranking-card .rank-row[data-model-id="${CSS.escape(id)}"]`);
-        if (el && el.closest(".ranking-extra-wrap") && !state.expandedRanking) {
-          state.expandedRanking = true;
-          $("ranking-extra-wrap")?.classList.add("is-open");
-        }
+        locateRankingModel(alvo.slice(8));
+        return;
       }
       if (!el) return;
       $$(".obs-pointed").forEach((x) => x.classList.remove("obs-pointed"));
@@ -2484,48 +2519,46 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         ${renderObservatorioShellHtml()}
       </section>
 
-      <div class="obs-ranking-intro">
-        <h2 id="obs-ranking-heading">Ranking por área</h2>
-        <p id="obs-ranking-description">Escolha uma área para ver os melhores modelos.</p>
-      </div>
-      <nav class="area-strip" aria-labelledby="obs-ranking-heading" aria-describedby="obs-ranking-description">
-        ${motor.AREA_KEYS.map((k) => `<button type="button" class="area-pill${k === state.area ? " is-active" : ""}" data-area="${k}" aria-pressed="${k === state.area}">${escHtml(motor.AREAS[k])}</button>`).join("")}
-      </nav>
-
-      <section aria-labelledby="placar-heading">
-        <h2 id="placar-heading" class="sr-only">Placar de comparação</h2>
-        <div class="tol-bar">
-          <label class="tol-label" for="tol-slider">Quanto abaixo do melhor você aceita ficar?</label>
-          <div class="tol-control">
-            <input type="range" class="tol-range" id="tol-slider" min="0" max="25" step="1" value="${state.tol}">
-            <span class="tol-readout num" id="tol-readout"></span>
+      <section id="ranking-section" aria-labelledby="obs-ranking-heading">
+        <div class="obs-ranking-intro">
+          <h2 id="obs-ranking-heading">Top 10 de modelos</h2>
+        </div>
+        <nav class="area-strip" aria-label="Área do ranking">
+          ${motor.AREA_KEYS.map((k) => `<button type="button" class="area-pill${k === state.area ? " is-active" : ""}" data-area="${k}" aria-pressed="${k === state.area}">${escHtml(motor.AREAS[k])}</button>`).join("")}
+        </nav>
+        <p class="area-ressalva" id="area-ressalva" hidden>Atenção: os testes de direito da Artificial Analysis usam exemplos sobretudo dos EUA e da Europa; não há confirmação de que meçam o direito brasileiro.</p>
+        <div class="ranking-controls">
+          <div class="guide-tabs" id="ranking-tabs" role="tablist" aria-label="Ordenação do ranking">
+            ${Object.entries(rankingMetrics).map(([key, { label }]) => `<button type="button" role="tab" data-tab="${key}" id="ranking-tab-${key}" aria-controls="ranking-results">${label}</button>`).join("")}
+          </div>
+          <div class="ranking-search">
+            <label for="ranking-query" class="sr-only">Buscar modelo no ranking</label>
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg>
+            <input id="ranking-query" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="ranking-matches" autocomplete="off" placeholder="Buscar modelo no ranking">
+            <div id="ranking-matches" class="ranking-matches" role="listbox" aria-label="Modelos encontrados" hidden></div>
+            <span class="sr-only" id="ranking-search-status" role="status"></span>
           </div>
         </div>
-        <p class="tol-explain">Em 0, os três cartões mostram o mais inteligente. Aumentar a régua revela opções bem mais baratas ou rápidas que ficam poucos pontos atrás.</p>
-        <p class="area-ressalva" id="area-ressalva"${state.area === "legal" ? "" : " hidden"}>Atenção: os testes de direito da Artificial Analysis usam exemplos sobretudo dos EUA e da Europa; não há confirmação de que meçam o direito brasileiro.</p>
-        <div class="scoreboard" id="scoreboard">
-          <button type="button" class="score-card" id="card-int"></button>
-          <button type="button" class="score-card" id="card-cost"></button>
-          <button type="button" class="score-card" id="card-time"></button>
+        <div id="ranking-results" role="tabpanel" tabindex="0">
+          <div class="ranking-meta"><p id="ranking-rule"></p><p id="ranking-status" role="status"></p></div>
+          <div id="ranking-filter" class="ranking-filter" hidden>
+            <label class="ranking-filter-label"><input type="checkbox" id="limit-ranking"> Limitar pela nota</label>
+            <div class="tol-control" id="ranking-margin" hidden>
+              <label for="tol-slider">Margem abaixo da maior nota</label>
+              <input type="range" class="tol-range" id="tol-slider" min="0" max="25" step="1" aria-describedby="tol-readout">
+              <span class="tol-readout num" id="tol-readout"></span>
+            </div>
+          </div>
+          <div class="ranking-card" id="ranking-card"></div>
+          <p class="ranking-tie-note" id="ranking-tie-note">≈ indica empate técnico. A diferença para a posição acima é menor que 1 ponto.</p>
+          <div id="ranking-source"></div>
         </div>
-        <p class="scoreboard-rule" id="scoreboard-rule"></p>
-        <div id="scoreboard-source"></div>
-      </section>
-
-      <section aria-labelledby="ranking-heading">
-        <div class="section-head">
-          <h2 id="ranking-heading">Ranking</h2>
-          <span class="section-sub" id="ranking-area-sub"></span>
-        </div>
-        <div class="ranking-card" id="ranking-card"></div>
-        <p class="ranking-tie-note">≈ indica empate: menos de 1 ponto de diferença para o modelo acima.</p>
-        <div id="ranking-source"></div>
       </section>
 
       <section id="comparar-section" aria-labelledby="comparar-heading">
         <div class="section-head">
           <h2 id="comparar-heading">Comparar modelos</h2>
-          <span class="section-sub">Lado a lado nas 7 áreas, custo, tempo e outras fontes</span>
+          <span class="section-sub">Selecione até quatro modelos e escolha a fonte.</span>
         </div>
         <div id="compare-root"></div>
       </section>
@@ -2554,7 +2587,6 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
 
     bindAppEvents();
     bindObsShellEvents();
-    updateScoreboard(false);
     renderRanking();
     renderCompareSection();
   }
@@ -2564,15 +2596,15 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       btn.addEventListener("click", () => {
         if (btn.dataset.area === state.area) return;
         state.area = btn.dataset.area;
-        state.sortField = "nota";
-        state.sortDir = "desc";
+        state.expandedRanking = false;
+        state.rankingSelected = null;
+        $("ranking-query").value = "";
         $$(".area-pill").forEach((b) => {
           const act = b.dataset.area === state.area;
           b.classList.toggle("is-active", act);
           b.setAttribute("aria-pressed", String(act));
         });
-        updateScoreboard(true);
-        renderRanking();
+        renderRanking({ animate: true });
         renderCompareSection();
         if (state.drawerOpen) renderDrawerFull();
         syncUrl();
@@ -2580,47 +2612,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       });
     });
 
-    const slider = $("tol-slider");
-    slider.addEventListener("input", () => {
-      state.tol = parseInt(slider.value, 10);
-      updateScoreboard(true);
-      syncUrl();
-    });
-    slider.addEventListener("change", () => {
-      emit("tol", state.tol);
-    });
-
-    ["card-int", "card-cost", "card-time"].forEach((id) => {
-      const btn = $(id);
-      btn.addEventListener("click", () => {
-        if (btn.dataset.modelId) openDrawer(btn.dataset.modelId, btn.dataset.effort, btn);
-      });
-    });
-
-    $("ranking-card").addEventListener("click", (e) => {
-      const sortBtn = e.target.closest("[data-sort]");
-      if (sortBtn) {
-        const f = sortBtn.dataset.sort;
-        state.sortDir = state.sortField === f ? (state.sortDir === "asc" ? "desc" : "asc") : (f === "nota" ? "desc" : "asc");
-        state.sortField = f;
-        renderRanking();
-        return;
-      }
-      const toggleBtn = e.target.closest("#toggle-ranking-btn");
-      if (toggleBtn) {
-        state.expandedRanking = !state.expandedRanking;
-        $("ranking-extra-wrap").classList.toggle("is-open", state.expandedRanking);
-        toggleBtn.setAttribute("aria-expanded", String(state.expandedRanking));
-        const rowsLen = $$("#ranking-card .rank-row").length;
-        toggleBtn.textContent = state.expandedRanking ? "Mostrar só os 10 primeiros" : `Ver todos os ${rowsLen} modelos`;
-        const top10Last = raiz.querySelector("#ranking-top10 .rank-row:last-child");
-        if (top10Last) top10Last.classList.toggle("is-last-visible", !state.expandedRanking);
-        if (state.expandedRanking) observeRankingBars();
-        return;
-      }
-      const row = e.target.closest(".rank-row");
-      if (row) openDrawer(row.dataset.modelId, row.dataset.effort, row);
-    });
+    bindRankingEvents();
   }
 
   function setupDrawersShell() {
@@ -2653,14 +2645,16 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       state.compareItems = DEFAULT_COMPARE.map((x) => ({ ...x }));
       renderCompareSection();
     }
+    state.limitarNota = h.tol != null && h.tol !== "";
     const resolvedModel = resolveModelId(h.modelo);
     window.observatorio?.abrir({
       area: h.area || "intelligence",
-      tol: h.tol != null && h.tol !== "" ? h.tol : 10,
+      tol: h.tol,
       comparar: h.comparar || undefined,
       modelo: resolvedModel || null,
       esforco: h.esforco || undefined
     });
+    renderRanking();
     const validKeys = ["esforco", "comparar", "barato", "time"];
     if (validKeys.includes(h.perguntar)) {
       setObsQuestion(h.perguntar);

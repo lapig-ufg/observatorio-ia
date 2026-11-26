@@ -30,7 +30,7 @@ export function fontesDe(base: unknown, ferramenta: string): unknown;
 export function normal(t: unknown): string;
 export function achar_modelo(base: unknown, params?: { texto?: string; esforco?: string | null }): unknown;
 export function placar(base: unknown, params?: { area?: string; tolerancia?: number; filtros?: Record<string, unknown> }): unknown;
-export function ranking(base: unknown, params?: { area?: string; perfil?: string | null; ordenar?: string; limite?: number; filtros?: Record<string, unknown> }): unknown;
+export function ranking(base: unknown, params?: { area?: string; perfil?: string | null; ordenar?: string; limite?: number; filtros?: Record<string, unknown> }, options?: { completo?: boolean }): unknown;
 export function perfil_tarefa(base: unknown, params?: { perfil?: string; ordenar?: string; limite?: number; filtros?: Record<string, unknown> }): unknown;
 export function escada(base: unknown, params?: { modelo: string; esforco?: string | null; area?: string }): unknown;
 export function selo(baixo: unknown, alto: unknown, k?: string): unknown;

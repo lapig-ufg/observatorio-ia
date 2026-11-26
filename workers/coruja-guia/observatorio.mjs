@@ -6,6 +6,7 @@
 // (pasta motor/ de lá). Ao mudar lá, copiar de novo e rodar os testes.
 import { carregar, AREA_KEYS } from "../../src/panorama/guia/motor/motor.mjs";
 import { conversar, ollama, LIMITES as LIMITES_CONVERSA } from "../../src/panorama/guia/motor/conversa.mjs";
+import { categoriaArena, consultarLiderArena } from "../../src/panorama/guia/motor/arena.mjs";
 import perfis from "../../src/panorama/guia/motor/perfis.json" with { type: "json" };
 
 const ARQUIVOS = ["guia-modelos", "guia-fontes", "guia-planos"];
@@ -55,6 +56,12 @@ export function validarConversa(corpo) {
 
 /** Responde uma pergunta. `ia` é opcional (testes); no worker, é o Ollama Cloud. */
 export async function perguntar(env, corpo, { ia = null, buscar = fetch } = {}) {
+  const arena = categoriaArena(corpo.pergunta);
+  if (arena) {
+    const r = await consultarLiderArena(arena, { buscar, idioma: corpo.idioma });
+    return { ...r, memoria: limparMemoria(corpo.memoria), uso: { entrada: 0, saida: 0, rodadas: 0 },
+      _log: { ferramentas: "ranking_arena", descartados: 0 } };
+  }
   const base = await baseDoPanorama(env.PANORAMA_ASSETS, buscar);
   const adaptador = ia ?? ollama({ url: env.OLLAMA_URL, modelo: env.MODELO, chave: env.OLLAMA_CHAVE, prazo: 40_000 });
   const r = await conversar({ base, pergunta: corpo.pergunta, memoria: limparMemoria(corpo.memoria), ia: adaptador, idioma: corpo.idioma === "en" ? "en" : "pt" });
