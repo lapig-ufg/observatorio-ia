@@ -94,6 +94,9 @@ test("chat e cartões precisam consultar a mesma coleta de cada fonte", () => {
   };
   const aa = { id: "aa", coletado_em: "2026-11-26T22:20:18.396+00:00" };
   assert.equal(mesmasColetas([aa], locais), true);
+  assert.equal(mesmasColetas([{ ...aa, coletado_em: "2026-11-26" }], locais), true);
+  assert.equal(mesmasColetas([{ ...aa, coletado_em: "2026-11-25" }], locais), false);
+  assert.equal(mesmasColetas([{ ...aa, coletado_em: "2026-11-26T19:29:00Z" }], locais), false);
   assert.equal(mesmasColetas([aa, { id: "epoch", coletado_em: "2026-11-26T22:20:51.841Z" }], locais), true);
   assert.equal(mesmasColetas([aa, { id: "epoch", coletado_em: "2026-11-26T22:19:00Z" }], locais), false);
   assert.equal(mesmasColetas([aa, { id: "lmarena", coletado_em: "2026-11-26T22:21:21.102Z" }], locais), false);
