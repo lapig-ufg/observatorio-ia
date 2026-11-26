@@ -362,7 +362,7 @@
 .obs6 .obs-send-btn{appearance:none;width:34px;height:34px;border-radius:999px;border:0;background:var(--green-900);color:#ffffff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 160ms var(--ease),opacity 160ms var(--ease)}
 .obs6 .obs-send-btn:hover:not(:disabled){background:var(--green-800)}
 .obs6 .obs-send-btn:disabled{background:var(--surface);color:var(--muted);cursor:default}
-.obs6 .obs-send-btn.is-loading:disabled{background:var(--green-900);color:#ffffff;opacity:.75;cursor:wait}
+.obs6 .obs-send-btn.is-loading{background:var(--green-900);color:#ffffff}
 .obs6 .obs-send-btn:focus-visible{outline:2px solid var(--green-700);outline-offset:2px}
 .obs6 .obs-composer-note{margin:0;text-align:center;font-size:11.5px;line-height:1.4;color:var(--muted)}
 .obs6 .obs-limit-box{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:10px 14px;border:1px solid var(--line);border-radius:14px;background:var(--bg);font-size:13.5px;color:var(--ink)}

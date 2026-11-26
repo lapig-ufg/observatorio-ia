@@ -31,8 +31,8 @@ export function GuiaV6() {
       carregarDados: async () => {
         const [modelos, fontes, planos, settings] = await Promise.all([
           fetchJson("guia-modelos.json", controller.signal),
-          fetchJson("guia-fontes.json", controller.signal),
-          fetchJson("guia-planos.json", controller.signal),
+          fetchJson("guia-fontes.json", controller.signal).catch(() => null),
+          fetchJson("guia-planos.json", controller.signal).catch(() => null),
           loadPanoramaConfig(controller.signal),
         ]);
         const empresas: Record<string, { cor: string; logo_svg_path: string | null }> = {};

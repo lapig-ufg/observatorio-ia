@@ -1,6 +1,7 @@
 import * as motor from "../motor/motor.mjs";
 import perfis from "../motor/perfis.json";
 import { categoriaArena, consultarLiderArena } from "../motor/arena.mjs";
+import { mesmasColetas } from "./resposta.mjs";
 
 const OBS_MAX_TURNS = 8;
 const OBS_MAX_CHARS = 500;
@@ -192,7 +193,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
   let compareResizeObserver = null;
   let lastCompareComp = null;
   let metricTipPinnedEl = null;
-  let obsRequest = 0;
+  let obsController = null;
 
   function renderSourceLineHtml(sourceId = "aa", area = state.area, perfil = null) {
     const f = state.base?.fontesInfo?.[sourceId];
@@ -1482,13 +1483,14 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     const arena = source === "lmarena";
     const f = result?.fontes_comparadas.find((v) => v.id === source);
     const explanation = arena
-      ? "Nota e posição a partir de votos em comparações de respostas às cegas."
+      ? "Nota e posição a partir de votos em comparações às cegas, na classificação sem ajuste por estilo."
       : "Resultados em testes de matemática, ciência, código e outras tarefas. Cada linha usa a escala do teste.";
     const intro = `<div class="compare-benchmark-intro">
       <p>${explanation}</p>
       <p><strong>Maior esforço medido pela fonte.</strong> A configuração usada em cada teste aparece abaixo do nome do modelo.</p>
     </div>`;
     const sourceLine = renderSourceLineHtml(source);
+    if (!state.base.fontes) return intro + '<p class="compare-benchmark-empty">Os dados desta fonte estão temporariamente indisponíveis. Recarregue a página para tentar novamente.</p>';
     if (selectedCount < 2) return intro + '<p class="compare-benchmark-empty">Escolha dois ou mais modelos diferentes para comparar nesta fonte.</p>' + sourceLine;
     if (!f?.linhas.length) return intro + '<p class="compare-benchmark-empty">A coleta desta fonte não traz resultados para os modelos selecionados.</p>' + sourceLine;
     const missing = f.faltam.length ? `<p class="compare-benchmark-note">Sem resultados na coleta para ${escHtml(f.faltam.join(", "))}.</p>` : "";
@@ -1573,9 +1575,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       return `
         <div class="obs-table-scroll">
           <table class="obs-mini-table">
-            <thead><tr><th>#</th><th>Modelo</th><th>${metricTip("nota", "Nota")}</th><th>${metricTip("custo", "Custo")}</th></tr></thead>
+            <thead><tr><th>#</th><th>Modelo</th><th>${metricTip("nota", "Nota")}</th><th>${metricTip("custo", "Custo")}</th><th>${metricTip("tempo", "Tempo")}</th></tr></thead>
             <tbody>
-              ${r.linhas.map((l) => `<tr><td class="num">${l.empate_com_anterior ? "≈" : ""}${l.posicao}</td><td>${escHtml(l.nome)} <span class="effort-pill">${escHtml(motor.fmt.esforco(l.esforco))}</span></td><td class="num">${motor.fmt.nota(l.nota)}</td><td class="num">${l.custo != null ? motor.fmt.custo(l.custo) : '<span class="missing-val">sem dado</span>'}</td></tr>`).join("")}
+              ${r.linhas.map((l) => `<tr><td class="num">${l.empate_com_anterior ? "≈" : ""}${l.posicao}</td><td>${escHtml(l.nome)} <span class="effort-pill">${escHtml(motor.fmt.esforco(l.esforco))}</span></td><td class="num">${motor.fmt.nota(l.nota)}</td><td class="num">${l.custo != null ? motor.fmt.custo(l.custo) : '<span class="missing-val">sem dado</span>'}</td><td class="num">${l.tempo != null ? motor.fmt.tempo(l.tempo) : '<span class="missing-val">sem dado</span>'}</td></tr>`).join("")}
             </tbody>
           </table>
         </div>
@@ -1830,10 +1832,10 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     if (data.apontar === "painel.subir" || data.apontar === "painel.descer") {
       const modelo = p.modelo || data.memoria?.foco?.modelos?.[0];
       if (!modelo) return null;
-      return { rotulo: "Ver o modelo inteiro", estado: { modelo, esforco: p.de || p.esforco || null }, apontar: data.apontar };
+      return { rotulo: "Ver o modelo inteiro", estado: { modelo, esforco: p.de || p.esforco || null, area: p.area }, apontar: data.apontar };
     }
     if (data.apontar === "comparar") {
-      return { rotulo: "Abrir na comparação", estado: p.itens ? { comparar: p.itens } : {}, apontar: "comparar" };
+      return { rotulo: "Abrir na comparação", estado: { comparar: p.itens, area: p.areas?.length === 1 ? p.areas[0] : undefined }, apontar: "comparar" };
     }
     if (data.apontar === "comparar.fontes" && Array.isArray(p.itens)) {
       // A comparação da página pede um esforço por modelo: entra o mais alto medido.
@@ -1908,6 +1910,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
               ${textos.map((t) => `<p class="obs-msg-p">${escHtml(t)}</p>`).join("")}
             </div>
           ` : ""}
+          ${msg.coletaDiferente ? '<p class="obs-unverified-note">O chat e a página estão com coletas diferentes. Os cartões voltam quando as coletas estiverem sincronizadas.</p>' : ""}
           ${msg.conferida === false ? `<p class="obs-unverified-note">A IA citou um número que não está nos dados; mostramos a explicação calculada pela página.</p>` : ""}
           ${renderedCards.length ? `
             <div class="obs-msg-cards">
@@ -1982,6 +1985,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     // Sem o serviço (modo local), as sugestões são a única forma de perguntar.
     const inConversation = state.obsMessages.length > 0 || state.obsLoading;
     const showSuggestion = empty && (!hasEndpoint || !inConversation);
+    if (input) input.placeholder = inConversation && !showSuggestion && !state.obsLoading ? "Faça outra pergunta" : "";
 
     $("obs-input-suggestion").hidden = !showSuggestion;
     $("obs-use-suggestion").hidden = !showSuggestion;
@@ -2002,9 +2006,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     }
     if (sendBtn) {
       if (state.obsLoading) {
-        sendBtn.disabled = true;
+        sendBtn.disabled = false;
         sendBtn.classList.add("is-loading");
-        sendBtn.setAttribute("aria-label", "Consultando…");
+        sendBtn.setAttribute("aria-label", "Parar consulta");
         sendBtn.innerHTML = stopSquareSvg14;
       } else {
         sendBtn.disabled = !text;
@@ -2044,8 +2048,14 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     }
   }
 
+  function stopChatRequest() {
+    obsController?.abort();
+    obsController = null;
+    state.obsLoading = false;
+  }
+
   function resetFreeConversation() {
-    obsRequest += 1;
+    stopChatRequest();
     state.obsMemoria = null;
     state.obsMessages = [];
     state.obsFreeTurns = 0;
@@ -2099,17 +2109,20 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     state.obsLoading = true;
     renderChat({ scroll: "bottom" });
     emit("obs_free", "");
-    const request = ++obsRequest;
+    const request = new AbortController();
+    obsController = request;
 
     try {
       const res = arena ? null : await fetch(endereco, {
         method: "POST",
+        signal: AbortSignal.any([request.signal, AbortSignal.timeout(55_000)]),
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ pergunta, memoria: state.obsMemoria, idioma: "pt", aparelho: deviceId() })
       });
-      if (destroyed || request !== obsRequest) return;
-      const data = arena ? await consultarLiderArena(arena) : await res.json().catch(() => null);
-      if (destroyed || request !== obsRequest) return;
+      if (destroyed || request.signal.aborted) return;
+      const data = arena ? await consultarLiderArena(arena, { sinal: request.signal }) : await res.json().catch(() => null);
+      if (destroyed || request.signal.aborted) return;
+      obsController = null;
       if (res?.status === 429) {
         state.obsLoading = false;
         pushObsMessage({
@@ -2127,26 +2140,31 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       state.obsLoading = false;
       state.obsFreeTurns += 1;
       state.obsMemoria = data.memoria ?? state.obsMemoria;
+      const fontes = Array.isArray(data.fontes) ? data.fontes : [];
+      const temCartoes = Array.isArray(data.blocos) && data.blocos.length > 0;
+      const coletaDiferente = temCartoes && !mesmasColetas(fontes, state.base.fontesInfo);
       pushObsMessage({
         role: "assistant",
         kind: "response",
         titulo: data.titulo || "",
         texto: Array.isArray(data.texto) ? data.texto : (data.texto ? [data.texto] : []),
-        blocos: Array.isArray(data.blocos) ? data.blocos : [],
-        fontes: Array.isArray(data.fontes) ? data.fontes : [],
-        acao: buildActionFromApi(data),
+        blocos: temCartoes && !coletaDiferente ? data.blocos : [],
+        fontes,
+        coletaDiferente,
+        acao: coletaDiferente ? null : buildActionFromApi(data),
         conferida: data.conferida !== false,
         expandedSecondCard: false,
         expandedTimeRows: false
       });
       renderChat({ scroll: "last-assistant" });
     } catch (_) {
-      if (destroyed || request !== obsRequest) return;
+      if (destroyed || request.signal.aborted) return;
+      obsController = null;
       state.obsLoading = false;
       pushObsMessage({
         role: "assistant",
         kind: "error",
-        text: "A IA do Observatório não respondeu agora. Você pode tentar de novo ou usar o plano guiado.",
+        text: "A consulta do Observatório falhou. Tente enviar a pergunta novamente.",
         retryQuestion: pergunta
       });
       renderChat({ scroll: "last-assistant" });
@@ -2226,7 +2244,14 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       }
     });
     $("obs-free-send")?.addEventListener("click", () => {
-      submitFreeQuestion(input?.value || "");
+      if (state.obsLoading) {
+        stopChatRequest();
+        pushObsMessage({ role: "assistant", kind: "response", titulo: "Consulta interrompida." });
+        renderChat({ scroll: "last-assistant" });
+        input?.focus({ preventScroll: true });
+      } else {
+        submitFreeQuestion(input?.value || "");
+      }
     });
     $("obs-new-conv")?.addEventListener("click", resetFreeConversation);
     $("obs-limit-reset")?.addEventListener("click", resetFreeConversation);
@@ -2717,6 +2742,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
 
   return function desmontar() {
     destroyed = true;
+    stopChatRequest();
     raiz.removeEventListener("click", aoIncluirNovidades);
     for (const fn of cleanups) fn();
     cleanups.length = 0;

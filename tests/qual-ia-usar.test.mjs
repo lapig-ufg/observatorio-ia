@@ -3,6 +3,7 @@ import test from "node:test";
 import { categoriaArena } from "../src/panorama/guia/motor/arena.mjs";
 import { carregar, ranking, comparar_fontes } from "../src/panorama/guia/motor/motor.mjs";
 import { perguntar } from "../workers/coruja-guia/observatorio.mjs";
+import { mesmasColetas } from "../src/panorama/guia/v6/resposta.mjs";
 
 test("consulta o líder de escrita na Arena mesmo quando o catálogo do guia está indisponível", async () => {
   const result = await perguntar({}, { pergunta: "Qual era a IA no top1 de escrito do llmarena?" }, {
@@ -84,4 +85,16 @@ test("prefere o esforço com melhor nota quando custo ou tempo são iguais", () 
     assert.equal(result.linhas[0].esforco, "high");
     assert.equal(result.linhas[0].nota, 60);
   }
+});
+
+test("chat e cartões precisam consultar a mesma coleta de cada fonte", () => {
+  const locais = {
+    aa: { coletadoEm: "2026-11-26T22:20:18.396Z" },
+    epoch: { coletadoEm: "2026-11-26T22:20:51.841774+00:00" },
+  };
+  const aa = { id: "aa", coletado_em: "2026-11-26T22:20:18.396+00:00" };
+  assert.equal(mesmasColetas([aa], locais), true);
+  assert.equal(mesmasColetas([aa, { id: "epoch", coletado_em: "2026-11-26T22:20:51.841Z" }], locais), true);
+  assert.equal(mesmasColetas([aa, { id: "epoch", coletado_em: "2026-11-26T22:19:00Z" }], locais), false);
+  assert.equal(mesmasColetas([aa, { id: "lmarena", coletado_em: "2026-11-26T22:21:21.102Z" }], locais), false);
 });

@@ -18,7 +18,7 @@ export function categoriaArena(pergunta) {
 }
 
 /** A Arena publica o ranking padrão no split latest do conjunto text_style_control. */
-export async function consultarLiderArena(categoria, { buscar = fetch, idioma = "pt" } = {}) {
+export async function consultarLiderArena(categoria, { buscar = fetch, idioma = "pt", sinal } = {}) {
   if (!Object.hasOwn(CATEGORIAS, categoria)) return null;
   const en = idioma === "en";
   const nome = CATEGORIAS[categoria][en ? "en" : "pt"];
@@ -33,7 +33,9 @@ export async function consultarLiderArena(categoria, { buscar = fetch, idioma = 
       dataset: DATASET, config: "text_style_control", split: "latest",
       where: `"category" = '${categoria}' AND "rank" = 1`, length: "10",
     });
-    const res = await buscar(`https://datasets-server.huggingface.co/filter?${params}`, { signal: AbortSignal.timeout(7000) });
+    const prazo = AbortSignal.timeout(7000);
+    const signal = sinal ? AbortSignal.any([sinal, prazo]) : prazo;
+    const res = await buscar(`https://datasets-server.huggingface.co/filter?${params}`, { signal });
     if (!res.ok) throw new Error("Arena dataset unavailable");
     const { rows, num_rows_total: total } = await res.json();
     const lideres = (Array.isArray(rows) ? rows : []).map((r) => r.row);
