@@ -71,3 +71,17 @@ test("os benchmarks podem mostrar medições mesmo quando um modelo não tem dad
   assert.equal(arena(comParciais).linhas[0].lider, null);
   assert.deepEqual(comParciais.fontes_comparadas.find((f) => f.id === "epoch").linhas[0].notas, [0, null]);
 });
+
+test("prefere o esforço com melhor nota quando custo ou tempo são iguais", () => {
+  const base = carregar({ modelos: {
+    families: [{ id: "flex", name: "Flex", creator: "Teste", variants: [
+      { effort: "low", scores: { intelligence: 25 }, e2e_s: 15, cost_per_task: 1 },
+      { effort: "high", scores: { intelligence: 60 }, e2e_s: 15, cost_per_task: 1 },
+    ] }],
+  } });
+  for (const ordenar of ["custo", "tempo"]) {
+    const result = ranking(base, { ordenar });
+    assert.equal(result.linhas[0].esforco, "high");
+    assert.equal(result.linhas[0].nota, 60);
+  }
+});

@@ -4,6 +4,9 @@ import { categoriaArena, consultarLiderArena } from "../motor/arena.mjs";
 
 const OBS_MAX_TURNS = 8;
 const OBS_MAX_CHARS = 500;
+const TOP_RANKING = 10;
+const RANKING_NEIGHBORS = 2;
+const DEFAULT_RANKING_MARGIN = 10;
 const OBS_SUGGESTION_INTERVAL = 3600;
 const OBS_SUGGESTIONS = [
   { key: "arena", pergunta: "Qual é o primeiro lugar em escrita criativa no LMArena?" },
@@ -160,9 +163,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     empresas: {},
     mediansByArea: {},
     area: "intelligence",
-    tol: 10,
+    tol: DEFAULT_RANKING_MARGIN,
     sortField: "nota",
-    limitarNota: false,
+    limitarNota: true,
     rankingSelected: null,
     expandedRanking: false,
     compareSource: "aa",
@@ -305,7 +308,8 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     if (currentHash && !currentHash.startsWith("#panorama/guia")) return;
     const p = new URLSearchParams();
     if (state.area !== "intelligence") p.set("area", state.area);
-    if (state.limitarNota) p.set("tol", String(state.tol));
+    if (!state.limitarNota) p.set("tol", "off");
+    else if (state.tol !== DEFAULT_RANKING_MARGIN) p.set("tol", String(state.tol));
     if (state.drawerOpen && state.drawerModelId) {
       p.set("modelo", state.drawerModelId);
       if (state.drawerEffort) p.set("esforco", state.drawerEffort);
@@ -358,14 +362,16 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
   let rankingSearchMatches = [];
   let rankingSearchIndex = -1;
 
-  function rankingFloor() {
-    if (!state.limitarNota || state.sortField === "nota") return null;
+  function bestAreaScore() {
     const scores = state.base.familias.flatMap((f) => f.variantes.map((v) => v.notas[state.area])).filter((v) => v != null);
-    return scores.length ? Math.max(...scores) - state.tol : null;
+    return scores.length ? Math.max(...scores) : null;
   }
 
-  function renderRankRow(r, maxScore, isLastVisible) {
-    const scorePct = r.nota != null ? Math.max(0, Math.min(1, r.nota / maxScore)) : 0;
+  function renderRankRow(r, bestScore, isLastVisible) {
+    const scorePct = bestScore > 0 ? Math.max(0, Math.min(1, r.nota / bestScore)) : 0;
+    const loss = Math.max(0, Math.round(bestScore * 10) / 10 - r.nota);
+    const gap = state.sortField === "nota" ? "" : `<span class="rank-score-gap">${loss > 0
+      ? `<span class="sr-only">Abaixo da melhor nota </span>−${motor.fmt.nota(loss)} pts` : "melhor nota"}</span>`;
     const posHtml = `${r.empate_com_anterior ? '<span class="rank-pos-approx" title="Menos de 1 ponto abaixo do anterior">≈</span>' : ""}${r.posicao}`;
     return `
       <button type="button" class="rank-row${isLastVisible ? " is-last-visible" : ""}${state.rankingSelected === r.modelo ? " is-located" : ""}" data-rank="${r.posicao}" data-model-id="${escHtml(r.modelo)}" data-effort="${escHtml(r.esforco)}">
@@ -382,7 +388,7 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         </span>
         <span class="rank-score-cell">
           ${r.nota != null
-            ? `<span class="score-track" aria-hidden="true"><span class="score-fill" style="--scale:${scorePct.toFixed(4)}"></span></span><span class="rank-score-val num"><span class="sr-only">Nota </span>${motor.fmt.nota(r.nota)}</span>`
+            ? `<span class="score-track" aria-hidden="true"><span class="score-fill" style="--scale:${scorePct.toFixed(4)}"></span></span><span class="rank-score-val num"><span class="sr-only">Nota </span>${motor.fmt.nota(r.nota)}${gap}</span>`
             : `<span class="missing-val">sem dado</span>`}
         </span>
         <span class="rank-num-cell cost-cell num"><span class="sr-only">Custo por tarefa </span>${r.custo != null ? motor.fmt.custo(r.custo) : '<span class="missing-val">sem dado</span>'}</span>
@@ -419,21 +425,32 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
   function renderRanking({ animate = false } = {}) {
     const card = $("ranking-card");
     if (!card) return;
-    const floor = rankingFloor();
+    const field = state.sortField;
+    const bestScore = bestAreaScore();
+    const floor = state.limitarNota && field !== "nota" && bestScore !== null
+      ? Math.max(0, bestScore - state.tol)
+      : null;
     const result = motor.ranking(state.base, {
       area: state.area, ordenar: state.sortField,
       filtros: floor === null ? {} : { nota_min: floor - 1e-9 }
     }, { completo: true });
     rankingRows = result.linhas || [];
-    const shown = state.expandedRanking ? rankingRows : rankingRows.slice(0, 10);
-    const maxScore = Math.max(...rankingRows.map((r) => r.nota ?? 0), 1);
-    const html = shown.map((r, i) => renderRankRow(r, maxScore, i === shown.length - 1)).join("");
     const count = rankingRows.length;
-    const selected = shown.find((r) => r.modelo === state.rankingSelected);
-    const field = state.sortField;
+    const selected = rankingRows.find((r) => r.modelo === state.rankingSelected);
+    const top = state.expandedRanking ? rankingRows : rankingRows.slice(0, TOP_RANKING);
+    const start = Math.max(TOP_RANKING, (selected?.posicao ?? 0) - RANKING_NEIGHBORS - 1);
+    const end = (selected?.posicao ?? 0) + RANKING_NEIGHBORS;
+    const context = state.expandedRanking ? [] : rankingRows.slice(start, end);
+    const skipped = start === TOP_RANKING + 1 ? `Posição ${start} oculta`
+      : `Posições ${TOP_RANKING + 1}–${start} ocultas`;
+    const gap = start > TOP_RANKING && context.length ? `<p class="ranking-gap">${skipped}</p>` : "";
+    const shown = [...top, ...context];
+    const rowsHtml = (rows) => rows.map((r) => renderRankRow(r, bestScore, r === shown.at(-1))).join("");
+    const html = rowsHtml(top) + gap + rowsHtml(context);
     syncTabButtons($("ranking-tabs"), field);
     $("ranking-results").setAttribute("aria-labelledby", "ranking-tab-" + field);
-    $("ranking-rule").textContent = rankingMetrics[field].rule;
+    $("ranking-rule").textContent = floor === null ? rankingMetrics[field].rule
+      : (field === "custo" ? "Menor custo por tarefa via API dentro da margem de nota." : "Menor tempo de resposta dentro da margem de nota.");
     $("ranking-tie-note").hidden = field !== "nota";
     $("ranking-filter").hidden = field === "nota";
     $("ranking-margin").hidden = !state.limitarNota;
@@ -443,7 +460,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     $("area-ressalva").hidden = state.area !== "legal";
     $("ranking-status").textContent = selected
       ? `${selected.nome} · ${selected.posicao}º de ${count}`
-      : count ? `${shown.length} de ${count} modelos` : "Sem modelos neste recorte";
+      : !count ? "Sem modelos neste recorte"
+        : shown.length < count ? `${shown.length} de ${count} modelos`
+        : `${count} ${count === 1 ? "modelo" : "modelos"}${floor !== null ? " na margem" : ""}`;
     $("ranking-source").innerHTML = renderSourceLineHtml("aa", state.area);
     card.dataset.metric = field;
     card.innerHTML = `
@@ -451,10 +470,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         <span>#</span><span>Modelo</span><span data-metric="nota">Nota</span><span data-metric="custo">Custo / tarefa</span><span data-metric="tempo">Tempo</span><span></span>
       </div>
       <div id="ranking-list">${html || '<p class="status-box">Nenhum modelo com dados para esta seleção.</p>'}</div>
-      ${count > 10 ? `<div class="ranking-footer">
-        <button type="button" class="btn-pill" id="toggle-ranking-btn" aria-expanded="${state.expandedRanking}">
-          ${state.expandedRanking ? "Voltar ao top 10" : `Ver todos os ${count} modelos`}
-        </button>
+      ${count > TOP_RANKING ? `<div class="ranking-footer">
+        ${context.length || state.expandedRanking ? '<button type="button" class="btn-pill" id="reset-ranking-btn">Voltar ao Top 10</button>' : ""}
+        ${!state.expandedRanking && shown.length < count ? `<button type="button" class="btn-pill" id="toggle-ranking-btn">Ver todos os ${count} modelos</button>` : ""}
       </div>` : ""}
     `;
     if (animate && !prefersReducedMotion()) {
@@ -487,25 +505,26 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       .slice(0, 8).map(({ r }) => r);
     rankingSearchIndex = -1;
     const matches = $("ranking-matches");
+    const noMatch = state.sortField !== "nota" && state.limitarNota
+      ? "Nenhum modelo encontrado nessa margem de nota" : "Nenhum modelo encontrado neste ranking";
     matches.innerHTML = rankingSearchMatches.map((r, i) => `
       <div class="rank-match" id="rank-match-${i}" role="option" aria-selected="false" data-match="${i}">
         ${renderLogo(r.empresa, false, 20)}
         <span>${escHtml(r.nome)}<small>${escHtml(r.empresa)}</small></span>
         <strong>${r.posicao}º</strong>
       </div>
-    `).join("") || '<div class="rank-match-empty" role="option" aria-disabled="true">Nenhum modelo neste ranking</div>';
+    `).join("") || `<div class="rank-match-empty" role="option" aria-disabled="true">${noMatch}</div>`;
     matches.hidden = false;
     $("ranking-query").setAttribute("aria-expanded", "true");
     $("ranking-query").removeAttribute("aria-activedescendant");
     $("ranking-search-status").textContent = rankingSearchMatches.length
-      ? `${rankingSearchMatches.length} sugestões` : "Nenhum modelo neste ranking";
+      ? `${rankingSearchMatches.length} sugestões` : noMatch;
   }
 
   function locateRankingModel(modelo, { takeFocus = false } = {}) {
     const result = rankingRows.find((r) => r.modelo === modelo);
     if (!result) return;
     state.rankingSelected = modelo;
-    if (result.posicao > 10) state.expandedRanking = true;
     $("ranking-query").value = "";
     renderRanking();
     const row = raiz.querySelector(`#ranking-card [data-rank="${result.posicao}"]`);
@@ -600,11 +619,19 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
     });
     $("tol-slider").addEventListener("change", () => emit("tol", state.tol));
     $("ranking-card").addEventListener("click", (e) => {
-      if (e.target.closest("#toggle-ranking-btn")) {
-        state.expandedRanking = !state.expandedRanking;
-        if (!state.expandedRanking) state.rankingSelected = null;
+      if (e.target.closest("#reset-ranking-btn")) {
+        state.expandedRanking = false;
+        state.rankingSelected = null;
+        query.value = "";
         renderRanking();
-        const target = state.expandedRanking ? raiz.querySelector('#ranking-list [data-rank="11"]') : $("toggle-ranking-btn");
+        query.focus({ preventScroll: true });
+        $("ranking-section").scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
+        return;
+      }
+      if (e.target.closest("#toggle-ranking-btn")) {
+        state.expandedRanking = true;
+        renderRanking();
+        const target = raiz.querySelector(`#ranking-list [data-rank="${TOP_RANKING + 1}"]`);
         target?.focus({ preventScroll: true });
         target?.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "center" });
         return;
@@ -2542,9 +2569,9 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
         <div id="ranking-results" role="tabpanel" tabindex="0">
           <div class="ranking-meta"><p id="ranking-rule"></p><p id="ranking-status" role="status"></p></div>
           <div id="ranking-filter" class="ranking-filter" hidden>
-            <label class="ranking-filter-label"><input type="checkbox" id="limit-ranking"> Limitar pela nota</label>
+            <label class="ranking-filter-label"><input type="checkbox" id="limit-ranking"> Aplicar nota mínima</label>
             <div class="tol-control" id="ranking-margin" hidden>
-              <label for="tol-slider">Margem abaixo da maior nota</label>
+              <label for="tol-slider">Margem abaixo da melhor nota</label>
               <input type="range" class="tol-range" id="tol-slider" min="0" max="25" step="1" aria-describedby="tol-readout">
               <span class="tol-readout num" id="tol-readout"></span>
             </div>
@@ -2645,11 +2672,12 @@ export function montar(raiz, { endereco = "", carregarDados, aoEvento, corujaUrl
       state.compareItems = DEFAULT_COMPARE.map((x) => ({ ...x }));
       renderCompareSection();
     }
-    state.limitarNota = h.tol != null && h.tol !== "";
+    state.limitarNota = h.tol !== "off";
+    state.tol = DEFAULT_RANKING_MARGIN;
     const resolvedModel = resolveModelId(h.modelo);
     window.observatorio?.abrir({
       area: h.area || "intelligence",
-      tol: h.tol,
+      tol: state.limitarNota ? h.tol : null,
       comparar: h.comparar || undefined,
       modelo: resolvedModel || null,
       esforco: h.esforco || undefined

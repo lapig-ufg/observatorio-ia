@@ -409,7 +409,7 @@ export function ranking(base, { area: a = "intelligence", perfil = null, ordenar
     else {
       const ok = vs.filter((x) => x[campo] !== null && (piso === null || nota(x, k, p) >= piso));
       if (!ok.length) return [];
-      v = ok.reduce((m, x) => (x[campo] < m[campo] ? x : m));
+      v = ok.reduce((m, x) => (x[campo] < m[campo] || (x[campo] === m[campo] && nota(x, k, p) > nota(m, k, p))) ? x : m);
     }
     return [{ f, v, s: nota(v, k, p) }];
   });
