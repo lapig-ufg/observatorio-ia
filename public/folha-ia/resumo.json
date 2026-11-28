@@ -1,6 +1,6 @@
 {
-  "total": 7226,
-  "lastDate": "2026-11-21",
+  "total": 7285,
+  "lastDate": "2026-11-28",
   "monthlyCounts": [
     {
       "month": "2025-12",
@@ -48,24 +48,24 @@
     },
     {
       "month": "2026-11",
-      "count": 235
+      "count": 294
     }
   ],
   "articles": [
     {
-      "date": "2026-11-21",
-      "title": "Ações de tecnologia dos EUA desabam na pior semana desde a crise da Covid-19 — Queda semanal das ações de tecnologia foi associada à revisão das expectativas sobre investimentos em IA.",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/11/acoes-de-tecnologia-dos-eua-desabam-na-pior-semana-desde-a-crise-da-covid-19.shtml"
+      "date": "2026-11-28",
+      "title": "Data centers usam recursos brasileiros sem contribuir para desenvolvimento do país, diz Nina da Hora — Em entrevista, Nina da Hora discute o custo territorial da infraestrutura e defende capacidade nacional para armazenar dados críticos.",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/11/data-centers-usam-recursos-brasileiros-sem-contribuir-para-desenvolvimento-do-pais-diz-nina-da-hora.shtml"
     },
     {
-      "date": "2026-11-20",
-      "title": "'Não queremos morrer': manifestantes criticam criadora do Claude, Anthropic, após IPO — Manifestantes em São Francisco pediram limites à evolução autônoma de sistemas de IA.",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/11/nao-queremos-morrer-manifestantes-criticam-criadora-do-claude-anthropic-apos-ipo.shtml"
+      "date": "2026-11-28",
+      "title": "IA vira economista e produz profusão de estudos, mas erra e ainda não iguala humanos em boas ideias — Reportagem do Economist descreve a automação de análises econômicas e erros na avaliação de políticas por agentes.",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/11/ia-vira-economista-e-produz-profusao-de-estudos-mas-erra-e-ainda-nao-iguala-humanos-em-boas-ideias.shtml"
     },
     {
-      "date": "2026-11-20",
-      "title": "'Um mal necessário': como a Anthropic conseguiu realizar seu IPO — Reportagem reconstitui as condições da oferta e a governança apresentada aos investidores pela criadora do Claude.",
-      "url": "https://c-level.folha.uol.com.br/ia/2026/11/um-mal-necessario-como-a-anthropic-conseguiu-realizar-seu-ipo.shtml"
+      "date": "2026-11-28",
+      "title": "Racismo algorítmico é falha estrutural, não técnica, afirmam pesquisadoras — Pesquisadoras discutem discriminação em reconhecimento facial e sistemas de imagem e defendem auditoria e contestação de decisões.",
+      "url": "https://c-level.folha.uol.com.br/ia/2026/11/racismo-algoritmico-e-falha-estrutural-nao-tecnica-afirmam-pesquisadoras.shtml"
     }
   ]
 }

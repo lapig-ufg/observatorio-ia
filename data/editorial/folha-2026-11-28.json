@@ -1,0 +1,158 @@
+{
+  "collection": "folha",
+  "start": "2026-11-22",
+  "end": "2026-11-28",
+  "reviewedAt": "2026-11-28",
+  "expectedCount": 53,
+  "title": {
+    "pt": "Centros de dados, controles de chips e proteção infantil",
+    "en": "Data centers, chip controls and child protection"
+  },
+  "summary": {
+    "pt": "A cobertura acompanhou o projeto de centro de dados em Atibaia, a discussão brasileira sobre incentivos e o impacto energético de instalações americanas. A volta de Jensen Huang à Nvidia coincidiu com novos controles sobre remessas de chips e dúvidas sobre o retorno financeiro dos investimentos em IA. Outra pauta foi a cobrança brasileira de medidas de proteção infantil. Em ciência, a atenção recaiu tanto sobre novas possibilidades de automação quanto sobre o trabalho necessário para verificar respostas e resultados.",
+    "en": "Coverage followed a data center proposal in Atibaia, Brazil’s incentive debate and the energy impact of U.S. facilities. Jensen Huang returned to Nvidia amid new controls on chip shipments and questions about returns on AI investment. Brazilian authorities’ calls for child-safety measures also featured. In science, reports addressed both new opportunities for automation and the work required to verify answers and results."
+  },
+  "method": {
+    "pt": "Síntese de 53 matérias publicadas de 22 a 28/11/2026, com corte às 08:33:56 de 28/11, horário de Brasília. A busca autenticada por “inteligência artificial” retornou 177 URLs em oito páginas, com sobreposição de 21/11. O cumulativo recebeu 59 matérias, incluindo 6 publicadas após o corte anterior em 21/11 e fora desta síntese. Houve 105 exclusões e 13 deduplicações. Foram consultados títulos, trechos da busca e passagens pertinentes das matérias. A busca usa um único termo, termina no horário indicado e não verifica independentemente as alegações reportadas. A tradução é editorial.",
+    "en": "Briefing on 53 articles published from 22 to 28 November 2026, with a cutoff of 08:33:56 Brasília time on 28 November. The authenticated search for “inteligência artificial” returned 177 URLs across eight pages, with an overlap on 21 November. The cumulative archive gained 59 articles, including 6 published after the previous cutoff on 21 November and outside this briefing. The review excluded 105 results and deduplicated 13. It used headlines, search excerpts and relevant passages from the original articles. The single-term search ends at the recorded cutoff and does not independently verify claims in the reporting. The translation is editorial."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Energia, emissões e localização dos centros de dados",
+        "en": "Energy, emissions and data center locations"
+      },
+      "summary": {
+        "pt": "Em Atibaia, um projeto de R$ 3 bilhões tem contrato de conexão elétrica e aval federal para incentivo, enquanto a prefeitura diz que ainda não recebeu o pedido de aprovação. O impasse brasileiro sobre gás natural envolve as condições fiscais para o setor. Nos EUA, o estudo citado estima 25,7 milhões de toneladas de CO₂ em 403 instalações durante o período observado. A licença para computação orbital da SpaceX indica uma possibilidade de implantação, ainda sujeita a prazo e execução.",
+        "en": "In Atibaia, a R$3 billion project has a grid connection agreement and federal clearance for an incentive, while the city says it has yet to receive an approval request. Brazil’s natural gas dispute concerns tax incentives for the industry. In the U.S., the reported study estimated 25.7 million metric tons of CO₂ from 403 facilities over the period it examined. SpaceX’s license for orbital computing describes a possible deployment subject to deadlines and implementation."
+      },
+      "sourceIds": [
+        "a6c63d30859ae5",
+        "1bd132b3742994",
+        "ba583e58dc58f4",
+        "062afc75876560",
+        "569d4a312120f5",
+        "687eb9ce57459f",
+        "f650d0180d002e"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Chips, exportações e liderança na Nvidia",
+        "en": "Chips, export controls and Nvidia’s leadership"
+      },
+      "summary": {
+        "pt": "A volta de Jensen Huang à Nvidia foi acompanhada de uma forte alta das ações. Em paralelo, os EUA adicionaram a Megaspeed a uma lista de restrições e a Nvidia orientou a suspensão de remessas de servidores a quatro países asiáticos. As reportagens associam os limites de acesso a processadores e ao treinamento com saídas de modelos a possíveis atrasos de lançamentos na China. As suspeitas e previsões são atribuídas às fontes.",
+        "en": "Nvidia shares rallied after Jensen Huang’s return. Separately, the U.S. placed Megaspeed on a trade restriction list and Nvidia told suppliers to suspend server shipments to four Asian countries. Reports link limits on processor access and training on other models’ outputs to potential delays in Chinese releases. The allegations and forecasts are attributed to their sources."
+      },
+      "sourceIds": [
+        "a6c02a54b2b531",
+        "69d335ee6b9883",
+        "79ad36ad9f894e",
+        "dc3249cc02c403",
+        "a4609a9d0c7c6b",
+        "47146ccf57372e",
+        "cdbc9536748893"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Financiamento da IA e expectativas de retorno",
+        "en": "AI financing and expectations of returns"
+      },
+      "summary": {
+        "pt": "A Anthropic ficou abaixo do preço de estreia em bolsa em um mercado atento à relação entre despesas e receitas futuras. A negociação da Amazon pela Decart e o financiamento do BNDES para aplicações empresariais mostram que a decisão de investir continua variando conforme a empresa, o uso e a fonte de capital. A coluna que compara IA e ferrovias oferece uma interpretação histórica do investimento.",
+        "en": "Anthropic traded below its listing price as markets weighed spending against future revenue. Amazon’s talks over Decart and BNDES funding for enterprise applications show that investment decisions still vary by company, use case and source of capital. The column comparing AI with railways offers a historical interpretation of the investment cycle."
+      },
+      "sourceIds": [
+        "5b905b86c887dd",
+        "9515c7beb64c7b",
+        "b54ba1e50f5bc7",
+        "161e3e692c62f6",
+        "4eec2425a4a8a1",
+        "3a725db99736cd",
+        "2c05a5a937c720",
+        "69e3703f9d689e",
+        "6b35d4040230ac"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Proteção infantil, discriminação e governança",
+        "en": "Child protection, discrimination and governance"
+      },
+      "summary": {
+        "pt": "No Brasil, ANPD, Ministério da Justiça e Polícia Federal cobram salvaguardas de plataformas para proteger crianças. Nos EUA, dois estados levaram ao Judiciário alegações sobre imagens geradas sem consentimento. O debate também inclui o controle de sistemas de reconhecimento facial, o uso policial de IA e propostas multilaterais em ritmos diferentes. A conferência da ONU sobre armas autônomas terminou sem acordo.",
+        "en": "In Brazil, the data protection authority, Ministry of Justice and Federal Police pressed platforms for child-safety safeguards. Two U.S. states brought allegations over non-consensual generated images to court. The debate also covers oversight of facial recognition, police use of AI and multilateral proposals moving at different speeds. The UN conference on autonomous weapons ended without agreement."
+      },
+      "sourceIds": [
+        "c1a8b1a3920ad1",
+        "3ecf5d47bca5b4",
+        "bcdcc05fc146e3",
+        "dd215dfd2da98d",
+        "994e27fc1f6d7c",
+        "71bf5c154d11d2",
+        "fff040402c25f4",
+        "fe61dc0a187bc1",
+        "c9eaf8623dd761",
+        "4b097e90245176",
+        "7eef216ba82253"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Pesquisa, verificação e julgamento humano",
+        "en": "Research, verification and human judgment"
+      },
+      "summary": {
+        "pt": "A automação de análises econômicas ampliou o que pode ser testado, segundo a reportagem, mas houve erros quando agentes avaliaram políticas de forma autônoma. A alegação de uma demonstração matemática assistida por um modelo continuava sem confirmação independente nas matérias. A dificuldade de conferir respostas e formular boas perguntas aparece tanto na pesquisa quanto no uso cotidiano.",
+        "en": "Reporting describes how automation expanded the range of economic analyses that could be tested, along with errors when agents evaluated policies on their own. The claimed proof assisted by an AI model remained independently unverified in the coverage. Checking answers and framing good questions were concerns in both research and daily use."
+      },
+      "sourceIds": [
+        "e3f06a14b6bf7e",
+        "3fa77e89766490",
+        "5b63a9678c9105",
+        "4208660790a17d",
+        "894691ba087b8b"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aplicações em serviços, saúde e consumo",
+        "en": "Applications in services, healthcare and shopping"
+      },
+      "summary": {
+        "pt": "O NHS anunciou um estudo para avaliar IA em mamografias, enquanto a DiDi planeja pesquisar a viabilidade de robotáxis no Brasil. São iniciativas em etapas distintas de avaliação. Nas finanças pessoais e na Black Friday, as aplicações já chegam ao consumidor, com riscos de dados, ofertas falsas ou preços desatualizados que exigem conferência.",
+        "en": "The NHS announced a study of AI in mammography, while DiDi plans to assess robotaxi feasibility in Brazil. The initiatives are at different stages of evaluation. In personal finance and Black Friday shopping, applications already reach consumers, raising practical concerns about personal data, fraudulent offers and outdated prices."
+      },
+      "sourceIds": [
+        "d2be00cf36d733",
+        "d9f7b6207ca64a",
+        "eda7df925a6a6c",
+        "71992258841552",
+        "52de0d5a1183c6",
+        "f5c95b954dca85",
+        "7501299f199caf"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Cultura, educação e trabalho",
+        "en": "Culture, education and work"
+      },
+      "summary": {
+        "pt": "A seleção registra IA em espetáculos, exposições e produções audiovisuais, inclusive em acusações cujo fundamento a cobertura ainda não confirma. A presença em uma prova da Unesp e no noticiário infantil indica como o tema passou a fazer parte do repertório escolar e da discussão sobre profissões. São evidências de circulação do tema, com alcance restrito ao corpus.",
+        "en": "The selection documents AI in performances, exhibitions and audiovisual works, including allegations the coverage has yet to establish. Its appearance on a Unesp entrance exam and in children’s journalism illustrates how AI has entered school discussions and debates over careers. These observations describe the subject’s visibility within this corpus."
+      },
+      "sourceIds": [
+        "e33ee693f431b5",
+        "d5b5f198a9106c",
+        "fefa6d2f1754b8",
+        "f054463257cac3",
+        "db0c0cb33fc1cb",
+        "93ad95216c7025",
+        "cdd4fce011dec9"
+      ]
+    }
+  ]
+}
