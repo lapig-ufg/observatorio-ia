@@ -1,19 +1,19 @@
 {
-  "start": "2026-11-22",
-  "end": "2026-11-22",
-  "reviewedAt": "2026-11-22",
+  "start": "2026-11-28",
+  "end": "2026-11-28",
+  "reviewedAt": "2026-11-28",
   "dateBasis": "included",
   "title": {
-    "pt": "Como medir custo, qualidade e controle em sistemas de IA",
-    "en": "Measuring cost, quality, and control in AI systems"
+    "pt": "O que os testes de IA mostram sobre custo, controle e aprendizagem",
+    "en": "What AI tests show about cost, control and learning"
   },
   "summary": {
-    "pt": "As leituras discutem como avaliar sistemas de IA quando o resultado depende tanto do modelo quanto da infraestrutura, dos dados e da forma de delegar tarefas. Os relatos sobre inferência local distinguem capacidade para armazenar pesos, velocidade de geração e custo por tarefa. Em agentes, testes de autorização e recuperação ajudam a separar a ação que o sistema pode executar do resultado que de fato entrega. Em pesquisa e gestão do conhecimento, a verificação de evidências volta a aparecer na revisão de citações, na proveniência de dados extraídos e na avaliação de sistemas de busca. A edição reúne ensaios, guias introdutórios, relatos de implantação e anúncios comentados. Os números citados valem para cada configuração, teste ou relato de origem.",
-    "en": "The readings examine how to evaluate AI systems when results depend on the model, infrastructure, data, and how work is delegated. Reports on local inference distinguish the capacity to store weights, generation speed, and cost per task. In agent systems, authorization and recovery tests help distinguish permitted actions from completed outcomes. In research and knowledge management, evidence checking matters for citations, the provenance of extracted data, and retrieval evaluation. The collection includes essays, introductory guides, deployment accounts, and commentary on announcements. Reported figures apply to the original configurations, tests, or accounts."
+    "pt": "A edição reúne leituras sobre o custo de executar modelos, a supervisão de agentes e a verificação de resultados. Em inferência, pesos armazenados, operações por token e tempo até uma resposta utilizável medem aspectos diferentes. Em agentes, a confiabilidade depende de confirmar resultados, preservar registros e limitar permissões, com exemplos que vão de um quadro fictício de tarefas a testes de roteamento em GPUs. As leituras sobre matemática, educação e trabalho mostram por que distinguir um resultado medido de uma explicação proposta muda a interpretação. A edição inclui relatos de engenharia, análises de anúncios, guias e ensaios. As evidências variam em alcance, da demonstração pontual ao ensaio randomizado discutido em uma das leituras.",
+    "en": "This edition brings together readings on the cost of running models, the oversight of agents and the verification of results. In inference, stored weights, operations per token and time to a usable answer measure different things. For agents, reliability depends on confirming results, preserving records and limiting permissions, with examples ranging from a fictional task board to GPU routing tests. The readings on mathematics, education and work show why distinguishing measured results from proposed explanations changes the interpretation. The edition includes engineering accounts, analyses of announcements, guides and essays. Evidence ranges from one-off demonstrations to a randomized trial discussed in one of the readings."
   },
   "method": {
-    "pt": "Edição do ciclo de 21/11/2026, com incorporação em 22/11. Às 09h34min11s de Brasília de 21/11, o inventário foi fixado em 51 candidatos capturados entre 14 e 20/11. Foram lidos integralmente 49 originais na sessão autenticada. A curadoria selecionou 47 e rejeitou dois após a leitura. Por decisão do editor, outros dois ficaram fora da edição porque o Medium manteve seus textos indisponíveis. Esses dois originais ficaram fora da análise. As fichas mantêm as datas originais, de 28/10 a 19/11. A seleção cobre a fila observada. Números e alegações de desempenho das fontes exigem validação independente para outros usos.",
-    "en": "This edition covers the 21 November 2026 cycle, with items added on 22 November. The inventory was fixed at 09:34:11 Brasília time on 21 November and contained 51 candidates collected from 14 to 20 November. The review read 49 originals in full in the authenticated session, selected 47, and rejected two after reading them. The editor authorized excluding two more because Medium continued to withhold their full text. Those two originals are outside the analysis. The entries retain the original publication dates, from 28 October to 19 November. The selection covers the observed queue. Figures and performance claims in the sources require independent validation for other uses."
+    "pt": "O inventário observado por volta de 08h33 de Brasília em 28/11/2026 continha 58 candidatos capturados de 21 a 27/11. A fila registra datas de captura com precisão de dia. A curadoria examinou os originais na sessão autenticada, incorporou 57 em 28/11 e registrou uma exclusão editorial. As publicações originais vão de 15/09 a 27/11, com as datas mantidas nas fichas. O período da edição é o da incorporação. A seleção representa a fila observada, e resultados de anúncios, benchmarks e relatos valem para suas condições de origem.",
+    "en": "The inventory observed at about 08:33 Brasília time on 28 November 2026 contained 58 candidates collected from 21 to 27 November. The queue records collection dates with day-level precision. The review examined the originals in the authenticated session, added 57 on 28 November and recorded one editorial exclusion. Original publication dates range from 15 September to 27 November and remain on the individual records. This edition is dated by inclusion. The selection represents the observed queue, and claims in announcements, benchmarks and reports apply to their original conditions."
   },
   "topics": [
     {
@@ -22,12 +22,26 @@
         "en": "Technical foundations of AI"
       },
       "summary": {
-        "pt": "Um guia de aprendizado de máquina aborda conjuntos de teste, vazamento de dados e métricas. Um texto sobre complexidade computacional contextualiza uma alegação recente sobre a Hipótese do Tempo Exponencial, cuja demonstração exige validação independente.",
-        "en": "A machine-learning guide examines test sets, data leakage, and metrics. A computational complexity article explains a reported challenge to the Exponential Time Hypothesis whose proof requires independent validation."
+        "pt": "O relato da Cochl sobre inferência acústica em microcontroladores distingue manter a cadência de análise de entregar um alerta. O ensaio curto e a demonstração de campo verificam a passagem do evento pelo sistema. Alcance, autonomia e precisão em diferentes ambientes ainda exigem medição.",
+        "en": "Cochl’s account of acoustic inference on microcontrollers distinguishes keeping up with incoming audio from delivering an alert. A short run and field demonstration verify that events pass through the system. Range, battery life and accuracy across environments still need measurement."
       },
       "sourceIds": [
-        "medium-5c298c619f92",
-        "medium-53ae2a00ffbf"
+        "medium-1a337433d12e"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Transformers e mecanismos de atenção",
+        "en": "Transformers and attention mechanisms"
+      },
+      "summary": {
+        "pt": "A atenção pode ser combinada com mecanismos recorrentes, reaplicada com pesos compartilhados ou usada para representar sequências de eventos. Os três textos distinguem parâmetros armazenados, computação por passo e memória de contexto. A proposta de previsão de instalações em publicidade móvel especifica como testar o efeito de cada componente, enquanto os relatos sobre Olala e transformers recorrentes discutem resultados de configurações distintas.",
+        "en": "Attention can be combined with recurrent mechanisms, reapplied with shared weights or used to represent sequences of events. The three readings distinguish stored parameters, computation per step and context memory. The mobile advertising proposal specifies how to test each component’s contribution, while the accounts of Olala and recurrent transformers discuss results from different configurations."
+      },
+      "sourceIds": [
+        "medium-f3816d8b0c41",
+        "medium-d79cb524479c",
+        "medium-da90ebc8c23a"
       ]
     },
     {
@@ -36,17 +50,14 @@
         "en": "Language models and generative AI"
       },
       "summary": {
-        "pt": "Os textos distinguem estratégias de representação, quantização, destilação e geração. Alguns propõem estruturas que preservam contexto ou usam resultados anteriores para orientar aprendizagem. As propostas abertas pedem critérios explícitos de avaliação.",
-        "en": "The readings distinguish representation, quantization, distillation, and generation strategies. Several propose methods that preserve context or use previous outcomes to guide learning. Open proposals call for explicit evaluation criteria."
+        "pt": "Os ensaios reúnem exemplos de imagens sintéticas, detecção de texto, assistentes de voz e raciocínio em estados internos. Uma imagem convincente e uma resposta fluente têm valor limitado como prova de origem ou de exatidão. Os casos são ilustrações e não estimam taxas de acerto. Os efeitos de arquiteturas recorrentes sobre monitoramento e demanda por infraestrutura são cenários discutidos em uma das fontes.",
+        "en": "The essays bring together examples of synthetic imagery, text detection, voice assistants and reasoning in hidden states. Convincing images and fluent answers offer limited evidence of origin or accuracy. The cases are illustrations and do not estimate success rates. One source discusses scenarios for how recurrent architectures might affect monitoring and demand for infrastructure."
       },
       "sourceIds": [
-        "medium-e177a0d54acc",
-        "medium-fb1471e2f849",
-        "medium-91b1db57d83c",
-        "medium-a1d3a81ce3cd",
-        "medium-cc68e3ed4c3f",
-        "medium-747ff26a19c6",
-        "medium-7499370e8c02"
+        "medium-69fd9a17e92e",
+        "medium-f5aa8697c9e9",
+        "medium-853361ad3eff",
+        "medium-ba18c2684752"
       ]
     },
     {
@@ -55,35 +66,28 @@
         "en": "Agents, RAG and applications"
       },
       "summary": {
-        "pt": "Os exemplos separam interpretação, autorização e execução. Um experimento de governança mede efeitos registrados e recuperação após negativas. Um teste de consultas a uma base mostra por que é importante inspecionar o SQL e as definições utilizadas.",
-        "en": "The examples separate interpretation, authorization, and execution. A governance experiment measures committed effects and recovery after a denial. A database-query test shows why the SQL and business definitions need inspection."
+        "pt": "Os textos tratam de agentes que retomam trabalho, selecionam ferramentas, usam memória e dividem tarefas entre modelos. Os exemplos mostram como testar limites de autorização e recuperar operações sem repetir efeitos. Uma proposta mantém credenciais e registros de auditoria fora do ambiente que executa código gerado. Em um teste de inferência no Kubernetes, ganhos de cache e de latência total coexistiram com piora na cauda do tempo até o primeiro token em uma configuração com GPU.",
+        "en": "These readings cover agents that resume work, select tools, use memory and divide tasks among models. The examples show how to test authorization boundaries and recover operations without repeating side effects. One proposal keeps credentials and audit records outside the environment that executes generated code. In a Kubernetes inference test, better cache reuse and lower total latency coincided with a worse tail for time to first token in one GPU configuration."
       },
       "sourceIds": [
-        "medium-3af80d5ee0d6",
-        "medium-4e3d27bc9f49",
-        "medium-5c5e55493a03",
-        "medium-892e3405dfcf",
-        "medium-ffad320bd4a6",
-        "medium-2de3f3f249a6",
-        "medium-28e612472b82"
-      ]
-    },
-    {
-      "title": {
-        "pt": "Dados, vetores e gestão do conhecimento",
-        "en": "Data, vectors and knowledge management"
-      },
-      "summary": {
-        "pt": "O contraste entre recuperação por trechos e pacotes de conhecimento destaca custo de manutenção, relações explícitas e proveniência. Uma análise de embeddings propõe avaliar recall com perguntas do domínio.",
-        "en": "The comparison between chunk retrieval and knowledge bundles highlights maintenance costs, explicit relationships, and provenance. An article on embeddings recommends evaluating recall with domain-specific questions."
-      },
-      "sourceIds": [
-        "medium-8fd472553392",
-        "medium-19bff3c38cde",
-        "medium-f5f2616aad3d",
-        "medium-5f154537ca64",
-        "medium-7a4686f9666a",
-        "medium-1798657718c1"
+        "medium-f150c10ad683",
+        "medium-6486613159d9",
+        "medium-9bfecfe003a9",
+        "medium-08aea4077e8f",
+        "medium-3665b57f31b0",
+        "medium-d3077e22924a",
+        "medium-7ed583e09354",
+        "medium-cb8debd5bbae",
+        "medium-b0785b7ece13",
+        "medium-7a1bb60a503f",
+        "medium-bd7c4a7dd9d4",
+        "medium-6c0c6ff244c6",
+        "medium-50ac63d5cb72",
+        "medium-07d258d70980",
+        "medium-5a3bab84e310",
+        "medium-f79b130118f4",
+        "medium-71cde8de8f80",
+        "medium-8787765faa10"
       ]
     },
     {
@@ -92,25 +96,31 @@
         "en": "Strategy, market and impacts"
       },
       "summary": {
-        "pt": "As leituras discutem preços, inflação de expectativas, custo por tarefa e infraestrutura de execução. Um relato reexamina o efeito do comprimento do prompt e do volume sobre a economia divulgada para um classificador. O dimensionamento de clusters e a execução local ilustram escolhas de memória, largura de banda e latência.",
-        "en": "The readings discuss pricing, rising expectations, cost per task, and inference infrastructure. An account reexamines the role of prompt length and traffic volume in reported cost savings for a classifier. Cluster sizing and local inference illustrate trade-offs in memory, bandwidth, and latency."
+        "pt": "Comparativos de lançamentos e de inferência local distinguem preço por token, custo por tarefa, memória e qualidade. Uma mudança de índice alterou a distância entre modelos previamente avaliados, o que limita comparações entre datas. As leituras sobre empresas separam os recursos apresentados em anúncios, os riscos descritos em documentos corporativos e as previsões dos autores. Uma análise do emprego na Anthropic explicita os limites de generalizar medidas internas de produção e contratação.",
+        "en": "Launch comparisons and local-inference reviews distinguish token price, cost per task, memory and quality. A change in an index altered the gap between previously evaluated models, limiting comparisons over time. The company-focused readings distinguish announced features, risks described in corporate filings and authors’ forecasts. An analysis of employment at Anthropic makes clear the limits of generalizing internal output and hiring measures."
       },
       "sourceIds": [
-        "medium-5630cd95979f",
-        "medium-6142040649c5",
-        "medium-b910051b9742",
-        "medium-290a2693784e",
-        "medium-57d3f348f444",
-        "medium-390f8c3a3e5a",
-        "medium-c614fbbf1433",
-        "medium-1ad0a007f717",
-        "medium-da3939e4aac2",
-        "medium-2ba2ee8a829e",
-        "medium-ee929cd7af58",
-        "medium-ac9f400b4506",
-        "medium-bec2c8064aea",
-        "medium-f577c8138498",
-        "medium-4cecab092993"
+        "medium-df9c1a45100e",
+        "medium-5f0aa025ca5b",
+        "medium-e8d6617582c8",
+        "medium-49eedc179c0c",
+        "medium-a679ef33dfb4",
+        "medium-6dbfb692b0e7",
+        "medium-7dd28c46312e",
+        "medium-e9893a9858c3",
+        "medium-8f10a445629a",
+        "medium-92c9919eafde",
+        "medium-12669f6ad388",
+        "medium-0985b8a6e864",
+        "medium-3017c056124d",
+        "medium-c93893a66b9b",
+        "medium-ff7e6a4b878e",
+        "medium-8395269bd131",
+        "medium-44970ae9bb63",
+        "medium-74997dc26341",
+        "medium-4b41f7e6d3d6",
+        "medium-18fea3f0e6f2",
+        "medium-67103329c989"
       ]
     },
     {
@@ -119,305 +129,365 @@
         "en": "Learning, research and productivity"
       },
       "summary": {
-        "pt": "Ferramentas e práticas são discutidas em tarefas de revisão de fontes, edição de apresentações e automação de etapas de coleta. A edição também aborda governança da pesquisa e fadiga ao alternar entre agentes.",
-        "en": "Tools and practices are discussed through tasks such as source review, slide editing, and data gathering. The collection also examines research governance and fatigue from switching between agents."
+        "pt": "Os textos sobre matemática distinguem obter um argumento, verificar sua formulação em Lean e produzir uma explicação que outras pessoas consigam estudar. As propostas sobre a hipótese de Riemann aparecem como alegações em avaliação. Em educação, a leitura de um ensaio randomizado sobre retenção distingue os resultados medidos após 45 dias de explicações sobre hábitos de estudo. Guias de ferramentas e agentes de trabalho discutem verificação de fontes, permissões de compartilhamento e revisão humana.",
+        "en": "The mathematics readings distinguish finding an argument, checking its Lean formalization and producing an explanation others can study. The proposed proofs of the Riemann hypothesis are treated as claims under evaluation. In education, a reading on a randomized retention trial distinguishes measured outcomes after 45 days from explanations about study habits. Guides to tools and workplace agents discuss checking sources, sharing permissions and human review."
       },
       "sourceIds": [
-        "medium-c8a7ac4c53da",
-        "medium-31f89b9c9658",
-        "medium-ce9781051660",
-        "medium-a574c5f8d5dc",
-        "medium-d700a31c4ce3",
-        "medium-7df81f3ccf5c",
-        "medium-157236af833f",
-        "medium-46b230b857c0",
-        "medium-a66c8c959a35",
-        "medium-393279872425"
+        "medium-78bf53b7a073",
+        "medium-728fb349c139",
+        "medium-f8e0f75c6aa6",
+        "medium-8ff8b3592e12",
+        "medium-f03e2a37c6c2",
+        "medium-805147c82d4a",
+        "medium-84915ba3ef61",
+        "medium-6d55b2598541",
+        "medium-c101bfe6fa66",
+        "medium-8d49a5ad4d33"
       ]
     }
   ],
   "corpus": [
     {
-      "id": "medium-3af80d5ee0d6",
-      "date": "2026-11-12",
-      "title": "Claude Fable 5.2 Just Broke Every Rule in Software Engineering",
-      "url": "https://ai.plainenglish.io/claude-fable-5-2-just-broke-every-rule-in-software-engineering-3af80d5ee0d6"
+      "id": "medium-df9c1a45100e",
+      "date": "2026-11-20",
+      "title": "Dear AI Founders, Not Everything Needs an AI Agent",
+      "url": "https://medium.com/realworld-ai-use-cases/dear-ai-founders-not-everything-needs-an-ai-agent-df9c1a45100e"
     },
     {
-      "id": "medium-c8a7ac4c53da",
-      "date": "2026-11-13",
-      "title": "Your Research Has Blind Spots. Ask Gemini Notebook to Find Them.",
-      "url": "https://medium.com/@mubashirburfat4/your-research-has-blind-spots-ask-gemini-notebook-to-find-them-c8a7ac4c53da"
-    },
-    {
-      "id": "medium-31f89b9c9658",
-      "date": "2026-11-13",
-      "title": "AI Job Apocalypse? No, Just Learn These 10 AI Skills Before 2027",
-      "url": "https://medium.com/the-ai-brief/ai-job-apocalypse-no-just-learn-these-10-ai-skills-before-2027-31f89b9c9658"
-    },
-    {
-      "id": "medium-ce9781051660",
-      "date": "2026-11-13",
-      "title": "Plus AI vs Gamma AI: Which Tool Is Better for AI Presentations?",
-      "url": "https://generativeai.pub/plus-ai-vs-gamma-ai-which-tool-is-better-for-ai-presentations-ce9781051660"
-    },
-    {
-      "id": "medium-e177a0d54acc",
-      "date": "2026-11-13",
-      "title": "NCM: The Ultimate Evolution of AI? Next-Concept Modeling",
-      "url": "https://medium.com/data-science-collective/ncm-the-ultimate-evolution-of-ai-next-concept-modeling-e177a0d54acc"
-    },
-    {
-      "id": "medium-4e3d27bc9f49",
-      "date": "2026-11-12",
-      "title": "How to Build an AI Trading Agent With OpenClaw + Telegram + Python — Part 1",
-      "url": "https://aiadvances.org/how-to-build-an-ai-trading-agent-with-openclaw-telegram-python-part-1-4e3d27bc9f49"
-    },
-    {
-      "id": "medium-5630cd95979f",
-      "date": "2026-11-14",
-      "title": "80,000 Want Jensen Back! llama.cpp Reaches 1.0, IBM’s Lemon Exposes a 47% AI Security Gap!",
-      "url": "https://medium.com/@mikesulka/80-000-want-jensen-back-llama-cpp-reaches-1-0-ibms-lemon-exposes-a-47-ai-security-gap-5630cd95979f"
-    },
-    {
-      "id": "medium-6142040649c5",
-      "date": "2026-11-13",
-      "title": "Google Just Dropped Gemini 4 Carbon",
-      "url": "https://ai.plainenglish.io/google-just-dropped-gemini-4-carbon-6142040649c5"
-    },
-    {
-      "id": "medium-5c5e55493a03",
-      "date": "2026-11-11",
-      "title": "Don’t Let NVIDIA’s New AI Agent Near Your Database. It Lied to Me About $441.",
-      "url": "https://pub.towardsai.net/dont-let-nvidia-s-new-ai-agent-near-your-database-it-lied-to-me-about-441-5c5e55493a03"
-    },
-    {
-      "id": "medium-5c298c619f92",
-      "date": "2026-11-09",
-      "title": "An AI May Have Just Broken a 27-Year-Old Rule of Computer Science",
-      "url": "https://medium.com/@highsongs2020/an-ai-may-have-just-broken-a-27-year-old-rule-of-computer-science-5c298c619f92"
-    },
-    {
-      "id": "medium-8fd472553392",
-      "date": "2026-11-09",
-      "title": "OKF vs RAG: Built Both Locally With Ollama, and Here’s What Actually Differs",
-      "url": "https://medium.com/programmed-iq/okf-vs-rag-built-both-locally-with-ollama-and-heres-what-actually-differs-8fd472553392"
-    },
-    {
-      "id": "medium-19bff3c38cde",
-      "date": "2026-11-14",
-      "title": "How AI Search Finds Relevant Results in 10 Million Documents in 9 Milliseconds",
-      "url": "https://medium.com/data-science-collective/how-ai-search-finds-relevant-results-in-10-million-documents-in-9-milliseconds-19bff3c38cde"
-    },
-    {
-      "id": "medium-b910051b9742",
-      "date": "2026-11-03",
-      "title": "China Was Right About AI. It Still Lost $480 Billion.",
-      "url": "https://medium.com/@mmcse19/china-was-right-about-ai-it-still-lost-480-billion-b910051b9742"
-    },
-    {
-      "id": "medium-290a2693784e",
-      "date": "2026-11-14",
-      "title": "Amazon Cut Claude Costs 98%. Check the Math Before You Copy It.",
-      "url": "https://aiadvances.org/amazon-cut-claude-costs-98-check-the-math-before-you-copy-it-290a2693784e"
-    },
-    {
-      "id": "medium-fb1471e2f849",
-      "date": "2026-11-13",
-      "title": "10 New AI Terms You Should Know to Be Ahead of 95% of People",
-      "url": "https://medium.com/@mubasharalima189/10-new-ai-terms-you-should-know-to-be-ahead-of-95-of-people-fb1471e2f849"
-    },
-    {
-      "id": "medium-57d3f348f444",
-      "date": "2026-11-15",
-      "title": "NASA Needed an Aircraft Carrier, SpaceX Uses Chopsticks, AI Still Needs Adult Supervision",
-      "url": "https://medium.com/@mikesulka/nasa-needed-an-aircraft-carrier-spacex-uses-chopsticks-ai-still-needs-adult-supervision-57d3f348f444"
-    },
-    {
-      "id": "medium-91b1db57d83c",
-      "date": "2026-11-11",
-      "title": "Artificial Intelligence in 2027: Are We Building Machines That Can Actually Think?",
-      "url": "https://medium.com/@rumeshprasanga66/artificial-intelligence-in-2027-are-we-building-machines-that-can-actually-think-91b1db57d83c"
-    },
-    {
-      "id": "medium-53ae2a00ffbf",
-      "date": "2026-11-11",
-      "title": "All the Machine Learning that AI Engineers Need to Know",
-      "url": "https://medium.com/data-science-collective/all-the-machine-learning-that-ai-engineers-need-to-know-53ae2a00ffbf"
-    },
-    {
-      "id": "medium-390f8c3a3e5a",
-      "date": "2026-11-15",
-      "title": "I Compared Every Way to Get 512 GB for Local AI. Here’s What I Foundv",
-      "url": "https://medium.com/@loengnavy/i-compared-every-way-to-get-512-gb-for-local-ai-heres-what-i-foundv-390f8c3a3e5a"
-    },
-    {
-      "id": "medium-c614fbbf1433",
-      "date": "2026-11-09",
-      "title": "This AI Model Has 2.8 Trillion Parameters. It Only Uses 104 Billion at a Time.",
-      "url": "https://pub.towardsai.net/this-ai-model-has-2-8-trillion-parameters-it-only-uses-104-billion-at-a-time-c614fbbf1433"
-    },
-    {
-      "id": "medium-a574c5f8d5dc",
-      "date": "2026-11-12",
-      "title": "Claude 2.0 Has Changed A Lot in 6 Weeks. Here Are 20 Features You Should Actually Know About",
-      "url": "https://medium.com/@theexplainer/claude-2-0-has-changed-a-lot-in-6-weeks-here-are-20-features-you-should-actually-know-about-a574c5f8d5dc"
-    },
-    {
-      "id": "medium-1ad0a007f717",
-      "date": "2026-11-15",
-      "title": "Robots Are Only Half of Physical AI. The Other Half, Cognitive Symbiont, Is Harder to Govern.",
-      "url": "https://aiadvances.org/robots-are-only-half-of-physical-ai-the-other-half-cognitive-symbiont-is-harder-to-govern-1ad0a007f717"
-    },
-    {
-      "id": "medium-f5f2616aad3d",
-      "date": "2026-11-16",
-      "title": "How I Added Traceability in Structured Data Extraction with AI",
-      "url": "https://aiadvances.org/how-i-added-traceability-in-structured-data-extraction-with-ai-f5f2616aad3d"
-    },
-    {
-      "id": "medium-a1d3a81ce3cd",
-      "date": "2026-11-16",
-      "title": "AI Concepts That You Need to Know — Part 4",
-      "url": "https://ai.plainenglish.io/ai-concepts-that-you-need-to-know-part-4-a1d3a81ce3cd"
-    },
-    {
-      "id": "medium-d700a31c4ce3",
-      "date": "2026-11-16",
-      "title": "AI Is Changing Science. DeSci Could Change Who Controls It",
-      "url": "https://aiadvances.org/ai-is-changing-science-desci-could-change-who-controls-it-d700a31c4ce3"
-    },
-    {
-      "id": "medium-da3939e4aac2",
-      "date": "2026-11-09",
-      "title": "Meta Drops Muse Ember: The $0.14 AI Model Aiming to Slay Claude Haiku 5.5 and GPT-6 Luna",
-      "url": "https://medium.com/@JustSnehal/meta-drops-muse-ember-the-0-14-ai-model-aiming-to-slay-claude-haiku-5-5-and-gpt-6-luna-da3939e4aac2"
-    },
-    {
-      "id": "medium-2ba2ee8a829e",
-      "date": "2026-10-28",
-      "title": "Best Local LLMs for Mac in 2026: The Ultimate M1 to M6 Guide",
-      "url": "https://python.plainenglish.io/best-local-llms-for-mac-in-2026-the-ultimate-m1-to-m6-guide-2ba2ee8a829e"
-    },
-    {
-      "id": "medium-ee929cd7af58",
-      "date": "2026-11-08",
-      "title": "Even Engineering Is Not Safe From AI Anymore — Meet SkyFall AI.",
-      "url": "https://medium.com/the-ai-brief/even-engineering-is-not-safe-from-ai-anymore-meet-skyfall-ai-ee929cd7af58"
-    },
-    {
-      "id": "medium-cc68e3ed4c3f",
-      "date": "2026-11-16",
-      "title": "Is cognitive offloading to AI inevitable?",
-      "url": "https://medium.com/@constantin.kloecker/is-cognitive-offloading-to-ai-inevitable-cc68e3ed4c3f"
-    },
-    {
-      "id": "medium-7df81f3ccf5c",
-      "date": "2026-11-16",
-      "title": "4 AI Skills You Need in 2027",
-      "url": "https://medium.com/data-science-collective/4-ai-skills-you-need-in-2027-7df81f3ccf5c"
-    },
-    {
-      "id": "medium-892e3405dfcf",
-      "date": "2026-11-17",
-      "title": "llama.cpp Hit 1.0. Here’s What Changes for Local AI Agents",
-      "url": "https://medium.com/@sohail8338/llama-cpp-hit-1-0-heres-what-changes-for-local-ai-agents-892e3405dfcf"
-    },
-    {
-      "id": "medium-ffad320bd4a6",
-      "date": "2026-11-17",
-      "title": "10 AI Agents That Can Actually Do Work for You",
-      "url": "https://python.plainenglish.io/10-ai-agents-that-can-actually-do-work-for-you-ffad320bd4a6"
-    },
-    {
-      "id": "medium-ac9f400b4506",
-      "date": "2026-11-17",
-      "title": "The Humanoid Scam: Another AI Bet You’ll End Up Paying For",
-      "url": "https://medium.com/predict/the-humanoid-scam-another-ai-bet-youll-end-up-paying-for-ac9f400b4506"
-    },
-    {
-      "id": "medium-5f154537ca64",
-      "date": "2026-11-17",
-      "title": "Google’s New OKF Could Change How We Build RAG Systems for AI Agents",
-      "url": "https://pub.towardsai.net/googles-new-okf-could-change-how-we-build-rag-systems-for-ai-agents-5f154537ca64"
-    },
-    {
-      "id": "medium-157236af833f",
-      "date": "2026-11-16",
-      "title": "Why You Hate AI Coding",
-      "url": "https://aiadvances.org/why-you-hate-ai-coding-157236af833f"
-    },
-    {
-      "id": "medium-2de3f3f249a6",
-      "date": "2026-11-17",
-      "title": "When AI Agents Are Allowed to Act: What Runtime Governance Actually Changes",
-      "url": "https://aiadvances.org/when-ai-agents-are-allowed-to-act-what-runtime-governance-actually-changes-2de3f3f249a6"
-    },
-    {
-      "id": "medium-7a4686f9666a",
-      "date": "2026-11-03",
-      "title": "Give the Knowledge Layer the Decision: An Agent Above Foundry IQ and the Fabric IQ Ontology, Measured",
-      "url": "https://aiadvances.org/give-the-knowledge-layer-the-decision-an-agent-above-foundry-iq-and-the-fabric-iq-ontology-7a4686f9666a"
-    },
-    {
-      "id": "medium-747ff26a19c6",
-      "date": "2026-11-18",
-      "title": "LLMs Are the Worst Kind of AI Right Now. Here’s Their Replacement",
-      "url": "https://aiadvances.org/llms-are-now-the-worst-kind-of-ai-grab-the-upgrade-asap-747ff26a19c6"
-    },
-    {
-      "id": "medium-46b230b857c0",
-      "date": "2026-11-18",
-      "title": "10 New Open-Source AI Tools That Could Make Your Work Easier in 2027",
-      "url": "https://medium.com/@rumeshprasanga66/10-new-open-source-ai-tools-that-could-make-your-work-easier-in-2027-46b230b857c0"
-    },
-    {
-      "id": "medium-bec2c8064aea",
-      "date": "2026-11-15",
-      "title": "Did Someone Just Run a Trillion-Parameter AI on 8GB of RAM? I Looked. Here’s the Truth.",
-      "url": "https://pub.towardsai.net/did-someone-just-run-a-trillion-parameter-ai-on-8gb-of-ram-i-looked-heres-the-truth-bec2c8064aea"
-    },
-    {
-      "id": "medium-7499370e8c02",
-      "date": "2026-11-15",
-      "title": "What If AI Could Learn From Its Own Mistakes?",
-      "url": "https://medium.com/@rumeshprasanga66/what-if-ai-could-learn-from-its-own-mistakes-7499370e8c02"
-    },
-    {
-      "id": "medium-f577c8138498",
-      "date": "2026-11-18",
-      "title": "Building a Trillion-Parameter LLM Cluster for 100,000 Users",
-      "url": "https://aiadvances.org/building-a-trillion-parameter-llm-cluster-for-100-000-users-f577c8138498"
-    },
-    {
-      "id": "medium-1798657718c1",
-      "date": "2026-11-09",
-      "title": "[Day 42/100] How to Choose an Embedding Model for RAG (Without Trusting the Leaderboard)",
-      "url": "https://pub.towardsai.net/day-42-100-how-to-choose-an-embedding-model-for-rag-without-trusting-the-leaderboard-1798657718c1"
-    },
-    {
-      "id": "medium-28e612472b82",
-      "date": "2026-11-05",
-      "title": "The Architecture of an Infinite Content Engine: Upgrading the Firecrawl + GPT + n8n Engine",
-      "url": "https://medium.com/@JustSnehal/the-architecture-of-an-infinite-content-engine-upgrading-the-firecrawl-gpt-n8n-engine-28e612472b82"
-    },
-    {
-      "id": "medium-4cecab092993",
-      "date": "2026-11-09",
-      "title": "Is the AI Bubble Bursting? What the 5 November Crash Really Means",
-      "url": "https://medium.com/data-science-collective/the-ai-bubble-4cecab092993"
-    },
-    {
-      "id": "medium-a66c8c959a35",
+      "id": "medium-5f0aa025ca5b",
       "date": "2026-11-19",
-      "title": "These 10 AI Tools Are Quietly Changing How People Work. Most People Have No Idea.",
-      "url": "https://pub.towardsai.net/these-10-ai-tools-are-quietly-changing-how-people-work-most-people-have-no-idea-a66c8c959a35"
+      "title": "OpenAI’s GPT-6.2 Release Looks Like a Disaster",
+      "url": "https://generativeai.pub/openais-gpt-6-2-release-looks-like-a-disaster-5f0aa025ca5b"
     },
     {
-      "id": "medium-393279872425",
+      "id": "medium-f150c10ad683",
+      "date": "2026-11-15",
+      "title": "Forget Harness Agent. Recursive Agent Harness² 10x Better",
+      "url": "https://medium.com/data-science-collective/forget-harness-agent-recursive-agent-harness%C2%B2-10x-better-f150c10ad683"
+    },
+    {
+      "id": "medium-6486613159d9",
+      "date": "2026-11-12",
+      "title": "8 Context Engineering Techniques Every AI Developer Must Know (With Examples)",
+      "url": "https://medium.com/ai-engineering-simplified/8-context-engineering-techniques-every-ai-developer-must-know-with-examples-6486613159d9"
+    },
+    {
+      "id": "medium-e8d6617582c8",
+      "date": "2026-11-17",
+      "title": "Google Just Released an AI Model That Makes 1,000 Decisions Without Generating a Single Word",
+      "url": "https://medium.com/@Pop123/google-just-released-an-ai-model-that-makes-1-000-decisions-without-generating-a-single-word-e8d6617582c8"
+    },
+    {
+      "id": "medium-49eedc179c0c",
+      "date": "2026-11-14",
+      "title": "Local AI This Month (November 2026): New Models, New Optimization Tricks, and What’s Happening Around the World",
+      "url": "https://mehmetozgenozdogan.medium.com/local-ai-this-month-november-2026-new-models-new-optimization-tricks-and-whats-happening-49eedc179c0c"
+    },
+    {
+      "id": "medium-a679ef33dfb4",
+      "date": "2026-11-20",
+      "title": "5 Cool Things People Are Building with Google’s Gemini 4 Neon",
+      "url": "https://generativeai.pub/5-cool-things-people-are-building-with-googles-gemini-4-neon-a679ef33dfb4"
+    },
+    {
+      "id": "medium-9bfecfe003a9",
+      "date": "2026-11-18",
+      "title": "An AI Agent Edited My Trailer in DaVinci Resolve: 3 Patterns That Made It Reliable",
+      "url": "https://aiadvances.org/davinci-resolve-mcp-server-benchmark-9bfecfe003a9"
+    },
+    {
+      "id": "medium-78bf53b7a073",
+      "date": "2026-11-21",
+      "title": "Claude May Have Solved a 167-Year Math Mystery, Yet AI Can’t Find the Order Button?",
+      "url": "https://medium.com/@mikesulka/claude-may-have-solved-a-167-year-math-mystery-yet-ai-cant-find-the-order-button-78bf53b7a073"
+    },
+    {
+      "id": "medium-08aea4077e8f",
+      "date": "2026-11-13",
+      "title": "Fusing Tiny 3B LLMs to Rival Claude Opus 5.5 Quality",
+      "url": "https://levelup.gitconnected.com/fusing-tiny-3b-llms-to-rival-claude-opus-5-5-quality-08aea4077e8f"
+    },
+    {
+      "id": "medium-6dbfb692b0e7",
+      "date": "2026-11-21",
+      "title": "10 Brand New AI Tools That Could Change How You Work",
+      "url": "https://python.plainenglish.io/10-brand-new-ai-tools-that-could-change-how-you-work-6dbfb692b0e7"
+    },
+    {
+      "id": "medium-7dd28c46312e",
+      "date": "2026-11-21",
+      "title": "Gemini 4 Neon is the Best AI now, But There’s a Problem (Fully Tested)",
+      "url": "https://pub.towardsai.net/gemini-4-neon-is-the-best-ai-now-but-theres-a-problem-fully-tested-7dd28c46312e"
+    },
+    {
+      "id": "medium-3665b57f31b0",
+      "date": "2026-11-21",
+      "title": "Agentic Harness Engineering (02): The Orchestration Layer",
+      "url": "https://medium.com/codetodeploy/ai-agents-09-context-state-knowledge-memory-of-an-agentic-harness-3665b57f31b0"
+    },
+    {
+      "id": "medium-d3077e22924a",
       "date": "2026-11-19",
-      "title": "7 AI Tools That Feel Like Unfair Advantages (And Aren’t Just Recycled ChatGPT Wrappers)",
-      "url": "https://medium.com/@JustSnehal/7-ai-tools-that-feel-like-unfair-advantages-and-arent-just-recycled-chatgpt-wrappers-393279872425"
+      "title": "How to Ship a Public AI Agent Without Breaking the Budget",
+      "url": "https://medium.com/google-cloud/how-to-ship-a-public-ai-agent-without-breaking-the-budget-d3077e22924a"
+    },
+    {
+      "id": "medium-7ed583e09354",
+      "date": "2026-11-16",
+      "title": "I Finally Let AI Write My Code for 4 Months. I Didn’t Expect What It Would Do.",
+      "url": "https://medium.com/data-science-collective/i-let-ai-write-my-code-for-4-months-i-didnt-expect-what-it-would-do-7ed583e09354"
+    },
+    {
+      "id": "medium-728fb349c139",
+      "date": "2026-11-21",
+      "title": "10 AI Tools I Wish I Had Discovered Earlier",
+      "url": "https://python.plainenglish.io/10-ai-tools-i-wish-i-had-discovered-earlier-728fb349c139"
+    },
+    {
+      "id": "medium-e9893a9858c3",
+      "date": "2026-11-20",
+      "title": "Tencent Just Released a 220-Billion-Parameter AI Model That Uses Only 12 Billion at a Time",
+      "url": "https://pub.towardsai.net/tencent-just-released-a-220-billion-parameter-ai-model-that-uses-only-12-billion-at-a-time-e9893a9858c3"
+    },
+    {
+      "id": "medium-cb8debd5bbae",
+      "date": "2026-11-18",
+      "title": "How to Build an Always-On Agent You Can Trust at Work",
+      "url": "https://medium.com/ai-all-in/how-to-build-an-always-on-agent-you-can-trust-at-work-cb8debd5bbae"
+    },
+    {
+      "id": "medium-f3816d8b0c41",
+      "date": "2026-11-10",
+      "title": "Transformers for Mobile User Acquisition",
+      "url": "https://aiadvances.org/transformers-for-mobile-user-acquisition-f3816d8b0c41"
+    },
+    {
+      "id": "medium-8f10a445629a",
+      "date": "2026-11-20",
+      "title": "AI is becoming almost free. Here’s what’s actually driving the price down.",
+      "url": "https://medium.com/data-science-collective/ai-is-becoming-almost-free-heres-what-s-actually-driving-the-price-down-8f10a445629a"
+    },
+    {
+      "id": "medium-92c9919eafde",
+      "date": "2026-11-18",
+      "title": "Wait, China Is Not Catching Up In AI?",
+      "url": "https://medium.com/the-ai-brief/wait-china-is-not-catching-up-in-ai-92c9919eafde"
+    },
+    {
+      "id": "medium-f8e0f75c6aa6",
+      "date": "2026-11-23",
+      "title": "10 Best Free AI Tools You Should Be Using in 2026",
+      "url": "https://nitingavhane.medium.com/10-best-free-ai-tools-you-should-be-using-in-2026-f8e0f75c6aa6"
+    },
+    {
+      "id": "medium-12669f6ad388",
+      "date": "2026-11-16",
+      "title": "Anthropic Killed 100s of Startups with New Claude Features",
+      "url": "https://generativeai.pub/anthropic-killed-100s-of-startups-with-new-claude-features-12669f6ad388"
+    },
+    {
+      "id": "medium-0985b8a6e864",
+      "date": "2026-11-20",
+      "title": "OpenAI Just Dissolved a Team Because a General Model Did Its Job Better. Your Specialist ML Team Is Next.",
+      "url": "https://medium.com/@claudio.a.lupi/openai-just-dissolved-a-team-because-a-general-model-did-its-job-better-0985b8a6e864"
+    },
+    {
+      "id": "medium-b0785b7ece13",
+      "date": "2026-11-22",
+      "title": "Your LLM Doesn’t Need a Bigger Brain. It Needs a Judge.",
+      "url": "https://aiadvances.org/your-llm-doesnt-need-a-bigger-brain-it-needs-a-judge-b0785b7ece13"
+    },
+    {
+      "id": "medium-d79cb524479c",
+      "date": "2026-11-23",
+      "title": "Europe’s New 6.8B AI Model Uses Attention in Only 7 of Its 36 Layers",
+      "url": "https://pub.towardsai.net/europes-new-6-8b-ai-model-uses-attention-in-only-7-of-its-36-layers-d79cb524479c"
+    },
+    {
+      "id": "medium-7a1bb60a503f",
+      "date": "2026-11-19",
+      "title": "7 New Claude Features That Make You a Claude Power User (Most People Still Use It the Old Way)",
+      "url": "https://medium.com/ai-engineering-simplified/7-new-claude-features-that-make-you-a-claude-power-user-most-people-still-use-it-the-old-way-7a1bb60a503f"
+    },
+    {
+      "id": "medium-8ff8b3592e12",
+      "date": "2026-11-23",
+      "title": "This Is How ChatGPT Dots Made Me Realize What an AI Assistant Should Actually Do",
+      "url": "https://medium.com/@hejrene/this-is-how-chatgpt-dots-made-me-realize-what-an-ai-assistant-should-actually-do-8ff8b3592e12"
+    },
+    {
+      "id": "medium-3017c056124d",
+      "date": "2026-11-19",
+      "title": "AI Labs Poisoned Our Infrastructure; Now It’s Collapsing Before Our Eyes, and Guess Who’s Selling Us the Antidote",
+      "url": "https://medium.com/predict/ai-labs-poisoned-our-infrastructure-3017c056124d"
+    },
+    {
+      "id": "medium-c93893a66b9b",
+      "date": "2026-11-19",
+      "title": "Please, Do NOT Invest In Local AI.",
+      "url": "https://medium.com/the-ai-brief/please-do-not-invest-in-local-ai-c93893a66b9b"
+    },
+    {
+      "id": "medium-ff7e6a4b878e",
+      "date": "2026-11-19",
+      "title": "Wall Street Is Wrong About Anthropic",
+      "url": "https://albertoromgar.medium.com/wall-street-is-wrong-about-anthropic-ff7e6a4b878e"
+    },
+    {
+      "id": "medium-f03e2a37c6c2",
+      "date": "2026-11-23",
+      "title": "AI Helped Prove the Riemann Hypothesis. So Why Isn’t It Done?",
+      "url": "https://aiadvances.org/ai-helped-prove-the-riemann-hypothesis-so-why-isnt-it-done-f03e2a37c6c2"
+    },
+    {
+      "id": "medium-805147c82d4a",
+      "date": "2026-11-17",
+      "title": "10 AI Projects You Probably Didn’t Know Were Open Source",
+      "url": "https://nitingavhane.medium.com/10-ai-projects-you-probably-didnt-know-were-open-source-805147c82d4a"
+    },
+    {
+      "id": "medium-bd7c4a7dd9d4",
+      "date": "2026-11-23",
+      "title": "Serving LLMs on Kubernetes: Why Your Service Is the Wrong Backend",
+      "url": "https://itnext.io/serving-llms-on-kubernetes-why-your-service-is-the-wrong-backend-bd7c4a7dd9d4"
+    },
+    {
+      "id": "medium-6c0c6ff244c6",
+      "date": "2026-11-09",
+      "title": "Build Your First Local AI Agent",
+      "url": "https://levelup.gitconnected.com/build-your-first-local-ai-agent-6c0c6ff244c6"
+    },
+    {
+      "id": "medium-84915ba3ef61",
+      "date": "2026-11-21",
+      "title": "Has AI Finally Solved the Riemann Hypothesis?",
+      "url": "https://vplevris.medium.com/has-ai-finally-solved-the-riemann-hypothesis-84915ba3ef61"
+    },
+    {
+      "id": "medium-69fd9a17e92e",
+      "date": "2026-11-11",
+      "title": "If You’re Still Counting Six Fingers in AI Images, You’ve Missed the Point.",
+      "url": "https://medium.com/@halfjourney/if-youre-still-counting-six-fingers-in-ai-images-you-ve-missed-the-point-69fd9a17e92e"
+    },
+    {
+      "id": "medium-50ac63d5cb72",
+      "date": "2026-11-21",
+      "title": "Why Smarter LLMs Still Break Your Repo: 10 Tools That Upgrade AI Coding Agents",
+      "url": "https://medium.com/@JustSnehal/why-smarter-llms-still-break-your-repo-10-tools-that-upgrade-ai-coding-agents-50ac63d5cb72"
+    },
+    {
+      "id": "medium-6d55b2598541",
+      "date": "2026-11-20",
+      "title": "The man who taught millions machine learning just gave away the AI coworker others charge for",
+      "url": "https://levelup.gitconnected.com/the-man-who-taught-millions-machine-learning-just-gave-away-the-ai-coworker-others-charge-for-6d55b2598541"
+    },
+    {
+      "id": "medium-07d258d70980",
+      "date": "2026-11-24",
+      "title": "What’s an Agentic Graph? How My AI Analyst Researches Stocks and Tracks the Market",
+      "url": "https://aiadvances.org/whats-an-agentic-graph-how-my-ai-analyst-researches-stocks-and-tracks-the-market-07d258d70980"
+    },
+    {
+      "id": "medium-1a337433d12e",
+      "date": "2026-11-24",
+      "title": "3 technical choices for running sound AI continuously on small devices",
+      "url": "https://medium.com/cochl/3-technical-choices-for-running-sound-ai-continuously-on-small-devices-1a337433d12e"
+    },
+    {
+      "id": "medium-8395269bd131",
+      "date": "2026-11-23",
+      "title": "How NVIDIA’s Crisis Could End the AI Industry as We Know It",
+      "url": "https://albertoromgar.medium.com/how-nvidias-crisis-could-end-the-ai-industry-as-we-know-it-8395269bd131"
+    },
+    {
+      "id": "medium-44970ae9bb63",
+      "date": "2026-11-19",
+      "title": "OpenAI Just Released Astra 6.2 And Nobody Expected It to Be This Ridiculous",
+      "url": "https://medium.com/the-ai-studio/openai-just-released-astra-6-2-and-nobody-expected-it-to-be-this-ridiculous-44970ae9bb63"
+    },
+    {
+      "id": "medium-74997dc26341",
+      "date": "2026-10-20",
+      "title": "What Is the Best Local LLM for Mac in 2026? (M1 to M6)",
+      "url": "https://medium.com/data-science-collective/what-is-the-best-local-llm-for-mac-in-2026-74997dc26341"
+    },
+    {
+      "id": "medium-c101bfe6fa66",
+      "date": "2026-11-24",
+      "title": "Learning Faster With AI Has a Bill — It Arrives 45 Days Later",
+      "url": "https://medium.com/illumination/learning-faster-with-ai-has-a-bill-it-arrives-45-days-later-c101bfe6fa66"
+    },
+    {
+      "id": "medium-f5aa8697c9e9",
+      "date": "2026-09-15",
+      "title": "Here’s How I Can Tell You’re Secretly Using ChatGPT",
+      "url": "https://medium.com/the-daily-draft/heres-how-i-can-tell-you-re-secretly-using-chatgpt-f5aa8697c9e9"
+    },
+    {
+      "id": "medium-da90ebc8c23a",
+      "date": "2026-11-25",
+      "title": "Looped Transformers: Teaching an LLM to Think Longer Without Making It Bigger",
+      "url": "https://aiadvances.org/looped-transformers-teaching-an-llm-to-think-longer-without-making-it-bigger-da90ebc8c23a"
+    },
+    {
+      "id": "medium-5a3bab84e310",
+      "date": "2026-11-25",
+      "title": "Sandboxes, Part 2: Your Agent Shouldn’t Hold the Keys",
+      "url": "https://aiadvances.org/sandboxes-part-2-your-agent-shouldnt-hold-the-keys-5a3bab84e310"
+    },
+    {
+      "id": "medium-f79b130118f4",
+      "date": "2026-11-23",
+      "title": "Anthropic Just Dropped 4 MASSIVE Claude Features",
+      "url": "https://uxplanet.org/anthropic-just-dropped-4-massive-claude-features-f79b130118f4"
+    },
+    {
+      "id": "medium-71cde8de8f80",
+      "date": "2026-11-22",
+      "title": "Forget Claude Code: Reverse Engineer Anything 10x Better (Full Guide)",
+      "url": "https://medium.com/data-science-collective/forget-claude-code-reverse-engineer-anything-10x-better-full-guide-71cde8de8f80"
+    },
+    {
+      "id": "medium-4b41f7e6d3d6",
+      "date": "2026-11-23",
+      "title": "The Best 32GB Local AI Model Just Changed",
+      "url": "https://medium.com/the-ai-brief/the-best-32gb-local-ai-model-just-changed-4b41f7e6d3d6"
+    },
+    {
+      "id": "medium-18fea3f0e6f2",
+      "date": "2026-11-18",
+      "title": "What Anthropic’s IPO Filing Told Investors That It Never Told Developers",
+      "url": "https://mujtaba-raza.medium.com/what-anthropics-ipo-filing-told-investors-that-it-never-told-developers-18fea3f0e6f2"
+    },
+    {
+      "id": "medium-8d49a5ad4d33",
+      "date": "2026-11-26",
+      "title": "Gemini Notebook Can Now Build Interactive Websites. Here Are 7 Things I’d Create",
+      "url": "https://medium.com/@mubashirburfat4/gemini-notebook-can-now-build-interactive-websites-here-are-7-things-id-create-8d49a5ad4d33"
+    },
+    {
+      "id": "medium-853361ad3eff",
+      "date": "2026-11-25",
+      "title": "AI has a new fancy (and scary) architecture",
+      "url": "https://medium.com/@ignacio.de.gregorio.noblejas/ai-has-a-new-fancy-and-scary-architecture-853361ad3eff"
+    },
+    {
+      "id": "medium-8787765faa10",
+      "date": "2026-11-14",
+      "title": "I Missed the Claude Skills With 300,000 Stars. These 7 Are the Ones I’d Install Now.",
+      "url": "https://generativeai.pub/i-missed-the-claude-skills-with-300-000-stars-these-7-are-the-ones-id-install-now-8787765faa10"
+    },
+    {
+      "id": "medium-ba18c2684752",
+      "date": "2026-11-06",
+      "title": "This Guy Is Going Viral for His Hilarious AI Takedowns",
+      "url": "https://medium.com/ai-ai-oh/this-guy-is-going-viral-for-his-hilarious-ai-takedowns-ba18c2684752"
+    },
+    {
+      "id": "medium-67103329c989",
+      "date": "2026-11-27",
+      "title": "What Anthropic’s Workforce Data Says About AI at Work",
+      "url": "https://aiadvances.org/what-anthropics-workforce-data-says-about-ai-at-work-67103329c989"
     }
   ]
 }

@@ -1,0 +1,151 @@
+{
+  "collection": "medium",
+  "start": "2026-11-28",
+  "end": "2026-11-28",
+  "reviewedAt": "2026-11-28",
+  "dateBasis": "included",
+  "expectedCount": 57,
+  "title": {
+    "pt": "O que os testes de IA mostram sobre custo, controle e aprendizagem",
+    "en": "What AI tests show about cost, control and learning"
+  },
+  "summary": {
+    "pt": "A edição reúne leituras sobre o custo de executar modelos, a supervisão de agentes e a verificação de resultados. Em inferência, pesos armazenados, operações por token e tempo até uma resposta utilizável medem aspectos diferentes. Em agentes, a confiabilidade depende de confirmar resultados, preservar registros e limitar permissões, com exemplos que vão de um quadro fictício de tarefas a testes de roteamento em GPUs. As leituras sobre matemática, educação e trabalho mostram por que distinguir um resultado medido de uma explicação proposta muda a interpretação. A edição inclui relatos de engenharia, análises de anúncios, guias e ensaios. As evidências variam em alcance, da demonstração pontual ao ensaio randomizado discutido em uma das leituras.",
+    "en": "This edition brings together readings on the cost of running models, the oversight of agents and the verification of results. In inference, stored weights, operations per token and time to a usable answer measure different things. For agents, reliability depends on confirming results, preserving records and limiting permissions, with examples ranging from a fictional task board to GPU routing tests. The readings on mathematics, education and work show why distinguishing measured results from proposed explanations changes the interpretation. The edition includes engineering accounts, analyses of announcements, guides and essays. Evidence ranges from one-off demonstrations to a randomized trial discussed in one of the readings."
+  },
+  "method": {
+    "pt": "O inventário observado por volta de 08h33 de Brasília em 28/11/2026 continha 58 candidatos capturados de 21 a 27/11. A fila registra datas de captura com precisão de dia. A curadoria examinou os originais na sessão autenticada, incorporou 57 em 28/11 e registrou uma exclusão editorial. As publicações originais vão de 15/09 a 27/11, com as datas mantidas nas fichas. O período da edição é o da incorporação. A seleção representa a fila observada, e resultados de anúncios, benchmarks e relatos valem para suas condições de origem.",
+    "en": "The inventory observed at about 08:33 Brasília time on 28 November 2026 contained 58 candidates collected from 21 to 27 November. The queue records collection dates with day-level precision. The review examined the originals in the authenticated session, added 57 on 28 November and recorded one editorial exclusion. Original publication dates range from 15 September to 27 November and remain on the individual records. This edition is dated by inclusion. The selection represents the observed queue, and claims in announcements, benchmarks and reports apply to their original conditions."
+  },
+  "topics": [
+    {
+      "title": {
+        "pt": "Fundamentos técnicos de IA",
+        "en": "Technical foundations of AI"
+      },
+      "summary": {
+        "pt": "O relato da Cochl sobre inferência acústica em microcontroladores distingue manter a cadência de análise de entregar um alerta. O ensaio curto e a demonstração de campo verificam a passagem do evento pelo sistema. Alcance, autonomia e precisão em diferentes ambientes ainda exigem medição.",
+        "en": "Cochl’s account of acoustic inference on microcontrollers distinguishes keeping up with incoming audio from delivering an alert. A short run and field demonstration verify that events pass through the system. Range, battery life and accuracy across environments still need measurement."
+      },
+      "sourceIds": [
+        "medium-1a337433d12e"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Transformers e mecanismos de atenção",
+        "en": "Transformers and attention mechanisms"
+      },
+      "summary": {
+        "pt": "A atenção pode ser combinada com mecanismos recorrentes, reaplicada com pesos compartilhados ou usada para representar sequências de eventos. Os três textos distinguem parâmetros armazenados, computação por passo e memória de contexto. A proposta de previsão de instalações em publicidade móvel especifica como testar o efeito de cada componente, enquanto os relatos sobre Olala e transformers recorrentes discutem resultados de configurações distintas.",
+        "en": "Attention can be combined with recurrent mechanisms, reapplied with shared weights or used to represent sequences of events. The three readings distinguish stored parameters, computation per step and context memory. The mobile advertising proposal specifies how to test each component’s contribution, while the accounts of Olala and recurrent transformers discuss results from different configurations."
+      },
+      "sourceIds": [
+        "medium-f3816d8b0c41",
+        "medium-d79cb524479c",
+        "medium-da90ebc8c23a"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Modelos de linguagem e IA generativa",
+        "en": "Language models and generative AI"
+      },
+      "summary": {
+        "pt": "Os ensaios reúnem exemplos de imagens sintéticas, detecção de texto, assistentes de voz e raciocínio em estados internos. Uma imagem convincente e uma resposta fluente têm valor limitado como prova de origem ou de exatidão. Os casos são ilustrações e não estimam taxas de acerto. Os efeitos de arquiteturas recorrentes sobre monitoramento e demanda por infraestrutura são cenários discutidos em uma das fontes.",
+        "en": "The essays bring together examples of synthetic imagery, text detection, voice assistants and reasoning in hidden states. Convincing images and fluent answers offer limited evidence of origin or accuracy. The cases are illustrations and do not estimate success rates. One source discusses scenarios for how recurrent architectures might affect monitoring and demand for infrastructure."
+      },
+      "sourceIds": [
+        "medium-69fd9a17e92e",
+        "medium-f5aa8697c9e9",
+        "medium-853361ad3eff",
+        "medium-ba18c2684752"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Agentes, RAG e aplicações",
+        "en": "Agents, RAG and applications"
+      },
+      "summary": {
+        "pt": "Os textos tratam de agentes que retomam trabalho, selecionam ferramentas, usam memória e dividem tarefas entre modelos. Os exemplos mostram como testar limites de autorização e recuperar operações sem repetir efeitos. Uma proposta mantém credenciais e registros de auditoria fora do ambiente que executa código gerado. Em um teste de inferência no Kubernetes, ganhos de cache e de latência total coexistiram com piora na cauda do tempo até o primeiro token em uma configuração com GPU.",
+        "en": "These readings cover agents that resume work, select tools, use memory and divide tasks among models. The examples show how to test authorization boundaries and recover operations without repeating side effects. One proposal keeps credentials and audit records outside the environment that executes generated code. In a Kubernetes inference test, better cache reuse and lower total latency coincided with a worse tail for time to first token in one GPU configuration."
+      },
+      "sourceIds": [
+        "medium-f150c10ad683",
+        "medium-6486613159d9",
+        "medium-9bfecfe003a9",
+        "medium-08aea4077e8f",
+        "medium-3665b57f31b0",
+        "medium-d3077e22924a",
+        "medium-7ed583e09354",
+        "medium-cb8debd5bbae",
+        "medium-b0785b7ece13",
+        "medium-7a1bb60a503f",
+        "medium-bd7c4a7dd9d4",
+        "medium-6c0c6ff244c6",
+        "medium-50ac63d5cb72",
+        "medium-07d258d70980",
+        "medium-5a3bab84e310",
+        "medium-f79b130118f4",
+        "medium-71cde8de8f80",
+        "medium-8787765faa10"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Estratégia, mercado e impactos",
+        "en": "Strategy, market and impacts"
+      },
+      "summary": {
+        "pt": "Comparativos de lançamentos e de inferência local distinguem preço por token, custo por tarefa, memória e qualidade. Uma mudança de índice alterou a distância entre modelos previamente avaliados, o que limita comparações entre datas. As leituras sobre empresas separam os recursos apresentados em anúncios, os riscos descritos em documentos corporativos e as previsões dos autores. Uma análise do emprego na Anthropic explicita os limites de generalizar medidas internas de produção e contratação.",
+        "en": "Launch comparisons and local-inference reviews distinguish token price, cost per task, memory and quality. A change in an index altered the gap between previously evaluated models, limiting comparisons over time. The company-focused readings distinguish announced features, risks described in corporate filings and authors’ forecasts. An analysis of employment at Anthropic makes clear the limits of generalizing internal output and hiring measures."
+      },
+      "sourceIds": [
+        "medium-df9c1a45100e",
+        "medium-5f0aa025ca5b",
+        "medium-e8d6617582c8",
+        "medium-49eedc179c0c",
+        "medium-a679ef33dfb4",
+        "medium-6dbfb692b0e7",
+        "medium-7dd28c46312e",
+        "medium-e9893a9858c3",
+        "medium-8f10a445629a",
+        "medium-92c9919eafde",
+        "medium-12669f6ad388",
+        "medium-0985b8a6e864",
+        "medium-3017c056124d",
+        "medium-c93893a66b9b",
+        "medium-ff7e6a4b878e",
+        "medium-8395269bd131",
+        "medium-44970ae9bb63",
+        "medium-74997dc26341",
+        "medium-4b41f7e6d3d6",
+        "medium-18fea3f0e6f2",
+        "medium-67103329c989"
+      ]
+    },
+    {
+      "title": {
+        "pt": "Aprendizado, pesquisa e produtividade",
+        "en": "Learning, research and productivity"
+      },
+      "summary": {
+        "pt": "Os textos sobre matemática distinguem obter um argumento, verificar sua formulação em Lean e produzir uma explicação que outras pessoas consigam estudar. As propostas sobre a hipótese de Riemann aparecem como alegações em avaliação. Em educação, a leitura de um ensaio randomizado sobre retenção distingue os resultados medidos após 45 dias de explicações sobre hábitos de estudo. Guias de ferramentas e agentes de trabalho discutem verificação de fontes, permissões de compartilhamento e revisão humana.",
+        "en": "The mathematics readings distinguish finding an argument, checking its Lean formalization and producing an explanation others can study. The proposed proofs of the Riemann hypothesis are treated as claims under evaluation. In education, a reading on a randomized retention trial distinguishes measured outcomes after 45 days from explanations about study habits. Guides to tools and workplace agents discuss checking sources, sharing permissions and human review."
+      },
+      "sourceIds": [
+        "medium-78bf53b7a073",
+        "medium-728fb349c139",
+        "medium-f8e0f75c6aa6",
+        "medium-8ff8b3592e12",
+        "medium-f03e2a37c6c2",
+        "medium-805147c82d4a",
+        "medium-84915ba3ef61",
+        "medium-6d55b2598541",
+        "medium-c101bfe6fa66",
+        "medium-8d49a5ad4d33"
+      ]
+    }
+  ]
+}
