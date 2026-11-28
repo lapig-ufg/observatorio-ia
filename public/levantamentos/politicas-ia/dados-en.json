@@ -163,7 +163,7 @@
       "img": "Permitidas c/ declaração",
       "verif": "P",
       "url": "https://journals.aps.org/authors/appropriate-use-ai-tools",
-      "nota": "Substantive use must be disclosed in the article: Methods for research, captions for figures and Acknowledgments for other uses. Light polishing is exempt. Reviewers may organise and improve their own text, with disclosure beyond light editing and with confidentiality safeguards; material must not be submitted to unrestricted tools. Editors use tools managed/licensed by APS. Visualisations must be verified; promotional art is restricted."
+      "nota": "APS requires disclosure of substantive use at submission and in the published AI Use Disclosure below the conflict-of-interest statement. Add details in Methods for research uses and in the figure caption for visual uses. Light editing and polishing are exempt. Reviewers may organize ideas, improve or translate the report and use AI as a learning aid, while retaining responsibility for their judgement. Use beyond light editing must be disclosed to the editor. Tools must not train on confidential material, claim rights over it or restrict its reuse. Editors use only APS-managed and licensed tools. Visualizations must accurately reflect verifiable data and respect third-party rights. Generated promotional artwork is restricted."
     },
     {
       "nome": "American Mathematical Society",
@@ -2302,14 +2302,14 @@
       "area": "MUL",
       "sub": "Multidisciplinary",
       "geo": "EUA",
-      "ano": 2025,
+      "ano": 2026,
       "gen": "Permitida",
       "loc": "Múltiplos",
       "rev": "Condicionado",
       "img": "Permitidas c/ declaração",
       "verif": "P",
       "url": "https://www.ucpress.edu/about/ai-policies",
-      "nota": "The general guidelines, dated July 31, 2025, cover books, journals and other works, with possible adaptations by editorial teams. AI may improve human-written text. Authors must inform the editor and disclose in the manuscript any use to generate text or images or to collect or process data. AI cannot claim authorship. Reviewers must not upload manuscripts or compose reviews with AI, and must disclose any AI support used to assess claims. Restrictions apply to journal editors and vendors that handle submitted materials. The current policy also describes closed, university-licensed tools, staff review of outputs and a prohibition on using submitted manuscripts for model training."
+      "nota": "General guidance updated on 16 November 2026 for books, journals and other works, with possible adaptations by individual teams. It allows improvements to human-written text and requires notifying the editor and disclosing AI use in the manuscript when producing text or images or collecting or processing data. Authorship remains human. Reviewers do not upload manuscripts or compose reviews with AI. They disclose any support in evaluating claims. External contractors do not upload proposals or manuscripts or generate original content for publications. UC Press may use closed, university-licensed tools with human review and does not use submissions for model training. Approved vendor agreements must meet the university’s safeguards."
     },
     {
       "nome": "Edusp (livros)",
@@ -2334,12 +2334,12 @@
       "geo": "Europa",
       "ano": 2026,
       "gen": "Permitida",
-      "loc": "Métodos",
+      "loc": "Múltiplos",
       "rev": "Condicionado",
-      "img": "Não trata",
+      "img": "Restritas",
       "verif": "P",
       "url": "https://benjamins.com/content/authors/ai-policy",
-      "nota": "Policy updated on 6 July 2026. Report AI use in research or preparation in the description of tools or methods. Authors are accountable for content and for the integrity of results and data. Editors use AI only when indispensable and in a secure, closed environment. Reviewers may not generate reports with AI and may refine language only with secure, closed tools that do not train on manuscripts or reviews. The policy has no specific clause on images."
+      "nota": "Updated on 26 November 2026. Basic proofreading, reference formatting and preliminary translation of source material need no disclosure. Substantive uses in writing, translation, code, data or illustrations must be disclosed at submission, in the cover letter and in the work, with human verification. Specialized scientific tools are documented in Methods without a separate declaration. Disclosed explanatory illustrations and data visualizations are allowed. Images that constitute data, such as scans and spectrograms, are outside this permission. Fabrication or manipulation of results is prohibited, and sensitive data must be protected. Reviewers may neither generate reports nor translate manuscripts with AI. They may polish their own reports with secure, closed tools. Editors may use essential secure assistance after discussing it with the publisher and retain responsibility for decisions."
     },
     {
       "nome": "Revista da Abralin",
@@ -2715,6 +2715,83 @@
       "verif": "P",
       "url": "https://www.periodicos.ufrn.br/RevSaridh/diretrizesdeusodeia",
       "nota": "Saridh reserves authorship and original scholarly work to people. Any AI use must be disclosed in Methods and indicated in the submission conditions, with tool, purpose, version, context, and date. AI-generated figures and tables are barred except under the stated, explicitly justified exceptions. Assessment, reports, and judgment are human tasks; editors may use AI for administrative work without delegating decisions. The policy does not specify tool-level confidentiality safeguards."
+    },
+    {
+      "nome": "Oxford University Press (livros)",
+      "tipo": "Editora",
+      "area": "MUL",
+      "sub": "Scholarly book publishing",
+      "geo": "Internacional",
+      "ano": null,
+      "gen": "Restrita",
+      "loc": "Múltiplos",
+      "rev": "Vedado",
+      "img": "Restritas",
+      "verif": "P",
+      "url": "https://academic.oup.com/pages/for-authors/books/author-use-of-artificial-intelligence",
+      "nota": "OUP’s guidance for books and reference works reserves reasoning, analysis and conclusions for human authors. AI-created content, including data and visual elements, requires written permission and may have to be replaced. Authors discuss use early with the acquisitions editor, disclose it in the submission form and acknowledge it in the text or notes. Authors must avoid tools that reuse or train on their content without an opt-out. Peer reviewers exercise independent judgement and must not upload proposals or manuscripts to generative AI tools.",
+      "titulo": "Oxford University Press (books)"
+    },
+    {
+      "nome": "Princeton University Press (livros)",
+      "tipo": "Editora",
+      "area": "MUL",
+      "sub": "Scholarly book publishing",
+      "geo": "EUA",
+      "ano": null,
+      "gen": "Permitida",
+      "loc": "Múltiplos",
+      "rev": "Vedado",
+      "img": "Permitidas c/ declaração",
+      "verif": "P",
+      "url": "https://press.princeton.edu/resources/prepare-and-submit-your-manuscript",
+      "nota": "Princeton University Press requires authors to disclose AI-created text or illustrations to the editor and in the manuscript, with a description and applicable references. Basic editorial assistance need not be detailed. Human authors remain accountable. In its July 2026 note to publishing partners, the Press asks them to keep its manuscripts, proposals and illustrations out of public or private AI systems. Peer review depends on human reading, judgement and confidentiality. The sources examined do not specify separate rules for synthetic data.",
+      "titulo": "Princeton University Press (books)"
+    },
+    {
+      "nome": "Engineering Perspective",
+      "tipo": "Periódico",
+      "area": "ENG",
+      "sub": "Engineering",
+      "geo": "Internacional",
+      "ano": null,
+      "gen": "Vedada",
+      "loc": "Múltiplos",
+      "rev": "Vedado",
+      "img": "Restritas",
+      "verif": "P",
+      "url": "https://dergipark.org.tr/en/pub/engineeringperspective/page/20603",
+      "nota": "The journal prohibits drafting manuscript content or creating and modifying illustrations with AI. It allows routine language polishing, translation and limited support with data, code and references, without fabrication or presenting synthetic material as empirical evidence. Every manuscript includes a dedicated declaration, including a negative declaration. Research uses also go in Methods. Visual processing can be considered only as a justified, disclosed and reproducible research method. Reviewers preserve confidentiality and produce their own assessments without uploading materials to public or external tools. Editors retain responsibility for merit and decisions and may use only approved tools for limited technical tasks."
+    },
+    {
+      "nome": "Transactions on Engineering and Computing Sciences",
+      "tipo": "Periódico",
+      "area": "ENG",
+      "sub": "Engineering and computing",
+      "geo": "Internacional",
+      "ano": null,
+      "gen": "Permitida",
+      "loc": "Não especifica",
+      "rev": "Vedado",
+      "img": "Restritas",
+      "verif": "P",
+      "url": "https://scholarpublishing.org/journals/index.php/TECS/policies/generative-ai",
+      "nota": "TECS permits AI assistance under human authorship and verification of text, code, analyses and figures. Disclose substantive use with the tool, version and purpose, specifying where code was generated or substantially modified when relevant. Routine proofreading and standard code completion are exempt. The policy prohibits image manipulation and fabrication of data, results or references. Reviewers must not upload manuscripts, data or code to generative tools or delegate assessment. Editors protect confidentiality and review integrity."
+    },
+    {
+      "nome": "Revista Ciência Agronômica",
+      "tipo": "Periódico",
+      "area": "AGR",
+      "sub": "Agronomy",
+      "geo": "Brasil",
+      "ano": null,
+      "gen": "Permitida",
+      "loc": "Métodos",
+      "rev": "Não trata",
+      "img": "Não trata",
+      "verif": "P",
+      "url": "https://periodicos.ufc.br/revistacienciaagronomica/politicaeditorial",
+      "nota": "Revista Ciência Agronômica, published by the Federal University of Ceará’s Agricultural Sciences Center, requires human authorship and full oversight. All AI use, including translation, data analysis, language editing and formatting, must be described in Materials and Methods or its equivalent, with the tool, version and parameters when possible. Research use must explain limitations and bias. The clause examined gives no separate permission for AI visuals or AI instructions specific to reviewers. The editorial process remains subject to its integrity and confidentiality requirements."
     }
   ],
   "areas": {
@@ -2747,25 +2824,25 @@
     ],
     [
       "Brazil: dataset description, not a census",
-      "41 of 48 Brazilian journals in the dataset have a coded AI rule (85% of the sample). Among the additions, Revista VIS and Perspectivas em Diálogo require a statement at submission even when AI has not been used. The proportions describe the published dataset."
+      "42 of 49 Brazilian journals in the dataset have a coded AI policy (86% of the sample). Revista Ciência Agronômica requires disclosure in Materials and Methods for AI use at any stage. These proportions describe the published dataset."
     ],
     [
       "Coverage and limits",
-      "The 21 November 2026 review covered all 181 entries in the inventory. It added 10 policies, updated five entries and reconfirmed 166. Source review ended on 22 November, with actual consultation dates in the history."
+      "The 28 November 2026 review is in progress. The review has reconciled 38 of 186 records across all four policy fields, with 5 additions, 3 updates and 30 reconfirmations. The 148 unresolved records retain their previous codes. The last full review was the 21 November 2026 cycle."
     ]
   ],
   "cross": [
     [
       "Scope of comparison",
-      "Purposive sample of 181 entries. The 21 November 2026 review covered all 181 entries in the inventory. It added 10 policies, updated five entries and reconfirmed 166. Source review ended on 22 November, with actual consultation dates in the history."
+      "Purposive sample of 186 entities. The 28 November 2026 review is in progress. The review has reconciled 38 of 186 records across all four policy fields, with 5 additions, 3 updates and 30 reconfirmations. The 148 unresolved records retain their previous codes. The last full review was the 21 November 2026 cycle."
     ],
     [
       "Text generation",
-      "112 Allowed, 35 Restricted, 14 Prohibited, 17 No rule located and 3 Not applicable. The notes document exceptions and AI as a research method."
+      "115 Allowed, 36 Restricted, 15 Prohibited, 17 No rule located and 3 Not applicable. See notes for exceptions and AI as a research method."
     ],
     [
       "Peer review",
-      "105 entries condition use, 18 prohibit it, and 58 have no coded provision. See the notes for the conditions."
+      "105 records allow conditional use, 22 prohibit use and 59 have no coded provision. See individual notes for conditions."
     ],
     [
       "Images",
@@ -2777,7 +2854,7 @@
     ],
     [
       "Brazil",
-      "41/48 journals have a coded rule (85% of the sample). 22/48 have a coded reviewer provision."
+      "42/49 journals have a coded clause (86% of the sample). 22/49 have a coded provision for reviewers."
     ]
   ],
   "trends": {
@@ -2788,11 +2865,11 @@
         "**Coded dataset in this area:** 27 Allowed; 2 Restricted; 2 Prohibited; 3 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 25 records with conditional use, 3 with prohibition and 6 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 21 of 34 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Review cycle of 21 November 2026:** 35 of 35 area records. Reconciled sources include Journal of Open Source Software (JOSS), Transactions on Machine Learning Research (TMLR), The Electrochemical Society (ECS)."
+        "**Review cycle of 28 November 2026:** 13 of 35 area records. Reconciled sources include American Physical Society (APS), American Chemical Society (ACS), American Mathematical Society."
       ],
       "brasil": "3 of 4 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 35/35 records reconciled across all four fields for the 21 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 13/35 records reconciled across all four fields for the 28 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "BIO": {
       "sub": "General Biology, Genetics, Botany, Zoology, Ecology, Morphology, Physiology, Biochemistry, Biophysics, Pharmacology, Immunology, Microbiology, Parasitology",
@@ -2801,24 +2878,24 @@
         "**Coded dataset in this area:** 6 Allowed; 7 Restricted; 0 Prohibited; 0 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 6 records with conditional use, 0 with prohibition and 7 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 10 of 13 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Review cycle of 21 November 2026:** 13 of 13 area records. Reconciled sources include Brazilian Journal of Biology, Acta Botanica Brasilica (SBB), Biota Neotropica."
+        "**Review cycle of 28 November 2026:** 1 of 13 area records. Reconciled sources include Ecological Society of America (ESA)."
       ],
       "brasil": "4 of 4 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 13/13 records reconciled across all four fields for the 21 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 1/13 records reconciled across all four fields for the 28 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "ENG": {
       "sub": "Civil, mining, materials, chemical, nuclear, sanitary, production, mechanical, electrical, biomedical, naval, aerospace and transport engineering",
       "headline": "IEEE and ASME illustrate different rules within the same area",
       "trends": [
-        "**Coded dataset in this area:** 7 Allowed; 0 Restricted; 1 Prohibited; 1 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
-        "**Reviewing:** 3 records with conditional use, 1 with prohibition and 5 with no coded provision. Read the conditions in each note and source.",
-        "**Images:** 2 of 9 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Review cycle of 21 November 2026:** 9 of 9 area records. Reconciled sources include Rev. Brasileira de Recursos Hídricos (ABRHidro), Gestão & Produção, Society of Petroleum Engineers (SPE)."
+        "**Coded dataset in this area:** 8 Allowed; 0 Restricted; 2 Prohibited; 1 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
+        "**Reviewing:** 3 records with conditional use, 3 with prohibition and 5 with no coded provision. Read the conditions in each note and source.",
+        "**Images:** 4 of 11 comparable records have a coded rule; conceptual illustrations are not experimental data.",
+        "**Review cycle of 28 November 2026:** 2 of 11 area records. Reconciled sources include Engineering Perspective, Transactions on Engineering and Computing Sciences."
       ],
       "brasil": "2 of 3 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 9/9 records reconciled across all four fields for the 21 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 2/11 records reconciled across all four fields for the 28 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "SAU": {
       "sub": "Medicine, Dentistry, Pharmacy, Nursing, Nutrition, Public Health, Speech-Language Pathology, Physiotherapy and Occupational Therapy, Physical Education",
@@ -2827,24 +2904,24 @@
         "**Coded dataset in this area:** 16 Allowed; 1 Restricted; 0 Prohibited; 0 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 10 records with conditional use, 3 with prohibition and 4 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 14 of 17 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Review cycle of 21 November 2026:** 20 of 20 area records. Reconciled sources include Arq. Brasileiros de Cardiologia (SBC-Cardiologia), Rev. Soc. Bras. Medicina Tropical, NIH."
+        "**Review cycle of 28 November 2026:** 4 of 20 area records. Reconciled sources include ICMJE, WAME, BMJ."
       ],
       "brasil": "5 of 5 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 20/20 records reconciled across all four fields for the 21 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 4/20 records reconciled across all four fields for the 28 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "AGR": {
       "sub": "Agronomy, Forest Resources and Forestry, Agricultural Engineering, Animal Science, Veterinary Medicine, Fisheries, Food Science and Technology",
       "headline": "Use as a research method differs from generating the manuscript",
       "trends": [
-        "**Coded dataset in this area:** 3 Allowed; 6 Restricted; 0 Prohibited; 3 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
-        "**Reviewing:** 3 records with conditional use, 2 with prohibition and 7 with no coded provision. Read the conditions in each note and source.",
-        "**Images:** 7 of 12 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Review cycle of 21 November 2026:** 12 of 12 area records. Reconciled sources include Rev. Bras. Eng. Agrícola e Ambiental, Pesquisa Veterinária Brasileira, American Phytopathological Society."
+        "**Coded dataset in this area:** 4 Allowed; 6 Restricted; 0 Prohibited; 3 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
+        "**Reviewing:** 3 records with conditional use, 2 with prohibition and 8 with no coded provision. Read the conditions in each note and source.",
+        "**Images:** 7 of 13 comparable records have a coded rule; conceptual illustrations are not experimental data.",
+        "**Review cycle of 28 November 2026:** 1 of 13 area records. Reconciled sources include Revista Ciência Agronômica."
       ],
-      "brasil": "5 of 8 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
+      "brasil": "6 of 9 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 12/12 records reconciled across all four fields for the 21 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 1/13 records reconciled across all four fields for the 28 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "SOC": {
       "sub": "Law, Management, Tourism, Economics, Architecture and Urbanism, Urban and Regional Planning, Demography, Information Science, Museology, Communication, Social Work, Industrial Design",
@@ -2853,11 +2930,11 @@
         "**Coded dataset in this area:** 7 Allowed; 3 Restricted; 4 Prohibited; 1 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 8 records with conditional use, 3 with prohibition and 4 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 9 of 15 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Review cycle of 21 November 2026:** 15 of 15 area records. Reconciled sources include Revista Direito GV, Revista Informação na Sociedade Contemporânea, Revista Digital Constituição e Garantia de Direitos."
+        "**Review cycle of 28 November 2026:** 4 of 15 area records. Reconciled sources include Academy of Management (AOM), Revista Direito GV, Revista Informação na Sociedade Contemporânea."
       ],
       "brasil": "7 of 7 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 15/15 records reconciled across all four fields for the 21 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 4/15 records reconciled across all four fields for the 28 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "HUM": {
       "sub": "Philosophy, Sociology, Anthropology, Archaeology, History, Geography, Psychology, Education, Political Science, Theology",
@@ -2866,11 +2943,11 @@
         "**Coded dataset in this area:** 8 Allowed; 6 Restricted; 3 Prohibited; 5 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 12 records with conditional use, 1 with prohibition and 9 with no coded provision. Read the conditions in each note and source.",
         "**Images:** 14 of 22 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Review cycle of 21 November 2026:** 23 of 23 area records. Reconciled sources include Revista da ANPEGE, Revista de Segurança, Desenvolvimento e Defesa, Perspectivas em Diálogo: Revista de Educação e Sociedade."
+        "**Review cycle of 28 November 2026:** 3 of 23 area records. Reconciled sources include American Psychological Association, Current History, Perspectivas em Diálogo: Revista de Educação e Sociedade."
       ],
       "brasil": "7 of 8 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 23/23 records reconciled across all four fields for the 21 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 3/23 records reconciled across all four fields for the 28 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "LLA": {
       "sub": "Linguistics, Literature, Arts",
@@ -2878,35 +2955,35 @@
       "trends": [
         "**Coded dataset in this area:** 8 Allowed; 2 Restricted; 2 Prohibited; 1 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
         "**Reviewing:** 6 records with conditional use, 2 with prohibition and 5 with no coded provision. Read the conditions in each note and source.",
-        "**Images:** 7 of 13 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Review cycle of 21 November 2026:** 13 of 13 area records. Reconciled sources include International Journal of Learner Corpus Research, Revista VIS, Revista Saridh – Linguagem e Discurso."
+        "**Images:** 8 of 13 comparable records have a coded rule; conceptual illustrations are not experimental data.",
+        "**Review cycle of 28 November 2026:** 4 of 13 area records. Reconciled sources include John Benjamins Publishing Company, International Journal of Learner Corpus Research, Revista VIS."
       ],
       "brasil": "8 of 8 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 13/13 records reconciled across all four fields for the 21 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 4/13 records reconciled across all four fields for the 28 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     },
     "MUL": {
       "sub": "Multidisciplinary publishers and journals, academies, indexing networks and general bodies",
       "headline": "Conditions and exceptions prevent treating editorial policies as a single rule",
       "trends": [
-        "**Coded dataset in this area:** 17 Allowed; 6 Restricted; 2 Prohibited; 2 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
-        "**Reviewing:** 18 records with conditional use, 2 with prohibition and 7 with no coded provision. Read the conditions in each note and source.",
-        "**Images:** 20 of 27 comparable records have a coded rule; conceptual illustrations are not experimental data.",
-        "**Review cycle of 21 November 2026:** 41 of 41 area records. Reconciled sources include University of Pennsylvania Press, Johns Hopkins University Press, Editora UFPR."
+        "**Coded dataset in this area:** 18 Allowed; 7 Restricted; 2 Prohibited; 2 No rule located; 0 Not applicable. Cross-disciplinary bodies and funding agencies are excluded from these comparisons.",
+        "**Reviewing:** 18 records with conditional use, 4 with prohibition and 7 with no coded provision. Read the conditions in each note and source.",
+        "**Images:** 22 of 29 comparable records have a coded rule; conceptual illustrations are not experimental data.",
+        "**Review cycle of 28 November 2026:** 6 of 43 area records. Reconciled sources include University of California Press, Oxford University Press, Princeton University Press."
       ],
       "brasil": "0 of 1 Brazilian journals in this area have a rule in the reviewed dataset. The history records each record's status and corpus limits; do not extrapolate absence to the entire institution.",
       "pratica": "Check the title's current instructions, contribution type and your role (author, reviewer or editor). Separate assisted writing from scientific methods and record tool, version, purpose and human verification.",
-      "confianca": "Coverage: 41/41 records reconciled across all four fields for the 21 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
+      "confianca": "Coverage: 6/43 records reconciled across all four fields for the 28 November 2026 cycle, within the described corpora. See the review history for actual consultation dates. A/NL do not establish universal absence. Purposive sample and AI-assisted coding, without independent duplicate extraction."
     }
   },
   "brasil": [
-    "**Brazilian sample.** 41 of 48 Brazilian journals in the dataset have a coded AI rule (85% of the sample). Of those, 21 allow, 15 restrict, and 5 prohibit text generation.",
-    "**Additions this cycle.** Six Brazilian journals and Editora UFPR were added. The entries retain the specific scope of each policy.",
+    "**Brazilian sample.** 42 of 49 Brazilian journals in the dataset have a coded AI clause (86% of the sample). Of those with a clause, 22 allow, 15 restrict and 5 prohibit generating text.",
+    "**Addition on 28 November.** Revista Ciência Agronômica, published by the Federal University of Ceará’s Agricultural Sciences Center, requires disclosure of AI use in writing or research in Materials and Methods, naming the tool and its purpose.",
     "**Reviewers.** RBG, Gestão & Produção, RBLA and RAE allow some language support for a reviewer’s own report. RAE applies narrow limits and confidentiality requirements. See each journal’s note for its conditions.",
     "**Disclosure:** Scientia Agricola requires Methods for AI use plus a statement before References; the manuscript-format section requires that statement even when AI was not used. The previous description was corrected. In Educação & Sociedade, auxiliary use is mentioned at the end without a mandatory section heading.",
     "**SciELO:** the preliminary guide of 14 September 2023 advises transparency in the Abstract and Methods or equivalent. Adoption and exceptions must be confirmed in journal instructions; the guide does not establish an identical rule throughout the network.",
     "**CNPq and other agencies.** Ordinance No. 3,004/2026, effective November 18, 2026, details generative AI disclosure in CNPq-supported research and requires predictive AI disclosure in projects that train models. Reviewers must retain human judgment and must not enter third-party documents into generative AI tools. The CNPq record links to Brazil’s Official Gazette. FAPESP, CAPES and FAPEG have their own scopes.",
-    "**Coverage.** All 48 Brazilian journals were reviewed for the 21 November cycle. The sample is purposive."
+    "**Coverage.** The partial 28 November review reconciled 7 of 49 Brazilian journals in the dataset. See the review history for individual records."
   ],
   "checks": [
     "**Target and role:** read the journal/event rules for the article type and your role. The publisher's general policy alone does not establish every title's operational rule.",
@@ -3028,7 +3105,7 @@
       "American Physical Society (APS)",
       "Society/association",
       "Allowed (with specific conditions and exemptions)",
-      "Multiple. Substantive use must be disclosed in the article: Methods for research, captions for figures and Acknowledgments for other uses. Light polishing is exempt. Reviewers may organise and improve their own text, with disclosure beyond light editing and with confidentiality safeguards; material must not be submitted to unrestricted tools. Editors use tools managed/licensed by APS. Visualisations must be verified; promotional art is restricted.",
+      "Multiple. APS requires disclosure of substantive use at submission and in the published AI Use Disclosure below the conflict-of-interest statement. Add details in Methods for research uses and in the figure caption for visual uses. Light editing and polishing are exempt. Reviewers may organize ideas, improve or translate the report and use AI as a learning aid, while retaining responsibility for their judgement. Use beyond light editing must be disclosed to the editor. Tools must not train on confidential material, claim rights over it or restrict its reuse. Editors use only APS-managed and licensed tools. Visualizations must accurately reflect verifiable data and respect third-party rights. Generated promotional artwork is restricted.",
       "Conditional",
       "P"
     ],
@@ -3090,12 +3167,12 @@
       "Purposive survey compiled on 14–16 October 2026, with an initial reference date of 16 October. The latest full review covers the 21 November 2026 cycle, with source checks completed on 22 November 2026. The history records when each source was consulted."
     ],
     [
-      "Full review for the 21 November 2026 cycle",
-      "The 21 November 2026 review covered all 181 entries in the inventory. It added 10 policies, updated five entries and reconfirmed 166. Source review ended on 22 November, with actual consultation dates in the history. The history records sources, evidence and discovery."
+      "Partial review of 28 November 2026",
+      "The 28 November 2026 review is in progress. The review has reconciled 38 of 186 records across all four policy fields, with 5 additions, 3 updates and 30 reconfirmations. The 148 unresolved records retain their previous codes. The last full review was the 21 November 2026 cycle."
     ],
     [
       "Sample",
-      "171 previous entries were retained and 10 were added. The dataset contains 181 entries and 48 Brazilian journals. Discovery in Portuguese and English covered societies, publishers and journals."
+      "The dataset retains 181 existing entities and adds 5. It covers 186 entities and includes 49 Brazilian journals. Searches in Portuguese and English covered societies, publishers and journals."
     ],
     [
       "Coding",
@@ -3107,11 +3184,11 @@
     ],
     [
       "Evidence and dates",
-      "The history records the owner, section, consultation time, normalized evidence and field-level decisions. The comparison uses the full review for the 14 November 2026 cycle. Consultation and policy dates are recorded separately."
+      "The history records the owner, scope, consulted section, time of consultation, normalized evidence and decisions by field. The comparison starts with the full review of 21 November 2026 and the CNPq update of 22 November. Consultation dates are independent of policy dates."
     ],
     [
       "Limits",
-      "All 181 entries were reviewed using the stated sources and scopes. The sample is purposive and AI assisted the coding, without independent duplicate extraction."
+      "The 28 November review is partial, with 38/186 records reconciled. The sample is purposive and coding was AI-assisted, without independent duplicate extraction."
     ],
     [
       "Policy and practice",
@@ -3133,21 +3210,21 @@
   "meta": {
     "referencia": "2026-11-21",
     "revisao": {
-      "data": "2026-11-21",
-      "status": "integral",
-      "inventory": 181,
-      "verified": 181,
-      "changed": 5,
-      "added": 10,
-      "unresolved": 0,
-      "finishedAt": "2026-11-22T12:58:31.838953+00:00",
-      "history": "levantamentos/politicas-ia/revisao-2026-11-21.json"
+      "data": "2026-11-28",
+      "status": "parcial",
+      "inventory": 186,
+      "verified": 38,
+      "changed": 3,
+      "added": 5,
+      "unresolved": 148,
+      "finishedAt": "2026-11-28T13:19:00.612+00:00",
+      "history": "levantamentos/politicas-ia/revisao-2026-11-28.json"
     }
   },
   "translation": {
     "language": "en",
     "sourceLanguage": "pt-BR",
-    "sourceSha256": "cdbef2b54ea4f49783090c2eb43e213659fdfd919873da66c045669994e927bc",
+    "sourceSha256": "b25574a0214f9f1ad032070126ecd8e199e15a119f36d3ffc7ec44d0b665b3bb",
     "sourceReference": "2026-11-21",
     "kind": "editorial-not-official",
     "preserved": [

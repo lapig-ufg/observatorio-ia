@@ -1,15 +1,15 @@
 {
   "language": "en",
   "kind": "editorial-not-official",
-  "rows": 181,
+  "rows": 186,
   "columns": 15,
   "sheets": [
     "Dataset",
     "Codebook"
   ],
-  "sourceSha256": "cdbef2b54ea4f49783090c2eb43e213659fdfd919873da66c045669994e927bc",
-  "sourceCsvSha256": "16f2935a29395a9199676eea35479da60e7d5ba629ab166e79a6fc7778e8dd5c",
-  "sourceWorkbookSha256": "8bda4c85a0a5a2f232755d6755d198486fa83708a3dddad5652627f08b2ba33e",
+  "sourceSha256": "b25574a0214f9f1ad032070126ecd8e199e15a119f36d3ffc7ec44d0b665b3bb",
+  "sourceCsvSha256": "040e3684247f0ab73a774d444da8e92ee87ad33d0111056202cc67281fe33e97",
+  "sourceWorkbookSha256": "27f9e41e65a2637d0417de6320f589686e9c9995a9d3b6f5edf91c692cf85555",
   "fields": [
     "nome",
     "tipo",
@@ -42,6 +42,6 @@
     "Broad field",
     "Historical change v4 → v5"
   ],
-  "csvSha256": "0749a2bbb7fb7b7ba7a9f04a59f24d2a9b124fb6daa7cc6408e299b3d507d56d",
-  "xlsxSha256": "9584f3ca3022dd0e9373aca9677588e3f71542cbccf31159c947a7d3c2634243"
+  "csvSha256": "e64f6a94ed87cb95c69dc064ca52cbc11d59db9059a2524546ba1dcc90e79818",
+  "xlsxSha256": "6adae358970396d7caff9edfb4eeb7f47e1526963fb9752416854fb1fff90c81"
 }
